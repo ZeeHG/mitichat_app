@@ -1,0 +1,55 @@
+group 'io.openim.flutter_openim_sdk'
+version '1.0'
+
+def dir = getCurrentProjectDir()
+
+// 将aar放到libs，本地仓库替换远程仓库
+def getCurrentProjectDir() {
+    String result = ""
+    rootProject.allprojects { project ->
+        if (project.properties.get("name").toString() == "flutter_openim_sdk") {
+            result = project.properties.get("projectDir").toString()
+        }
+    }
+    return result
+}
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.4'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        // 将aar放到libs，本地仓库替换远程仓库
+       maven { url "$dir/libs" }
+        // maven { url 'https://open-im-online.rentsoft.cn:51000/repository/maven2/' }
+        google()
+        mavenCentral()
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 30
+
+    defaultConfig {
+        minSdkVersion 21
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    // 本地依赖，现将aar复制到libs/io/openim/core-sdk/0.0.1/ 下，命名core-sdk-0.0.1.aar
+   implementation 'io.openim:core-sdk:0.0.1@aar'
+}
