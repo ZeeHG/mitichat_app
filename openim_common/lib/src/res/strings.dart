@@ -33,7 +33,7 @@ class StrRes {
 
   static String get plsEnterAccount => 'plsEnterAccount'.tr;
 
-  static String get plsEnterEmail => 'plsEnterEmail'.tr;
+  // static String get plsEnterEmail => 'plsEnterEmail'.tr;
 
   static String get forgetPassword => 'forgetPassword'.tr;
 
@@ -673,7 +673,7 @@ class StrRes {
 
   static String get transferGroupOwnerRight => 'transferGroupOwnerRight'.tr;
 
-  static String get plsEnterRightEmail => 'plsEnterRightEmail'.tr;
+  // static String get plsEnterRightEmail => 'plsEnterRightEmail'.tr;
 
   static String get groupName => 'groupName'.tr;
 
@@ -1092,4 +1092,163 @@ class StrRes {
   static String get switchToDomain => 'switchToDomain'.tr;
   static String get serverSettingTips => 'serverSettingTips'.tr;
   static String get callFail => 'callFail'.tr;
+
+
+
+  // 新增
+  static String get privacyPolicyDescription => 'privacyPolicyDescription'.tr;
+  static String get moments => 'moments'.tr;
+  static String get changeStyle => 'changeStyle'.tr;
+  static String get saveImg => 'saveImg'.tr;
+  static String get toolboxSnapchat => 'toolboxSnapchat'.tr;
+  static String get faceRecognition => 'faceRecognition'.tr;
+  static String get pwdTips => 'pwdTips'.tr;
+  static String get chat => 'chat'.tr;
+  static String get changeGroupName => 'changeGroupName'.tr;
+  static String get groupSearch => 'groupSearch'.tr;
+  static String get saveToContact => 'saveToContact'.tr;
+  static String get chatEncryption => 'chatEncryption'.tr;
+  static String get showGroupMemberNickname => 'showGroupMemberNickname'.tr;
+  static String get complaint => 'complaint'.tr;
+  static String get privacyPolicyDescriptionP1 =>
+      'privacyPolicyDescriptionP1'.tr;
+  static String get privacyPolicyDescriptionP2 =>
+      'privacyPolicyDescriptionP2'.tr;
+  static String get privacyPolicyDescriptionP3 =>
+      'privacyPolicyDescriptionP3'.tr;
+  static String get privacyPolicyDescriptionP4 =>
+      'privacyPolicyDescriptionP4'.tr;
+  static String get createBot => 'createBot'.tr;
+  static String get toolboxGroupNote => 'toolboxGroupNote'.tr;
+  static String get toolboxVote => 'toolboxVote'.tr;
+  static String get chatSearch => 'chatSearch'.tr;
+  static String get encryption => 'encryption'.tr;
+  static String get remind => 'remind'.tr;
+  static String get discover => 'discover'.tr;
+  static String get tips => 'tips'.tr;
+  static String get momentsDraftTips => 'momentsDraftTips'.tr;
+  static String get saveAlias => 'saveAlias'.tr;
+  static String get noSaveAlias => 'noSaveAlias'.tr;
+  static String get commentedWho2 => 'commentedWho2'.tr;
+  static String get likedWho2 => 'likedWho2'.tr;
+  static String get productView => 'productView'.tr;
+  static String get fanGroup => 'fanGroup'.tr;
+  static String get countOfProduct => 'countOfProduct'.tr;
+  static String get countOfFanGroup => 'countOfFanGroup'.tr;
+  static String get remarkAndLabel => 'remarkAndLabel'.tr;
+  static String get friendPermissions => 'friendPermissions'.tr;
+  static String get moreInfo => 'moreInfo'.tr;
+  static String get nicknameAndAvatar => 'nicknameAndAvatar'.tr;
+  static String get training => 'training'.tr;
+  static String get changeAvatar => 'changeAvatar'.tr;
+  static String get startTrain => 'startTrain'.tr;
+  static String get question => 'question'.tr;
+  static String get answer => 'answer'.tr;
+  static String get temp1 => 'temp1'.tr;
+  static String get myLocation => 'myLocation'.tr;
+  static String get audio => 'audio'.tr;
+  static String get link => 'link'.tr;
+  static String get follow => 'follow'.tr;
+  static String get upgradeDefaultDescription => 'upgradeDefaultDescription'.tr;
+  static String get copyFail => 'copyFail'.tr;
+  static String get uploadMyLogs => 'uploadMyLogs'.tr;
+  static String get uploadFail => 'uploadFail'.tr;
+  static String get developing => 'developing'.tr;
+  static String get encryptTips => 'encryptTips'.tr;
+  static String get translate => 'translate'.tr;
+  static String get unTranslate => 'unTranslate'.tr;
+  static String get noWorking => 'noWorking'.tr;
+  static String get autoTranslate => 'autoTranslate'.tr;
+  static String get targetLang => 'targetLang'.tr;
+  static String get translateFail => 'translateFail'.tr;
+  static String get zh_CN => 'zh_CN'.tr;
+  static String get ja_JP => 'ja_JP'.tr;
+  static String get en_US => 'en_US'.tr;
+  static String get auto => 'auto'.tr;
+  static String get ko_KR => 'ko_KR'.tr;
+  static String get fr_FR => 'fr_FR'.tr;
+  static String get pt_PT => 'pt_PT'.tr;
+  static String get zh_TW => 'zh_TW'.tr;
+  static String get zh_HK => 'zh_HK'.tr;
+  static String get it_IT => 'it_IT'.tr;
+  static String get ru_RU => 'ru_RU'.tr;
+  static String get de_DE => 'de_DE'.tr;
+  static String get es_ES => 'es_ES'.tr;
+  static String get th_TH => 'th_TH'.tr;
+  static String get English => 'English'.tr;
+  static String get Spanish => 'Spanish'.tr;
+  static String get French => 'French'.tr;
+  static String get German => 'German'.tr;
+  static String get Italian => 'Italian'.tr;
+  static String get Portuguese => 'Portuguese'.tr;
+  static String get Dutch => 'Dutch'.tr;
+  static String get Russian => 'Russian'.tr;
+  static String get Swedish => 'Swedish'.tr;
+  static String get Polish => 'Polish'.tr;
+  static String get Danish => 'Danish'.tr;
+  static String get Norwegian => 'Norwegian'.tr;
+  static String get Irish => 'Irish'.tr;
+  static String get Greek => 'Greek'.tr;
+  static String get Finnish => 'Finnish'.tr;
+  static String get Czech => 'Czech'.tr;
+  static String get Hungarian => 'Hungarian'.tr;
+  static String get Romanian => 'Romanian'.tr;
+  static String get Bulgarian => 'Bulgarian'.tr;
+  static String get Slovak => 'Slovak'.tr;
+  static String get Slovenian => 'Slovenian'.tr;
+  static String get Estonian => 'Estonian'.tr;
+  static String get Latvian => 'Latvian'.tr;
+  static String get Lithuanian => 'Lithuanian'.tr;
+  static String get Maltese => 'Maltese'.tr;
+  static String get Icelandic => 'Icelandic'.tr;
+  static String get Albanian => 'Albanian'.tr;
+  static String get Croatian => 'Croatian'.tr;
+  static String get Serbian => 'Serbian'.tr;
+  static String get SimplifiedChinese => 'SimplifiedChinese'.tr;
+  static String get TraditionalChinese => 'TraditionalChinese'.tr;
+  static String get Japanese => 'Japanese'.tr;
+  static String get Korean => 'Korean'.tr;
+  static String get Arabic => 'Arabic'.tr;
+  static String get Hindi => 'Hindi'.tr;
+  static String get Bengali => 'Bengali'.tr;
+  static String get Thai => 'Thai'.tr;
+  static String get Vietnamese => 'Vietnamese'.tr;
+  static String get Indonesian => 'Indonesian'.tr;
+  static String get Malay => 'Malay'.tr;
+  static String get Tamil => 'Tamil'.tr;
+  static String get Urdu => 'Urdu'.tr;
+  static String get Filipino => 'Filipino'.tr;
+  static String get Persian => 'Persian'.tr;
+  static String get Hebrew => 'Hebrew'.tr;
+  static String get Turkish => 'Turkish'.tr;
+  static String get Kannada => 'Kannada'.tr;
+  static String get Malayalam => 'Malayalam'.tr;
+  static String get Sindhi => 'Sindhi'.tr;
+  static String get Punjabi => 'Punjabi'.tr;
+  static String get Nepali => 'Nepali'.tr;
+  static String get Swahili => 'Swahili'.tr;
+  static String get Amharic => 'Amharic'.tr;
+  static String get Zulu => 'Zulu'.tr;
+  static String get Somali => 'Somali'.tr;
+  static String get Hausa => 'Hausa'.tr;
+  static String get Igbo => 'Igbo'.tr;
+  static String get Yoruba => 'Yoruba'.tr;
+  static String get Quechua => 'Quechua'.tr;
+  static String get Guarani => 'Guarani'.tr;
+  static String get Maori => 'Maori'.tr;
+  static String get Esperanto => 'Esperanto'.tr;
+  static String get Latin => 'Latin'.tr;
+  static String get success => 'success'.tr;
+  static String get someFail => 'someFail'.tr;
+  static String get allSuccess => 'allSuccess'.tr;
+  static String get plsEnterEmail => 'plsEnterEmail'.tr;
+  static String get plsEnterRightEmail => 'plsEnterRightEmail'.tr;
+  static String get register => 'register'.tr;
+  static String get downloading => 'downloading'.tr;
+  static String get downloadFail => 'downloadFail'.tr;
+  static String get uploadImLog => 'uploadImLog'.tr;
+  static String get uploadImLogByDate => 'uploadImLogByDate'.tr;
+  static String get uploadAppLog => 'uploadAppLog'.tr;
+  static String get uploadAppLogByDate => 'uploadAppLogByDate'.tr;
+  static String get updateOn => 'updateOn'.tr;
 }

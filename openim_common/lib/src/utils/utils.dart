@@ -87,7 +87,7 @@ class IMUtils {
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: '',
-          toolbarColor: Styles.c_0089FF,
+          toolbarColor: Styles.c_8443F8,
           toolbarWidgetColor: Colors.white,
           initAspectRatio: CropAspectRatioPreset.square,
           lockAspectRatio: false,
@@ -222,6 +222,7 @@ class IMUtils {
       return File(targetPath);
     }
     // Compression is time consuming.
+    // -i ${file.path} -preset fast -vf scale=-2:720 -crf 10 -strict experimental -b:a 192k -b:v 1000k $targetPath
     final String ffmpegCommand =
         '-i $path -preset ultrafast -tune fastdecode -threads:v 16 -threads:a 1 -c:a copy -strict -2 -crf 20 -c:v libx264 -y '
         '$targetPath';
@@ -417,10 +418,10 @@ class IMUtils {
     }
 
     if (DateUtil.yearIsEqualByMs(ms, locTimeMs)) {
-      return formatDateMs(ms, format: isZH ? 'MM月dd HH:mm' : 'MM/dd HH:mm');
+      return formatDateMs(ms, format: isZH ? 'M月d HH:mm' : 'MM/dd HH:mm');
     }
 
-    return formatDateMs(ms, format: isZH ? 'yyyy年MM月dd' : 'yyyy/MM/dd');
+    return formatDateMs(ms, format: isZH ? 'yyyy年M月d' : 'yyyy/MM/dd');
   }
 
   static String getCallTimeline(int milliseconds) {
@@ -1644,10 +1645,10 @@ class IMUtils {
     }
 
     if (DateUtil.yearIsEqualByMs(ms, locTimeMs)) {
-      return formatDateMs(ms, format: isZH ? 'MM月dd' : 'MM/dd');
+      return formatDateMs(ms, format: isZH ? 'MM月dd日' : 'MM/dd');
     }
 
-    return formatDateMs(ms, format: isZH ? 'yyyy年MM月dd' : 'yyyy/MM/dd');
+    return formatDateMs(ms, format: isZH ? 'yyyy年MM月dd日' : 'yyyy/MM/dd');
   }
 
   static Future<bool> checkingBiometric(LocalAuthentication auth) => auth.authenticate(
@@ -1725,4 +1726,50 @@ class IMUtils {
         // RegExp(r'[a-zA-Z0-9]'),
         RegExp(r'[a-zA-Z0-9\S]'),
       );
+
+
+
+
+
+
+
+
+
+
+  static bool isEmail(String email) {
+    RegExp exp = RegExp(r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+$', caseSensitive: false, multiLine: false);
+    return exp.hasMatch(email);
+  }
+
+
+  static Future<File?> getFile({
+    required String path,
+  }) async {
+    final file = File(path);
+    if (await file.exists()) {
+      return file;
+    } else {
+      return null;
+    }
+  }
+
+
+  static String replaceMessageAtMapping(
+    Message message,
+    Map<String, String> newMapping,
+  ) {
+    String text =
+        message.atTextElem!.text!.replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), ' ');
+    final reg = "${regexAt}|${regexAtAll}";
+    final atMap = getAtMapping(message, newMapping);
+    final newText = text.splitMapJoin(RegExp(reg), onMatch: (Match match) {
+      final matchText = match[0]!;
+      String userID = matchText.replaceFirst("@", "").trim();
+      if (atMap.containsKey(userID)) {
+        return '@${atMap[userID]} ';
+      }
+      return matchText;
+    });
+    return newText;
+  }
 }

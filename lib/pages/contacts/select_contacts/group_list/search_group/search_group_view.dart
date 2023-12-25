@@ -66,17 +66,17 @@ class SelectContactsFromSearchGroupPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         // (info.groupName ?? '').toText
-                        //   ..style = Styles.ts_0C1C33_17sp,
+                        //   ..style = Styles.ts_333333_17sp,
                         SearchKeywordText(
                           text: info.groupName ?? '',
                           keyText: logic.searchCtrl.text.trim(),
-                          style: Styles.ts_0C1C33_17sp,
-                          keyStyle: Styles.ts_0089FF_17sp,
+                          style: Styles.ts_333333_17sp,
+                          keyStyle: Styles.ts_8443F8_17sp,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         sprintf(StrRes.nPerson, [info.memberCount]).toText
-                          ..style = Styles.ts_8E9AB0_14sp,
+                          ..style = Styles.ts_999999_14sp,
                       ],
                     ),
                   ),
@@ -99,7 +99,7 @@ class SelectContactsFromSearchGroupPage extends StatelessWidget {
             //   ..height = 120.h,
             // 22.verticalSpace,
             44.verticalSpace,
-            StrRes.searchNotFound.toText..style = Styles.ts_8E9AB0_17sp,
+            StrRes.searchNotFound.toText..style = Styles.ts_999999_17sp,
           ],
         ),
       );

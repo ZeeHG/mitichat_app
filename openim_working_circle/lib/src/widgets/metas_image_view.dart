@@ -8,14 +8,20 @@ class MetasImageView extends StatelessWidget {
     required this.urls,
     this.width,
     this.height,
+    this.radius
   }) : super(key: key);
   final List<String> urls;
   final double? width;
   final double? height;
+  final double? radius;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      clipBehavior: Clip.hardEdge,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(radius ?? 0)),
+      ),
       width: width ?? 77.w,
       height: height ?? 77.h,
       child: _buildItemView(),
@@ -36,7 +42,7 @@ class MetasImageView extends StatelessWidget {
           Expanded(
             child: ImageUtil.networkImage(
               url: urls[0],
-              width: width ?? 38.w,
+              width: null != width? (width! - 2.w) / 2 : 38.w,
               height: height ?? 77.h,
               fit: BoxFit.cover,
             ),
@@ -45,7 +51,7 @@ class MetasImageView extends StatelessWidget {
           Expanded(
             child: ImageUtil.networkImage(
               url: urls[1],
-              width: width ?? 38.w,
+              width: null != width? (width! - 2.w) / 2 : 38.w,
               height: height ?? 77.h,
               fit: BoxFit.cover,
             ),
@@ -58,7 +64,7 @@ class MetasImageView extends StatelessWidget {
           Expanded(
             child: ImageUtil.networkImage(
               url: urls[0],
-              width: width ?? 38.w,
+              width: null != width? (width! - 2.w) / 2 : 38.w,
               height: height ?? 77.h,
               fit: BoxFit.cover,
             ),
@@ -69,15 +75,15 @@ class MetasImageView extends StatelessWidget {
               children: [
                 ImageUtil.networkImage(
                   url: urls[1],
-                  width: width ?? 38.w,
-                  height: height ?? 38.h,
+                  width: null != width? (width! - 2.w) / 2 : 38.w,
+                  height: null != height? (height! - 2.h) / 2 : 38.h,
                   fit: BoxFit.cover,
                 ),
                 1.verticalSpace,
                 ImageUtil.networkImage(
                   url: urls[2],
-                  width: width ?? 38.w,
-                  height: height ?? 38.h,
+                  width: null != width? (width! - 2.w) / 2 : 38.w,
+                  height: null != height? (height! - 2.h) / 2 : 38.h,
                   fit: BoxFit.cover,
                 ),
               ],
@@ -93,15 +99,15 @@ class MetasImageView extends StatelessWidget {
               children: [
                 ImageUtil.networkImage(
                   url: urls[0],
-                  width: width ?? 38.w,
-                  height: height ?? 38.h,
+                  width: null != width? (width! - 2.w) / 2 : 38.w,
+                  height: null != height? (height! - 2.h) / 2 : 38.h,
                   fit: BoxFit.cover,
                 ),
                 1.verticalSpace,
                 ImageUtil.networkImage(
                   url: urls[1],
-                  width: width ?? 38.w,
-                  height: height ?? 38.h,
+                  width: null != width? (width! - 2.w) / 2 : 38.w,
+                  height: null != height? (height! - 2.h) / 2 : 38.h,
                   fit: BoxFit.cover,
                 ),
               ],
@@ -113,15 +119,15 @@ class MetasImageView extends StatelessWidget {
               children: [
                 ImageUtil.networkImage(
                   url: urls[2],
-                  width: width ?? 38.w,
-                  height: height ?? 38.h,
+                  width: null != width? (width! - 2.w) / 2 : 38.w,
+                  height: null != height? (height! - 2.h) / 2 : 38.h,
                   fit: BoxFit.cover,
                 ),
                 1.verticalSpace,
                 ImageUtil.networkImage(
                   url: urls[3],
-                  width: width ?? 38.w,
-                  height: height ?? 38.h,
+                  width: null != width? (width! - 2.w) / 2 : 38.w,
+                  height: null != height? (height! - 2.h) / 2 : 38.h,
                   fit: BoxFit.cover,
                 ),
               ],

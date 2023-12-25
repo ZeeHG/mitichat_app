@@ -19,7 +19,7 @@ class AvatarView extends StatelessWidget {
     this.text,
     this.textStyle,
     this.onLongPress,
-    this.isCircle = false,
+    this.isCircle = true,
     this.borderRadius,
     this.enabledPreview = false,
     this.lowMemory = false,
@@ -43,11 +43,11 @@ class AvatarView extends StatelessWidget {
   final bool isGroup;
   final bool showDefaultAvatar;
 
-  double get _avatarSize => min(width ?? 44.w, height ?? 44.h);
+  double get _avatarSize => min(width ?? 40.w, height ?? 40.h);
 
   TextStyle get _textStyle => textStyle ?? Styles.ts_FFFFFF_16sp;
 
-  Color get _textAvatarBgColor => Styles.c_0089FF;
+  Color get _textAvatarBgColor => Styles.c_8443F8;
 
   String? get _showName {
     if (isGroup) return null;
@@ -247,7 +247,7 @@ class RedDotView extends StatelessWidget {
         height: 8,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Styles.c_FF381F,
+          color: Styles.c_FF4E4C,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(

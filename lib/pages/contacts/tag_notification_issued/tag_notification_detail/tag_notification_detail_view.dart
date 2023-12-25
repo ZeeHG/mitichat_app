@@ -25,15 +25,19 @@ class TagNotificationDetailPage extends StatelessWidget {
                 children: [
                   Container(
                     alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                     decoration: BoxDecoration(
                       color: Styles.c_FFFFFF,
                       borderRadius: BorderRadius.circular(4.r),
                     ),
                     child: Column(
                       children: [
-                        if (null != logic.textElem) logic.textElem!.content!.toText..style = Styles.ts_0C1C33_17sp,
+                        if (null != logic.textElem)
+                          logic.textElem!.content!.toText
+                            ..style = Styles.ts_333333_16sp,
                         if (null != logic.soundElem)
                           Obx(() => GestureDetector(
                                 behavior: HitTestBehavior.translucent,
@@ -54,14 +58,17 @@ class TagNotificationDetailPage extends StatelessWidget {
                                   ),
                                 ),
                               )),
-                        if (null == logic.textElem && null == logic.soundElem) StrRes.unsupportedMessage.toText..style = Styles.ts_0C1C33_17sp,
+                        if (null == logic.textElem && null == logic.soundElem)
+                          StrRes.unsupportedMessage.toText
+                            ..style = Styles.ts_333333_16sp,
                       ],
                     ),
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
                     margin: EdgeInsets.fromLTRB(10.w, 0, 10.w, 10.h),
-                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                     decoration: BoxDecoration(
                       color: Styles.c_FFFFFF,
                       borderRadius: BorderRadius.circular(4.r),
@@ -69,7 +76,8 @@ class TagNotificationDetailPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        StrRes.receiveMember.toText..style = Styles.ts_8E9AB0_14sp,
+                        StrRes.receiveMember.toText
+                          ..style = Styles.ts_999999_14sp,
                         12.verticalSpace,
                         Wrap(
                           spacing: 8.w,
@@ -146,7 +154,7 @@ class TagNotificationDetailPage extends StatelessWidget {
           ConstrainedBox(
             constraints: BoxConstraints(maxWidth: 150.w),
             child: (name ?? '').toText
-              ..style = Styles.ts_0C1C33_14sp
+              ..style = Styles.ts_333333_14sp
               ..maxLines = 1
               ..overflow = TextOverflow.ellipsis,
           ),
@@ -161,7 +169,7 @@ class TagNotificationDetailPage extends StatelessWidget {
           //   child: Icon(
           //     Icons.clear,
           //     size: 10.w,
-          //     color: Styles.c_8E9AB0,
+          //     color: Styles.c_999999,
           //   ),
           // ),
         ],

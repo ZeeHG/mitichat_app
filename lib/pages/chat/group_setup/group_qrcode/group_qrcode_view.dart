@@ -52,10 +52,13 @@ class GroupQrcodePage extends StatelessWidget {
                       12.horizontalSpace,
                       ConstrainedBox(
                         constraints: BoxConstraints(maxWidth: 180.w),
-                        child: (logic.groupSetupLogic.groupInfo.value.groupName ?? '').toText
-                          ..style = Styles.ts_0C1C33_20sp
-                          ..maxLines = 1
-                          ..overflow = TextOverflow.ellipsis,
+                        child:
+                            (logic.groupSetupLogic.groupInfo.value.groupName ??
+                                    '')
+                                .toText
+                              ..style = Styles.ts_333333_20sp
+                              ..maxLines = 1
+                              ..overflow = TextOverflow.ellipsis,
                       ),
                     ],
                   ),
@@ -64,7 +67,7 @@ class GroupQrcodePage extends StatelessWidget {
                   top: 140.h,
                   width: 272.w,
                   child: StrRes.groupQrcodeHint.toText
-                    ..style = Styles.ts_8E9AB0_15sp
+                    ..style = Styles.ts_999999_15sp
                     ..textAlign = TextAlign.center,
                 ),
                 Positioned(

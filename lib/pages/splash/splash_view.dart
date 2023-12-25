@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
@@ -12,25 +13,21 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Styles.c_0089FF_opacity10, Styles.c_FFFFFF_opacity0],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-      ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Positioned(
-            bottom: 130.h,
-            child: ImageRes.splashLogo.toImage
-              ..width = 55.61.w
-              ..height = 78.91.h,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(
+            statusBarIconBrightness: Brightness.light,
+            systemNavigationBarColor: Styles.c_F7F8FA,
+            systemNavigationBarIconBrightness: Brightness.dark),
+        child: Container(
+          width: 1.sw,
+          height: 1.sh,
+          decoration: BoxDecoration(
+            color: Styles.c_F7F8FA,
+            image: const DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage(ImageRes.splash, package: 'openim_common'),
+            ),
           ),
-        ],
-      ),
-    );
+        ));
   }
 }

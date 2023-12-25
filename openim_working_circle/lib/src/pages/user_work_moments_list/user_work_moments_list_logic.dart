@@ -8,6 +8,8 @@ import 'package:openim_common/openim_common.dart';
 
 import '../../../openim_working_circle.dart';
 import '../../w_apis.dart';
+import '../publish/publish_logic.dart';
+import '../work_moments_list/work_moments_list_logic.dart';
 
 class UserWorkMomentsListLogic extends GetxController {
   final scrollController = ScrollController();
@@ -19,6 +21,7 @@ class UserWorkMomentsListLogic extends GetxController {
   String? userID;
   late String nickname;
   late String faceURL;
+  final RxDouble scrollHeight = 0.0.obs;
 
   final dayTimelines = <WorkMoments, String?>{}.obs;
   final yearTimelines = <WorkMoments, String?>{}.obs;
@@ -27,6 +30,17 @@ class UserWorkMomentsListLogic extends GetxController {
   ViewUserProfileBridge? get bridge => PackageBridge.viewUserProfileBridge;
 
   WorkingCircleBridge? get wcBridge => PackageBridge.workingCircleBridge;
+
+  bool get isMyself => userID == OpenIM.iMManager.userID || userID == null;
+
+  seeNewMessage() async {
+    WApis.clearUnreadCount(type: 1);
+    await WNavigator.startLikeOrCommentMessage();
+  }
+
+  publish(int type) => WNavigator.startPublishWorkMoments(
+        type: type == 0 ? PublishType.picture : PublishType.video,
+      );
 
   @override
   void onClose() {
@@ -39,7 +53,7 @@ class UserWorkMomentsListLogic extends GetxController {
   void onInit() {
     userID = Get.arguments['userID'];
     nickname = Get.arguments['nickname'] ?? OpenIM.iMManager.userInfo.nickname;
-    faceURL = Get.arguments['faceURL'] ?? OpenIM.iMManager.userInfo.faceURL;
+    faceURL = Get.arguments['faceURL'] ?? OpenIM.iMManager.userInfo.faceURL ?? "";
     scrollController.addListener(_scrollListener);
     opEventSub = wcBridge?.opEventSub.listen(_opEventListener);
     super.onInit();
@@ -53,18 +67,23 @@ class UserWorkMomentsListLogic extends GetxController {
 
   /// {'opEvent': OpEvent.delete, 'data': moments}
   _opEventListener(dynamic event) {
-    // if (event is Map) {
-    //   final opEvent = event['opEvent'];
-    //   final data = event['data'];
-    //   if (opEvent == OpEvent.delete) {
-    //     workMoments.remove(data as WorkMoments);
-    //   } else if (opEvent == OpEvent.publish) {
-    //     // _queryWorkingCircleList();
-    //   }
-    // }
+    if (event is Map) {
+      final opEvent = event['opEvent'];
+      final data = event['data'];
+      if (opEvent == OpEvent.delete) {
+        workMoments.remove(data as WorkMoments);
+      } else if (opEvent == OpEvent.publish) {
+        _queryWorkingCircleList();
+      } else if (opEvent == OpEvent.update) {
+        final detail = data as WorkMoments;
+        final index = workMoments.indexOf(detail);
+        workMoments.replaceRange(index, index + 1, [detail]);
+      }
+    }
   }
 
   void _scrollListener() async {
+    scrollHeight.value = scrollController.offset;
     if (!isLoading &&
         hasMore.value &&
         scrollController.position.pixels ==
@@ -86,6 +105,7 @@ class UserWorkMomentsListLogic extends GetxController {
     final list = result.workMoments ?? [];
     hasMore.value = list.isNotEmpty && list.length == pageSize;
     workMoments.assignAll(list);
+    dayTimelines.clear();
   }
 
   _loadMore() async {

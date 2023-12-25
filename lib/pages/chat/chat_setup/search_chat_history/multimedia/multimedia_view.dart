@@ -76,7 +76,7 @@ class MultimediaItemWidget extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
-          child: label.toText..style = Styles.ts_8E9AB0_14sp,
+          child: label.toText..style = Styles.ts_999999_14sp,
         ),
         GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

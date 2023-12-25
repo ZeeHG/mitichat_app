@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:sprintf/sprintf.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:openim_working_circle/openim_working_circle.dart';
 import 'package:openim_working_circle/src/w_apis.dart';
-import 'package:sprintf/sprintf.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
@@ -25,6 +24,7 @@ class AssetFile {
 
 class PublishLogic extends GetxController {
   final inputCtrl = TextEditingController();
+  final text = "".obs;
   final focusNode = FocusNode();
   late PublishType type;
   final assetsList = <AssetEntity>[].obs;
@@ -35,7 +35,8 @@ class PublishLogic extends GetxController {
 
   WorkingCircleBridge? get bridge => PackageBridge.workingCircleBridge;
 
-  SelectContactsBridge? get contactsBridge => PackageBridge.selectContactsBridge;
+  SelectContactsBridge? get contactsBridge =>
+      PackageBridge.selectContactsBridge;
 
   @override
   void onClose() {
@@ -48,6 +49,9 @@ class PublishLogic extends GetxController {
   void onInit() {
     type = Get.arguments['type'];
     _initDeviceInfo();
+    inputCtrl.addListener(() {
+      text.value = inputCtrl.text.trim();
+    });
     super.onInit();
   }
 
@@ -63,9 +67,33 @@ class PublishLogic extends GetxController {
 
   int get maxAssetsCount => isPicture ? 9 : 1;
 
-  int get btnLength => isPicture ? (assetsList.length < maxAssetsCount ? 1 : 0) : (assetsList.isEmpty ? 1 : 0);
+  int get btnLength => isPicture
+      ? (assetsList.length < maxAssetsCount ? 1 : 0)
+      : (assetsList.isEmpty ? 1 : 0);
 
   bool showAddAssetsBtn(index) => (assetsList.length < maxAssetsCount) && (index == (assetsList.length + btnLength) - 1);
+
+  bool get canPublish => assetsList.length > 0 || !text.isEmpty;
+
+  void back() async {
+    // if (canPublish) {
+    //   var confirm = await Get.dialog(CustomDialog(
+    //     bigTitle: StrRes.tips,
+    //     title: StrRes.momentsDraftTips,
+    //     leftText: StrRes.noSaveAlias,
+    //     rightText: StrRes.saveAlias,
+    //   ));
+    //   if (confirm == true) {
+    //     IMViews.showToast(StrRes.saveSuccessfully);
+    //     Get.back();
+    //   } else {
+    //     Get.back();
+    //   }
+    // }else{
+    //   Get.back();
+    // }
+    Get.back();
+  }
 
   void selectAssets() => Get.bottomSheet(
         BottomSheetView(
@@ -83,7 +111,7 @@ class PublishLogic extends GetxController {
       );
 
   _selectAssetsFromAlbum() async {
-    Permissions.storage(() async {
+    Permissions.requestStorage(() async {
       final assets2 = assetsList;
       final count = maxAssetsCount - assetsList.length;
 
@@ -95,7 +123,8 @@ class PublishLogic extends GetxController {
           requestType: isPicture ? RequestType.image : RequestType.video,
           selectPredicate: (_, entity, isSelected) {
             // 视频限制15s的时长
-            if (type == PublishType.video && entity.videoDuration > const Duration(seconds: 15)) {
+            if (type == PublishType.video &&
+                entity.videoDuration > const Duration(seconds: 15)) {
               IMViews.showToast(sprintf(StrRes.selectVideoLimit, [15]) + StrRes.seconds);
               return false;
             }
@@ -130,15 +159,15 @@ class PublishLogic extends GetxController {
           },
         ),
       );
-
       if (null != assetEntity) {
         assetsList.add(assetEntity);
       }
     });
   }
 
-  previewSelectedPicture(int index) =>
-      isPicture ? WNavigator.startPreviewSelectedPicture(currentIndex: index) : WNavigator.startPreviewSelectedVideo();
+  previewSelectedPicture(int index) => isPicture
+      ? WNavigator.startPreviewSelectedPicture(currentIndex: index)
+      : WNavigator.startPreviewSelectedVideo();
 
   deleteAssets(int index) {
     assetsList.removeAt(index);
@@ -157,7 +186,8 @@ class PublishLogic extends GetxController {
   }
 
   remindWhoToWatch() async {
-    final result = await contactsBridge?.selectContacts(1, checkedList: remindList);
+    final result =
+        await contactsBridge?.selectContacts(1, checkedList: remindList);
     if (result is Map) {
       final values = result.values;
       remindList.assignAll(values);
@@ -200,12 +230,12 @@ class PublishLogic extends GetxController {
   }
 
   publish() async {
-    if (inputCtrl.text.trim().isEmpty) {
-      focusNode.requestFocus();
-      IMViews.showToast(StrRes.plsEnterDescription);
-      return;
-    }
-    await LoadingView.singleton.wrap(asyncFunction: () async {
+    // if (inputCtrl.text.trim().isEmpty) {
+    //   focusNode.requestFocus();
+    //   IMViews.showToast(StrRes.plsEnterDescription);
+    //   return;
+    // }
+      await LoadingView.singleton.wrap(asyncFunction: () async {
       final permissionUserList = <UserInfo>[];
       final permissionGroupList = <GroupInfo>[];
       final atUserList = <UserInfo>[];

@@ -36,7 +36,7 @@ class SelectContactsFromTagPage extends StatelessWidget {
                               child: ChatRadio(checked: logic.isSelectAll),
                             )),
                         10.horizontalSpace,
-                        StrRes.selectAll.toText..style = Styles.ts_0C1C33_17sp,
+                        StrRes.selectAll.toText..style = Styles.ts_333333_17sp,
                       ],
                     ),
                   ),
@@ -64,10 +64,10 @@ class SelectContactsFromTagPage extends StatelessWidget {
   //         crossAxisAlignment: CrossAxisAlignment.start,
   //         mainAxisAlignment: MainAxisAlignment.center,
   //         children: [
-  //           tagInfo.tagName!.toText..style = Styles.ts_0C1C33_17sp,
+  //           tagInfo.tagName!.toText..style = Styles.ts_333333_17sp,
   //           6.verticalSpace,
   //           tagInfo.users!.map((e) => e.nickname!).join('、').toText
-  //             ..style = Styles.ts_8E9AB0_14sp,
+  //             ..style = Styles.ts_999999_14sp,
   //         ],
   //       ),
   //     );
@@ -95,10 +95,10 @@ class SelectContactsFromTagPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        info.tagName!.toText..style = Styles.ts_0C1C33_17sp,
+                        info.tagName!.toText..style = Styles.ts_333333_17sp,
                         6.verticalSpace,
                         info.users!.map((e) => e.nickname!).join('、').toText
-                          ..style = Styles.ts_8E9AB0_14sp,
+                          ..style = Styles.ts_999999_14sp,
                       ],
                     ),
                   )

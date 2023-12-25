@@ -53,7 +53,7 @@ class GroupRequestsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       (info.nickname ?? '').toText
-                        ..style = Styles.ts_0C1C33_17sp
+                        ..style = Styles.ts_333333_17sp
                         ..maxLines = 1
                         ..overflow = TextOverflow.ellipsis,
                       4.verticalSpace,
@@ -61,12 +61,12 @@ class GroupRequestsPage extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text: StrRes.applyJoin,
-                            style: Styles.ts_8E9AB0_14sp,
+                            style: Styles.ts_999999_14sp,
                             children: [
                               WidgetSpan(child: 2.horizontalSpace),
                               TextSpan(
                                 text: logic.getGroupName(info),
-                                style: Styles.ts_0089FF_14sp,
+                                style: Styles.ts_8443F8_14sp,
                               ),
                             ],
                           ),
@@ -75,27 +75,27 @@ class GroupRequestsPage extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text: logic.getInviterNickname(info),
-                            style: Styles.ts_0089FF_14sp,
+                            style: Styles.ts_8443F8_14sp,
                             children: [
                               WidgetSpan(child: 2.horizontalSpace),
                               TextSpan(
                                 text: StrRes.invite,
-                                style: Styles.ts_8E9AB0_14sp,
+                                style: Styles.ts_999999_14sp,
                               ),
                               WidgetSpan(child: 2.horizontalSpace),
                               TextSpan(
                                 text: info.nickname,
-                                style: Styles.ts_0089FF_14sp,
+                                style: Styles.ts_8443F8_14sp,
                               ),
                               WidgetSpan(child: 2.horizontalSpace),
                               TextSpan(
                                 text: StrRes.joinIn,
-                                style: Styles.ts_8E9AB0_14sp,
+                                style: Styles.ts_999999_14sp,
                               ),
                               WidgetSpan(child: 2.horizontalSpace),
                               TextSpan(
                                 text: logic.getGroupName(info),
-                                style: Styles.ts_0089FF_14sp,
+                                style: Styles.ts_8443F8_14sp,
                               ),
                             ],
                           ),
@@ -105,7 +105,7 @@ class GroupRequestsPage extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(top: 4.h),
                           child: sprintf(StrRes.applyReason, [info.reqMsg!]).toText
-                            ..style = Styles.ts_8E9AB0_14sp
+                            ..style = Styles.ts_999999_14sp
                             ..maxLines = 1
                             ..overflow = TextOverflow.ellipsis,
                         ),
@@ -127,9 +127,9 @@ class GroupRequestsPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 13.w),
               onTap: () => logic.handle(info),
             ),
-          if (info.handleResult == 0 && isISendRequest) StrRes.waitingForVerification.toText..style = Styles.ts_8E9AB0_14sp,
-          if (info.handleResult == -1) StrRes.rejected.toText..style = Styles.ts_8E9AB0_14sp,
-          if (info.handleResult == 1) StrRes.approved.toText..style = Styles.ts_8E9AB0_14sp,
+          if (info.handleResult == 0 && isISendRequest) StrRes.waitingForVerification.toText..style = Styles.ts_999999_14sp,
+          if (info.handleResult == -1) StrRes.rejected.toText..style = Styles.ts_999999_14sp,
+          if (info.handleResult == 1) StrRes.approved.toText..style = Styles.ts_999999_14sp,
         ],
       ),
     );

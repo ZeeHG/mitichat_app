@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
@@ -24,6 +25,7 @@ class ConversationLogic extends GetxController {
   final refreshController = RefreshController();
   final tempDraftText = <String, String>{};
   final pageSize = 40;
+  final translateLogic = Get.find<TranslateLogic>();
 
   final imStatus = IMSdkStatus.connectionSucceeded.obs;
 
@@ -39,6 +41,18 @@ class ConversationLogic extends GetxController {
     imLogic.imSdkStatusSubject.listen((value) {
       imStatus.value = value;
     });
+
+    ever(list, (_) {
+      EasyDebounce.debounce('translate', Duration(milliseconds: 500), () {
+        list.forEach((item) {
+        translateLogic.updateLangConfigLocal(
+            conversation: item,
+            data: (null != item.ex && item.ex!.isNotEmpty)
+                ? json.decode(item.ex!)["langConfig"] ?? {}
+                : {});
+        });
+      });
+    });
     super.onInit();
   }
 
@@ -49,6 +63,7 @@ class ConversationLogic extends GetxController {
       list.remove(newValue);
     }
     list.insertAll(0, newList);
+    print("___________________________________________________${list[0]}");
     _sortConversationList();
   }
 
@@ -58,7 +73,7 @@ class ConversationLogic extends GetxController {
         info.recvMsgOpt == 0 &&
         info.unreadCount > 0 &&
         info.latestMsg?.sendID != OpenIM.iMManager.userID) {
-      appLogic.promptSoundOrNotification(info.latestMsg!.seq!);
+      appLogic.promptSoundOrNotification(info.latestMsg!);
     }
   }
 
@@ -87,7 +102,8 @@ class ConversationLogic extends GetxController {
 
   /// 删除会话
   void deleteConversation(ConversationInfo info) async {
-    await OpenIM.iMManager.conversationManager.deleteConversationAndDeleteAllMsg(
+    await OpenIM.iMManager.conversationManager
+        .deleteConversationAndDeleteAllMsg(
       conversationID: info.conversationID,
     );
     list.remove(info);
@@ -287,10 +303,13 @@ class ConversationLogic extends GetxController {
     }
   }
 
-  bool get isFailedSdkStatus => imStatus.value == IMSdkStatus.connectionFailed || imStatus.value == IMSdkStatus.syncFailed;
+  bool get isFailedSdkStatus =>
+      imStatus.value == IMSdkStatus.connectionFailed ||
+      imStatus.value == IMSdkStatus.syncFailed;
 
   /// 自定义会话列表排序规则
-  void _sortConversationList() => OpenIM.iMManager.conversationManager.simpleSort(list);
+  void _sortConversationList() =>
+      OpenIM.iMManager.conversationManager.simpleSort(list);
 
   void onRefresh() async {
     late List<ConversationInfo> list;
@@ -321,7 +340,8 @@ class ConversationLogic extends GetxController {
     }
   }
 
-  _request(int offset) => OpenIM.iMManager.conversationManager.getConversationListSplit(
+  _request(int offset) =>
+      OpenIM.iMManager.conversationManager.getConversationListSplit(
         offset: offset,
         count: pageSize,
       );
@@ -335,8 +355,10 @@ class ConversationLogic extends GetxController {
     int itemCount = list.length;
     double scrollOffset = scrollController.position.pixels;
     double viewportHeight = scrollController.position.viewportDimension;
-    double scrollRange = scrollController.position.maxScrollExtent - scrollController.position.minScrollExtent;
-    int firstVisibleItemIndex = (scrollOffset / (scrollRange + viewportHeight) * itemCount).floor();
+    double scrollRange = scrollController.position.maxScrollExtent -
+        scrollController.position.minScrollExtent;
+    int firstVisibleItemIndex =
+        (scrollOffset / (scrollRange + viewportHeight) * itemCount).floor();
     return firstVisibleItemIndex;
   }
 
@@ -357,7 +379,8 @@ class ConversationLogic extends GetxController {
     }
 
     if (start > list.length - 1) return;
-    final unreadItem = list.sublist(start).firstWhereOrNull((e) => e.unreadCount! > 0);
+    final unreadItem =
+        list.sublist(start).firstWhereOrNull((e) => e.unreadCount! > 0);
     if (null == unreadItem) {
       if (start > 0) {
         scrollController.scrollToIndex(
@@ -379,7 +402,8 @@ class ConversationLogic extends GetxController {
     required int sessionType,
   }) =>
       LoadingView.singleton.wrap(
-          asyncFunction: () => OpenIM.iMManager.conversationManager.getOneConversation(
+          asyncFunction: () =>
+              OpenIM.iMManager.conversationManager.getOneConversation(
                 sourceID: sourceID,
                 sessionType: sessionType,
               ));
@@ -462,15 +486,21 @@ class ConversationLogic extends GetxController {
 
   scan() => AppNavigator.startScan();
 
-  addFriend() => AppNavigator.startAddContactsBySearch(searchType: SearchType.user);
+  addFriend() =>
+      AppNavigator.startAddContactsBySearch(searchType: SearchType.user);
 
-  createGroup() => AppNavigator.startCreateGroup(defaultCheckedList: [OpenIM.iMManager.userInfo]);
+  createGroup() => AppNavigator.startCreateGroup(
+      defaultCheckedList: [OpenIM.iMManager.userInfo],
+      appBarTitle: StrRes.createGroup);
 
-  addGroup() => AppNavigator.startAddContactsBySearch(searchType: SearchType.group);
+  addGroup() =>
+      AppNavigator.startAddContactsBySearch(searchType: SearchType.group);
 
   void videoMeeting() => MNavigator.startMeeting();
 
   void viewCallRecords() => AppNavigator.startCallRecords();
 
   void globalSearch() => AppNavigator.startGlobalSearch();
+
+  void viewMyInfo() => AppNavigator.startMyInfo();
 }

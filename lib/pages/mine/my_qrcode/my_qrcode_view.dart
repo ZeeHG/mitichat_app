@@ -18,80 +18,84 @@ class MyQrcodePage extends StatelessWidget {
         appBar: TitleBar.back(
           title: StrRes.qrcode,
         ),
-        backgroundColor: Styles.c_F8F9FA,
+        backgroundColor: Styles.c_FFFFFF,
         body: Container(
-          alignment: Alignment.topCenter,
-          child: Container(
-            margin: EdgeInsets.only(top: 22.h),
-            padding: EdgeInsets.symmetric(horizontal: 30.w),
-            width: 331.w,
-            height: 460.h,
-            decoration: BoxDecoration(
-              color: Styles.c_FFFFFF,
-              borderRadius: BorderRadius.circular(10.r),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 7.r,
-                  spreadRadius: 1.r,
-                  color: Styles.c_000000.withOpacity(.08),
-                ),
-              ],
-            ),
-            child: Stack(
-              children: [
-                Positioned(
-                  top: 30.h,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+          // alignment: Alignment.topCenter,
+          width: 1.sw,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 121.h,
+                  ),
+                  Container(
+                    width: 213.w,
+                    child: Row(children: [
                       AvatarView(
-                        width: 48.w,
-                        height: 48.h,
+                        width: 42.w,
+                        height: 42.h,
                         url: logic.imLogic.userInfo.value.faceURL,
                         text: logic.imLogic.userInfo.value.nickname,
                         textStyle: Styles.ts_FFFFFF_14sp,
+                        borderRadius: BorderRadius.all(Radius.circular(6.w)),
                       ),
-                      12.horizontalSpace,
-                      (logic.imLogic.userInfo.value.nickname ?? '').toText
-                        ..style = Styles.ts_0C1C33_20sp,
-                    ],
+                      SizedBox(
+                        width: 12.w,
+                      ),
+                      Text(logic.imLogic.userInfo.value.nickname ?? "",
+                          style: Styles.ts_4B3230_18sp)
+                    ]),
                   ),
-                ),
-                Positioned(
-                  top: 140.h,
-                  width: 272.w,
-                  child: StrRes.qrcodeHint.toText
-                    ..style = Styles.ts_8E9AB0_15sp
-                    ..textAlign = TextAlign.center,
-                ),
-                Positioned(
-                  top: 183.h,
-                  width: 272.w,
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: 180.w,
-                      height: 180.w,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Styles.c_FFFFFF,
-                        border: Border.all(color: Styles.c_E8EAEF, width: 4.w),
-                        // gradient: const LinearGradient(
-                        //   begin: Alignment.topCenter,
-                        //   end: Alignment.bottomCenter,
-                        //   colors: [Color(0xFFFEB2B2), Color(0xFF5496E4)],
-                        // ),
-                      ),
-                      child: QrImageView(
-                        data: logic.buildQRContent(),
-                        size: 140.w,
-                        backgroundColor: Styles.c_FFFFFF,
-                      ),
-                    ),
+                  SizedBox(
+                    height: 30.h,
                   ),
-                )
-              ],
-            ),
+                  QrImageView(
+                    data: logic.buildQRContent(),
+                    size: 213.w,
+                    backgroundColor: Styles.c_FFFFFF,
+                    padding: EdgeInsets.all(6),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 30.h,
+              ),
+              StrRes.qrcodeHint.toText
+                ..style = Styles.ts_999999_12sp
+                ..textAlign = TextAlign.center,
+              SizedBox(
+                height: 186.h,
+              ),
+              // Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     children: [
+              //       StrRes.scan.toText
+              //         ..style = Styles.ts_8443F8_16sp
+              //         ..textAlign = TextAlign.center,
+              //       Container(
+              //         height: 30.h,
+              //         width: 1.w,
+              //         color: Styles.c_EDEDED,
+              //         margin: EdgeInsets.symmetric(horizontal: 16.w),
+              //       ),
+              //       StrRes.changeStyle.toText
+              //         ..style = Styles.ts_8443F8_16sp
+              //         ..textAlign = TextAlign.center,
+              //       Container(
+              //         height: 30.h,
+              //         width: 1.w,
+              //         color: Styles.c_EDEDED,
+              //         margin: EdgeInsets.symmetric(horizontal: 16.w),
+              //       ),
+              //       StrRes.saveImg.toText
+              //         ..style = Styles.ts_8443F8_16sp
+              //         ..textAlign = TextAlign.center,
+              //     ])
+            ],
           ),
         ),
       ),

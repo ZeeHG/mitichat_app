@@ -14,12 +14,14 @@ class PreviewChatHistoryPage extends StatelessWidget {
   Widget _buildItemView(Message message) => ChatItemView(
         // isBubbleMsg: logic.showBubbleBg(message),
         message: message,
-        highlightColor: message == logic.searchMessage ? Styles.c_8E9AB0_opacity13 : null,
+        highlightColor:
+            message == logic.searchMessage ? Styles.c_999999_opacity13 : null,
         timelineStr: logic.getShowTime(message),
         enabledReadStatus: false,
         rightNickname: OpenIM.iMManager.userInfo.nickname,
-        rightFaceUrl: OpenIM.iMManager.userInfo.faceURL,
-        enabledCopyMenu: message.contentType == MessageType.text || message.contentType == MessageType.atText,
+        rightFaceUrl: OpenIM.iMManager.userInfo.faceURL ?? "",
+        enabledCopyMenu: message.contentType == MessageType.text ||
+            message.contentType == MessageType.atText,
         enabledRevokeMenu: false,
         enabledReplyMenu: false,
         enabledMultiMenu: false,
@@ -27,6 +29,7 @@ class PreviewChatHistoryPage extends StatelessWidget {
         enabledDelMenu: false,
         enabledAddEmojiMenu: false,
         onClickItemView: () => logic.parseClickEvent(message),
+        onTapCopyMenu: () => logic.copy(message),
         onTapQuoteMessage: (Message message) {
           logic.onTapQuoteMsg(message);
         },
@@ -62,7 +65,8 @@ class PreviewChatHistoryPage extends StatelessWidget {
         final content = data['content'];
         final view = ChatCallItemView(type: type, content: content);
         return CustomTypeInfo(view);
-      } else if (viewType == CustomMessageType.deletedByFriend || viewType == CustomMessageType.blockedByFriend) {
+      } else if (viewType == CustomMessageType.deletedByFriend ||
+          viewType == CustomMessageType.blockedByFriend) {
         final view = ChatFriendRelationshipAbnormalHintView(
           name: logic.conversationInfo.showName ?? '',
           blockedByFriend: viewType == CustomMessageType.blockedByFriend,
@@ -89,13 +93,13 @@ class PreviewChatHistoryPage extends StatelessWidget {
         return CustomTypeInfo(view, false, true);
       } else if (viewType == CustomMessageType.removedFromGroup) {
         return CustomTypeInfo(
-          StrRes.removedFromGroupHint.toText..style = Styles.ts_8E9AB0_12sp,
+          StrRes.removedFromGroupHint.toText..style = Styles.ts_999999_12sp,
           false,
           false,
         );
       } else if (viewType == CustomMessageType.groupDisbanded) {
         return CustomTypeInfo(
-          StrRes.groupDisbanded.toText..style = Styles.ts_8E9AB0_12sp,
+          StrRes.groupDisbanded.toText..style = Styles.ts_999999_12sp,
           false,
           false,
         );

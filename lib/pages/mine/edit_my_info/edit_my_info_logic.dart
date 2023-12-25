@@ -20,6 +20,7 @@ class EditMyInfoLogic extends GetxController {
   String? title;
   String? defaultValue;
   TextInputType? keyboardType;
+  final lengthLimit = 16.obs;
 
   @override
   void onInit() {
@@ -55,6 +56,7 @@ class EditMyInfoLogic extends GetxController {
         title = StrRes.email;
         defaultValue = imLogic.userInfo.value.email;
         keyboardType = TextInputType.emailAddress;
+        lengthLimit.value = 64;
         break;
     }
   }

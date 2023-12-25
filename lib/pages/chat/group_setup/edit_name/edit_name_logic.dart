@@ -29,7 +29,7 @@ class EditGroupNameLogic extends GetxController {
     super.onClose();
   }
 
-  String? get title => type == EditNameType.myGroupMemberNickname ? StrRes.myGroupMemberNickname : StrRes.groupName;
+  String? get title => type == EditNameType.myGroupMemberNickname ? StrRes.myGroupMemberNickname : StrRes.changeGroupName;
 
   void save() async {
     await LoadingView.singleton.wrap(asyncFunction: () async {

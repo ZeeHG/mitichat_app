@@ -20,11 +20,11 @@ class ChatCallItemView extends StatelessWidget {
               .toImage
             ..width = 18.w
             ..height = 18.h
-            ..color = (/*isISend ? Styles.c_FFFFFF : */ Styles.c_0C1C33),
+            ..color = (/*isISend ? Styles.c_FFFFFF : */ Styles.c_333333),
           8.horizontalSpace,
           Text(
             content,
-            style: /*isISend ? Styles.ts_FFFFFF_17sp : */ Styles.ts_0C1C33_17sp,
+            style: /*isISend ? Styles.ts_FFFFFF_17sp : */ Styles.ts_333333_17sp,
           ),
         ],
       );

@@ -71,6 +71,11 @@ abstract class AppRoutes {
   static const buildTagNotification = '/build_tag_notification';
   static const tagNotificationDetail = '/tag_notification_detail';
   static const oaNotificationList = "/oa_notification_list";
+  static const discover = '/discover';
+  static const bot = '/bot';
+  static const createBot = '/create_bot';
+  static const changeBotInfo = '/change_bot_info';
+  static const trainingBot = '/training_bot';
 }
 
 extension RoutesExtension on String {

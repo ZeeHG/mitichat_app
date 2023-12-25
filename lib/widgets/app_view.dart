@@ -7,16 +7,24 @@ import 'package:openim_common/openim_common.dart';
 import '../core/controller/app_controller.dart';
 
 class AppView extends StatelessWidget {
-  const AppView({Key? key, required this.builder}) : super(key: key);
+  AppView({Key? key, required this.builder}) : super(key: key);
   final Widget Function(Locale? locale, TransitionBuilder builder) builder;
+  final appCommonLogic = Get.find<AppCommonLogic>();
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AppController>(
       init: AppController(),
       builder: (ctrl) => FocusDetector(
-        onForegroundGained: () => ctrl.runningBackground(false),
-        onForegroundLost: () => ctrl.runningBackground(true),
+        onForegroundGained: () {
+          ctrl.runningBackground(false);
+          appCommonLogic.setForeground(true);
+          appCommonLogic.tryUpdateAppFromCache();
+        },
+        onForegroundLost: () {
+          ctrl.runningBackground(true);
+          appCommonLogic.setForeground(false);
+        },
         child: ScreenUtilInit(
           designSize: const Size(Config.uiW, Config.uiH),
           minTextAdapt: true,

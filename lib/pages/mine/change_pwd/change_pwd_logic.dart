@@ -11,6 +11,8 @@ class ChangePwdLogic extends GetxController {
   final oldPwdCtrl = TextEditingController();
   final newPwdCtrl = TextEditingController();
   final againPwdCtrl = TextEditingController();
+  // todo
+  final enabled = true.obs();
 
   @override
   void onClose() {

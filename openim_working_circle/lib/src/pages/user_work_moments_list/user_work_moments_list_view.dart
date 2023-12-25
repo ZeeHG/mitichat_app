@@ -16,14 +16,13 @@ class UserWorkMomentsListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: TitleBar.back(),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: Styles.c_FFFFFF,
       body: Obx(() => CustomScrollView(
             // physics: const BouncingScrollPhysics(),
             controller: logic.scrollController,
             slivers: [
-              _sliverAppBar,
-              SliverToBoxAdapter(child: 26.verticalSpace),
+              _sliverAppBar(context),
+              SliverToBoxAdapter(child: 38.verticalSpace),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (_, int index) => GestureDetector(
@@ -40,7 +39,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
                     height: 55.h,
                     child: Center(
                       child: CupertinoActivityIndicator(
-                        color: Styles.c_0089FF,
+                        color: Styles.c_8443F8,
                       ),
                     ),
                   ),
@@ -55,7 +54,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
                         ..height = 81.35.h
                         ..fit = BoxFit.cover,
                       22.verticalSpace,
-                      StrRes.noDynamic.toText..style = Styles.ts_8E9AB0_16sp,
+                      StrRes.noDynamic.toText..style = Styles.ts_999999_16sp,
                     ],
                   ),
                 ),
@@ -74,33 +73,33 @@ class UserWorkMomentsListPage extends StatelessWidget {
       textSpan = IMViews.getTimelineTextSpan(moments.createTime ?? 0);
     }
     return Container(
-      padding: EdgeInsets.only(right: 10.w),
+      padding: EdgeInsets.only(right: 18.w),
       margin: EdgeInsets.only(
-        bottom: logic.addMargin(index) ? 30.h : 5.h,
+        bottom: logic.addMargin(index) ? 30.h : 20.h,
       ),
       child: Column(
         children: [
           if (null != logic.yearTimelines[moments])
             Padding(
-              padding: EdgeInsets.only(bottom: 22.h),
+              padding: EdgeInsets.only(bottom: 20.h, left: 18.w),
               child: Row(
                 children: [
-                  Expanded(
-                    child: Container(
-                      color: Styles.c_E8EAEF,
-                      height: 1,
-                      margin: EdgeInsets.only(left: 10.w, right: 12.w),
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: Container(
+                  //     color: Styles.c_E8EAEF,
+                  //     height: 1,
+                  //     margin: EdgeInsets.symmetric(horizontal: 18.w),
+                  //   ),
+                  // ),
                   (logic.yearTimelines[moments] ?? '').toText
-                    ..style = Styles.ts_8E9AB0_12sp,
-                  Expanded(
-                    child: Container(
-                      color: Styles.c_E8EAEF,
-                      height: 1,
-                      margin: EdgeInsets.only(left: 12.w, right: 10.w),
-                    ),
-                  ),
+                    ..style = Styles.ts_333333_22sp_medium,
+                  // Expanded(
+                  //   child: Container(
+                  //     color: Styles.c_E8EAEF,
+                  //     height: 1,
+                  //     margin: EdgeInsets.symmetric(horizontal: 18.w),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -108,8 +107,8 @@ class UserWorkMomentsListPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: 60.w,
-                padding: EdgeInsets.only(left: 10.w),
+                width: 87.w,
+                padding: EdgeInsets.only(left: 18.w),
                 child: RichText(
                   text: textSpan ?? const TextSpan(),
                 ),
@@ -118,7 +117,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
               //   width: 60.w,
               //   padding: EdgeInsets.only(left: 10.w),
               //   child: null != timeline
-              //       ? (timeline.toText..style = Styles.ts_0C1C33_17sp_medium)
+              //       ? (timeline.toText..style = Styles.ts_333333_17sp_medium)
               //       : null,
               // ),
               Expanded(
@@ -128,39 +127,49 @@ class UserWorkMomentsListPage extends StatelessWidget {
                     Stack(
                       alignment: Alignment.center,
                       children: [
-                        if (urls.isNotEmpty) MetasImageView(urls: urls),
+                        if (urls.isNotEmpty)
+                          MetasImageView(
+                              urls: urls,
+                              width: 60.w,
+                              height: 60.h,
+                              radius: 4.r),
                         if (urls.isNotEmpty && isVideo)
                           ImageRes.videoPause.toImage
-                            ..width = 40.w
-                            ..height = 40.h,
+                            ..width = 20.w
+                            ..height = 20.h,
                       ],
                     ),
                     Expanded(
                       child: urls.isEmpty
                           ? Container(
                               padding: EdgeInsets.symmetric(
-                                horizontal: 10.w,
-                                vertical: 9.h,
+                                horizontal: 12.w,
+                                vertical: 10.h,
                               ),
                               decoration: BoxDecoration(
-                                color: Styles.c_E8EAEF,
+                                color: Styles.c_F7F7F7,
                               ),
                               child: (moments.content?.text ?? '').toText
+                                ..style = Styles.ts_333333_16sp
                                 ..maxLines = 2
                                 ..overflow = TextOverflow.ellipsis,
                             )
-                          : Padding(
-                              padding: EdgeInsets.only(left: 10.w),
+                          : Container(
+                              height: 60.h,
+                              padding: EdgeInsets.only(left: 12.w),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   ((moments.content?.text ?? '').toText
-                                    ..maxLines = 3
+                                    ..style = Styles.ts_333333_16sp
+                                    ..maxLines = 2
                                     ..overflow = TextOverflow.ellipsis),
                                   if (!isVideo)
                                     sprintf(StrRes.totalNPicture, [urls.length])
                                         .toText
-                                      ..style = Styles.ts_8E9AB0_12sp,
+                                      ..style = Styles.ts_999999_12sp,
                                 ],
                               ),
                             ),
@@ -175,47 +184,120 @@ class UserWorkMomentsListPage extends StatelessWidget {
     );
   }
 
-  Widget get _sliverAppBar => SliverAppBar(
-        title: StrRes.workingCircle.toText
-          ..style = Styles.ts_FFFFFF_20sp_medium,
+  Widget _sliverAppBar(BuildContext context) => SliverAppBar(
+        title: StrRes.discover.toText..style = Styles.ts_FFFFFF_18sp_medium,
         centerTitle: true,
-        expandedHeight: 178.h,
-        // collapsedHeight: 100,
-        backgroundColor: const Color(0xFF041d31),
+        expandedHeight: 220.h,
+        toolbarHeight: 44.h,
+        backgroundColor: Styles.c_000000,
         floating: false,
         pinned: true,
         snap: false,
         stretch: true,
+        leadingWidth: 42.w,
+        leading: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () => Get.back(),
+          child: Container(
+            padding: EdgeInsets.only(left: 18.w),
+            child: ImageRes.appBackWhite.toImage
+              ..width = 24.w
+              ..height = 24.h,
+          ),
+        ),
         // stretchTriggerOffset: 100,
         // leading: ImageRes.backBlack.toImage..color = Styles.c_FFFFFF,
-        actions: [],
-        flexibleSpace: FlexibleSpaceBar(
-          background: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              ImageRes.workingCircleHeaderBg.toImage
+        actions: logic.isMyself
+            ? [
+                ImageRes.appWorkingCircleMessage.toImage
+                  ..width = 22.w
+                  ..height = 22.h
+                  ..onTap = logic.seeNewMessage,
+                10.horizontalSpace,
+                _popButton,
+                10.horizontalSpace,
+                // ImageRes.workingCirclePublish.toImage
+                //   ..width = 24.w
+                //   ..height = 24.h,
+                // 16.horizontalSpace,
+              ]
+            : [],
+        flexibleSpace: Stack(
+          clipBehavior: Clip.none,
+          alignment: Alignment.bottomCenter,
+          children: [
+            Container(
+              height: 300.h,
+              color: Styles.c_8443F8,
+              child: ImageRes.workingCircleHeaderBg.toImage
                 ..width = 375.w
-                ..height = 222.h
+                ..height = 220.h
                 ..fit = BoxFit.cover,
+            ),
+            if (logic.scrollHeight <=
+                (220.h - 44.h - 10.h - MediaQuery.of(context).padding.top))
               Positioned(
-                bottom: 24.h,
-                left: 16.w,
+                bottom: -20.h,
+                right: 18.w,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    (logic.nickname ?? '').toText
+                      ..style = Styles.ts_FFFFFF_18sp_medium,
+                    12.horizontalSpace,
                     AvatarView(
-                      width: 48.w,
-                      height: 48.h,
+                      width: 60.w,
+                      height: 60.h,
                       url: logic.faceURL,
                       text: logic.nickname,
                     ),
-                    12.horizontalSpace,
-                    (logic.nickname ?? '').toText
-                      ..style = Styles.ts_FFFFFF_18sp_medium,
                   ],
                 ),
               )
-            ],
-          ),
+          ],
         ),
+      );
+
+  Widget get _popButton => PopupMenuButton<int>(
+        offset: Offset(0, 48.h),
+        padding: EdgeInsets.zero,
+        icon: ImageRes.appWorkingCirclePublish.toImage
+          ..width = 22.w
+          ..height = 22.h,
+        itemBuilder: (_) => <PopupMenuEntry<int>>[
+          PopupMenuItem(
+            padding: EdgeInsets.only(left: 12.w),
+            height: 45.h,
+            value: 0,
+            child: Row(
+              children: [
+                ImageRes.appPublishPic.toImage
+                  ..width = 20.w
+                  ..height = 20.h,
+                12.horizontalSpace,
+                StrRes.publishPicture.toText..style = Styles.ts_333333_16sp,
+              ],
+            ),
+          ),
+          const PopupMenuDivider(),
+          PopupMenuItem(
+            padding: EdgeInsets.only(left: 12.w),
+            height: 45.h,
+            value: 1,
+            child: Row(
+              children: [
+                ImageRes.appPublishVideo.toImage
+                  ..width = 20.w
+                  ..height = 20.h,
+                12.horizontalSpace,
+                StrRes.publishVideo.toText..style = Styles.ts_333333_16sp,
+              ],
+            ),
+          ),
+        ],
+        onSelected: logic.publish,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(6.w))),
       );
 }

@@ -40,7 +40,7 @@ class _H5ContainerState extends State<H5Container> {
     Logger.print('H5Container: ${widget.url}');
     pullToRefreshController = PullToRefreshController(
       options: PullToRefreshOptions(
-        color: Styles.c_0089FF,
+        color: Styles.c_8443F8,
       ),
       onRefresh: () async {
         if (Platform.isAndroid) {

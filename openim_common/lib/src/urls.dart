@@ -34,4 +34,14 @@ class Urls {
 
   /// 小程序
   static final uniMPUrl = '${Config.appAuthUrl}/applet/list';
+
+
+  // 翻译
+  static final translate = "${Config.appAuthUrl}/translate/do";
+
+  static final findTranslate = "${Config.appAuthUrl}/translate/find";
+
+  static final getTranslateConfig = "${Config.appAuthUrl}/translate/config/get";
+
+  static final setTranslateConfig = "${Config.appAuthUrl}/translate/config/set";
 }

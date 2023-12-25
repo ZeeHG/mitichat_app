@@ -18,7 +18,7 @@ class TagGroupPage extends StatelessWidget {
       appBar: TitleBar.back(
         title: StrRes.tagGroup,
         right: StrRes.add.toText
-          ..style = Styles.ts_0C1C33_17sp
+          ..style = Styles.ts_333333_17sp
           ..onTap = logic.createTagGroup,
       ),
       backgroundColor: Styles.c_F8F9FA,
@@ -50,13 +50,13 @@ class TagGroupPage extends StatelessWidget {
             CustomSlidableAction(
               onPressed: (_) => logic.edit(tagInfo),
               flex: 1,
-              backgroundColor: Styles.c_0089FF,
+              backgroundColor: Styles.c_8443F8,
               child: StrRes.edit.toText..style = Styles.ts_FFFFFF_16sp,
             ),
             CustomSlidableAction(
               onPressed: (_) => logic.delete(tagInfo),
               flex: 1,
-              backgroundColor: Styles.c_FF381F,
+              backgroundColor: Styles.c_FF4E4C,
               child: StrRes.delete.toText..style = Styles.ts_FFFFFF_16sp,
             ),
           ],
@@ -73,10 +73,10 @@ class TagGroupPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            tagInfo.tagName!.toText..style = Styles.ts_0C1C33_17sp,
+            tagInfo.tagName!.toText..style = Styles.ts_333333_17sp,
             6.verticalSpace,
             tagInfo.users!.map((e) => e.nickname!).join('、').toText
-              ..style = Styles.ts_8E9AB0_14sp,
+              ..style = Styles.ts_999999_14sp,
           ],
         ),
       );
@@ -91,7 +91,7 @@ class TagGroupPage extends StatelessWidget {
               ..width = 120.w
               ..height = 120.h,
             22.verticalSpace,
-            StrRes.emptyTagGroup.toText..style = Styles.ts_8E9AB0_16sp,
+            StrRes.emptyTagGroup.toText..style = Styles.ts_999999_16sp,
           ],
         ),
       );

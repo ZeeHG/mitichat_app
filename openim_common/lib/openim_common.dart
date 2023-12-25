@@ -115,3 +115,11 @@ export 'src/widgets/transparent_route.dart';
 export 'src/widgets/unread_count_view.dart';
 export 'src/widgets/verify_code_send_button.dart';
 export 'src/widgets/views.dart';
+// 新增
+export 'src/widgets/fake_search_box.dart';
+export 'src/widgets/triangle_container.dart';
+export 'utils/showMyToast.dart';
+export 'utils/logger.dart';
+export 'utils/translateLogic.dart';
+export 'utils/betaTestLogic.dart';
+export 'utils/appCommonLogic.dart';

@@ -68,13 +68,13 @@ class ChatPreviewMergeMsgView extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: (message.senderNickname ?? '').toText..style = Styles.ts_8E9AB0_12sp,
+                          child: (message.senderNickname ?? '').toText..style = Styles.ts_999999_12sp,
                         ),
-                        IMUtils.getChatTimeline(message.sendTime!).toText..style = Styles.ts_8E9AB0_12sp,
+                        IMUtils.getChatTimeline(message.sendTime!).toText..style = Styles.ts_999999_12sp,
                       ],
                     ),
                     10.verticalSpace,
-                    MatchTextView(text: content, textStyle: Styles.ts_0C1C33_17sp)
+                    MatchTextView(text: content, textStyle: Styles.ts_333333_17sp)
                   ],
                 ),
               ),

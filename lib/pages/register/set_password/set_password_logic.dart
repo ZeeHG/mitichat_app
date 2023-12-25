@@ -19,6 +19,7 @@ class SetPasswordLogic extends GetxController {
   late int usedFor;
   late String verificationCode;
   String? invitationCode;
+  final translateLogic = Get.find<TranslateLogic>();
 
   @override
   void onClose() {
@@ -102,6 +103,7 @@ class SetPasswordLogic extends GetxController {
       DataSp.putLoginType(email != null ? 1 : 0);
       await imLogic.login(data.userID, data.imToken);
       Logger.print('---------im login success-------');
+      translateLogic.init(data.userID);
       pushLogic.login(data.userID);
       Logger.print('---------jpush login success----');
     });

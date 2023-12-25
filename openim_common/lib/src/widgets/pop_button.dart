@@ -109,7 +109,7 @@ class PopButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(bgRadius ?? 8.r),
           boxShadow: [
             BoxShadow(
-              color: bgShadowColor ?? Styles.c_8E9AB0_opacity16,
+              color: bgShadowColor ?? Styles.c_999999_opacity16,
               offset: bgShadowOffset ?? Offset(0, 6.h),
               blurRadius: bgShadowBlurRadius ?? 16.r,
               spreadRadius: bgShadowSpreadRadius ?? 1.r,
@@ -127,16 +127,16 @@ class PopButton extends StatelessWidget {
         },
         behavior: HitTestBehavior.translucent,
         child: Container(
-          height: menuItemHeight ?? 48.h,
+          height: menuItemHeight ?? 45.h,
           width: menuItemWidth,
           padding: menuItemPadding,
           constraints: BoxConstraints(minWidth: 117.w),
-          margin: EdgeInsets.symmetric(horizontal: 12.w),
+          margin: EdgeInsets.symmetric(horizontal: 14.w),
           decoration: showLine
               ? BoxDecoration(
                   border: BorderDirectional(
                     bottom: BorderSide(
-                      color: lineColor ?? Styles.c_E8EAEF,
+                      color: lineColor ?? Styles.c_F5F0F0,
                       width: lineWidth ?? 1,
                     ),
                   ),
@@ -153,7 +153,7 @@ class PopButton extends StatelessWidget {
                     ..height = (menuItemIconHeight ?? 20.h),
                 ),
               info.text.toText
-                ..style = (menuItemTextStyle ?? Styles.ts_0C1C33_17sp),
+                ..style = (menuItemTextStyle ?? Styles.ts_333333_16sp),
             ],
           ),
         ),

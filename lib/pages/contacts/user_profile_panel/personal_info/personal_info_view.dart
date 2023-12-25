@@ -102,10 +102,10 @@ class PersonalInfoPage extends StatelessWidget {
           height: 46.h,
           child: Row(
             children: [
-              label.toText..style = Styles.ts_0C1C33_17sp,
+              label.toText..style = Styles.ts_333333_17sp,
               const Spacer(),
               if (null != value && !isAvatar)
-                value.toText..style = Styles.ts_0C1C33_17sp,
+                value.toText..style = Styles.ts_333333_17sp,
               if (isAvatar)
                 AvatarView(
                   width: 32.w,

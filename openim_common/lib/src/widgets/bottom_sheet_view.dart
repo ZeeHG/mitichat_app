@@ -120,7 +120,7 @@ class BottomSheetView extends StatelessWidget {
       );
 
   _text(String label, TextStyle? style) =>
-      label.toText..style = (style ?? textStyle ?? Styles.ts_0C1C33_17sp);
+      label.toText..style = (style ?? textStyle ?? Styles.ts_333333_17sp);
 
   _image(String icon) => icon.toImage
     ..width = 24.w

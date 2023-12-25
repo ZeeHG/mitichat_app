@@ -31,7 +31,7 @@ class IMViews {
   }
 
   static Widget buildHeader() => WaterDropMaterialHeader(
-        backgroundColor: Styles.c_0089FF,
+        backgroundColor: Styles.c_8443F8,
       );
 
   static Widget buildFooter() => CustomFooter(
@@ -116,7 +116,7 @@ class IMViews {
       bool fromGallery = true,
       bool fromCamera = true,
       List<SheetItem> items = const [],
-      int quality = 80}) {
+      int quality = 95}) {
     Get.bottomSheet(
       BottomSheetView(
         items: [
@@ -125,12 +125,13 @@ class IMViews {
             SheetItem(
               label: StrRes.toolboxAlbum,
               onTap: () {
-                Permissions.storage(() async {
+                Permissions.requestStorage(() async {
                   final XFile? image = await _picker.pickImage(
                     source: ImageSource.gallery,
                   );
                   if (null != image?.path) {
-                    var map = await _uCropPic(image!.path, crop: crop, toUrl: toUrl, quality: quality);
+                    var map = await _uCropPic(image!.path,
+                        crop: crop, toUrl: toUrl, quality: quality);
                     onData?.call(map['path'], map['url']);
                   }
                 });
@@ -145,7 +146,8 @@ class IMViews {
                     source: ImageSource.camera,
                   );
                   if (null != image?.path) {
-                    var map = await _uCropPic(image!.path, crop: crop, toUrl: toUrl, quality: quality);
+                    var map = await _uCropPic(image!.path,
+                        crop: crop, toUrl: toUrl, quality: quality);
                     onData?.call(map['path'], map['url']);
                   }
                 });
@@ -178,7 +180,9 @@ class IMViews {
       if (null != cropFile) {
         Logger.print('-----------crop path: ${cropFile.path}');
         result = await LoadingView.singleton.wrap(asyncFunction: () async {
-          final image = await IMUtils.compressImageAndGetFile(File(cropFile!.path), quality: quality);
+          final image = await IMUtils.compressImageAndGetFile(
+              File(cropFile!.path),
+              quality: quality);
 
           return OpenIM.iMManager.uploadFile(
             id: putID,
@@ -189,7 +193,8 @@ class IMViews {
       } else {
         Logger.print('-----------source path: $path');
         result = await LoadingView.singleton.wrap(asyncFunction: () async {
-          final image = await IMUtils.compressImageAndGetFile(File(path), quality: quality);
+          final image = await IMUtils.compressImageAndGetFile(File(path),
+              quality: quality);
 
           return OpenIM.iMManager.uploadFile(
             id: putID,
@@ -232,14 +237,14 @@ class IMViews {
     if (DateUtil.isToday(ms, locMs: locTimeMs)) {
       return TextSpan(
         text: languageCode == 'zh' ? '今天' : 'Today',
-        style: Styles.ts_0C1C33_17sp_medium,
+        style: Styles.ts_333333_22sp_medium,
       );
     }
 
     if (DateUtil.isYesterdayByMs(ms, locTimeMs)) {
       return TextSpan(
         text: languageCode == 'zh' ? '昨天' : 'Yesterday',
-        style: Styles.ts_0C1C33_17sp_medium,
+        style: Styles.ts_333333_22sp_medium,
       );
     }
 
@@ -247,17 +252,17 @@ class IMViews {
       final weekday = DateUtil.getWeekdayByMs(ms, languageCode: languageCode);
       if (weekday.contains('星期')) {
         return TextSpan(
-          text: weekday.replaceAll('星期', ''),
-          style: Styles.ts_0C1C33_17sp_medium,
+          text: '星期',
+          style: Styles.ts_333333_20sp_medium,
           children: [
             TextSpan(
-              text: '\n星期',
-              style: Styles.ts_0C1C33_12sp_medium,
+              text: weekday.replaceAll('星期', ''),
+              style: Styles.ts_333333_12sp_medium,
             ),
           ],
         );
       }
-      return TextSpan(text: weekday, style: Styles.ts_0C1C33_17sp_medium);
+      return TextSpan(text: weekday, style: Styles.ts_333333_20sp_medium);
     }
 
     // if (DateUtil.yearIsEqualByMs(ms, locTimeMs)) {
@@ -266,11 +271,11 @@ class IMViews {
     //   final two = date.split('月')[1];
     //   return TextSpan(
     //     text: two,
-    //     style: Styles.ts_0C1C33_17sp_medium,
+    //     style: Styles.ts_333333_17sp_medium,
     //     children: [
     //       TextSpan(
     //         text: '\n$one${languageCode == 'zh' ? '月' : ''}',
-    //         style: Styles.ts_0C1C33_12sp_medium,
+    //         style: Styles.ts_333333_12sp_medium,
     //       ),
     //     ],
     //   );
@@ -280,11 +285,11 @@ class IMViews {
     final two = date.split('月')[1];
     return TextSpan(
       text: '${int.parse(two)}',
-      style: Styles.ts_0C1C33_17sp_medium,
+      style: Styles.ts_333333_20sp_medium,
       children: [
         TextSpan(
-          text: '\n${int.parse(one)}${languageCode == 'zh' ? '月' : ''}',
-          style: Styles.ts_0C1C33_12sp_medium,
+          text: '${int.parse(one)}${languageCode == 'zh' ? '月' : ''}',
+          style: Styles.ts_333333_12sp_medium,
         ),
       ],
     );
@@ -340,12 +345,12 @@ class IMViews {
       ),
       changeToFirst: true,
       hideHeader: false,
-      containerColor: Styles.c_0089FF,
-      textStyle: Styles.ts_0C1C33_17sp,
-      selectedTextStyle: Styles.ts_0C1C33_17sp,
+      containerColor: Styles.c_8443F8,
+      textStyle: Styles.ts_333333_17sp,
+      selectedTextStyle: Styles.ts_333333_17sp,
       itemExtent: 45.h,
-      cancelTextStyle: Styles.ts_0C1C33_17sp,
-      confirmTextStyle: Styles.ts_0089FF_17sp,
+      cancelTextStyle: Styles.ts_333333_17sp,
+      confirmTextStyle: Styles.ts_8443F8_17sp,
       cancelText: StrRes.cancel,
       confirmText: StrRes.confirm,
       selecteds: selected,
@@ -355,9 +360,9 @@ class IMViews {
           Container(
             alignment: Alignment.centerLeft,
             margin: EdgeInsets.only(bottom: 7.h),
-            child: title.toText..style = Styles.ts_0C1C33_17sp,
+            child: title.toText..style = Styles.ts_333333_17sp,
           ),
-          description.toText..style = Styles.ts_8E9AB0_14sp,
+          description.toText..style = Styles.ts_999999_14sp,
         ],
       ),
       selectionOverlay: Container(

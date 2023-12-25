@@ -94,24 +94,24 @@ class GroupManagePage extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: text.toText..style = textStyle ?? Styles.ts_0C1C33_17sp,
+                child: text.toText..style = textStyle ?? Styles.ts_333333_17sp,
               ),
               if (null != value)
                 ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: 150.w),
                   child: value.toText
-                    ..style = Styles.ts_8E9AB0_14sp
+                    ..style = Styles.ts_999999_14sp
                     ..maxLines = 1
                     ..overflow = TextOverflow.ellipsis,
                 ),
               if (showSwitchButton)
                 CupertinoSwitch(
                   value: switchOn,
-                  activeColor: Styles.c_0089FF,
+                  activeColor: Styles.c_07C160,
                   onChanged: onChanged,
                 ),
               if (showRightArrow)
-                ImageRes.rightArrow.toImage
+                ImageRes.appRightArrow.toImage
                   ..width = 24.w
                   ..height = 24.h,
             ],

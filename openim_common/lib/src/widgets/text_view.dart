@@ -111,8 +111,7 @@ class MatchTextView extends StatelessWidget {
     } else {
       pattern = regexEmoji;
     }
-    // RegExp pattern2 = RegExp(r"(@\d+\s)");
-    // pattern2.hasMatch(text.replaceAll("", ''));
+
     // match  text
     stripHtmlIfNeeded(text).splitMapJoin(
       RegExp(pattern),
@@ -220,8 +219,10 @@ const regexAtAll = r'@AtAllTag ';
 const regexEmail = r"\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b";
 
 /// URL Regex - A predefined type for handling URL matching
-const regexUrl =
-    r"[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:._\+-~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:_\+.~#?&\/\/=]*)";
+// const regexUrl =
+//     r"[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:._\+-~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:_\+.~#?&\/\/=]*)";
+const regexUrl = r"(?:http(s)?://)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\*\+,;=.]+\b";
+
 
 /// Phone Regex - A predefined type for handling phone matching
 // const regexMobile =

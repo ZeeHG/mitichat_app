@@ -36,15 +36,16 @@ class WrapAzListView<T extends ISuspensionBean> extends StatelessWidget {
         }
         return _buildTagView(model.getSuspensionTag());
       },
-      susItemHeight: 23.h,
+      susItemHeight: 0,
       indexBarData: SuspensionUtil.getTagIndexList(data),
       indexBarOptions: IndexBarOptions(
         needRebuild: true,
-        selectTextStyle: Styles.ts_FFFFFF_12sp,
-        // selectItemDecoration: BoxDecoration(
-        //   shape: BoxShape.circle,
-        //   color: Color(0xFF333333),
-        // ),
+        textStyle: Styles.ts_999999_11sp,
+        selectTextStyle: Styles.ts_FFFFFF_11sp,
+        selectItemDecoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Styles.c_8443F8,
+        ),
         indexHintWidth: 96,
         indexHintHeight: 97,
         indexHintDecoration: const BoxDecoration(
@@ -54,18 +55,25 @@ class WrapAzListView<T extends ISuspensionBean> extends StatelessWidget {
           ),
         ),
         indexHintAlignment: Alignment.centerRight,
-        indexHintTextStyle: Styles.ts_0C1C33_20sp_semibold,
+        indexHintTextStyle: Styles.ts_333333_20sp_semibold,
         indexHintOffset: const Offset(-30, 0),
       ),
     );
   }
 
   Widget _buildTagView(String tag) => Container(
-        height: 23.h,
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        alignment: Alignment.centerLeft,
-        width: 1.sw,
-        color: Styles.c_E8EAEF,
-        child: tag.toText..style = Styles.ts_8E9AB0_14sp,
-      );
+    color: Styles.c_F7F8FA,
+    padding: EdgeInsets.only(top: 10.h),
+    child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.fromLTRB(12.w, 20.h, 12.w, 0),
+            alignment: Alignment.centerLeft,
+            width: 1.sw,
+            color: Styles.c_FFFFFF,
+            child: tag.toText..style = Styles.ts_999999_16sp,
+          )
+        ],
+      ),
+  );
 }

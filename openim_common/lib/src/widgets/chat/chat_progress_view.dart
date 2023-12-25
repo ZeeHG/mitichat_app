@@ -81,7 +81,7 @@ class _ChatProgressViewState extends State<ChatProgressView> {
                   children: [
                     CircularProgressIndicator(
                       backgroundColor: Styles.c_FFFFFF,
-                      color: Styles.c_0089FF,
+                      color: Styles.c_8443F8,
                       strokeWidth: 1.5,
                       value: _progress / 100,
                     ),

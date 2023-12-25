@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:sprintf/sprintf.dart';
-
 import 'group_setup_logic.dart';
 
 class GroupSetupPage extends StatelessWidget {
@@ -14,104 +13,198 @@ class GroupSetupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: TitleBar.back(title: StrRes.groupChatSetup),
-      backgroundColor: Styles.c_F8F9FA,
-      body: Obx(() => SingleChildScrollView(
-            child: Column(
-              children: [
-                if (logic.isJoinedGroup.value) _buildBaseInfoView(),
-                if (logic.isJoinedGroup.value) _buildMemberView(),
-                _buildContentSearchView(),
-                _buildItemView(
-                  text: StrRes.groupAc,
-                  showRightArrow: true,
-                  isTopRadius: true,
-                  isBottomRadius: !logic.isOwner,
-                  onTap: logic.editGroupAnnouncement,
+    return Obx(() => Scaffold(
+          appBar: TitleBar.back(title: logic.appBarTitle),
+          backgroundColor: Styles.c_F7F8FA,
+          body: Obx(() => SingleChildScrollView(
+                child: Column(
+                  children: [
+                    if (logic.isJoinedGroup.value) _buildBaseInfoView(),
+                    if (logic.isJoinedGroup.value) _buildMemberView(),
+                    10.verticalSpace,
+                    // _buildContentSearchView(),
+                    // 群聊名称
+                    _buildItemView(
+                      text: StrRes.groupName,
+                      value: logic.groupInfo.value.groupName,
+                      showRightArrow: true,
+                      isTopRadius: true,
+                      isBottomRadius: !logic.isOwner,
+                      onTap:
+                          logic.isOwnerOrAdmin ? logic.modifyGroupName : null,
+                    ),
+                    // 群二维码
+                    _buildItemView(
+                      text: StrRes.groupQrcode,
+                      showRightArrow: true,
+                      isTopRadius: true,
+                      isBottomRadius: !logic.isOwner,
+                      onTap: logic.viewGroupQrcode,
+                    ),
+                    _buildItemView(
+                      text: StrRes.groupAc,
+                      showRightArrow: true,
+                      isTopRadius: true,
+                      isBottomRadius: !logic.isOwner,
+                      onTap: logic.editGroupAnnouncement,
+                    ),
+                    if (logic.isOwner)
+                      _buildItemView(
+                        text: StrRes.groupManage,
+                        showRightArrow: true,
+                        isBottomRadius: true,
+                        onTap: logic.groupManage,
+                      ),
+                    // 备注
+                    // _buildItemView(
+                    //   text: StrRes.remark,
+                    //   showRightArrow: true,
+                    //   isBottomRadius: true,
+                    //   onTap: () => showDeveloping(),
+                    // ),
+                    10.verticalSpace,
+                    // 查找聊天内容
+                    _buildItemView(
+                      text: StrRes.groupSearch,
+                      showRightArrow: true,
+                      isBottomRadius: true,
+                      onTap: logic.searchChatHistory,
+                    ),
+                    10.verticalSpace,
+                    _buildItemView(
+                      text: StrRes.messageNotDisturb,
+                      switchOn: logic.isNotDisturb,
+                      showSwitchButton: true,
+                      isBottomRadius: true,
+                      onChanged: (_) => logic.toggleNotDisturb(),
+                    ),
+                    _buildItemView(
+                      text: StrRes.topChat,
+                      switchOn: logic.isPinned,
+                      showSwitchButton: true,
+                      isTopRadius: true,
+                      onChanged: (_) => logic.toggleTopChat(),
+                    ),
+                    // 保存到通讯录
+                    // _buildItemView(
+                    //   text: StrRes.saveToContact,
+                    //   switchOn: false,
+                    //   showSwitchButton: true,
+                    //   isTopRadius: true,
+                    //   onChanged: (_) => showDeveloping(),
+                    // ),
+                    // 聊天加密
+                    _buildItemView(
+                      text: StrRes.chatEncryption,
+                      switchOn: true,
+                      showSwitchButton: true,
+                      isTopRadius: true,
+                      // onChanged: (_) => showDeveloping(),
+                    ),
+                    // _buildItemView(
+                    //   text: StrRes.autoTranslate,
+                    //   switchOn: logic.isAutoTranslate,
+                    //   onChanged: (_) => logic.toggleAutoTranslate(),
+                    //   showSwitchButton: true,
+                    //   isTopRadius: true,
+                    //   isBottomRadius: logic.isAutoTranslate ? false : true,
+                    // ),
+                    // _buildItemView(
+                    //     text: StrRes.targetLang,
+                    //     value: logic.targetLangStr,
+                    //     onTap: logic.setTargetLang,
+                    //     showRightArrow: true,
+                    //     isBottomRadius: true,
+                    //   ),
+                    10.verticalSpace,
+                    _buildItemView(
+                      text: StrRes.myGroupMemberNickname,
+                      value: logic.myGroupMembersInfo.value.nickname,
+                      showRightArrow: true,
+                      isTopRadius: true,
+                      isBottomRadius: true,
+                      onTap: logic.modifyMyGroupNickname,
+                    ),
+                    // 显示群成员昵称
+                    // _buildItemView(
+                    //   text: StrRes.showGroupMemberNickname,
+                    //   switchOn: false,
+                    //   showSwitchButton: true,
+                    //   isTopRadius: true,
+                    //   onTap: () => showDeveloping(),
+                    // ),
+                    10.verticalSpace,
+                    // 设置当前聊天背景
+                    // _buildItemView(
+                    //   text: StrRes.setChatBackground,
+                    //   showRightArrow: true,
+                    //   isTopRadius: true,
+                    //   isBottomRadius: true,
+                    //   onTap: () => showDeveloping(),
+                    // ),
+                    // _buildItemView(
+                    //   text: StrRes.periodicallyDeleteMessage,
+                    //   switchOn: logic.isMsgDestruct,
+                    //   onChanged: (_) => logic.toggleDestructMessage(),
+                    //   showSwitchButton: true,
+                    //   isTopRadius: true,
+                    //   isBottomRadius: logic.isMsgDestruct ? false : true,
+                    // ),
+                    // if (logic.isMsgDestruct)
+                    //   _buildItemView(
+                    //     text: StrRes.timeSet,
+                    //     value: logic.getDestructDurationStr,
+                    //     onTap: logic.setDestructMessageDuration,
+                    //     showRightArrow: true,
+                    //     isBottomRadius: true,
+                    //   ),
+                    // 10.verticalSpace,
+                    // 清空聊天
+                    _buildItemView(
+                      text: StrRes.clearChatHistory,
+                      showRightArrow: true,
+                      isTopRadius: true,
+                      isBottomRadius: true,
+                      onTap: logic.clearChatHistory,
+                    ),
+                    // 10.verticalSpace,
+                    // 投诉
+                    // _buildItemView(
+                    //   text: StrRes.complaint,
+                    //   showRightArrow: true,
+                    //   isTopRadius: true,
+                    //   isBottomRadius: true,
+                    //   onTap: () => showDeveloping(),
+                    // ),
+                    10.verticalSpace,
+                    if (!logic.isOwner)
+                      Button(
+                        text: logic.isJoinedGroup.value
+                            ? StrRes.exitGroup
+                            : StrRes.delete,
+                        textStyle: Styles.ts_FC4D4D_16sp,
+                        radius: 0,
+                        enabledColor: Styles.c_FFFFFF,
+                        onTap: logic.quitGroup,
+                      ),
+                    if (logic.isOwner)
+                      Button(
+                        text: StrRes.dismissGroup,
+                        textStyle: Styles.ts_FC4D4D_16sp,
+                        radius: 0,
+                        enabledColor: Styles.c_FFFFFF,
+                        onTap: logic.quitGroup,
+                      ),
+                    40.verticalSpace,
+                  ],
                 ),
-                if (logic.isOwner)
-                  _buildItemView(
-                    text: StrRes.groupManage,
-                    showRightArrow: true,
-                    isBottomRadius: true,
-                    onTap: logic.groupManage,
-                  ),
-                10.verticalSpace,
-                _buildItemView(
-                  text: StrRes.myGroupMemberNickname,
-                  value: logic.myGroupMembersInfo.value.nickname,
-                  showRightArrow: true,
-                  isTopRadius: true,
-                  isBottomRadius: true,
-                  onTap: logic.modifyMyGroupNickname,
-                ),
-                10.verticalSpace,
-                _buildItemView(
-                  text: StrRes.topChat,
-                  switchOn: logic.isPinned,
-                  showSwitchButton: true,
-                  isTopRadius: true,
-                  onChanged: (_) => logic.toggleTopChat(),
-                ),
-                _buildItemView(
-                  text: StrRes.messageNotDisturb,
-                  switchOn: logic.isNotDisturb,
-                  showSwitchButton: true,
-                  isBottomRadius: true,
-                  onChanged: (_) => logic.toggleNotDisturb(),
-                ),
-                10.verticalSpace,
-                _buildItemView(
-                  text: StrRes.periodicallyDeleteMessage,
-                  switchOn: logic.isMsgDestruct,
-                  onChanged: (_) => logic.toggleDestructMessage(),
-                  showSwitchButton: true,
-                  isTopRadius: true,
-                  isBottomRadius: logic.isMsgDestruct ? false : true,
-                ),
-                if (logic.isMsgDestruct)
-                  _buildItemView(
-                    text: StrRes.timeSet,
-                    value: logic.getDestructDurationStr,
-                    onTap: logic.setDestructMessageDuration,
-                    showRightArrow: true,
-                    isBottomRadius: true,
-                  ),
-                10.verticalSpace,
-                _buildItemView(
-                  text: StrRes.clearChatHistory,
-                  textStyle: Styles.ts_FF381F_17sp,
-                  isTopRadius: true,
-                  showRightArrow: true,
-                  onTap: logic.clearChatHistory,
-                ),
-                if (!logic.isOwner)
-                  _buildItemView(
-                    text: logic.isJoinedGroup.value ? StrRes.exitGroup : StrRes.delete,
-                    textStyle: Styles.ts_FF381F_17sp,
-                    showRightArrow: true,
-                    onTap: logic.quitGroup,
-                  ),
-                if (logic.isOwner)
-                  _buildItemView(
-                    text: StrRes.dismissGroup,
-                    textStyle: Styles.ts_FF381F_17sp,
-                    isBottomRadius: true,
-                    showRightArrow: true,
-                    onTap: logic.quitGroup,
-                  ),
-                40.verticalSpace,
-              ],
-            ),
-          )),
-    );
+              )),
+        ));
   }
 
   Widget _buildBaseInfoView() => Container(
         height: 80.h,
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
         decoration: BoxDecoration(
           color: Styles.c_FFFFFF,
           borderRadius: BorderRadius.circular(6.r),
@@ -124,13 +217,14 @@ class GroupSetupPage extends StatelessWidget {
               child: Stack(
                 children: [
                   AvatarView(
-                    width: 48.w,
-                    height: 48.h,
+                    width: 42.w,
+                    height: 42.h,
                     url: logic.groupInfo.value.faceURL,
                     text: logic.groupInfo.value.groupName,
                     textStyle: Styles.ts_FFFFFF_14sp,
                     isGroup: true,
-                    onTap: logic.isOwnerOrAdmin ? logic.modifyGroupAvatar : null,
+                    onTap:
+                        logic.isOwnerOrAdmin ? logic.modifyGroupAvatar : null,
                   ),
                   if (logic.isOwnerOrAdmin)
                     Align(
@@ -154,8 +248,11 @@ class GroupSetupPage extends StatelessWidget {
                       children: [
                         ConstrainedBox(
                             constraints: BoxConstraints(maxWidth: 200.w),
-                            child: (logic.groupInfo.value.groupName ?? '').toText..style = Styles.ts_0C1C33_17sp),
-                        '(${logic.groupInfo.value.memberCount ?? 0})'.toText..style = Styles.ts_0C1C33_17sp,
+                            child:
+                                (logic.groupInfo.value.groupName ?? '').toText
+                                  ..style = Styles.ts_333333_16sp),
+                        '(${logic.groupInfo.value.memberCount ?? 0})'.toText
+                          ..style = Styles.ts_333333_16sp,
                         6.horizontalSpace,
                         if (logic.isOwnerOrAdmin)
                           ImageRes.editName.toImage
@@ -166,7 +263,7 @@ class GroupSetupPage extends StatelessWidget {
                   ),
                   4.verticalSpace,
                   logic.groupInfo.value.groupID.toText
-                    ..style = Styles.ts_8E9AB0_14sp
+                    ..style = Styles.ts_999999_14sp
                     ..onTap = logic.copyGroupID,
                 ],
               ),
@@ -180,23 +277,22 @@ class GroupSetupPage extends StatelessWidget {
       );
 
   Widget _buildMemberView() => Container(
+        padding: EdgeInsets.only(left: 20.w),
         decoration: BoxDecoration(
           color: Styles.c_FFFFFF,
-          borderRadius: BorderRadius.circular(6.r),
         ),
-        margin: EdgeInsets.symmetric(horizontal: 10.w),
         child: Column(
           children: [
             GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.zero,
               itemCount: logic.length(),
               shrinkWrap: true,
-              padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 8.h),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5,
-                crossAxisSpacing: 3.w,
-                mainAxisSpacing: 2.h,
-                childAspectRatio: 68.w / 78.h,
+                crossAxisCount: 6,
+                crossAxisSpacing: 16.w,
+                mainAxisSpacing: 5.h,
+                childAspectRatio: 42.w / 64.h,
               ),
               itemBuilder: (BuildContext context, int index) {
                 return logic.itemBuilder(
@@ -204,19 +300,20 @@ class GroupSetupPage extends StatelessWidget {
                   builder: (info) => Column(
                     children: [
                       SizedBox(
-                        width: 58.w,
+                        width: 42.w,
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
                             AvatarView(
-                              width: 48.w,
-                              height: 48.h,
+                              width: 42.w,
+                              height: 42.h,
                               url: info.faceURL,
                               text: info.nickname,
                               textStyle: Styles.ts_FFFFFF_14sp,
                               onTap: () => logic.viewMemberInfo(info),
                             ),
-                            if (logic.groupInfo.value.ownerUserID == info.userID)
+                            if (logic.groupInfo.value.ownerUserID ==
+                                info.userID)
                               // if (info.roleLevel == GroupRoleLevel.owner)
                               Positioned(
                                 bottom: 0.h,
@@ -228,7 +325,7 @@ class GroupSetupPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(6.r),
                                   ),
                                   child: StrRes.groupOwner.toText
-                                    ..style = Styles.ts_8E9AB0_10sp
+                                    ..style = Styles.ts_999999_10sp
                                     ..maxLines = 1
                                     ..overflow = TextOverflow.ellipsis,
                                 ),
@@ -238,7 +335,7 @@ class GroupSetupPage extends StatelessWidget {
                       ),
                       2.verticalSpace,
                       (info.nickname ?? '').toText
-                        ..style = Styles.ts_8E9AB0_10sp
+                        ..style = Styles.ts_999999_10sp
                         ..maxLines = 1
                         ..overflow = TextOverflow.ellipsis,
                     ],
@@ -248,9 +345,10 @@ class GroupSetupPage extends StatelessWidget {
                     child: Column(
                       children: [
                         ImageRes.addMember.toImage
-                          ..width = 48.w
-                          ..height = 48.h,
-                        StrRes.addMember.toText..style = Styles.ts_8E9AB0_10sp,
+                          ..width = 42.w
+                          ..height = 42.h,
+                        2.verticalSpace,
+                        StrRes.addMember.toText..style = Styles.ts_999999_10sp,
                       ],
                     ),
                   ),
@@ -259,9 +357,10 @@ class GroupSetupPage extends StatelessWidget {
                     child: Column(
                       children: [
                         ImageRes.delMember.toImage
-                          ..width = 48.w
-                          ..height = 48.h,
-                        StrRes.delMember.toText..style = Styles.ts_8E9AB0_10sp,
+                          ..width = 42.w
+                          ..height = 42.h,
+                        2.verticalSpace,
+                        StrRes.delMember.toText..style = Styles.ts_999999_10sp,
                       ],
                     ),
                   ),
@@ -269,21 +368,22 @@ class GroupSetupPage extends StatelessWidget {
               },
             ),
             Container(
-              color: Styles.c_E8EAEF,
-              height: 1,
-              margin: EdgeInsets.symmetric(horizontal: 10.w),
+              color: Styles.c_F1F2F6,
+              height: 1.h,
             ),
             GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: logic.viewGroupMembers,
               child: Container(
-                padding: EdgeInsets.only(left: 12.w, right: 16.w),
-                height: 46.h,
+                padding: EdgeInsets.only(right: 20.w),
+                height: 50.h,
                 child: Row(
                   children: [
-                    sprintf(StrRes.viewAllGroupMembers, [logic.groupInfo.value.memberCount]).toText..style = Styles.ts_0C1C33_17sp,
+                    sprintf(StrRes.viewAllGroupMembers,
+                        [logic.groupInfo.value.memberCount]).toText
+                      ..style = Styles.ts_333333_16sp,
                     const Spacer(),
-                    ImageRes.rightArrow.toImage
+                    ImageRes.appRightArrow.toImage
                       ..width = 24.w
                       ..height = 24.h,
                   ],
@@ -309,13 +409,12 @@ class GroupSetupPage extends StatelessWidget {
                 ..width = 28.w
                 ..height = 28.h,
               4.verticalSpace,
-              text.toText..style = Styles.ts_8E9AB0_14sp
+              text.toText..style = Styles.ts_999999_14sp
             ],
           ),
         );
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-      margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
       decoration: BoxDecoration(
         color: Styles.c_FFFFFF,
         borderRadius: BorderRadius.circular(6.r),
@@ -323,7 +422,7 @@ class GroupSetupPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          StrRes.chatContent.toText..style = Styles.ts_8E9AB0_14sp,
+          StrRes.chatContent.toText..style = Styles.ts_999999_14sp,
           12.verticalSpace,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -371,40 +470,44 @@ class GroupSetupPage extends StatelessWidget {
         onTap: onTap,
         behavior: HitTestBehavior.translucent,
         child: Container(
-          height: 46.h,
-          margin: EdgeInsets.symmetric(horizontal: 10.w),
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          decoration: BoxDecoration(
-            color: Styles.c_FFFFFF,
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(isTopRadius ? 6.r : 0),
-              topLeft: Radius.circular(isTopRadius ? 6.r : 0),
-              bottomLeft: Radius.circular(isBottomRadius ? 6.r : 0),
-              bottomRight: Radius.circular(isBottomRadius ? 6.r : 0),
-            ),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                  child: text.toText
-                    ..style = textStyle ?? Styles.ts_0C1C33_17sp
-                    ..maxLines = 1),
-              if (null != value)
-                value.toText
-                  ..style = Styles.ts_8E9AB0_14sp
-                  ..maxLines = 1
-                  ..overflow = TextOverflow.ellipsis,
-              if (showSwitchButton)
-                CupertinoSwitch(
-                  value: switchOn,
-                  activeColor: Styles.c_0089FF,
-                  onChanged: onChanged,
+          color: Styles.c_FFFFFF,
+          child: Container(
+            height: 46.h,
+            margin: EdgeInsets.only(left: 20.w),
+            padding: EdgeInsets.only(right: 20.w),
+            decoration: BoxDecoration(
+                border:
+                    Border(top: BorderSide(color: Styles.c_F1F2F6, width: 1.h))
+                // borderRadius: BorderRadius.only(
+                //   topRight: Radius.circular(isTopRadius ? 6.r : 0),
+                //   topLeft: Radius.circular(isTopRadius ? 6.r : 0),
+                //   bottomLeft: Radius.circular(isBottomRadius ? 6.r : 0),
+                //   bottomRight: Radius.circular(isBottomRadius ? 6.r : 0),
+                // ),
                 ),
-              if (showRightArrow)
-                ImageRes.rightArrow.toImage
-                  ..width = 24.w
-                  ..height = 24.h,
-            ],
+            child: Row(
+              children: [
+                Expanded(
+                    child: text.toText
+                      ..style = textStyle ?? Styles.ts_333333_16sp
+                      ..maxLines = 1),
+                if (null != value)
+                  value.toText
+                    ..style = Styles.ts_999999_14sp
+                    ..maxLines = 1
+                    ..overflow = TextOverflow.ellipsis,
+                if (showSwitchButton)
+                  CupertinoSwitch(
+                    value: switchOn,
+                    activeColor: Styles.c_07C160,
+                    onChanged: onChanged,
+                  ),
+                if (showRightArrow)
+                  ImageRes.appRightArrow.toImage
+                    ..width = 24.w
+                    ..height = 24.h,
+              ],
+            ),
           ),
         ),
       );

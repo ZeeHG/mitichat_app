@@ -54,7 +54,7 @@ class ServerConfigPage extends StatelessWidget {
       child: Scaffold(
         appBar: TitleBar.back(
           right: StrRes.save.toText
-            ..style = Styles.ts_0C1C33_17sp
+            ..style = Styles.ts_333333_17sp
             ..onTap = logic.confirm,
         ),
         backgroundColor: Colors.white,

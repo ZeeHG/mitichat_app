@@ -38,17 +38,17 @@ class ProcessGroupRequestsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     (logic.applicationInfo.nickname ?? '').toText
-                      ..style = Styles.ts_0C1C33_17sp,
+                      ..style = Styles.ts_333333_17sp,
                     // if (!logic.isInvite)
                     RichText(
                       text: TextSpan(
                         text: StrRes.applyJoin,
-                        style: Styles.ts_8E9AB0_14sp,
+                        style: Styles.ts_999999_14sp,
                         children: [
                           WidgetSpan(child: 2.horizontalSpace),
                           TextSpan(
                             text: logic.groupName,
-                            style: Styles.ts_0089FF_14sp,
+                            style: Styles.ts_8443F8_14sp,
                           ),
                         ],
                       ),
@@ -57,27 +57,27 @@ class ProcessGroupRequestsPage extends StatelessWidget {
                     //   RichText(
                     //     text: TextSpan(
                     //       text: logic.getInviterNickname(),
-                    //       style: Styles.ts_0089FF_14sp,
+                    //       style: Styles.ts_8443F8_14sp,
                     //       children: [
                     //         WidgetSpan(child: 2.horizontalSpace),
                     //         TextSpan(
                     //           text: StrRes.invite,
-                    //           style: Styles.ts_8E9AB0_14sp,
+                    //           style: Styles.ts_999999_14sp,
                     //         ),
                     //         WidgetSpan(child: 2.horizontalSpace),
                     //         TextSpan(
                     //           text: logic.applicationInfo.nickname,
-                    //           style: Styles.ts_0089FF_14sp,
+                    //           style: Styles.ts_8443F8_14sp,
                     //         ),
                     //         WidgetSpan(child: 2.horizontalSpace),
                     //         TextSpan(
                     //           text: StrRes.joinIn,
-                    //           style: Styles.ts_8E9AB0_14sp,
+                    //           style: Styles.ts_999999_14sp,
                     //         ),
                     //         WidgetSpan(child: 2.horizontalSpace),
                     //         TextSpan(
                     //           text: logic.groupName,
-                    //           style: Styles.ts_0089FF_14sp,
+                    //           style: Styles.ts_8443F8_14sp,
                     //         ),
                     //       ],
                     //     ),
@@ -105,7 +105,7 @@ class ProcessGroupRequestsPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       (logic.applicationInfo.reqMsg ?? '').toText
-                        ..style = Styles.ts_0C1C33_17sp,
+                        ..style = Styles.ts_333333_17sp,
                     ],
                   ),
                 ),
@@ -114,7 +114,7 @@ class ProcessGroupRequestsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 sprintf(StrRes.sourceFrom, [logic.sourceFrom]).toText
-                  ..style = Styles.ts_8E9AB0_14sp
+                  ..style = Styles.ts_999999_14sp
               ],
             ),
             12.verticalSpace,
@@ -152,7 +152,7 @@ class ProcessGroupRequestsPage extends StatelessWidget {
             onTap: logic.reject,
             child: Container(
               alignment: Alignment.center,
-              child: StrRes.reject.toText..style = Styles.ts_0C1C33_17sp,
+              child: StrRes.reject.toText..style = Styles.ts_333333_17sp,
             ),
           ),
         ),

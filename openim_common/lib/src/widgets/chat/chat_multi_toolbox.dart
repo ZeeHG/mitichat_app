@@ -11,7 +11,7 @@ class ChatMultiSelToolbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Styles.c_F0F2F6,
+      color: Styles.c_F7F8FA,
       height: 92.h,
       // padding: EdgeInsets.symmetric(vertical: 12.h),
       child: Row(
@@ -25,7 +25,7 @@ class ChatMultiSelToolbox extends StatelessWidget {
                 ..height = 48.h
                 ..onTap = onDelete,
               4.verticalSpace,
-              StrRes.delete.toText..style = Styles.ts_FF381F_12sp,
+              StrRes.delete.toText..style = Styles.ts_FF4E4C_12sp,
             ],
           ),
           const Spacer(),
@@ -37,7 +37,7 @@ class ChatMultiSelToolbox extends StatelessWidget {
                 ..height = 48.h
                 ..onTap = onMergeForward,
               4.verticalSpace,
-              StrRes.mergeForward.toText..style = Styles.ts_0C1C33_10sp,
+              StrRes.mergeForward.toText..style = Styles.ts_333333_10sp,
             ],
           ),
           98.horizontalSpace,

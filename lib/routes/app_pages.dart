@@ -2,6 +2,14 @@ import 'package:get/get.dart';
 import 'package:openim_meeting/openim_meeting.dart';
 import 'package:openim_working_circle/openim_working_circle.dart';
 
+import '../pages/bot/bot_binding.dart';
+import '../pages/bot/bot_view.dart';
+import '../pages/bot/change_bot_info/change_bot_info_binding.dart';
+import '../pages/bot/change_bot_info/change_bot_info_view.dart';
+import '../pages/bot/create_bot/create_bot_binding.dart';
+import '../pages/bot/create_bot/create_bot_view.dart';
+import '../pages/bot/training_bot/training_bot_binding.dart';
+import '../pages/bot/training_bot/training_bot_view.dart';
 import '../pages/chat/chat_binding.dart';
 import '../pages/chat/chat_setup/chat_setup_binding.dart';
 import '../pages/chat/chat_setup/chat_setup_view.dart';
@@ -38,8 +46,6 @@ import '../pages/chat/group_setup/group_setup_binding.dart';
 import '../pages/chat/group_setup/group_setup_view.dart';
 import '../pages/chat/group_setup/set_mute_for_memeber/set_mute_for_member_binding.dart';
 import '../pages/chat/group_setup/set_mute_for_memeber/set_mute_for_member_view.dart';
-import '../pages/chat/oa_notification/oa_notification_binding.dart';
-import '../pages/chat/oa_notification/oa_notification_view.dart';
 import '../pages/contacts/add_by_search/add_by_search_binding.dart';
 import '../pages/contacts/add_by_search/add_by_search_view.dart';
 import '../pages/contacts/add_method/add_method_binding.dart';
@@ -140,6 +146,10 @@ import '../pages/register/verify_phone/verify_phone_binding.dart';
 import '../pages/register/verify_phone/verify_phone_view.dart';
 import '../pages/splash/splash_binding.dart';
 import '../pages/splash/splash_view.dart';
+import '../pages/discover/discover_binding.dart';
+import '../pages/discover/discover_view.dart';
+import '../pages/chat/oa_notification/oa_notification_binding.dart';
+import '../pages/chat/oa_notification/oa_notification_view.dart';
 
 part 'app_routes.dart';
 
@@ -506,6 +516,31 @@ class AppPages {
       name: AppRoutes.oaNotificationList,
       page: () => OANotificationPage(),
       binding: OANotificationBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.discover,
+      page: () => DiscoverPage(),
+      binding: DiscoverBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.bot,
+      page: () => BotPage(),
+      binding: BotBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.createBot,
+      page: () => CreateBotPage(),
+      binding: CreateBotBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.changeBotInfo,
+      page: () => ChangeBotInfoPage(),
+      binding: ChangeBotInfoBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.trainingBot,
+      page: () => TrainingBotPage(),
+      binding: TrainingBotBinding(),
     ),
     // ...OPages.pages, // 组织架构
     ...WPages.pages, // 工作圈

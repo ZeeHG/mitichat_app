@@ -53,13 +53,13 @@ class FriendRequestsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 (name ?? '').toText
-                  ..style = Styles.ts_0C1C33_17sp
+                  ..style = Styles.ts_333333_17sp
                   ..maxLines = 1
                   ..overflow = TextOverflow.ellipsis,
                 4.verticalSpace,
                 if (IMUtils.isNotNullEmptyStr(reason))
                   (reason ?? '').toText
-                    ..style = Styles.ts_8E9AB0_14sp
+                    ..style = Styles.ts_999999_14sp
                     ..maxLines = 1
                     ..overflow = TextOverflow.ellipsis,
               ],
@@ -78,11 +78,11 @@ class FriendRequestsPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 13.w),
             ),
           if (info.isWaitingHandle && isISendRequest)
-            StrRes.waitingForVerification.toText..style = Styles.ts_8E9AB0_14sp,
+            StrRes.waitingForVerification.toText..style = Styles.ts_999999_14sp,
           if (info.isRejected)
-            StrRes.rejected.toText..style = Styles.ts_8E9AB0_14sp,
+            StrRes.rejected.toText..style = Styles.ts_999999_14sp,
           if (info.isAgreed)
-            StrRes.approved.toText..style = Styles.ts_8E9AB0_14sp,
+            StrRes.approved.toText..style = Styles.ts_999999_14sp,
         ],
       ),
     );

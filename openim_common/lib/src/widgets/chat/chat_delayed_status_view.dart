@@ -20,7 +20,7 @@ class ChatDelayedStatusView extends StatelessWidget {
       builder: (_, AsyncSnapshot<bool> hot) => Visibility(
         visible: hot.hasData && hot.data == true,
         child: CupertinoActivityIndicator(
-          color: Styles.c_0089FF,
+          color: Styles.c_8443F8,
         ),
       ),
     );

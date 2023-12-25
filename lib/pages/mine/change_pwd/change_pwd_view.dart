@@ -15,12 +15,22 @@ class ChangePwdPage extends StatelessWidget {
     return TouchCloseSoftKeyboard(
       child: Scaffold(
         appBar: TitleBar.back(
-          title: StrRes.changePassword,
-          right: StrRes.determine.toText
-            ..style = Styles.ts_0C1C33_17sp
-            ..onTap = logic.confirm,
-        ),
-        backgroundColor: Styles.c_F8F9FA,
+            title: StrRes.changePassword,
+            right: Container(
+              width: 56.w,
+              height: 28.h,
+              child: Button(
+                text: StrRes.determine,
+                enabled: logic.enabled,
+                onTap: logic.confirm,
+                textStyle: Styles.ts_FFFFFF_16sp,
+              ),
+            )
+            // StrRes.determine.toText
+            //   ..style = Styles.ts_333333_16sp
+            //   ..onTap = logic.confirm,
+            ),
+        backgroundColor: Styles.c_F7F8FA,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -32,23 +42,31 @@ class ChangePwdPage extends StatelessWidget {
                 isTopRadius: true,
               ),
               Container(
-                margin: EdgeInsets.only(left: 26.w, right: 10.w),
-                color: Styles.c_E8EAEF,
-                height: .5,
+                margin: EdgeInsets.only(left: 12.w, right: 12.w),
+                color: Styles.c_F1F2F6,
+                height: 1.h,
               ),
               _buildItemView(
                 label: StrRes.newPwd,
                 controller: logic.newPwdCtrl,
               ),
               Container(
-                margin: EdgeInsets.only(left: 26.w, right: 10.w),
-                color: Styles.c_E8EAEF,
-                height: .5,
+                margin: EdgeInsets.only(left: 12.w, right: 12.w),
+                color: Styles.c_F1F2F6,
+                height: 1.h,
               ),
               _buildItemView(
                 label: StrRes.confirmNewPwd,
                 controller: logic.againPwdCtrl,
                 isBottomRadius: true,
+              ),
+              Container(
+                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.only(top: 12.h, left: 12.w),
+                child: Text(
+                  StrRes.pwdTips,
+                  style: Styles.ts_999999_12sp,
+                ),
               ),
             ],
           ),
@@ -65,28 +83,21 @@ class ChangePwdPage extends StatelessWidget {
     bool isBottomRadius = false,
   }) =>
       Container(
-        height: 60.h,
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        margin: EdgeInsets.symmetric(horizontal: 10.w),
+        height: 52.h,
+        padding: EdgeInsets.symmetric(horizontal: 12.w),
         decoration: BoxDecoration(
           color: Styles.c_FFFFFF,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(isTopRadius ? 6.r : 0),
-            topRight: Radius.circular(isTopRadius ? 6.r : 0),
-            bottomRight: Radius.circular(isBottomRadius ? 6.r : 0),
-            bottomLeft: Radius.circular(isBottomRadius ? 6.r : 0),
-          ),
         ),
         child: Row(
           children: [
-            label.toText..style = Styles.ts_0C1C33_17sp,
+            label.toText..style = Styles.ts_333333_16sp,
             Expanded(
               child: TextField(
                 controller: controller,
                 autofocus: autofocus,
                 textInputAction: TextInputAction.next,
                 textAlign: TextAlign.end,
-                style: Styles.ts_0C1C33_17sp,
+                style: Styles.ts_333333_16sp,
                 decoration: const InputDecoration(
                   isDense: true,
                   border: InputBorder.none,

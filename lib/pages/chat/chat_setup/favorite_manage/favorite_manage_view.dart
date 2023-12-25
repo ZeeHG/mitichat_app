@@ -18,7 +18,7 @@ class FavoriteManagePage extends StatelessWidget {
             title: StrRes.favoriteFace,
             right: StrRes.favoriteManage.toText
               ..onTap = logic.manage
-              ..style = Styles.ts_0C1C33_17sp,
+              ..style = Styles.ts_333333_17sp,
           ),
           body: Column(
             children: [
@@ -88,7 +88,7 @@ class FavoriteManagePage extends StatelessWidget {
           children: [
             sprintf(StrRes.favoriteCount,
                 [logic.cacheLogic.favoriteList.length]).toText
-              ..style = Styles.ts_8E9AB0_16sp,
+              ..style = Styles.ts_999999_16sp,
             const Spacer(),
             if (logic.isMultiModel.value)
               GestureDetector(
@@ -96,7 +96,7 @@ class FavoriteManagePage extends StatelessWidget {
                 behavior: HitTestBehavior.translucent,
                 child: sprintf(StrRes.favoriteDel, [logic.selectedList.length])
                     .toText
-                  ..style = Styles.ts_0089FF_16sp,
+                  ..style = Styles.ts_8443F8_16sp,
               ),
           ],
         ),

@@ -142,7 +142,7 @@ class _ChatInputBoxState
                   Container(
                     // height: 56.h,
                     constraints: BoxConstraints(minHeight: kInputBoxMinHeight),
-                    color: Styles.c_F0F2F6,
+                    color: Styles.c_F7F7F7,
                     child: Row(
                       children: [
                         12.horizontalSpace,
@@ -150,8 +150,8 @@ class _ChatInputBoxState
                             ? (ImageRes.openKeyboard.toImage
                               ..onTap = onTapLeftKeyboard)
                             : (ImageRes.openVoice.toImage..onTap = onTapSpeak))
-                          ..width = 32.w
-                          ..height = 32.h
+                          ..width = 28.w
+                          ..height = 28.h
                           ..opacity = _opacity,
                         12.horizontalSpace,
                         Expanded(
@@ -173,16 +173,16 @@ class _ChatInputBoxState
                             ? (ImageRes.openKeyboard.toImage
                               ..onTap = onTapRightKeyboard)
                             : (ImageRes.openEmoji.toImage..onTap = onTapEmoji))
-                          ..width = 32.w
-                          ..height = 32.h
+                          ..width = 28.w
+                          ..height = 28.h
                           ..opacity = _opacity,
                         12.horizontalSpace,
                         (_sendButtonVisible
-                                ? ImageRes.sendMessage
+                                ? ImageRes.appSendMessage2
                                 : ImageRes.openToolbox)
                             .toImage
-                          ..width = 32.w
-                          ..height = 32.h
+                          ..width = 28.w
+                          ..height = 28.h
                           ..opacity = _opacity
                           ..onTap = _sendButtonVisible ? send : toggleToolbox,
                         12.horizontalSpace,
@@ -235,8 +235,8 @@ class _ChatInputBoxState
           atCallback: widget.atCallback,
           controller: widget.controller,
           focusNode: widget.focusNode,
-          style: widget.style ?? Styles.ts_0C1C33_17sp,
-          atStyle: widget.atStyle ?? Styles.ts_0089FF_17sp,
+          style: widget.style ?? Styles.ts_333333_17sp,
+          atStyle: widget.atStyle ?? Styles.ts_8443F8_17sp,
           inputFormatters: widget.inputFormatters ??
               [AtTextInputFormatter(widget.openAtList)],
           enabled: widget.enabled,
@@ -328,7 +328,7 @@ class _QuoteView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(bottom: 10.h, left: 56.w, right: 100.w),
-      color: Styles.c_F0F2F6,
+      color: Styles.c_F7F8FA,
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: onClearQuote,
@@ -344,7 +344,7 @@ class _QuoteView extends StatelessWidget {
               Expanded(
                 child: Text(
                   content,
-                  style: Styles.ts_8E9AB0_14sp,
+                  style: Styles.ts_999999_14sp,
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                 ),

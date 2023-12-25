@@ -265,18 +265,21 @@ class Metas {
 class WorkMomentsNotification {
   WorkMoments? body;
   int? unreadNum;
+  String? key;
 
-  WorkMomentsNotification({this.body, this.unreadNum});
+  WorkMomentsNotification({this.body, this.unreadNum, this.key});
 
   WorkMomentsNotification.fromJson(Map<String, dynamic> json) {
     body = json['body'] == null ? null : WorkMoments.fromJson(json['body']);
     unreadNum = json['unreadNum'];
+    key = json['key'];
   }
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['body'] = body?.toJson();
     data['unreadNum'] = unreadNum;
+    data['key'] = key;
     return data;
   }
 }

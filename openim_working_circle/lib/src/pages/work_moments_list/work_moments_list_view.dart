@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
@@ -16,71 +17,78 @@ class WorkMomentsListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: TitleBar.back(),
-      backgroundColor: Styles.c_F8F9FA,
-      body: Obx(() => Stack(
-            children: [
-              Listener(
-                onPointerUp: (event) {
-                  // logic.pointerUp = true;
-                  // logic.startRefresh();
-                },
-                onPointerDown: (event) {
-                  // logic.pointerUp = false;
-                  logic.cancelComment();
-                  final position = logic.popMenuPosition;
-                  final size = logic.popMenuSize;
-                  if (null != position && size != null) {
-                    final dx = event.position.dx;
-                    final dy = event.position.dy;
-                    if (dx > position.dx &&
-                        dx < (position.dx + size.width) &&
-                        dy > position.dy &&
-                        dy < (position.dy + size.height)) {
-                      // 点击事件在菜单上
-                    } else {
-                      logic.hiddenLikeCommentPopMenu();
-                    }
-                  }
-                },
-                child: SmartRefresher(
-                  controller: logic.refreshCtrl,
-                  header: const MomentsIndicator(),
-                  // header: const MaterialClassicHeader(color: Color(0xFF041d31)),
-                  footer: IMViews.buildFooter(),
-                  onRefresh: logic.queryWorkingCircleList,
-                  onLoading: logic.loadMore,
-                  enablePullUp: true,
-                  child: CustomScrollView(
-                    // controller: logic.scrollController,
-                    // physics: const BouncingScrollPhysics(),
-                    slivers: [
-                      _sliverAppBar,
-                      if (logic.newMessageCount.value > 0 && logic.isMyself)
-                        _newMessageHintView,
-                      SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (_, int index) {
-                            final info = logic.workMoments.elementAt(index);
-                            return Obx(() => _buildItemView(info));
-                          },
-                          childCount: logic.workMoments.length,
-                        ),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(
+            systemNavigationBarColor: Styles.c_FFFFFF,
+            systemNavigationBarIconBrightness: Brightness.dark),
+        child: Scaffold(
+          backgroundColor: Styles.c_FFFFFF,
+          body: Obx(() => Stack(
+                children: [
+                  Listener(
+                    onPointerUp: (event) {
+                      // logic.pointerUp = true;
+                      // logic.startRefresh();
+                    },
+                    onPointerDown: (event) {
+                      // logic.pointerUp = false;
+                      logic.cancelComment();
+                      final position = logic.popMenuPosition;
+                      final size = logic.popMenuSize;
+                      if (null != position && size != null) {
+                        final dx = event.position.dx;
+                        final dy = event.position.dy;
+                        if (dx > position.dx &&
+                            dx < (position.dx + size.width) &&
+                            dy > position.dy &&
+                            dy < (position.dy + size.height)) {
+                          // 点击事件在菜单上
+                        } else {
+                          logic.hiddenLikeCommentPopMenu();
+                        }
+                      }
+                    },
+                    child: SmartRefresher(
+                      controller: logic.refreshCtrl,
+                      header: const MomentsIndicator(),
+                      // header: const MaterialClassicHeader(color: Color(0xFF041d31)),
+                      footer: IMViews.buildFooter(),
+                      onRefresh: logic.queryWorkingCircleList,
+                      onLoading: logic.loadMore,
+                      enablePullUp: true,
+                      child: CustomScrollView(
+                        controller: logic.scrollController,
+                        // physics: const BouncingScrollPhysics(),
+                        // controller: logic.scrollController,
+                        slivers: [
+                          _sliverAppBar(context),
+                          SliverToBoxAdapter(
+                            child: Container(height: 30.h),
+                          ),
+                          if (logic.newMessageCount.value > 0 && logic.isMyself)
+                            _newMessageHintView,
+                          SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (_, int index) {
+                                final info = logic.workMoments.elementAt(index);
+                                return Obx(() => _buildItemView(info));
+                              },
+                              childCount: logic.workMoments.length,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              if (logic.commentHintText.isNotEmpty)
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: _inputBox,
-                ),
-            ],
-          )),
+                  if (logic.commentHintText.isNotEmpty)
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: _inputBox,
+                    ),
+                ],
+              )),
 
-      /* body: Obx(() => SmartRefresher(
+          /* body: Obx(() => SmartRefresher(
             controller: logic.refreshCtrl,
             header: const MaterialClassicHeader(),
             onRefresh: logic.queryWorkingCircleList,
@@ -92,7 +100,7 @@ class WorkMomentsListPage extends StatelessWidget {
               },
             ),
           )),*/
-      /* body: Obx(() => Stack(
+          /* body: Obx(() => Stack(
             children: [
               Listener(
                 onPointerUp: (event) {
@@ -139,7 +147,7 @@ class WorkMomentsListPage extends StatelessWidget {
                           height: 55.h,
                           child: Center(
                             child: CupertinoActivityIndicator(
-                              color: Styles.c_0089FF,
+                              color: Styles.c_8443F8,
                             ),
                           ),
                         ),
@@ -155,7 +163,7 @@ class WorkMomentsListPage extends StatelessWidget {
               Positioned(left: 16.w, child: _refreshIndicator),
             ],
           )),*/
-    );
+        ));
   }
 
   // Widget get _refreshIndicator => AnimatedBuilder(
@@ -194,7 +202,7 @@ class WorkMomentsListPage extends StatelessWidget {
 
   Widget get _newMessageHintView => SliverToBoxAdapter(
         child: Container(
-          padding: EdgeInsets.only(top: 22.h, bottom: 6.h),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 7.h),
           color: Styles.c_FFFFFF,
           child: Center(
             child: GestureDetector(
@@ -206,120 +214,135 @@ class WorkMomentsListPage extends StatelessWidget {
                   vertical: 4.h,
                 ),
                 decoration: BoxDecoration(
-                  color: Styles.c_0C1C33_opacity30,
-                  borderRadius: BorderRadius.circular(6.r),
+                  color: Styles.c_000000_opacity60,
+                  borderRadius: BorderRadius.circular(4.r),
                 ),
                 child: sprintf(StrRes.nMessage, [logic.newMessageCount.value])
                     .toText
-                  ..style = Styles.ts_FFFFFF_14sp,
+                  ..style = Styles.ts_FFFFFF_16sp,
               ),
             ),
           ),
         ),
       );
 
-  Widget get _sliverAppBar => SliverAppBar(
-        title: StrRes.workingCircle.toText
-          ..style = Styles.ts_FFFFFF_20sp_medium,
+  Widget _sliverAppBar(BuildContext context) => SliverAppBar(
+        title: StrRes.discover.toText
+          ..style = Styles.ts_FFFFFF_18sp_medium,
         centerTitle: true,
-        expandedHeight: 178.h,
-        // collapsedHeight: 100,
-        backgroundColor: const Color(0xFF041d31),
+        expandedHeight: 220.h,
+        toolbarHeight: 44.h,
+        backgroundColor: Styles.c_000000,
         floating: false,
         pinned: true,
         snap: false,
         stretch: true,
+        leadingWidth: 42.w,
+        leading: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () => Get.back(),
+          child: Container(
+            padding: EdgeInsets.only(left: 18.w),
+            child: ImageRes.appBackWhite.toImage
+              ..width = 24.w
+              ..height = 24.h,
+          ),
+        ),
         // stretchTriggerOffset: 100,
         // leading: ImageRes.backBlack.toImage..color = Styles.c_FFFFFF,
         actions: logic.isMyself
             ? [
-                ImageRes.workingCircleMessage.toImage
-                  ..width = 24.w
-                  ..height = 24.h
+                ImageRes.appWorkingCircleMessage.toImage
+                  ..width = 22.w
+                  ..height = 22.h
                   ..onTap = logic.seeNewMessage,
-                // 16.horizontalSpace,
+                10.horizontalSpace,
                 _popButton,
+                10.horizontalSpace,
                 // ImageRes.workingCirclePublish.toImage
                 //   ..width = 24.w
                 //   ..height = 24.h,
                 // 16.horizontalSpace,
               ]
             : [],
-        flexibleSpace: FlexibleSpaceBar(
-          background: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              ImageRes.workingCircleHeaderBg.toImage
-                ..width = 375.w
-                ..height = 222.h
-                ..fit = BoxFit.cover,
+        flexibleSpace: Stack(
+          clipBehavior: Clip.none,
+          alignment: Alignment.bottomCenter,
+          children: [
+            Container(
+              height: 300.h,
+              color: Styles.c_8443F8,
+              child: ImageRes.workingCircleHeaderBg.toImage
+              ..width = 375.w
+              ..height = 220.h
+              ..fit = BoxFit.cover,
+            ),
+            if (logic.scrollHeight <=
+                (220.h - 44.h - 10.h - MediaQuery.of(context).padding.top))
               Positioned(
-                bottom: 24.h,
-                left: 16.w,
+                bottom: -20.h,
+                right: 18.w,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    (logic.nickname ?? '').toText
+                      ..style = Styles.ts_FFFFFF_18sp_medium,
+                    12.horizontalSpace,
                     AvatarView(
-                      width: 48.w,
-                      height: 48.h,
+                      width: 60.w,
+                      height: 60.h,
                       url: logic.faceURL,
                       text: logic.nickname,
                       onTap: logic.viewMyProfilePanel,
                     ),
-                    12.horizontalSpace,
-                    (logic.nickname ?? '').toText
-                      ..style = Styles.ts_FFFFFF_18sp_medium,
                   ],
                 ),
               )
-            ],
-          ),
+          ],
         ),
       );
 
   Widget get _popButton => PopupMenuButton<int>(
         offset: Offset(0, 48.h),
         padding: EdgeInsets.zero,
-        icon: ImageRes.workingCirclePublish.toImage
-          ..width = 24.w
-          ..height = 24.h,
+        icon: ImageRes.appWorkingCirclePublish.toImage
+          ..width = 22.w
+          ..height = 22.h,
         itemBuilder: (_) => <PopupMenuEntry<int>>[
           PopupMenuItem(
-            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            padding: EdgeInsets.only(left: 12.w),
+            height: 45.h,
             value: 0,
-            height: 30.h,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.image,
-                  color: Styles.c_0C1C33,
-                  size: 16.w,
-                ),
-                10.horizontalSpace,
-                StrRes.publishPicture.toText..style = Styles.ts_0C1C33_17sp,
+                ImageRes.appPublishPic.toImage
+                  ..width = 20.w
+                  ..height = 20.h,
+                12.horizontalSpace,
+                StrRes.publishPicture.toText..style = Styles.ts_333333_16sp,
               ],
             ),
           ),
           const PopupMenuDivider(),
           PopupMenuItem(
-            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            padding: EdgeInsets.only(left: 12.w),
+            height: 45.h,
             value: 1,
-            height: 30.h,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.video_collection,
-                  color: Styles.c_0C1C33,
-                  size: 16.w,
-                ),
-                10.horizontalSpace,
-                StrRes.publishVideo.toText..style = Styles.ts_0C1C33_17sp,
+                ImageRes.appPublishVideo.toImage
+                  ..width = 20.w
+                  ..height = 20.h,
+                12.horizontalSpace,
+                StrRes.publishVideo.toText..style = Styles.ts_333333_16sp,
               ],
             ),
           ),
         ],
         onSelected: logic.publish,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(6.w))),
       );
 
   /* Widget _buildItemView(WorkMoments moments) => Container(
@@ -347,8 +370,8 @@ class WorkMomentsListPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   (moments.userName ?? '').toText
-                    ..style = Styles.ts_6085B1_17sp_medium,
-                  // (moments.content?.text ?? '').toText..style = Styles.ts_0C1C33_17sp,
+                    ..style = Styles.ts_6085B1_16sp_medium,
+                  // (moments.content?.text ?? '').toText..style = Styles.ts_333333_16sp,
                   ExpandedText(text: moments.content?.text ?? ''),
                   if (null != moments.content?.metas &&
                       moments.content!.metas!.isNotEmpty)
@@ -362,7 +385,7 @@ class WorkMomentsListPage extends StatelessWidget {
                       child: sprintf(StrRes.mentioned, [
                         moments.atUsers!.map((e) => e.userName).join('、')
                       ]).toText
-                        ..style = Styles.ts_8E9AB0_12sp,
+                        ..style = Styles.ts_999999_12sp,
                     ),
                   Stack(
                     alignment: Alignment.center,
@@ -374,7 +397,7 @@ class WorkMomentsListPage extends StatelessWidget {
                             dayFormat: DayFormat.Full,
                             locale: Get.locale?.languageCode ?? 'zh',
                           ).toText
-                            ..style = Styles.ts_8E9AB0_12sp,
+                            ..style = Styles.ts_999999_12sp,
                           if (moments.permission != 0 &&
                               moments.userID == OpenIM.iMManager.uid)
                             GestureDetector(
@@ -476,7 +499,7 @@ class WorkMomentsListPage extends StatelessWidget {
                           e.replyUserName!.isNotEmpty)
                         TextSpan(
                           text: ' ${StrRes.reply} ',
-                          style: Styles.ts_0C1C33_14sp,
+                          style: Styles.ts_333333_14sp,
                           children: [
                             TextSpan(
                               text: e.replyUserName,
@@ -486,7 +509,7 @@ class WorkMomentsListPage extends StatelessWidget {
                         ),
                       TextSpan(
                         text: '：${e.content}',
-                        style: Styles.ts_0C1C33_14sp,
+                        style: Styles.ts_333333_14sp,
                       ),
                     ],
                   ),
@@ -593,7 +616,7 @@ class WorkMomentsListPage extends StatelessWidget {
 
   Widget get _inputBox => Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-        color: Styles.c_F0F2F6,
+        color: Styles.c_F7F8FA,
         child: Row(
           children: [
             Expanded(
@@ -608,11 +631,11 @@ class WorkMomentsListPage extends StatelessWidget {
                   autofocus: true,
                   minLines: 1,
                   maxLines: 4,
-                  style: Styles.ts_0C1C33_17sp,
+                  style: Styles.ts_333333_16sp,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: logic.commentHintText.value,
-                    hintStyle: Styles.ts_8E9AB0_17sp,
+                    hintStyle: Styles.ts_999999_16sp,
                     contentPadding: EdgeInsets.symmetric(
                       horizontal: 10.w,
                       vertical: 6.h,
@@ -623,9 +646,9 @@ class WorkMomentsListPage extends StatelessWidget {
               ),
             ),
             12.horizontalSpace,
-            ImageRes.sendMessage.toImage
-              ..width = 32.w
-              ..height = 32.h
+            ImageRes.appSendMessage2.toImage
+              ..width = 28.w
+              ..height = 28.h
               ..onTap = logic.submitComment,
           ],
         ),

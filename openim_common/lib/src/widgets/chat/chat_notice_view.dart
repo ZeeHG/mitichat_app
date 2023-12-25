@@ -18,7 +18,7 @@ class ChatNoticeView extends StatelessWidget {
       constraints: BoxConstraints(maxWidth: maxWidth),
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
       decoration: BoxDecoration(
-        color: Styles.c_FFFFFF,
+        color: (isISend ? Styles.c_8443F8 : Styles.c_FFFFFF),
         border: Border.all(color: Styles.c_E8EAEF, width: 1),
         borderRadius: borderRadius(isISend),
       ),
@@ -30,11 +30,11 @@ class ChatNoticeView extends StatelessWidget {
               ImageRes.notice.toImage
                 ..width = 24.w
                 ..height = 24.h,
-              StrRes.groupAc.toText..style = Styles.ts_0089FF_17sp,
+              StrRes.groupAc.toText..style = (isISend ? Styles.ts_FFFFFF_16sp : Styles.ts_333333_16sp),
             ],
           ),
           6.verticalSpace,
-          content.toText..style = Styles.ts_0C1C33_17sp,
+          content.toText..style = (isISend ? Styles.ts_FFFFFF_16sp : Styles.ts_333333_16sp),
         ],
       ),
     );
@@ -73,7 +73,7 @@ class TopNoticeView extends StatelessWidget {
                   ..width = 24.w
                   ..height = 24.h,
                 2.horizontalSpace,
-                StrRes.groupAc.toText..style = Styles.ts_0089FF_17sp,
+                StrRes.groupAc.toText..style = Styles.ts_8443F8_16sp,
                 const Spacer(),
                 ImageRes.closeGroupNotice.toImage
                   ..width = 16.w
@@ -83,7 +83,7 @@ class TopNoticeView extends StatelessWidget {
             ),
             8.verticalSpace,
             content.toText
-              ..style = Styles.ts_0C1C33_14sp
+              ..style = Styles.ts_333333_14sp
               ..maxLines = 2
               ..overflow = TextOverflow.ellipsis,
           ],

@@ -36,7 +36,7 @@ class ChatPage extends StatelessWidget {
         leftNickname: logic.getNewestNickname(message),
         leftFaceUrl: logic.getNewestFaceURL(message),
         rightNickname: OpenIM.iMManager.userInfo.nickname,
-        rightFaceUrl: OpenIM.iMManager.userInfo.faceURL,
+        rightFaceUrl: OpenIM.iMManager.userInfo.faceURL ?? "",
         showLeftNickname: !logic.isSingleChat,
         showRightNickname: !logic.isSingleChat,
         enabledCopyMenu: logic.showCopyMenu(message),
@@ -46,10 +46,13 @@ class ChatPage extends StatelessWidget {
         enabledForwardMenu: logic.showForwardMenu(message),
         enabledDelMenu: logic.showDelMenu(message),
         enabledAddEmojiMenu: logic.showAddEmojiMenu(message),
+        enabledTranslateMenu: logic.showTranslateMenu(message),
+        enabledUnTranslateMenu: logic.showUnTranslateMenu(message),
         onFailedToResend: () => logic.failedResend(message),
         onReEit: () => logic.reEditMessage(message),
         onDestroyMessage: () => logic.deleteMsg(message),
         onPopMenuShowChanged: logic.onPopMenuShowChanged,
+        // 点击item非图片视频媒体
         onClickItemView: () => logic.parseClickEvent(message),
         onViewMessageReadStatus: () {
           logic.viewGroupMessageReadStatus(message);
@@ -57,6 +60,8 @@ class ChatPage extends StatelessWidget {
         onMultiSelChanged: (checked) {
           logic.multiSelMsg(message, checked);
         },
+        onTapTranslateMenu: () => logic.translate(message),
+        onTapUnTranslateMenu: () => logic.unTranslate(message),
         onTapCopyMenu: () => logic.copy(message),
         onTapDelMenu: () => logic.deleteMsg(message),
         onTapForwardMenu: () => logic.forward(message),
@@ -203,13 +208,13 @@ class ChatPage extends StatelessWidget {
         return CustomTypeInfo(view, false, true);
       } else if (viewType == CustomMessageType.removedFromGroup) {
         return CustomTypeInfo(
-          StrRes.removedFromGroupHint.toText..style = Styles.ts_8E9AB0_12sp,
+          StrRes.removedFromGroupHint.toText..style = Styles.ts_999999_12sp,
           false,
           false,
         );
       } else if (viewType == CustomMessageType.groupDisbanded) {
         return CustomTypeInfo(
-          StrRes.groupDisbanded.toText..style = Styles.ts_8E9AB0_12sp,
+          StrRes.groupDisbanded.toText..style = Styles.ts_999999_12sp,
           false,
           false,
         );
@@ -219,7 +224,7 @@ class ChatPage extends StatelessWidget {
           final textElem = TextElem.fromJson(data['textElem']);
           return CustomTypeInfo(
             ChatText(
-              // isISend: isISend,
+              isISend: isISend,
               text: textElem.content ?? '',
               textScaleFactor: logic.scaleFactor.value,
               model: TextModel.normal,
@@ -279,7 +284,7 @@ class ChatPage extends StatelessWidget {
         onCompleted: logic.sendVoice,
         builder: (bar) => Obx(() {
           return Scaffold(
-              backgroundColor: Styles.c_F0F2F6,
+              backgroundColor: Styles.c_F7F8FA,
               appBar: TitleBar.chat(
                 title: logic.nickname.value,
                 member: logic.memberStr,
@@ -287,17 +292,17 @@ class ChatPage extends StatelessWidget {
                 showOnlineStatus: logic.showOnlineStatus(),
                 isOnline: logic.onlineStatus.value,
                 isMultiModel: logic.multiSelMode.value,
-                showCallBtn: !logic.isInvalidGroup,
+                // showCallBtn: !logic.isInvalidGroup,
                 onCloseMultiModel: logic.exit,
                 onClickMoreBtn: logic.chatSetup,
-                onClickCallBtn: logic.call,
+                // onClickCallBtn: logic.call,
               ),
               body: SafeArea(
                 top: false,
                 child: WaterMarkBgView(
-                  text: '',
+                  // text: '',
                   path: logic.background.value,
-                  backgroundColor: Styles.c_FFFFFF,
+                  backgroundColor: Styles.c_F7F8FA,
                   // newMessageCount: logic.scrollingCacheMessageList.length,
                   // onSeeNewMessage: logic.scrollToIndex,
                   topView: _topNoticeView,
@@ -316,11 +321,18 @@ class ChatPage extends StatelessWidget {
                     onSend: (v) => logic.sendTextMsg(),
                     toolbox: ChatToolBox(
                       onTapAlbum: logic.onTapAlbum,
-                      onTapCall: logic.call,
+                      // onTapCall: logic.call,
                       onTapCamera: logic.onTapCamera,
                       onTapCard: logic.onTapCarte,
                       onTapFile: logic.onTapFile,
                       onTapLocation: logic.onTapLocation,
+                      onTapAutoTranslate: logic.onTapAutoTranslate,
+                      onTapSnapchat: logic.isSingleChat
+                          ? logic.toggleBurnAfterReading
+                          : null,
+                      onTapGroupNote:
+                          !logic.isSingleChat ? showDeveloping : null,
+                      onTapVote: !logic.isSingleChat ? showDeveloping : null,
                     ),
                     voiceRecordBar: bar,
                     emojiView: ChatEmojiView(
@@ -338,13 +350,46 @@ class ChatPage extends StatelessWidget {
                   ),
                   child: ChatListView(
                     onTouch: () => logic.closeToolbox(),
-                    itemCount: logic.messageList.length,
+                    itemCount: logic.messageList.length + 1,
                     controller: logic.scrollController,
                     onScrollToBottomLoad: logic.onScrollToBottomLoad,
                     onScrollToTop: logic.onScrollToTop,
                     itemBuilder: (_, index) {
-                      final message = logic.indexOfMessage(index);
-                      return Obx(() => _buildItemView(message));
+                      if (index == logic.messageList.length) {
+                        return logic.showEncryptTips.value
+                            ? Align(
+                              child: Container(
+                                width: 300.w,
+                                decoration: BoxDecoration(
+                                    color: Styles.c_EBEBEB,
+                                    borderRadius: BorderRadius.circular(6.r)),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 12.w, vertical: 6.h),
+                                margin: EdgeInsets.only(bottom: 16.h),
+                                child: RichText(
+                                  text: TextSpan(children: [
+                                    WidgetSpan(
+                                      child: ImageRes.appEncrypt.toImage
+                                        ..width = 9.w
+                                        ..height = 10.h,
+                                      alignment: PlaceholderAlignment.middle,
+                                    ),
+                                    WidgetSpan(
+                                      child: SizedBox(width: 2.w,)
+                                    ),
+                                    TextSpan(
+                                      style: Styles.ts_333333_12sp,
+                                      text: StrRes.encryptTips,
+                                    )
+                                  ]),
+                                ),
+                              ),
+                            )
+                            : SizedBox();
+                      } else {
+                        final message = logic.indexOfMessage(index);
+                        return Obx(() => _buildItemView(message));
+                      }
                     },
                   ),
                 ),

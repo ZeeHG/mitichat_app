@@ -31,7 +31,7 @@ class ProcessFriendRequestsPage extends StatelessWidget {
                 ),
                 10.horizontalSpace,
                 (logic.applicationInfo.fromNickname ?? '').toText
-                  ..style = Styles.ts_0C1C33_17sp,
+                  ..style = Styles.ts_333333_17sp,
               ],
             ),
             12.verticalSpace,
@@ -53,7 +53,7 @@ class ProcessFriendRequestsPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       (logic.applicationInfo.reqMsg ?? '').toText
-                        ..style = Styles.ts_0C1C33_17sp,
+                        ..style = Styles.ts_333333_17sp,
                     ],
                   ),
                 ),
@@ -92,7 +92,7 @@ class ProcessFriendRequestsPage extends StatelessWidget {
             onTap: logic.refuseFriendApplication,
             child: Container(
               alignment: Alignment.center,
-              child: StrRes.reject.toText..style = Styles.ts_0C1C33_17sp,
+              child: StrRes.reject.toText..style = Styles.ts_333333_17sp,
             ),
           ),
         ),

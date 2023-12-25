@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -12,58 +14,81 @@ class ContactsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context);
+
     return Scaffold(
       appBar: TitleBar.contacts(
-        onClickAddContacts: logic.addContacts,
-        onClickSearch: logic.searchContacts,
-      ),
-      backgroundColor: Styles.c_F8F9FA,
+          onClickAddContacts: logic.addContacts,
+          onClickSearch: logic.searchContacts,
+          mq: mq),
+      backgroundColor: Styles.c_FFFFFF,
       body: Obx(
-        () => SingleChildScrollView(
-          child: Column(
-            children: [
-              _buildItemView(
-                assetsName: ImageRes.newFriend,
-                label: StrRes.newFriend,
-                count: logic.friendApplicationCount,
-                onTap: logic.newFriend,
+        () => Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  _buildItemView(
+                    assetsName: ImageRes.appNewFriend,
+                    label: StrRes.newFriend,
+                    count: logic.friendApplicationCount,
+                    onTap: logic.newFriend,
+                  ),
+                  _buildItemView(
+                    assetsName: ImageRes.appNewGroup,
+                    label: StrRes.newGroupRequest,
+                    count: logic.groupApplicationCount,
+                    onTap: logic.newGroup,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(color: Styles.c_F7F7F7),
+                    height: 6.h,
+                  ),
+                  _buildItemView(
+                    assetsName: ImageRes.appMyFriend,
+                    label: StrRes.myFriend,
+                    onTap: logic.myFriend,
+                  ),
+                  _buildItemView(
+                    assetsName: ImageRes.appMyGroup,
+                    label: StrRes.myGroup,
+                    onTap: logic.myGroup,
+                  ),
+                  // _buildItemView(
+                  //   assetsName: ImageRes.appTagGroup,
+                  //   label: StrRes.tagGroup,
+                  //   onTap: logic.tagGroup,
+                  // ),
+                  // _buildItemView(
+                  //   assetsName: ImageRes.appIssueNotice,
+                  //   label: StrRes.issueNotice,
+                  //   onTap: logic.notificationIssued,
+                  // ),
+                  // Container(
+                  //   decoration: BoxDecoration(color: Styles.c_F7F7F7),
+                  //   height: 6.h,
+                  // ),
+                  // _buildItemView(
+                  //   assetsName: ImageRes.appBot,
+                  //   label: StrRes.createBot,
+                  //   onTap: logic.createBot,
+                  // ),
+                ],
               ),
-              _buildItemView(
-                assetsName: ImageRes.newGroup,
-                label: StrRes.newGroupRequest,
-                count: logic.groupApplicationCount,
-                onTap: logic.newGroup,
-              ),
-              10.verticalSpace,
-              _buildItemView(
-                assetsName: ImageRes.myFriend,
-                label: StrRes.myFriend,
-                onTap: logic.myFriend,
-              ),
-              _buildItemView(
-                assetsName: ImageRes.myGroup,
-                label: StrRes.myGroup,
-                onTap: logic.myGroup,
-              ),
-              // _buildItemView(
-              //   assetsName: ImageRes.tagGroup,
-              //   label: StrRes.tagGroup,
-              //   onTap: logic.tagGroup,
-              // ),
-              // _buildItemView(
-              //   assetsName: ImageRes.issueNotice,
-              //   label: StrRes.issueNotice,
-              //   onTap: logic.notificationIssued,
-              // ),
-              10.verticalSpace,
-              _buildItemView(
-                assetsName: ImageRes.momentsIcon,
-                label: StrRes.workingCircle,
-                onTap: logic.workMoments,
-              ),
-              // const DeptItemView.contacts(),
-            ],
-          ),
+            ),
+            IgnorePointer(
+                ignoring: true,
+                child: Container(
+                  height: 215.h - 105.h - mq.padding.top,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                    image: AssetImage(ImageRes.appHeaderBg2,
+                        package: 'openim_common'),
+                    fit: BoxFit.cover,
+                    alignment: FractionalOffset.bottomCenter,
+                  )),
+                )),
+          ],
         ),
       ),
     );
@@ -84,23 +109,25 @@ class ContactsPage extends StatelessWidget {
           onTap: onTap,
           child: Container(
             height: height ?? 60.h,
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
             child: Row(
               children: [
                 if (null != assetsName)
-                  assetsName.toImage
-                    ..width = 42.w
-                    ..height = 42.h,
+                  ClipOval(
+                    child: assetsName.toImage
+                      ..width = 40.w
+                      ..height = 40.h,
+                  ),
                 if (null != icon) icon,
                 12.horizontalSpace,
-                label.toText..style = Styles.ts_0C1C33_17sp,
+                label.toText..style = Styles.ts_332221_16sp,
                 const Spacer(),
                 if (count > 0) UnreadCountView(count: count),
                 4.horizontalSpace,
                 if (showRightArrow)
-                  ImageRes.rightArrow.toImage
-                    ..width = 24.w
-                    ..height = 24.h,
+                  ImageRes.appRightArrow.toImage
+                    ..width = 20.w
+                    ..height = 20.h,
               ],
             ),
           ),

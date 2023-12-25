@@ -35,7 +35,7 @@ class ChatLongPressMenu extends StatelessWidget {
     return Container(
       constraints: BoxConstraints(maxWidth: 256.w, maxHeight: 122.h),
       decoration: BoxDecoration(
-        color: Styles.c_0C1C33_opacity85,
+        color: Styles.c_333333_opacity85,
         borderRadius: BorderRadius.circular(15.r),
       ),
       child: Container(

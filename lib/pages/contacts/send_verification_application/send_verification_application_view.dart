@@ -19,7 +19,7 @@ class SendVerificationApplicationPage extends StatelessWidget {
               ? StrRes.groupVerification
               : StrRes.friendVerification,
           right: StrRes.send.toText
-            ..style = Styles.ts_0C1C33_17sp
+            ..style = Styles.ts_333333_17sp
             ..onTap = logic.send,
         ),
         backgroundColor: Styles.c_F8F9FA,
@@ -33,7 +33,7 @@ class SendVerificationApplicationPage extends StatelessWidget {
                         ? StrRes.sendEnterGroupApplication
                         : StrRes.sendToBeFriendApplication)
                     .toText
-                  ..style = Styles.ts_8E9AB0_14sp,
+                  ..style = Styles.ts_999999_14sp,
               ),
               Container(
                 height: 122.h,

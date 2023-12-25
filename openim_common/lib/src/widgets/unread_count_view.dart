@@ -38,7 +38,7 @@ class UnreadCountView extends StatelessWidget {
       );
 
   Decoration get _decoration => BoxDecoration(
-        color: Styles.c_FF381F,
+        color: Styles.c_FF4E4C,
         shape: count > 99 ? BoxShape.rectangle : BoxShape.circle,
         borderRadius: count > 99 ? BorderRadius.circular(10.r) : null,
         boxShadow: [

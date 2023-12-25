@@ -173,4 +173,7 @@ class MessageType {
 
   /// Group Chat Has Read Receipt
   static const groupHasReadReceiptNotification = 2155;
+
+  /// 加密
+  static const encryptMessageNotification = 9999;
 }

@@ -6,6 +6,7 @@ import 'package:openim_common/openim_common.dart';
 
 class UnlockSetupLogic extends GetxController {
   final passwordEnabled = false.obs;
+  final faceRecognitionEnabled = false.obs;
   final fingerprintEnabled = false.obs;
   final gestureEnabled = false.obs;
   final biometricsEnabled = false.obs;
@@ -61,6 +62,10 @@ class UnlockSetupLogic extends GetxController {
     }
   }
 
+  void toggleFaceLock() {
+    faceRecognitionEnabled.value = !faceRecognitionEnabled.value;
+  }
+
   void closePwdLock() {
     screenLock(
       context: Get.context!,
@@ -96,7 +101,7 @@ class UnlockSetupLogic extends GetxController {
           // Release the confirmation state and return to the initial input state.
           controller.unsetConfirmed();
         },
-        child: StrRes.reset.toText..style = Styles.ts_0089FF_17sp,
+        child: StrRes.reset.toText..style = Styles.ts_8443F8_17sp,
       ),
     );
   }

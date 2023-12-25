@@ -17,6 +17,7 @@ class ChatSetupLogic extends GetxController {
   final chatLogic = Get.find<ChatLogic>(tag: GetTags.chat);
   final appLogic = Get.find<AppController>();
   final imLogic = Get.find<IMController>();
+  final translateLogic = Get.find<TranslateLogic>();
   late Rx<ConversationInfo> conversationInfo;
   late StreamSubscription ccSub;
   late StreamSubscription fcSub;
@@ -26,6 +27,10 @@ class ChatSetupLogic extends GetxController {
   bool get isPinned => conversationInfo.value.isPinned == true;
 
   bool get isBurnAfterReading => conversationInfo.value.isPrivateChat == true;
+
+  bool get isAutoTranslate => translateLogic.isAutoTranslate(conversationID);
+
+  String? get targetLang => translateLogic.getTargetLang(conversationID);
 
   bool get isMsgDestruct => conversationInfo.value.isMsgDestruct == true;
 
@@ -50,6 +55,8 @@ class ChatSetupLogic extends GetxController {
       return StrRes.thirtySeconds;
     }
   }
+
+  String get targetLangStr => translateLogic.getTargetLangStr(targetLang);
 
   String get getDestructDurationStr {
     int day = 1 * 24 * 60 * 60;
@@ -129,6 +136,15 @@ class ChatSetupLogic extends GetxController {
         isPrivate: !isBurnAfterReading,
       );
     });
+  }
+
+  void toggleAutoTranslate() {
+    translateLogic.updateLangConfig(conversation: conversationInfo.value,
+        data:{"autoTranslate": !isAutoTranslate});
+  }
+
+  void setTargetLang() {
+    translateLogic.setTargetLang(conversationInfo.value);
   }
 
   void setBurnAfterReadingDuration() async {

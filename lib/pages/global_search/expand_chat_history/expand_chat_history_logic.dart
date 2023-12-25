@@ -54,7 +54,7 @@ class ExpandChatHistoryLogic extends GetxController {
   String calContent(Message message) => IMUtils.calContent(
         content: IMUtils.parseMsg(message, replaceIdToNickname: true),
         key: searchKey,
-        style: Styles.ts_8E9AB0_14sp,
+        style: Styles.ts_999999_14sp,
         usedWidth: 80.w + 26.w,
       );
 

@@ -4,6 +4,8 @@ import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:openim_common/openim_common.dart';
+import 'package:openim_working_circle/openim_working_circle.dart';
+import 'package:openim_working_circle/src/w_apis.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../core/controller/app_controller.dart';
@@ -13,13 +15,14 @@ import '../../core/im_callback.dart';
 import '../../routes/app_navigator.dart';
 import '../../widgets/screen_lock_title.dart';
 
-class HomeLogic extends SuperController {
+class HomeLogic extends SuperController with WorkingCircleBridge {
   final pushLogic = Get.find<PushController>();
   final imLogic = Get.find<IMController>();
   final cacheLogic = Get.find<CacheController>();
   final initLogic = Get.find<AppController>();
   final index = 0.obs;
   final unreadMsgCount = 0.obs;
+  final unreadMomentsCount = 0.obs;
   final unhandledFriendApplicationCount = 0.obs;
   final unhandledGroupApplicationCount = 0.obs;
   final unhandledCount = 0.obs;
@@ -35,8 +38,17 @@ class HomeLogic extends SuperController {
     this.index.value = index;
   }
 
+  void viewDiscover(index) async {
+    await WNavigator.startWorkMomentsList();
+    _getUnreadMomentsCount();
+  }
+
   scrollToUnreadMessage(index) {
     onScrollToUnreadMessage?.call();
+  }
+
+  _getUnreadMomentsCount() {
+    WApis.getUnreadCount().then((value) => unreadMomentsCount.value = value);
   }
 
   /// 获取消息未读数
@@ -51,7 +63,8 @@ class HomeLogic extends SuperController {
   /// 浏览过得不再计入红点
   void getUnhandledFriendApplicationCount() async {
     var i = 0;
-    var list = await OpenIM.iMManager.friendshipManager.getFriendApplicationListAsRecipient();
+    var list = await OpenIM.iMManager.friendshipManager
+        .getFriendApplicationListAsRecipient();
     var haveReadList = DataSp.getHaveReadUnHandleFriendApplication();
     haveReadList ??= <String>[];
     for (var info in list) {
@@ -67,7 +80,8 @@ class HomeLogic extends SuperController {
   /// 获取群申请未处理数
   void getUnhandledGroupApplicationCount() async {
     var i = 0;
-    var list = await OpenIM.iMManager.groupManager.getGroupApplicationListAsRecipient();
+    var list = await OpenIM.iMManager.groupManager
+        .getGroupApplicationListAsRecipient();
     var haveReadList = DataSp.getHaveReadUnHandleGroupApplication();
     haveReadList ??= <String>[];
     for (var info in list) {
@@ -82,12 +96,22 @@ class HomeLogic extends SuperController {
 
   @override
   void onInit() {
+    index.value = Get.arguments['index'] ?? 0;
     _isAutoLogin = Get.arguments['isAutoLogin'];
     if (_isAutoLogin) {
       WidgetsBinding.instance.addPostFrameCallback((_) => _showLockScreenPwd());
     }
+
+    _getUnreadMomentsCount();
+
+    PackageBridge.workingCircleBridge = this;
+
     imLogic.unreadMsgCountEventSubject.listen((value) {
       unreadMsgCount.value = value;
+    });
+    imLogic.momentsSubject.listen((value) {
+      onRecvNewMessageForWorkingCircle?.call(value);
+      _getUnreadMomentsCount();
     });
     imLogic.friendApplicationChangedSubject.listen((value) {
       getUnhandledFriendApplicationCount();
@@ -110,6 +134,7 @@ class HomeLogic extends SuperController {
 
   @override
   void onClose() {
+    PackageBridge.workingCircleBridge = null;
     _errorController.close();
     super.onClose();
   }
@@ -196,7 +221,8 @@ class HomeLogic extends SuperController {
   }
 
   void _getRTCInvitationStart() async {
-    final signalingInfo = await OpenIM.iMManager.signalingManager.getSignalingInvitationInfoStartApp();
+    final signalingInfo = await OpenIM.iMManager.signalingManager
+        .getSignalingInvitationInfoStartApp();
     if (null != signalingInfo.invitation) {
       // 调用视频界面
       imLogic.receiveNewInvitation(signalingInfo);

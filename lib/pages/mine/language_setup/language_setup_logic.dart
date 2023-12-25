@@ -15,8 +15,12 @@ class LanguageSetupLogic extends GetxController {
   }
 
   void _initLanguageSetting() {
-    var language = DataSp.getLanguage() ?? 0;
-    switch (language) {
+    Locale systemLocal = window.locale;
+    var language = DataSp.getLanguage();
+    var index = (language != null && language != 0)
+        ? language
+        : (systemLocal.toString().startsWith("zh_") ? 1 : 2);
+    switch (index) {
       case 1:
         isFollowSystem.value = false;
         isChinese.value = true;

@@ -19,7 +19,7 @@ class ScreenLockTitle extends StatelessWidget {
           if (snapshot.hasData) {
             return Text(
               sprintf(StrRes.lockPwdErrorHint, [snapshot.data]),
-              style: Styles.ts_FF381F_17sp,
+              style: Styles.ts_FF4E4C_17sp,
             );
           }
           return const SizedBox();

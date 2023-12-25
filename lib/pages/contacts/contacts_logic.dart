@@ -3,14 +3,13 @@ import 'package:get/get.dart';
 import 'package:openim/pages/contacts/group_profile_panel/group_profile_panel_logic.dart';
 import 'package:openim/routes/app_navigator.dart';
 import 'package:openim_common/openim_common.dart';
-import 'package:openim_working_circle/openim_working_circle.dart';
+// import 'package:openim_working_circle/openim_working_circle.dart';
 
 import '../../core/controller/im_controller.dart';
 import '../home/home_logic.dart';
 import 'select_contacts/select_contacts_logic.dart';
 
 class ContactsLogic extends GetxController
-    with WorkingCircleBridge
     implements ViewUserProfileBridge, SelectContactsBridge, ScanBridge {
   final imLogic = Get.find<IMController>();
   final homeLogic = Get.find<HomeLogic>();
@@ -51,12 +50,12 @@ class ContactsLogic extends GetxController
     // };
     PackageBridge.selectContactsBridge = this;
     PackageBridge.viewUserProfileBridge = this;
-    PackageBridge.workingCircleBridge = this;
+    // PackageBridge.workingCircleBridge = this;
     PackageBridge.scanBridge = this;
 
-    imLogic.momentsSubject.listen((value) {
-      onRecvNewMessageForWorkingCircle?.call(value);
-    });
+    // imLogic.momentsSubject.listen((value) {
+    //   onRecvNewMessageForWorkingCircle?.call(value);
+    // });
     super.onInit();
   }
 
@@ -64,7 +63,7 @@ class ContactsLogic extends GetxController
   void onClose() {
     PackageBridge.selectContactsBridge = null;
     PackageBridge.viewUserProfileBridge = null;
-    PackageBridge.workingCircleBridge = null;
+    // PackageBridge.workingCircleBridge = null;
     PackageBridge.scanBridge = null;
     super.onClose();
   }
@@ -83,9 +82,11 @@ class ContactsLogic extends GetxController
 
   void tagGroup() => AppNavigator.startTagGroup();
 
+  void createBot() => AppNavigator.startCreateBot();
+
   void notificationIssued() => AppNavigator.startNotificationIssued();
 
-  void workMoments() => WNavigator.startWorkMomentsList();
+  // void workMoments() => WNavigator.startWorkMomentsList();
 
   @override
   Future<T?>? selectContacts<T>(

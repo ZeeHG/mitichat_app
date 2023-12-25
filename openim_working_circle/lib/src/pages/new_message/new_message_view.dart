@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
@@ -17,36 +18,41 @@ class NewMessagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(
-        title: StrRes.message,
-        right: StrRes.clearAll.toText
-          ..style = Styles.ts_0C1C33_17sp
-          ..onTap = logic.clearNewMessage,
-      ),
-      body: Obx(() => SmartRefresher(
-            controller: logic.refreshCtrl,
-            enablePullUp: true,
-            enablePullDown: true,
-            header: IMViews.buildHeader(),
-            footer: IMViews.buildFooter(),
-            onRefresh: logic.refreshNewMessage,
-            onLoading: logic.loadNewMessage,
-            child: ListView.builder(
-              itemCount: logic.list.length,
-              itemBuilder: (_, index) {
-                final info = logic.list.elementAt(index);
-                return GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () => logic.viewDetail(info),
-                  child: _buildItemView(
-                    info: info,
-                    underline: index != logic.list.length - 1,
-                  ),
-                );
-              },
-            ),
-          )),
-    );
+        appBar: TitleBar.back(
+          title: StrRes.message,
+          right: StrRes.clearAll.toText
+            ..style = Styles.ts_333333_16sp
+            ..onTap = logic.clearNewMessage,
+        ),
+        backgroundColor: Styles.c_FFFFFF,
+        body: Obx(
+          () => AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle(
+                  systemNavigationBarColor: Styles.c_FFFFFF),
+              child: SmartRefresher(
+                controller: logic.refreshCtrl,
+                enablePullUp: true,
+                enablePullDown: true,
+                header: IMViews.buildHeader(),
+                footer: IMViews.buildFooter(),
+                onRefresh: logic.refreshNewMessage,
+                onLoading: logic.loadNewMessage,
+                child: ListView.builder(
+                  itemCount: logic.list.length,
+                  itemBuilder: (_, index) {
+                    final info = logic.list.elementAt(index);
+                    return GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () => logic.viewDetail(info),
+                      child: _buildItemView(
+                        info: info,
+                        underline: index != logic.list.length - 1,
+                      ),
+                    );
+                  },
+                ),
+              )),
+        ));
   }
 
   Widget _buildItemView({
@@ -63,7 +69,6 @@ class NewMessagePage extends StatelessWidget {
       nickname = liker!.nickname!;
       faceURL = liker.faceURL;
     } else if (info.type == 2) {
-      // 提到了你
       nickname = info.nickname!;
       faceURL = info.faceURL;
     } else if (info.type == 3) {
@@ -76,26 +81,32 @@ class NewMessagePage extends StatelessWidget {
       faceURL = comment.faceURL;
     }
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      margin: EdgeInsets.symmetric(horizontal: 12.w),
+      padding: EdgeInsets.symmetric(vertical: 10.h),
       decoration: BoxDecoration(
         color: Styles.c_FFFFFF,
         border: underline
             ? BorderDirectional(
-                bottom: BorderSide(color: Styles.c_E8EAEF, width: .5),
+                bottom: BorderSide(color: Styles.c_EDEDED, width: 1.h),
               )
             : null,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AvatarView(url: faceURL, text: nickname),
-          8.horizontalSpace,
+          AvatarView(
+            url: faceURL,
+            text: nickname,
+            width: 48.w,
+            height: 48.h,
+          ),
+          6.horizontalSpace,
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                (nickname ?? '').toText..style = Styles.ts_0C1C33_17sp_medium,
-                2.verticalSpace,
+                (nickname ?? '').toText..style = Styles.ts_9280B3_16sp_medium,
+                4.verticalSpace,
                 // 为你点了赞
                 info.type == 1
                     ? Row(
@@ -103,45 +114,68 @@ class NewMessagePage extends StatelessWidget {
                           Icon(
                             Icons.thumb_up,
                             size: 13.w,
-                            color: Styles.c_6085B1,
+                            color: Styles.c_9280B3,
                           ),
                           4.horizontalSpace,
-                          sprintf(StrRes.likedWho,[info.nickname]).toText..style = Styles.ts_0C1C33_14sp,
+                          RichText(
+                              text: TextSpan(children: [
+                            TextSpan(
+                              text: StrRes.likedWho2,
+                              style: Styles.ts_333333_14sp,
+                            ),
+                            TextSpan(
+                              text: " ${info.nickname}",
+                              style: Styles.ts_9280B3_14sp,
+                            )
+                          ]))
                         ],
                       )
                     // 提到了你
                     : info.type == 2
-                        ? (sprintf(StrRes.mentionedWho,[info.atUsers?.firstOrNull?.nickname]).toText
-                          ..style = Styles.ts_0C1C33_14sp)
+                        ? (sprintf(StrRes.mentionedWho, [info.atUsers?.firstOrNull?.nickname]).toText
+                          ..style = Styles.ts_333333_14sp)
                         // 评论了你
                         : (null == replyNickname || replyNickname.isEmpty)
-                            ? (sprintf(StrRes.commentedWho, [info.nickname,content]).toText
-                              ..style = Styles.ts_0C1C33_14sp)
+                            ? RichText(
+                                text: TextSpan(children: [
+                                TextSpan(
+                                  text: StrRes.commentedWho2,
+                                  style: Styles.ts_333333_14sp,
+                                ),
+                                TextSpan(
+                                  text: " ${info.nickname}：",
+                                  style: Styles.ts_9280B3_14sp,
+                                ),
+                                TextSpan(
+                                  text: content,
+                                  style: Styles.ts_333333_14sp,
+                                ),
+                              ]))
                             // 某某回复了某某
                             : RichText(
                                 text: TextSpan(children: [
                                   // 回复：xxx ： 内容
                                   TextSpan(
                                     text: StrRes.replied,
-                                    style: Styles.ts_0C1C33_14sp,
+                                    style: Styles.ts_333333_14sp,
                                   ),
                                   TextSpan(
-                                    text: '$replyNickname：',
-                                    style: Styles.ts_0C1C33_14sp,
+                                    text: ' $replyNickname：',
+                                    style: Styles.ts_9280B3_14sp,
                                   ),
                                   TextSpan(
                                     text: content,
-                                    style: Styles.ts_0C1C33_14sp,
+                                    style: Styles.ts_333333_14sp,
                                   ),
                                 ]),
                               ),
-                10.verticalSpace,
+                2.verticalSpace,
                 TimelineUtil.format(
                   (info.createTime ?? 0),
                   dayFormat: DayFormat.Full,
                   locale: Get.locale?.languageCode ?? 'zh',
                 ).toText
-                  ..style = Styles.ts_8E9AB0_12sp,
+                  ..style = Styles.ts_999999_12sp,
               ],
             ),
           ),
@@ -163,8 +197,8 @@ class NewMessagePage extends StatelessWidget {
         children: [
           ImageUtil.networkImage(
             url: mateContent.metas!.first.thumb!,
-            width: 62.w,
-            height: 62.h,
+            width: 60.w,
+            height: 60.h,
             fit: BoxFit.cover,
           ),
           if (mateContent.type == 1)

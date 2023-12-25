@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
-
 import 'unlock_setup_logic.dart';
 
 class UnlockSetupPage extends StatelessWidget {
@@ -15,16 +14,21 @@ class UnlockSetupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrRes.unlockSettings),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: Styles.c_F7F8FA,
       body: Obx(() => Column(
             children: [
               12.verticalSpace,
               _buildItemView(
-                label: StrRes.password,
-                switchOn: logic.passwordEnabled.value,
-                onChanged: (_) => logic.togglePwdLock(),
-                isTopRadius: true,
-              ),
+                  label: StrRes.password,
+                  switchOn: logic.passwordEnabled.value,
+                  onChanged: (_) => logic.togglePwdLock(),
+                  isTopRadius: true,
+                  showBorder: false),
+              // _buildItemView(
+              //     label: StrRes.faceRecognition,
+              //     switchOn: logic.faceRecognitionEnabled.value,
+              //     onChanged: (_) => showDeveloping(),
+              //     isTopRadius: true),    
               if (logic.passwordEnabled.value &&
                   (logic.isSupportedBiometric.value &&
                       logic.canCheckBiometrics.value))
@@ -52,31 +56,35 @@ class UnlockSetupPage extends StatelessWidget {
     bool isTopRadius = false,
     bool isBottomRadius = false,
     bool switchOn = false,
+    bool showBorder = true,
     ValueChanged<bool>? onChanged,
   }) =>
       Container(
-        height: 60.h,
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        margin: EdgeInsets.symmetric(horizontal: 10.w),
-        decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(isTopRadius ? 6.r : 0),
-            topRight: Radius.circular(isTopRadius ? 6.r : 0),
-            bottomRight: Radius.circular(isBottomRadius ? 6.r : 0),
-            bottomLeft: Radius.circular(isBottomRadius ? 6.r : 0),
+          decoration: BoxDecoration(
+            color: Styles.c_FFFFFF,
           ),
-        ),
-        child: Row(
-          children: [
-            label.toText..style = Styles.ts_0C1C33_17sp,
-            const Spacer(),
-            CupertinoSwitch(
-              value: switchOn,
-              activeColor: Styles.c_0089FF,
-              onChanged: onChanged,
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          child: Container(
+            height: 52.h,
+            decoration: BoxDecoration(
+              color: Styles.c_FFFFFF,
+              border: Border(
+                top: BorderSide(
+                  color: Styles.c_F1F2F6,
+                  width: showBorder ? 1.h : 0,
+                ),
+              ),
             ),
-          ],
-        ),
-      );
+            child: Row(
+              children: [
+                label.toText..style = Styles.ts_333333_16sp,
+                const Spacer(),
+                CupertinoSwitch(
+                  value: switchOn,
+                  activeColor: Styles.c_07C160,
+                  onChanged: onChanged,
+                ),
+              ],
+            ),
+          ));
 }

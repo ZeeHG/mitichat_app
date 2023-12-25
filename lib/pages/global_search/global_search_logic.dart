@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +14,7 @@ class GlobalSearchLogic extends CommonSearchLogic {
   final conversationLogic = Get.find<ConversationLogic>();
   final textMessageRefreshCtrl = RefreshController();
   final fileMessageRefreshCtrl = RefreshController();
-  final contactsList = <UserInfo>[].obs;
+  final contactsList = <dynamic>[].obs;
   final groupList = <GroupInfo>[].obs;
   final textSearchResultItems = <SearchResultItems>[].obs;
 
@@ -44,11 +46,16 @@ class GlobalSearchLogic extends CommonSearchLogic {
   }
 
   bool get isSearchNotResult =>
-      searchKey.isNotEmpty && contactsList.isEmpty && groupList.isEmpty && textSearchResultItems.isEmpty && fileMessageList.isEmpty;
+      searchKey.isNotEmpty &&
+      contactsList.isEmpty &&
+      groupList.isEmpty &&
+      textSearchResultItems.isEmpty &&
+      fileMessageList.isEmpty;
 
   search() async {
     final result = await LoadingView.singleton.wrap(
         asyncFunction: () => Future.wait([
+              // todo 服务端过滤
               searchFriend(),
               // searchDeptMember(),
               searchGroup(),
@@ -61,13 +68,27 @@ class GlobalSearchLogic extends CommonSearchLogic {
                 count: count,
               ),
             ]));
-    final friendList = (result[0] as List<FriendInfo>).map((e) => UserInfo(userID: e.userID, nickname: e.nickname, faceURL: e.faceURL));
+    // todo 服务端过滤
+    final key = searchCtrl.text.trim().toLowerCase();
+    List<dynamic> friendList = result[0] as dynamic;
+    final ids = friendList.map((e) => e.userID!).toList() as List<String>;
+    final infos = await Apis.getUserFullInfo(userIDList: ids);
+    for (var i = 0; i < friendList.length; i++) {
+      friendList[i].phoneNumber = infos?[i].phoneNumber;
+    }
+    friendList = friendList.where((element) =>
+        element.userID!.contains(key) ||
+        (element.phoneNumber?.contains(key) ?? false) ||
+        element.nickname!.toLowerCase().contains(key) ||
+        element.getShowName().toLowerCase().contains(key)).toList();
+    // final friendList = (result[0] as List<FriendInfo>).map((e) =>
+    //     UserInfo(userID: e.userID, nickname: e.nickname, faceURL: e.faceURL));
     // final deptMemberList = result[1] as List<DeptMemberInfo>;
     final gList = result[1] as List<GroupInfo>;
     final textMessageResult = (result[2] as SearchResult).searchResultItems;
     final fileMessageResult = (result[3] as SearchResult).searchResultItems;
 
-    clearList();
+    contactsList.clear();
 
     contactsList
         // ..assignAll(deptMemberList)
@@ -93,7 +114,8 @@ class GlobalSearchLogic extends CommonSearchLogic {
   }
 
   void loadTextMessage() async {
-    final result = await searchTextMessage(pageIndex: ++textMessagePageIndex, count: count);
+    final result = await searchTextMessage(
+        pageIndex: ++textMessagePageIndex, count: count);
     final textMessageResult = result.searchResultItems;
     textSearchResultItems.addAll(textMessageResult ?? []);
     if ((textMessageResult ?? []).length < count) {
@@ -104,7 +126,8 @@ class GlobalSearchLogic extends CommonSearchLogic {
   }
 
   void loadFileMessage() async {
-    final result = await searchFileMessage(pageIndex: ++fileMessagePageIndex, count: count);
+    final result = await searchFileMessage(
+        pageIndex: ++fileMessagePageIndex, count: count);
     final fileMessageResult = result.searchResultItems;
     if (null != fileMessageResult && fileMessageResult.isNotEmpty) {
       for (var element in fileMessageResult) {
@@ -119,16 +142,17 @@ class GlobalSearchLogic extends CommonSearchLogic {
   }
 
   /// 最多显示2条
-  List<T> subList<T>(List<T> list) => list.sublist(0, list.length > 2 ? 2 : list.length).toList();
+  List<T> subList<T>(List<T> list) =>
+      list.sublist(0, list.length > 2 ? 2 : list.length).toList();
 
   String calContent(Message message) => IMUtils.calContent(
         content: IMUtils.parseMsg(message, replaceIdToNickname: true),
         key: searchKey,
-        style: Styles.ts_8E9AB0_14sp,
+        style: Styles.ts_999999_14sp,
         usedWidth: 80.w + 26.w,
       );
 
-  void viewUserProfile(UserInfo info) => AppNavigator.startUserProfilePane(
+  void viewUserProfile(dynamic info) => AppNavigator.startUserProfilePane(
         userID: info.userID!,
         nickname: info.nickname,
         faceURL: info.faceURL,
@@ -191,15 +215,24 @@ abstract class CommonSearchLogic extends GetxController {
 
   String get searchKey => searchCtrl.text.trim();
 
-  Future<List<FriendInfo>> searchFriend() =>
-      Apis.searchFriendInfo(searchCtrl.text.trim()).then((list) => list.map((e) => FriendInfo.fromJson(e.toJson())).toList());
+  // Future<List<FriendInfo>> searchFriend() =>
+  //     Apis.searchFriendInfo(searchCtrl.text.trim()).then(
+  //         (list) => list.map((e) => FriendInfo.fromJson(e.toJson())).toList());
+  Future<List<FriendInfo>> searchFriend() => OpenIM.iMManager.friendshipManager
+      .getFriendListMap()
+      .then((list) async => list.map((e) {
+            return FriendInfo.fromJson(e["friendInfo"]);
+          }).toList());
 
   // Future<List<DeptMemberInfo>> searchDeptMember() =>
   //     OApis.searchDeptMember(keyword: searchKey)
   //         .then((value) => value.departmentMemberList ?? []);
 
   Future<List<GroupInfo>> searchGroup() =>
-      OpenIM.iMManager.groupManager.searchGroups(keywordList: [searchCtrl.text.trim()], isSearchGroupName: true, isSearchGroupID: true);
+      OpenIM.iMManager.groupManager.searchGroups(
+          keywordList: [searchCtrl.text.trim()],
+          isSearchGroupName: true,
+          isSearchGroupID: true);
 
   Future<SearchResult> searchTextMessage({
     int pageIndex = 1,

@@ -10,7 +10,7 @@ class ChatVoiceReadStatusView extends StatelessWidget {
         width: 6.w,
         height: 6.w,
         decoration: BoxDecoration(
-          color: Styles.c_FF381F,
+          color: Styles.c_FF4E4C,
           shape: BoxShape.circle,
         ),
       );

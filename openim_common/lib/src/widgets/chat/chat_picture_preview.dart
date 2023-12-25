@@ -89,7 +89,7 @@ class ChatPicturePreview extends StatelessWidget {
                   height: 15.0,
                   child: Center(
                     child: CircularProgressIndicator(
-                      color: Styles.c_0089FF,
+                      color: Styles.c_8443F8,
                       strokeWidth: 1.5,
                       value: progress ?? 0,
                     ),

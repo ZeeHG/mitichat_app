@@ -74,7 +74,7 @@ packages:
     source: hosted
     version: "2.4.2"
   async:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: async
       sha256: "947bfcf187f74dbc5e146c9eb9c0f10c9f8b30743e341481c1e2ed3ecc18c20c"
@@ -89,6 +89,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.18"
+  auto_start_flutter:
+    dependency: "direct main"
+    description:
+      name: auto_start_flutter
+      sha256: "27b12be7dc2d37b1a535189f461a12dad15b54c12f0a36e6ea69e73e579d433b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
   azlistview:
     dependency: "direct main"
     description:
@@ -417,6 +425,23 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.4.0"
+  disable_battery_optimization:
+    dependency: "direct main"
+    description:
+      name: disable_battery_optimization
+      sha256: "6b2ba802f984af141faf1b6b5fb956d5ef01f9cd555597c35b9cc335a03185ba"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
+  easy_debounce:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "5ac737cc66070867f8fbd03a07c6aa0e80535aca"
+      url: "https://github.com/magnuswikhog/easy_debounce.git"
+    source: git
+    version: "2.0.3"
   emoji_picker_flutter:
     dependency: transitive
     description:
@@ -606,6 +631,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  flutter_dotenv:
+    dependency: "direct main"
+    description:
+      name: flutter_dotenv
+      sha256: "9357883bdd153ab78cbf9ffa07656e336b8bbb2b5a3ca596b0b27e119f7c7d77"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.0"
   flutter_download_manager:
     dependency: "direct main"
     description:
@@ -621,6 +654,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.5"
+  flutter_highlight:
+    dependency: transitive
+    description:
+      name: flutter_highlight
+      sha256: "7b96333867aa07e122e245c033b8ad622e4e3a42a1a2372cbb098a2541d8782c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.0"
   flutter_image_compress:
     dependency: "direct main"
     description:
@@ -922,6 +963,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.1"
+  highlight:
+    dependency: transitive
+    description:
+      name: highlight
+      sha256: "5353a83ffe3e3eca7df0abfb72dcf3fa66cc56b953728e7113ad4ad88497cf21"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.0"
   hive:
     dependency: "direct main"
     description:
@@ -1174,10 +1223,10 @@ packages:
     dependency: transitive
     description:
       name: livekit_client
-      sha256: "240b58bbc9fc02587465ad8e0d4ad04021d0460ac0e4c98e2b2d51e13e058e82"
+      sha256: f794ab0b48f811d9cd11bfe73304ccd7ad2a58453879b384ee1646c674f2d412
       url: "https://pub.dev"
     source: hosted
-    version: "1.5.4"
+    version: "1.5.5"
   local_auth:
     dependency: "direct main"
     description:
@@ -1258,6 +1307,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
+  markdown:
+    dependency: transitive
+    description:
+      name: markdown
+      sha256: acf35edccc0463a9d7384e437c015a3535772e09714cf60e07eeef3a15870dcd
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.1.1"
+  markdown_widget:
+    dependency: "direct main"
+    description:
+      name: markdown_widget
+      sha256: f9bb0e494f454f4da44348deba48c2f1c0d5caece2ce46a3c99017accaf377d3
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.2+2"
   matcher:
     dependency: transitive
     description:

@@ -17,10 +17,10 @@ class ChatTimelineView extends StatelessWidget {
       margin: margin,
       padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 6.w),
       decoration: BoxDecoration(
-        color: Styles.c_F4F5F7,
-        borderRadius: BorderRadius.circular(4.r),
+        color: Styles.c_EBEBEB,
+        borderRadius: BorderRadius.circular(2.r),
       ),
-      child: timeStr.toText..style = Styles.ts_8E9AB0_12sp,
+      child: timeStr.toText..style = Styles.ts_333333_12sp,
     );
   }
 }

@@ -17,7 +17,7 @@ class CreateGroupPage extends StatelessWidget {
     return TouchCloseSoftKeyboard(
       child: Scaffold(
         appBar: TitleBar.back(title: StrRes.createGroup),
-        backgroundColor: Styles.c_F8F9FA,
+        backgroundColor: Styles.c_F7F8FA,
         body: SingleChildScrollView(
           child: SizedBox(
             height: 1.sh - 44.h - 10.h - 34.h,
@@ -69,12 +69,12 @@ class CreateGroupPage extends StatelessWidget {
                 12.horizontalSpace,
                 Flexible(
                   child: TextField(
-                    style: Styles.ts_0C1C33_17sp,
+                    style: Styles.ts_333333_17sp,
                     autofocus: true,
                     controller: logic.nameCtrl,
                     inputFormatters: [LengthLimitingTextInputFormatter(16)],
                     decoration: InputDecoration(
-                      hintStyle: Styles.ts_8E9AB0_17sp,
+                      hintStyle: Styles.ts_999999_17sp,
                       hintText: StrRes.plsEnterGroupNameHint,
                       border: InputBorder.none,
                     ),
@@ -96,10 +96,10 @@ class CreateGroupPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
               child: Row(
                 children: [
-                  StrRes.groupMember.toText..style = Styles.ts_8E9AB0_17sp,
+                  StrRes.groupMember.toText..style = Styles.ts_999999_17sp,
                   const Spacer(),
                   sprintf(StrRes.nPerson, [logic.allList.length]).toText
-                    ..style = Styles.ts_8E9AB0_17sp,
+                    ..style = Styles.ts_999999_17sp,
                 ],
               ),
             ),
@@ -128,7 +128,7 @@ class CreateGroupPage extends StatelessWidget {
                       ),
                       2.verticalSpace,
                       (info.nickname ?? '').toText
-                        ..style = Styles.ts_8E9AB0_10sp
+                        ..style = Styles.ts_999999_10sp
                         ..maxLines = 1
                         ..overflow = TextOverflow.ellipsis,
                     ],
@@ -140,7 +140,7 @@ class CreateGroupPage extends StatelessWidget {
                         ImageRes.addMember.toImage
                           ..width = 48.w
                           ..height = 48.h,
-                        StrRes.addMember.toText..style = Styles.ts_8E9AB0_10sp,
+                        StrRes.addMember.toText..style = Styles.ts_999999_10sp,
                       ],
                     ),
                   ),
@@ -151,7 +151,7 @@ class CreateGroupPage extends StatelessWidget {
                         ImageRes.delMember.toImage
                           ..width = 48.w
                           ..height = 48.h,
-                        StrRes.delMember.toText..style = Styles.ts_8E9AB0_10sp,
+                        StrRes.delMember.toText..style = Styles.ts_999999_10sp,
                       ],
                     ),
                   ),

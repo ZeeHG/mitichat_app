@@ -17,7 +17,7 @@ class ResetPasswordPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 StrRes.forgetPassword.toText
-                  ..style = Styles.ts_0089FF_22sp_semibold,
+                  ..style = Styles.ts_8443F8_22sp_semibold,
                 29.verticalSpace,
                 InputBox.password(
                   label: StrRes.password,

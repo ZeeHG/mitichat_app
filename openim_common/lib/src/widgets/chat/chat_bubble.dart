@@ -27,16 +27,21 @@ class ChatBubble extends StatelessWidget {
   bool get isISend => bubbleType == BubbleType.send;
 
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context) => TriangleContainer(
+    top: 15.h,
+    triangleDirection: isISend ? TriangleDirection.right : TriangleDirection.left,
+    triangleColor: isISend ? Styles.c_8443F8 : Styles.c_FFFFFF,
+    child: Container(
         constraints: constraints,
         margin: margin,
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
         alignment: alignment,
         decoration: BoxDecoration(
           color:
-              backgroundColor ?? (isISend ? Styles.c_CCE7FE : Styles.c_F4F5F7),
+              backgroundColor ?? (isISend ? Styles.c_8443F8 : Styles.c_FFFFFF),
           borderRadius: borderRadius(isISend),
         ),
         child: child,
-      );
+      ),
+  );
 }

@@ -30,13 +30,12 @@ class SetFontSizePage extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    '昨天 16:09'.toText..style = Styles.ts_8E9AB0_12sp,
                     ChatBubble(
                       bubbleType: BubbleType.send,
                       alignment: null,
                       constraints: BoxConstraints(maxWidth: maxWidth),
                       child: Obx(() => '预览字体大小'.toText
-                        ..style = Styles.ts_0C1C33_17sp
+                        ..style = Styles.ts_FFFFFF_16sp
                         ..textScaleFactor = logic.factor.value),
                     )
                   ],
@@ -44,7 +43,9 @@ class SetFontSizePage extends StatelessWidget {
                 10.horizontalSpace,
                 AvatarView(
                   text: OpenIM.iMManager.userInfo.nickname,
-                  url: OpenIM.iMManager.userInfo.faceURL,
+                  url: OpenIM.iMManager.userInfo.faceURL ?? "",
+                  width: 42.w,
+                  height: 42.h,
                 ),
               ],
             ),

@@ -40,15 +40,15 @@ class ChatFileView extends StatelessWidget {
                   children: [
                     TextWithMidEllipsis(
                       message.fileElem?.fileName ?? '',
-                      style: Styles.ts_0C1C33_17sp,
+                      style: Styles.ts_333333_16sp,
                       endPartLength: 8,
                     ),
                     // fileName.toText
-                    //   ..style = Styles.ts_0C1C33_17sp
+                    //   ..style = Styles.ts_333333_16sp
                     //   ..maxLines = 1
                     //   ..overflow = TextOverflow.ellipsis,
                     IMUtils.formatBytes(message.fileElem?.fileSize ?? 0).toText
-                      ..style = Styles.ts_8E9AB0_14sp,
+                      ..style = Styles.ts_999999_14sp,
                   ],
                 ),
               ),

@@ -33,14 +33,17 @@ class BuildTagNotificationPage extends StatelessWidget {
                 child: Obx(() => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        StrRes.receiveMember.toText..style = Styles.ts_8E9AB0_14sp,
+                        StrRes.receiveMember.toText
+                          ..style = Styles.ts_999999_14sp,
                         if (logic.list.isNotEmpty)
                           Padding(
                             padding: EdgeInsets.only(top: 12.h, bottom: 26.h),
                             child: Wrap(
                               spacing: 10.w,
                               runSpacing: 9.h,
-                              children: logic.list.map((e) => _buildMemberItemView(e)).toList(),
+                              children: logic.list
+                                  .map((e) => _buildMemberItemView(e))
+                                  .toList(),
                             ),
                           ),
                         Row(
@@ -126,7 +129,7 @@ class BuildTagNotificationPage extends StatelessWidget {
             ConstrainedBox(
               constraints: BoxConstraints(maxWidth: 103.w),
               child: (name ?? '').toText
-                ..style = Styles.ts_0C1C33_14sp
+                ..style = Styles.ts_333333_14sp
                 ..maxLines = 1
                 ..overflow = TextOverflow.ellipsis,
             ),
@@ -141,7 +144,7 @@ class BuildTagNotificationPage extends StatelessWidget {
               child: Icon(
                 Icons.clear,
                 size: 10.w,
-                color: Styles.c_8E9AB0,
+                color: Styles.c_999999,
               ),
             ),
           ],

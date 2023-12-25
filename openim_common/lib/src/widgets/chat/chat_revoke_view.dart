@@ -63,7 +63,7 @@ class ChatRevokeView extends StatelessWidget {
           final nickname = value[matchText];
           children.add(TextSpan(
             text: nickname,
-            style: Styles.ts_0089FF_12sp,
+            style: Styles.ts_8443F8_12sp,
             recognizer: TapGestureRecognizer()
               ..onTap = () => bridge?.viewUserProfile(
                     matchText,
@@ -75,7 +75,7 @@ class ChatRevokeView extends StatelessWidget {
           return '';
         },
         onNonMatch: (text) {
-          children.add(TextSpan(text: text, style: Styles.ts_8E9AB0_12sp));
+          children.add(TextSpan(text: text, style: Styles.ts_999999_12sp));
           return '';
         },
       );
@@ -84,7 +84,7 @@ class ChatRevokeView extends StatelessWidget {
       children
         ..add(TextSpan(
           text: '$revoker ',
-          style: Styles.ts_0089FF_12sp,
+          style: Styles.ts_8443F8_12sp,
           recognizer: TapGestureRecognizer()
             ..onTap = () => bridge?.viewUserProfile(
                   info.sourceMessageSendID!,
@@ -95,12 +95,12 @@ class ChatRevokeView extends StatelessWidget {
         ))
         ..add(TextSpan(
           text: StrRes.revokeMsg,
-          style: Styles.ts_8E9AB0_12sp,
+          style: Styles.ts_999999_12sp,
         ));
       if (isIRevoke && _isISend && canReEdit) {
         children.add(TextSpan(
           text: ' ${StrRes.reEdit}',
-          style: Styles.ts_0089FF_12sp,
+          style: Styles.ts_8443F8_12sp,
           recognizer: TapGestureRecognizer()..onTap = onReEdit,
         ));
       }

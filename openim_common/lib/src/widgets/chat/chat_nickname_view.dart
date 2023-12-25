@@ -16,7 +16,7 @@ class ChatNicknameView extends StatelessWidget {
     return RichText(
       text: TextSpan(
         text: '',
-        style: Styles.ts_8E9AB0_12sp,
+        style: Styles.ts_999999_12sp,
         children: [
           if (null != nickname)
             WidgetSpan(
@@ -24,13 +24,13 @@ class ChatNicknameView extends StatelessWidget {
                 constraints: BoxConstraints(maxWidth: 100.w),
                 margin: EdgeInsets.only(right: 6.w),
                 child: nickname!.toText
-                  ..style = Styles.ts_8E9AB0_12sp
+                  ..style = Styles.ts_999999_12sp
                   ..maxLines = 1
                   ..overflow = TextOverflow.ellipsis,
               ),
             ),
-          // if (null != nickname) WidgetSpan(child: 6.horizontalSpace),
-          TextSpan(text: timeStr),
+          if (null != nickname) WidgetSpan(child: 6.horizontalSpace),
+          // TextSpan(text: timeStr),
         ],
       ),
     );

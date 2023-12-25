@@ -68,6 +68,8 @@ class LoginLogic extends GetxController {
   String? get email => loginType.value == LoginType.email ? phoneCtrl.text.trim() : null;
   String? get phone => loginType.value == LoginType.phone ? phoneCtrl.text.trim() : null;
   LoginType operateType = LoginType.phone;
+  final agreePrivacy = false.obs;
+  final translateLogic = Get.find<TranslateLogic>();
 
   _initData() async {
     var map = DataSp.getLoginAccount();
@@ -150,6 +152,7 @@ class LoginLogic extends GetxController {
       Logger.print('login : ${data.userID}, token: ${data.imToken}');
       await imLogic.login(data.userID, data.imToken);
       Logger.print('im login success');
+      translateLogic.init(data.userID);
       pushLogic.login(data.userID);
       Logger.print('push login success');
       return true;
@@ -217,5 +220,9 @@ class LoginLogic extends GetxController {
     final buildNumber = packageInfo.buildNumber;
 
     versionInfo.value = '$appName $version+$buildNumber SDK: ${OpenIM.version}';
+  }
+
+  void changePrivacy(bool? bool) {
+    agreePrivacy.value = bool!;
   }
 }

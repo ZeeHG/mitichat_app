@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
-
 import 'chat_setup_logic.dart';
 
 class ChatSetupPage extends StatelessWidget {
@@ -15,13 +14,27 @@ class ChatSetupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: Styles.c_F7F8FA,
       body: SingleChildScrollView(
         child: Obx(() => Column(
               children: [
                 _buildBaseInfoView(),
-                _buildContentSearchView(),
-                17.verticalSpace,
+                // _buildContentSearchView(),
+                10.verticalSpace,
+                _buildItemView(
+                  text: StrRes.chatSearch,
+                  showRightArrow: true,
+                  isBottomRadius: true,
+                  onTap: logic.searchChatHistory,
+                ),
+                10.verticalSpace,
+                _buildItemView(
+                  text: StrRes.messageNotDisturb,
+                  switchOn: logic.isNotDisturb,
+                  onChanged: (_) => logic.toggleNotDisturb(),
+                  showSwitchButton: true,
+                  isBottomRadius: true,
+                ),
                 _buildItemView(
                   text: StrRes.topContacts,
                   switchOn: logic.isPinned,
@@ -29,15 +42,20 @@ class ChatSetupPage extends StatelessWidget {
                   showSwitchButton: true,
                   isTopRadius: true,
                 ),
+                // _buildItemView(
+                //   text: StrRes.remind,
+                //   switchOn: false,
+                //   // onChanged: (_) => logic.toggleNotDisturb(),
+                //   showSwitchButton: true,
+                //   isBottomRadius: true,
+                // ),
                 _buildItemView(
-                  text: StrRes.messageNotDisturb,
-                  hintText: StrRes.messageNotDisturbHint,
-                  switchOn: logic.isNotDisturb,
-                  onChanged: (_) => logic.toggleNotDisturb(),
+                  text: StrRes.chatEncryption,
+                  switchOn: true,
+                  // onChanged: (_) => showDeveloping(),
                   showSwitchButton: true,
-                  isBottomRadius: true,
+                  isTopRadius: true,
                 ),
-                10.verticalSpace,
                 _buildItemView(
                   text: StrRes.burnAfterReading,
                   switchOn: logic.isBurnAfterReading,
@@ -48,29 +66,27 @@ class ChatSetupPage extends StatelessWidget {
                 ),
                 if (logic.isBurnAfterReading)
                   _buildItemView(
-                    text: StrRes.timeSet,
+                    text: "  - " + StrRes.timeSet,
                     value: logic.getBurnAfterReadingDurationStr,
                     onTap: logic.setBurnAfterReadingDuration,
                     showRightArrow: true,
                     isBottomRadius: true,
                   ),
-                10.verticalSpace,
-                _buildItemView(
-                  text: StrRes.periodicallyDeleteMessage,
-                  switchOn: logic.isMsgDestruct,
-                  onChanged: (_) => logic.toggleDestructMessage(),
-                  showSwitchButton: true,
-                  isTopRadius: true,
-                  isBottomRadius: logic.isMsgDestruct ? false : true,
-                ),
-                if (logic.isMsgDestruct)
-                  _buildItemView(
-                    text: StrRes.timeSet,
-                    value: logic.getDestructDurationStr,
-                    onTap: logic.setDestructMessageDuration,
-                    showRightArrow: true,
-                    isBottomRadius: true,
-                  ),
+                //   _buildItemView(
+                //   text: StrRes.autoTranslate,
+                //   switchOn: logic.isAutoTranslate,
+                //   onChanged: (_) => logic.toggleAutoTranslate(),
+                //   showSwitchButton: true,
+                //   isTopRadius: true,
+                //   isBottomRadius: logic.isAutoTranslate ? false : true,
+                // ),
+                // _buildItemView(
+                //     text: StrRes.targetLang,
+                //     value: logic.targetLangStr,
+                //     onTap: logic.setTargetLang,
+                //     showRightArrow: true,
+                //     isBottomRadius: true,
+                //   ),
                 10.verticalSpace,
                 _buildItemView(
                   text: StrRes.setChatBackground,
@@ -78,21 +94,49 @@ class ChatSetupPage extends StatelessWidget {
                   showRightArrow: true,
                   isTopRadius: true,
                 ),
-                _buildItemView(
-                  text: StrRes.fontSize,
-                  onTap: logic.setFontSize,
-                  showRightArrow: true,
-                  isBottomRadius: true,
-                ),
                 10.verticalSpace,
                 _buildItemView(
                   text: StrRes.clearChatHistory,
-                  textStyle: Styles.ts_FF381F_17sp,
+                  textStyle: Styles.ts_333333_16sp,
                   onTap: logic.clearChatHistory,
-                  showRightArrow: true,
+                  // showRightArrow: true,
                   isTopRadius: true,
                   isBottomRadius: true,
                 ),
+                // 10.verticalSpace,
+                // _buildItemView(
+                //   text: StrRes.complaint,
+                //   showRightArrow: true,
+                //   isTopRadius: true,
+                //   isBottomRadius: true,
+                //   onTap: () => showDeveloping(),
+                // ),
+
+                // 10.verticalSpace,
+                // _buildItemView(
+                //   text: StrRes.periodicallyDeleteMessage,
+                //   switchOn: logic.isMsgDestruct,
+                //   onChanged: (_) => logic.toggleDestructMessage(),
+                //   showSwitchButton: true,
+                //   isTopRadius: true,
+                //   isBottomRadius: logic.isMsgDestruct ? false : true,
+                // ),
+                // if (logic.isMsgDestruct)
+                //   _buildItemView(
+                //     text: StrRes.timeSet,
+                //     value: logic.getDestructDurationStr,
+                //     onTap: logic.setDestructMessageDuration,
+                //     showRightArrow: true,
+                //     isBottomRadius: true,
+                //   ),
+                // 10.verticalSpace,
+
+                // _buildItemView(
+                //   text: StrRes.fontSize,
+                //   onTap: logic.setFontSize,
+                //   showRightArrow: true,
+                //   isBottomRadius: true,
+                // ),
               ],
             )),
       ),
@@ -100,11 +144,9 @@ class ChatSetupPage extends StatelessWidget {
   }
 
   Widget _buildBaseInfoView() => Container(
-        margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 10.h),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
         decoration: BoxDecoration(
           color: Styles.c_FFFFFF,
-          borderRadius: BorderRadius.circular(6.r),
         ),
         child: Row(
           children: [
@@ -112,20 +154,20 @@ class ChatSetupPage extends StatelessWidget {
               behavior: HitTestBehavior.translucent,
               onTap: logic.viewUserInfo,
               child: SizedBox(
-                width: 60.w,
+                width: 42.w,
                 child: Column(
                   children: [
                     AvatarView(
-                      width: 44.w,
-                      height: 44.h,
+                      width: 42.w,
+                      height: 42.h,
                       text: logic.conversationInfo.value.showName,
                       url: logic.conversationInfo.value.faceURL,
                     ),
-                    8.verticalSpace,
-                    (logic.conversationInfo.value.showName ?? '').toText
-                      ..style = Styles.ts_8E9AB0_14sp
-                      ..maxLines = 1
-                      ..overflow = TextOverflow.ellipsis,
+                    // 8.verticalSpace,
+                    // (logic.conversationInfo.value.showName ?? '').toText
+                    //   ..style = Styles.ts_999999_14sp
+                    //   ..maxLines = 1
+                    //   ..overflow = TextOverflow.ellipsis,
                   ],
                 ),
               ),
@@ -135,14 +177,14 @@ class ChatSetupPage extends StatelessWidget {
               child: Column(
                 children: [
                   ImageRes.addFriendTobeGroup.toImage
-                    ..width = 44.w
-                    ..height = 44.h
+                    ..width = 42.w
+                    ..height = 42.h
                     ..onTap = logic.createGroup,
-                  8.verticalSpace,
-                  ''.toText
-                    ..style = Styles.ts_8E9AB0_14sp
-                    ..maxLines = 1
-                    ..overflow = TextOverflow.ellipsis,
+                  // 8.verticalSpace,
+                  // ''.toText
+                  //   ..style = Styles.ts_999999_14sp
+                  //   ..maxLines = 1
+                  //   ..overflow = TextOverflow.ellipsis,
                 ],
               ),
             ),
@@ -165,13 +207,12 @@ class ChatSetupPage extends StatelessWidget {
                 ..width = 28.w
                 ..height = 28.h,
               4.verticalSpace,
-              text.toText..style = Styles.ts_8E9AB0_14sp
+              text.toText..style = Styles.ts_999999_14sp
             ],
           ),
         );
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-      margin: EdgeInsets.symmetric(horizontal: 10.w),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
       decoration: BoxDecoration(
         color: Styles.c_FFFFFF,
         borderRadius: BorderRadius.circular(6.r),
@@ -179,7 +220,7 @@ class ChatSetupPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          StrRes.chatContent.toText..style = Styles.ts_8E9AB0_14sp,
+          StrRes.chatContent.toText..style = Styles.ts_999999_14sp,
           12.verticalSpace,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -228,43 +269,48 @@ class ChatSetupPage extends StatelessWidget {
         onTap: onTap,
         behavior: HitTestBehavior.translucent,
         child: Container(
-          height: hintText == null ? 46.h : 68.h,
-          margin: EdgeInsets.symmetric(horizontal: 10.w),
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          decoration: BoxDecoration(
-            color: Styles.c_FFFFFF,
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(isTopRadius ? 6.r : 0),
-              topLeft: Radius.circular(isTopRadius ? 6.r : 0),
-              bottomLeft: Radius.circular(isBottomRadius ? 6.r : 0),
-              bottomRight: Radius.circular(isBottomRadius ? 6.r : 0),
-            ),
-          ),
-          child: Row(
-            children: [
-              null != hintText
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        text.toText..style = textStyle ?? Styles.ts_0C1C33_17sp,
-                        hintText.toText..style = Styles.ts_8E9AB0_14sp,
-                      ],
-                    )
-                  : (text.toText..style = textStyle ?? Styles.ts_0C1C33_17sp),
-              const Spacer(),
-              if (null != value) value.toText..style = Styles.ts_8E9AB0_14sp,
-              if (showSwitchButton)
-                CupertinoSwitch(
-                  value: switchOn,
-                  activeColor: Styles.c_0089FF,
-                  onChanged: onChanged,
+          color: Styles.c_FFFFFF,
+          child: Container(
+            height: hintText == null ? 46.h : 68.h,
+            padding: EdgeInsets.only(right: 20.w),
+            margin: EdgeInsets.only(left: 20.w),
+            decoration: BoxDecoration(
+                border:
+                    Border(top: BorderSide(color: Styles.c_F1F2F6, width: 1.h))
+                // borderRadius: BorderRadius.only(
+                //   topRight: Radius.circular(isTopRadius ? 6.r : 0),
+                //   topLeft: Radius.circular(isTopRadius ? 6.r : 0),
+                //   bottomLeft: Radius.circular(isBottomRadius ? 6.r : 0),
+                //   bottomRight: Radius.circular(isBottomRadius ? 6.r : 0),
+                // ),
                 ),
-              if (showRightArrow)
-                ImageRes.rightArrow.toImage
-                  ..width = 24.w
-                  ..height = 24.h,
-            ],
+            child: Row(
+              children: [
+                null != hintText
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          text.toText
+                            ..style = textStyle ?? Styles.ts_333333_16sp,
+                          hintText.toText..style = Styles.ts_999999_14sp,
+                        ],
+                      )
+                    : (text.toText..style = textStyle ?? Styles.ts_333333_16sp),
+                const Spacer(),
+                if (null != value) value.toText..style = Styles.ts_999999_14sp,
+                if (showSwitchButton)
+                  CupertinoSwitch(
+                    value: switchOn,
+                    activeColor: Styles.c_07C160,
+                    onChanged: onChanged,
+                  ),
+                if (showRightArrow)
+                  ImageRes.appRightArrow.toImage
+                    ..width = 24.w
+                    ..height = 24.h,
+              ],
+            ),
           ),
         ),
       );

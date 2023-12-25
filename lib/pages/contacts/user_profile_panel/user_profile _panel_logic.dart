@@ -14,6 +14,9 @@ import '../../../core/controller/app_controller.dart';
 import '../../../core/controller/im_controller.dart';
 import '../../conversation/conversation_logic.dart';
 
+import 'dart:convert';
+import 'package:openim_working_circle/src/w_apis.dart';
+
 class UserProfilePanelLogic extends GetxController {
   final appLogic = Get.find<AppController>();
   final imLogic = Get.find<IMController>();
@@ -38,6 +41,7 @@ class UserProfilePanelLogic extends GetxController {
   late StreamSubscription _friendAddedSub;
   late StreamSubscription _friendInfoChangedSub;
   late StreamSubscription _memberInfoChangedSub;
+  final picMetas = <Metas>[].obs;
 
   @override
   void onClose() {
@@ -316,4 +320,23 @@ class UserProfilePanelLogic extends GetxController {
         nickname: userInfo.value.showName,
         faceURL: userInfo.value.faceURL,
       );
+
+  _queryWorkingCircleList() async {
+    final userID = userInfo.value.userID!;
+    final result = await WApis.getUserMomentsList(
+      userID: userID,
+      pageNumber: 1,
+      showNumber: 10,
+    );
+    final list = result.workMoments ?? [];
+    list.forEach((item) {
+      if (item.content?.type == 0 &&
+          null != item.content?.metas &&
+          item.content!.metas!.isNotEmpty) {
+        picMetas.assignAll(item.content!.metas!);
+      }
+    });
+  }
+
+  void setFriendRemark() => AppNavigator.startSetFriendRemark();
 }

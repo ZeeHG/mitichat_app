@@ -1,4 +1,6 @@
 import 'package:permission_handler/permission_handler.dart';
+import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 
 class Permissions {
   Permissions._();
@@ -172,5 +174,91 @@ class Permissions {
     // You can request multiple permissions at once.
     Map<Permission, PermissionStatus> statuses = await permissions.request();
     return statuses;
+  }
+
+
+
+
+  static void storage2(Function()? onGranted, Function()? onFinally) async {
+    if (await Permission.storage.request().isGranted) {
+      // Either the permission was already granted before or the user just granted it.
+      onGranted?.call();
+    }
+    if (await Permission.storage.isPermanentlyDenied) {
+      // The user opted to never again see the permission request dialog for this
+      // app. The only way to change the permission's status now is to let the
+      // user manually enable it in the system settings.
+    }
+
+    onFinally?.call();
+  }
+
+
+  static void requestBasePermissions() async {
+    final permissions = [
+      Permission.photos,
+      Permission.audio,
+      Permission.videos,
+      Permission.manageExternalStorage,
+      Permission.scheduleExactAlarm,
+      Permission.phone,
+      Permission.sms,
+      Permission.ignoreBatteryOptimizations,
+      Permission.systemAlertWindow,
+      Permission.requestInstallPackages,
+      Permission.accessNotificationPolicy,
+      Permission.notification,
+      Permission.location,
+      Permission.reminders,
+      Permission.criticalAlerts,
+      Permission.storage,
+      Permission.camera,
+      Permission.microphone,
+    ];
+
+    for (var permission in permissions) {
+      PermissionStatus status = await permission.status;
+      if (!status.isGranted) {
+        await permission.request();
+      }
+    }
+  }
+
+  static Future<void> batchRequestPermissions(
+      List<Permission> permissions) async {
+    for (var permission in permissions) {
+      PermissionStatus status = await permission.status;
+      if (!status.isGranted) {
+        await permission.request();
+      }
+    }
+  }
+
+  static Future<List<PermissionStatus>> getPermissionsStatus(
+      List<Permission> permissions) async {
+    return await Future.wait(
+        permissions.map((item) async => await item.status).toList());
+  }
+
+  // 存储兼容性测试, 不判断isGranted, 一加等机型缺少storage一直为false
+  static Future<void> requestStorage([Function()? onGranted]) async {
+    if (Platform.isAndroid) {
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+      if (androidInfo.version.sdkInt <= 32) {
+        // use [Permissions.storage.status]
+        await batchRequestPermissions([Permission.storage]);
+      } else {
+        // use [Permissions.photos.status]
+        await batchRequestPermissions(
+            [Permission.photos, Permission.audio, Permission.videos, Permission.storage]);
+      }
+    } else {
+      await batchRequestPermissions([Permission.storage]);
+    }
+    onGranted?.call();
+  }
+
+  static void openSettings() async {
+    await openAppSettings();
   }
 }

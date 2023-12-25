@@ -61,7 +61,7 @@ class CreateTagGroupPage extends StatelessWidget {
         ),
         child: TextField(
           controller: logic.inputCtrl,
-          style: Styles.ts_0C1C33_17sp,
+          style: Styles.ts_333333_17sp,
           autofocus: true,
           decoration: InputDecoration(
             border: InputBorder.none,
@@ -70,7 +70,7 @@ class CreateTagGroupPage extends StatelessWidget {
               vertical: 10.h,
             ),
             isDense: true,
-            hintStyle: Styles.ts_8E9AB0_17sp,
+            hintStyle: Styles.ts_999999_17sp,
             hintText: StrRes.plsEnterTagGroupName,
           ),
         ),
@@ -93,7 +93,7 @@ class CreateTagGroupPage extends StatelessWidget {
         child: Obx(() => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                StrRes.tagGroupMember.toText..style = Styles.ts_8E9AB0_14sp,
+                StrRes.tagGroupMember.toText..style = Styles.ts_999999_14sp,
                 // 12.verticalSpace,
                 if (logic.memberList.isNotEmpty)
                   Padding(
@@ -142,7 +142,7 @@ class CreateTagGroupPage extends StatelessWidget {
               ConstrainedBox(
                 constraints: BoxConstraints(maxWidth: 50.w),
                 child: userInfo.nickname!.toText
-                  ..style = Styles.ts_0C1C33_14sp
+                  ..style = Styles.ts_333333_14sp
                   ..maxLines = 1
                   ..overflow = TextOverflow.ellipsis,
               ),
@@ -157,7 +157,7 @@ class CreateTagGroupPage extends StatelessWidget {
                 child: Icon(
                   Icons.clear,
                   size: 10.w,
-                  color: Styles.c_8E9AB0,
+                  color: Styles.c_999999,
                 ),
               ),
             ],

@@ -13,11 +13,11 @@ class EditMyInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Obx(() => Scaffold(
       appBar: TitleBar.back(
         title: logic.title,
         right: StrRes.save.toText
-          ..style = Styles.ts_0C1C33_17sp
+          ..style = Styles.ts_333333_17sp
           ..onTap = logic.save,
       ),
       backgroundColor: Styles.c_FFFFFF,
@@ -32,10 +32,10 @@ class EditMyInfoPage extends StatelessWidget {
             ),
             child: TextField(
               controller: logic.inputCtrl,
-              style: Styles.ts_0C1C33_17sp,
+              style: Styles.ts_333333_17sp,
               autofocus: true,
               keyboardType: logic.keyboardType,
-              inputFormatters: [LengthLimitingTextInputFormatter(16)],
+              inputFormatters: [LengthLimitingTextInputFormatter(logic.lengthLimit.value)],
               decoration: InputDecoration(
                 border: InputBorder.none,
                 isDense: true,
@@ -48,6 +48,6 @@ class EditMyInfoPage extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ));
   }
 }

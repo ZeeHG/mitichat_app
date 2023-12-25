@@ -29,14 +29,14 @@ class SyncStatusView extends StatelessWidget {
                     width: 12.w,
                     height: 12.h,
                     child: CupertinoActivityIndicator(
-                      color: Styles.c_0089FF,
+                      color: Styles.c_8443F8,
                       radius: 6.r,
                     ),
                   ),
             4.horizontalSpace,
             statusStr.toText
               ..style =
-                  (isFailed ? Styles.ts_FF381F_12sp : Styles.ts_0089FF_12sp),
+                  (isFailed ? Styles.ts_FF4E4C_12sp : Styles.ts_8443F8_12sp),
           ],
         ),
       );

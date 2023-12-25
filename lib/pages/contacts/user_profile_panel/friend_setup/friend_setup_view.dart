@@ -81,20 +81,20 @@ class FriendSetupPage extends StatelessWidget {
               alignment: isDelFriendButton ? Alignment.center : null,
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: isDelFriendButton
-                  ? (StrRes.unfriend.toText..style = Styles.ts_FF381F_17sp)
+                  ? (StrRes.unfriend.toText..style = Styles.ts_FF4E4C_17sp)
                   : Row(
                       children: [
-                        (label ?? '').toText..style = Styles.ts_0C1C33_17sp,
+                        (label ?? '').toText..style = Styles.ts_333333_17sp,
                         const Spacer(),
                         if (showRightArrow)
-                          ImageRes.rightArrow.toImage
+                          ImageRes.appRightArrow.toImage
                             ..width = 24.w
                             ..height = 24.h,
                         if (showSwitchButton)
                           CupertinoSwitch(
                             value: switchOn,
                             onChanged: onChanged,
-                            activeColor: Styles.c_0089FF,
+                            activeColor: Styles.c_07C160,
                           ),
                       ],
                     ),

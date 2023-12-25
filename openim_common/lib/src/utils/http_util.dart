@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
-
+import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -54,8 +54,10 @@ class HttpUtil {
 
     // 配置dio实例
     dio.options.baseUrl = Config.imApiUrl;
-    dio.options.connectTimeout = const Duration(seconds: 30); //30s
-    dio.options.receiveTimeout = const Duration(seconds: 30);
+    // dio.options.connectTimeout = const Duration(seconds: 30); //30s
+    // dio.options.receiveTimeout = const Duration(seconds: 30);
+    dio.options.connectTimeout = const Duration(seconds: 300); //300s
+    dio.options.receiveTimeout = const Duration(seconds: 300);
   }
 
   static String get operationID => DateTime.now().millisecondsSinceEpoch.toString();
@@ -100,7 +102,11 @@ class HttpUtil {
     } catch (error) {
       if (error is DioException) {
         final errorMsg = '接口：$path  信息：${error.message}';
-        if (showErrorToast) IMViews.showToast(errorMsg);
+        // if (showErrorToast) IMViews.showToast(errorMsg);
+        
+        // 手动请求取消不提示
+        bool isCancel = error.type == DioExceptionType.cancel;
+        if (isCancel) myLogger.w({"message": "手动取消请求", "data": {"cancelRequset": true, "request": {"path": path, "data": data, "queryParameters": queryParameters, "options": options?.headers}}});
         return Future.error(errorMsg);
       }
       final errorMsg = '接口：$path  信息：${error.toString()}';

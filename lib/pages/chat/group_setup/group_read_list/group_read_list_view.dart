@@ -81,7 +81,7 @@ class GroupReadListPage extends StatelessWidget {
             10.horizontalSpace,
             Expanded(
               child: (info.nickname ?? '').toText
-                ..style = Styles.ts_0C1C33_17sp
+                ..style = Styles.ts_333333_17sp
                 ..maxLines = 1
                 ..overflow = TextOverflow.ellipsis,
             ),

@@ -59,7 +59,7 @@ class GroupMemberListPage extends StatelessWidget {
                           textStyle: Styles.ts_FFFFFF_21sp,
                         ),
                         10.horizontalSpace,
-                        StrRes.everyone.toText..style = Styles.ts_0C1C33_17sp,
+                        StrRes.everyone.toText..style = Styles.ts_333333_17sp,
                       ],
                     ),
                   ),
@@ -109,14 +109,14 @@ class GroupMemberListPage extends StatelessWidget {
                     10.horizontalSpace,
                     Expanded(
                       child: (membersInfo.nickname ?? '').toText
-                        ..style = Styles.ts_0C1C33_17sp
+                        ..style = Styles.ts_333333_17sp
                         ..maxLines = 1
                         ..overflow = TextOverflow.ellipsis,
                     ),
                     if (membersInfo.roleLevel == GroupRoleLevel.owner)
-                      StrRes.groupOwner.toText..style = Styles.ts_8E9AB0_17sp,
+                      StrRes.groupOwner.toText..style = Styles.ts_999999_17sp,
                     if (membersInfo.roleLevel == GroupRoleLevel.admin)
-                      StrRes.groupAdmin.toText..style = Styles.ts_8E9AB0_17sp,
+                      StrRes.groupAdmin.toText..style = Styles.ts_999999_17sp,
                   ],
                 ),
               ),
@@ -154,7 +154,7 @@ class GroupMemberListPage extends StatelessWidget {
                       children: [
                         sprintf(StrRes.selectedPeopleCount,
                             [logic.checkedList.length]).toText
-                          ..style = Styles.ts_0089FF_14sp,
+                          ..style = Styles.ts_8443F8_14sp,
                         ImageRes.expandUpArrow.toImage
                           ..width = 24.w
                           ..height = 24.h,
@@ -165,7 +165,7 @@ class GroupMemberListPage extends StatelessWidget {
                         .map((e) => e.nickname ?? '')
                         .join('、')
                         .toText
-                      ..style = Styles.ts_8E9AB0_14sp
+                      ..style = Styles.ts_999999_14sp
                       ..maxLines = 1
                       ..overflow = TextOverflow.ellipsis,
                   ],
@@ -176,8 +176,7 @@ class GroupMemberListPage extends StatelessWidget {
               height: 40.h,
               padding: EdgeInsets.symmetric(horizontal: 14.w),
               text: sprintf(StrRes.confirmSelectedPeople, [
-                logic.checkedList.length,
-                logic.maxLength,
+                logic.checkedList.length
               ]),
               textStyle: Styles.ts_FFFFFF_14sp,
               onTap: logic.confirmSelectedMember,
@@ -215,7 +214,7 @@ class SelectedMemberListView extends StatelessWidget {
                   children: [
                     sprintf(StrRes.selectedPeopleCount,
                         [logic.checkedList.length]).toText
-                      ..style = Styles.ts_0C1C33_17sp_medium,
+                      ..style = Styles.ts_333333_17sp_medium,
                     const Spacer(),
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
@@ -224,7 +223,7 @@ class SelectedMemberListView extends StatelessWidget {
                         height: 52.h,
                         alignment: Alignment.center,
                         child: StrRes.confirm.toText
-                          ..style = Styles.ts_0089FF_17sp,
+                          ..style = Styles.ts_8443F8_17sp,
                       ),
                     ),
                   ],
@@ -256,7 +255,7 @@ class SelectedMemberListView extends StatelessWidget {
             10.horizontalSpace,
             Expanded(
               child: (membersInfo.nickname ?? '').toText
-                ..style = Styles.ts_0C1C33_17sp
+                ..style = Styles.ts_333333_17sp
                 ..maxLines = 1
                 ..overflow = TextOverflow.ellipsis,
             ),
@@ -272,7 +271,7 @@ class SelectedMemberListView extends StatelessWidget {
                     width: 1,
                   ),
                 ),
-                child: StrRes.remove.toText..style = Styles.ts_0089FF_17sp,
+                child: StrRes.remove.toText..style = Styles.ts_8443F8_17sp,
               ),
             ),
           ],

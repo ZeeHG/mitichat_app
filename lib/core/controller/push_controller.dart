@@ -23,9 +23,9 @@ class PushController extends GetxController {
     // iOS 配置, 安卓配置build.gradle文件
     if (Platform.isIOS) {
       Getuiflut().startSdk(
-        appId: "",
-        appKey: "",
-        appSecret: "",
+        appId: "Bb8eKvZxNg5MYXza0SU1JA",
+        appKey: "zmgSnejQKP6eMt58PPq827",
+        appSecret: "9ehEdFOpS06l06lFkG7g28",
       );
     }
 
@@ -33,7 +33,8 @@ class PushController extends GetxController {
       // 注册收到 cid 的回调
       onReceiveClientId: (String message) async {
         Logger.print("Getui flutter onReceiveClientId: $message");
-        _getClientId = "ClientId: $message";
+        _getClientId = message;
+        print("==========, onReceiveClientId, cid: ${_getClientId}");
       },
       onReceiveMessageData: (Map<String, dynamic> msg) async {
         Logger.print("Getui flutter onReceiveMessageData: $msg");
@@ -95,7 +96,7 @@ class PushController extends GetxController {
         Logger.print("Getui flutter onTransmitUserMessageReceive: $event");
       },
       onGrantAuthorization: (String res) async {},
-      onLiveActivityResult: (Map<String, dynamic> res) async {},
+      onLiveActivityResult: (Map<String, dynamic> event) => Future.value(),
     );
   }
 
@@ -114,14 +115,8 @@ class PushController extends GetxController {
     Getuiflut().onActivityCreate();
   }
 
-  Future<void> getClientId() async {
-    String getClientId;
-    try {
-      getClientId = await Getuiflut.getClientId;
-      Logger.print(getClientId);
-    } catch (e) {
-      Logger.print(e.toString());
-    }
+  Future<String> getClientId() async {
+    return _getClientId;
   }
 
   /// 仅android 停止SDK服务
@@ -139,11 +134,13 @@ class PushController extends GetxController {
   /// alias 别名字符串
   /// aSn   绑定序列码, Android中无效，仅在iOS有效
   void login(String uid) {
-    Getuiflut().bindAlias(uid, 'openim');
+    Getuiflut().bindAlias(uid, _getClientId);
+    print("==========, login, cid: ${_getClientId}");
   }
 
   void logout() {
-    Getuiflut().unbindAlias(OpenIM.iMManager.userID, 'openim', true);
+    myLogger.e({"message": "push_controller登出取消解绑个推"});
+    Getuiflut().unbindAlias(OpenIM.iMManager.userID, _getClientId, true);
   }
 
   /// 给用户打标签 , 后台可以根据标签进行推送
@@ -186,7 +183,7 @@ class PushController extends GetxController {
 
   @override
   void onInit() {
-    // _init();
+    _init();
     super.onInit();
   }
 }

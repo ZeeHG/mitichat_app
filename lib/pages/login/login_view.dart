@@ -17,19 +17,18 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: TouchCloseSoftKeyboard(
-        isGradientBg: true,
+        isGradientBg: false,
         child: SingleChildScrollView(
           child: Column(
             children: [
-              88.verticalSpace,
-              ImageRes.loginLogo.toImage
-                ..width = 64.w
-                ..height = 64.h
-                ..onDoubleTap = logic.configService,
-              StrRes.welcome.toText..style = Styles.ts_0089FF_17sp_semibold,
-              51.verticalSpace,
+              138.verticalSpace,
+              ImageRes.logo2.toImage
+                ..width = 89.w
+                ..height = 81.h,
+                // ..onDoubleTap = logic.configService,
+              70.verticalSpace,
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 32.w),
+                padding: EdgeInsets.symmetric(horizontal: 36.w),
                 child: Obx(() => Column(
                       children: [
                         InputBox.account(
@@ -40,7 +39,7 @@ class LoginPage extends StatelessWidget {
                           controller: logic.phoneCtrl,
                           keyBoardType: logic.loginType.value == LoginType.phone ? TextInputType.phone : TextInputType.text,
                         ),
-                        16.verticalSpace,
+                        29.verticalSpace,
                         Offstage(
                           offstage: !logic.isPasswordLogin.value,
                           child: InputBox.password(

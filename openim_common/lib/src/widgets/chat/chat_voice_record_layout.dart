@@ -104,7 +104,7 @@ class _ChatVoiceRecordLayoutState extends State<ChatVoiceRecordLayout> {
                 _showVoiceRecordView = false;
               });
             },
-            builder: (_, sec) => Material(
+            builder: (_, sec, startTimestamp) => startTimestamp > 0? Material(
               color: Colors.transparent,
               child: Center(
                 child: Container(
@@ -113,8 +113,8 @@ class _ChatVoiceRecordLayoutState extends State<ChatVoiceRecordLayout> {
                   padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
                   decoration: BoxDecoration(
                     color: _isCancelSend
-                        ? Styles.c_FF381F_opacity70
-                        : Styles.c_0C1C33_opacity60,
+                        ? Styles.c_FF4E4C_opacity70
+                        : Styles.c_333333_opacity60,
                     borderRadius: BorderRadius.circular(6.r),
                   ),
                   child: Column(
@@ -131,7 +131,7 @@ class _ChatVoiceRecordLayoutState extends State<ChatVoiceRecordLayout> {
                   ),
                 ),
               ),
-            ),
+            ) : SizedBox(),
           ),
         ),
       ],

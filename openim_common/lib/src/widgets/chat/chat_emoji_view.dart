@@ -93,10 +93,11 @@ class _ChatEmojiViewState extends State<ChatEmojiView> {
             // borderRadius: BorderRadius.circular(6.r),
           ),
           child: Center(
-            child: (index == 0 ? ImageRes.emojiTab : ImageRes.favoriteTab).toImage
-              ..width = 28.w
-              ..height = 28.h
-              ..color = (selected ? Styles.c_0089FF : Styles.c_8E9AB0),
+            child:
+                (index == 0 ? ImageRes.emojiTab : ImageRes.favoriteTab).toImage
+                  ..width = 28.w
+                  ..height = 28.h
+                  ..color = (selected ? Styles.c_8443F8 : Styles.c_999999),
           ),
         ),
       );
@@ -156,14 +157,16 @@ class EmojiLayout extends StatelessWidget {
           // Do something when emoji is tapped
           controller
             ..text += emoji.emoji
-            ..selection = TextSelection.fromPosition(TextPosition(offset: controller.text.length));
+            ..selection = TextSelection.fromPosition(
+                TextPosition(offset: controller.text.length));
         },
         onBackspacePressed: () {
           // Backspace-Button tapped logic
           // Remove this line to also remove the button in the UI
           controller
             ..text = controller.text.characters.skipLast(1).toString()
-            ..selection = TextSelection.fromPosition(TextPosition(offset: controller.text.length));
+            ..selection = TextSelection.fromPosition(
+                TextPosition(offset: controller.text.length));
         },
         config: emoji.Config(
           columns: 7,
@@ -174,15 +177,15 @@ class EmojiLayout extends StatelessWidget {
           gridPadding: EdgeInsets.zero,
           initCategory: Category.RECENT,
           bgColor: Styles.c_FFFFFF,
-          indicatorColor: Styles.c_0089FF,
-          iconColor: Styles.c_8E9AB0,
-          iconColorSelected: Styles.c_0089FF,
-          backspaceColor: Styles.c_0089FF,
+          indicatorColor: Styles.c_8443F8,
+          iconColor: Styles.c_999999,
+          iconColorSelected: Styles.c_8443F8,
+          backspaceColor: Styles.c_8443F8,
           skinToneDialogBgColor: Styles.c_FFFFFF,
-          skinToneIndicatorColor: Styles.c_8E9AB0,
+          skinToneIndicatorColor: Styles.c_999999,
           enableSkinTones: true,
           recentsLimit: 9,
-          noRecents: '最近使用'.toText..style = Styles.ts_0C1C33_17sp,
+          noRecents: '最近使用'.toText..style = Styles.ts_333333_17sp,
           tabIndicatorAnimDuration: kTabScrollDuration,
           categoryIcons: const CategoryIcons(),
           buttonMode: ButtonMode.MATERIAL,

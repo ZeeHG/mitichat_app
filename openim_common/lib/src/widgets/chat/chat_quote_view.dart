@@ -24,7 +24,8 @@ class ChatQuoteView extends StatelessWidget {
 }
 
 class _ChatQuoteContentView extends StatelessWidget {
-  const _ChatQuoteContentView({Key? key, required this.message}) : super(key: key);
+  const _ChatQuoteContentView({Key? key, required this.message})
+      : super(key: key);
   final Message message;
 
   final _decoder = const JsonDecoder();
@@ -111,7 +112,7 @@ class _ChatQuoteContentView extends StatelessWidget {
               FaIcon(
                 FontAwesomeIcons.locationDot,
                 size: 12.w,
-                color: Styles.c_0089FF,
+                color: Styles.c_8443F8,
               ),
             ],
           );
@@ -146,13 +147,13 @@ class _ChatQuoteContentView extends StatelessWidget {
             child: ChatText(
               text: '$name：${content ?? ''}'.fixAutoLines(),
               allAtMap: atMap,
-              textStyle: Styles.ts_8E9AB0_14sp,
+              textStyle: Styles.ts_999999_14sp,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               patterns: [
                 MatchPattern(
                   type: PatternType.at,
-                  style: Styles.ts_8E9AB0_14sp,
+                  style: Styles.ts_999999_14sp,
                 )
               ],
             ),

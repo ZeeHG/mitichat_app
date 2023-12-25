@@ -13,48 +13,59 @@ class MinePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: Styles.c_FFFFFF,
       body: SingleChildScrollView(
         child: Column(
           children: [
             Stack(
               children: [
                 Container(
-                  height: 138.h,
                   width: 1.sw,
-                  color: Styles.c_0089FF,
-                  child: ImageRes.mineHeaderBg.toImage,
+                  height: 228.h,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                    image: AssetImage(ImageRes.appHeaderBg,
+                        package: 'openim_common'),
+                    fit: BoxFit.cover,
+                  )),
                 ),
                 Obx(() => _buildMyInfoView()),
               ],
             ),
-            10.verticalSpace,
-            _buildItemView(
-              icon: ImageRes.myInfo,
-              label: StrRes.myInfo,
-              onTap: logic.viewMyInfo,
-              isTopRadius: true,
-            ),
-            // _buildItemView(
-            //   icon: ImageRes.workingCircle,
-            //   label: StrRes.workingCircle,
-            //   onTap: logic.workMoments,
-            // ),
-            _buildItemView(
-              icon: ImageRes.accountSetup,
-              label: StrRes.accountSetup,
-              onTap: logic.accountSetup,
-            ),
-            _buildItemView(
-              icon: ImageRes.aboutUs,
-              label: StrRes.aboutUs,
-              onTap: logic.aboutUs,
-            ),
-            _buildItemView(
-              icon: ImageRes.logout,
-              label: StrRes.logout,
-              onTap: logic.logout,
-              isBottomRadius: true,
+            Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                  color: Styles.c_FFFFFF,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.r),
+                      topRight: Radius.circular(20.r))),
+              transform: Matrix4.translationValues(0, -26.h, 0),
+              child: Column(
+                children: [
+                  _buildItemView(
+                    icon: ImageRes.appMyInfo,
+                    label: StrRes.myInfo,
+                    onTap: logic.viewMyInfo,
+                    // isTopRadius: true,
+                  ),
+                  _buildItemView(
+                    icon: ImageRes.appAccountSetup,
+                    label: StrRes.accountSetup,
+                    onTap: logic.accountSetup,
+                  ),
+                  _buildItemView(
+                    icon: ImageRes.appAboutUs,
+                    label: StrRes.aboutUs,
+                    onTap: logic.aboutUs,
+                  ),
+                  _buildItemView(
+                    icon: ImageRes.appLogout,
+                    label: StrRes.logout,
+                    onTap: logic.logout,
+                    // isBottomRadius: true,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -63,31 +74,28 @@ class MinePage extends StatelessWidget {
   }
 
   Widget _buildMyInfoView() => Container(
-        height: 98.h,
-        margin: EdgeInsets.only(left: 16.w, right: 16.w, top: 90.h),
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
-          borderRadius: BorderRadius.circular(6.r),
-        ),
-        child: Row(
-          children: [
-            AvatarView(
-              url: logic.imLogic.userInfo.value.faceURL,
-              text: logic.imLogic.userInfo.value.nickname,
-              width: 48.w,
-              height: 48.h,
-              textStyle: Styles.ts_FFFFFF_14sp,
-            ),
-            10.horizontalSpace,
-            Expanded(
-              child: Column(
+        height: 58.h,
+        margin: EdgeInsets.only(left: 30.w, right: 30.w, top: 86.h),
+        child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: logic.viewMyQrcode,
+          child: Row(
+            children: [
+              AvatarView(
+                  url: logic.imLogic.userInfo.value.faceURL,
+                  text: logic.imLogic.userInfo.value.nickname,
+                  width: 58.w,
+                  height: 58.h,
+                  textStyle: Styles.ts_FFFFFF_14sp,
+                  isCircle: true),
+              16.horizontalSpace,
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   (logic.imLogic.userInfo.value.nickname ?? '').toText
-                    ..style = Styles.ts_0C1C33_17sp_medium,
-                  4.verticalSpace,
+                    ..style = Styles.ts_4B3230_18sp,
+                  11.verticalSpace,
                   GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     onTap: logic.copyID,
@@ -95,70 +103,74 @@ class MinePage extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         (logic.imLogic.userInfo.value.userID ?? '').toText
-                          ..style = Styles.ts_8E9AB0_14sp,
-                        ImageRes.mineCopy.toImage
-                          ..width = 16.w
-                          ..height = 16.h,
+                          ..style = Styles.ts_B3AAAA_14sp
                       ],
                     ),
                   ),
                 ],
               ),
-            ),
-            GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: logic.viewMyQrcode,
-              child: Row(
-                children: [
-                  ImageRes.mineQr.toImage
-                    ..width = 18.w
-                    ..height = 18.h,
-                  8.horizontalSpace,
-                  ImageRes.rightArrow.toImage
-                    ..width = 24.w
-                    ..height = 24.h,
-                ],
-              ),
-            )
-          ],
+              Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ImageRes.appMineQr.toImage
+                      ..width = 16.w
+                      ..height = 16.h,
+                    ImageRes.appRightArrow.toImage
+                      ..width = 20.w
+                      ..height = 20.h,
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       );
 
   Widget _buildItemView({
     required String icon,
     required String label,
-    bool isTopRadius = false,
-    bool isBottomRadius = false,
+    // bool isTopRadius = false,
+    // bool isBottomRadius = false,
     Function()? onTap,
   }) =>
       Container(
-        margin: EdgeInsets.symmetric(horizontal: 16.w),
         child: Ink(
           decoration: BoxDecoration(
             color: Styles.c_FFFFFF,
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(isTopRadius ? 6.r : 0),
-              topLeft: Radius.circular(isTopRadius ? 6.r : 0),
-              bottomLeft: Radius.circular(isBottomRadius ? 6.r : 0),
-              bottomRight: Radius.circular(isBottomRadius ? 6.r : 0),
-            ),
           ),
           child: InkWell(
             onTap: onTap,
             child: Container(
-              height: 56.h,
-              padding: EdgeInsets.only(left: 12.w, right: 16.w),
+              height: 65.h,
+              padding: EdgeInsets.symmetric(horizontal: 30.w),
               child: Row(
                 children: [
                   icon.toImage
-                    ..width = 24.w
-                    ..height = 24.h,
-                  11.horizontalSpace,
-                  label.toText..style = Styles.ts_0C1C33_17sp,
-                  const Spacer(),
-                  ImageRes.rightArrow.toImage
-                    ..width = 24.w
-                    ..height = 24.h,
+                    ..width = 26.w
+                    ..height = 26.h,
+                  12.horizontalSpace,
+                  Expanded(
+                    child: Container(
+                      height: 64.h,
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                        color: Styles.c_F5F0F0,
+                        width: 1.h,
+                      ))),
+                      child: Row(
+                        children: [
+                          label.toText..style = Styles.ts_333333_15sp,
+                          const Spacer(),
+                          ImageRes.appRightArrow.toImage
+                            ..width = 20.w
+                            ..height = 20.h,
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -39,7 +39,7 @@ class SearchFriendLogic extends GetxController {
     resultList.clear();
     if (key.isNotEmpty) {
       for (var element in logic.friendList) {
-        if (element.showName.toUpperCase().contains(key.toUpperCase()) || element.userID!.contains(key.toLowerCase())) {
+        if (element.showName.toUpperCase().contains(key.toUpperCase()) || element.userID!.contains(key.toLowerCase()) || element.nickname!.toUpperCase().contains(key.toUpperCase())) {
           resultList.add(element);
         }
       }

@@ -43,7 +43,7 @@ class MapView extends StatelessWidget {
                       point: LatLng(latitude, longitude),
                       child: Icon(
                         Icons.location_on_sharp,
-                        color: Styles.c_FF381F,
+                        color: Styles.c_FF4E4C,
                         size: 30,
                       ),
                     ),
@@ -60,9 +60,9 @@ class MapView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      address1.toText..style = Styles.ts_0C1C33_17sp_semibold,
+                      address1.toText..style = Styles.ts_333333_17sp_semibold,
                       8.verticalSpace,
-                      address2.toText..style = Styles.ts_8E9AB0_14sp,
+                      address2.toText..style = Styles.ts_999999_14sp,
                     ],
                   ),
                 ),

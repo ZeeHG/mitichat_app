@@ -48,5 +48,5 @@ class _TimingViewState extends State<TimingView> {
 
   @override
   Widget build(BuildContext context) =>
-      '$_sec s'.toText..style = Styles.ts_0089FF_12sp;
+      '$_sec s'.toText..style = Styles.ts_8443F8_12sp;
 }

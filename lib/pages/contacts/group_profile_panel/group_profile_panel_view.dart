@@ -18,7 +18,7 @@ class GroupProfilePanelPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: Styles.c_F7F8FA,
       body: Obx(() => Column(
             children: [
               _buildBaseInfo(),
@@ -29,10 +29,10 @@ class GroupProfilePanelPage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Row(
                   children: [
-                    StrRes.groupID.toText..style = Styles.ts_0C1C33_17sp,
+                    StrRes.groupID.toText..style = Styles.ts_333333_17sp,
                     12.horizontalSpace,
                     logic.groupInfo.value.groupID.toText
-                      ..style = Styles.ts_8E9AB0_17sp,
+                      ..style = Styles.ts_999999_17sp,
                   ],
                 ),
               ),
@@ -73,7 +73,7 @@ class GroupProfilePanelPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   (logic.groupInfo.value.groupName ?? '').toText
-                    ..style = Styles.ts_0C1C33_17sp_medium,
+                    ..style = Styles.ts_333333_17sp_medium,
                   4.verticalSpace,
                   Row(
                     children: [
@@ -85,7 +85,7 @@ class GroupProfilePanelPage extends StatelessWidget {
                         (logic.groupInfo.value.createTime ?? 0),
                         format: IMUtils.getTimeFormat1(),
                       ).toText
-                        ..style = Styles.ts_8E9AB0_14sp,
+                        ..style = Styles.ts_999999_14sp,
                     ],
                   ),
                 ],
@@ -105,13 +105,13 @@ class GroupProfilePanelPage extends StatelessWidget {
             RichText(
               text: TextSpan(
                 text: StrRes.groupMember,
-                style: Styles.ts_0C1C33_17sp,
+                style: Styles.ts_333333_17sp,
                 children: [
                   WidgetSpan(child: 12.horizontalSpace),
                   TextSpan(
                     text: sprintf(
                         StrRes.nPerson, [logic.groupInfo.value.memberCount]),
-                    style: Styles.ts_8E9AB0_17sp,
+                    style: Styles.ts_999999_17sp,
                   ),
                 ],
               ),

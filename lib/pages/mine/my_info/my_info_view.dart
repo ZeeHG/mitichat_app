@@ -19,35 +19,56 @@ class MyInfoPage extends StatelessWidget {
       appBar: TitleBar.back(
         title: StrRes.myInfo,
       ),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: Styles.c_F7F8FA,
       body: Obx(() => SingleChildScrollView(
             child: Column(
               children: [
-                10.verticalSpace,
+                12.verticalSpace,
                 _buildCornerBgView(
                   children: [
                     _buildItemView(
-                      label: StrRes.avatar,
+                      label: "${StrRes.avatar}",
                       isAvatar: true,
                       value: imLogic.userInfo.value.nickname,
                       url: imLogic.userInfo.value.faceURL,
                       onTap: logic.openPhotoSheet,
+                      showBorder: false
                     ),
+                  ],
+                ),
+                12.verticalSpace,
+                _buildCornerBgView(
+                  children: [
+                    _buildItemView(
+                      label: StrRes.mobile,
+                      value: imLogic.userInfo.value.phoneNumber,
+                      // onTap: logic.editMobile,
+                      showRightArrow: false,
+                      showBorder: false
+                    ),
+                    _buildItemView(
+                      label: StrRes.email,
+                      value: imLogic.userInfo.value.email,
+                      onTap: logic.editEmail,
+                    ),
+                  ],
+                ),
+                12.verticalSpace,
+                _buildCornerBgView(
+                  children: [
                     _buildItemView(
                       label: StrRes.name,
                       value: imLogic.userInfo.value.nickname,
                       onTap: logic.editMyName,
+                      showBorder: false
                     ),
                     _buildItemView(
                       label: StrRes.gender,
-                      value: imLogic.userInfo.value.isMale ? StrRes.man : StrRes.woman,
+                      value: imLogic.userInfo.value.isMale
+                          ? StrRes.man
+                          : StrRes.woman,
                       onTap: logic.selectGender,
                     ),
-                    // _buildItemView(
-                    //   label: StrRes.englishName,
-                    //   value: imLogic.userInfo.value.englishName,
-                    //   onTap: logic.editEnglishName,
-                    // ),
                     _buildItemView(
                       label: StrRes.birthDay,
                       value: DateUtil.formatDateMs(
@@ -58,27 +79,6 @@ class MyInfoPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                10.verticalSpace,
-                _buildCornerBgView(
-                  children: [
-                    // _buildItemView(
-                    //   label: StrRes.tel,
-                    //   value: imLogic.userInfo.value.telephone,
-                    //   onTap: logic.editTel,
-                    // ),
-                    _buildItemView(
-                      label: StrRes.mobile,
-                      value: imLogic.userInfo.value.phoneNumber,
-                      // onTap: logic.editMobile,
-                      showRightArrow: false,
-                    ),
-                    _buildItemView(
-                      label: StrRes.email,
-                      value: imLogic.userInfo.value.email,
-                      onTap: logic.editEmail,
-                    ),
-                  ],
-                ),
               ],
             ),
           )),
@@ -86,16 +86,15 @@ class MyInfoPage extends StatelessWidget {
   }
 
   Widget _buildCornerBgView({required List<Widget> children}) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        margin: EdgeInsets.symmetric(horizontal: 10.w),
+        padding: EdgeInsets.symmetric(horizontal: 12.w),
         decoration: BoxDecoration(
           color: Styles.c_FFFFFF,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(6.r),
-            topRight: Radius.circular(6.r),
-            bottomLeft: Radius.circular(6.r),
-            bottomRight: Radius.circular(6.r),
-          ),
+          // borderRadius: BorderRadius.only(
+          //   topLeft: Radius.circular(6.r),
+          //   topRight: Radius.circular(6.r),
+          //   bottomLeft: Radius.circular(6.r),
+          //   bottomRight: Radius.circular(6.r),
+          // ),
         ),
         child: Column(children: children),
       );
@@ -106,37 +105,47 @@ class MyInfoPage extends StatelessWidget {
     String? url,
     bool isAvatar = false,
     bool showRightArrow = true,
+    bool showBorder = true,
     Function()? onTap,
   }) =>
       GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: showRightArrow ? onTap : null,
-        child: SizedBox(
-          height: 46.h,
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(
+                color: Styles.c_F1F2F6,
+                width: showBorder ? 1.h : 0,
+              ),
+            ),
+          ),
+          height: 50.h,
           child: Row(
             children: [
-              label.toText..style = Styles.ts_0C1C33_17sp,
+              label.toText..style = Styles.ts_333333_14sp,
               const Spacer(),
               if (isAvatar)
                 AvatarView(
-                  width: 32.w,
-                  height: 32.h,
+                  width: 38.w,
+                  height: 38.h,
                   url: url,
                   text: value,
-                  textStyle: Styles.ts_FFFFFF_10sp,
+                  textStyle: Styles.ts_FFFFFF_12sp,
+                  isCircle: true,
                 )
               else
                 Expanded(
                     flex: 3,
                     child: (IMUtils.emptyStrToNull(value) ?? '').toText
-                      ..style = Styles.ts_0C1C33_17sp
+                      ..style = Styles.ts_999999_14sp
                       ..maxLines = 1
                       ..overflow = TextOverflow.ellipsis
                       ..textAlign = TextAlign.right),
               if (showRightArrow)
-                ImageRes.rightArrow.toImage
-                  ..width = 24.w
-                  ..height = 24.h,
+                ImageRes.appRightArrow.toImage
+                  ..width = 20.w
+                  ..height = 20.h,
             ],
           ),
         ),

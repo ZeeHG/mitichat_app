@@ -30,7 +30,7 @@ class NewMessageIndicator extends StatelessWidget {
                 offset: Offset(0, 6.h),
                 blurRadius: 16.r,
                 spreadRadius: 1.r,
-                color: Styles.c_8E9AB0_opacity16,
+                color: Styles.c_999999_opacity16,
               ),
             ],
           ),
@@ -42,7 +42,7 @@ class NewMessageIndicator extends StatelessWidget {
                 ..height = 16.h,
               4.horizontalSpace,
               sprintf(StrRes.nMessage, [newMessageCount]).toText
-                ..style = Styles.ts_0089FF_12sp,
+                ..style = Styles.ts_8443F8_12sp,
             ],
           ),
         ),

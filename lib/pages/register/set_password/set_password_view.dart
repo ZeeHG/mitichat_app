@@ -16,7 +16,7 @@ class SetPasswordPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            StrRes.setInfo.toText..style = Styles.ts_0089FF_22sp_semibold,
+            StrRes.setInfo.toText..style = Styles.ts_8443F8_22sp_semibold,
             29.verticalSpace,
             InputBox(
               label: StrRes.nickname,

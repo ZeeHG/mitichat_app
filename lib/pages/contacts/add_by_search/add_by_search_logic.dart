@@ -66,7 +66,12 @@ class AddContactsBySearchLogic extends GetxController {
         showNumber: 20,
       ),
     );
-    userInfoList.assignAll(list ?? []);
+    // todo, 暂时本地精确匹配id
+    var filterList = (list ?? []).where((element) =>
+        element.userID! == searchKey.toLowerCase() ||
+        element.phoneNumber == searchKey);
+    userInfoList.assignAll(filterList);
+    // userInfoList.assignAll(list ?? []);
     refreshCtrl.refreshCompleted();
     if (null == list || list.isEmpty || list.length < 20) {
       refreshCtrl.loadNoData();

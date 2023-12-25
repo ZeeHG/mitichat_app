@@ -5,18 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:openim_common/src/widgets/chat/chat_quote_view.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:markdown_widget/markdown_widget.dart';
 
-double maxWidth = 247.w;
+double maxWidth = 219.w;
+double maxWidthContainer = 243.w;
 double pictureWidth = 120.w;
 double videoWidth = 120.w;
 double locationWidth = 220.w;
 
 BorderRadius borderRadius(bool isISend) => BorderRadius.only(
-      topLeft: Radius.circular(isISend ? 6.r : 0),
-      topRight: Radius.circular(isISend ? 0 : 6.r),
+      topLeft: Radius.circular(isISend ? 6.r : 6.r),
+      topRight: Radius.circular(isISend ? 6.r : 6.r),
       bottomLeft: Radius.circular(6.r),
       bottomRight: Radius.circular(6.r),
     );
@@ -98,6 +101,8 @@ class ChatItemView extends StatefulWidget {
     this.enabledRevokeMenu = true,
     this.showLeftNickname = true,
     this.showRightNickname = false,
+    this.enabledTranslateMenu = false,
+    this.enabledUnTranslateMenu = false,
     this.onTapAddEmojiMenu,
     this.highlightColor,
     this.allAtMap = const {},
@@ -113,6 +118,8 @@ class ChatItemView extends StatefulWidget {
     this.onTapForwardMenu,
     this.onTapReplyMenu,
     this.onTapRevokeMenu,
+    this.onTapTranslateMenu,
+    this.onTapUnTranslateMenu,
     this.onVisibleTrulyText,
     this.onPopMenuShowChanged,
     this.onTapQuoteMessage,
@@ -174,6 +181,8 @@ class ChatItemView extends StatefulWidget {
   final bool enabledAddEmojiMenu;
   final bool showLeftNickname;
   final bool showRightNickname;
+  final bool enabledTranslateMenu;
+  final bool enabledUnTranslateMenu;
 
   ///
   final Color? highlightColor;
@@ -186,6 +195,8 @@ class ChatItemView extends StatefulWidget {
   final Function()? onLongPressRightAvatar;
   final Function()? onTapCopyMenu;
   final Function()? onTapDelMenu;
+  final Function()? onTapTranslateMenu;
+  final Function()? onTapUnTranslateMenu;
   final Function()? onTapForwardMenu;
   final Function()? onTapReplyMenu;
   final Function()? onTapRevokeMenu;
@@ -219,6 +230,8 @@ class ChatItemView extends StatefulWidget {
 
 class _ChatItemViewState extends State<ChatItemView> {
   final _popupCtrl = CustomPopupMenuController();
+  final _popupTranslateMenuCtrl = CustomPopupMenuController();
+  final betaTestLogic = Get.find<BetaTestLogic>();
 
   Message get _message => widget.message;
 
@@ -228,9 +241,15 @@ class _ChatItemViewState extends State<ChatItemView> {
   late StreamSubscription<bool> _keyboardSubs;
   StreamSubscription<bool>? _closeMenuSubs;
 
+  bool get showMd =>
+      (_message.isTextType || _message.isAtTextType) &&
+      betaTestLogic.isBot(_message.sendID ?? "") &&
+      betaTestLogic.openChatMd.value;
+
   @override
   void dispose() {
     _popupCtrl.dispose();
+    _popupTranslateMenuCtrl.dispose();
     _keyboardSubs.cancel();
     _closeMenuSubs?.cancel();
     super.dispose();
@@ -247,15 +266,21 @@ class _ChatItemViewState extends State<ChatItemView> {
     _keyboardSubs = keyboardVisibilityCtrl.onChange.listen((bool visible) {
       // Logger.print('Keyboard visibility update. Is visible: $visible');
       _popupCtrl.hideMenu();
+      _popupTranslateMenuCtrl.hideMenu();
     });
 
     _popupCtrl.addListener(() {
       widget.onPopMenuShowChanged?.call(_popupCtrl.menuIsShowing);
     });
 
+    _popupTranslateMenuCtrl.addListener(() {
+      widget.onPopMenuShowChanged?.call(_popupCtrl.menuIsShowing);
+    });
+
     _closeMenuSubs = widget.closePopMenuSubject?.listen((value) {
       if (value == true) {
         _popupCtrl.hideMenu();
+        _popupTranslateMenuCtrl.hideMenu();
       }
     });
     super.initState();
@@ -267,7 +292,7 @@ class _ChatItemViewState extends State<ChatItemView> {
       child: Container(
         color: widget.highlightColor,
         margin: EdgeInsets.only(bottom: 20.h),
-        padding: EdgeInsets.symmetric(horizontal: 10.w),
+        padding: EdgeInsets.symmetric(horizontal: 12.w),
         child: Center(child: _child),
       ),
       onVisibilityLost: () {
@@ -279,7 +304,33 @@ class _ChatItemViewState extends State<ChatItemView> {
     );
   }
 
-  Widget get _child => widget.itemViewBuilder?.call(context, _message) ?? _buildChildView();
+  Widget get _child =>
+      widget.itemViewBuilder?.call(context, _message) ?? _buildChildView();
+
+  Widget _buildMarkdown({String? text}) {
+    final config =
+        _isISend ? MarkdownConfig.darkConfig : MarkdownConfig.defaultConfig;
+    return Container(
+      constraints: BoxConstraints(maxWidth: maxWidth),
+      child: Column(
+        children: MarkdownGenerator(
+            linesMargin: EdgeInsets.all(0),
+            // config: config.copy(configs: [
+            //   PConfig(
+            //     textStyle:
+            //         _isISend ? Styles.ts_FFFFFF_16sp : Styles.ts_333333_16sp,
+            //   ),
+            //   ListConfig(marker: (bool isOrdered, int depth, int index) => getDefaultMarker(isOrdered, depth, _isISend ? Styles.c_FFFFFF : Styles.c_000000, index,
+            //   12, config))
+            // ])
+            ).buildWidgets(null != text
+            ? text
+            : _message.isTextType
+                ? _message.textElem!.content!
+                : IMUtils.replaceMessageAtMapping(_message, {})),
+      ),
+    );
+  }
 
   Widget _buildChildView() {
     Widget? child;
@@ -300,6 +351,7 @@ class _ChatItemViewState extends State<ChatItemView> {
         patterns: widget.patterns,
         textScaleFactor: widget.textScaleFactor,
         onVisibleTrulyText: widget.onVisibleTrulyText,
+        isISend: _isISend,
       );
     } else if (_message.isAtTextType) {
       isBubbleBg = true;
@@ -309,6 +361,7 @@ class _ChatItemViewState extends State<ChatItemView> {
         patterns: widget.patterns,
         textScaleFactor: widget.textScaleFactor,
         onVisibleTrulyText: widget.onVisibleTrulyText,
+        isISend: _isISend,
       );
     } else if (_message.isPictureType) {
       child = widget.mediaItemBuilder?.call(context, _message) ??
@@ -355,6 +408,7 @@ class _ChatItemViewState extends State<ChatItemView> {
         allAtMap: IMUtils.getAtMapping(_message, widget.allAtMap),
         patterns: widget.patterns,
         onVisibleTrulyText: widget.onVisibleTrulyText,
+        isISend: _isISend,
       );
     } else if (_message.isMergerType) {
       child = ChatMergeMsgView(
@@ -414,6 +468,10 @@ class _ChatItemViewState extends State<ChatItemView> {
       //   }
       // }
     }
+    // md测试
+    if (showMd) {
+      child = _buildMarkdown();
+    }
     senderNickname ??= widget.leftNickname ?? _message.senderNickname;
     senderFaceURL ??= widget.leftFaceUrl ?? _message.senderFaceUrl;
     return child = ChatItemContainer(
@@ -422,7 +480,8 @@ class _ChatItemViewState extends State<ChatItemView> {
       leftNickname: senderNickname,
       leftFaceUrl: senderFaceURL,
       rightNickname: widget.rightNickname ?? OpenIM.iMManager.userInfo.nickname,
-      rightFaceUrl: widget.rightFaceUrl ?? OpenIM.iMManager.userInfo.faceURL,
+      rightFaceUrl:
+          widget.rightFaceUrl ?? OpenIM.iMManager.userInfo.faceURL ?? "",
       showLeftNickname: widget.showLeftNickname,
       showRightNickname: widget.showRightNickname,
       timelineStr: widget.timelineStr,
@@ -447,23 +506,94 @@ class _ChatItemViewState extends State<ChatItemView> {
       onTapLeftAvatar: widget.onTapLeftAvatar,
       onTapRightAvatar: widget.onTapRightAvatar,
       quoteView: _quoteMsgView,
+      translateView: _translateView,
       readStatusView: _readStatusView,
       voiceReadStatusView: _voiceReadStatusView,
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: widget.onClickItemView,
-        child: child ?? ChatText(text: StrRes.unsupportedMessage),
+        child: child ??
+            ChatText(text: StrRes.unsupportedMessage, isISend: _isISend),
       ),
     );
   }
 
   Widget? get _quoteMsgView {
     final quoteMsg = _message.quoteMessage;
-    return quoteMsg != null ? ChatQuoteView(quoteMsg: quoteMsg, onTap: widget.onTapQuoteMessage) : null;
+    return quoteMsg != null
+        ? ChatQuoteView(quoteMsg: quoteMsg, onTap: widget.onTapQuoteMessage)
+        : null;
   }
 
-  Widget? get _readStatusView => widget.enabledReadStatus && _isISend && _message.status == MessageStatus.succeeded
-      ? ChatReadTagView(message: _message, onTap: widget.onViewMessageReadStatus)
+  Widget _translateView({String? text, required String status}) {
+    List<MenuInfo> _translateMenusItem = [];
+    if (null != text && status == "show") {
+      _translateMenusItem = [
+        MenuInfo(
+          icon: ImageRes.menuCopy,
+          text: StrRes.menuCopy,
+          enabled: true,
+          onTap: () => IMUtils.copy(text: text),
+        )
+      ];
+    }
+    return status == "loading"
+        ? Container(
+            margin: EdgeInsets.only(top: 4.h),
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
+            height: 42.h,
+            alignment: Alignment.centerLeft,
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              color: Styles.c_FFFFFF,
+              borderRadius: borderRadius(_isISend),
+            ),
+            child: ImageRes.appTranslateLoading.toImage..height = 24.h,
+          )
+        : Container(
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+            margin: EdgeInsets.only(top: 4.h),
+            // constraints: BoxConstraints(maxWidth: maxWidth),
+            decoration: BoxDecoration(
+              color: _isISend ? Styles.c_8443F8 : Styles.c_FFFFFF,
+              borderRadius: borderRadius(_isISend),
+            ),
+            child: status == "fail"
+                ? ChatText(
+                    text: StrRes.translateFail,
+                    textStyle: Styles.ts_FF4E4C_16sp,
+                    patterns: widget.patterns,
+                    textScaleFactor: widget.textScaleFactor,
+                    // onVisibleTrulyText: widget.onVisibleTrulyText,
+                    isISend: _isISend,
+                  )
+                : CopyCustomPopupMenu(
+                    controller: _popupTranslateMenuCtrl,
+                    menuBuilder: () => ChatLongPressMenu(
+                      popupMenuController: _popupTranslateMenuCtrl,
+                      menus: _translateMenusItem,
+                    ),
+                    pressType: PressType.longPress,
+                    arrowColor: Styles.c_333333_opacity85,
+                    barrierColor: Colors.transparent,
+                    verticalMargin: 0,
+                    child: !showMd
+                        ? ChatText(
+                            text: status == "show" ? text! : "",
+                            patterns: widget.patterns,
+                            textScaleFactor: widget.textScaleFactor,
+                            isISend: _isISend,
+                          )
+                        : _buildMarkdown(text: text!),
+                  ),
+          );
+  }
+
+  Widget? get _readStatusView => widget.enabledReadStatus &&
+          _isISend &&
+          _message.status == MessageStatus.succeeded
+      ? ChatReadTagView(
+          message: _message, onTap: widget.onViewMessageReadStatus)
       : null;
 
   Widget? get _voiceReadStatusView => _message.isVoiceType && !_message.isRead! ? const ChatVoiceReadStatusView() : null;
@@ -482,6 +612,20 @@ class _ChatItemViewState extends State<ChatItemView> {
             text: StrRes.menuDel,
             enabled: widget.enabledDelMenu,
             onTap: widget.onTapDelMenu,
+          ),
+        if (widget.enabledTranslateMenu)
+          MenuInfo(
+            icon: ImageRes.appMenuTranslate,
+            text: StrRes.translate,
+            enabled: widget.enabledTranslateMenu,
+            onTap: widget.onTapTranslateMenu,
+          ),
+        if (widget.enabledUnTranslateMenu)
+          MenuInfo(
+            icon: ImageRes.appMenuUnTranslate,
+            text: StrRes.unTranslate,
+            enabled: widget.enabledUnTranslateMenu,
+            onTap: widget.onTapUnTranslateMenu,
           ),
         if (widget.enabledForwardMenu)
           MenuInfo(

@@ -73,7 +73,7 @@ class WorkbenchLogic extends GetxController {
               },
             ).catchError((_) {
               uniMPInfo.value.progress = 0;
-              IMViews.showToast('下载失败！');
+              IMViews.showToast(StrRes.downloadFail);
             });
           }
         }

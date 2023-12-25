@@ -50,26 +50,29 @@ class WorkMomentsItem extends StatelessWidget {
   //     comments.userID == OpenIM.iMManager.uid;
 
   /// 非完全公开且我自己发的朋友圈，有权查看权限设置
-  bool get _showPermissionIcon => moments.permission != 0 && moments.userID == OpenIM.iMManager.userID;
+  bool get _showPermissionIcon =>
+      moments.permission != 0 && moments.userID == OpenIM.iMManager.userID;
 
   /// 是我发的朋友圈可以删除
   bool get _showDelIcon => moments.userID == OpenIM.iMManager.userID;
 
   /// 是我发送的朋友圈，或者我发送的评论，可以删除评论
-  bool _canDelComments(Comments c) => moments.userID == OpenIM.iMManager.userID || c.userID == OpenIM.iMManager.userID;
+  bool _canDelComments(Comments c) =>
+      moments.userID == OpenIM.iMManager.userID ||
+      c.userID == OpenIM.iMManager.userID;
 
   ViewUserProfileBridge? get bridge => PackageBridge.viewUserProfileBridge;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 12.h),
       decoration: BoxDecoration(
         color: Styles.c_FFFFFF,
         border: BorderDirectional(
           bottom: BorderSide(
-            color: Styles.c_E8EAEF,
-            width: .5,
+            color: Styles.c_EDEDED,
+            width: 1.h,
           ),
         ),
       ),
@@ -88,15 +91,24 @@ class WorkMomentsItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                (moments.nickname ?? '').toText..style = Styles.ts_6085B1_17sp_medium,
-                // (moments.content?.text ?? '').toText..style = Styles.ts_0C1C33_17sp,
-                ExpandedText(text: moments.content?.text ?? ''),
-                if (null != moments.content?.metas && moments.content!.metas!.isNotEmpty)
+                (moments.nickname ?? '').toText
+                  ..style = Styles.ts_9280B3_16sp_medium,
+                // (moments.content?.text ?? '').toText..style = Styles.ts_333333_17sp,
+                4.verticalSpace,
+                if("" != moments.content?.text)
+                ExpandedText(
+                  text: moments.content!.text!,
+                  textStyle: Styles.ts_333333_16sp,
+                ),
+                if (null != moments.content?.metas &&
+                    moments.content!.metas!.isNotEmpty)
                   _buildMetaView(
                     moments.content?.type ?? 0,
                     moments.content?.metas ?? [],
                   ),
-                if (null != moments.atUsers && moments.atUsers!.isNotEmpty) _buildMentionedView(),
+                if (null != moments.atUsers && moments.atUsers!.isNotEmpty)
+                  _buildMentionedView(),
+                4.verticalSpace,
                 Stack(
                   alignment: Alignment.center,
                   children: [
@@ -110,9 +122,17 @@ class WorkMomentsItem extends StatelessWidget {
                     _buildLikeCommentPopMenu(),
                   ],
                 ),
-                if (null != moments.likeUsers && moments.likeUsers!.isNotEmpty) _buildLikeListView(moments.likeUsers!),
+                if (null != moments.likeUsers && moments.likeUsers!.isNotEmpty)
+                  _buildLikeListView(moments.likeUsers!),
 
-                if (null != moments.comments && moments.comments!.isNotEmpty) _buildCommentListView(moments.userID!),
+                if (null != moments.likeUsers && moments.likeUsers!.isNotEmpty && null != moments.comments && moments.comments!.isNotEmpty)
+                  Divider(
+                      color: Styles.c_EDEDED,
+                      height: 1.h,
+                    ),
+
+                if (null != moments.comments && moments.comments!.isNotEmpty)
+                  _buildCommentListView(moments.userID!),
               ],
             ),
           ),
@@ -135,10 +155,13 @@ class WorkMomentsItem extends StatelessWidget {
       );
 
   Widget _buildMentionedView() => Padding(
-        padding: EdgeInsets.only(top: 6.h),
-        child: sprintf(
-            StrRes.mentioned, [moments.atUsers!.map((e) => IMUtils.getShowName(e.userID, e.nickname)).join('、')]).toText
-          ..style = Styles.ts_8E9AB0_12sp,
+        padding: EdgeInsets.only(top: 9.h),
+        child: sprintf(StrRes.mentioned, [
+          moments.atUsers!
+              .map((e) => IMUtils.getShowName(e.userID, e.nickname))
+              .join('、')
+        ]).toText
+          ..style = Styles.ts_999999_12sp,
       );
 
   Widget _buildTimeView() => TimelineUtil.format(
@@ -146,7 +169,7 @@ class WorkMomentsItem extends StatelessWidget {
         dayFormat: DayFormat.Full,
         locale: Get.locale?.languageCode ?? 'zh',
       ).toText
-        ..style = Styles.ts_8E9AB0_12sp;
+        ..style = Styles.ts_999999_12sp;
 
   Widget _buildSeePermissionView() => GestureDetector(
         behavior: HitTestBehavior.translucent,
@@ -163,7 +186,10 @@ class WorkMomentsItem extends StatelessWidget {
                   size: 14.h,
                 ),
                 4.horizontalSpace,
-                (moments.permission == 1 ? StrRes.private : StrRes.partiallyVisible).toText
+                (moments.permission == 1
+                        ? StrRes.private
+                        : StrRes.partiallyVisible)
+                    .toText
                   ..style = Styles.ts_6085B1_12sp,
               ],
             ),
@@ -171,47 +197,43 @@ class WorkMomentsItem extends StatelessWidget {
         ),
       );
 
-  Widget _buildLikeListView(List<LikeUsers> likeUsers) => RichText(
-        text: TextSpan(
-          children: [
-            WidgetSpan(
-              child: Padding(
-                padding: EdgeInsets.only(right: 2.w),
-                child: Icon(
-                  Icons.thumb_up_alt_outlined,
-                  size: 13.w,
-                  color: Styles.c_6085B1,
-                ),
-              ),
+  Widget _buildLikeListView(List<LikeUsers> likeUsers) => Container(
+        padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+        color: Styles.c_F7F7F7,
+        child: Row(children: [
+          ImageRes.appLike.toImage
+            ..width = 12.w
+            ..height = 11.h,
+          6.horizontalSpace,
+          Expanded(
+              child: RichText(
+            text: TextSpan(
+              children: [
+                ...likeUsers
+                    .map((e) => TextSpan(
+                          text: IMUtils.getShowName(e.userID, e.nickname),
+                          style: Styles.ts_9280B3_14sp_medium,
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => bridge?.viewUserProfile(
+                                  e.userID!,
+                                  e.nickname,
+                                  e.faceURL,
+                                ),
+                          children: [
+                            if (likeUsers.last != e)
+                              TextSpan(text: '、', style: Styles.ts_9280B3_14sp_medium),
+                          ],
+                        ))
+                    .toList(),
+              ],
             ),
-            // TextSpan(
-            //   text: likeUsers
-            //       .map((e) => IMUtils.getShowName(e.userID, e.nickname))
-            //       .join('、'),
-            //   style: Styles.ts_6085B1_12sp,
-            // ),
-            ...likeUsers
-                .map((e) => TextSpan(
-                      text: IMUtils.getShowName(e.userID, e.nickname),
-                      style: Styles.ts_6085B1_12sp,
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => bridge?.viewUserProfile(
-                              e.userID!,
-                              e.nickname,
-                              e.faceURL,
-                            ),
-                      children: [
-                        if (likeUsers.last != e) TextSpan(text: '、', style: Styles.ts_0C1C33_12sp),
-                      ],
-                    ))
-                .toList(),
-          ],
-        ),
+          )),
+        ]),
       );
 
   Widget _buildCommentListView(String userID) {
     Widget buildItemView(Comments e) => CupertinoButton(
-          padding: EdgeInsets.zero,
+          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
           minSize: 20.h,
           onPressed: () => replyComment?.call(moments, e),
           child: Row(
@@ -221,7 +243,7 @@ class WorkMomentsItem extends StatelessWidget {
                   textAlign: TextAlign.left,
                   text: TextSpan(
                     text: IMUtils.getShowName(e.userID, e.nickname),
-                    style: Styles.ts_6085B1_14sp,
+                    style: Styles.ts_9280B3_14sp_medium,
                     recognizer: TapGestureRecognizer()
                       ..onTap = () => bridge?.viewUserProfile(
                             e.userID!,
@@ -229,17 +251,18 @@ class WorkMomentsItem extends StatelessWidget {
                             e.faceURL,
                           ),
                     children: [
-                      if (e.replyNickname != null && e.replyNickname!.isNotEmpty)
+                      if (e.replyNickname != null &&
+                          e.replyNickname!.isNotEmpty)
                         TextSpan(
                           text: ' ${StrRes.reply} ',
-                          style: Styles.ts_0C1C33_14sp,
+                          style: Styles.ts_333333_14sp,
                           children: [
                             TextSpan(
                               text: IMUtils.getShowName(
                                 e.replyUserID,
                                 e.replyNickname,
                               ),
-                              style: Styles.ts_6085B1_14sp,
+                              style: Styles.ts_9280B3_14sp_medium,
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => bridge?.viewUserProfile(
                                       e.replyUserID!,
@@ -250,9 +273,14 @@ class WorkMomentsItem extends StatelessWidget {
                           ],
                         ),
                       TextSpan(
-                        text: '：${e.content}',
-                        style: Styles.ts_0C1C33_14sp,
-                      ),
+                          text: '：',
+                          style: Styles.ts_9280B3_14sp_medium,
+                          children: [
+                            TextSpan(
+                              text: '${e.content}',
+                              style: Styles.ts_333333_14sp,
+                            )
+                          ]),
                     ],
                   ),
                 ),
@@ -263,11 +291,10 @@ class WorkMomentsItem extends StatelessWidget {
 
     // 是我发的朋友圈或者是我评论的，可以删除
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
-      margin: EdgeInsets.only(top: 10.h),
+      // margin: EdgeInsets.only(top: 10.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(2.r),
-        color: Styles.c_F8F9FA,
+        color: Styles.c_F7F7F7,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -296,60 +323,99 @@ class WorkMomentsItem extends StatelessWidget {
               : SizedBox(height: 26.h),
           // widget.showPopMenu ? _buildToolsView() : 26.verticalSpace,
           GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () => showLikeCommentPopMenu?.call(moments.workMomentID!),
-            child: ImageRes.moreOp.toImage
-              ..width = 22.w
-              ..height = 24.h,
-          ),
+              behavior: HitTestBehavior.translucent,
+              onTap: () => showLikeCommentPopMenu?.call(moments.workMomentID!),
+              child: ImageRes.appDiscoverOperation.toImage
+                ..width = 24.w
+                ..height = 16.h),
         ],
       );
 
   /// 图/视频正文
   /// [type] 0:picture  1:video
   Widget _buildMetaView(int type, List<Metas> metas) {
-    return GridView.builder(
-      padding: EdgeInsets.only(top: 10.h),
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        childAspectRatio: type == 1 ? 9 / 16 : 1.0,
-        crossAxisSpacing: 4.w,
-        mainAxisSpacing: 4.h,
-      ),
-      itemBuilder: (_, index) {
-        final isPicture = type == 0;
-        final meta = metas.elementAt(index);
-        final url = IMUtils.emptyStrToNull(meta.thumb) ?? meta.original;
-        if (isPicture) {
+    if (metas.length == 1) {
+      final isPicture = type == 0;
+      final meta = metas.elementAt(0);
+      final url = IMUtils.emptyStrToNull(meta.thumb) ?? meta.original;
+      return Padding(
+          padding: EdgeInsets.only(top: 12.h),
+          child: isPicture
+              ? Hero(
+                  tag: meta.original!,
+                  child: GestureDetector(
+                    onTap: () => previewPicture?.call(0, metas),
+                    child: ImageUtil.networkImage(
+                        url: IMUtils.isGif(url!)
+                            ? meta.original!
+                            : url.thumbnailAbsoluteString,
+                        fit: BoxFit.cover),
+                  ),
+                )
+              : Hero(
+                  tag: meta.original!,
+                  child: GestureDetector(
+                    onTap: () => previewVideo?.call(meta.original!, url),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        ImageUtil.networkImage(
+                            url: url!.thumbnailAbsoluteString,
+                            fit: BoxFit.cover),
+                        ImageRes.videoPause.toImage
+                          ..width = 40.w
+                          ..height = 40.h,
+                      ],
+                    ),
+                  ),
+                ));
+    } else {
+      return GridView.builder(
+        padding: EdgeInsets.only(top: 12.h),
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          childAspectRatio: type == 1 ? 9 / 16 : 1.0,
+          crossAxisSpacing: 4.w,
+          mainAxisSpacing: 4.h,
+        ),
+        itemBuilder: (_, index) {
+          final isPicture = type == 0;
+          final meta = metas.elementAt(index);
+          final url = IMUtils.emptyStrToNull(meta.thumb) ?? meta.original;
+          if (isPicture) {
+            return Hero(
+              tag: meta.original!,
+              child: GestureDetector(
+                onTap: () => previewPicture?.call(index, metas),
+                child: ImageUtil.networkImage(
+                    url: IMUtils.isGif(url!)
+                        ? meta.original!
+                        : url.thumbnailAbsoluteString,
+                    fit: BoxFit.cover),
+              ),
+            );
+          }
           return Hero(
             tag: meta.original!,
             child: GestureDetector(
-              onTap: () => previewPicture?.call(index, metas),
-              child: ImageUtil.networkImage(url:
-              IMUtils.isGif(url!)?meta.original!:
-              url.thumbnailAbsoluteString, fit: BoxFit.cover),
+              onTap: () => previewVideo?.call(meta.original!, url),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  ImageUtil.networkImage(
+                      url: url!.thumbnailAbsoluteString, fit: BoxFit.cover),
+                  ImageRes.videoPause.toImage
+                    ..width = 40.w
+                    ..height = 40.h,
+                ],
+              ),
             ),
           );
-        }
-        return Hero(
-          tag: meta.original!,
-          child: GestureDetector(
-            onTap: () => previewVideo?.call(meta.original!, url),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                ImageUtil.networkImage(url: url!.thumbnailAbsoluteString, fit: BoxFit.cover),
-                ImageRes.videoPause.toImage
-                  ..width = 40.w
-                  ..height = 40.h,
-              ],
-            ),
-          ),
-        );
-      },
-      itemCount: metas.length,
-    );
+        },
+        itemCount: metas.length,
+      );
+    }
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:openim/routes/app_navigator.dart';
 import 'package:openim_common/openim_common.dart';
-
+import 'dart:ui';
 import '../../../core/controller/im_controller.dart';
 
 class AccountSetupLogic extends GetxController {
@@ -116,7 +116,11 @@ class AccountSetupLogic extends GetxController {
   void languageSetting() => AppNavigator.startLanguageSetup();
 
   void _updateLanguage() {
-    var index = DataSp.getLanguage() ?? 0;
+    Locale systemLocal = window.locale;
+    var language = DataSp.getLanguage();
+    var index = (language != null && language != 0)
+        ? language
+        : (systemLocal.toString().startsWith("zh_") ? 1 : 2);
     switch (index) {
       case 1:
         curLanguage.value = StrRes.chinese;

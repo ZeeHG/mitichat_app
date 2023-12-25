@@ -93,8 +93,8 @@ class _UpgradeViewV2State extends State<UpgradeViewV2> {
               ),
               Text(
                 sprintf(StrRes.upgradeVersion, [
-                  '${widget.upgradeInfo.buildVersion!} + ${widget.upgradeInfo.buildVersionNo!}',
-                  '${widget.packageInfo.version} + ${widget.packageInfo.buildNumber}'
+                   "${widget.upgradeInfo.buildVersion!}(${widget.upgradeInfo.buildVersionNo!})",
+                   "${widget.packageInfo.version}(${widget.packageInfo.buildNumber})"
                 ]),
                 style: TextStyle(
                   fontSize: 14.sp,
@@ -116,7 +116,7 @@ class _UpgradeViewV2State extends State<UpgradeViewV2> {
                 height: 4.h,
               ),
               Text(
-                widget.upgradeInfo.buildUpdateDescription ?? '',
+                (widget.upgradeInfo.buildUpdateDescription == null || widget.upgradeInfo.buildUpdateDescription!.isEmpty)? StrRes.upgradeDefaultDescription : widget.upgradeInfo.buildUpdateDescription!,
                 style: TextStyle(
                   fontSize: 14.sp,
                   color: const Color(0xFF333333),

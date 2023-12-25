@@ -50,9 +50,9 @@ class ExpandChatHistoryPage extends StatelessWidget {
                     Expanded(
                       child:
                           (logic.searchResultItems.value.showName ?? '').toText
-                            ..style = Styles.ts_0C1C33_17sp,
+                            ..style = Styles.ts_333333_17sp,
                     ),
-                    ImageRes.rightArrow.toImage
+                    ImageRes.appRightArrow.toImage
                       ..width = 24.w
                       ..height = 24.h,
                   ],
@@ -111,19 +111,19 @@ class ExpandChatHistoryPage extends StatelessWidget {
                       children: [
                         Expanded(
                             child: ((message.senderNickname ?? '').toText
-                              ..style = Styles.ts_0C1C33_17sp
+                              ..style = Styles.ts_333333_17sp
                               ..maxLines = 1
                               ..overflow = TextOverflow.ellipsis)),
                         if (message.sendTime != null)
                           IMUtils.getChatTimeline(message.sendTime!).toText
-                            ..style = Styles.ts_8E9AB0_14sp,
+                            ..style = Styles.ts_999999_14sp,
                       ],
                     ),
                     SearchKeywordText(
                       text: logic.calContent(message),
                       keyText: logic.searchKey,
-                      style: Styles.ts_8E9AB0_14sp,
-                      keyStyle: Styles.ts_0089FF_14sp,
+                      style: Styles.ts_999999_14sp,
+                      keyStyle: Styles.ts_8443F8_14sp,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),

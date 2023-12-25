@@ -174,12 +174,15 @@ class WorkMomentsListLogic extends GetxController {
   bool get isMyself => userID == OpenIM.iMManager.userID || userID == null;
 
   final hasMore = true.obs;
+  final ScrollController scrollController = ScrollController();
+  final RxDouble scrollHeight = 0.0.obs;
 
   @override
   void onClose() {
     // GetTags.caches.removeLast();
     opEventSub?.cancel();
     inputCtrl.dispose();
+    scrollController.dispose();
     super.onClose();
   }
 
@@ -187,10 +190,16 @@ class WorkMomentsListLogic extends GetxController {
   void onInit() {
     userID = Get.arguments['userID'] /*?? OpenIM.iMManager.uid*/;
     nickname = Get.arguments['nickname'] ?? OpenIM.iMManager.userInfo.nickname;
-    faceURL = Get.arguments['faceURL'] ?? OpenIM.iMManager.userInfo.faceURL;
+    faceURL = Get.arguments['faceURL'] ?? OpenIM.iMManager.userInfo.faceURL ?? "";
     wcBridge?.onRecvNewMessageForWorkingCircle = _recvNewMessage;
+    WApis.getUnreadCount().then((value) => newMessageCount.value = value);
     opEventSub = wcBridge?.opEventSub.listen(_opEventListener);
+    scrollController.addListener(_scrollListener);
     super.onInit();
+  }
+
+  void _scrollListener() {
+    scrollHeight.value = scrollController.offset;
   }
 
   @override
@@ -257,7 +266,9 @@ class WorkMomentsListLogic extends GetxController {
 
   /// 我点赞了
   bool iIsLiked(WorkMoments moments) =>
-      moments.likeUsers?.firstWhereOrNull((e) => e.userID == OpenIM.iMManager.userID) != null;
+      moments.likeUsers
+          ?.firstWhereOrNull((e) => e.userID == OpenIM.iMManager.userID) !=
+      null;
 
   /// 点赞/取消点赞 朋友圈
   likeMoments(WorkMoments moments) async {
@@ -265,7 +276,8 @@ class WorkMomentsListLogic extends GetxController {
     final workMomentID = moments.workMomentID!;
     await LoadingView.singleton.wrap(
       asyncFunction: () async {
-        await WApis.likeMoments(workMomentID: workMomentID, like: !iIsLiked(moments));
+        await WApis.likeMoments(
+            workMomentID: workMomentID, like: !iIsLiked(moments));
         await _updateData(workMomentID);
       },
     );
@@ -396,9 +408,9 @@ class WorkMomentsListLogic extends GetxController {
   }
 
   seeNewMessage() async {
-    await WNavigator.startLikeOrCommentMessage();
     WApis.clearUnreadCount(type: 1);
     newMessageCount.value = 0;
+    await WNavigator.startLikeOrCommentMessage();
   }
 
   viewUserProfile(WorkMoments moments) => _viewProfilePanel(
@@ -411,7 +423,7 @@ class WorkMomentsListLogic extends GetxController {
       ? _viewProfilePanel(
           userID: OpenIM.iMManager.userID,
           nickname: OpenIM.iMManager.userInfo.nickname,
-          faceURL: OpenIM.iMManager.userInfo.faceURL,
+          faceURL: OpenIM.iMManager.userInfo.faceURL ?? "",
         )
       : null;
 

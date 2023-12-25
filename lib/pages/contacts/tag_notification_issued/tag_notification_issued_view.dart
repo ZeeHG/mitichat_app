@@ -22,7 +22,7 @@ class TagNotificationIssuedPage extends StatelessWidget {
       appBar: TitleBar.back(
         title: StrRes.issueNotice,
         right: StrRes.newBuild.toText
-          ..style = Styles.ts_0C1C33_17sp
+          ..style = Styles.ts_333333_16sp
           ..onTap = logic.newBuild,
       ),
       backgroundColor: Styles.c_F8F9FA,
@@ -56,7 +56,7 @@ class TagNotificationIssuedPage extends StatelessWidget {
             CustomSlidableAction(
               onPressed: (_) => logic.delete(ntf),
               flex: 1,
-              backgroundColor: Styles.c_FF381F,
+              backgroundColor: Styles.c_FF4E4C,
               child: StrRes.delete.toText..style = Styles.ts_FFFFFF_16sp,
             ),
           ],
@@ -89,7 +89,7 @@ class TagNotificationIssuedPage extends StatelessWidget {
         children: [
           sprintf(StrRes.notificationReceiver,
               [logic.getAcceptCount(ntf), logic.getAcceptObject(ntf)]).toText
-            ..style = Styles.ts_8E9AB0_16sp
+            ..style = Styles.ts_999999_16sp
             ..maxLines = 2
             ..overflow = TextOverflow.ellipsis,
           Container(
@@ -99,7 +99,7 @@ class TagNotificationIssuedPage extends StatelessWidget {
           ),
           if (null != textElem)
             textElem.content!.toText
-              ..style = Styles.ts_0C1C33_17sp
+              ..style = Styles.ts_333333_16sp
               ..maxLines = 2
               ..overflow = TextOverflow.ellipsis,
           if (null != soundElem)
@@ -123,7 +123,7 @@ class TagNotificationIssuedPage extends StatelessWidget {
                   ),
                 )),
           if (null == textElem && null == soundElem)
-            StrRes.unsupportedMessage.toText..style = Styles.ts_0C1C33_17sp,
+            StrRes.unsupportedMessage.toText..style = Styles.ts_333333_16sp,
           16.verticalSpace,
           Align(
             alignment: Alignment.centerRight,
@@ -133,14 +133,14 @@ class TagNotificationIssuedPage extends StatelessWidget {
                   ? IMUtils.getTimeFormat3()
                   : IMUtils.getTimeFormat2(),
             ).toText
-              ..style = Styles.ts_8E9AB0_14sp,
+              ..style = Styles.ts_999999_14sp,
           ),
           // Align(
           //   alignment: Alignment.centerRight,
           //   child: Container(
           //     padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 4.h),
           //     decoration: BoxDecoration(
-          //       color: Styles.c_0089FF,
+          //       color: Styles.c_8443F8,
           //       borderRadius: BorderRadius.circular(21.r),
           //     ),
           //     child: StrRes.sendAnother.toText..style = Styles.ts_FFFFFF_16sp,
@@ -161,7 +161,7 @@ class TagNotificationIssuedPage extends StatelessWidget {
               ..width = 120.w
               ..height = 120.h,
             22.verticalSpace,
-            StrRes.emptyNotification.toText..style = Styles.ts_8E9AB0_16sp,
+            StrRes.emptyNotification.toText..style = Styles.ts_999999_16sp,
           ],
         ),
       );

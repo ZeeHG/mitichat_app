@@ -16,7 +16,7 @@ class GroupListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrRes.myGroup),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: Styles.c_F7F8FA,
       body: Column(
         children: [
           GestureDetector(
@@ -24,8 +24,8 @@ class GroupListPage extends StatelessWidget {
             onTap: logic.searchGroup,
             child: Container(
               color: Styles.c_FFFFFF,
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-              child: const SearchBox(),
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 20.h),
+              child: FakeSearchBox(),
             ),
           ),
           Obx(
@@ -33,7 +33,7 @@ class GroupListPage extends StatelessWidget {
               labels: [StrRes.iCreatedGroup, StrRes.iJoinedGroup],
               index: logic.index.value,
               onTabChanged: (i) => logic.switchTab(i),
-              showUnderline: true,
+              showUnderline: false,
             ),
           ),
           Expanded(
@@ -78,9 +78,9 @@ class GroupListPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     (info.groupName ?? '').toText
-                      ..style = Styles.ts_0C1C33_17sp,
+                      ..style = Styles.ts_333333_17sp,
                     sprintf(StrRes.nPerson, [info.memberCount]).toText
-                      ..style = Styles.ts_8E9AB0_14sp,
+                      ..style = Styles.ts_999999_14sp,
                   ],
                 ),
               ],

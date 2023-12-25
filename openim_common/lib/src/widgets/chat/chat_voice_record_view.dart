@@ -15,7 +15,7 @@ class ChatRecordVoiceView extends StatefulWidget {
   final int maxRecordSec;
   final Function()? onInterrupt;
   final Function(int sec, String path)? onCompleted;
-  final Widget Function(BuildContext context, int sec) builder;
+  final Widget Function(BuildContext context, int sec, int _startTimestamp) builder;
 
   @override
   State<ChatRecordVoiceView> createState() => _ChatRecordVoiceViewState();
@@ -35,6 +35,7 @@ class _ChatRecordVoiceViewState extends State<ChatRecordVoiceView> {
   @override
   void initState() {
     (() async {
+      _startTimestamp = 0;
       if (await _audioRecorder.hasPermission()) {
         _path = '${await IMUtils.createTempDir(dir: _dir)}/${_now()}$_ext';
         await _audioRecorder.start(RecordConfig(), path: _path);
@@ -70,7 +71,7 @@ class _ChatRecordVoiceViewState extends State<ChatRecordVoiceView> {
   }
 
   @override
-  Widget build(BuildContext context) => widget.builder.call(context, _duration);
+  Widget build(BuildContext context) => widget.builder.call(context, _duration, _startTimestamp);
 }
 
 // class ChatRecordVoiceView extends StatelessWidget {

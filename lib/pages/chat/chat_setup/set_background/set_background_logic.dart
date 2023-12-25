@@ -14,7 +14,7 @@ class SetBackgroundImageLogic extends GetxController {
         if (chatLogic.background.isNotEmpty)
           SheetItem(
             label: StrRes.reset,
-            textStyle: Styles.ts_FF381F_17sp,
+            textStyle: Styles.ts_FF4E4C_17sp,
             onTap: recover,
           )
       ],

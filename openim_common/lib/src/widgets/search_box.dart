@@ -65,27 +65,27 @@ class _SearchBoxState extends State<SearchBox> {
       margin: widget.margin,
       padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 14.w),
       decoration: BoxDecoration(
-        color: widget.backgroundColor ?? Styles.c_8E9AB0_opacity15,
+        color: widget.backgroundColor ?? Styles.c_F7F7F7,
         borderRadius: BorderRadius.circular(6.r),
       ),
       child: Row(
         children: [
           ImageRes.searchGrey.toImage
             ..color = widget.searchIconColor
-            ..width = widget.searchIconWidth ?? 18.w
-            ..height = widget.searchIconHeight ?? 18.h,
-          8.horizontalSpace,
+            ..width = widget.searchIconWidth ?? 15.w
+            ..height = widget.searchIconHeight ?? 15.h,
+          10.horizontalSpace,
           Expanded(
             child: TextField(
               controller: widget.controller,
               focusNode: widget.focusNode,
-              style: widget.textStyle ?? Styles.ts_0C1C33_17sp,
+              style: widget.textStyle ?? Styles.ts_333333_16sp,
               autofocus: widget.autofocus,
               enabled: widget.enabled,
               textInputAction: TextInputAction.search,
               decoration: InputDecoration(
                 hintText: widget.hintText ?? StrRes.search,
-                hintStyle: widget.hintStyle ?? Styles.ts_8E9AB0_17sp,
+                hintStyle: widget.hintStyle ?? Styles.ts_999999_16sp,
                 isDense: true,
                 contentPadding: EdgeInsets.zero,
                 border: InputBorder.none,

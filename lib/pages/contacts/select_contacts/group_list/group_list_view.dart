@@ -27,38 +27,41 @@ class SelectContactsFromGroupPage extends StatelessWidget {
             child: Container(
               color: Styles.c_FFFFFF,
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-              child: const SearchBox(),
+              child: FakeSearchBox(),
             ),
           ),
           if (selectContactsLogic.isMultiModel)
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.h),
-              child: Ink(
-                height: 64.h,
-                color: Styles.c_FFFFFF,
-                child: InkWell(
-                  onTap: logic.selectAll,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Row(
-                      children: [
-                        Obx(() => Padding(
-                              padding: EdgeInsets.only(right: 10.w),
-                              child: ChatRadio(checked: logic.isSelectAll),
-                            )),
-                        10.horizontalSpace,
-                        StrRes.selectAll.toText..style = Styles.ts_0C1C33_17sp,
-                      ],
+            Container(
+                padding: EdgeInsets.only(top: 12.h, bottom: 12.h),
+                color: Styles.c_F7F8FA,
+                child: Container(
+                  color: Styles.c_FFFFFF,
+                  child: Ink(
+                    height: 64.h,
+                    color: Styles.c_FFFFFF,
+                    child: InkWell(
+                      onTap: logic.selectAll,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 12.w),
+                        child: Row(
+                          children: [
+                            Obx(() => Padding(
+                                  padding: EdgeInsets.only(right: 14.w),
+                                  child: ChatRadio(checked: logic.isSelectAll),
+                                )),
+                            10.horizontalSpace,
+                            StrRes.selectAll.toText
+                              ..style = Styles.ts_333333_16sp,
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
+                )),
           Expanded(
               child: Obx(() => ListView.builder(
                     itemCount: logic.allList.length,
-                    itemBuilder: (_, index) =>
-                        _buildItemView(logic.allList[index]),
+                    itemBuilder: (_, index) => _buildItemView(logic.allList[index]),
                   ))),
           selectContactsLogic.checkedConfirmView,
         ],
@@ -73,12 +76,12 @@ class SelectContactsFromGroupPage extends StatelessWidget {
           child: InkWell(
             onTap: selectContactsLogic.onTap(info),
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              padding: EdgeInsets.symmetric(horizontal: 12.w),
               child: Row(
                 children: [
                   if (selectContactsLogic.isMultiModel)
                     Padding(
-                      padding: EdgeInsets.only(right: 10.w),
+                      padding: EdgeInsets.only(right: 14.w),
                       child: ChatRadio(
                         checked: selectContactsLogic.isChecked(info),
                         enabled: !selectContactsLogic.isDefaultChecked(info),
@@ -96,11 +99,11 @@ class SelectContactsFromGroupPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         (info.groupName ?? '').toText
-                          ..style = Styles.ts_0C1C33_17sp
+                          ..style = Styles.ts_333333_16sp
                           ..maxLines = 1
                           ..overflow = TextOverflow.ellipsis,
                         sprintf(StrRes.nPerson, [info.memberCount]).toText
-                          ..style = Styles.ts_8E9AB0_14sp,
+                          ..style = Styles.ts_999999_14sp,
                       ],
                     ),
                   ),

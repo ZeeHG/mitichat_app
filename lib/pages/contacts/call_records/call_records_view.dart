@@ -78,13 +78,13 @@ class CallRecordsPage extends StatelessWidget {
                     children: [
                       records.nickname.toText
                         ..style = (records.success
-                            ? Styles.ts_0C1C33_17sp
-                            : Styles.ts_FF381F_17sp),
+                            ? Styles.ts_333333_17sp
+                            : Styles.ts_FF4E4C_17sp),
                       '[${records.type == 'video' ? StrRes.callVideo : StrRes.callVoice}]${IMUtils.getChatTimeline(records.date)}'
                           .toText
                         ..style = (records.success
-                            ? Styles.ts_0C1C33_14sp
-                            : Styles.ts_FF381F_14sp),
+                            ? Styles.ts_333333_14sp
+                            : Styles.ts_FF4E4C_14sp),
                     ],
                   ),
                 ),
@@ -95,8 +95,8 @@ class CallRecordsPage extends StatelessWidget {
                             : StrRes.outgoingCall))
                     .toText
                   ..style = (records.success
-                      ? Styles.ts_0C1C33_14sp
-                      : Styles.ts_FF381F_14sp),
+                      ? Styles.ts_333333_14sp
+                      : Styles.ts_FF4E4C_14sp),
               ],
             ),
           ),

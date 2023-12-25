@@ -31,6 +31,7 @@ class InputBox extends StatefulWidget {
     this.formatHintText,
     this.margin,
     this.inputFormatters,
+    this.border = true,
     this.keyBoardType,
   })  : obscureText = false,
         type = InputBoxType.phone,
@@ -54,12 +55,14 @@ class InputBox extends StatefulWidget {
     this.formatHintText,
     this.margin,
     this.inputFormatters,
+    this.border = true,
     this.keyBoardType,
   })  : obscureText = false,
         type = InputBoxType.account,
         arrowColor = null,
         clearBtnColor = null,
         onSendVerificationCode = null;
+
 
   const InputBox.password({
     super.key,
@@ -74,6 +77,7 @@ class InputBox extends StatefulWidget {
     this.formatHintText,
     this.margin,
     this.inputFormatters,
+    this.border = true,
     this.keyBoardType,
   })  : obscureText = true,
         type = InputBoxType.password,
@@ -98,6 +102,7 @@ class InputBox extends StatefulWidget {
     this.formatHintText,
     this.margin,
     this.inputFormatters,
+    this.border = true,
     this.keyBoardType,
   })  : obscureText = false,
         type = InputBoxType.verificationCode,
@@ -120,6 +125,7 @@ class InputBox extends StatefulWidget {
     this.formatHintText,
     this.margin,
     this.inputFormatters,
+    this.border = true,
     this.keyBoardType,
   })  : obscureText = false,
         type = InputBoxType.invitationCode,
@@ -151,6 +157,7 @@ class InputBox extends StatefulWidget {
     this.onSendVerificationCode,
     this.margin,
     this.inputFormatters,
+    this.border = true,
     this.keyBoardType,
   }) : super(key: key);
   final TextStyle? labelStyle;
@@ -172,6 +179,7 @@ class InputBox extends StatefulWidget {
   final Future<bool> Function()? onSendVerificationCode;
   final EdgeInsetsGeometry? margin;
   final List<TextInputFormatter>? inputFormatters;
+  final bool border;
   final TextInputType? keyBoardType;
 
   @override
@@ -209,17 +217,19 @@ class _InputBoxState extends State<InputBox> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            widget.label,
-            style: widget.labelStyle ?? Styles.ts_8E9AB0_12sp,
-          ),
-          6.verticalSpace,
+          // Text(
+          //   widget.label,
+          //   style: widget.labelStyle ?? Styles.ts_999999_12sp,
+          // ),
+          // 6.verticalSpace,
           Container(
             height: 42.h,
             padding: EdgeInsets.only(left: 12.w, right: 8.w),
             decoration: BoxDecoration(
-              border: Border.all(color: Styles.c_E8EAEF, width: 1),
-              borderRadius: BorderRadius.circular(8.r),
+              // border: Border.all(color: Styles.c_EAEAEA, width: 1),
+              // borderRadius: BorderRadius.circular(8.r),
+              border:
+                  Border(bottom: BorderSide(color: Styles.c_EAEAEA, width: widget.border? 1.h : 0)),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -238,7 +248,8 @@ class _InputBoxState extends State<InputBox> {
           if (null != widget.formatHintText)
             Padding(
               padding: EdgeInsets.only(top: 5.h),
-              child: widget.formatHintText!.toText..style = (widget.formatHintStyle ?? Styles.ts_8E9AB0_12sp),
+              child: widget.formatHintText!.toText
+                ..style = (widget.formatHintStyle ?? Styles.ts_999999_12sp),
             ),
         ],
       ),
@@ -250,17 +261,18 @@ class _InputBoxState extends State<InputBox> {
           controller: widget.controller,
           keyboardType: _textInputType,
           textInputAction: TextInputAction.next,
-          style: widget.textStyle ?? Styles.ts_0C1C33_17sp,
+          style: widget.textStyle ?? Styles.ts_333333_16sp,
           autofocus: true,
           obscureText: _obscureText,
           inputFormatters: [
-            if (widget.type == InputBoxType.phone || widget.type == InputBoxType.verificationCode)
+            if (widget.type == InputBoxType.phone ||
+                widget.type == InputBoxType.verificationCode)
               FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
             if (null != widget.inputFormatters) ...widget.inputFormatters!,
           ],
           decoration: InputDecoration(
             hintText: widget.hintText,
-            hintStyle: widget.hintStyle ?? Styles.ts_8E9AB0_17sp,
+            hintStyle: widget.hintStyle ?? Styles.ts_999999_16sp,
             isDense: true,
             contentPadding: EdgeInsets.zero,
             border: InputBorder.none,
@@ -276,21 +288,22 @@ class _InputBoxState extends State<InputBox> {
           children: [
             Text(
               widget.code,
-              style: widget.codeStyle ?? Styles.ts_0C1C33_17sp,
+              style: widget.codeStyle ?? Styles.ts_333333_16sp,
             ),
             8.horizontalSpace,
             ImageRes.downArrow.toImage
               ..width = 8.49.w
               ..height = 8.49.h,
-            Container(
-              width: 1.w,
-              height: 26.h,
-              margin: EdgeInsets.symmetric(horizontal: 14.w),
-              decoration: BoxDecoration(
-                color: Styles.c_E8EAEF,
-                borderRadius: BorderRadius.circular(2.r),
-              ),
-            ),
+            8.horizontalSpace,
+            // Container(
+            //   width: 1.w,
+            //   height: 26.h,
+            //   margin: EdgeInsets.symmetric(horizontal: 14.w),
+            //   decoration: BoxDecoration(
+            //     color: Styles.c_EAEAEA,
+            //     borderRadius: BorderRadius.circular(2.r),
+            //   ),
+            // ),
           ],
         ),
       );
@@ -313,7 +326,9 @@ class _InputBoxState extends State<InputBox> {
         child: GestureDetector(
           onTap: _toggleEye,
           behavior: HitTestBehavior.translucent,
-          child: (_obscureText ? ImageRes.eyeClose.toImage : ImageRes.eyeOpen.toImage)
+          child: (_obscureText
+              ? ImageRes.eyeClose.toImage
+              : ImageRes.eyeOpen.toImage)
             ..width = 24.w
             ..height = 24.h,
         ),
@@ -416,13 +431,14 @@ class _VerifyCodedButtonState extends State<VerifyCodedButton> {
   bool get _isEnabled => _seconds == 0 || _firstTime;
 
   @override
-  Widget build(BuildContext context) => (_isEnabled ? StrRes.sendVerificationCode : '${_seconds}S').toText
-    ..style = Styles.ts_0089FF_17sp
-    ..onTap = () {
-      if (_isEnabled) {
-        widget.onTapCallback?.call().then((start) {
-          if (start) _restart();
-        });
-      }
-    };
+  Widget build(BuildContext context) =>
+      (_isEnabled ? StrRes.sendVerificationCode : '${_seconds}S').toText
+        ..style = Styles.ts_8443F8_16sp
+        ..onTap = () {
+          if (_isEnabled) {
+            widget.onTapCallback?.call().then((start) {
+              if (start) _restart();
+            });
+          }
+        };
 }

@@ -57,21 +57,21 @@ class ChatHistoryFilePage extends StatelessWidget {
                   children: [
                     TextWithMidEllipsis(
                       message.fileElem!.fileName!,
-                      style: Styles.ts_0C1C33_17sp,
+                      style: Styles.ts_333333_17sp,
                     ),
                     // message.fileElem!.fileName!.toText
-                    //   ..style = Styles.ts_0C1C33_17sp
+                    //   ..style = Styles.ts_333333_17sp
                     //   ..maxLines = 1,
                     Row(
                       children: [
                         IMUtils.formatBytes(message.fileElem!.fileSize!).toText
-                          ..style = Styles.ts_8E9AB0_14sp,
+                          ..style = Styles.ts_999999_14sp,
                         10.horizontalSpace,
                         message.senderNickname!.toText
-                          ..style = Styles.ts_8E9AB0_14sp,
+                          ..style = Styles.ts_999999_14sp,
                         10.horizontalSpace,
                         IMUtils.getChatTimeline(message.sendTime!).toText
-                          ..style = Styles.ts_8E9AB0_14sp,
+                          ..style = Styles.ts_999999_14sp,
                       ],
                     ),
                   ],

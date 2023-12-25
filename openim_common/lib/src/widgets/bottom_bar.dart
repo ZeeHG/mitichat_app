@@ -18,13 +18,7 @@ class BottomBar extends StatelessWidget {
     return Container(
       height: 56.h,
       decoration: BoxDecoration(
-        color: Styles.c_FFFFFF,
-        border: BorderDirectional(
-          top: BorderSide(
-            color: Styles.c_E8EAEF,
-            width: 1,
-          ),
-        ),
+        color: Styles.c_F7F7F7,
       ),
       child: Row(
         children: List.generate(
@@ -37,21 +31,30 @@ class BottomBar extends StatelessWidget {
     );
   }
 
-  Widget _buildItemView({required int i, required BottomBarItem item}) => Expanded(
+  Widget _buildItemView({required int i, required BottomBarItem item}) =>
+      Expanded(
         child: XGestureDetector(
           onDoubleTap: (_) => item.onDoubleClick?.call(i),
           onPointerDown: (_) => item.onClick?.call(i),
           child: Container(
-            color: Styles.c_FFFFFF,
+            color: Styles.c_F7F7F7,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Stack(
                   alignment: Alignment.center,
                   children: [
-                    (i == index ? item.selectedImgRes.toImage : item.unselectedImgRes.toImage)
-                      ..width = item.imgWidth
-                      ..height = item.imgHeight,
+                    IntrinsicWidth(
+                        child: Container(
+                      // 最大图片的高度
+                      height: 22.h,
+                      alignment: Alignment.bottomCenter,
+                      child: (i == index
+                          ? item.selectedImgRes.toImage
+                          : item.unselectedImgRes.toImage)
+                        ..width = item.imgWidth
+                        ..height = item.imgHeight,
+                    )),
                     Positioned(
                       top: 0,
                       right: 0,
@@ -64,8 +67,9 @@ class BottomBar extends StatelessWidget {
                 ),
                 4.verticalSpace,
                 item.label.toText
-                  ..style =
-                      i == index ? (item.selectedStyle ?? Styles.ts_0089FF_10sp_semibold) : (item.unselectedStyle ?? Styles.ts_8E9AB0_10sp_semibold),
+                  ..style = i == index
+                      ? (item.selectedStyle ?? Styles.ts_8443F8_11sp)
+                      : (item.unselectedStyle ?? Styles.ts_B3B3B3_11sp),
               ],
             ),
           ),
@@ -100,8 +104,8 @@ class BottomBar extends StatelessWidget {
               4.verticalSpace,
               item.label.toText
                 ..style = i == index
-                    ? (item.selectedStyle ?? Styles.ts_0089FF_10sp_semibold)
-                    : (item.unselectedStyle ?? Styles.ts_8E9AB0_10sp_semibold),
+                    ? (item.selectedStyle ?? Styles.ts_8443F8_10sp_semibold)
+                    : (item.unselectedStyle ?? Styles.ts_999999_10sp_semibold),
             ],
           ),
         ),*/

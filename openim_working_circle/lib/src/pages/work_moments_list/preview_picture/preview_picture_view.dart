@@ -66,7 +66,7 @@ class _PreviewPicturePageState extends State<PreviewPicturePage> {
             meta.original!,
             // width: width,
             // height: height,
-            fit: BoxFit.fitWidth,
+            fit: BoxFit.contain,
             mode: ExtendedImageMode.gesture,
             enableSlideOutPage: true,
             handleLoadingProgress: false,
@@ -74,8 +74,8 @@ class _PreviewPicturePageState extends State<PreviewPicturePage> {
               return GestureConfig(
                 inPageView: true,
                 initialScale: 1.0,
-                maxScale: 5.0,
-                animationMaxScale: 6.0,
+                maxScale: 12.0,
+                animationMaxScale: 13.0,
                 initialAlignment: InitialAlignment.center,
               );
             },

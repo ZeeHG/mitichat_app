@@ -1,9 +1,11 @@
 import 'dart:convert';
-
+import 'dart:ui';
 import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:openim_common/openim_common.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get/get.dart';
 
 class Apis {
   static Options get imTokenOptions => Options(headers: {'token': DataSp.imToken});
@@ -194,6 +196,7 @@ class Apis {
     int pageNumber = 0,
     int showNumber = 10,
     required List<String> userIDList,
+    CancelToken? cancelToken
   }) async {
     final data = await HttpUtil.post(
       Urls.getUsersFullInfo,
@@ -204,6 +207,7 @@ class Apis {
         // 'operationID': operationID,
       },
       options: chatTokenOptions,
+      cancelToken: cancelToken
     );
     if (data['users'] is List) {
       return (data['users'] as List).map((e) => UserFullInfo.fromJson(e)).toList();
@@ -231,9 +235,10 @@ class Apis {
     return null;
   }
 
-  static Future<UserFullInfo?> queryMyFullInfo() async {
+  static Future<UserFullInfo?> queryMyFullInfo({CancelToken? cancelToken}) async {
     final list = await Apis.getUserFullInfo(
       userIDList: [OpenIM.iMManager.userID],
+      cancelToken: cancelToken
     );
     return list?.firstOrNull;
   }
@@ -283,16 +288,20 @@ class Apis {
   }
 
   /// 蒲公英更新检测
-  static Future<UpgradeInfoV2> checkUpgradeV2() {
+  static Future<UpgradeInfoV2> checkUpgradeV2({CancelToken? cancelToken}) {
+    final url = dotenv.env['ANDROID_UPDATE_URL'] ?? "";
+    final apiKey = dotenv.env['ANDROID_UPDATE_API_KEY'] ?? "";
+    final appKey = dotenv.env['ANDROID_UPDATE_APP_KEY'] ?? "";
     return dio.post<Map<String, dynamic>>(
-      'https://www.pgyer.com/apiv2/app/check',
+      url,
       options: Options(
         contentType: 'application/x-www-form-urlencoded',
       ),
       data: {
-        '_api_key': '6f43600074306e8bc506ed0cd3275e9e',
-        'appKey': '90045f1bca740e2083cd3251f4c5731a',
+        '_api_key': apiKey,
+        'appKey': appKey,
       },
+      cancelToken: cancelToken
     ).then((resp) {
       Map<String, dynamic> map = resp.data!;
       if (map['code'] == 0) {
@@ -509,4 +518,98 @@ class Apis {
         data: <String, dynamic>{'ids': ids},
         options: chatTokenOptions,
       );
+
+
+  /// 翻译
+  static Future<dynamic> translate(
+      {required String userID,
+      required String ClientMsgID,
+      required String Query,
+      String? TargetLang}) async {
+    TargetLang = TargetLang ?? window.locale.toString();
+    Map<String, dynamic> param = {
+      'userID': userID,
+      'ClientMsgID': ClientMsgID,
+      'Query': Query,
+      'TargetLang': TargetLang
+    };
+
+    return HttpUtil.post(
+      Urls.translate,
+      data: {
+        ...param,
+        'platform': IMUtils.getPlatform(),
+        'operationID': HttpUtil.operationID,
+      },
+      options: chatTokenOptions,
+    );
+  }
+
+  /// 翻译查找
+  static Future<dynamic> findTranslate(
+      {required List<String> ClientMsgIDs, String? TargetLang}) async {
+    TargetLang = TargetLang ?? window.locale.toString();
+    Map<String, dynamic> param = {
+      'ClientMsgIDs': ClientMsgIDs,
+      'TargetLang': TargetLang
+    };
+
+    return HttpUtil.post(
+      Urls.findTranslate,
+      data: {
+        ...param,
+        'platform': IMUtils.getPlatform(),
+        'operationID': HttpUtil.operationID,
+      },
+      options: chatTokenOptions,
+    );
+  }
+
+  /// 翻译配置
+  static Future<dynamic> getConversationConfig(
+      {required List<String> conversationIDs, String? ownerUserID}) async {
+    ownerUserID = ownerUserID ?? OpenIM.iMManager.userID;
+
+    Map<String, dynamic> param = {
+      'conversationIDs': conversationIDs,
+      'ownerUserID': ownerUserID
+    };
+
+    return HttpUtil.post(
+      Urls.getTranslateConfig,
+      data: {
+        ...param,
+        'platform': IMUtils.getPlatform(),
+        'operationID': HttpUtil.operationID,
+      },
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future<dynamic> setConversationConfig(
+      {List<String>? userIDs,
+      required Map<String, dynamic> conversation}) async {
+    userIDs = userIDs ?? [OpenIM.iMManager.userID];
+
+    Map<String, dynamic> param = {
+      'userIDs': userIDs,
+      'conversation': conversation
+    };
+
+    return HttpUtil.post(
+      Urls.setTranslateConfig,
+      data: {
+        ...param,
+        'platform': IMUtils.getPlatform(),
+        'operationID': HttpUtil.operationID,
+      },
+      options: chatTokenOptions,
+    );
+  }
+
+  static put(Map<String, dynamic> param, String key, dynamic value) {
+    if (null != value) {
+      param[key] = value;
+    }
+  }
 }

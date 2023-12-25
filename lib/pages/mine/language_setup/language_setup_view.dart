@@ -14,16 +14,17 @@ class LanguageSetupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrRes.languageSetup),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: Styles.c_F7F8FA,
       body: Obx(() => Column(
             children: [
               12.verticalSpace,
-              _buildItemView(
-                label: StrRes.followSystem,
-                isChecked: logic.isFollowSystem.value,
-                onTap: () => logic.switchLanguage(0),
-                isTopRadius: true,
-              ),
+              // _buildItemView(
+              //   label: StrRes.followSystem,
+              //   isChecked: logic.isFollowSystem.value,
+              //   onTap: () => logic.switchLanguage(0),
+              //   isTopRadius: true,
+              //   showBorder: false
+              // ),
               Container(
                 margin: EdgeInsets.only(left: 26.w, right: 10.w),
                 color: Styles.c_E8EAEF,
@@ -55,36 +56,39 @@ class LanguageSetupPage extends StatelessWidget {
     bool isChecked = false,
     bool isTopRadius = false,
     bool isBottomRadius = false,
+    bool showBorder = true,
     Function()? onTap,
   }) =>
       Container(
-        margin: EdgeInsets.symmetric(horizontal: 10.w),
         child: Ink(
-          height: 60.h,
+          height: 52.h,
           decoration: BoxDecoration(
             color: Styles.c_FFFFFF,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(isTopRadius ? 6.r : 0),
-              topRight: Radius.circular(isTopRadius ? 6.r : 0),
-              bottomRight: Radius.circular(isBottomRadius ? 6.r : 0),
-              bottomLeft: Radius.circular(isBottomRadius ? 6.r : 0),
-            ),
           ),
           child: InkWell(
             onTap: onTap,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Row(
-                children: [
-                  label.toText..style = Styles.ts_0C1C33_17sp,
-                  const Spacer(),
-                  if (isChecked)
-                    ImageRes.checked.toImage
-                      ..width = 24.w
-                      ..height = 24.h,
-                ],
-              ),
-            ),
+                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: Styles.c_F1F2F6,
+                        width: showBorder ? 1.h : 0,
+                      ),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      label.toText..style = Styles.ts_333333_16sp,
+                      const Spacer(),
+                      if (isChecked)
+                        ImageRes.checked.toImage
+                          ..width = 20.w
+                          ..height = 15.h,
+                    ],
+                  ),
+                )),
           ),
         ),
       );

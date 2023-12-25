@@ -16,7 +16,7 @@ class SetMuteForGroupMemberPage extends StatelessWidget {
       appBar: TitleBar.back(
         title: StrRes.setMute,
         right: StrRes.determine.toText
-          ..style = Styles.ts_0C1C33_17sp
+          ..style = Styles.ts_333333_17sp
           ..onTap = logic.completed,
       ),
       backgroundColor: Styles.c_F8F9FA,
@@ -80,7 +80,7 @@ class SetMuteForGroupMemberPage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Row(
                   children: [
-                    label.toText..style = Styles.ts_0C1C33_17sp,
+                    label.toText..style = Styles.ts_333333_17sp,
                     const Spacer(),
                     if (logic.index.value == index)
                       ImageRes.checked.toImage
@@ -102,14 +102,14 @@ class SetMuteForGroupMemberPage extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            StrRes.custom.toText..style = Styles.ts_0C1C33_17sp,
+            StrRes.custom.toText..style = Styles.ts_333333_17sp,
             Expanded(
               child: TextField(
                 controller: logic.controller,
                 focusNode: logic.focusNode,
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.end,
-                style: Styles.ts_0C1C33_17sp,
+                style: Styles.ts_333333_17sp,
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                   isDense: true,
@@ -118,7 +118,7 @@ class SetMuteForGroupMemberPage extends StatelessWidget {
               ),
             ),
             10.horizontalSpace,
-            StrRes.day.toText..style = Styles.ts_0C1C33_17sp,
+            StrRes.day.toText..style = Styles.ts_333333_17sp,
           ],
         ),
       );

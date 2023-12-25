@@ -17,7 +17,7 @@ class SetSelfInfoPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             StrRes.plsCompleteInfo.toText
-              ..style = Styles.ts_0089FF_22sp_semibold,
+              ..style = Styles.ts_8443F8_22sp_semibold,
             _buildInputItemView(
               label: StrRes.nickname,
               controller: logic.nicknameCtrl,
@@ -59,10 +59,10 @@ class SetSelfInfoPage extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              label.toText..style = Styles.ts_8E9AB0_17sp,
+              label.toText..style = Styles.ts_999999_17sp,
               const Spacer(),
               if (null != value && !isAvatar)
-                value.toText..style = Styles.ts_0C1C33_17sp,
+                value.toText..style = Styles.ts_333333_17sp,
               if (isAvatar)
                 AvatarView(
                   width: 42.w,
@@ -71,7 +71,7 @@ class SetSelfInfoPage extends StatelessWidget {
                   url: faceURL,
                 ),
               4.horizontalSpace,
-              ImageRes.rightArrow.toImage
+              ImageRes.appRightArrow.toImage
                 ..width = 24.w
                 ..height = 24.h,
             ],
@@ -98,7 +98,7 @@ class SetSelfInfoPage extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            label.toText..style = Styles.ts_8E9AB0_17sp,
+            label.toText..style = Styles.ts_999999_17sp,
             Expanded(
               child: SizedBox(
                 height: 36.h,
@@ -106,7 +106,7 @@ class SetSelfInfoPage extends StatelessWidget {
                   controller: controller,
                   textAlign: TextAlign.end,
                   maxLength: 16,
-                  style: Styles.ts_0C1C33_17sp,
+                  style: Styles.ts_333333_17sp,
                   maxLines: 1,
                   decoration: const InputDecoration(
                     border: InputBorder.none,

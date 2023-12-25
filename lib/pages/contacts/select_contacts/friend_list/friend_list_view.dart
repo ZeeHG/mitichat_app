@@ -16,7 +16,7 @@ class SelectContactsFromFriendsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrRes.myFriend),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: Styles.c_F7F8FA,
       body: Column(
         children: [
           GestureDetector(
@@ -24,32 +24,36 @@ class SelectContactsFromFriendsPage extends StatelessWidget {
             onTap: logic.searchFriend,
             child: Container(
               color: Styles.c_FFFFFF,
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-              child: const SearchBox(),
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+              child: FakeSearchBox(),
             ),
           ),
           if (selectContactsLogic.isMultiModel)
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.h),
-              child: Ink(
-                height: 64.h,
+            Container(
+              padding: EdgeInsets.only(top: 12.h),
+              color: Styles.c_F7F8FA,
+              child: Container(
                 color: Styles.c_FFFFFF,
-                child: InkWell(
-                  onTap: logic.selectAll,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Row(
-                      children: [
-                        Obx(() => Padding(
-                              padding: EdgeInsets.only(right: 10.w),
-                              child: ChatRadio(checked: logic.isSelectAll),
-                            )),
-                        10.horizontalSpace,
-                        StrRes.selectAll.toText..style = Styles.ts_0C1C33_17sp,
-                      ],
-                    ),
-                  ),
-                ),
+                child: Ink(
+                    height: 54.h,
+                    color: Styles.c_FFFFFF,
+                    child: InkWell(
+                      onTap: logic.selectAll,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 12.w),
+                        child: Row(
+                          children: [
+                            Obx(() => Padding(
+                                  padding: EdgeInsets.only(right: 14.w),
+                                  child: ChatRadio(checked: logic.isSelectAll),
+                                )),
+                            12.horizontalSpace,
+                            StrRes.selectAll.toText
+                              ..style = Styles.ts_333333_16sp,
+                          ],
+                        ),
+                      ),
+                    )),
               ),
             ),
           Flexible(
@@ -69,17 +73,17 @@ class SelectContactsFromFriendsPage extends StatelessWidget {
 
   Widget _buildItemView(ISUserInfo info) {
     Widget buildChild() => Ink(
-          height: 64.h,
+          height: 54.h,
           color: Styles.c_FFFFFF,
           child: InkWell(
             onTap: selectContactsLogic.onTap(info),
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              padding: EdgeInsets.symmetric(horizontal: 12.w),
               child: Row(
                 children: [
                   if (selectContactsLogic.isMultiModel)
                     Padding(
-                      padding: EdgeInsets.only(right: 10.w),
+                      padding: EdgeInsets.only(right: 14.w),
                       child: ChatRadio(
                         checked: selectContactsLogic.isChecked(info),
                         enabled: !selectContactsLogic.isDefaultChecked(info),
@@ -89,8 +93,8 @@ class SelectContactsFromFriendsPage extends StatelessWidget {
                     url: info.faceURL,
                     text: info.showName,
                   ),
-                  10.horizontalSpace,
-                  info.showName.toText..style = Styles.ts_0C1C33_17sp,
+                  12.horizontalSpace,
+                  info.showName.toText..style = Styles.ts_333333_16sp,
                 ],
               ),
             ),

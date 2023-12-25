@@ -29,7 +29,7 @@ class AddContactsBySearchPage extends StatelessWidget {
                 : StrRes.searchIDAddGroup,
             enabled: true,
             autofocus: true,
-            margin: EdgeInsets.symmetric(horizontal: 17.w, vertical: 10.h),
+            margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
             onSubmitted: (_) => logic.search(),
           ),
           Divider(color: Styles.c_E8EAEF, height: 1.h),
@@ -90,7 +90,7 @@ class AddContactsBySearchPage extends StatelessWidget {
                       ? StrRes.searchNicknameIs
                       : StrRes.searchGroupNicknameIs,
                   [logic.getShowName(info)]).toText
-                ..style = Styles.ts_0089FF_17sp
+                ..style = Styles.ts_9280B3_16sp
                 ..maxLines = 1
                 ..overflow = TextOverflow.ellipsis,
             ],
@@ -102,6 +102,6 @@ class AddContactsBySearchPage extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 12.h),
         child: (logic.isSearchUser ? StrRes.noFoundUser : StrRes.noFoundGroup)
             .toText
-          ..style = Styles.ts_8E9AB0_17sp,
+          ..style = Styles.ts_999999_16sp,
       );
 }

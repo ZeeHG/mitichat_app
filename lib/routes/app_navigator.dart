@@ -22,10 +22,10 @@ class AppNavigator {
     Get.until((route) => Get.currentRoute == AppRoutes.login);
   }
 
-  static void startMain({bool isAutoLogin = false}) {
+  static void startMain({bool isAutoLogin = false, int index = 0}) {
     Get.offAllNamed(
       AppRoutes.home,
-      arguments: {'isAutoLogin': isAutoLogin},
+      arguments: {'isAutoLogin': isAutoLogin, 'index': index},
     );
   }
 
@@ -84,9 +84,11 @@ class AppNavigator {
         popGesture: true,
       ));
 
-  static startAddContactsBySearch({required SearchType searchType}) => Get.toNamed(
+  static startAddContactsBySearch(
+          {required SearchType searchType, String? appBarTitle}) =>
+      Get.toNamed(
         AppRoutes.addContactsBySearch,
-        arguments: {"searchType": searchType},
+        arguments: {"searchType": searchType, appBarTitle: appBarTitle},
       );
 
   static startUserProfilePane({
@@ -130,7 +132,8 @@ class AppNavigator {
         'userID': userID,
       });
 
-  static startSetFriendRemark() => Get.toNamed(AppRoutes.setFriendRemark, arguments: {});
+  static startSetFriendRemark() =>
+      Get.toNamed(AppRoutes.setFriendRemark, arguments: {});
 
   static startSendVerificationApplication({
     String? userID,
@@ -250,7 +253,8 @@ class AppNavigator {
         'type': type,
       });
 
-  static startEditGroupAnnouncement({required String groupID}) => Get.toNamed(AppRoutes.editGroupAnnouncement, arguments: groupID);
+  static startEditGroupAnnouncement({required String groupID}) =>
+      Get.toNamed(AppRoutes.editGroupAnnouncement, arguments: groupID);
 
   static Future<T?>? startGroupMemberList<T>({
     required GroupInfo groupInfo,
@@ -295,7 +299,10 @@ class AppNavigator {
   static startGroupList() => Get.toNamed(AppRoutes.groupList);
 
   static startGroupReadList(String conversationID, String clientMsgID) =>
-      Get.toNamed(AppRoutes.groupReadList, arguments: {"conversationID": conversationID, "clientMsgID": clientMsgID});
+      Get.toNamed(AppRoutes.groupReadList, arguments: {
+        "conversationID": conversationID,
+        "clientMsgID": clientMsgID
+      });
 
   static startSearchFriend() => Get.toNamed(AppRoutes.searchFriend);
 
@@ -309,6 +316,7 @@ class AppNavigator {
     bool openSelectedSheet = false,
     String? groupID,
     String? ex,
+    String? appBarTitle,
   }) =>
       Get.toNamed(AppRoutes.selectContacts, arguments: {
         'action': action,
@@ -318,30 +326,41 @@ class AppNavigator {
         'openSelectedSheet': openSelectedSheet,
         'groupID': groupID,
         'ex': ex,
+        "appBarTitle": appBarTitle
       });
 
-  static startSelectContactsFromFriends() => Get.toNamed(AppRoutes.selectContactsFromFriends);
+  static startSelectContactsFromFriends() =>
+      Get.toNamed(AppRoutes.selectContactsFromFriends);
 
-  static startSelectContactsFromGroup() => Get.toNamed(AppRoutes.selectContactsFromGroup);
+  static startSelectContactsFromGroup() =>
+      Get.toNamed(AppRoutes.selectContactsFromGroup);
 
-  static startSelectContactsFromSearchFriends() => Get.toNamed(AppRoutes.selectContactsFromSearchFriends);
+  static startSelectContactsFromSearchFriends() =>
+      Get.toNamed(AppRoutes.selectContactsFromSearchFriends);
 
-  static startSelectContactsFromSearchGroup() => Get.toNamed(AppRoutes.selectContactsFromSearchGroup);
+  static startSelectContactsFromSearchGroup() =>
+      Get.toNamed(AppRoutes.selectContactsFromSearchGroup);
 
-  static startSelectContactsFromSearch() => Get.toNamed(AppRoutes.selectContactsFromSearch);
+  static startSelectContactsFromSearch() =>
+      Get.toNamed(AppRoutes.selectContactsFromSearch);
 
   static startCreateGroup({
     List<UserInfo> defaultCheckedList = const [],
+    String? appBarTitle,
   }) async {
     final result = await startSelectContacts(
       action: SelAction.crateGroup,
       defaultCheckedIDList: defaultCheckedList.map((e) => e.userID!).toList(),
+      appBarTitle: appBarTitle
     );
     final list = IMUtils.convertSelectContactsResultToUserInfo(result);
     if (list is List<UserInfo>) {
       return Get.toNamed(
         AppRoutes.createGroup,
-        arguments: {'checkedList': list, 'defaultCheckedList': defaultCheckedList},
+        arguments: {
+          'checkedList': list,
+          'defaultCheckedList': defaultCheckedList
+        },
       );
     }
     return null;
@@ -426,16 +445,34 @@ class AppNavigator {
 
   static startTagGroup() => Get.toNamed(AppRoutes.tagGroup);
 
-  static startCreateTagGroup({TagInfo? tagInfo}) => Get.toNamed(AppRoutes.createTagGroup, arguments: {'tagInfo': tagInfo});
+  static startCreateBot() => Get.toNamed(AppRoutes.createBot);
 
-  static startSelectContactsFromTag() => Get.toNamed(AppRoutes.selectContactsFromTag);
+  static startBot() => Get.toNamed(AppRoutes.bot);
 
-  static startNotificationIssued() => Get.toNamed(AppRoutes.tagNotificationIssued);
+  static startChangeBotInfo() => Get.toNamed(AppRoutes.changeBotInfo);
 
-  static startNewBuildNotification() => Get.toNamed(AppRoutes.buildTagNotification);
+  static startTrainingBot() => Get.toNamed(AppRoutes.trainingBot);
 
-  static startNotificationDetail({required TagNotification notification}) => Get.toNamed(
+  static startCreateTagGroup({TagInfo? tagInfo}) =>
+      Get.toNamed(AppRoutes.createTagGroup, arguments: {'tagInfo': tagInfo});
+
+  static startSelectContactsFromTag() =>
+      Get.toNamed(AppRoutes.selectContactsFromTag);
+
+  static startNotificationIssued() =>
+      Get.toNamed(AppRoutes.tagNotificationIssued);
+
+  static startNewBuildNotification() =>
+      Get.toNamed(AppRoutes.buildTagNotification);
+
+  static startNotificationDetail({required TagNotification notification}) =>
+      Get.toNamed(
         AppRoutes.tagNotificationDetail,
         arguments: {"notification": notification},
+      );
+  
+  static startDiscover() =>
+      Get.toNamed(
+        AppRoutes.discover
       );
 }

@@ -18,7 +18,7 @@ class RegisterPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            StrRes.newUserRegister.toText..style = Styles.ts_0089FF_22sp_semibold,
+            StrRes.newUserRegister.toText..style = Styles.ts_8443F8_22sp_semibold,
             29.verticalSpace,
             Obx(() => InputBox.account(
                   label: logic.loginController.operateType.name,

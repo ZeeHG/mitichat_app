@@ -13,14 +13,43 @@ class SearchChatHistoryLogic extends GetxController {
   final searchCtrl = TextEditingController();
   final focusNode = FocusNode();
   final messageList = <Message>[].obs;
-  late ConversationInfo conversationInfo;
+  late  Rx<ConversationInfo> conversationInfo;
   final searchKey = "".obs;
   int pageIndex = 1;
   int pageSize = 50;
 
+  get items => conversationInfo.value.isSingleChat
+      ? [StrRes.picture, StrRes.video, StrRes.file, 
+      // StrRes.link, StrRes.audio
+      ]
+      : [
+          StrRes.picture,
+          StrRes.video,
+          StrRes.file,
+          // StrRes.groupMember,
+          // StrRes.link,
+          // StrRes.audio
+        ];
+
+  void clickItem(String item) {
+    if (item == StrRes.picture) {
+      searchChatHistoryPicture();
+    } else if (item == StrRes.video) {
+      searchChatHistoryVideo();
+    } else if (item == StrRes.file) {
+      searchChatHistoryFile();
+    } else if (item == StrRes.groupMember) {
+      showDeveloping();
+    } else if (item == StrRes.link) {
+      showDeveloping();
+    } else if (item == StrRes.audio) {
+      showDeveloping();
+    }
+  }
+
   @override
   void onInit() {
-    conversationInfo = Get.arguments['conversationInfo'];
+    conversationInfo = Rx(Get.arguments['conversationInfo']);
     // searchCtrl.addListener(_changedSearch);
     super.onInit();
   }
@@ -45,7 +74,8 @@ class SearchChatHistoryLogic extends GetxController {
     messageList.clear();
   }
 
-  bool get isSearchNotResult => searchKey.value.isNotEmpty && messageList.isEmpty;
+  bool get isSearchNotResult =>
+      searchKey.value.isNotEmpty && messageList.isEmpty;
 
   bool get isNotKey => searchKey.value.isEmpty;
 
@@ -53,7 +83,7 @@ class SearchChatHistoryLogic extends GetxController {
     try {
       // searchKey.value = searchCtrl.text.trim();
       var result = await OpenIM.iMManager.messageManager.searchLocalMessages(
-        conversationID: conversationInfo.conversationID,
+        conversationID: conversationInfo.value.conversationID,
         keywordList: [searchKey.value],
         pageIndex: pageIndex = 1,
         count: pageSize,
@@ -77,7 +107,7 @@ class SearchChatHistoryLogic extends GetxController {
   load() async {
     try {
       var result = await OpenIM.iMManager.messageManager.searchLocalMessages(
-        conversationID: conversationInfo.conversationID,
+        conversationID: conversationInfo.value.conversationID,
         keywordList: [searchKey.value],
         pageIndex: ++pageIndex,
         count: pageSize,
@@ -103,26 +133,29 @@ class SearchChatHistoryLogic extends GetxController {
     return IMUtils.calContent(
       content: content,
       key: searchKey.value,
-      style: Styles.ts_0C1C33_17sp,
+      style: Styles.ts_333333_17sp,
       usedWidth: usedWidth,
     );
   }
 
-  void searchChatHistoryPicture() => AppNavigator.startSearchChatHistoryMultimedia(
-        conversationInfo: conversationInfo,
+  void searchChatHistoryPicture() =>
+      AppNavigator.startSearchChatHistoryMultimedia(
+        conversationInfo: conversationInfo.value,
       );
 
-  void searchChatHistoryVideo() => AppNavigator.startSearchChatHistoryMultimedia(
-        conversationInfo: conversationInfo,
+  void searchChatHistoryVideo() =>
+      AppNavigator.startSearchChatHistoryMultimedia(
+        conversationInfo: conversationInfo.value,
         multimediaType: MultimediaType.video,
       );
 
   void searchChatHistoryFile() => AppNavigator.startSearchChatHistoryFile(
-        conversationInfo: conversationInfo,
+        conversationInfo: conversationInfo.value,
       );
 
-  void previewMessageHistory(Message message) => AppNavigator.startPreviewChatHistory(
-        conversationInfo: conversationInfo,
+  void previewMessageHistory(Message message) =>
+      AppNavigator.startPreviewChatHistory(
+        conversationInfo: conversationInfo.value,
         message: message,
       );
 }

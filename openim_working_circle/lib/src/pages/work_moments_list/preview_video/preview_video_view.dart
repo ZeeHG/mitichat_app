@@ -1,5 +1,6 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:video_player/video_player.dart';
@@ -76,13 +77,29 @@ class _PreviewVideoPageState extends State<PreviewVideoPage> {
     );
   }
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return SafeArea(
+  //     child: widget.heroTag != null
+  //         ? Hero(tag: widget.heroTag!, child: _childView)
+  //         : _childView,
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: widget.heroTag != null
-          ? Hero(tag: widget.heroTag!, child: _childView)
-          : _childView,
-    );
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(systemNavigationBarColor: Styles.c_000000, systemNavigationBarIconBrightness: Brightness.light),
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Styles.c_000000,
+            toolbarHeight: 0,
+          ),
+          backgroundColor: Styles.c_000000,
+          body: widget.heroTag != null
+              ? Hero(tag: widget.heroTag!, child: _childView)
+              : _childView,
+        ));
   }
 
   Widget get _childView => Material(

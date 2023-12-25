@@ -23,7 +23,9 @@ class FileDownloadProgressView extends StatelessWidget {
                     return ValueListenableBuilder(
                       valueListenable: logic.downloadTaskList[url]!.progress,
                       builder: (_, progress, child) {
-                        return (status == DownloadStatus.downloading || status == DownloadStatus.paused || status == DownloadStatus.queued)
+                        return (status == DownloadStatus.downloading ||
+                                status == DownloadStatus.paused ||
+                                status == DownloadStatus.queued)
                             ? Stack(
                                 alignment: Alignment.center,
                                 children: [
@@ -38,11 +40,12 @@ class FileDownloadProgressView extends StatelessWidget {
                                       children: [
                                         CircularProgressIndicator(
                                           backgroundColor: Styles.c_FFFFFF,
-                                          color: Styles.c_0089FF,
+                                          color: Styles.c_8443F8,
                                           strokeWidth: 1.5,
                                           value: progress,
                                         ),
-                                        if (status == DownloadStatus.downloading)
+                                        if (status ==
+                                            DownloadStatus.downloading)
                                           ImageRes.progressPause.toImage
                                             ..width = 16.w
                                             ..height = 16.h,

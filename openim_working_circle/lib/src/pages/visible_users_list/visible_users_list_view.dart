@@ -35,7 +35,7 @@ class VisibleUsersListPage extends StatelessWidget {
                       ),
                       10.horizontalSpace,
                       (user.nickname ?? '').toText
-                        ..style = Styles.ts_0C1C33_17sp,
+                        ..style = Styles.ts_333333_17sp,
                     ],
                   ),
                 ),

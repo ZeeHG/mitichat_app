@@ -17,12 +17,13 @@ class AccountSetupPage extends StatelessWidget {
       appBar: TitleBar.back(
         title: StrRes.accountSetup,
       ),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: Styles.c_F7F8FA,
       body: Obx(() => SingleChildScrollView(
             child: Column(
               children: [
-                10.verticalSpace,
+                12.verticalSpace,
                 _buildItemView(
+                  showBorder: false,
                   label: StrRes.notDisturbMode,
                   switchOn: logic.isGlobalNotDisturb,
                   onChanged: (_) => logic.toggleNotDisturbMode(),
@@ -42,8 +43,9 @@ class AccountSetupPage extends StatelessWidget {
                   showSwitchButton: true,
                   isBottomRadius: true,
                 ),
-                10.verticalSpace,
+                12.verticalSpace,
                 _buildItemView(
+                  showBorder: false,
                   label: StrRes.forbidAddMeToFriend,
                   switchOn: !logic.isAllowAddFriend,
                   onChanged: (_) => logic.toggleForbidAddMeToFriend(),
@@ -62,8 +64,9 @@ class AccountSetupPage extends StatelessWidget {
                   showRightArrow: true,
                   isBottomRadius: true,
                 ),
-                10.verticalSpace,
+                12.verticalSpace,
                 _buildItemView(
+                  showBorder: false,
                   label: StrRes.unlockSettings,
                   onTap: logic.unlockSetup,
                   showRightArrow: true,
@@ -76,7 +79,6 @@ class AccountSetupPage extends StatelessWidget {
                 ),
                 _buildItemView(
                   label: StrRes.clearChatHistory,
-                  textStyle: Styles.ts_FF381F_17sp,
                   onTap: logic.clearChatHistory,
                   showRightArrow: true,
                   isBottomRadius: true,
@@ -96,46 +98,49 @@ class AccountSetupPage extends StatelessWidget {
     bool isBottomRadius = false,
     bool showRightArrow = false,
     bool showSwitchButton = false,
+    bool showBorder = true,
     ValueChanged<bool>? onChanged,
     Function()? onTap,
   }) =>
       Container(
-        margin: EdgeInsets.symmetric(horizontal: 10.w),
         child: Ink(
           decoration: BoxDecoration(
             color: Styles.c_FFFFFF,
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(isTopRadius ? 6.r : 0),
-              topLeft: Radius.circular(isTopRadius ? 6.r : 0),
-              bottomLeft: Radius.circular(isBottomRadius ? 6.r : 0),
-              bottomRight: Radius.circular(isBottomRadius ? 6.r : 0),
-            ),
           ),
           child: InkWell(
-            onTap: onTap,
-            child: Container(
-              height: 46.h,
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Row(
-                children: [
-                  label.toText..style = textStyle ?? Styles.ts_0C1C33_17sp,
-                  const Spacer(),
-                  // if (null != value)
-                  //   value.toText..style = Styles.ts_8E9AB0_17sp,
-                  if (showSwitchButton)
-                    CupertinoSwitch(
-                      value: switchOn,
-                      activeColor: Styles.c_0089FF,
-                      onChanged: onChanged,
+              onTap: onTap,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                child: Container(
+                  height: 50.h,
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: Styles.c_F1F2F6,
+                        width: showBorder ? 1.h : 0,
+                      ),
                     ),
-                  if (showRightArrow)
-                    ImageRes.rightArrow.toImage
-                      ..width = 24.w
-                      ..height = 24.h,
-                ],
-              ),
-            ),
-          ),
+                  ),
+                  child: Row(
+                    children: [
+                      label.toText..style = textStyle ?? Styles.ts_333333_16sp,
+                      const Spacer(),
+                      // if (null != value)
+                      //   value.toText..style = Styles.ts_999999_16sp,
+                      if (showSwitchButton)
+                        CupertinoSwitch(
+                          value: switchOn,
+                          activeColor: Styles.c_07C160,
+                          onChanged: onChanged,
+                        ),
+                      if (showRightArrow)
+                        ImageRes.appRightArrow.toImage
+                          ..width = 20.w
+                          ..height = 20.h,
+                    ],
+                  ),
+                ),
+              )),
         ),
       );
 }

@@ -81,7 +81,7 @@ class _RichTextInputBoxState extends State<RichTextInputBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Styles.c_F0F2F6,
+      color: Styles.c_F7F8FA,
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,8 +182,8 @@ class _RichTextInputBoxState extends State<RichTextInputBox> {
           atCallback: (showText, actualText) {},
           controller: widget.controller,
           focusNode: widget.focusNode,
-          style: Styles.ts_0C1C33_17sp,
-          atStyle: Styles.ts_0089FF_17sp,
+          style: Styles.ts_333333_17sp,
+          atStyle: Styles.ts_8443F8_17sp,
           enabled: true,
           textAlign: TextAlign.start,
         ),

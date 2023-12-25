@@ -16,16 +16,19 @@ class PublishPage extends StatelessWidget {
     return TouchCloseSoftKeyboard(
       child: Scaffold(
         appBar: TitleBar.back(
+          onTap: logic.back,
           title: logic.type == PublishType.picture
               ? StrRes.publishPicture
               : StrRes.publishVideo,
-          right: Button(
+          right: Obx(() => Button(
             text: StrRes.publish,
             textStyle: Styles.ts_FFFFFF_14sp,
+            disabledTextStyle: Styles.ts_FFFFFF_14sp,
             height: 28.h,
             padding: EdgeInsets.symmetric(horizontal: 12.w),
             onTap: logic.publish,
-          ),
+            enabled: logic.canPublish
+          )),
         ),
         backgroundColor: Styles.c_F8F9FA,
         body: SingleChildScrollView(
@@ -47,10 +50,10 @@ class PublishPage extends StatelessWidget {
                         minLines: null,
                         maxLines: null,
                         expands: true,
-                        style: Styles.ts_0C1C33_17sp,
+                        style: Styles.ts_333333_16sp,
                         maxLength: 150,
                         decoration: InputDecoration(
-                          counterStyle: Styles.ts_8E9AB0_14sp,
+                          counterStyle: Styles.ts_999999_14sp,
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(
                             horizontal: 10.w,
@@ -66,23 +69,28 @@ class PublishPage extends StatelessWidget {
                 ),
               ),
               10.verticalSpace,
+              // _buildItemView(
+              //   icon: ImageRes.appLocation,
+              //   text: StrRes.myLocation,
+              //   onTap: showDeveloping,
+              // ),
               Obx(
                 () => _buildItemView(
-                  icon: ImageRes.whoCanWatch,
+                  icon: ImageRes.appRemindWhoToWatch,
+                  text: StrRes.remindWhoToWatch,
+                  onTap: logic.remindWhoToWatch,
+                  value: logic.remindWhoToWatchValue,
+                ),
+              ),
+              Obx(
+                () => _buildItemView(
+                  icon: ImageRes.appWhoCanWatch,
                   text: logic.whoCanWatchLabel,
                   showUnderline: true,
                   onTap: logic.whoCanWatch,
                   value: logic.whoCanWatchValue,
                 ),
               ),
-              Obx(
-                () => _buildItemView(
-                  icon: ImageRes.remindWhoToWatch,
-                  text: StrRes.remindWhoToWatch,
-                  onTap: logic.remindWhoToWatch,
-                  value: logic.remindWhoToWatchValue,
-                ),
-              )
             ],
           ),
         ),
@@ -153,14 +161,14 @@ class PublishPage extends StatelessWidget {
         behavior: HitTestBehavior.translucent,
         onTap: onTap,
         child: Container(
-          height: 60.h,
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          height: 53.h,
+          padding: EdgeInsets.only(left: 20.w, right: 12.w),
           decoration: BoxDecoration(
             color: Styles.c_FFFFFF,
             border: showUnderline
                 ? BorderDirectional(
                     bottom: BorderSide(
-                      color: Styles.c_E8EAEF,
+                      color: Styles.c_F1F2F6,
                       width: 1,
                     ),
                   )
@@ -168,21 +176,19 @@ class PublishPage extends StatelessWidget {
           ),
           child: Row(
             children: [
-              icon.toImage
-                ..width = 20.w
-                ..height = 20.h,
-              10.horizontalSpace,
-              text.toText..style = Styles.ts_0C1C33_17sp,
+              icon.toImage..width = 18.w,
+              12.horizontalSpace,
+              text.toText..style = Styles.ts_333333_16sp,
               Expanded(
                 child: (value ?? '').toText
-                  ..style = Styles.ts_8E9AB0_17sp
+                  ..style = Styles.ts_333333_16sp
                   ..maxLines = 1
                   ..overflow = TextOverflow.ellipsis
                   ..textAlign = TextAlign.end,
               ),
-              ImageRes.rightArrow.toImage
-                ..width = 24.w
-                ..height = 24.h,
+              ImageRes.appRightArrow.toImage
+                ..width = 20.w
+                ..height = 20.h,
             ],
           ),
         ),

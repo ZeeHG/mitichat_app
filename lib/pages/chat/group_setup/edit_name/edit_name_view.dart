@@ -17,7 +17,7 @@ class EditGroupNamePage extends StatelessWidget {
       appBar: TitleBar.back(
         title: logic.title,
         right: StrRes.save.toText
-          ..style = Styles.ts_0C1C33_17sp
+          ..style = Styles.ts_333333_17sp
           ..onTap = logic.save,
       ),
       backgroundColor: Styles.c_FFFFFF,
@@ -32,7 +32,7 @@ class EditGroupNamePage extends StatelessWidget {
             ),
             child: TextField(
               controller: logic.inputCtrl,
-              style: Styles.ts_0C1C33_17sp,
+              style: Styles.ts_333333_17sp,
               autofocus: true,
               inputFormatters: [LengthLimitingTextInputFormatter(16)],
               decoration: InputDecoration(

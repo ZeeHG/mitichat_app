@@ -3,38 +3,47 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:openim_common/openim_common.dart';
 
 class CustomTabBar extends StatelessWidget {
-  const CustomTabBar({
-    Key? key,
-    required this.index,
-    required this.labels,
-    this.selectedStyle,
-    this.unselectedStyle,
-    this.indicatorColor,
-    this.indicatorHeight,
-    this.indicatorWidth,
-    this.onTabChanged,
-    this.height,
-    this.showUnderline = false,
-  }) : super(key: key);
+  const CustomTabBar(
+      {Key? key,
+      required this.index,
+      required this.labels,
+      this.selectedStyle,
+      this.unselectedStyle,
+      this.indicatorColor,
+      this.indicatorHeight,
+      this.indicatorWidth,
+      this.onTabChanged,
+      this.height,
+      this.width,
+      this.showUnderline = false,
+      this.activeTextStyle,
+      this.inactiveTextStyle,
+      this.bgColor})
+      : super(key: key);
   final int index;
   final List<String> labels;
   final TextStyle? selectedStyle;
   final TextStyle? unselectedStyle;
   final double? height;
+  final double? width;
   final Color? indicatorColor;
   final double? indicatorHeight;
   final double? indicatorWidth;
+  final Color? bgColor;
+  final TextStyle? activeTextStyle;
+  final TextStyle? inactiveTextStyle;
   final Function(int index)? onTabChanged;
   final bool showUnderline;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: width,
       decoration: BoxDecoration(
-        color: Styles.c_FFFFFF,
+        color: this.bgColor ?? Styles.c_FFFFFF,
         border: showUnderline
             ? BorderDirectional(
-                bottom: BorderSide(color: Styles.c_E8EAEF, width: 1))
+                bottom: BorderSide(color: Styles.c_E8EAEF, width: 1.h))
             : null,
       ),
       child: Row(
@@ -50,26 +59,26 @@ class CustomTabBar extends StatelessWidget {
           },
           behavior: HitTestBehavior.translucent,
           child: SizedBox(
-            height: height ?? 42.h,
+            height: height ?? 40.h,
             child: Stack(
               children: [
                 Align(
                   alignment: Alignment.center,
                   child: labels.elementAt(i).toText
-                    ..style = Styles.ts_0C1C33_17sp,
+                    ..style = i == index? activeTextStyle ?? Styles.ts_333333_16sp : inactiveTextStyle ?? Styles.ts_333333_16sp,
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Visibility(
                     visible: i == index,
                     child: Container(
-                      margin: EdgeInsets.only(bottom: 4.h),
+                      margin: EdgeInsets.only(bottom: 2.h),
                       decoration: BoxDecoration(
-                        color: Styles.c_0C1C33,
-                        borderRadius: BorderRadius.circular(1.5.r),
+                        color: Styles.c_8443F8,
+                        borderRadius: BorderRadius.circular(1.r),
                       ),
-                      height: indicatorHeight ?? 3.h,
-                      width: indicatorWidth ?? 20.w,
+                      height: indicatorHeight ?? 2.h,
+                      width: indicatorWidth ?? 32.w,
                     ),
                   ),
                 ),

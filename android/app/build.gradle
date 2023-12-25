@@ -29,6 +29,18 @@ android {
     compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
+    bundle {
+        language {
+            enableSplit = false
+        }
+        density {
+            enableSplit = true
+        }
+        abi {
+            enableSplit = true
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -36,13 +48,13 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "io.openim.flutter.rtc"
+        applicationId "chat.miti"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 24
-        targetSdkVersion 30
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        minSdkVersion 29
+        targetSdkVersion 33
+        versionCode 262
+        versionName "alpha-v1.0.2"
 
         multiDexEnabled true
 
@@ -58,14 +70,14 @@ android {
         }
 
         manifestPlaceholders = [
-                GETUI_APPID    : "",
+                GETUI_APPID    : "Bb8eKvZxNg5MYXza0SU1JA",
                 // 下面是多厂商配置，如需要开通使用请联系技术支持
                 // 如果不需要使用，预留空字段即可
                 XIAOMI_APP_ID  : "",
                 XIAOMI_APP_KEY : "",
-                MEIZU_APP_ID   : "",
-                MEIZU_APP_KEY  : "",
-                HUAWEI_APP_ID  : "",
+                MEIZU_APP_ID   : "152518",
+                MEIZU_APP_KEY  : "086865c5faae4e73a83391ad69723882",
+                HUAWEI_APP_ID  : "109488479",
                 OPPO_APP_KEY   : "",
                 OPPO_APP_SECRET: "",
                 VIVO_APP_ID    : "",
@@ -77,10 +89,10 @@ android {
 
     signingConfigs {
         release {
-            keyAlias 'openim'
-            keyPassword 'openim'
-            storeFile file('./openim')
-            storePassword 'openim'
+            keyAlias 'miti'
+            keyPassword 'miti123'
+            storeFile file('./miti.keystore')
+            storePassword 'miti123'
         }
     }
 
@@ -95,7 +107,7 @@ android {
         release {
 //            minifyEnabled false
 //            useProguard false
-//            shrinkResources false
+            shrinkResources true
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
@@ -162,16 +174,19 @@ flutter {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    implementation 'com.getui:gtsdk:3.2.18.0'  //个推SDK
+    implementation 'com.getui:gtc:3.2.6.0'  //个推核心组件
+
     // 个推
     // 根据所需厂商选择集成
-    implementation 'com.huawei.hms:push:5.3.0.301'
-    implementation 'com.getui.opt:hwp:3.1.0'   // 华为
+    implementation 'com.huawei.hms:push:6.11.0.300'
+    implementation 'com.getui.opt:hwp:3.1.1'   // 华为
     implementation 'com.getui.opt:xmp:3.2.0'   // 小米
     implementation('com.assist-v3:oppo:3.1.0') {
         exclude group: 'commons-codec'
     }   // oppo
     implementation 'com.assist-v3:vivo:3.1.0'  // vivo
-    implementation 'com.getui.opt:mzp:3.2.0'   // 魅族
+    implementation 'com.getui.opt:mzp:3.2.3'   // 魅族
     implementation 'com.getui.opt:ups:3.0.3'   // ups，ups目前支持坚果，索尼，海信手机
     implementation 'com.getui.opt:honor:3.2.0' // 荣耀
 
@@ -179,7 +194,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 }
 
-//apply plugin: 'com.huawei.agconnect'
+apply plugin: 'com.huawei.agconnect'
 //apply plugin: 'com.google.gms.google-services'
 
 static def buildTime() {

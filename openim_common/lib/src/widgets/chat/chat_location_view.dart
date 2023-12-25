@@ -38,14 +38,14 @@ class ChatLocationView extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 4.w),
               child: name.toText
-                ..style = Styles.ts_0C1C33_14sp
+                ..style = Styles.ts_333333_14sp
                 ..maxLines = 1
                 ..overflow = TextOverflow.ellipsis,
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 4.w),
               child: addr.toText
-                ..style = Styles.ts_8E9AB0_12sp
+                ..style = Styles.ts_999999_12sp
                 ..maxLines = 1
                 ..overflow = TextOverflow.ellipsis,
             ),

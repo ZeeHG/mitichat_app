@@ -14,6 +14,7 @@ class Button extends StatelessWidget {
     this.disabledTextStyle,
     this.onTap,
     this.height,
+    this.width,
     this.margin,
     this.padding,
   }) : super(key: key);
@@ -24,6 +25,7 @@ class Button extends StatelessWidget {
   final TextStyle? disabledTextStyle;
   final String text;
   final double? height;
+  final double? width;
   final Function()? onTap;
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
@@ -37,19 +39,24 @@ class Button extends StatelessWidget {
         type: MaterialType.transparency,
         child: Ink(
           height: height ?? 44.h,
+          width: width,
           decoration: BoxDecoration(
-            color: enabled ? enabledColor ?? Styles.c_0089FF : disabledColor ?? Styles.c_0089FF_opacity50,
-            borderRadius: BorderRadius.circular(radius ?? 4.r),
+            color: enabled
+                ? enabledColor ?? Styles.c_8443F8
+                : disabledColor ?? Styles.c_8443F8_opacity50,
+            borderRadius: BorderRadius.circular(radius ?? 10.r),
           ),
           child: InkWell(
             onTap: enabled ? onTap : null,
-            borderRadius: BorderRadius.circular(radius ?? 4.r),
+            borderRadius: BorderRadius.circular(radius ?? 10.r),
             child: Container(
               alignment: Alignment.center,
               padding: padding,
               child: Text(
                 text,
-                style: textStyle ?? Styles.ts_FFFFFF_17sp_semibold,
+                style: enabled
+                    ? textStyle ?? Styles.ts_FFFFFF_16sp
+                    : disabledTextStyle ?? Styles.ts_FFFFFF_16sp,
                 maxLines: 1,
               ),
             ),
@@ -61,20 +68,30 @@ class Button extends StatelessWidget {
 }
 
 class ImageTextButton extends StatelessWidget {
-  const ImageTextButton({
+  ImageTextButton({
     Key? key,
     required this.icon,
     required this.text,
+    double? iconWidth,
+    double? iconHeight,
+    double? radius,
     this.textStyle,
     this.color,
     this.height,
     this.onTap,
-  }) : super(key: key);
+  })  : iconWidth = iconWidth ?? 20.w,
+        iconHeight = iconHeight ?? 20.h,
+        radius = radius ?? 6.r,
+        super(key: key);
+
   final String icon;
   final String text;
   final TextStyle? textStyle;
   final Color? color;
   final double? height;
+  final double? iconWidth;
+  final double? iconHeight;
+  final double? radius;
   final Function()? onTap;
 
   ImageTextButton.call({super.key, this.onTap})
@@ -82,13 +99,19 @@ class ImageTextButton extends StatelessWidget {
         text = StrRes.audioAndVideoCall,
         color = Styles.c_FFFFFF,
         textStyle = null,
+        iconWidth = null,
+        iconHeight = null,
+        radius = null,
         height = null;
 
   ImageTextButton.message({super.key, this.onTap})
       : icon = ImageRes.message,
         text = StrRes.sendMessage,
-        color = Styles.c_0089FF,
-        textStyle = Styles.ts_FFFFFF_17sp,
+        color = Styles.c_8443F8,
+        textStyle = Styles.ts_FFFFFF_16sp,
+        iconWidth = null,
+        iconHeight = null,
+        radius = null,
         height = null;
 
   @override
@@ -97,7 +120,7 @@ class ImageTextButton extends StatelessWidget {
       child: Ink(
         height: height ?? 46.h,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6.r),
+          borderRadius: BorderRadius.circular(radius ?? 0),
           color: color,
         ),
         child: InkWell(
@@ -106,10 +129,10 @@ class ImageTextButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               icon.toImage
-                ..width = 20.w
-                ..height = 20.h,
-              6.horizontalSpace,
-              text.toText..style = textStyle ?? Styles.ts_0C1C33_17sp,
+                ..width = iconWidth
+                ..height = iconHeight,
+              7.horizontalSpace,
+              text.toText..style = textStyle ?? Styles.ts_333333_16sp,
             ],
           ),
         ),

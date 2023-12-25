@@ -48,11 +48,13 @@ class SelectContactsLogic extends GetxController implements OrganizationMultiSel
   final conversationList = <ConversationInfo>[].obs;
   String? ex;
   final inputCtrl = TextEditingController();
+  final appBarTitle = "".obs;
 
   @override
   void onInit() {
     action = Get.arguments['action'];
     groupID = Get.arguments['groupID'];
+    appBarTitle.value = Get.arguments['appBarTitle'] ?? "";
     excludeIDList = Get.arguments['excludeIDList'];
     defaultCheckedIDList.addAll(Get.arguments['defaultCheckedIDList'] ?? []);
     checkedList.addAll(Get.arguments['checkedList'] ?? {});

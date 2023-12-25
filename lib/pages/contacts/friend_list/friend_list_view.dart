@@ -14,7 +14,7 @@ class FriendListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrRes.myFriend),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: Styles.c_FFFFFF,
       body: Column(
         children: [
           GestureDetector(
@@ -22,8 +22,8 @@ class FriendListPage extends StatelessWidget {
             onTap: logic.searchFriend,
             child: Container(
               color: Styles.c_FFFFFF,
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-              child: const SearchBox(),
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
+              child: FakeSearchBox(),
             ),
           ),
           Flexible(
@@ -41,20 +41,20 @@ class FriendListPage extends StatelessWidget {
   }
 
   Widget _buildItemView(ISUserInfo info) => Ink(
-        height: 64.h,
+        height: 60.h,
         color: Styles.c_FFFFFF,
         child: InkWell(
           onTap: () => logic.viewFriendInfo(info),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
             child: Row(
               children: [
                 AvatarView(
                   url: info.faceURL,
                   text: info.showName,
                 ),
-                10.horizontalSpace,
-                info.showName.toText..style = Styles.ts_0C1C33_17sp,
+                12.horizontalSpace,
+                info.showName.toText..style = Styles.ts_333333_16sp,
               ],
             ),
           ),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
 
 class ChatItemContainer extends StatelessWidget {
-  const ChatItemContainer({
+  ChatItemContainer({
     Key? key,
     required this.id,
     this.leftFaceUrl,
@@ -27,6 +28,7 @@ class ChatItemContainer extends StatelessWidget {
     this.menus,
     required this.child,
     this.quoteView,
+    this.translateView,
     this.readStatusView,
     this.voiceReadStatusView,
     this.popupMenuController,
@@ -61,6 +63,7 @@ class ChatItemContainer extends StatelessWidget {
   final List<MenuInfo>? menus;
   final Widget child;
   final Widget? quoteView;
+  final Widget Function({String? text, required String status})? translateView;
   final Widget? readStatusView;
   final Widget? voiceReadStatusView;
   final CustomPopupMenuController? popupMenuController;
@@ -72,6 +75,25 @@ class ChatItemContainer extends StatelessWidget {
   final Function(bool checked)? onRadioChanged;
   final Function()? onStartDestroy;
   final Function()? onFailedToResend;
+  final translateLogic = Get.find<TranslateLogic>();
+
+  String? get translateText {
+    final msgTranslate = translateLogic.msgTranslate?[id];
+    return null != msgTranslate && null != msgTranslate["targetLang"]
+        ? msgTranslate[msgTranslate["targetLang"]]
+        : null;
+  }
+
+  String? get translateStatus {
+    return translateLogic.msgTranslate[id]?["status"];
+  }
+
+  bool get translateShow {
+    return null != translateView &&
+        null != translateStatus &&
+        (null != translateText && translateStatus == "show" ||
+            ["loading", "fail"].contains(translateStatus));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,37 +140,39 @@ class ChatItemContainer extends StatelessWidget {
             menus: menus ?? allMenus,
           ),
           pressType: PressType.longPress,
-          arrowColor: Styles.c_0C1C33_opacity85,
+          arrowColor: Styles.c_333333_opacity85,
           barrierColor: Colors.transparent,
           verticalMargin: 0,
           child:
               isBubbleBg ? ChatBubble(bubbleType: type, child: child) : child,
         );
 
-  Widget _buildLeftView() => Row(
+  Widget _buildLeftView() => Obx(() => Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           AvatarView(
-            width: 44.w,
-            height: 44.h,
+            width: 42.w,
+            height: 42.h,
             textStyle: Styles.ts_FFFFFF_14sp_medium,
             url: leftFaceUrl,
             text: leftNickname,
             onTap: onTapLeftAvatar,
             onLongPress: onLongPressLeftAvatar,
           ),
-          10.horizontalSpace,
+          12.horizontalSpace,
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              ChatNicknameView(
-                nickname: showLeftNickname ? leftNickname : null,
-                timeStr: timeStr,
-              ),
-              // timeStr.toText..style = Styles.ts_8E9AB0_12sp,
-              4.verticalSpace,
+              if (showLeftNickname)
+                ChatNicknameView(
+                  nickname: leftNickname,
+                  // timeStr: timeStr,
+                ),
+              // timeStr.toText..style = Styles.ts_999999_12sp,
+              // 4.verticalSpace,
+              if (showLeftNickname) 4.verticalSpace,
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -164,13 +188,14 @@ class ChatItemContainer extends StatelessWidget {
                   if (null != voiceReadStatusView) voiceReadStatusView!,
                 ],
               ),
+              if (translateShow) translateView!(text: translateText, status: translateStatus!),
               if (null != quoteView) quoteView!,
             ],
           ),
         ],
-      );
+      ));
 
-  Widget _buildRightView() => Row(
+  Widget _buildRightView() => Obx(() => Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -178,12 +203,12 @@ class ChatItemContainer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              ChatNicknameView(
-                nickname: showRightNickname ? rightNickname : null,
-                timeStr: timeStr,
-              ),
-              // timeStr.toText..style = Styles.ts_8E9AB0_12sp,
-              4.verticalSpace,
+              // ChatNicknameView(
+              //   nickname: showRightNickname ? rightNickname : null,
+              //   timeStr: timeStr,
+              // ),
+              // timeStr.toText..style = Styles.ts_999999_12sp,
+              // 4.verticalSpace,
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -208,14 +233,15 @@ class ChatItemContainer extends StatelessWidget {
                   _buildChildView(BubbleType.send),
                 ],
               ),
+              if (translateShow) translateView!(text: translateText, status: translateStatus!),
               if (null != quoteView) quoteView!,
-              if (null != readStatusView) readStatusView!,
+              // if (null != readStatusView) readStatusView!,
             ],
           ),
-          10.horizontalSpace,
+          12.horizontalSpace,
           AvatarView(
-            width: 44.w,
-            height: 44.h,
+            width: 42.w,
+            height: 42.h,
             textStyle: Styles.ts_FFFFFF_14sp_medium,
             url: rightFaceUrl,
             text: rightNickname,
@@ -223,5 +249,5 @@ class ChatItemContainer extends StatelessWidget {
             onLongPress: onLongPressRightAvatar,
           ),
         ],
-      );
+      ));
 }

@@ -28,12 +28,12 @@ class FontSizeSlider extends StatelessWidget {
             data: SfSliderThemeData(
               activeTrackHeight: 1,
               inactiveTrackHeight: 1,
-              activeTrackColor: Styles.c_8E9AB0_opacity30,
-              inactiveTrackColor: Styles.c_8E9AB0_opacity30,
-              activeTickColor: Styles.c_8E9AB0_opacity30,
-              inactiveTickColor: Styles.c_8E9AB0_opacity30,
-              activeMinorTickColor: Styles.c_8E9AB0_opacity30,
-              inactiveMinorTickColor: Styles.c_8E9AB0_opacity30,
+              activeTrackColor: Styles.c_999999_opacity30,
+              inactiveTrackColor: Styles.c_999999_opacity30,
+              activeTickColor: Styles.c_999999_opacity30,
+              inactiveTickColor: Styles.c_999999_opacity30,
+              activeMinorTickColor: Styles.c_999999_opacity30,
+              inactiveMinorTickColor: Styles.c_999999_opacity30,
               thumbColor: Styles.c_FFFFFF,
               tickOffset: Offset(0, -10.h),
               // labelOffset: Offset(0, -45.h),
@@ -63,18 +63,18 @@ class FontSizeSlider extends StatelessWidget {
   Widget _buildIndicatorLabel() => Stack(
         children: [
           StrRes.little.toText
-            ..style = Styles.ts_0C1C33_12sp
+            ..style = Styles.ts_333333_12sp
             ..onTap = () => onChanged?.call(.0),
           Align(
             alignment: Alignment.center,
             child: StrRes.standard.toText
-              ..style = Styles.ts_0C1C33_17sp
+              ..style = Styles.ts_333333_17sp
               ..onTap = () => onChanged?.call(1.0),
           ),
           Align(
             alignment: Alignment.centerRight,
             child: StrRes.big.toText
-              ..style = Styles.ts_0C1C33_20sp
+              ..style = Styles.ts_333333_20sp
               ..onTap = () => onChanged?.call(2.0),
           ),
         ],

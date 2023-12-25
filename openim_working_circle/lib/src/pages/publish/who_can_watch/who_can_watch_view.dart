@@ -105,20 +105,20 @@ class WhoCanWatchPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    title.toText..style = Styles.ts_0C1C33_17sp,
+                    title.toText..style = Styles.ts_333333_17sp,
                     4.verticalSpace,
-                    hint.toText..style = Styles.ts_8E9AB0_14sp,
+                    hint.toText..style = Styles.ts_999999_14sp,
                     if (null != value && value.isNotEmpty) 8.verticalSpace,
                     if (null != value && value.isNotEmpty)
                       value.toText
-                        ..style = Styles.ts_0089FF_14sp
+                        ..style = Styles.ts_8443F8_14sp
                         ..maxLines = 2
                         ..overflow = TextOverflow.ellipsis,
                   ],
                 ),
               ),
               if (showRightArrow)
-                ImageRes.rightArrow.toImage
+                ImageRes.appRightArrow.toImage
                   ..width = 24.w
                   ..height = 24.h
             ],

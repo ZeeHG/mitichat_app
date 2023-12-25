@@ -72,7 +72,7 @@ class WorkMomentsDetailPage extends StatelessWidget {
 
   Widget get _inputBox => Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-        color: Styles.c_F0F2F6,
+        color: Styles.c_F7F8FA,
         child: Row(
           children: [
             Expanded(
@@ -87,11 +87,11 @@ class WorkMomentsDetailPage extends StatelessWidget {
                   autofocus: true,
                   minLines: 1,
                   maxLines: 4,
-                  style: Styles.ts_0C1C33_17sp,
+                  style: Styles.ts_333333_17sp,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: logic.commentHintText.value,
-                    hintStyle: Styles.ts_8E9AB0_17sp,
+                    hintStyle: Styles.ts_999999_17sp,
                     contentPadding: EdgeInsets.symmetric(
                       horizontal: 10.w,
                       vertical: 6.h,
@@ -102,9 +102,9 @@ class WorkMomentsDetailPage extends StatelessWidget {
               ),
             ),
             12.horizontalSpace,
-            ImageRes.sendMessage.toImage
-              ..width = 32.w
-              ..height = 32.h
+            ImageRes.appSendMessage2.toImage
+              ..width = 28.w
+              ..height = 28.h
               ..onTap = logic.submitComment,
           ],
         ),

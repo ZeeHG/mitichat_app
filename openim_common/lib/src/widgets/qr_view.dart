@@ -72,7 +72,7 @@ class _QrcodeViewState extends State<QrcodeView> with TickerProviderStateMixin {
   }
 
   void _readImage() {
-    Permissions.storage(() async {
+    Permissions.requestStorage(() async {
       final XFile? image = await _picker.pickImage(
         source: ImageSource.gallery,
       );

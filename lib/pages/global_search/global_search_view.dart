@@ -124,7 +124,7 @@ class GlobalSearchPage extends StatelessWidget {
                         nickname: IMUtils.calContent(
                           content: e.fileElem?.fileName ?? '',
                           key: logic.searchKey,
-                          style: Styles.ts_0C1C33_17sp,
+                          style: Styles.ts_333333_16sp,
                           usedWidth: 44.w + 80.w + 26.w,
                         ),
                         fileIcon: ChatFileIconView(
@@ -235,7 +235,7 @@ class GlobalSearchPage extends StatelessWidget {
                     nickname: IMUtils.calContent(
                       content: e.fileElem?.fileName ?? '',
                       key: logic.searchKey,
-                      style: Styles.ts_0C1C33_17sp,
+                      style: Styles.ts_333333_16sp,
                       usedWidth: 44.w + 80.w + 26.w,
                     ),
                     fileIcon: ChatFileIconView(
@@ -266,7 +266,7 @@ class GlobalSearchPage extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(left: 16.w, top: 6.h),
-              child: title.toText..style = Styles.ts_8E9AB0_14sp,
+              child: title.toText..style = Styles.ts_999999_14sp,
             ),
             ...children,
             if (null != seeMoreStr)
@@ -286,9 +286,9 @@ class GlobalSearchPage extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      seeMoreStr.toText..style = Styles.ts_0089FF_17sp,
+                      seeMoreStr.toText..style = Styles.ts_9280B3_16sp,
                       const Spacer(),
-                      ImageRes.rightArrow.toImage
+                      ImageRes.appRightArrow.toImage
                         ..width = 24.w
                         ..height = 24.h,
                     ],
@@ -337,27 +337,27 @@ class GlobalSearchPage extends StatelessWidget {
                         Expanded(
                             child: isChatText
                                 ? ((nickname ?? '').toText
-                                  ..style = Styles.ts_0C1C33_17sp
+                                  ..style = Styles.ts_333333_16sp
                                   ..maxLines = 1
                                   ..overflow = TextOverflow.ellipsis)
                                 : SearchKeywordText(
                                     text: nickname ?? fileName ?? '',
                                     keyText: logic.searchKey,
-                                    style: Styles.ts_0C1C33_17sp,
-                                    keyStyle: Styles.ts_0089FF_17sp,
+                                    style: Styles.ts_333333_16sp,
+                                    keyStyle: Styles.ts_9280B3_16sp,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   )),
                         if (time != null)
-                          time.toText..style = Styles.ts_8E9AB0_14sp,
+                          time.toText..style = Styles.ts_999999_14sp,
                       ],
                     ),
                     if (null != content)
                       SearchKeywordText(
                         text: content,
                         keyText: logic.searchKey,
-                        style: Styles.ts_8E9AB0_14sp,
-                        keyStyle: Styles.ts_0089FF_14sp,
+                        style: Styles.ts_999999_14sp,
+                        keyStyle: Styles.ts_9280B3_14sp,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -385,8 +385,8 @@ class GlobalSearchPage extends StatelessWidget {
               children: [
                 label.toText
                   ..style = (isChecked
-                      ? Styles.ts_0089FF_17sp_medium
-                      : Styles.ts_8E9AB0_17sp),
+                      ? Styles.ts_9280B3_16sp_medium
+                      : Styles.ts_999999_16sp),
                 if (isChecked)
                   Positioned(
                     bottom: 0,
@@ -394,7 +394,7 @@ class GlobalSearchPage extends StatelessWidget {
                       width: 36.w,
                       height: 2.h,
                       decoration: BoxDecoration(
-                        color: Styles.c_0089FF,
+                        color: Styles.c_9280B3,
                         borderRadius: BorderRadius.circular(2.5.r),
                       ),
                     ),
@@ -431,7 +431,7 @@ class GlobalSearchPage extends StatelessWidget {
             //   ..height = 120.h,
             // 22.verticalSpace,
             44.verticalSpace,
-            StrRes.searchNotFound.toText..style = Styles.ts_8E9AB0_17sp,
+            StrRes.searchNotFound.toText..style = Styles.ts_999999_16sp,
           ],
         ),
       );

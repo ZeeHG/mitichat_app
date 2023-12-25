@@ -38,6 +38,7 @@ class GroupSetupLogic extends GetxController {
   late StreamSubscription _jdsSub;
   final lock = Lock();
   final isJoinedGroup = false.obs;
+  final translateLogic = Get.find<TranslateLogic>();
 
   @override
   void onInit() {
@@ -166,6 +167,33 @@ class GroupSetupLogic extends GetxController {
   bool get isMsgDestruct => conversationInfo.value.isMsgDestruct == true;
 
   int get destructDuration => conversationInfo.value.msgDestructTime ?? 7 * 24 * 60 * 60;
+
+  String get appBarTitle {
+    return (groupInfo.value.memberCount ?? 0) > 0
+        ? "${StrRes.groupChatSetup}（${groupInfo.value.memberCount}）"
+        : "";
+  }
+
+  bool get isAutoTranslate => translateLogic.isAutoTranslate(conversationID);
+
+  String get targetLangStr => translateLogic.getTargetLangStr(targetLang);
+
+  String get getTargetLangStr {
+    return null != targetLang
+        ? translateLogic.langMap[targetLang]!
+        : translateLogic.langMap["auto"]!;
+  }
+
+  String? get targetLang => translateLogic.getTargetLang(conversationID);
+
+  void toggleAutoTranslate() {
+    translateLogic.updateLangConfig(conversation: conversationInfo.value,
+        data:{"autoTranslate": !isAutoTranslate});
+  }
+
+  void setTargetLang() {
+    translateLogic.setTargetLang(conversationInfo.value);
+  }
 
   void _checkIsJoinedGroup() async {
     isJoinedGroup.value = await OpenIM.iMManager.groupManager.isJoinedGroup(
