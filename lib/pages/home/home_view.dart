@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle(systemNavigationBarColor: Styles.c_F7F7F7),
+        value: SystemUiOverlayStyle(systemNavigationBarColor: logic.index.value == 1? Styles.c_F7F7F7 : Styles.c_FFFFFF),
         child: Scaffold(
             backgroundColor: Styles.c_F7F7F7,
             body: IndexedStack(

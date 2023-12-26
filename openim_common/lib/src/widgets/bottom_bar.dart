@@ -18,7 +18,7 @@ class BottomBar extends StatelessWidget {
     return Container(
       height: 56.h,
       decoration: BoxDecoration(
-        color: Styles.c_F7F7F7,
+        color: index == 1? Styles.c_F7F7F7 : Styles.c_FFFFFF,
       ),
       child: Row(
         children: List.generate(
@@ -37,7 +37,7 @@ class BottomBar extends StatelessWidget {
           onDoubleTap: (_) => item.onDoubleClick?.call(i),
           onPointerDown: (_) => item.onClick?.call(i),
           child: Container(
-            color: Styles.c_F7F7F7,
+            // color: Styles.c_000000,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

@@ -348,7 +348,7 @@ class AppController extends SuperController with UpgradeManger {
   @override
   void onResumed() {
     // TODO: implement onResumed
-    autoCheckVersionUpgrade();
+    // autoCheckVersionUpgrade();
   }
 
   @override

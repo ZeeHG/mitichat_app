@@ -14,15 +14,19 @@ class MinePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Styles.c_FFFFFF,
-      body: SingleChildScrollView(
+      body: Container(
+        height: 1.sh - 56.h,
+        color: Styles.c_F7F7F7,
+        child: SingleChildScrollView(
         child: Column(
           children: [
             Stack(
               children: [
                 Container(
                   width: 1.sw,
-                  height: 228.h,
-                  decoration: const BoxDecoration(
+                  height: 298.h,
+                  decoration: BoxDecoration(
+                      // color: Styles.c_FFFFFF,
                       image: DecorationImage(
                     image: AssetImage(ImageRes.appHeaderBg,
                         package: 'openim_common'),
@@ -33,13 +37,8 @@ class MinePage extends StatelessWidget {
               ],
             ),
             Container(
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                  color: Styles.c_FFFFFF,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20.r),
-                      topRight: Radius.circular(20.r))),
-              transform: Matrix4.translationValues(0, -26.h, 0),
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              transform: Matrix4.translationValues(0, -28.h, 0),
               child: Column(
                 children: [
                   _buildItemView(
@@ -70,12 +69,13 @@ class MinePage extends StatelessWidget {
           ],
         ),
       ),
+      ),
     );
   }
 
   Widget _buildMyInfoView() => Container(
         height: 58.h,
-        margin: EdgeInsets.only(left: 30.w, right: 30.w, top: 86.h),
+        margin: EdgeInsets.only(left: 30.w, right: 30.w, top: 114.h),
         child: GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: logic.viewMyQrcode,
@@ -136,15 +136,17 @@ class MinePage extends StatelessWidget {
     Function()? onTap,
   }) =>
       Container(
-        child: Ink(
-          decoration: BoxDecoration(
+        margin: EdgeInsets.only(bottom: 20.h),
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
             color: Styles.c_FFFFFF,
-          ),
-          child: InkWell(
-            onTap: onTap,
+            borderRadius: BorderRadius.all(Radius.circular(10.r))
+        ),
+        child: GestureDetector(
+          onTap: onTap,
             child: Container(
-              height: 65.h,
-              padding: EdgeInsets.symmetric(horizontal: 30.w),
+              height: 56.h,
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
               child: Row(
                 children: [
                   icon.toImage
@@ -153,13 +155,7 @@ class MinePage extends StatelessWidget {
                   12.horizontalSpace,
                   Expanded(
                     child: Container(
-                      height: 64.h,
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: Styles.c_F5F0F0,
-                        width: 1.h,
-                      ))),
+                      height: 56.h,
                       child: Row(
                         children: [
                           label.toText..style = Styles.ts_333333_15sp,
@@ -174,7 +170,6 @@ class MinePage extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        ),
+        )
       );
 }

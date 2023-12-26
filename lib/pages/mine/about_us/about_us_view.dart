@@ -61,24 +61,24 @@ class AboutUsPage extends StatelessWidget {
                       height: .5,
                     ),
                     if (Platform.isAndroid)
-                      GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onTap: logic.checkUpdate,
-                        child: Container(
-                          height: 57.h,
-                          padding: EdgeInsets.symmetric(horizontal: 16.w),
-                          child: Row(
-                            children: [
-                              StrRes.checkNewVersion.toText
-                                ..style = Styles.ts_333333_16sp,
-                              const Spacer(),
-                              ImageRes.appRightArrow.toImage
-                                ..width = 24.w
-                                ..height = 24.h,
-                            ],
-                          ),
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   behavior: HitTestBehavior.translucent,
+                      //   onTap: logic.checkUpdate,
+                      //   child: Container(
+                      //     height: 57.h,
+                      //     padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      //     child: Row(
+                      //       children: [
+                      //         StrRes.checkNewVersion.toText
+                      //           ..style = Styles.ts_333333_16sp,
+                      //         const Spacer(),
+                      //         ImageRes.appRightArrow.toImage
+                      //           ..width = 24.w
+                      //           ..height = 24.h,
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: logic.uploadLogs,

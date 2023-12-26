@@ -29,7 +29,7 @@ class SplashLogic extends GetxController with UpgradeManger{
       } else {
         AppNavigator.startLogin();
       }
-      autoCheckVersionUpgrade();
+      // autoCheckVersionUpgrade();
     });
     super.onInit();
   }
