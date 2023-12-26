@@ -21,10 +21,14 @@ class AppCommonLogic extends GetxController {
   IosDeviceInfo? iosInfo;
   AndroidDeviceInfo? androidInfo;
   String deviceModel = "";
+  final onForegroundChangeSub = PublishSubject();
 
   get isZh => Get.locale!.languageCode.toLowerCase().contains("zh");
 
-  void setForeground(bool status) => isForeground.value = status;
+  void setForeground(bool status) {
+    isForeground.value = status;
+    onForegroundChangeSub.add(status);
+  }
 
   void setAppCacheInfo(
           {required bool needUpdate,
@@ -79,7 +83,9 @@ class AppCommonLogic extends GetxController {
     } else {
       if (null != androidInfo) return androidInfo;
       androidInfo = await deviceInfo.androidInfo;
-      deviceModel = (androidInfo?.manufacturer ?? "androidManufacturer") + "+"  + (androidInfo?.model ?? "androidModel");
+      deviceModel = (androidInfo?.manufacturer ?? "androidManufacturer") +
+          "+" +
+          (androidInfo?.model ?? "androidModel");
       myLogger.i({"message": "设备信息", "data": androidInfo});
       return androidInfo;
     }

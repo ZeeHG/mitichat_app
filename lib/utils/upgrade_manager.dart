@@ -192,7 +192,7 @@ class NotificationService {
         channelDescription: 'miti download',
         channelShowBadge: false,
         importance: Importance.max,
-        priority: Priority.max,
+        priority: Priority.high,
         onlyAlertOnce: true,
         showProgress: true,
         maxProgress: count,

@@ -38,10 +38,6 @@ class ConversationLogic extends GetxController {
     imLogic.conversationAddedSubject.listen(onChanged);
     imLogic.conversationChangedSubject.listen(onChanged);
     homeLogic.onScrollToUnreadMessage = scrollTo;
-    imLogic.imSdkStatusSubject.listen((value) {
-      myLogger.e("aaaaaaaaaaa, ${value}");
-      imStatus.value = value;
-    });
 
     ever(list, (_) {
       EasyDebounce.debounce('translate', Duration(milliseconds: 500), () {
@@ -74,7 +70,7 @@ class ConversationLogic extends GetxController {
         info.recvMsgOpt == 0 &&
         info.unreadCount > 0 &&
         info.latestMsg?.sendID != OpenIM.iMManager.userID) {
-      appLogic.promptSoundOrNotification(info.latestMsg!.seq!);
+      appLogic.promptSoundOrNotification(info.latestMsg!);
     }
   }
 

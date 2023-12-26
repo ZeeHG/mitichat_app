@@ -118,8 +118,9 @@ class IMCallback {
     imSdkStatusSubject.add(status);
   }
 
-  void kickedOffline() {
-    onKickedOfflineSubject.add("");
+  void kickedOffline(String type) {
+    myLogger.e({"message": "触发im_controller的onKickedOffline或者kickedOffline, type=$type, 退出登录"});
+    onKickedOfflineSubject.add(type);
   }
 
   void selfInfoUpdated(UserInfo u) {
@@ -162,8 +163,13 @@ class IMCallback {
     final result = jsonDecode(s);
     final key = result['key'];
     final data = result['data'];
-    if ("wm_at" == key || "wm_like" == key || "wm_comment" == key) {
-      momentsSubject.add(WorkMomentsNotification.fromJson(jsonDecode(data)));
+    if ("wm_at" == key ||
+        "wm_like" == key ||
+        "wm_comment" == key ||
+        "wm_delete_comment" == key) {
+      final json = jsonDecode(data);
+      json["key"] = key;
+      momentsSubject.add(WorkMomentsNotification.fromJson(json));
     }
   }
 
