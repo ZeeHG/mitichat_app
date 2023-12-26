@@ -3,7 +3,7 @@
     package="chat.miti">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/> -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -17,11 +17,11 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
-    <!-- <uses-permission-sdk-23 android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> -->
+    <uses-permission-sdk-23 android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
-    <!-- <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" /> -->
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
@@ -33,7 +33,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <!-- <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 
     <uses-permission
@@ -55,49 +55,6 @@
 
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <!-- Provide required visibility configuration for API level 30 and above -->
-
-
-    <!-- play去除硬件检查 -->
-    <uses-feature android:name="android.hardware.camera" android:required="false"/>
-    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
-
-
-    <!-- play移除 -->
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:node="remove"/>
-    <uses-permission-sdk-23 android:name="android.permission.REQUEST_INSTALL_PACKAGES" tools:node="remove"/>
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" tools:node="remove"/>
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"  tools:node="remove"/>
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" tools:node="remove"/>
-
-
-    <!-- 新增权限 -->
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="getui.permission.GetuiService.${applicationId}"/>
-    <permission android:name="getui.permission.GetuiService.${applicationId}" android:protectionLevel="signature"/>
-    <!-- 适配Android 13，应用弹出通知必须权限-->
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <!-- 华为角标权限 -->
-    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" />
-    <!-- VIVO角标权限 -->
-    <uses-permission android:name="com.vivo.notification.permission.BADGE_ICON" />
-    <!--honor 角标-->
-    <uses-permission android:name="com.hihonor.android.launcher.permission.CHANGE_BADGE" />
-    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-    <!-- 读取系统设置 -->
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <!-- 系统权限 -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.ACCESS_ALL_EXTERNAL_STORAGE"/>
-    <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
-    <uses-permission android:name="MediaStore.Images.Media.INTERNAL_CONTENT_URI"/>
-    <uses-permission android:name="MediaStore.Images.Media.EXTERNAL_CONTENT_URI"/>
-    <uses-permission android:name="com.huawei.meetime.CAAS_SHARE_SERVICE"/>
-    <!-- 读取底层系统日志文件 -->
-    <uses-permission android:name="android.permission.READ_LOGS" android:maxSdkVersion="21"/>
-    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW"/>
-
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
@@ -109,9 +66,6 @@
         </intent>
         <intent>
             <action android:name="android.speech.RecognitionService" />
-        </intent>
-        <intent>
-            <action android:name="com.getui.sdk.action" />
         </intent>
     </queries>
 

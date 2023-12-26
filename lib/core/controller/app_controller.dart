@@ -1,6 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
-import 'dart:ui';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
@@ -18,7 +17,6 @@ import '../../utils/upgrade_manager.dart';
 import 'im_controller.dart';
 import 'push_controller.dart';
 
-// 下载0, 后台1, 消息message.seq
 class AppController extends SuperController with UpgradeManger {
   var isRunningBackground = false;
   var isAppBadgeSupported = false;
@@ -74,14 +72,12 @@ class AppController extends SuperController with UpgradeManger {
     Get.find<IMController>().backgroundSubject.sink.add(run);
     if (!run) {
       _cancelAllNotifications();
-    } else {
-      _startForegroundService();
     }
   }
 
   @override
   void onInit() async {
-    await _requestPermissions();
+    _requestPermissions();
     _initPlayer();
     final initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
@@ -96,9 +92,9 @@ class AppController extends SuperController with UpgradeManger {
     super.onInit();
   }
 
-  Future<void> _requestPermissions() async {
-    await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
-    await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()?.requestPermissions(
+  void _requestPermissions() {
+    flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
+    flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()?.requestPermissions(
           alert: true,
           badge: true,
           sound: true,
@@ -124,42 +120,21 @@ class AppController extends SuperController with UpgradeManger {
     }
 
     if (showNotification) {
-      promptSoundOrNotification(message);
+      promptSoundOrNotification(message.seq!);
     }
   }
 
-  Future<void> promptSoundOrNotification(im.Message message) async {
+  Future<void> promptSoundOrNotification(int seq) async {
     if (!isRunningBackground) {
       _playMessageSound();
     } else {
       if (Platform.isAndroid) {
-        final id = message.seq!;
-        String text = "消息内容: ...";
-        if (message.isTextType) {
-          text = message.textElem!.content!;
-        } else if (message.isAtTextType) {
-          text = IMUtils.replaceMessageAtMapping(message, {});
-        } else if (message.isQuoteType) {
-          text = message.quoteElem?.text ?? text;
-        } else if (message.isPictureType) {
-          text = "图片消息";
-        } else if (message.isVideoType) {
-          text = "视频消息";
-        } else if (message.isVideoType) {
-          text = "语音消息";
-        } else if (message.isFileType) {
-          text = "文件消息";
-        } else if (message.isLocationType) {
-          text = "位置消息";
-        } else if (message.isMergerType) {
-          text = "聊天记录消息";
-        } else if (message.isCardType) {
-          text = "名片消息";
-        }
-        const androidPlatformChannelSpecifics = AndroidNotificationDetails('chat', 'miti聊天消息',
-            channelDescription: '来自miti的信息', importance: Importance.max, priority: Priority.max, ticker: 'miti新消息');
+        final id = seq;
+
+        const androidPlatformChannelSpecifics = AndroidNotificationDetails('chat', 'OpenIM聊天消息',
+            channelDescription: '来自OpenIM的信息', importance: Importance.max, priority: Priority.high, ticker: 'ticker');
         const NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
-        await flutterLocalNotificationsPlugin.show(id, '您收到了一条新消息', text, platformChannelSpecifics, payload: '');
+        await flutterLocalNotificationsPlugin.show(id, '您收到了一条新消息', '消息内容：.....', platformChannelSpecifics, payload: '');
       }
     }
   }
@@ -170,12 +145,12 @@ class AppController extends SuperController with UpgradeManger {
 
   Future<void> _startForegroundService() async {
     await getAppInfo();
-    const androidPlatformChannelSpecifics = AndroidNotificationDetails('pro', 'miti服务进程',
-        channelDescription: '保证miti能收到消息', importance: Importance.max, priority: Priority.max, ticker: 'miti');
+    const androidPlatformChannelSpecifics = AndroidNotificationDetails('pro', 'OpenIM后台进程',
+        channelDescription: '保证app能收到信息', importance: Importance.max, priority: Priority.high, ticker: 'ticker');
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-        ?.startForegroundService(1, packageInfo!.appName, 'miti正在运行...', notificationDetails: androidPlatformChannelSpecifics, payload: '');
+        ?.startForegroundService(1, packageInfo!.appName, '正在运行...', notificationDetails: androidPlatformChannelSpecifics, payload: '');
   }
 
   Future<void> _stopForegroundService() async {
@@ -211,11 +186,7 @@ class AppController extends SuperController with UpgradeManger {
 
   Locale? getLocale() {
     var local = Get.locale;
-    Locale systemLocal = window.locale;
-    var language = DataSp.getLanguage();
-    var index = (language != null && language != 0)
-        ? language
-        : (systemLocal.toString().startsWith("zh_") ? 1 : 2);
+    var index = DataSp.getLanguage() ?? 0;
     switch (index) {
       case 1:
         local = const Locale('zh', 'CN');
@@ -223,26 +194,17 @@ class AppController extends SuperController with UpgradeManger {
       case 2:
         local = const Locale('en', 'US');
         break;
-      case 3:
-        local = const Locale('ja', 'JP');
-        break;
-      case 4:
-        local = const Locale('ko', 'KR');
-        break;
-      case 5:
-        local = const Locale('es', 'ES');
-        break;
     }
     return local;
   }
 
   @override
   void onReady() {
-    _startForegroundService();
+    // _startForegroundService();
     queryClientConfig();
     _getDeviceInfo();
     _cancelAllNotifications();
-    // autoCheckVersionUpgrade();
+    autoCheckVersionUpgrade();
     super.onReady();
   }
 

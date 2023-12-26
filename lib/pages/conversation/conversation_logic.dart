@@ -39,17 +39,18 @@ class ConversationLogic extends GetxController {
     imLogic.conversationChangedSubject.listen(onChanged);
     homeLogic.onScrollToUnreadMessage = scrollTo;
     imLogic.imSdkStatusSubject.listen((value) {
+      myLogger.e("aaaaaaaaaaa, ${value}");
       imStatus.value = value;
     });
 
     ever(list, (_) {
       EasyDebounce.debounce('translate', Duration(milliseconds: 500), () {
         list.forEach((item) {
-        translateLogic.updateLangConfigLocal(
-            conversation: item,
-            data: (null != item.ex && item.ex!.isNotEmpty)
-                ? json.decode(item.ex!)["langConfig"] ?? {}
-                : {});
+          translateLogic.updateLangConfigLocal(
+              conversation: item,
+              data: (null != item.ex && item.ex!.isNotEmpty)
+                  ? json.decode(item.ex!)["langConfig"] ?? {}
+                  : {});
         });
       });
     });
@@ -73,7 +74,7 @@ class ConversationLogic extends GetxController {
         info.recvMsgOpt == 0 &&
         info.unreadCount > 0 &&
         info.latestMsg?.sendID != OpenIM.iMManager.userID) {
-      appLogic.promptSoundOrNotification(info.latestMsg!);
+      appLogic.promptSoundOrNotification(info.latestMsg!.seq!);
     }
   }
 
@@ -173,7 +174,9 @@ class ConversationLogic extends GetxController {
 
       final text = IMUtils.parseNtf(info.latestMsg!, isConversation: true);
       if (text != null) return text;
-      if (info.isSingleChat || info.latestMsg!.sendID == OpenIM.iMManager.userID) return IMUtils.parseMsg(info.latestMsg!, isConversation: true);
+      if (info.isSingleChat ||
+          info.latestMsg!.sendID == OpenIM.iMManager.userID)
+        return IMUtils.parseMsg(info.latestMsg!, isConversation: true);
 
       return "${info.latestMsg!.senderNickname}: ${IMUtils.parseMsg(info.latestMsg!, isConversation: true)} ";
     } catch (e, s) {

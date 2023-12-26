@@ -4,7 +4,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:openim_live/openim_live.dart';
-import 'dart:convert';
+
 import '../im_callback.dart';
 
 class IMController extends GetxController with IMCallback, OpenIMLive {
@@ -45,8 +45,8 @@ class IMController extends GetxController with IMCallback, OpenIMLive {
         onConnectSuccess: () {
           imSdkStatus(IMSdkStatus.connectionSucceeded);
         },
-        onKickedOffline: () => kickedOffline("KickedOffline"),
-        onUserTokenExpired: () => kickedOffline("UserTokenExpired"),
+        onKickedOffline: () => kickedOffline(),
+        onUserTokenExpired: () => kickedOffline(),
       ),
     );
     // Set listener
@@ -162,7 +162,6 @@ class IMController extends GetxController with IMCallback, OpenIMLive {
   }
 
   Future logout() {
-    myLogger.e({"message": "im_controller, 退出登录"});
     return OpenIM.iMManager.logout();
   }
 
@@ -191,7 +190,6 @@ class IMController extends GetxController with IMCallback, OpenIMLive {
 
   _handleLoginRepeatError(e) async {
     if (e is PlatformException && e.code == "13002") {
-      myLogger.e({"message": "_handleLoginRepeatError, ${json.encode(e)}, 退出登录"});
       await logout();
       await DataSp.removeLoginCertificate();
     }

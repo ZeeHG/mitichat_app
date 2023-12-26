@@ -355,7 +355,7 @@ class ChatPage extends StatelessWidget {
                     onScrollToBottomLoad: logic.onScrollToBottomLoad,
                     onScrollToTop: logic.onScrollToTop,
                     itemBuilder: (_, index) {
-                      if (index == logic.messageList.length) {
+                      if (false) {
                         return logic.showEncryptTips.value
                             ? Align(
                               child: Container(

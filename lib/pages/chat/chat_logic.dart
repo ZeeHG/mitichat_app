@@ -2428,6 +2428,7 @@ class ChatLogic extends GetxController {
 
   void _setSdkSyncDataListener() {
     connectionSub = imLogic.imSdkStatusSubject.listen((value) {
+      myLogger.e("bbbbbbbbbbbbb, ${value}");
       syncStatus.value = value;
       // -1 链接失败 0 链接中 1 链接成功 2 同步开始 3 同步结束 4 同步错误
       if (value == IMSdkStatus.syncStart) {
