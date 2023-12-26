@@ -4,14 +4,26 @@ import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
 
 class LanguageSetupLogic extends GetxController {
-  final isFollowSystem = false.obs;
-  final isChinese = false.obs;
-  final isEnglish = false.obs;
+  final onOff = {
+    "isFollowSystem": false.obs,
+    "isChinese": false.obs,
+    "isEnglish": false.obs,
+    "isJapanese": false.obs,
+    "isKorean": false.obs,
+    "isSpanish": false.obs,
+  };
 
   @override
   void onInit() {
     _initLanguageSetting();
     super.onInit();
+  }
+
+  void setLang(String key) {
+    onOff.values.forEach((element) {
+      element.value = false;
+    });
+    onOff[key]!.value = true;
   }
 
   void _initLanguageSetting() {
@@ -22,19 +34,22 @@ class LanguageSetupLogic extends GetxController {
         : (systemLocal.toString().startsWith("zh_") ? 1 : 2);
     switch (index) {
       case 1:
-        isFollowSystem.value = false;
-        isChinese.value = true;
-        isEnglish.value = false;
+        setLang("isChinese");
         break;
       case 2:
-        isFollowSystem.value = false;
-        isChinese.value = false;
-        isEnglish.value = true;
+        setLang("isEnglish");
+        break;
+      case 3:
+        setLang("isJapanese");
+        break;
+      case 4:
+        setLang("isKorean");
+        break;
+      case 5:
+        setLang("isSpanish");
         break;
       default:
-        isFollowSystem.value = true;
-        isChinese.value = false;
-        isEnglish.value = false;
+        setLang("isFollowSystem");
         break;
     }
   }
@@ -43,21 +58,27 @@ class LanguageSetupLogic extends GetxController {
     await DataSp.putLanguage(index);
     switch (index) {
       case 1:
-        isFollowSystem.value = false;
-        isChinese.value = true;
-        isEnglish.value = false;
+        setLang("isChinese");
         Get.updateLocale(const Locale('zh', 'CN'));
         break;
       case 2:
-        isFollowSystem.value = false;
-        isChinese.value = false;
-        isEnglish.value = true;
+        setLang("isEnglish");
         Get.updateLocale(const Locale('en', 'US'));
         break;
+      case 3:
+        setLang("isJapanese");
+        Get.updateLocale(const Locale('ja', 'JP'));
+        break;
+      case 4:
+        setLang("isKorean");
+        Get.updateLocale(const Locale('ko', 'KR'));
+        break;
+      case 5:
+        setLang("isSpanish");
+        Get.updateLocale(const Locale('es', 'ES'));
+        break;
       default:
-        isFollowSystem.value = true;
-        isChinese.value = false;
-        isEnglish.value = false;
+        setLang("isFollowSystem");
         Get.updateLocale(window.locale);
         break;
     }

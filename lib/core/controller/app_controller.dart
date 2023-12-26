@@ -223,6 +223,15 @@ class AppController extends SuperController with UpgradeManger {
       case 2:
         local = const Locale('en', 'US');
         break;
+      case 3:
+        local = const Locale('ja', 'JP');
+        break;
+      case 4:
+        local = const Locale('ko', 'KR');
+        break;
+      case 5:
+        local = const Locale('es', 'ES');
+        break;
     }
     return local;
   }

@@ -61,11 +61,14 @@ class LoginPage extends StatelessWidget {
                         Row(
                           children: [
                             StrRes.forgetPassword.toText
-                              ..style = Styles.ts_8E9AB0_12sp
+                              ..style = Styles.ts_999999_12sp
                               ..onTap = _showForgetPasswordBottomSheet,
                             const Spacer(),
-                            (logic.isPasswordLogin.value ? StrRes.verificationCodeLogin : StrRes.passwordLogin).toText
-                              ..style = Styles.ts_0089FF_12sp
+                            (logic.isPasswordLogin.value
+                                    ? StrRes.verificationCodeLogin
+                                    : StrRes.passwordLogin)
+                                .toText
+                              ..style = Styles.ts_8443F8_12sp
                               ..onTap = logic.togglePasswordType,
                           ],
                         ),
@@ -93,7 +96,7 @@ class LoginPage extends StatelessWidget {
                           minSize: 42.h,
                           child: Text(
                             '${logic.loginType.value.exclusiveName} ${StrRes.login}',
-                            style: Styles.ts_0089FF_17sp,
+                            style: Styles.ts_8443F8_17sp,
                           ),
                         ),
                       )
@@ -103,18 +106,20 @@ class LoginPage extends StatelessWidget {
               RichText(
                 text: TextSpan(
                   text: StrRes.noAccountYet,
-                  style: Styles.ts_8E9AB0_12sp,
+                  style: Styles.ts_999999_12sp,
                   children: [
                     TextSpan(
                       text: StrRes.registerNow,
-                      style: Styles.ts_0089FF_12sp,
-                      recognizer: TapGestureRecognizer()..onTap = _showRegisterBottomSheet,
+                      style: Styles.ts_8443F8_12sp,
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = _showRegisterBottomSheet,
                     )
                   ],
                 ),
               ),
               32.verticalSpace,
-              Obx(() => logic.versionInfo.value.toText..style = Styles.ts_0C1C33_14sp),
+              Obx(() => logic.versionInfo.value.toText
+                ..style = Styles.ts_333333_14sp),
             ],
           ),
         ),

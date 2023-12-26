@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 
 import 'lang/en_US.dart';
 import 'lang/zh_CN.dart';
+import 'lang/ja_JP.dart';
+import 'lang/ko_KR.dart';
+import 'lang/es_ES.dart';
 
 class TranslationService extends Translations {
   static Locale? get locale => Get.deviceLocale;
@@ -13,6 +16,9 @@ class TranslationService extends Translations {
   Map<String, Map<String, String>> get keys => {
         'en_US': en_US,
         'zh_CN': zh_CN,
+        'ja_JP': ja_JP,
+        'ko_KR': ko_KR,
+        'es_ES': es_ES,
       };
 }
 
@@ -1251,4 +1257,7 @@ class StrRes {
   static String get uploadAppLog => 'uploadAppLog'.tr;
   static String get uploadAppLogByDate => 'uploadAppLogByDate'.tr;
   static String get updateOn => 'updateOn'.tr;
+  static String get japanese => 'japanese'.tr;
+  static String get korean => 'korean'.tr;
+  static String get spanish => 'spanish'.tr;
 }

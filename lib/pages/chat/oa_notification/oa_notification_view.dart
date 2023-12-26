@@ -38,7 +38,8 @@ class OANotificationPage extends StatelessWidget {
     );
   }
 
-  Widget _buildItemView(int index, Message message, OANotification oa) => Column(
+  Widget _buildItemView(int index, Message message, OANotification oa) =>
+      Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -47,14 +48,16 @@ class OANotificationPage extends StatelessWidget {
           ),
           Text(
             IMUtils.getChatTimeline(message.sendTime!),
-            style: Styles.ts_8E9AB0_10sp,
+            style: Styles.ts_999999_10sp,
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AvatarView(
                 url: oa.notificationFaceURL,
-                builder: oa.notificationFaceURL == null ? () => _buildCustomAvatar() : null,
+                builder: oa.notificationFaceURL == null
+                    ? () => _buildCustomAvatar()
+                    : null,
               ),
               SizedBox(width: 12.w),
               Expanded(
@@ -62,7 +65,7 @@ class OANotificationPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(oa.notificationName!, style: Styles.ts_0C1C33_14sp),
+                    Text(oa.notificationName!, style: Styles.ts_333333_14sp),
                     GestureDetector(
                       onTap: () {},
                       behavior: HitTestBehavior.translucent,
@@ -83,21 +86,26 @@ class OANotificationPage extends StatelessWidget {
                           children: [
                             Text(
                               oa.notificationName!,
-                              style: Styles.ts_8E9AB0_14sp,
+                              style: Styles.ts_999999_14sp,
                             ),
                             Text(
                               oa.text!,
-                              style: Styles.ts_8E9AB0_12sp,
+                              style: Styles.ts_999999_12sp,
                             ),
-                            if (oa.mixType == 1 || oa.mixType == 2 || oa.mixType == 3)
+                            if (oa.mixType == 1 ||
+                                oa.mixType == 2 ||
+                                oa.mixType == 3)
                               Container(
                                 margin: EdgeInsets.only(top: 12.h),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    if (oa.mixType == 1) _buildPictureView(message, oa, index),
-                                    if (oa.mixType == 2) _buildVideoView(message, oa, index),
-                                    if (oa.mixType == 3) _buildFileView(message, oa, index),
+                                    if (oa.mixType == 1)
+                                      _buildPictureView(message, oa, index),
+                                    if (oa.mixType == 2)
+                                      _buildVideoView(message, oa, index),
+                                    if (oa.mixType == 3)
+                                      _buildFileView(message, oa, index),
                                   ],
                                 ),
                               ),
@@ -113,24 +121,27 @@ class OANotificationPage extends StatelessWidget {
         ],
       );
 
-  Widget _buildPictureView(Message message, OANotification oa, int index) => ChatPictureView(
+  Widget _buildPictureView(Message message, OANotification oa, int index) =>
+      ChatPictureView(
         message: message..pictureElem = oa.pictureElem,
         isISend: false,
       );
 
-  Widget _buildVideoView(Message message, OANotification oa, int index) => ChatVideoView(
+  Widget _buildVideoView(Message message, OANotification oa, int index) =>
+      ChatVideoView(
         message: message..soundElem = oa.soundElem,
         isISend: false,
       );
 
-  Widget _buildFileView(Message message, OANotification oa, int index) => ChatFileView(
+  Widget _buildFileView(Message message, OANotification oa, int index) =>
+      ChatFileView(
         message: message..fileElem = oa.fileElem,
         isISend: false,
       );
 
   /// 系统通知自定义头像
   Widget? _buildCustomAvatar() => Container(
-        color: Styles.c_0089FF,
+        color: Styles.c_8443F8,
         height: 48.h,
         width: 48.h,
         alignment: Alignment.center,

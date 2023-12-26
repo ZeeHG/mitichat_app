@@ -27,9 +27,10 @@ class HomePage extends StatelessWidget {
               children: [
                 ConversationPage(),
                 ContactsPage(),
-                WorkbenchPage(),
+                // WorkbenchPage(),
+                SizedBox(),
                 MinePage(),
-                NewDiscoverPage(),
+                // NewDiscoverPage(),
               ],
             ),
             bottomNavigationBar: SafeArea(

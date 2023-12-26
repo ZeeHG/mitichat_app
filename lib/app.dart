@@ -44,7 +44,7 @@ class ChatApp extends StatelessWidget {
             Get.locale ??= locale;
             return locale;
           },
-          supportedLocales: const [Locale('zh', 'CN'), Locale('en', 'US')],
+          supportedLocales: const [Locale('zh', 'CN'), Locale('en', 'US'), Locale('ja', 'JP'), Locale('ko', 'KR'), Locale('es', 'ES'),],
           getPages: AppPages.routes,
           initialBinding: InitBinding(),
           initialRoute: AppRoutes.splash,

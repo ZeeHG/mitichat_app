@@ -128,6 +128,15 @@ class AccountSetupLogic extends GetxController {
       case 2:
         curLanguage.value = StrRes.english;
         break;
+      case 3:
+        curLanguage.value = StrRes.japanese;
+        break;
+      case 4:
+        curLanguage.value = StrRes.korean;
+        break;
+      case 5:
+        curLanguage.value = StrRes.spanish;
+        break;
       default:
         curLanguage.value = StrRes.followSystem;
         break;

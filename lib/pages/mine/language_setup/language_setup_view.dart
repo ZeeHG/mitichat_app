@@ -32,7 +32,7 @@ class LanguageSetupPage extends StatelessWidget {
               ),
               _buildItemView(
                 label: StrRes.chinese,
-                isChecked: logic.isChinese.value,
+                isChecked: logic.onOff["isChinese"]!.value,
                 onTap: () => logic.switchLanguage(1),
               ),
               Container(
@@ -42,8 +42,41 @@ class LanguageSetupPage extends StatelessWidget {
               ),
               _buildItemView(
                 label: StrRes.english,
-                isChecked: logic.isEnglish.value,
+                isChecked: logic.onOff["isEnglish"]!.value,
                 onTap: () => logic.switchLanguage(2),
+                isBottomRadius: true,
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 26.w, right: 10.w),
+                color: Styles.c_E8EAEF,
+                height: .5,
+              ),
+              _buildItemView(
+                label: StrRes.japanese,
+                isChecked: logic.onOff["isJapanese"]!.value,
+                onTap: () => logic.switchLanguage(3),
+                isBottomRadius: true,
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 26.w, right: 10.w),
+                color: Styles.c_E8EAEF,
+                height: .5,
+              ),
+              _buildItemView(
+                label: StrRes.korean,
+                isChecked: logic.onOff["isKorean"]!.value,
+                onTap: () => logic.switchLanguage(4),
+                isBottomRadius: true,
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 26.w, right: 10.w),
+                color: Styles.c_E8EAEF,
+                height: .5,
+              ),
+              _buildItemView(
+                label: StrRes.spanish,
+                isChecked: logic.onOff["isSpanish"]!.value,
+                onTap: () => logic.switchLanguage(5),
                 isBottomRadius: true,
               ),
             ],

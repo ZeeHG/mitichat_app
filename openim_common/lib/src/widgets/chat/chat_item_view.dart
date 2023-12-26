@@ -315,19 +315,20 @@ class _ChatItemViewState extends State<ChatItemView> {
       child: Column(
         children: MarkdownGenerator(
             linesMargin: EdgeInsets.all(0),
-            // config: config.copy(configs: [
-            //   PConfig(
-            //     textStyle:
-            //         _isISend ? Styles.ts_FFFFFF_16sp : Styles.ts_333333_16sp,
-            //   ),
-            //   ListConfig(marker: (bool isOrdered, int depth, int index) => getDefaultMarker(isOrdered, depth, _isISend ? Styles.c_FFFFFF : Styles.c_000000, index,
-            //   12, config))
-            // ])
             ).buildWidgets(null != text
             ? text
             : _message.isTextType
                 ? _message.textElem!.content!
-                : IMUtils.replaceMessageAtMapping(_message, {})),
+                : IMUtils.replaceMessageAtMapping(_message, {}),
+          config: config.copy(configs: [
+              PConfig(
+                textStyle:
+                    _isISend ? Styles.ts_FFFFFF_16sp : Styles.ts_333333_16sp,
+              ),
+              ListConfig(marker: (bool isOrdered, int depth, int index) => getDefaultMarker(isOrdered, depth, _isISend ? Styles.c_FFFFFF : Styles.c_000000, index,
+              12, config))
+            ])
+        ),
       ),
     );
   }

@@ -66,7 +66,7 @@ class PhotoBrowserBottomBar extends StatelessWidget {
             child: CupertinoButton(
                 padding: EdgeInsets.zero,
                 minSize: 40.h,
-                child: Text(StrRes.cancel, style: Styles.ts_0C1C33_12sp),
+                child: Text(StrRes.cancel, style: Styles.ts_333333_12sp),
                 onPressed: () {
                   Navigator.of(context).pop();
                 }),
@@ -92,7 +92,7 @@ class PhotoBrowserBottomBar extends StatelessWidget {
       Text(
         title,
         textAlign: TextAlign.center,
-        style: Styles.ts_0C1C33_10sp,
+        style: Styles.ts_333333_10sp,
       )
     ]);
   }

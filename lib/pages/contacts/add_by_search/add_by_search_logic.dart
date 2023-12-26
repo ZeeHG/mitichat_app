@@ -66,7 +66,7 @@ class AddContactsBySearchLogic extends GetxController {
         showNumber: 20,
       ),
     );
-    // todo, 暂时本地精确匹配id
+    // todo, 暂时本地精确匹配id 和手机
     var filterList = (list ?? []).where((element) =>
         element.userID! == searchKey.toLowerCase() ||
         element.phoneNumber == searchKey);

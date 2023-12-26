@@ -197,7 +197,7 @@ const Map<String, String> zh_CN = {
   "createGroupHint": "创建群聊，全面使用miti",
   "addGroup": "添加群聊",
   "addGroupHint": "向管理员或群聊成员询问ID",
-  "searchIDAddFriend": "搜索ID添加好友",
+  "searchIDAddFriend": "搜索ID或者手机号添加好友",
   "searchIDAddGroup": "搜索ID添加群聊",
   "searchIDIs": "ID：%s",
   "searchPhoneIs": "手机号：%s",
@@ -687,5 +687,8 @@ const Map<String, String> zh_CN = {
   'uploadImLogByDate': '上传IM日志(按日期)',
   'uploadAppLog': '上传APP日志',
   'uploadAppLogByDate': '上传APP日志(按日期)',
-  'updateOn': '更新于'
+  'updateOn': '更新于',
+  "japanese": "japanese",
+  "korean": "korean",
+  "spanish": "spanish"
 };

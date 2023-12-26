@@ -115,6 +115,7 @@ class ContactsPage extends StatelessWidget {
                 if (null != assetsName)
                   ClipOval(
                     child: assetsName.toImage
+                      ..fit = BoxFit.cover
                       ..width = 40.w
                       ..height = 40.h,
                   ),
