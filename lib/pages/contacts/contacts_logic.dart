@@ -1,3 +1,7 @@
+import 'dart:async';
+import 'dart:ui';
+
+import 'package:azlistview/azlistview.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:openim/pages/contacts/group_profile_panel/group_profile_panel_logic.dart';
@@ -13,6 +17,39 @@ class ContactsLogic extends GetxController
     implements ViewUserProfileBridge, SelectContactsBridge, ScanBridge {
   final imLogic = Get.find<IMController>();
   final homeLogic = Get.find<HomeLogic>();
+  final friendList = <ISUserInfo>[].obs;
+  final userIDList = <String>[];
+  final imLoic = Get.find<IMController>();
+  late StreamSubscription delSub;
+  late StreamSubscription addSub;
+  late StreamSubscription infoChangedSub;
+
+  List<Map<String, dynamic>> get menus => [
+      {
+        "text": StrRes.myFriend,
+        "color": Styles.c_8544F8,
+        "shadowColor": Color.fromRGBO(132, 67, 248, 0.5),
+        "onTap": () => myFriend()
+      },
+      {
+        "text": StrRes.myGroup,
+        "color": Styles.c_00CBC5,
+        "shadowColor": Color.fromRGBO(0, 203, 197, 0.5),
+        "onTap": () => myGroup()
+      },
+      {
+        "text": StrRes.newFriend,
+        "color": Styles.c_595EF9,
+        "shadowColor": Color.fromRGBO(89, 94, 249, 0.5),
+        "onTap": () => newFriend()
+      },
+      {
+        "text": StrRes.newGroup,
+        "color": Styles.c_FEA836,
+        "shadowColor": Color.fromRGBO(254, 168, 54, 0.5),
+        "onTap": () => newGroup()
+      },
+    ];
 
   // final organizationLogic = Get.find<OrganizationLogic>();
   final friendApplicationList = <UserInfo>[];
@@ -53,10 +90,22 @@ class ContactsLogic extends GetxController
     // PackageBridge.workingCircleBridge = this;
     PackageBridge.scanBridge = this;
 
+    delSub = imLoic.friendDelSubject.listen(_delFriend);
+    addSub = imLoic.friendAddSubject.listen(_addFriend);
+    infoChangedSub = imLoic.friendInfoChangedSubject.listen(_friendInfoChanged);
+    imLoic.onBlacklistAdd = _delFriend;
+    imLoic.onBlacklistDeleted = _addFriend;
+
     // imLogic.momentsSubject.listen((value) {
     //   onRecvNewMessageForWorkingCircle?.call(value);
     // });
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    _getFriendList();
+    super.onReady();
   }
 
   @override
@@ -67,6 +116,72 @@ class ContactsLogic extends GetxController
     PackageBridge.scanBridge = null;
     super.onClose();
   }
+
+  _getFriendList() async {
+    final list = await OpenIM.iMManager.friendshipManager
+        .getFriendListMap()
+        .then((list) => list.where(_filterBlacklist))
+        .then((list) => list.map((e) {
+              final fullUser = FullUserInfo.fromJson(e);
+              final user = fullUser.friendInfo != null
+                  ? ISUserInfo.fromJson(fullUser.friendInfo!.toJson())
+                  : ISUserInfo.fromJson(fullUser.publicInfo!.toJson());
+              return user;
+            }).toList())
+        .then((list) => IMUtils.convertToAZList(list));
+
+    onUserIDList(userIDList);
+    friendList.assignAll(list.cast<ISUserInfo>());
+  }
+
+  bool _filterBlacklist(e) {
+    final user = FullUserInfo.fromJson(e);
+    final isBlack = user.blackInfo != null;
+
+    if (isBlack) {
+      return false;
+    } else {
+      userIDList.add(user.userID);
+      return true;
+    }
+  }
+
+  _addFriend(dynamic user) {
+    if (user is FriendInfo || user is BlacklistInfo) {
+      _addUser(user.toJson());
+    }
+  }
+
+  _delFriend(dynamic user) {
+    if (user is FriendInfo || user is BlacklistInfo) {
+      friendList.removeWhere((e) => e.userID == user.userID);
+    }
+  }
+
+  _friendInfoChanged(FriendInfo user) {
+    friendList.removeWhere((e) => e.userID == user.userID);
+    _addUser(user.toJson());
+  }
+
+  void _addUser(Map<String, dynamic> json) {
+    final info = ISUserInfo.fromJson(json);
+    friendList.add(IMUtils.setAzPinyinAndTag(info) as ISUserInfo);
+
+    // A-Z sort.
+    SuspensionUtil.sortListBySuspensionTag(friendList);
+
+    // show sus tag.
+    SuspensionUtil.setShowSuspensionStatus(friendList);
+    // IMUtil.convertToAZList(friendList);
+
+    // friendList.refresh();
+  }
+
+  void viewFriendInfo(ISUserInfo info) => AppNavigator.startUserProfilePane(
+        userID: info.userID!,
+      );
+
+  void onUserIDList(List<String> userIDList) {}
 
   void newFriend() => AppNavigator.startFriendRequests();
 

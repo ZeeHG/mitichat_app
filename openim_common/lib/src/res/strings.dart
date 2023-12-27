@@ -1260,4 +1260,7 @@ class StrRes {
   static String get japanese => 'japanese'.tr;
   static String get korean => 'korean'.tr;
   static String get spanish => 'spanish'.tr;
+  static String get discoverTab => 'discoverTab'.tr;
+  static String get friend => 'friend'.tr;
+  static String get publishMoment => 'publishMoment'.tr;
 }

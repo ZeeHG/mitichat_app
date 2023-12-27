@@ -66,7 +66,7 @@ class WorkMomentsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 12.h),
+      padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 15.h),
       decoration: BoxDecoration(
         color: Styles.c_FFFFFF,
         border: BorderDirectional(
@@ -76,68 +76,78 @@ class WorkMomentsItem extends StatelessWidget {
           ),
         ),
       ),
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AvatarView(
-            width: 48.w,
-            height: 48.h,
-            url: moments.faceURL,
-            text: moments.nickname,
-            onTap: () => onTapAvatar?.call(moments),
-          ),
-          12.horizontalSpace,
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                (moments.nickname ?? '').toText
-                  ..style = Styles.ts_9280B3_16sp_medium,
-                // (moments.content?.text ?? '').toText..style = Styles.ts_333333_17sp,
-                4.verticalSpace,
-                if("" != moments.content?.text)
-                ExpandedText(
-                  text: moments.content!.text!,
-                  textStyle: Styles.ts_333333_16sp,
-                ),
-                if (null != moments.content?.metas &&
-                    moments.content!.metas!.isNotEmpty)
-                  _buildMetaView(
-                    moments.content?.type ?? 0,
-                    moments.content?.metas ?? [],
-                  ),
-                if (null != moments.atUsers && moments.atUsers!.isNotEmpty)
-                  _buildMentionedView(),
-                4.verticalSpace,
-                Stack(
-                  alignment: Alignment.center,
+          Row(
+            children: [
+              AvatarView(
+                width: 44.w,
+                height: 44.h,
+                url: moments.faceURL,
+                text: moments.nickname,
+                onTap: () => onTapAvatar?.call(moments),
+              ),
+              10.horizontalSpace,
+              SizedBox(
+                height: 44.h,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        _buildTimeView(),
-                        if (_showPermissionIcon) _buildSeePermissionView(),
-                        if (_showDelIcon) _buildDelView(),
-                      ],
-                    ),
-                    _buildLikeCommentPopMenu(),
+                    (moments.nickname ?? '').toText
+                    ..style = Styles.ts_9280B3_16sp_medium,
+                    _buildTimeView(),
                   ],
                 ),
-                if (null != moments.likeUsers && moments.likeUsers!.isNotEmpty)
-                  _buildLikeListView(moments.likeUsers!),
+              ),
+              Spacer(),
+              _buildLikeCommentPopMenu(),
+            ],
+          ),
+          
+          if("" != moments.content?.text)
+            ...[
+              12.verticalSpace,
+              ExpandedText(
+                text: moments.content!.text!,
+                textStyle: Styles.ts_333333_16sp,
+              ),
+            ],
 
-                if (null != moments.likeUsers && moments.likeUsers!.isNotEmpty && null != moments.comments && moments.comments!.isNotEmpty)
-                  Divider(
-                      color: Styles.c_EDEDED,
-                      height: 1.h,
-                    ),
+          if (null != moments.content?.metas && moments.content!.metas!.isNotEmpty)
+            _buildMetaView(
+              moments.content?.type ?? 0,
+              moments.content?.metas ?? [],
+            ),
 
-                if (null != moments.comments && moments.comments!.isNotEmpty)
-                  _buildCommentListView(moments.userID!),
+          if (null != moments.atUsers && moments.atUsers!.isNotEmpty)
+            ...[
+              _buildMentionedView(),
+            ],
+
+          if (_showPermissionIcon || _showDelIcon)
+            Row(
+              children: [
+                if (_showPermissionIcon) _buildSeePermissionView(),
+                if (_showPermissionIcon) 10.horizontalSpace,
+                if (_showDelIcon) _buildDelView(),
               ],
             ),
-          ),
+
+          if ((null != moments.likeUsers && moments.likeUsers!.isNotEmpty) || (null != moments.comments && moments.comments!.isNotEmpty))
+            10.verticalSpace,
+
+          if (null != moments.likeUsers && moments.likeUsers!.isNotEmpty)
+            _buildLikeListView(moments.likeUsers!),
+
+          if (null != moments.likeUsers && moments.likeUsers!.isNotEmpty && null != moments.comments && moments.comments!.isNotEmpty)
+            Divider(color: Styles.c_EDEDED, height: 1.h, ),
+
+          if (null != moments.comments && moments.comments!.isNotEmpty)
+            _buildCommentListView(moments.userID!),
         ],
-      ),
+      ) 
     );
   }
 
@@ -145,11 +155,11 @@ class WorkMomentsItem extends StatelessWidget {
         behavior: HitTestBehavior.translucent,
         onTap: () => delMoment?.call(moments),
         child: Padding(
-          padding: EdgeInsets.only(left: 10.w),
+          padding: EdgeInsets.only(left:0),
           child: Container(
             height: 26.h,
             alignment: Alignment.center,
-            child: StrRes.delete.toText..style = Styles.ts_6085B1_12sp,
+            child: StrRes.delete.toText..style = Styles.ts_8443F8_12sp,
           ),
         ),
       );
@@ -175,14 +185,14 @@ class WorkMomentsItem extends StatelessWidget {
         behavior: HitTestBehavior.translucent,
         onTap: () => previewWhoCanWatchList?.call(moments),
         child: Padding(
-          padding: EdgeInsets.only(left: 10.w),
+          padding: EdgeInsets.only(left: 0),
           child: SizedBox(
             height: 26.h,
             child: Row(
               children: [
                 Icon(
                   moments.permission == 1 ? Icons.lock : Icons.group_rounded,
-                  color: Styles.c_6085B1,
+                  color: Styles.c_8443F8,
                   size: 14.h,
                 ),
                 4.horizontalSpace,
@@ -190,7 +200,7 @@ class WorkMomentsItem extends StatelessWidget {
                         ? StrRes.private
                         : StrRes.partiallyVisible)
                     .toText
-                  ..style = Styles.ts_6085B1_12sp,
+                  ..style = Styles.ts_8443F8_12sp,
               ],
             ),
           ),
@@ -340,7 +350,9 @@ class WorkMomentsItem extends StatelessWidget {
       final url = IMUtils.emptyStrToNull(meta.thumb) ?? meta.original;
       return Padding(
           padding: EdgeInsets.only(top: 12.h),
-          child: isPicture
+          child: ClipRRect(
+                  borderRadius: BorderRadius.circular(6.r),
+                  child: isPicture
               ? Hero(
                   tag: meta.original!,
                   child: GestureDetector(
@@ -368,7 +380,8 @@ class WorkMomentsItem extends StatelessWidget {
                       ],
                     ),
                   ),
-                ));
+                ),
+              ));
     } else {
       return GridView.builder(
         padding: EdgeInsets.only(top: 12.h),
@@ -385,7 +398,9 @@ class WorkMomentsItem extends StatelessWidget {
           final meta = metas.elementAt(index);
           final url = IMUtils.emptyStrToNull(meta.thumb) ?? meta.original;
           if (isPicture) {
-            return Hero(
+            return ClipRRect(
+                  borderRadius: BorderRadius.circular(6.r),
+                  child: Hero(
               tag: meta.original!,
               child: GestureDetector(
                 onTap: () => previewPicture?.call(index, metas),
@@ -395,9 +410,11 @@ class WorkMomentsItem extends StatelessWidget {
                         : url.thumbnailAbsoluteString,
                     fit: BoxFit.cover),
               ),
-            );
+            ));
           }
-          return Hero(
+          return ClipRRect(
+                  borderRadius: BorderRadius.circular(6.r),
+                  child: Hero(
             tag: meta.original!,
             child: GestureDetector(
               onTap: () => previewVideo?.call(meta.original!, url),
@@ -412,7 +429,7 @@ class WorkMomentsItem extends StatelessWidget {
                 ],
               ),
             ),
-          );
+          ));
         },
         itemCount: metas.length,
       );

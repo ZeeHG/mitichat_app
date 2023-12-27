@@ -62,9 +62,6 @@ class WorkMomentsListPage extends StatelessWidget {
                         // controller: logic.scrollController,
                         slivers: [
                           _sliverAppBar(context),
-                          SliverToBoxAdapter(
-                            child: Container(height: 30.h),
-                          ),
                           if (logic.newMessageCount.value > 0 && logic.isMyself)
                             _newMessageHintView,
                           SliverList(
@@ -202,6 +199,7 @@ class WorkMomentsListPage extends StatelessWidget {
 
   Widget get _newMessageHintView => SliverToBoxAdapter(
         child: Container(
+          margin: EdgeInsets.only(top: 16.h),
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 7.h),
           color: Styles.c_FFFFFF,
           child: Center(
@@ -227,12 +225,12 @@ class WorkMomentsListPage extends StatelessWidget {
       );
 
   Widget _sliverAppBar(BuildContext context) => SliverAppBar(
-        title: StrRes.discover.toText
-          ..style = Styles.ts_FFFFFF_18sp_medium,
+        title: StrRes.discoverTab.toText
+          ..style = Styles.ts_333333_18sp_medium,
         centerTitle: true,
-        expandedHeight: 220.h,
+        expandedHeight: 196.h,
         toolbarHeight: 44.h,
-        backgroundColor: Styles.c_000000,
+        backgroundColor: Styles.c_FFFFFF,
         floating: false,
         pinned: true,
         snap: false,
@@ -245,60 +243,121 @@ class WorkMomentsListPage extends StatelessWidget {
             padding: EdgeInsets.only(left: 18.w),
             child: ImageRes.appBackWhite.toImage
               ..width = 24.w
-              ..height = 24.h,
+              ..height = 24.h
+              ..color=Styles.c_333333,
           ),
         ),
         // stretchTriggerOffset: 100,
         // leading: ImageRes.backBlack.toImage..color = Styles.c_FFFFFF,
-        actions: logic.isMyself
-            ? [
-                ImageRes.appWorkingCircleMessage.toImage
-                  ..width = 22.w
-                  ..height = 22.h
-                  ..onTap = logic.seeNewMessage,
-                10.horizontalSpace,
-                _popButton,
-                10.horizontalSpace,
-                // ImageRes.workingCirclePublish.toImage
-                //   ..width = 24.w
-                //   ..height = 24.h,
-                // 16.horizontalSpace,
-              ]
-            : [],
+        // actions: logic.isMyself
+        //     ? [
+        //         ImageRes.appWorkingCircleMessage.toImage
+        //           ..width = 22.w
+        //           ..height = 22.h
+        //           ..onTap = logic.seeNewMessage,
+        //         10.horizontalSpace,
+        //         _popButton,
+        //         10.horizontalSpace,
+        //         // ImageRes.workingCirclePublish.toImage
+        //         //   ..width = 24.w
+        //         //   ..height = 24.h,
+        //         // 16.horizontalSpace,
+        //       ]
+        //     : [],
         flexibleSpace: Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.bottomCenter,
           children: [
             Container(
               height: 300.h,
-              color: Styles.c_8443F8,
-              child: ImageRes.workingCircleHeaderBg.toImage
+              color: Styles.c_FFFFFF,
+              child: ImageRes.workingCircleHeaderBg3.toImage
               ..width = 375.w
-              ..height = 220.h
+              ..height = 196.h
               ..fit = BoxFit.cover,
             ),
-            if (logic.scrollHeight <=
-                (220.h - 44.h - 10.h - MediaQuery.of(context).padding.top))
-              Positioned(
-                bottom: -20.h,
-                right: 18.w,
+            if (logic.scrollHeight <= (196.h - 44.h - MediaQuery.of(context).padding.top))
+            Positioned(
+              bottom: 80.h,
+              left: 18.w,
+              child: Container(
+                width: 1.sw - 36.w,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    (logic.nickname ?? '').toText
-                      ..style = Styles.ts_FFFFFF_18sp_medium,
-                    12.horizontalSpace,
-                    AvatarView(
-                      width: 60.w,
-                      height: 60.h,
-                      url: logic.faceURL,
-                      text: logic.nickname,
-                      onTap: logic.viewMyProfilePanel,
-                    ),
-                  ],
-                ),
-              )
+                crossAxisAlignment: CrossAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AvatarView(
+                    width: 50.w,
+                    height: 50.h,
+                    url: logic.faceURL,
+                    text: logic.nickname,
+                    onTap: logic.viewMyProfilePanel,
+                  ),
+                  12.horizontalSpace,
+                  Expanded(
+                    child: (logic.nickname ?? '').toText
+                    ..style = Styles.ts_333333_18sp_medium
+                    ..maxLines = 1
+                    ..overflow = TextOverflow.ellipsis
+                  ),
+                  12.horizontalSpace,
+                  if(logic.isMyself)
+                  ...[
+                    // Spacer(),
+                    // GestureDetector(
+                    //   behavior: HitTestBehavior.translucent,
+                    //   child: Container(
+                    //     padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 0),
+                    //     height: 38.h,
+                    //     decoration: BoxDecoration(
+                    //       color: Styles.c_FFFFFF_opacity70,
+                    //       borderRadius: BorderRadius.circular(6.r),
+                    //     ),
+                    //     child: Row(
+                    //       children: [
+                    //         ImageRes.appAdd.toImage..width=16.w..height=16.h,
+                    //         6.horizontalSpace,
+                    //         StrRes.publishMoment.toText..style=Styles.ts_333333_14sp_medium
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                    _popButton,
+                    5.horizontalSpace,
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: logic.seeNewMessage,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 0),
+                        height: 38.h,
+                        decoration: BoxDecoration(
+                          color: Styles.c_FFFFFF_opacity70,
+                          borderRadius: BorderRadius.circular(6.r),
+                        ),
+                        child: Center(
+                          child: ImageRes.appNotification.toImage..width=16.w..height=16.h,
+                        )
+                        ),
+                      ),
+                  ]
+                ],
+              ),
+              ),
+            ),
+            if (logic.scrollHeight <= (196.h - 44.h - MediaQuery.of(context).padding.top))
+            Positioned(
+              bottom: 0,
+              left: 0,
+              child: Container(
+                width: 1.sw,
+                height: 30.h,
+                decoration: BoxDecoration(
+                  color: Styles.c_FFFFFF,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16.r),
+                    topRight: Radius.circular(16.r),
+                  )),
+              ))
           ],
         ),
       );
@@ -306,9 +365,21 @@ class WorkMomentsListPage extends StatelessWidget {
   Widget get _popButton => PopupMenuButton<int>(
         offset: Offset(0, 48.h),
         padding: EdgeInsets.zero,
-        icon: ImageRes.appWorkingCirclePublish.toImage
-          ..width = 22.w
-          ..height = 22.h,
+        icon: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 0),
+                          height: 38.h,
+                          decoration: BoxDecoration(
+                            color: Styles.c_FFFFFF_opacity70,
+                            borderRadius: BorderRadius.circular(6.r),
+                          ),
+                          child: Row(
+                            children: [
+                              ImageRes.appAdd.toImage..width=16.w..height=16.h,
+                              6.horizontalSpace,
+                              StrRes.publishMoment.toText..style=Styles.ts_333333_14sp_medium
+                            ],
+                          ),
+                        ),
         itemBuilder: (_) => <PopupMenuEntry<int>>[
           PopupMenuItem(
             padding: EdgeInsets.only(left: 12.w),

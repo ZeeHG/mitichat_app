@@ -37,8 +37,10 @@ class CustomTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
+    return IntrinsicWidth(
+      child: Container(
+      // width: width,
+      constraints: BoxConstraints(minWidth: width ?? 110.w),
       decoration: BoxDecoration(
         color: this.bgColor ?? Styles.c_FFFFFF,
         border: showUnderline
@@ -49,7 +51,8 @@ class CustomTabBar extends StatelessWidget {
       child: Row(
         children: List.generate(labels.length, (i) => _buildItemView(i)),
       ),
-    );
+    ),
+    ) ;
   }
 
   Widget _buildItemView(int i) => Expanded(
@@ -58,8 +61,9 @@ class CustomTabBar extends StatelessWidget {
             if (null != onTabChanged) onTabChanged!(i);
           },
           behavior: HitTestBehavior.translucent,
-          child: SizedBox(
+          child: Container(
             height: height ?? 40.h,
+            margin: EdgeInsets.only(left: i !=0? 5.w : 0),
             child: Stack(
               children: [
                 Align(

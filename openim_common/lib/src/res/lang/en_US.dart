@@ -681,5 +681,8 @@ const Map<String, String> en_US = {
   "updateOn": "Update on",
   "japanese": "japanese",
   "korean": "korean",
-  "spanish": "spanish"
+  "spanish": "spanish",
+  "discoverTab": "Discover",
+  "friend": "Friend",
+  "publishMoment": "Publish Moment"
 };

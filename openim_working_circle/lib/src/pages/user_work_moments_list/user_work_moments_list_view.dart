@@ -229,7 +229,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
             Container(
               height: 300.h,
               color: Styles.c_8443F8,
-              child: ImageRes.workingCircleHeaderBg.toImage
+              child: ImageRes.workingCircleHeaderBg3.toImage
                 ..width = 375.w
                 ..height = 220.h
                 ..fit = BoxFit.cover,

@@ -112,12 +112,13 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       Function()? onCreateGroup,
       Function()? onVideoMeeting,
       Function()? onClickSearch,
+      required Function(dynamic) onSwitchTab,
+      required RxInt homeTabIndex,
       CustomPopupMenuController? popCtrl,
-      this.left,
+      // this.left,
       this.backIconColor})
-      : backgroundColor = Styles.c_FFFFFF,
+      : backgroundColor = Styles.c_F7F8FA,
         showUnderline = false,
-        center = null,
         height = 105.h,
         overBottomBg = IgnorePointer(
             ignoring: true,
@@ -125,15 +126,32 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
               decoration: const BoxDecoration(
                   image: DecorationImage(
                 image:
-                    AssetImage(ImageRes.appHeaderBg2, package: 'openim_common'),
+                    AssetImage(ImageRes.appHeaderBg3, package: 'openim_common'),
                 fit: BoxFit.cover,
                 alignment: FractionalOffset.topCenter,
               )),
             )),
         bottom = Positioned(
           top: (mq?.padding.top ?? 30.h) + 55.h,
-          child: FakeSearchBox(onTap: onClickSearch),
+          child: FakeSearchBox(onTap: onClickSearch, color: Styles.c_FFFFFF,),
         ),
+        left = SizedBox(width: 28.w),
+        center = Expanded(
+              child: Center(
+                child: CustomTabBar(
+                  width: 100.w,
+                  labels: [StrRes.chat, StrRes.friend],
+                  index: homeTabIndex.value,
+                  onTabChanged: (i) => onSwitchTab(i),
+                  showUnderline: false,
+                  bgColor: Styles.transparent,
+                  inactiveTextStyle: Styles.ts_4B3230_18sp,
+                  activeTextStyle: Styles.ts_4B3230_20sp_medium,
+                  indicatorWidth: 20.w
+                ),
+              ),
+            ),
+        // center=null,
         right = Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -166,9 +184,9 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
                 //   onTap: onVideoMeeting,
                 // ),
               ],
-              child: ImageRes.appAddBlack.toImage
-                ..width = 22.w
-                ..height = 22.h /*..onTap = onClickAddBtn*/,
+              child: ImageRes.appAddBlack2.toImage
+                ..width = 28.w
+                ..height = 28.h /*..onTap = onClickAddBtn*/,
             ),
           ],
         );
@@ -192,7 +210,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
               decoration: const BoxDecoration(
                   image: DecorationImage(
                 image:
-                    AssetImage(ImageRes.appHeaderBg2, package: 'openim_common'),
+                    AssetImage(ImageRes.appHeaderBg3, package: 'openim_common'),
                 fit: BoxFit.cover,
                 alignment: FractionalOffset.topCenter,
               )),
@@ -423,6 +441,8 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       // Function()? onClickSearch,
       Function()? onClickAddContacts,
       Function()? onClickSearch,
+      required Function(dynamic) onSwitchTab,
+      required RxInt homeTabIndex,
       this.backIconColor,
       MediaQueryData? mq,
       this.backgroundImage})
@@ -434,7 +454,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
               decoration: const BoxDecoration(
                   image: DecorationImage(
                 image:
-                    AssetImage(ImageRes.appHeaderBg2, package: 'openim_common'),
+                    AssetImage(ImageRes.appHeaderBg3, package: 'openim_common'),
                 fit: BoxFit.cover,
                 alignment: FractionalOffset.topCenter,
               )),
@@ -444,18 +464,29 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
           child: FakeSearchBox(onTap: onClickSearch),
         ),
         center = Expanded(
-            child: StrRes.contacts.toText
-              ..style = Styles.ts_4B3230_18sp_medium
-              ..textAlign = TextAlign.center),
+              child: Center(
+                child: CustomTabBar(
+                  width: 100.w,
+                  labels: [StrRes.chat, StrRes.friend],
+                  index: homeTabIndex.value,
+                  onTabChanged: (i) => onSwitchTab(i),
+                  showUnderline: false,
+                  bgColor: Styles.transparent,
+                  inactiveTextStyle: Styles.ts_4B3230_18sp,
+                  activeTextStyle: Styles.ts_4B3230_20sp_medium,
+                  indicatorWidth: 20.w
+                ),
+              ),
+            ),
         left = SizedBox(
-          width: 34.w,
-          height: 34.h,
+          width: 28.w,
+          height: 28.h,
         ),
         right = Row(
           children: [
             ImageRes.appAddContacts.toImage
-              ..width = 34.w
-              ..height = 34.h
+              ..width = 28.w
+              ..height = 28.h
               ..onTap = onClickAddContacts,
           ],
         );

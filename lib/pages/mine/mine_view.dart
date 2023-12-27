@@ -135,16 +135,17 @@ class MinePage extends StatelessWidget {
     // bool isBottomRadius = false,
     Function()? onTap,
   }) =>
-      Container(
+      GestureDetector(
+          onTap: onTap,
+          behavior: HitTestBehavior.translucent,
+            child: Container(
         margin: EdgeInsets.only(bottom: 20.h),
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
             color: Styles.c_FFFFFF,
             borderRadius: BorderRadius.all(Radius.circular(10.r))
         ),
-        child: GestureDetector(
-          onTap: onTap,
-            child: Container(
+        child:  Container(
               height: 56.h,
               padding: EdgeInsets.symmetric(horizontal: 15.w),
               child: Row(

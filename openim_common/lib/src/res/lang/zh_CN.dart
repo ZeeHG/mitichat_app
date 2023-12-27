@@ -187,7 +187,7 @@ const Map<String, String> zh_CN = {
   "newGroup": "新的群聊",
   "newGroupRequest": "群通知",
   "myFriend": "我的好友",
-  "myGroup": "我的群组",
+  "myGroup": "我的群聊",
   "add": "添加",
   "scan": "扫一扫",
   "scanHint": "扫描二维码名片",
@@ -688,7 +688,10 @@ const Map<String, String> zh_CN = {
   'uploadAppLog': '上传APP日志',
   'uploadAppLogByDate': '上传APP日志(按日期)',
   'updateOn': '更新于',
-  "japanese": "japanese",
-  "korean": "korean",
-  "spanish": "spanish"
+  "japanese": "日语",
+  "korean": "韩语",
+  "spanish": "西班牙语",
+  "discoverTab": "发现",
+  "friend": "朋友",
+  "publishMoment": "发表动态"
 };

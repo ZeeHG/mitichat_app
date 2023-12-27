@@ -9,8 +9,11 @@ import 'contacts_logic.dart';
 
 class ContactsPage extends StatelessWidget {
   final logic = Get.find<ContactsLogic>();
+  Function(dynamic) switchHomeTab;
+  RxInt homeTabIndex;
 
-  ContactsPage({super.key});
+  ContactsPage(
+      {super.key, required this.switchHomeTab, required this.homeTabIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -20,69 +23,100 @@ class ContactsPage extends StatelessWidget {
       appBar: TitleBar.contacts(
           onClickAddContacts: logic.addContacts,
           onClickSearch: logic.searchContacts,
+          onSwitchTab: switchHomeTab,
+          homeTabIndex: homeTabIndex,
           mq: mq),
-      backgroundColor: Styles.c_FFFFFF,
+      backgroundColor: Styles.c_F7F8FA,
       body: Obx(
         () => Stack(
           children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  _buildItemView(
-                    assetsName: ImageRes.appNewFriend,
-                    label: StrRes.newFriend,
-                    count: logic.friendApplicationCount,
-                    onTap: logic.newFriend,
-                  ),
-                  _buildItemView(
-                    assetsName: ImageRes.appNewGroup,
-                    label: StrRes.newGroupRequest,
-                    count: logic.groupApplicationCount,
-                    onTap: logic.newGroup,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(color: Styles.c_F7F7F7),
-                    height: 6.h,
-                  ),
-                  _buildItemView(
-                    assetsName: ImageRes.appMyFriend,
-                    label: StrRes.myFriend,
-                    onTap: logic.myFriend,
-                  ),
-                  _buildItemView(
-                    assetsName: ImageRes.appMyGroup,
-                    label: StrRes.myGroup,
-                    onTap: logic.myGroup,
-                  ),
-                  // _buildItemView(
-                  //   assetsName: ImageRes.appTagGroup,
-                  //   label: StrRes.tagGroup,
-                  //   onTap: logic.tagGroup,
-                  // ),
-                  // _buildItemView(
-                  //   assetsName: ImageRes.appIssueNotice,
-                  //   label: StrRes.issueNotice,
-                  //   onTap: logic.notificationIssued,
-                  // ),
-                  // Container(
-                  //   decoration: BoxDecoration(color: Styles.c_F7F7F7),
-                  //   height: 6.h,
-                  // ),
-                  // _buildItemView(
-                  //   assetsName: ImageRes.appBot,
-                  //   label: StrRes.createBot,
-                  //   onTap: logic.createBot,
-                  // ),
-                ],
+            // SingleChildScrollView(
+            //   child: Column(
+            //     children: [
+            //       _buildItemView(
+            //         assetsName: ImageRes.appNewFriend,
+            //         label: StrRes.newFriend,
+            //         count: logic.friendApplicationCount,
+            //         onTap: logic.newFriend,
+            //       ),
+            //       _buildItemView(
+            //         assetsName: ImageRes.appNewGroup,
+            //         label: StrRes.newGroupRequest,
+            //         count: logic.groupApplicationCount,
+            //         onTap: logic.newGroup,
+            //       ),
+            //       Container(
+            //         decoration: BoxDecoration(color: Styles.c_F7F7F7),
+            //         height: 6.h,
+            //       ),
+            //       _buildItemView(
+            //         assetsName: ImageRes.appMyFriend,
+            //         label: StrRes.myFriend,
+            //         onTap: logic.myFriend,
+            //       ),
+            //       _buildItemView(
+            //         assetsName: ImageRes.appMyGroup,
+            //         label: StrRes.myGroup,
+            //         onTap: logic.myGroup,
+            //       ),
+            //       // _buildItemView(
+            //       //   assetsName: ImageRes.appTagGroup,
+            //       //   label: StrRes.tagGroup,
+            //       //   onTap: logic.tagGroup,
+            //       // ),
+            //       // _buildItemView(
+            //       //   assetsName: ImageRes.appIssueNotice,
+            //       //   label: StrRes.issueNotice,
+            //       //   onTap: logic.notificationIssued,
+            //       // ),
+            //       // Container(
+            //       //   decoration: BoxDecoration(color: Styles.c_F7F7F7),
+            //       //   height: 6.h,
+            //       // ),
+            //       // _buildItemView(
+            //       //   assetsName: ImageRes.appBot,
+            //       //   label: StrRes.createBot,
+            //       //   onTap: logic.createBot,
+            //       // ),
+            //     ],
+            //   ),
+            // ),
+            Container(
+              margin: EdgeInsets.only(top: 65.h),
+              child: WrapAzListView<ISUserInfo>(
+                data: logic.friendList,
+                itemCount: logic.friendList.length,
+                itemBuilder: (_, data, index) => _buildFriendItemView(data),
               ),
+            ),
+            Container(
+              color: Styles.c_FFFFFF,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.only(
+                    left: 12.w, right: 12.w, top: 9.h, bottom: 20.h),
+                child: Row(
+                  children: List.generate(
+                      logic.menus.length,
+                      (index) => Row(
+                            children: [
+                              _buildMenuItemView(
+                                  text: logic.menus[index]["text"],
+                                  color: logic.menus[index]["color"],
+                                  shadowColor: logic.menus[index]["shadowColor"],
+                                  onTap: logic.menus[index]["onTap"]),
+                              10.horizontalSpace
+                            ],
+                          )),
+                )),
             ),
             IgnorePointer(
                 ignoring: true,
                 child: Container(
-                  height: 215.h - 105.h - mq.padding.top,
+                  height: 183.h - 105.h - mq.padding.top,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
-                    image: AssetImage(ImageRes.appHeaderBg2,
+                    image: AssetImage(ImageRes.appHeaderBg3,
                         package: 'openim_common'),
                     fit: BoxFit.cover,
                     alignment: FractionalOffset.bottomCenter,
@@ -135,6 +169,43 @@ class ContactsPage extends StatelessWidget {
         ),
       );
 
+  Widget _buildMenuItemView({
+    double? width,
+    double? height,
+    Color? color,
+    TextStyle? tStyle,
+    Color? shadowColor,
+    required String text,
+    Function()? onTap,
+  }) {
+    width = width ?? 80.w;
+    height = height ?? 50.h;
+    color = color ?? Styles.c_8544F8;
+    tStyle = tStyle ?? Styles.ts_FFFFFF_14sp_medium;
+    shadowColor = shadowColor ?? Color.fromRGBO(132, 67, 248, 0.5);
+    return GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: onTap,
+        child: Container(
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.circular(14.r), // 设置边框圆角为14
+              boxShadow: [
+                BoxShadow(
+                  color: shadowColor,
+                  blurRadius: 9.r,
+                  offset: Offset(0, 3.r),
+                ),
+              ],
+            ),
+            height: height,
+            constraints: BoxConstraints(maxWidth: width),
+            // padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: Center(
+              child: text.toText..style = tStyle,
+            )));
+  }
+
 // /// 我加入的部门
 // List<Widget> _buildMyDeptView() => logic.myDeptList
 //     .map((dept) => _buildItemView(
@@ -152,4 +223,28 @@ class ContactsPage extends StatelessWidget {
 //           onTap: () => logic.enterMyDepartment(dept.department),
 //         ))
 //     .toList();
+
+  Widget _buildFriendItemView(ISUserInfo info) {
+    Widget buildChild() => Ink(
+          height: 54.h,
+          color: Styles.c_FFFFFF,
+          child: InkWell(
+            onTap: () => logic.viewFriendInfo(info),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 12.w),
+              child: Row(
+                children: [
+                  AvatarView(
+                    url: info.faceURL,
+                    text: info.showName,
+                  ),
+                  12.horizontalSpace,
+                  info.showName.toText..style = Styles.ts_333333_16sp,
+                ],
+              ),
+            ),
+          ),
+        );
+    return buildChild();
+  }
 }

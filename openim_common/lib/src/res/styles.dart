@@ -51,6 +51,10 @@ class Styles {
   static Color c_303137 = const Color(0xFF303137);
   static Color c_FC4D4D = const Color(0xFFFC4D4D);
   static Color c_E5E5E5 = const Color(0xFFE5E5E5);
+  static Color c_8544F8 = const Color(0xFF8544F8);
+  static Color c_00CBC5 = const Color(0xFF00CBC5);
+  static Color c_595EF9 = const Color(0xFF595EF9);
+  static Color c_FEA836 = const Color(0xFFFEA836);
 
   // static Color c_E8EAEF_opacity30 = c_E8EAEF.withOpacity(.3); // 默认背景
 
@@ -577,10 +581,21 @@ class Styles {
     fontWeight: FontWeight.w500,
   );
 
+  static TextStyle ts_4B3230_20sp_medium = TextStyle(
+    color: c_4B3230,
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w500,
+  );
+
   // 332221
   static TextStyle ts_332221_16sp = TextStyle(
     color: c_332221,
     fontSize: 16.sp,
+  );
+
+  static TextStyle ts_332221_18sp = TextStyle(
+    color: c_332221,
+    fontSize: 18.sp,
   );
 
   // B3AAAA

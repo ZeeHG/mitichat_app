@@ -19,16 +19,16 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle(systemNavigationBarColor: logic.index.value == 1? Styles.c_F7F7F7 : Styles.c_FFFFFF),
+        value: SystemUiOverlayStyle(systemNavigationBarColor: logic.index.value == 1? Styles.c_F7F8FA : Styles.c_FFFFFF),
         child: Scaffold(
-            backgroundColor: Styles.c_F7F7F7,
+            backgroundColor: logic.index.value == 1? Styles.c_F7F8FA : Styles.c_FFFFFF,
             body: IndexedStack(
               index: logic.index.value,
               children: [
-                ConversationPage(),
-                ContactsPage(),
+                ConversationPage(switchHomeTab: logic.switchTab, homeTabIndex: logic.index),
+                ContactsPage(switchHomeTab: logic.switchTab, homeTabIndex: logic.index),
                 // WorkbenchPage(),
-                SizedBox(),
+                // SizedBox(),
                 MinePage(),
                 // NewDiscoverPage(),
               ],
@@ -57,22 +57,22 @@ class HomePage extends StatelessWidget {
                     onDoubleClick: logic.scrollToUnreadMessage,
                     count: logic.unreadMsgCount.value,
                   ),
-                  BottomBarItem(
-                    selectedImgRes: ImageRes.appHomeTab2Sel,
-                    unselectedImgRes: ImageRes.appHomeTab2Nor,
-                    label: StrRes.contacts,
-                    imgWidth: 24.51.w,
-                    imgHeight: 19.h,
-                    onClick: logic.switchTab,
-                    count: logic.unhandledCount.value,
-                  ),
+                  // BottomBarItem(
+                  //   selectedImgRes: ImageRes.appHomeTab2Sel,
+                  //   unselectedImgRes: ImageRes.appHomeTab2Nor,
+                  //   label: StrRes.contacts,
+                  //   imgWidth: 31.w,
+                  //   imgHeight: 22.h,
+                  //   onClick: logic.switchTab,
+                  //   count: logic.unhandledCount.value,
+                  // ),
                   // 旧的发现
                   BottomBarItem(
                     selectedImgRes: ImageRes.appHomeTab3Nor2,
                     unselectedImgRes: ImageRes.appHomeTab3Nor2,
-                    label: StrRes.discover,
-                    imgWidth: 21.w,
-                    imgHeight: 21.h,
+                    label: StrRes.discoverTab,
+                    imgWidth: 24.w,
+                    imgHeight: 24.h,
                     onClick: logic.viewDiscover,
                     count: logic.unreadMomentsCount.value,
                   ),
@@ -88,8 +88,8 @@ class HomePage extends StatelessWidget {
                   //   count: logic.unreadMsgCount.value,
                   // ),
                   BottomBarItem(
-                    selectedImgRes: ImageRes.appHomeTab4Sel2,
-                    unselectedImgRes: ImageRes.appHomeTab4Nor2,
+                    selectedImgRes: ImageRes.appHomeTab4Sel3,
+                    unselectedImgRes: ImageRes.appHomeTab4Nor3,
                     label: StrRes.mine,
                     imgWidth: 22.w,
                     imgHeight: 22.h,

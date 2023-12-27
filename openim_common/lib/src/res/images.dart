@@ -201,6 +201,7 @@ class ImageRes {
   static const checked = "$_dir/app_checked.png";
   static const workingCircleHeaderBg = "$_dir/ic_working_circle_header_bg.png";
   static const workingCircleHeaderBg2 = "$_dir/ic_working_circle_header_bg2.png";
+  static const workingCircleHeaderBg3 = "$_dir/ic_working_circle_header_bg3.png";
   static const splash = "$_dir/splash.png";
   static const logo2 = "$_dir/logo2.png";
   static const logo3 = "$_dir/logo3.png";
@@ -210,6 +211,7 @@ class ImageRes {
   static const appHomeTab3Nor = "$_dir/app_home_tab3_nor.png";
   static const appHomeTab3NorOld = "$_dir/app_home_tab3_nor_old.png";
   static const appHomeTab3Nor2 = "$_dir/app_home_tab3_nor2.png";
+  static const appHomeTab3Nor3 = "$_dir/app_home_tab3_nor3.png";
   static const appHomeTab4Nor = "$_dir/app_home_tab4_nor.png";
   static const appHomeTab4Nor2 = "$_dir/app_home_tab4_nor2.png";
   static const appHomeTab1Sel = "$_dir/app_home_tab1_sel.png";
@@ -217,6 +219,8 @@ class ImageRes {
   static const appHomeTab3Sel = "$_dir/app_home_tab3_sel.png";
   static const appHomeTab4Sel = "$_dir/app_home_tab4_sel.png";
   static const appHomeTab4Sel2 = "$_dir/app_home_tab4_sel2.png";
+  static const appHomeTab4Sel3 = "$_dir/app_home_tab4_sel3.png";
+  static const appHomeTab4Nor3 = "$_dir/app_home_tab4_nor3.png";
   static const appAddContacts = "$_dir/app_add_contacts.png";
   static const appRightArrow = "$_dir/app_right_arrow.png";
   static const appNewFriend = "$_dir/app_new_friend.png";
@@ -231,6 +235,7 @@ class ImageRes {
   static const appAccountSetup = "$_dir/app_mine_account_setup.png";
   static const appHeaderBg = "$_dir/app_header_bg.png";
   static const appHeaderBg2 = "$_dir/app_header_bg2.png";
+  static const appHeaderBg3 = "$_dir/app_header_bg3.png";
   static const appMineQr = "$_dir/app_mine_qr.png";
   static const appPopMenuAddFriend = "$_dir/app_popmenu_add_friend.png";
   static const appPopMenuAddGroup = "$_dir/app_popmenu_add_group.png";
@@ -271,10 +276,13 @@ class ImageRes {
   static const appWoman = "$_dir/app_woman.png";
   static const appChat2 = "$_dir/app_chat2.png";
   static const appAddBlack = "$_dir/app_add_black.png";
+  static const appAddBlack2 = "$_dir/app_add_black2.png";
   static const appEncrypt = "$_dir/app_encrypt.png";
   static const appRadioSel = "$_dir/app_radio_sel.png";
   static const appSendMessage2 = "$_dir/app_send_message2.png";
   static const appMenuTranslate = "$_dir/app_menu_translate.png";
   static const appMenuUnTranslate = "$_dir/app_menu_untranslate.png";
   static const appTranslateLoading = "$_dir/app_translate_loading.gif";
+  static const appAdd = "$_dir/app_add.png";
+  static const appNotification = "$_dir/app_notification.png";
 }

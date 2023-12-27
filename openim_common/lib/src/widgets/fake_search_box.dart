@@ -6,12 +6,19 @@ class FakeSearchBox extends StatelessWidget {
   FakeSearchBox({
     Key? key,
     this.onTap,
-    width,
-    height,
-  }) : super(key: key);
-  final Function()? onTap;
-  final double? width = 351.w;
-  final double? height = 35.h;
+    double? width,
+    double? height,
+    Color? color,
+  }) :
+  width = width ?? 351.w,
+  height = height ?? 35.h,
+  color = color ?? Styles.c_F7F7F7, 
+  super(key: key);
+  
+  Function()? onTap;
+  double? width;
+  double? height;
+  Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +29,7 @@ class FakeSearchBox extends StatelessWidget {
           width: width,
           height: height,
           decoration: BoxDecoration(
-              color: Styles.c_F7F7F7, borderRadius: BorderRadius.circular(6.r)),
+              color: color, borderRadius: BorderRadius.circular(6.r)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
