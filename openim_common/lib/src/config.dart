@@ -37,7 +37,7 @@ class Config {
       statusBarIconBrightness: brightness,
     ));
 
-    FlutterBugly.init(androidAppId: "", iOSAppId: "");
+    FlutterBugly.init(androidAppId: "miti.chat", iOSAppId: "miti.chat");
   }
 
   static late String cachePath;

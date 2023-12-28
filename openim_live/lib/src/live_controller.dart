@@ -96,9 +96,9 @@ mixin OpenIMLive {
   }
 
   onInitLive() async {
-    if (Platform.isAndroid) {
-      Permissions.request([Permission.systemAlertWindow]);
-    }
+    // if (Platform.isAndroid) {
+    //   Permissions.request([Permission.systemAlertWindow]);
+    // }
     _signalingListener();
     _insertSignalingMessageListener();
     // 后台通话
