@@ -1,4 +1,10 @@
 import 'package:get/get.dart';
+import 'package:openim/pages/mine/account_and_security/account_and_security_binding.dart';
+import 'package:openim/pages/mine/account_and_security/account_and_security_view.dart';
+import 'package:openim/pages/mine/phone_email_change/phone_email_change_binding.dart';
+import 'package:openim/pages/mine/phone_email_change/phone_email_change_view.dart';
+import 'package:openim/pages/mine/phone_email_change_detail/phone_email_change_detail_binding.dart';
+import 'package:openim/pages/mine/phone_email_change_detail/phone_email_change_detail_view.dart';
 import 'package:openim_meeting/openim_meeting.dart';
 import 'package:openim_working_circle/openim_working_circle.dart';
 
@@ -541,6 +547,21 @@ class AppPages {
       name: AppRoutes.trainingBot,
       page: () => TrainingBotPage(),
       binding: TrainingBotBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.accountAndSecurity,
+      page: () => AccountAndSecurityPage(),
+      binding: AccountAndSecurityBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.phoneEmailChange,
+      page: () => PhoneEmailChangePage(),
+      binding: PhoneEmailChangeBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.phoneEmailChangeDetail,
+      page: () => PhoneEmailChangeDetailPage(),
+      binding: PhoneEmailChangeDetailBinding(),
     ),
     // ...OPages.pages, // 组织架构
     ...WPages.pages, // 工作圈

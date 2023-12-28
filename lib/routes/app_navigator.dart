@@ -1,5 +1,6 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
+import 'package:openim/pages/mine/phone_email_change/phone_email_change_logic.dart';
 import 'package:openim_common/openim_common.dart';
 
 import '../pages/chat/chat_setup/search_chat_history/multimedia/multimedia_logic.dart';
@@ -186,6 +187,16 @@ class AppNavigator {
   static startUnlockSetup() => Get.toNamed(AppRoutes.unlockSetup);
 
   static startChangePassword() => Get.toNamed(AppRoutes.changePassword);
+
+  static startAccountAndSecurity() => Get.toNamed(AppRoutes.accountAndSecurity);
+
+  static startPhoneEmailChange({
+    PhoneEmailChangeType type = PhoneEmailChangeType.phone,
+  }) => Get.toNamed(AppRoutes.phoneEmailChange, arguments: {'type': type});
+
+  static startPhoneEmailChangeDetail({
+    PhoneEmailChangeType type = PhoneEmailChangeType.phone,
+  }) => Get.toNamed(AppRoutes.phoneEmailChangeDetail, arguments: {'type': type});
 
   static startAboutUs() => Get.toNamed(AppRoutes.aboutUs);
 

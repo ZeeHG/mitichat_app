@@ -48,6 +48,7 @@ class RegisterLogic extends GetxController {
 
   @override
   void onInit() {
+    _initData();
     phoneCtrl.addListener(_onChanged);
     emailCtrl.addListener(_onChanged);
     verificationCodeCtrl.addListener(_onChanged);
@@ -56,6 +57,16 @@ class RegisterLogic extends GetxController {
     pwdAgainCtrl.addListener(_onChanged);
     invitationCodeCtrl.addListener(_onChanged);
     super.onInit();
+  }
+
+  _initData() async {
+    var map = DataSp.getLoginAccount();
+    if (map is Map) {
+      String? areaCode = map["areaCode"];
+      if (areaCode != null && areaCode.isNotEmpty) {
+        this.areaCode.value = areaCode;
+      }
+    }
   }
 
   _onChanged() {
@@ -138,8 +149,7 @@ class RegisterLogic extends GetxController {
         IMViews.showToast(StrRes.plsEnterEmail);
         return false;
       }
-      if (email?.isNotEmpty == true &&
-          !email!.isEmail) {
+      if (email?.isNotEmpty == true && !email!.isEmail) {
         IMViews.showToast(StrRes.plsEnterRightEmail);
         return false;
       }

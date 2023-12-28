@@ -76,6 +76,9 @@ abstract class AppRoutes {
   static const createBot = '/create_bot';
   static const changeBotInfo = '/change_bot_info';
   static const trainingBot = '/training_bot';
+  static const accountAndSecurity = '/account_and_security';
+  static const phoneEmailChange = '/phone_email_change';
+  static const phoneEmailChangeDetail = '/phone_email_change_detail';
 }
 
 extension RoutesExtension on String {

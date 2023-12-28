@@ -285,4 +285,5 @@ class ImageRes {
   static const appTranslateLoading = "$_dir/app_translate_loading.gif";
   static const appAdd = "$_dir/app_add.png";
   static const appNotification = "$_dir/app_notification.png";
+  static const appSuccess = "$_dir/app_success.png";
 }

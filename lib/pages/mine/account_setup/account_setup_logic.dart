@@ -146,4 +146,6 @@ class AccountSetupLogic extends GetxController {
   void unlockSetup() => AppNavigator.startUnlockSetup();
 
   void changePwd() => AppNavigator.startChangePassword();
+
+  void goAccountAndSecurity() => AppNavigator.startAccountAndSecurity();
 }

@@ -697,5 +697,16 @@ const Map<String, String> zh_CN = {
   "phoneRegister": "手机注册",
   "emailRegister": "邮箱注册",
   "useEmailRegister": "使用邮箱注册",
-  "usePhoneRegister": "使用手机注册"
+  "usePhoneRegister": "使用手机注册",
+  "accountAndSecurity": "账号与安全",
+  "noBind": "暂无绑定信息",
+  "curBindPhone": "当前绑定手机号",
+  "curBindEmail": "当前绑定邮箱",
+  "changePhone": "更换手机号",
+  "changeEmail": "更换邮箱",
+  "changePhoneEmailTips": "更换后，可使用新%s登录当前账号",
+  "confirmChange": "确认更换",
+  "changeSuccess": "更换成功",
+  "changeSuccessTips": "更换%s后，需重新登陆",
+  "backLogin": "返回登录",
 };

@@ -367,6 +367,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       TextStyle? leftTitleStyle,
       String? result,
       Color? backgroundColor,
+      bool hideBack = false,
       this.overBottomBg,
       this.backIconColor,
       Widget? right,
@@ -380,7 +381,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
             child: (title ?? '').toText
               ..style = (titleStyle ?? Styles.ts_333333_18sp_medium)
               ..textAlign = TextAlign.center),
-        left = GestureDetector(
+        left = hideBack? null : GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: onTap ?? (() => Get.back(result: result)),
           child: Row(

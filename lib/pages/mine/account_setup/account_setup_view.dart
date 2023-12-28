@@ -73,10 +73,15 @@ class AccountSetupPage extends StatelessWidget {
                   isTopRadius: true,
                 ),
                 _buildItemView(
-                  label: StrRes.changePassword,
+                  label: StrRes.accountAndSecurity,
                   showRightArrow: true,
-                  onTap: logic.changePwd,
+                  onTap: logic.goAccountAndSecurity,
                 ),
+                // _buildItemView(
+                //   label: StrRes.changePassword,
+                //   showRightArrow: true,
+                //   onTap: logic.changePwd,
+                // ),
                 _buildItemView(
                   label: StrRes.clearChatHistory,
                   onTap: logic.clearChatHistory,

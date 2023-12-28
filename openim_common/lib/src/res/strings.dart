@@ -1267,4 +1267,15 @@ class StrRes {
   static String get emailRegister => 'emailRegister'.tr;
   static String get useEmailRegister => 'useEmailRegister'.tr;
   static String get usePhoneRegister => 'usePhoneRegister'.tr;
+  static String get accountAndSecurity => 'accountAndSecurity'.tr;
+  static String get noBind => 'noBind'.tr;
+  static String get curBindPhone => 'curBindPhone'.tr;
+  static String get curBindEmail => 'curBindEmail'.tr;
+  static String get changePhone => 'changePhone'.tr;
+  static String get changeEmail => 'changeEmail'.tr;
+  static String get changePhoneEmailTips => 'changePhoneEmailTips'.tr;
+  static String get confirmChange => 'confirmChange'.tr;
+  static String get changeSuccess => 'changeSuccess'.tr;
+  static String get changeSuccessTips => 'changeSuccessTips'.tr;
+  static String get backLogin => 'backLogin'.tr;
 }

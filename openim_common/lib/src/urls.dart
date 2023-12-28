@@ -8,6 +8,9 @@ class Urls {
   static final searchFriendInfo = "${Config.appAuthUrl}/friend/search";
   static final getUsersFullInfo = "${Config.appAuthUrl}/user/find/full";
   static final searchUserFullInfo = "${Config.appAuthUrl}/user/search/full";
+  static final updateEmail = "${Config.appAuthUrl}/account/update_email";
+  static final updatePhone = "${Config.appAuthUrl}/account/update_phone";
+  
 
   static final getVerificationCode = "${Config.appAuthUrl}/account/code/send";
   static final checkVerificationCode = "${Config.appAuthUrl}/account/code/verify";

@@ -612,4 +612,48 @@ class Apis {
       param[key] = value;
     }
   }
+
+  static Future<dynamic> updateEmail({
+    required String password,
+    required String verificationCode,
+    String? email,
+  }) async {
+    assert(email != null);
+    try {
+      var data = await HttpUtil.post(Urls.updateEmail, data: {
+        'email': email,
+        'verifyCode': verificationCode,
+        'password': IMUtils.generateMD5(password),
+        'platform': IMUtils.getPlatform(),
+        'operationID': HttpUtil.operationID,
+      }, options: chatTokenOptions,);
+      return data;
+    } catch (e, s) {
+      Logger.print('e:$e s:$s');
+      return Future.error(e);
+    }
+  }
+
+  static Future<dynamic> updatePhone({
+    required String password,
+    required String verificationCode,
+    String? areaCode,
+    String? phoneNumber,
+  }) async {
+    assert(phoneNumber != null);
+    try {
+      var data = await HttpUtil.post(Urls.updatePhone, data: {
+        'phoneNumber': phoneNumber,
+        'areaCode': areaCode,
+        'verifyCode': verificationCode,
+        'password': IMUtils.generateMD5(password),
+        'platform': IMUtils.getPlatform(),
+        'operationID': HttpUtil.operationID,
+      }, options: chatTokenOptions,);
+      return data;
+    } catch (e, s) {
+      Logger.print('e:$e s:$s');
+      return Future.error(e);
+    }
+  }
 }

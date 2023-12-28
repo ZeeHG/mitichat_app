@@ -11,8 +11,12 @@ class ForgetPasswordLogic extends GetxController {
   final areaCode = "+1".obs;
   final enabled = false.obs;
   final loginController = Get.find<LoginLogic>();
-  String? get email => loginController.operateType == LoginType.email ? phoneCtrl.text.trim() : null;
-  String? get phone => loginController.operateType == LoginType.phone ? phoneCtrl.text.trim() : null;
+  String? get email => loginController.operateType == LoginType.email
+      ? phoneCtrl.text.trim()
+      : null;
+  String? get phone => loginController.operateType == LoginType.phone
+      ? phoneCtrl.text.trim()
+      : null;
   @override
   void onClose() {
     phoneCtrl.dispose();
@@ -22,13 +26,25 @@ class ForgetPasswordLogic extends GetxController {
 
   @override
   void onInit() {
+    _initData();
     phoneCtrl.addListener(_onChanged);
     verificationCodeCtrl.addListener(_onChanged);
     super.onInit();
   }
 
   _onChanged() {
-    enabled.value = phoneCtrl.text.trim().isNotEmpty && verificationCodeCtrl.text.trim().isNotEmpty;
+    enabled.value = phoneCtrl.text.trim().isNotEmpty &&
+        verificationCodeCtrl.text.trim().isNotEmpty;
+  }
+
+  _initData() async {
+    var map = DataSp.getLoginAccount();
+    if (map is Map) {
+      String? areaCode = map["areaCode"];
+      if (areaCode != null && areaCode.isNotEmpty) {
+        this.areaCode.value = areaCode;
+      }
+    }
   }
 
   void openCountryCodePicker() async {
@@ -37,7 +53,8 @@ class ForgetPasswordLogic extends GetxController {
   }
 
   Future<bool> getVerificationCode() async {
-    if (phone?.isNotEmpty == true && !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
+    if (phone?.isNotEmpty == true &&
+        !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
       IMViews.showToast(StrRes.plsEnterRightPhone);
       return false;
     }

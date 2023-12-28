@@ -49,7 +49,8 @@ class MyInfoPage extends StatelessWidget {
                     _buildItemView(
                       label: StrRes.email,
                       value: imLogic.userInfo.value.email,
-                      onTap: logic.editEmail,
+                      // onTap: logic.editEmail,
+                      showRightArrow: false,
                     ),
                   ],
                 ),

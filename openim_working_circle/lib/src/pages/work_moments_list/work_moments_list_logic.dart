@@ -190,7 +190,8 @@ class WorkMomentsListLogic extends GetxController {
   void onInit() {
     userID = Get.arguments['userID'] /*?? OpenIM.iMManager.uid*/;
     nickname = Get.arguments['nickname'] ?? OpenIM.iMManager.userInfo.nickname;
-    faceURL = Get.arguments['faceURL'] ?? OpenIM.iMManager.userInfo.faceURL ?? "";
+    faceURL =
+        Get.arguments['faceURL'] ?? OpenIM.iMManager.userInfo.faceURL ?? "";
     wcBridge?.onRecvNewMessageForWorkingCircle = _recvNewMessage;
     WApis.getUnreadCount().then((value) => newMessageCount.value = value);
     opEventSub = wcBridge?.opEventSub.listen(_opEventListener);
@@ -204,7 +205,9 @@ class WorkMomentsListLogic extends GetxController {
 
   @override
   void onReady() {
-    queryWorkingCircleList();
+    LoadingView.singleton.wrap(
+      asyncFunction: () => queryWorkingCircleList(),
+    );
     super.onReady();
   }
 
