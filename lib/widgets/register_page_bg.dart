@@ -20,7 +20,7 @@ class RegisterBgView extends StatelessWidget {
               children: [
                 54.verticalSpace,
                 Padding(
-                  padding: EdgeInsets.only(left: 22.w),
+                  padding: EdgeInsets.only(left: 12.w),
                   child: ImageRes.backBlack.toImage
                     ..width = 24.w
                     ..height = 24.h
@@ -28,7 +28,7 @@ class RegisterBgView extends StatelessWidget {
                 ),
                 38.verticalSpace,
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 32.w),
+                  padding: EdgeInsets.symmetric(horizontal: 22.w),
                   child: child,
                 ),
               ],

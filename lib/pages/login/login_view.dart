@@ -81,12 +81,13 @@ class LoginPage extends StatelessWidget {
                       ],
                     )),
               ),
-              Divider(
-                color: Styles.c_707070.withOpacity(0.12),
-                height: 56,
-              ),
+              // Divider(
+              //   color: Styles.c_707070.withOpacity(0.12),
+              //   height: 56,
+              // ),
+              20.verticalSpace,
               Obx(() => Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 32),
+                  padding: EdgeInsets.symmetric(horizontal: 36.w),
                   child: Row(
                     children: [
                       Expanded(
@@ -105,8 +106,8 @@ class LoginPage extends StatelessWidget {
               32.verticalSpace,
               RichText(
                 text: TextSpan(
-                  text: StrRes.noAccountYet,
-                  style: Styles.ts_999999_12sp,
+                  // text: StrRes.noAccountYet,
+                  // style: Styles.ts_999999_12sp,
                   children: [
                     TextSpan(
                       text: StrRes.registerNow,
@@ -117,9 +118,6 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
               ),
-              32.verticalSpace,
-              Obx(() => logic.versionInfo.value.toText
-                ..style = Styles.ts_333333_14sp),
             ],
           ),
         ),

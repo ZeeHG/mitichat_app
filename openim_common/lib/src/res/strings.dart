@@ -1263,4 +1263,8 @@ class StrRes {
   static String get discoverTab => 'discoverTab'.tr;
   static String get friend => 'friend'.tr;
   static String get publishMoment => 'publishMoment'.tr;
+  static String get phoneRegister => 'phoneRegister'.tr;
+  static String get emailRegister => 'emailRegister'.tr;
+  static String get useEmailRegister => 'useEmailRegister'.tr;
+  static String get usePhoneRegister => 'usePhoneRegister'.tr;
 }

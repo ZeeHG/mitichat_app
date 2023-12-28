@@ -55,6 +55,7 @@ class Styles {
   static Color c_00CBC5 = const Color(0xFF00CBC5);
   static Color c_595EF9 = const Color(0xFF595EF9);
   static Color c_FEA836 = const Color(0xFFFEA836);
+    static Color c_CCCCCC = const Color(0xFFCCCCCC);
 
   // static Color c_E8EAEF_opacity30 = c_E8EAEF.withOpacity(.3); // 默认背景
 
@@ -450,6 +451,11 @@ class Styles {
     fontSize: 22.sp,
     fontWeight: FontWeight.w500,
   );
+  static TextStyle ts_333333_24sp_medium = TextStyle(
+    color: c_333333,
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w500,
+  );
 
   /// 8443F8
   static TextStyle ts_8443F8_10sp_semibold = TextStyle(
@@ -651,5 +657,11 @@ class Styles {
   static TextStyle ts_FC4D4D_16sp = TextStyle(
     color: c_FC4D4D,
     fontSize: 16.sp,
+  );
+
+  static TextStyle ts_CCCCCC_16sp = TextStyle(
+    color: c_CCCCCC,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w400,
   );
 }

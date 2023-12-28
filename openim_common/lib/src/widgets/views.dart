@@ -300,6 +300,7 @@ class IMViews {
     showCountryPicker(
       context: Get.context!,
       showPhoneCode: true,
+      // exclude: <String>['CN'],
       countryListTheme: CountryListThemeData(
         flagSize: 25,
         backgroundColor: Colors.white,

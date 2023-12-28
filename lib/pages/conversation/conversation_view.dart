@@ -165,13 +165,13 @@ class ConversationPage extends StatelessWidget {
                           //     offset: Offset(42.h, -2),
                           //     child: const RedDotView(),
                           //   ),
-                          Positioned(
-                              right: -7.w,
-                              top: -7.h,
-                              child: UnreadCountView(
-                                count: logic.getUnreadCount(info),
-                                size: 20,
-                              ))
+                          // Positioned(
+                          //     right: -7.w,
+                          //     top: -7.h,
+                          //     child: UnreadCountView(
+                          //       count: logic.getUnreadCount(info),
+                          //       size: 20,
+                          //     ))
                         ],
                       ),
                       12.horizontalSpace,
@@ -239,7 +239,11 @@ class ConversationPage extends StatelessWidget {
                                 if (logic.isNotDisturb(info))
                                   ImageRes.notDisturb.toImage
                                     ..width = 13.63.w
-                                    ..height = 14.07.h
+                                    ..height = 14.07.h,
+                                UnreadCountView(
+                                  count: logic.getUnreadCount(info),
+                                  size: 18,
+                                )
                                 // else
                                 //   UnreadCountView(
                                 //       count: logic.getUnreadCount(info)),

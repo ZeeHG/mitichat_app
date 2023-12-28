@@ -9,6 +9,7 @@ class Button extends StatelessWidget {
     this.enabled = true,
     this.enabledColor,
     this.disabledColor,
+    this.borderColor,
     this.radius,
     this.textStyle,
     this.disabledTextStyle,
@@ -20,6 +21,7 @@ class Button extends StatelessWidget {
   }) : super(key: key);
   final Color? enabledColor;
   final Color? disabledColor;
+  final Color? borderColor;
   final double? radius;
   final TextStyle? textStyle;
   final TextStyle? disabledTextStyle;
@@ -45,6 +47,7 @@ class Button extends StatelessWidget {
                 ? enabledColor ?? Styles.c_8443F8
                 : disabledColor ?? Styles.c_8443F8_opacity50,
             borderRadius: BorderRadius.circular(radius ?? 10.r),
+            border: Border.all(color: borderColor ?? Colors.transparent),
           ),
           child: InkWell(
             onTap: enabled ? onTap : null,

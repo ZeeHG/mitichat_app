@@ -224,7 +224,7 @@ class _InputBoxState extends State<InputBox> {
           // 6.verticalSpace,
           Container(
             height: 42.h,
-            padding: EdgeInsets.only(left: 12.w, right: 8.w),
+            padding: EdgeInsets.only(left: 0, right: 8.w),
             decoration: BoxDecoration(
               // border: Border.all(color: Styles.c_EAEAEA, width: 1),
               // borderRadius: BorderRadius.circular(8.r),
@@ -272,7 +272,7 @@ class _InputBoxState extends State<InputBox> {
           ],
           decoration: InputDecoration(
             hintText: widget.hintText,
-            hintStyle: widget.hintStyle ?? Styles.ts_999999_16sp,
+            hintStyle: widget.hintStyle ?? Styles.ts_CCCCCC_16sp,
             isDense: true,
             contentPadding: EdgeInsets.zero,
             border: InputBorder.none,

@@ -693,5 +693,9 @@ const Map<String, String> zh_CN = {
   "spanish": "西班牙语",
   "discoverTab": "发现",
   "friend": "朋友",
-  "publishMoment": "发表动态"
+  "publishMoment": "发表动态",
+  "phoneRegister": "手机注册",
+  "emailRegister": "邮箱注册",
+  "useEmailRegister": "使用邮箱注册",
+  "usePhoneRegister": "使用手机注册"
 };

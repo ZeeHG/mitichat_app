@@ -15,31 +15,67 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => RegisterBgView(
-        child: Column(
+        child: Obx(() => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            StrRes.newUserRegister.toText..style = Styles.ts_8443F8_22sp_semibold,
-            29.verticalSpace,
-            Obx(() => InputBox.account(
-                  label: logic.loginController.operateType.name,
-                  hintText: logic.loginController.operateType.hintText,
-                  code: logic.areaCode.value,
-                  onAreaCode: logic.loginController.operateType == LoginType.phone ? logic.openCountryCodePicker : null,
-                  controller: logic.phoneCtrl,
-                )),
+            (logic.phoneRegister? StrRes.phoneRegister : StrRes.emailRegister).toText..style = Styles.ts_333333_24sp_medium,
+            21.verticalSpace,
+            InputBox.account(
+              label: logic.operateType.value.name,
+              hintText: logic.operateType.value.hintText,
+              code: logic.areaCode.value,
+              onAreaCode: logic.phoneRegister ? logic.openCountryCodePicker : null,
+              controller: logic.phoneRegister ? logic.phoneCtrl : logic.emailCtrl,
+            ),
+            16.verticalSpace,
+            InputBox.verificationCode(
+              label: StrRes.verificationCode,
+              hintText: StrRes.plsEnterVerificationCode,
+              controller: logic.verificationCodeCtrl,
+              onSendVerificationCode: logic.getVerificationCode,
+            ),
+            16.verticalSpace,
+            InputBox(
+              label: StrRes.nickname,
+              hintText: StrRes.plsEnterYourNickname,
+              controller: logic.nicknameCtrl,
+            ),
+            16.verticalSpace,
+            InputBox.password(
+              label: StrRes.password,
+              hintText: StrRes.plsEnterPassword,
+              controller: logic.pwdCtrl,
+              formatHintText: StrRes.loginPwdFormat,
+              inputFormatters: [IMUtils.getPasswordFormatter()],
+            ),
+            16.verticalSpace,
+            InputBox.password(
+              label: StrRes.confirmPassword,
+              hintText: StrRes.plsConfirmPasswordAgain,
+              controller: logic.pwdAgainCtrl,
+              inputFormatters: [IMUtils.getPasswordFormatter()],
+            ),
             16.verticalSpace,
             InputBox.invitationCode(
               label: StrRes.invitationCode,
               hintText: sprintf(StrRes.plsEnterInvitationCode, [logic.needInvitationCodeRegister ? '' : '（${StrRes.optional}）']),
               controller: logic.invitationCodeCtrl,
             ),
-            130.verticalSpace,
-            Obx(() => Button(
-                  text: StrRes.nextStep,
-                  enabled: logic.enabled.value,
-                  onTap: logic.next,
-                )),
+            40.verticalSpace,
+            Button(
+              text: StrRes.register,
+              enabled: logic.enabled.value,
+              onTap: logic.register,
+            ),
+            10.verticalSpace,
+            Button(
+              text: logic.phoneRegister? StrRes.useEmailRegister : StrRes.usePhoneRegister,
+              textStyle: Styles.ts_333333_16sp,
+              enabledColor: Styles.c_FFFFFF,
+              borderColor: Styles.c_8443F8,
+              onTap: logic.switchType,
+            )
           ],
         ),
-      );
+      ));
 }
