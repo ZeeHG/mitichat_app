@@ -39,7 +39,8 @@ class AppView extends StatelessWidget {
         builder: (context, widget) {
           return MediaQuery(
             data: MediaQuery.of(context).copyWith(
-              textScaleFactor: Config.textScaleFactor,
+              // textScaleFactor: Config.textScaleFactor,
+              textScaler: TextScaler.linear(Config.textScaleFactor),
             ),
             child: widget!,
           );

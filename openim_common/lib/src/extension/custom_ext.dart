@@ -117,7 +117,8 @@ class TextView extends StatelessWidget {
           style: style,
           textAlign: textAlign,
           overflow: overflow,
-          textScaleFactor: textScaleFactor,
+          // textScaleFactor: textScaleFactor,
+          textScaler: TextScaler.linear(textScaleFactor ?? 1),
           maxLines: maxLines,
         ),
       );

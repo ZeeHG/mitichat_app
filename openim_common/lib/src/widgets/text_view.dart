@@ -66,7 +66,8 @@ class MatchTextView extends StatelessWidget {
         textAlign: textAlign,
         overflow: overflow,
         maxLines: maxLines,
-        textScaleFactor: textScaleFactor,
+        // textScaleFactor: textScaleFactor,
+        textScaler: TextScaler.linear(textScaleFactor ?? 1),
         text: textSpan,
       ),
     );
