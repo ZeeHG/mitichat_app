@@ -8,7 +8,7 @@ import '../login/login_logic.dart';
 class ForgetPasswordLogic extends GetxController {
   final phoneCtrl = TextEditingController();
   final verificationCodeCtrl = TextEditingController();
-  final areaCode = "+86".obs;
+  final areaCode = "+1".obs;
   final enabled = false.obs;
   final loginController = Get.find<LoginLogic>();
   String? get email => loginController.operateType == LoginType.email ? phoneCtrl.text.trim() : null;

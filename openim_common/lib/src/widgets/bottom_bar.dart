@@ -36,6 +36,7 @@ class BottomBar extends StatelessWidget {
         child: XGestureDetector(
           onDoubleTap: (_) => item.onDoubleClick?.call(i),
           onPointerDown: (_) => item.onClick?.call(i),
+          behavior: HitTestBehavior.translucent,
           child: Container(
             // color: Styles.c_000000,
             child: Column(

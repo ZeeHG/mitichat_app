@@ -13,7 +13,7 @@ class RegisterLogic extends GetxController {
   final phoneCtrl = TextEditingController();
   final emailCtrl = TextEditingController();
   final invitationCodeCtrl = TextEditingController();
-  final areaCode = "+86".obs;
+  final areaCode = "+1".obs;
   final enabled = false.obs;
   final loginController = Get.find<LoginLogic>();
   final verificationCodeCtrl = TextEditingController();

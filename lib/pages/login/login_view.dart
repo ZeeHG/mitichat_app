@@ -113,7 +113,7 @@ class LoginPage extends StatelessWidget {
                       text: StrRes.registerNow,
                       style: Styles.ts_8443F8_12sp,
                       recognizer: TapGestureRecognizer()
-                        ..onTap = _showRegisterBottomSheet,
+                        ..onTap = logic.registerNow,
                     )
                   ],
                 ),

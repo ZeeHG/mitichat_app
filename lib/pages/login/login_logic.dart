@@ -61,7 +61,7 @@ class LoginLogic extends GetxController {
   final verificationCodeCtrl = TextEditingController();
   final obscureText = true.obs;
   final enabled = false.obs;
-  final areaCode = "+86".obs;
+  final areaCode = "+1".obs;
   final isPasswordLogin = true.obs;
   final versionInfo = ''.obs;
   final loginType = LoginType.phone.obs;

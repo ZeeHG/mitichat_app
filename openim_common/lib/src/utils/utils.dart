@@ -174,7 +174,7 @@ class IMUtils {
     return exp.hasMatch(mobile);
   }
 
-  static bool isMobile(String areaCode, String mobile) => (areaCode == '+86' || areaCode == '86') ? isChinaMobile(mobile) : true;
+  static bool isMobile(String areaCode, String mobile) => (areaCode == '+1' || areaCode == '1') ? isChinaMobile(mobile) : true;
 
   /// 获取视频缩略图
   static Future<File> getVideoThumbnail(File file) async {
