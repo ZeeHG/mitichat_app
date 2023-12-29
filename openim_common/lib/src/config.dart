@@ -43,6 +43,8 @@ class Config {
   static late String cachePath;
   static const uiW = 375.0;
   static const uiH = 812.0;
+  static const uiW2 = 375.0;
+  static const uiH2 = 350.0;
 
   /// 默认公司配置
   static const String deptName = "miti";

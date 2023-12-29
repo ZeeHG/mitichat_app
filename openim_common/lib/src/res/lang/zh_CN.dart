@@ -709,4 +709,7 @@ const Map<String, String> zh_CN = {
   "changeSuccess": "更换成功",
   "changeSuccessTips": "更换%s后，需重新登陆",
   "backLogin": "返回登录",
+  "tts": "转文字",
+  "unTts": "取消转文字",
+  "hide": "隐藏"
 };

@@ -65,11 +65,14 @@ class LoginLogic extends GetxController {
   final isPasswordLogin = true.obs;
   final versionInfo = ''.obs;
   final loginType = LoginType.phone.obs;
-  String? get email => loginType.value == LoginType.email ? phoneCtrl.text.trim() : null;
-  String? get phone => loginType.value == LoginType.phone ? phoneCtrl.text.trim() : null;
+  String? get email =>
+      loginType.value == LoginType.email ? phoneCtrl.text.trim() : null;
+  String? get phone =>
+      loginType.value == LoginType.phone ? phoneCtrl.text.trim() : null;
   LoginType operateType = LoginType.phone;
   final agreePrivacy = false.obs;
   final translateLogic = Get.find<TranslateLogic>();
+  final ttsLogic = Get.find<TtsLogic>();
 
   _initData() async {
     var map = DataSp.getLoginAccount();
@@ -84,7 +87,8 @@ class LoginLogic extends GetxController {
       }
     }
 
-    loginType.value = (await DataSp.getLoginType()) == 0 ? LoginType.phone : LoginType.email;
+    loginType.value =
+        (await DataSp.getLoginType()) == 0 ? LoginType.phone : LoginType.email;
   }
 
   @override
@@ -111,8 +115,12 @@ class LoginLogic extends GetxController {
   }
 
   _onChanged() {
-    enabled.value = isPasswordLogin.value && phoneCtrl.text.trim().isNotEmpty && pwdCtrl.text.trim().isNotEmpty ||
-        !isPasswordLogin.value && phoneCtrl.text.trim().isNotEmpty && verificationCodeCtrl.text.trim().isNotEmpty;
+    enabled.value = isPasswordLogin.value &&
+            phoneCtrl.text.trim().isNotEmpty &&
+            pwdCtrl.text.trim().isNotEmpty ||
+        !isPasswordLogin.value &&
+            phoneCtrl.text.trim().isNotEmpty &&
+            verificationCodeCtrl.text.trim().isNotEmpty;
   }
 
   login() {
@@ -128,7 +136,8 @@ class LoginLogic extends GetxController {
 
   Future<bool> _login() async {
     try {
-      if (phone?.isNotEmpty == true && !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
+      if (phone?.isNotEmpty == true &&
+          !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
         IMViews.showToast(StrRes.plsEnterRightPhone);
         return false;
       }
@@ -146,13 +155,17 @@ class LoginLogic extends GetxController {
         password: isPasswordLogin.value ? password : null,
         verificationCode: isPasswordLogin.value ? null : code,
       );
-      final account = {"areaCode": areaCode.value, "phoneNumber": phoneCtrl.text};
+      final account = {
+        "areaCode": areaCode.value,
+        "phoneNumber": phoneCtrl.text
+      };
       await DataSp.putLoginCertificate(data);
       await DataSp.putLoginAccount(account);
       Logger.print('login : ${data.userID}, token: ${data.imToken}');
       await imLogic.login(data.userID, data.imToken);
       Logger.print('im login success');
       translateLogic.init(data.userID);
+      ttsLogic.init(data.userID);
       pushLogic.login(data.userID);
       Logger.print('push login success');
       return true;
@@ -177,7 +190,8 @@ class LoginLogic extends GetxController {
   }
 
   Future<bool> getVerificationCode() async {
-    if (phone?.isNotEmpty == true && !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
+    if (phone?.isNotEmpty == true &&
+        !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
       IMViews.showToast(StrRes.plsEnterRightPhone);
       return false;
     }

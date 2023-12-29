@@ -121,5 +121,6 @@ export 'src/widgets/triangle_container.dart';
 export 'utils/showMyToast.dart';
 export 'utils/logger.dart';
 export 'utils/translateLogic.dart';
+export 'utils/ttsLogic.dart';
 export 'utils/betaTestLogic.dart';
 export 'utils/appCommonLogic.dart';

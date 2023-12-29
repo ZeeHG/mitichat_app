@@ -47,4 +47,7 @@ class Urls {
   static final getTranslateConfig = "${Config.appAuthUrl}/translate/config/get";
 
   static final setTranslateConfig = "${Config.appAuthUrl}/translate/config/set";
+
+  // tts
+  static final tts = "${Config.appAuthUrl}/transcribe/url";
 }

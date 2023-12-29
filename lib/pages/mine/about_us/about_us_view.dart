@@ -22,6 +22,7 @@ import 'about_us_logic.dart';
 class AboutUsPage extends StatelessWidget {
   final logic = Get.find<AboutUsLogic>();
   final translateLogic = Get.find<TranslateLogic>();
+  final ttsLogic = Get.find<TtsLogic>();
   final betaTestLogic = Get.find<BetaTestLogic>();
   static final ImagePicker picker = ImagePicker();
 
@@ -452,6 +453,27 @@ class AboutUsPage extends StatelessWidget {
                                   children: [
                                     Text(
                                       "打开相册",
+                                      style: Styles.ts_333333_16sp,
+                                    ),
+                                    const Spacer(),
+                                    ImageRes.appRightArrow.toImage
+                                      ..width = 24.w
+                                      ..height = 24.h,
+                                  ],
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: () =>
+                                  ttsLogic.clearAllTtsMsgCache(),
+                              child: Container(
+                                height: 57.h,
+                                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "清除tts缓存",
                                       style: Styles.ts_333333_16sp,
                                     ),
                                     const Spacer(),

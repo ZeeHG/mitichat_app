@@ -79,6 +79,7 @@ class InitBinding extends Bindings {
     Get.put<CacheController>(CacheController());
     Get.put<DownloadController>(DownloadController());
     Get.put(TranslateLogic());
+    Get.put(TtsLogic());
     Get.put(BetaTestLogic());
   }
 }

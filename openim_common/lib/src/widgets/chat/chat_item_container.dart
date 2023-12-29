@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
@@ -29,6 +30,7 @@ class ChatItemContainer extends StatelessWidget {
     required this.child,
     this.quoteView,
     this.translateView,
+    this.ttsView,
     this.readStatusView,
     this.voiceReadStatusView,
     this.popupMenuController,
@@ -64,6 +66,7 @@ class ChatItemContainer extends StatelessWidget {
   final Widget child;
   final Widget? quoteView;
   final Widget Function({String? text, required String status})? translateView;
+  final Widget Function({String? text, required String status})? ttsView;
   final Widget? readStatusView;
   final Widget? voiceReadStatusView;
   final CustomPopupMenuController? popupMenuController;
@@ -76,6 +79,7 @@ class ChatItemContainer extends StatelessWidget {
   final Function()? onStartDestroy;
   final Function()? onFailedToResend;
   final translateLogic = Get.find<TranslateLogic>();
+  final ttsLogic = Get.find<TtsLogic>();
 
   String? get translateText {
     final msgTranslate = translateLogic.msgTranslate?[id];
@@ -93,6 +97,24 @@ class ChatItemContainer extends StatelessWidget {
         null != translateStatus &&
         (null != translateText && translateStatus == "show" ||
             ["loading", "fail"].contains(translateStatus));
+  }
+
+  String? get ttsText {
+    final msgTts = ttsLogic.msgTts?[id];
+    return null != msgTts && null != msgTts["ttsText"]
+        ? msgTts["ttsText"]
+        : null;
+  }
+
+  String? get ttsStatus {
+    return ttsLogic.msgTts[id]?["status"];
+  }
+
+  bool get ttsShow {
+    return null != ttsView &&
+        null != ttsStatus &&
+        (null != ttsText && ttsStatus == "show" ||
+            ["loading", "fail"].contains(ttsStatus));
   }
 
   @override
@@ -188,6 +210,7 @@ class ChatItemContainer extends StatelessWidget {
                   if (null != voiceReadStatusView) voiceReadStatusView!,
                 ],
               ),
+              if (ttsShow) ttsView!(text: ttsText, status: ttsStatus!),
               if (translateShow) translateView!(text: translateText, status: translateStatus!),
               if (null != quoteView) quoteView!,
             ],
@@ -233,6 +256,7 @@ class ChatItemContainer extends StatelessWidget {
                   _buildChildView(BubbleType.send),
                 ],
               ),
+              if (ttsShow) ttsView!(text: ttsText, status: ttsStatus!),
               if (translateShow) translateView!(text: translateText, status: translateStatus!),
               if (null != quoteView) quoteView!,
               // if (null != readStatusView) readStatusView!,

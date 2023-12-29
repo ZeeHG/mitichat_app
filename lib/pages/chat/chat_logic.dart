@@ -57,6 +57,7 @@ class ChatLogic extends GetxController {
   final sendProgressSub = BehaviorSubject<MsgStreamEv<int>>();
   final downloadProgressSub = PublishSubject<MsgStreamEv<double>>();
   final translateLogic = Get.find<TranslateLogic>();
+  final ttsLogic = Get.find<TtsLogic>();
   final hadTranslateMessageList = <Message>[].obs;
   final showEncryptTips = false.obs;
   late StreamSubscription ccSub;
@@ -1504,6 +1505,40 @@ class ChatLogic extends GetxController {
     translateLogic.updateMsgAllTranslate(message, {"status": "hide"});
   }
 
+  void tts(Message message) async {
+    final ttsCache = ttsLogic.msgTts[message.clientMsgID]?["ttsText"];
+    if (null != ttsCache) {
+      ttsLogic.updateMsgAllTts(message, {"status": "show"});
+      return;
+    }
+    String? origin = message.soundElem?.sourceUrl;
+    // myLogger.e(json.encode(message.soundElem?.sourceUrl));
+    if (null != origin) {
+      try {
+        ttsLogic.updateMsgAllTts(message, {"status": "loading"});
+        final result = await Apis.tts(url: origin);
+        updateMsgTts(
+            message: message,
+            origin: origin,
+            clientMsgID: message.clientMsgID!,
+            ttsText: result["content"],
+            status: "show");
+      } catch (e) {
+        ttsLogic.updateMsgAllTts(message, {"status": "fail"});
+      }
+    } else {
+      myLogger.e({
+        "message": "文本转语音message, 获取不到音频",
+        "data": {"message": json.encode(message)}
+      });
+      IMViews.showToast(StrRes.noWorking);
+    }
+  }
+
+  void unTts(Message message) {
+    ttsLogic.updateMsgAllTts(message, {"status": "hide"});
+  }
+
   updateMsgTranslate(
       {required Message message,
       required String targetLang,
@@ -1514,6 +1549,20 @@ class ChatLogic extends GetxController {
     translateLogic.updateMsgAllTranslate(message, {
       "targetLang": targetLang,
       targetLang: content,
+      "origin": origin,
+      "clientMsgID": clientMsgID,
+      "status": status
+    });
+  }
+
+  updateMsgTts(
+      {required Message message,
+      required String origin,
+      required String ttsText,
+      required String clientMsgID,
+      required String status}) {
+    ttsLogic.updateMsgAllTts(message, {
+      "ttsText": ttsText,
       "origin": origin,
       "clientMsgID": clientMsgID,
       "status": status
@@ -2353,6 +2402,17 @@ class ChatLogic extends GetxController {
             message.isAtTextType ||
             message.isQuoteType) &&
         (status == "show");
+  }
+
+  bool showTtsMenu(Message message) {
+    final status = ttsLogic.msgTts[message.clientMsgID]?["status"];
+    return (message.isVoiceType) &&
+        (null == status || ["hide", "loading", "fail"].contains(status));
+  }
+
+  bool showUnTtsMenu(Message message) {
+    final status = ttsLogic.msgTts[message.clientMsgID]?["status"];
+    return message.isVoiceType && status == "show";
   }
 
   /// 复制菜单

@@ -1278,4 +1278,7 @@ class StrRes {
   static String get changeSuccess => 'changeSuccess'.tr;
   static String get changeSuccessTips => 'changeSuccessTips'.tr;
   static String get backLogin => 'backLogin'.tr;
+  static String get tts => 'tts'.tr;
+  static String get unTts => 'unTts'.tr;
+  static String get hide => 'hide'.tr;
 }

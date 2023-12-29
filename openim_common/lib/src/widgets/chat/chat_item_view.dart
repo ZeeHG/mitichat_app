@@ -103,6 +103,8 @@ class ChatItemView extends StatefulWidget {
     this.showRightNickname = false,
     this.enabledTranslateMenu = false,
     this.enabledUnTranslateMenu = false,
+    this.enabledTtsMenu = false,
+    this.enabledUnTtsMenu = false,
     this.onTapAddEmojiMenu,
     this.highlightColor,
     this.allAtMap = const {},
@@ -120,6 +122,8 @@ class ChatItemView extends StatefulWidget {
     this.onTapRevokeMenu,
     this.onTapTranslateMenu,
     this.onTapUnTranslateMenu,
+    this.onTapTtsMenu,
+    this.onTapUnTtsMenu,
     this.onVisibleTrulyText,
     this.onPopMenuShowChanged,
     this.onTapQuoteMessage,
@@ -183,6 +187,8 @@ class ChatItemView extends StatefulWidget {
   final bool showRightNickname;
   final bool enabledTranslateMenu;
   final bool enabledUnTranslateMenu;
+  final bool enabledTtsMenu;
+  final bool enabledUnTtsMenu;
 
   ///
   final Color? highlightColor;
@@ -197,6 +203,8 @@ class ChatItemView extends StatefulWidget {
   final Function()? onTapDelMenu;
   final Function()? onTapTranslateMenu;
   final Function()? onTapUnTranslateMenu;
+  final Function()? onTapTtsMenu;
+  final Function()? onTapUnTtsMenu;
   final Function()? onTapForwardMenu;
   final Function()? onTapReplyMenu;
   final Function()? onTapRevokeMenu;
@@ -508,6 +516,7 @@ class _ChatItemViewState extends State<ChatItemView> {
       onTapRightAvatar: widget.onTapRightAvatar,
       quoteView: _quoteMsgView,
       translateView: _translateView,
+      ttsView: _ttsView,
       readStatusView: _readStatusView,
       voiceReadStatusView: _voiceReadStatusView,
       child: GestureDetector(
@@ -590,6 +599,68 @@ class _ChatItemViewState extends State<ChatItemView> {
           );
   }
 
+  Widget _ttsView({String? text, required String status}) {
+    List<MenuInfo> _ttsMenusItem = [];
+    if (null != text && status == "show") {
+      _ttsMenusItem = [
+        MenuInfo(
+          icon: ImageRes.menuCopy,
+          text: StrRes.menuCopy,
+          enabled: true,
+          onTap: () => IMUtils.copy(text: text),
+        )
+      ];
+    }
+    return status == "loading"
+        ? Container(
+            margin: EdgeInsets.only(top: 4.h),
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
+            height: 42.h,
+            alignment: Alignment.centerLeft,
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              color: Styles.c_FFFFFF,
+              borderRadius: borderRadius(_isISend),
+            ),
+            child: ImageRes.appTranslateLoading.toImage..height = 24.h,
+          )
+        : Container(
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+            margin: EdgeInsets.only(top: 4.h),
+            // constraints: BoxConstraints(maxWidth: maxWidth),
+            decoration: BoxDecoration(
+              color: _isISend ? Styles.c_8443F8 : Styles.c_FFFFFF,
+              borderRadius: borderRadius(_isISend),
+            ),
+            child: status == "fail"
+                ? ChatText(
+                    text: StrRes.translateFail,
+                    textStyle: Styles.ts_FF4E4C_16sp,
+                    patterns: widget.patterns,
+                    textScaleFactor: widget.textScaleFactor,
+                    // onVisibleTrulyText: widget.onVisibleTrulyText,
+                    isISend: _isISend,
+                  )
+                : CopyCustomPopupMenu(
+                    controller: _popupTranslateMenuCtrl,
+                    menuBuilder: () => ChatLongPressMenu(
+                      popupMenuController: _popupTranslateMenuCtrl,
+                      menus: _ttsMenusItem,
+                    ),
+                    pressType: PressType.longPress,
+                    arrowColor: Styles.c_333333_opacity85,
+                    barrierColor: Colors.transparent,
+                    verticalMargin: 0,
+                    child: ChatText(
+                            text: status == "show" ? text! : "",
+                            patterns: widget.patterns,
+                            textScaleFactor: widget.textScaleFactor,
+                            isISend: _isISend,
+                          ),
+                  ),
+          );
+  }
+
   Widget? get _readStatusView => widget.enabledReadStatus &&
           _isISend &&
           _message.status == MessageStatus.succeeded
@@ -627,6 +698,20 @@ class _ChatItemViewState extends State<ChatItemView> {
             text: StrRes.unTranslate,
             enabled: widget.enabledUnTranslateMenu,
             onTap: widget.onTapUnTranslateMenu,
+          ),
+        if (widget.enabledTtsMenu)
+          MenuInfo(
+            icon: ImageRes.appMenuTranslate,
+            text: StrRes.tts,
+            enabled: widget.enabledTtsMenu,
+            onTap: widget.onTapTtsMenu,
+          ),
+        if (widget.enabledUnTtsMenu)
+          MenuInfo(
+            icon: ImageRes.appMenuUnTranslate,
+            text: StrRes.unTts,
+            enabled: widget.enabledUnTtsMenu,
+            onTap: widget.onTapUnTtsMenu,
           ),
         if (widget.enabledForwardMenu)
           MenuInfo(

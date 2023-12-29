@@ -57,7 +57,9 @@ dependencies:
   wechat_assets_picker: ^8.4.0
   wechat_camera_picker: ^4.0.2
   extended_image: ^8.2.0
-  flutter_screenutil: ^5.7.0
+  flutter_screenutil: ^5.9.0
+  # flutter_screenutil:
+  #   git: https://github.com/OpenFlutter/flutter_screenutil.git
   country_picker: ^2.0.20
   image_gallery_saver: ^2.0.3
   file_picker: ^6.1.1

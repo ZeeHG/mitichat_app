@@ -656,4 +656,21 @@ class Apis {
       return Future.error(e);
     }
   }
+
+  // tts
+  static Future<dynamic> tts({required String url}) async {
+    Map<String, dynamic> param = {
+      'url': url,
+    };
+
+    return HttpUtil.post(
+      Urls.tts,
+      data: {
+        ...param,
+        'platform': IMUtils.getPlatform(),
+        'operationID': HttpUtil.operationID,
+      },
+      options: chatTokenOptions,
+    );
+  }
 }

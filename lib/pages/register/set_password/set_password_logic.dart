@@ -20,6 +20,7 @@ class SetPasswordLogic extends GetxController {
   late String verificationCode;
   String? invitationCode;
   final translateLogic = Get.find<TranslateLogic>();
+  final ttsLogic = Get.find<TtsLogic>();
 
   @override
   void onClose() {
@@ -44,7 +45,9 @@ class SetPasswordLogic extends GetxController {
   }
 
   _onChanged() {
-    enabled.value = nicknameCtrl.text.trim().isNotEmpty && pwdCtrl.text.trim().isNotEmpty && pwdAgainCtrl.text.trim().isNotEmpty;
+    enabled.value = nicknameCtrl.text.trim().isNotEmpty &&
+        pwdCtrl.text.trim().isNotEmpty &&
+        pwdAgainCtrl.text.trim().isNotEmpty;
   }
 
   bool _checkingInput() {
@@ -93,17 +96,23 @@ class SetPasswordLogic extends GetxController {
         verificationCode: verificationCode,
         invitationCode: invitationCode,
       );
-      if (null == IMUtils.emptyStrToNull(data.imToken) || null == IMUtils.emptyStrToNull(data.chatToken)) {
+      if (null == IMUtils.emptyStrToNull(data.imToken) ||
+          null == IMUtils.emptyStrToNull(data.chatToken)) {
         AppNavigator.startLogin();
         return;
       }
-      final account = {"areaCode": areaCode, "phoneNumber": phoneNumber, 'email': email};
+      final account = {
+        "areaCode": areaCode,
+        "phoneNumber": phoneNumber,
+        'email': email
+      };
       await DataSp.putLoginCertificate(data);
       await DataSp.putLoginAccount(account);
       DataSp.putLoginType(email != null ? 1 : 0);
       await imLogic.login(data.userID, data.imToken);
       Logger.print('---------im login success-------');
       translateLogic.init(data.userID);
+      ttsLogic.init(data.userID);
       pushLogic.login(data.userID);
       Logger.print('---------jpush login success----');
     });

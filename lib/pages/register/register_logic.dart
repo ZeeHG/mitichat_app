@@ -24,6 +24,7 @@ class RegisterLogic extends GetxController {
   final imLogic = Get.find<IMController>();
   final pushLogic = Get.find<PushController>();
   final translateLogic = Get.find<TranslateLogic>();
+  final ttsLogic = Get.find<TtsLogic>();
 
   bool get phoneRegister => operateType.value == LoginType.phone;
   String? get email => !phoneRegister ? emailCtrl.text.trim() : null;
@@ -228,6 +229,7 @@ class RegisterLogic extends GetxController {
         await imLogic.login(data.userID, data.imToken);
         Logger.print('---------im login success-------');
         translateLogic.init(data.userID);
+        ttsLogic.init(data.userID);
         pushLogic.login(data.userID);
         Logger.print('---------jpush login success----');
       });
