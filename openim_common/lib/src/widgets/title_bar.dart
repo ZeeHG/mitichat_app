@@ -133,7 +133,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
             )),
         bottom = Positioned(
           top: (mq?.padding.top ?? 30.h) + 55.h,
-          child: FakeSearchBox(onTap: onClickSearch, color: Styles.c_FFFFFF,),
+          child: FakeSearchBox(onTap: onClickSearch, color: Styles.c_FFFFFF, borderRadius: 18.r),
         ),
         left = SizedBox(width: 28.w),
         center = Expanded(
@@ -218,7 +218,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
         bottom = showBottom
             ? Positioned(
                 top: (mq?.padding.top ?? 30.h) + 55.h,
-                child: FakeSearchBox(),
+                child: FakeSearchBox(borderRadius: 18.r,),
               )
             : null,
         left = Container(
@@ -462,7 +462,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
             )),
         bottom = Positioned(
           top: (mq?.padding.top ?? 30.h) + 55.h,
-          child: FakeSearchBox(onTap: onClickSearch),
+          child: FakeSearchBox(onTap: onClickSearch, borderRadius: 18.r,),
         ),
         center = Expanded(
               child: Center(

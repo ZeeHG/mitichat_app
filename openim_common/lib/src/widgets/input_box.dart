@@ -228,8 +228,7 @@ class _InputBoxState extends State<InputBox> {
             decoration: BoxDecoration(
               // border: Border.all(color: Styles.c_EAEAEA, width: 1),
               // borderRadius: BorderRadius.circular(8.r),
-              border:
-                  Border(bottom: BorderSide(color: Styles.c_EAEAEA, width: widget.border? 1.h : 0)),
+              border: widget.border? Border(bottom: BorderSide(color: Styles.c_EAEAEA, width: 1.h)) : Border(bottom: BorderSide.none),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,

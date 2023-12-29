@@ -13,7 +13,6 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size screenSize = MediaQuery.of(context).size;
     return GetBuilder<AppController>(
       init: AppController(),
       builder: (ctrl) => FocusDetector(
@@ -27,7 +26,7 @@ class AppView extends StatelessWidget {
           appCommonLogic.setForeground(false);
         },
         child: ScreenUtilInit(
-          designSize: !(screenSize.aspectRatio >= 0.9 && screenSize.aspectRatio <= 1.1)? const Size(Config.uiW, Config.uiH) : const Size(Config.uiW2, Config.uiH2),
+          designSize: const Size(Config.uiW, Config.uiH),
           minTextAdapt: true,
           splitScreenMode: true,
           builder: (_, child) => builder(ctrl.getLocale(), _builder()),

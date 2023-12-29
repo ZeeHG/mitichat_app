@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:openim/core/controller/im_controller.dart';
 import 'package:openim_common/openim_common.dart';
+import 'package:sprintf/sprintf.dart';
 
 import 'phone_email_change_logic.dart';
 
@@ -20,6 +21,7 @@ class PhoneEmailChangePage extends StatelessWidget {
       backgroundColor: Styles.c_FFFFFF,
       body: Obx(() => Container(
         width: 1.sw,
+        padding: EdgeInsets.symmetric(horizontal: 12.w),
         child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -35,7 +37,10 @@ class PhoneEmailChangePage extends StatelessWidget {
           50.verticalSpace,
           Button(
             width: 1.sw - 86.w,
-            text: logic.isPhone? StrRes.changePhone : StrRes.changeEmail,
+            text: logic.isPhone && (imLogic.userInfo.value.phoneNumber?.isNotEmpty ?? false)? StrRes.changePhone : 
+                  logic.isPhone && (imLogic.userInfo.value.phoneNumber?.isEmpty ?? true)? StrRes.bindPhone : 
+                  !logic.isPhone && (imLogic.userInfo.value.email?.isNotEmpty ?? false)? StrRes.changeEmail : 
+                  StrRes.bindEmail,
             onTap: logic.phoneEmailChangeDetail,
           )
         ]

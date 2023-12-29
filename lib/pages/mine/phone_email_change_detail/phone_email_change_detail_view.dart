@@ -28,52 +28,119 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
               children: [
                 if (!logic.success.value) ...[
                   43.verticalSpace,
-                  (logic.isPhone ? StrRes.changePhone : StrRes.changeEmail)
+                  (logic.isPhone && (imLogic.userInfo.value.phoneNumber?.isNotEmpty ?? false)? StrRes.changePhone : 
+                  logic.isPhone && (imLogic.userInfo.value.phoneNumber?.isEmpty ?? true)? StrRes.bindPhone : 
+                  !logic.isPhone && (imLogic.userInfo.value.email?.isNotEmpty ?? false)? StrRes.changeEmail : 
+                  StrRes.bindEmail)
                       .toText
                     ..style = Styles.ts_333333_20sp_medium,
-                  10.verticalSpace,
-                  sprintf(StrRes.changePhoneEmailTips, [
-                    logic.isPhone ? StrRes.phoneNumber : StrRes.email
-                  ]).toText
-                    ..style = Styles.ts_999999_16sp,
                   26.verticalSpace,
-                  InputBox.account(
-                    label: logic.type.value.name,
-                    hintText: logic.type.value.hintText,
-                    code: logic.areaCode.value,
-                    onAreaCode:
-                        logic.isPhone ? logic.openCountryCodePicker : null,
-                    controller:
-                        logic.isPhone ? logic.phoneCtrl : logic.emailCtrl,
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom:
+                                BorderSide(width: 1.h, color: Styles.c_F1F2F6),
+                            top: BorderSide(
+                                width: 1.h, color: Styles.c_F1F2F6))),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 100.w,
+                          child: (logic.isPhone? StrRes.phoneNumber : StrRes.email).toText
+                            ..style = Styles.ts_333333_16sp
+                            ..maxLines = 1
+                            ..overflow = TextOverflow.ellipsis,
+                        ),
+                        10.horizontalSpace,
+                        Expanded(
+                            child: InputBox.account(
+                                label: logic.type.value.name,
+                                hintText: logic.type.value.hintText,
+                                code: logic.areaCode.value,
+                                onAreaCode: logic.isPhone
+                                    ? logic.openCountryCodePicker
+                                    : null,
+                                controller: logic.isPhone
+                                    ? logic.phoneCtrl
+                                    : logic.emailCtrl,
+                                border: false))
+                      ],
+                    ),
                   ),
-                  InputBox.verificationCode(
-                    label: StrRes.verificationCode,
-                    hintText: StrRes.plsEnterVerificationCode,
-                    controller: logic.verificationCodeCtrl,
-                    onSendVerificationCode: logic.getVerificationCode,
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    decoration: BoxDecoration(
+                        border: Border(
+                      bottom: BorderSide(width: 1.h, color: Styles.c_F1F2F6),
+                    )),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 100.w,
+                          child: StrRes.verificationCode.toText
+                            ..style = Styles.ts_333333_16sp
+                            ..maxLines = 1
+                            ..overflow = TextOverflow.ellipsis,
+                        ),
+                        10.horizontalSpace,
+                        Expanded(
+                            child: InputBox.verificationCode(
+                                label: StrRes.verificationCode,
+                                hintText: StrRes.plsEnterVerificationCode,
+                                controller: logic.verificationCodeCtrl,
+                                onSendVerificationCode:
+                                    logic.getVerificationCode,
+                                border: false))
+                      ],
+                    ),
                   ),
-                  InputBox.password(
-                    label: StrRes.password,
-                    hintText: StrRes.plsEnterPassword,
-                    controller: logic.pwdCtrl,
-                    inputFormatters: [IMUtils.getPasswordFormatter()],
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    decoration: BoxDecoration(
+                        border: Border(
+                      bottom: BorderSide(width: 1.h, color: Styles.c_F1F2F6),
+                    )),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 100.w,
+                          child: StrRes.password.toText
+                            ..style = Styles.ts_333333_16sp
+                            ..maxLines = 1
+                            ..overflow = TextOverflow.ellipsis,
+                        ),
+                        10.horizontalSpace,
+                        Expanded(
+                            child: InputBox.password(
+                                label: StrRes.password,
+                                hintText: StrRes.plsEnterPassword,
+                                controller: logic.pwdCtrl,
+                                inputFormatters: [
+                                  IMUtils.getPasswordFormatter()
+                                ],
+                                border: false))
+                      ],
+                    ),
                   ),
                   49.verticalSpace,
                   Button(
                     width: 1.sw - 86.w,
-                    text: StrRes.confirmChange,
+                    text: StrRes.confirm,
                     onTap: logic.updateInfo,
                   )
                 ],
                 if (logic.success.value) ...[
                   45.verticalSpace,
-                  ImageRes.appSuccess.toImage..width=60.w..height=60.h,
+                  ImageRes.appSuccess.toImage
+                    ..width = 60.w
+                    ..height = 60.h,
                   25.verticalSpace,
-                  StrRes.changeSuccess.toText..style=Styles.ts_333333_20sp_medium,
+                  StrRes.success.toText
+                    ..style = Styles.ts_333333_20sp_medium,
                   10.verticalSpace,
-                  sprintf(StrRes.changeSuccessTips, [
-                    logic.isPhone ? StrRes.phoneNumber : StrRes.email
-                  ]).toText..style=Styles.ts_999999_16sp,
+                  StrRes.changeSuccessTips.toText
+                    ..style = Styles.ts_999999_16sp,
                   45.verticalSpace,
                   Button(
                     width: 1.sw - 86.w,

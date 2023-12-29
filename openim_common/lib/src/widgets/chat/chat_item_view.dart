@@ -544,7 +544,13 @@ class _ChatItemViewState extends State<ChatItemView> {
           text: StrRes.menuCopy,
           enabled: true,
           onTap: () => IMUtils.copy(text: text),
-        )
+        ),
+        MenuInfo(
+            icon: ImageRes.appMenuUnTranslate,
+            text: StrRes.unTranslate,
+            enabled: widget.enabledUnTranslateMenu,
+            onTap: widget.onTapUnTranslateMenu,
+          ),
       ];
     }
     return status == "loading"
@@ -608,7 +614,19 @@ class _ChatItemViewState extends State<ChatItemView> {
           text: StrRes.menuCopy,
           enabled: true,
           onTap: () => IMUtils.copy(text: text),
-        )
+        ),
+        MenuInfo(
+          icon: ImageRes.appMenuUnTts,
+          text: StrRes.hide,
+          enabled: widget.enabledUnTtsMenu,
+          onTap: widget.onTapUnTtsMenu,
+        ),
+        // MenuInfo(
+        //     icon: ImageRes.menuForward,
+        //     text: StrRes.menuForward,
+        //     enabled: true,
+        //     onTap: widget.onTapForwardMenu,
+        //   )
       ];
     }
     return status == "loading"
@@ -701,15 +719,15 @@ class _ChatItemViewState extends State<ChatItemView> {
           ),
         if (widget.enabledTtsMenu)
           MenuInfo(
-            icon: ImageRes.appMenuTranslate,
+            icon: ImageRes.appMenuTts,
             text: StrRes.tts,
             enabled: widget.enabledTtsMenu,
             onTap: widget.onTapTtsMenu,
           ),
         if (widget.enabledUnTtsMenu)
           MenuInfo(
-            icon: ImageRes.appMenuUnTranslate,
-            text: StrRes.unTts,
+            icon: ImageRes.appMenuUnTts,
+            text: StrRes.hide,
             enabled: widget.enabledUnTtsMenu,
             onTap: widget.onTapUnTtsMenu,
           ),

@@ -39,20 +39,20 @@ class CustomTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return IntrinsicWidth(
       child: Container(
-      // width: width,
-      constraints: BoxConstraints(minWidth: width ?? 110.w),
-      decoration: BoxDecoration(
-        color: this.bgColor ?? Styles.c_FFFFFF,
-        border: showUnderline
-            ? BorderDirectional(
-                bottom: BorderSide(color: Styles.c_E8EAEF, width: 1.h))
-            : null,
+        // width: width,
+        constraints: BoxConstraints(minWidth: width ?? 110.w),
+        decoration: BoxDecoration(
+          color: this.bgColor ?? Styles.c_FFFFFF,
+          border: showUnderline
+              ? BorderDirectional(
+                  bottom: BorderSide(color: Styles.c_E8EAEF, width: 1.h))
+              : null,
+        ),
+        child: Row(
+          children: List.generate(labels.length, (i) => _buildItemView(i)),
+        ),
       ),
-      child: Row(
-        children: List.generate(labels.length, (i) => _buildItemView(i)),
-      ),
-    ),
-    ) ;
+    );
   }
 
   Widget _buildItemView(int i) => Expanded(
@@ -63,13 +63,15 @@ class CustomTabBar extends StatelessWidget {
           behavior: HitTestBehavior.translucent,
           child: Container(
             height: height ?? 40.h,
-            margin: EdgeInsets.only(left: i !=0? 5.w : 0),
+            margin: EdgeInsets.only(left: i != 0 ? 5.w : 0),
             child: Stack(
               children: [
                 Align(
                   alignment: Alignment.center,
                   child: labels.elementAt(i).toText
-                    ..style = i == index? activeTextStyle ?? Styles.ts_333333_16sp : inactiveTextStyle ?? Styles.ts_333333_16sp,
+                    ..style = i == index
+                        ? activeTextStyle ?? Styles.ts_333333_16sp
+                        : inactiveTextStyle ?? Styles.ts_333333_16sp,
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
@@ -78,7 +80,12 @@ class CustomTabBar extends StatelessWidget {
                     child: Container(
                       margin: EdgeInsets.only(bottom: 2.h),
                       decoration: BoxDecoration(
-                        color: Styles.c_8443F8,
+                        // color: Styles.c_8443F8,
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [Styles.c_8443F8, Styles.c_BA78FC],
+                        ),
                         borderRadius: BorderRadius.circular(1.r),
                       ),
                       height: indicatorHeight ?? 2.h,

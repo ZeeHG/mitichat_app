@@ -55,7 +55,8 @@ class Styles {
   static Color c_00CBC5 = const Color(0xFF00CBC5);
   static Color c_595EF9 = const Color(0xFF595EF9);
   static Color c_FEA836 = const Color(0xFFFEA836);
-    static Color c_CCCCCC = const Color(0xFFCCCCCC);
+  static Color c_CCCCCC = const Color(0xFFCCCCCC);
+  static Color c_BA78FC = const Color(0xFFBA78FC);
 
   // static Color c_E8EAEF_opacity30 = c_E8EAEF.withOpacity(.3); // 默认背景
 

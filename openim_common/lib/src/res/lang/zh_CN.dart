@@ -704,12 +704,10 @@ const Map<String, String> zh_CN = {
   "curBindEmail": "当前绑定邮箱",
   "changePhone": "更换手机号",
   "changeEmail": "更换邮箱",
-  "changePhoneEmailTips": "更换后，可使用新%s登录当前账号",
-  "confirmChange": "确认更换",
-  "changeSuccess": "更换成功",
-  "changeSuccessTips": "更换%s后，需重新登陆",
+  "changeSuccessTips": "更换后需重新登陆",
   "backLogin": "返回登录",
   "tts": "转文字",
-  "unTts": "取消转文字",
-  "hide": "隐藏"
+  "hide": "隐藏",
+  "bindPhone": "绑定手机号",
+  "bindEmail": "绑定邮箱"
 };

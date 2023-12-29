@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_screenutil: ^5.7.0
+  flutter_screenutil: 5.8.4
   get: ^4.6.5
   livekit_client: ^1.5.3
   flutter_background: ^1.1.0

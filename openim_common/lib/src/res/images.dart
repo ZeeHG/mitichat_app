@@ -286,4 +286,6 @@ class ImageRes {
   static const appAdd = "$_dir/app_add.png";
   static const appNotification = "$_dir/app_notification.png";
   static const appSuccess = "$_dir/app_success.png";
+  static const appMenuTts = "$_dir/app_menu_tts.png";
+  static const appMenuUnTts = "$_dir/app_menu_untts.png";
 }

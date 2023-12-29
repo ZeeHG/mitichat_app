@@ -681,5 +681,22 @@ const Map<String, String> ja_JP = {
   "updateOn": "アップデート中",
   "japanese": "日本語",
   "korean": "韓国語",
-  "spanish": "スペイン語"
+  "spanish": "スペイン語",
+  "publishMoment": "新しい投稿",
+  "phoneRegister": "携帯電話でサインアップ",
+  "emailRegister": "メールでサインアップ",
+  "useEmailRegister": "メールでサインアップ",
+  "usePhoneRegister": "携帯電話でサインアップ",
+  "accountAndSecurity": "アカウントとセキュリティ",
+  "noBind": "リンクされていません",
+  "curBindPhone": "携帯電話がリンクされています",
+  "curBindEmail": "メールがリンクされています",
+  "changePhone": "携帯電話を変更する",
+  "changeEmail": "メールを変更する",
+  "changeSuccessTips": "変更後に再ログインが必要です",
+  "backLogin": "ログイン画面に戻る",
+  "tts": "テキストに変換する",
+  "hide": "非表示にする",
+  "bindPhone": "メールをバインドする",
+  "bindEmail": "携帯電話をバインドする"
 };

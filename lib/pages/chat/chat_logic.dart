@@ -1512,7 +1512,6 @@ class ChatLogic extends GetxController {
       return;
     }
     String? origin = message.soundElem?.sourceUrl;
-    // myLogger.e(json.encode(message.soundElem?.sourceUrl));
     if (null != origin) {
       try {
         ttsLogic.updateMsgAllTts(message, {"status": "loading"});
@@ -2406,7 +2405,7 @@ class ChatLogic extends GetxController {
 
   bool showTtsMenu(Message message) {
     final status = ttsLogic.msgTts[message.clientMsgID]?["status"];
-    return (message.isVoiceType) &&
+    return message.isVoiceType && (message?.soundElem?.sourceUrl?.isNotEmpty ?? false) &&
         (null == status || ["hide", "loading", "fail"].contains(status));
   }
 
@@ -2607,7 +2606,6 @@ class ChatLogic extends GetxController {
 
     foregroundChangeSub = appCommonLogic.onForegroundChangeSub.listen((value) {
       if (value) {
-        myLogger.e("xxxxxxxxxxxxxxx");
         _isReceivedMessageWhenSyncing = false;
         _isStartSyncing = false;
         _isFirstLoad = true;

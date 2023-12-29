@@ -681,5 +681,22 @@ const Map<String, String> ko_KR = {
   "updateOn": "업데이트 날짜",
   "japanese": "일본어",
   "korean": "한국어",
-  "spanish": "스페인어"
+  "spanish": "스페인어",
+  "publishMoment": "새 게시물",
+  "phoneRegister": "모바일로 가입하기",
+  "emailRegister": "이메일로 가입하기",
+  "useEmailRegister": "이메일로 가입하기",
+  "usePhoneRegister": "모바일로 가입하기",
+  "accountAndSecurity": "계정 및 보안",
+  "noBind": "연결 없음",
+  "curBindPhone": "모바일 연결됨",
+  "curBindEmail": "이메일 연결됨",
+  "changePhone": "모바일 변경",
+  "changeEmail": "이메일 변경",
+  "changeSuccessTips": "변경 후 다시 로그인해야 함",
+  "backLogin": "로그인으로 돌아가기",
+  "tts": "텍스트로 변환",
+  "hide": "숨기기",
+  "bindPhone": "이메일 연결",
+  "bindEmail": "모바일 연결"
 };

@@ -1273,12 +1273,11 @@ class StrRes {
   static String get curBindEmail => 'curBindEmail'.tr;
   static String get changePhone => 'changePhone'.tr;
   static String get changeEmail => 'changeEmail'.tr;
-  static String get changePhoneEmailTips => 'changePhoneEmailTips'.tr;
   static String get confirmChange => 'confirmChange'.tr;
-  static String get changeSuccess => 'changeSuccess'.tr;
   static String get changeSuccessTips => 'changeSuccessTips'.tr;
   static String get backLogin => 'backLogin'.tr;
   static String get tts => 'tts'.tr;
-  static String get unTts => 'unTts'.tr;
   static String get hide => 'hide'.tr;
+  static String get bindPhone => 'bindPhone'.tr;
+  static String get bindEmail => 'bindEmail'.tr;
 }
