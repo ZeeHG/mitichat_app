@@ -71,7 +71,7 @@ class AppController extends SuperController with UpgradeManger {
 
     if (isRunningBackground && !run) {}
     isRunningBackground = run;
-    Get.find<IMController>().backgroundSubject.sink.add(run);
+    // Get.find<IMController>().backgroundSubject.sink.add(run);
     if (!run) {
       _cancelAllNotifications();
     } else {
