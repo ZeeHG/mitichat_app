@@ -699,7 +699,7 @@ const Map<String, String> zh_CN = {
   "useEmailRegister": "使用邮箱注册",
   "usePhoneRegister": "使用手机注册",
   "accountAndSecurity": "账号与安全",
-  "noBind": "暂无绑定信息",
+  "noBind": "暂无绑定%s",
   "curBindPhone": "当前绑定手机号",
   "curBindEmail": "当前绑定邮箱",
   "changePhone": "更换手机号",

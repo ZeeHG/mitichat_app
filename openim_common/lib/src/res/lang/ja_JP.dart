@@ -688,7 +688,7 @@ const Map<String, String> ja_JP = {
   "useEmailRegister": "メールでサインアップ",
   "usePhoneRegister": "携帯電話でサインアップ",
   "accountAndSecurity": "アカウントとセキュリティ",
-  "noBind": "リンクされていません",
+  "noBind": "リンクされた %s はありません",
   "curBindPhone": "携帯電話がリンクされています",
   "curBindEmail": "メールがリンクされています",
   "changePhone": "携帯電話を変更する",
@@ -697,6 +697,6 @@ const Map<String, String> ja_JP = {
   "backLogin": "ログイン画面に戻る",
   "tts": "テキストに変換する",
   "hide": "非表示にする",
-  "bindPhone": "メールをバインドする",
-  "bindEmail": "携帯電話をバインドする"
+  "bindPhone": "携帯電話をバインドする",
+  "bindEmail": "メールをバインドする"
 };

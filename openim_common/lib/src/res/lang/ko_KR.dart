@@ -688,7 +688,7 @@ const Map<String, String> ko_KR = {
   "useEmailRegister": "이메일로 가입하기",
   "usePhoneRegister": "모바일로 가입하기",
   "accountAndSecurity": "계정 및 보안",
-  "noBind": "연결 없음",
+  "noBind": "연결된 %s 없음",
   "curBindPhone": "모바일 연결됨",
   "curBindEmail": "이메일 연결됨",
   "changePhone": "모바일 변경",
@@ -697,6 +697,6 @@ const Map<String, String> ko_KR = {
   "backLogin": "로그인으로 돌아가기",
   "tts": "텍스트로 변환",
   "hide": "숨기기",
-  "bindPhone": "이메일 연결",
-  "bindEmail": "모바일 연결"
+  "bindPhone": "모바일 연결",
+  "bindEmail": "이메일 연결"
 };

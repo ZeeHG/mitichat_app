@@ -688,7 +688,7 @@ const Map<String, String> es_ES = {
   "useEmailRegister": "Regístrate con Email",
   "usePhoneRegister": "Regístrate con Móvil",
   "accountAndSecurity": "Cuenta y Seguridad",
-  "noBind": "No Vinculado",
+  "noBind": "No Hay %s Vinculados",
   "curBindPhone": "Móvil Vinculado",
   "curBindEmail": "Email Vinculado",
   "changePhone": "Cambiar Móvil",
@@ -697,6 +697,6 @@ const Map<String, String> es_ES = {
   "backLogin": "Volver a Iniciar Sesión",
   "tts": "Convertir a Texto",
   "hide": "Ocultar",
-  "bindPhone": "Vincula tu Email",
-  "bindEmail": "Vincula tu Móvil"
+  "bindPhone": "Vincula tu Móvil",
+  "bindEmail": "Vincula tu Email"
 };

@@ -27,7 +27,7 @@ class PhoneEmailChangePage extends StatelessWidget {
         children: [
           43.verticalSpace,
           (logic.isPhone && (null == imLogic.userInfo.value.phoneNumber || imLogic.userInfo.value.phoneNumber!.isEmpty)) || (!logic.isPhone && (null == imLogic.userInfo.value.email || imLogic.userInfo.value.email!.isEmpty))?
-            (StrRes.noBind.toText..style=Styles.ts_999999_18sp) :
+            (sprintf(StrRes.noBind, [logic.isPhone? StrRes.mobile : StrRes.email]).toText..style=Styles.ts_999999_18sp) :
             ((logic.isPhone? StrRes.curBindPhone : StrRes.curBindEmail).toText..style=Styles.ts_999999_18sp),
           20.verticalSpace,
           if(logic.isPhone && null != imLogic.userInfo.value.phoneNumber)

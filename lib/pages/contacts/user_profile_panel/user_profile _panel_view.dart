@@ -132,6 +132,7 @@ class UserProfilePanelPage extends StatelessWidget {
                         ..maxLines = 1
                         ..overflow = TextOverflow.ellipsis,
                       12.horizontalSpace,
+                      if(null != logic.userInfo.value.gender)
                       logic.userInfo.value.gender == 1
                           ? (ImageRes.appMan.toImage
                             ..width = 21.w

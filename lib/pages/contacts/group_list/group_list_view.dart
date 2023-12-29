@@ -30,10 +30,11 @@ class GroupListPage extends StatelessWidget {
           ),
           Obx(
             () => CustomTabBar(
+              width: 1.sw,
               labels: [StrRes.iCreatedGroup, StrRes.iJoinedGroup],
               index: logic.index.value,
               onTabChanged: (i) => logic.switchTab(i),
-              showUnderline: false,
+              showUnderline: true,
             ),
           ),
           Expanded(

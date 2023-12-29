@@ -72,8 +72,11 @@ class UserProfilePanelLogic extends GetxController {
       if (user.userID == userInfo.value.userID) {
         userInfo.update((val) {
           val?.nickname = user.nickname;
+          val?.faceURL = user.faceURL;
           val?.remark = user.remark;
         });
+        // todo 上面返回不全, 重新请求更新部分字段
+        _getUsersInfo();
       }
     });
     // 禁言时间被改变，或群成员资料改变
@@ -93,6 +96,7 @@ class UserProfilePanelLogic extends GetxController {
     _getUsersInfo();
     _queryGroupInfo();
     _queryGroupMemberInfo();
+    _queryWorkingCircleList();
     // _queryUserOnlineStatus();
     super.onReady();
   }
@@ -132,6 +136,7 @@ class UserProfilePanelLogic extends GetxController {
         val?.isBlacklist = isBlack;
         val?.isFriendship = isFriendship;
         val?.allowAddFriend = fullInfo.allowAddFriend;
+        val?.gender = fullInfo.gender;
       });
     }
   }
