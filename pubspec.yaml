@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 3.4.1+36
+version: 0.0.29+29
 
 environment:
   sdk: '>=2.19.2 <4.0.0'
@@ -124,8 +124,8 @@ dependencies:
     
   openim_working_circle:
     path: openim_working_circle
-  openim_live:
-    path: openim_live
+  # openim_live:
+  #   path: openim_live
   openim_meeting:
     path: openim_meeting
   flutter_openim_sdk: 
