@@ -332,7 +332,7 @@ const Map<String, String> ko_KR = {
   "publish": "게시",
   "groupMember": "그룹 멤버",
   "selectedPeopleCount": "선택된 (%s)",
-  "confirmSelectedPeople": "확인 (%s/%s)",
+  "confirmSelectedPeople": "확인 (%s)",
   "confirm": "확인",
   "confirmTransferGroupToUser": "그룹 소유권을 다음으로 이전하시겠습니까: %s?",
   "removeGroupMember": "그룹 멤버 제거",

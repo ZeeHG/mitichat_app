@@ -332,7 +332,7 @@ const Map<String, String> ja_JP = {
   "publish": "公開",
   "groupMember": "グループメンバー",
   "selectedPeopleCount": "選択済み（%s）",
-  "confirmSelectedPeople": "確認済み（%s/%s）",
+  "confirmSelectedPeople": "確認済み（%s）",
   "confirm": "確認",
   "confirmTransferGroupToUser": "本当にグループのオーナーシップを%sに移譲しますか？",
   "removeGroupMember": "グループメンバーを削除",

@@ -332,7 +332,7 @@ const Map<String, String> en_US = {
   "publish": "Publish",
   "groupMember": "Group Members",
   "selectedPeopleCount": "Selected (%s)",
-  "confirmSelectedPeople": "Confirm (%s/%s)",
+  "confirmSelectedPeople": "Confirm (%s)",
   "confirm": "Confirm",
   "confirmTransferGroupToUser": "Are you sure you want to transfer group ownership to: %s?",
   "removeGroupMember": "Remove Group Member",
