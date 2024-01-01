@@ -54,7 +54,7 @@ android {
         minSdkVersion 29
         targetSdkVersion 33
         versionCode 283
-        versionName "alpha-v1.1.1"
+        versionName "alpha-v1.1.2"
 
         multiDexEnabled true
 
