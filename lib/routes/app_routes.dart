@@ -79,6 +79,12 @@ abstract class AppRoutes {
   static const accountAndSecurity = '/account_and_security';
   static const phoneEmailChange = '/phone_email_change';
   static const phoneEmailChangeDetail = '/phone_email_change_detail';
+  static const deleteUser = '/delete_user';
+  static const complaint = '/complaint';
+  static const previewSelectedAssets = '/preview_selected_assets';
+  static const termsOfServer = '/terms_of_server';
+  static const privacyPolicy = '/privacy_policy';
+  static const friendPermissions = '/friend_permissions';
 }
 
 extension RoutesExtension on String {

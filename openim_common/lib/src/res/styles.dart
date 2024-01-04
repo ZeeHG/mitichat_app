@@ -457,6 +457,15 @@ class Styles {
     fontSize: 24.sp,
     fontWeight: FontWeight.w500,
   );
+  static TextStyle ts_333333_13sp = TextStyle(
+    color: c_333333,
+    fontSize: 13.sp,
+  );
+  static TextStyle ts_333333_13sp_medium = TextStyle(
+    color: c_333333,
+    fontSize: 13.sp,
+    fontWeight: FontWeight.w500,
+  );
 
   /// 8443F8
   static TextStyle ts_8443F8_10sp_semibold = TextStyle(

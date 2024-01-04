@@ -42,6 +42,11 @@ class AccountAndSecurityPage extends StatelessWidget {
                   showRightArrow: true,
                   onTap: logic.changePwd,
                 ),
+                _buildItemView(
+                  label: StrRes.deleteUser,
+                  showRightArrow: true,
+                  onTap: logic.deleteUser,
+                ),
               ],
             ),
           )),

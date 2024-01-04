@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:openim/routes/app_navigator.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:sprintf/sprintf.dart';
 
@@ -25,7 +26,7 @@ class LoginPage extends StatelessWidget {
               ImageRes.logo2.toImage
                 ..width = 89.w
                 ..height = 81.h,
-                // ..onDoubleTap = logic.configService,
+              // ..onDoubleTap = logic.configService,
               70.verticalSpace,
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 36.w),
@@ -35,9 +36,13 @@ class LoginPage extends StatelessWidget {
                           label: logic.loginType.value.name,
                           hintText: logic.loginType.value.hintText,
                           code: logic.areaCode.value,
-                          onAreaCode: logic.loginType.value == LoginType.phone ? logic.openCountryCodePicker : null,
+                          onAreaCode: logic.loginType.value == LoginType.phone
+                              ? logic.openCountryCodePicker
+                              : null,
                           controller: logic.phoneCtrl,
-                          keyBoardType: logic.loginType.value == LoginType.phone ? TextInputType.phone : TextInputType.text,
+                          keyBoardType: logic.loginType.value == LoginType.phone
+                              ? TextInputType.phone
+                              : TextInputType.text,
                         ),
                         29.verticalSpace,
                         Offstage(
@@ -118,6 +123,46 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
               ),
+              130.verticalSpace,
+              Obx(
+                () => Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      // activeColor: Styles.c_8443F8,
+                      fillColor: MaterialStateProperty.resolveWith(
+                          (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.selected))
+                          return Styles.c_8443F8;
+                        return null;
+                      }),
+                      value: logic.agree.value,
+                      onChanged: logic.changeAgree,
+                    ),
+                    Container(
+                      constraints:BoxConstraints(maxWidth: 270.w),
+                      child: RichText(
+                        text: TextSpan(children: [
+                      TextSpan(
+                          text: StrRes.privacyPolicyDescriptionP1,
+                          style: Styles.ts_656565_12sp),
+                      TextSpan(
+                          recognizer: TapGestureRecognizer()..onTap = () => AppNavigator.startTermsOfServer(),
+                          text: StrRes.privacyPolicyDescriptionP2,
+                          style: Styles.ts_333333_12sp),
+                      TextSpan(
+                          text: StrRes.privacyPolicyDescriptionP3,
+                          style: Styles.ts_656565_12sp),
+                      TextSpan(
+                          recognizer: TapGestureRecognizer()..onTap = () => AppNavigator.startPrivacyPolicy(),
+                          text: StrRes.privacyPolicyDescriptionP4,
+                          style: Styles.ts_333333_12sp),
+                    ])),
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),

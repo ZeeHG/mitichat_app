@@ -106,6 +106,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       bool isFailed = false,
       MediaQueryData? mq,
       this.backgroundImage,
+      this.left,
       Function()? onScan,
       Function()? onAddFriend,
       Function()? onAddGroup,
@@ -114,6 +115,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       Function()? onClickSearch,
       required Function(dynamic) onSwitchTab,
       required RxInt homeTabIndex,
+      RxInt? unhandledCount,
       CustomPopupMenuController? popCtrl,
       // this.left,
       this.backIconColor})
@@ -135,12 +137,13 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
           top: (mq?.padding.top ?? 30.h) + 55.h,
           child: FakeSearchBox(onTap: onClickSearch, color: Styles.c_FFFFFF, borderRadius: 18.r),
         ),
-        left = SizedBox(width: 28.w),
+        // left = SizedBox(width: 28.w),
         center = Expanded(
               child: Center(
                 child: CustomTabBar(
                   width: 100.w,
                   labels: [StrRes.chat, StrRes.friend],
+                  counts: [0.obs, unhandledCount ?? 0.obs],
                   index: homeTabIndex.value,
                   onTabChanged: (i) => onSwitchTab(i),
                   showUnderline: false,
@@ -184,9 +187,12 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
                 //   onTap: onVideoMeeting,
                 // ),
               ],
-              child: ImageRes.appAddBlack2.toImage
+              child: Padding(
+                padding: EdgeInsets.only(left: 12.w),
+                child: ImageRes.appAddBlack2.toImage
                 ..width = 28.w
-                ..height = 28.h /*..onTap = onClickAddBtn*/,
+                ..height = 28.h,
+              ) /*..onTap = onClickAddBtn*/,
             ),
           ],
         );
@@ -445,6 +451,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       required Function(dynamic) onSwitchTab,
       required RxInt homeTabIndex,
       this.backIconColor,
+      RxInt? unhandledCount,
       MediaQueryData? mq,
       this.backgroundImage})
       : backgroundColor = Styles.c_FFFFFF,
@@ -468,6 +475,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
               child: Center(
                 child: CustomTabBar(
                   width: 100.w,
+                  counts: [0.obs, unhandledCount ?? 0.obs],
                   labels: [StrRes.chat, StrRes.friend],
                   index: homeTabIndex.value,
                   onTabChanged: (i) => onSwitchTab(i),
@@ -480,11 +488,12 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
         left = SizedBox(
-          width: 28.w,
-          height: 28.h,
+          width: 40.w,
+          height: 40.h,
         ),
         right = Row(
           children: [
+            12.horizontalSpace,
             ImageRes.appAddContacts.toImage
               ..width = 28.w
               ..height = 28.h

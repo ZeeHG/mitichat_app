@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
 
 class CustomTabBar extends StatelessWidget {
@@ -18,10 +19,12 @@ class CustomTabBar extends StatelessWidget {
       this.showUnderline = false,
       this.activeTextStyle,
       this.inactiveTextStyle,
+      this.counts,
       this.bgColor})
       : super(key: key);
   final int index;
   final List<String> labels;
+  final List<RxInt>? counts;
   final TextStyle? selectedStyle;
   final TextStyle? unselectedStyle;
   final double? height;
@@ -55,7 +58,7 @@ class CustomTabBar extends StatelessWidget {
     );
   }
 
-  Widget _buildItemView(int i) => Expanded(
+  Widget _buildItemView(int i) => Obx(() => Expanded(
         child: GestureDetector(
           onTap: () {
             if (null != onTabChanged) onTabChanged!(i);
@@ -66,6 +69,14 @@ class CustomTabBar extends StatelessWidget {
             margin: EdgeInsets.only(left: i != 0 ? 5.w : 0),
             child: Stack(
               children: [
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Transform.translate(
+                    offset: const Offset(2, 2),
+                    child: UnreadCountView(count: counts?.elementAt(i)?.value ?? 0),
+                  ),
+                ),
                 Align(
                   alignment: Alignment.center,
                   child: labels.elementAt(i).toText
@@ -97,7 +108,7 @@ class CustomTabBar extends StatelessWidget {
             ),
           ),
         ),
-      );
+      )) ;
 }
 
 class TabInfo {

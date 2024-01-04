@@ -188,15 +188,19 @@ class AppNavigator {
 
   static startChangePassword() => Get.toNamed(AppRoutes.changePassword);
 
+  static startDeleteUser() => Get.toNamed(AppRoutes.deleteUser);
+
   static startAccountAndSecurity() => Get.toNamed(AppRoutes.accountAndSecurity);
 
   static startPhoneEmailChange({
     PhoneEmailChangeType type = PhoneEmailChangeType.phone,
-  }) => Get.toNamed(AppRoutes.phoneEmailChange, arguments: {'type': type});
+  }) =>
+      Get.toNamed(AppRoutes.phoneEmailChange, arguments: {'type': type});
 
   static startPhoneEmailChangeDetail({
     PhoneEmailChangeType type = PhoneEmailChangeType.phone,
-  }) => Get.toNamed(AppRoutes.phoneEmailChangeDetail, arguments: {'type': type});
+  }) =>
+      Get.toNamed(AppRoutes.phoneEmailChangeDetail, arguments: {'type': type});
 
   static startAboutUs() => Get.toNamed(AppRoutes.aboutUs);
 
@@ -360,10 +364,9 @@ class AppNavigator {
     String? appBarTitle,
   }) async {
     final result = await startSelectContacts(
-      action: SelAction.crateGroup,
-      defaultCheckedIDList: defaultCheckedList.map((e) => e.userID!).toList(),
-      appBarTitle: appBarTitle
-    );
+        action: SelAction.crateGroup,
+        defaultCheckedIDList: defaultCheckedList.map((e) => e.userID!).toList(),
+        appBarTitle: appBarTitle);
     final list = IMUtils.convertSelectContactsResultToUserInfo(result);
     if (list is List<UserInfo>) {
       return Get.toNamed(
@@ -399,8 +402,13 @@ class AppNavigator {
     required int usedFor,
     String? invitationCode,
   }) =>
-      Get.toNamed(AppRoutes.verifyPhone,
-          arguments: {'phoneNumber': phoneNumber, 'email': email, 'areaCode': areaCode, 'usedFor': usedFor, 'invitationCode': invitationCode});
+      Get.toNamed(AppRoutes.verifyPhone, arguments: {
+        'phoneNumber': phoneNumber,
+        'email': email,
+        'areaCode': areaCode,
+        'usedFor': usedFor,
+        'invitationCode': invitationCode
+      });
 
   /// [usedFor] 1：注册，2：重置密码
   static void startSetPassword({
@@ -481,9 +489,30 @@ class AppNavigator {
         AppRoutes.tagNotificationDetail,
         arguments: {"notification": notification},
       );
-  
-  static startDiscover() =>
+
+  static startDiscover() => Get.toNamed(AppRoutes.discover);
+
+  static startComplaint({
+    required String userID,
+  }) =>
       Get.toNamed(
-        AppRoutes.discover
+        AppRoutes.complaint,
+        arguments: {"userID": userID},
       );
+
+  static startPreviewSelectedAssetsPage({
+    required dynamic assetsLogic,
+    required int currentIndex,
+  }) =>
+      Get.toNamed(
+        AppRoutes.previewSelectedAssets,
+        arguments: {"assetsLogic": assetsLogic, "currentIndex": currentIndex},
+      );
+
+  static startTermsOfServer() => Get.toNamed(AppRoutes.termsOfServer);
+
+  static startPrivacyPolicy() => Get.toNamed(AppRoutes.privacyPolicy);
+
+  static startFriendPermissions({required String userID}) =>
+      Get.toNamed(AppRoutes.friendPermissions, arguments: {"userID": userID});
 }

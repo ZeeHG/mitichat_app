@@ -288,4 +288,6 @@ class ImageRes {
   static const appSuccess = "$_dir/app_success.png";
   static const appMenuTts = "$_dir/app_menu_tts.png";
   static const appMenuUnTts = "$_dir/app_menu_untts.png";
+  static const appWarn = "$_dir/app_warn.png";
+  static const appAdd2 = "$_dir/app_add2.png";
 }

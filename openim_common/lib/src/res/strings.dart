@@ -63,7 +63,8 @@ class StrRes {
 
   static String get resendVerificationCode => 'resendVerificationCode'.tr;
 
-  static String get verificationCodeTimingReminder => 'verificationCodeTimingReminder'.tr;
+  static String get verificationCodeTimingReminder =>
+      'verificationCodeTimingReminder'.tr;
 
   static String get defaultVerificationCode => 'defaultVerificationCode'.tr;
 
@@ -275,7 +276,8 @@ class StrRes {
 
   static String get releaseToSend => 'releaseToSend'.tr;
 
-  static String get releaseToSendSwipeUpToCancel => 'releaseToSendSwipeUpToCancel'.tr;
+  static String get releaseToSendSwipeUpToCancel =>
+      'releaseToSendSwipeUpToCancel'.tr;
 
   static String get liftFingerToCancelSend => 'liftFingerToCancelSend'.tr;
 
@@ -699,7 +701,8 @@ class StrRes {
 
   static String get confirm => 'confirm'.tr;
 
-  static String get confirmTransferGroupToUser => 'confirmTransferGroupToUser'.tr;
+  static String get confirmTransferGroupToUser =>
+      'confirmTransferGroupToUser'.tr;
 
   static String get removeGroupMember => 'removeGroupMember'.tr;
 
@@ -951,7 +954,8 @@ class StrRes {
 
   static String get confirmTheChanges => 'confirmTheChanges'.tr;
 
-  static String get invitesYouToVideoConference => 'invitesYouToVideoConference'.tr;
+  static String get invitesYouToVideoConference =>
+      'invitesYouToVideoConference'.tr;
 
   static String get over => 'over'.tr;
 
@@ -1055,7 +1059,8 @@ class StrRes {
 
   static String get sendAnother => 'sendAnother'.tr;
 
-  static String get confirmDelTagNotificationHint => 'confirmDelTagNotificationHint'.tr;
+  static String get confirmDelTagNotificationHint =>
+      'confirmDelTagNotificationHint'.tr;
 
   static String get contentNotBlank => 'contentNotBlank'.tr;
 
@@ -1067,11 +1072,13 @@ class StrRes {
 
   static String get groupRequestHandled => 'groupRequestHandled'.tr;
 
-  static String get burnAfterReadingDescription => 'burnAfterReadingDescription'.tr;
+  static String get burnAfterReadingDescription =>
+      'burnAfterReadingDescription'.tr;
 
   static String get periodicallyDeleteMessage => 'periodicallyDeleteMessage'.tr;
 
-  static String get periodicallyDeleteMessageDescription => 'periodicallyDeleteMessageDescription'.tr;
+  static String get periodicallyDeleteMessageDescription =>
+      'periodicallyDeleteMessageDescription'.tr;
 
   static String get nDay => 'nDay'.tr;
 
@@ -1098,8 +1105,6 @@ class StrRes {
   static String get switchToDomain => 'switchToDomain'.tr;
   static String get serverSettingTips => 'serverSettingTips'.tr;
   static String get callFail => 'callFail'.tr;
-
-
 
   // 新增
   static String get privacyPolicyDescription => 'privacyPolicyDescription'.tr;
@@ -1280,4 +1285,207 @@ class StrRes {
   static String get hide => 'hide'.tr;
   static String get bindPhone => 'bindPhone'.tr;
   static String get bindEmail => 'bindEmail'.tr;
+  static String get deleteUser => 'deleteUser'.tr;
+  static String get deleteUserTips1 => 'deleteUserTips1'.tr;
+  static String get deleteUserTips2 => 'deleteUserTips2'.tr;
+  static String get deleteUserTips3 => 'deleteUserTips3'.tr;
+  static String get deleteUserTips4 => 'deleteUserTips4'.tr;
+  static String get deleteUserModalTitle => 'deleteUserModalTitle'.tr;
+  static String get deleteUserModalTips => 'deleteUserModalTips'.tr;
+  static String get deleteUserModalBtn1 => 'deleteUserModalBtn1'.tr;
+  static String get deleteUserModalBtn2 => 'deleteUserModalBtn2'.tr;
+  static String get deleteUserSuccess => 'deleteUserSuccess'.tr;
+  static String get deleteUserSuccessTips => 'deleteUserSuccessTips'.tr;
+  static String get finishAndLogout => 'finishAndLogout'.tr;
+  static String get complaintReason => 'complaintReason'.tr;
+  static String get harassmentContent => 'harassmentContent'.tr;
+  static String get accountHacked => 'accountHacked'.tr;
+  static String get infringement => 'infringement'.tr;
+  static String get impersonation => 'impersonation'.tr;
+  static String get minorRightsViolation => 'minorRightsViolation'.tr;
+  static String get imageEvidence => 'imageEvidence'.tr;
+  static String get complaintDetails => 'complaintDetails'.tr;
+  static String get submit => 'submit'.tr;
+  static String get submitSuccess => 'submitSuccess'.tr;
+  static String get promiseResponse => 'promiseResponse'.tr;
+  static String get backHome => 'backHome'.tr;
+  static String get userAgreement => 'userAgreement'.tr;
+  static String get privacyPolicy => 'privacyPolicy'.tr;
+  static String get userAgreement1 => 'userAgreement1'.tr;
+static String get userAgreement2 => 'userAgreement2'.tr;
+static String get userAgreement3 => 'userAgreement3'.tr;
+static String get userAgreement4 => 'userAgreement4'.tr;
+static String get userAgreement5 => 'userAgreement5'.tr;
+static String get userAgreement6 => 'userAgreement6'.tr;
+static String get userAgreement7 => 'userAgreement7'.tr;
+static String get userAgreement8 => 'userAgreement8'.tr;
+static String get userAgreement9 => 'userAgreement9'.tr;
+static String get userAgreement10 => 'userAgreement10'.tr;
+static String get userAgreement11 => 'userAgreement11'.tr;
+static String get userAgreement12 => 'userAgreement12'.tr;
+static String get userAgreement13 => 'userAgreement13'.tr;
+static String get userAgreement14 => 'userAgreement14'.tr;
+static String get userAgreement15 => 'userAgreement15'.tr;
+static String get userAgreement16 => 'userAgreement16'.tr;
+static String get userAgreement17 => 'userAgreement17'.tr;
+static String get userAgreement18 => 'userAgreement18'.tr;
+static String get userAgreement19 => 'userAgreement19'.tr;
+static String get userAgreement20 => 'userAgreement20'.tr;
+static String get userAgreement21 => 'userAgreement21'.tr;
+static String get userAgreement22 => 'userAgreement22'.tr;
+static String get userAgreement23 => 'userAgreement23'.tr;
+static String get userAgreement24 => 'userAgreement24'.tr;
+static String get userAgreement25 => 'userAgreement25'.tr;
+static String get userAgreement26 => 'userAgreement26'.tr;
+static String get userAgreement27 => 'userAgreement27'.tr;
+static String get userAgreement28 => 'userAgreement28'.tr;
+static String get userAgreement29 => 'userAgreement29'.tr;
+static String get userAgreement30 => 'userAgreement30'.tr;
+static String get userAgreement31 => 'userAgreement31'.tr;
+static String get userAgreement32 => 'userAgreement32'.tr;
+static String get userAgreement33 => 'userAgreement33'.tr;
+static String get userAgreement34 => 'userAgreement34'.tr;
+static String get userAgreement35 => 'userAgreement35'.tr;
+static String get userAgreement36 => 'userAgreement36'.tr;
+static String get userAgreement37 => 'userAgreement37'.tr;
+static String get userAgreement38 => 'userAgreement38'.tr;
+static String get userAgreement39 => 'userAgreement39'.tr;
+static String get userAgreement40 => 'userAgreement40'.tr;
+static String get userAgreement41 => 'userAgreement41'.tr;
+static String get userAgreement42 => 'userAgreement42'.tr;
+static String get userAgreement43 => 'userAgreement43'.tr;
+static String get userAgreement44 => 'userAgreement44'.tr;
+static String get userAgreement45 => 'userAgreement45'.tr;
+static String get userAgreement46 => 'userAgreement46'.tr;
+static String get userAgreement47 => 'userAgreement47'.tr;
+static String get userAgreement48 => 'userAgreement48'.tr;
+static String get userAgreement49 => 'userAgreement49'.tr;
+static String get userAgreement50 => 'userAgreement50'.tr;
+static String get userAgreement51 => 'userAgreement51'.tr;
+static String get userAgreement52 => 'userAgreement52'.tr;
+static String get userAgreement53 => 'userAgreement53'.tr;
+static String get userAgreement54 => 'userAgreement54'.tr;
+static String get privacyPolicy1 => 'privacyPolicy1'.tr;
+static String get privacyPolicy2 => 'privacyPolicy2'.tr;
+static String get privacyPolicy3 => 'privacyPolicy3'.tr;
+static String get privacyPolicy4 => 'privacyPolicy4'.tr;
+static String get privacyPolicy5 => 'privacyPolicy5'.tr;
+static String get privacyPolicy6 => 'privacyPolicy6'.tr;
+static String get privacyPolicy7 => 'privacyPolicy7'.tr;
+static String get privacyPolicy8 => 'privacyPolicy8'.tr;
+static String get privacyPolicy9 => 'privacyPolicy9'.tr;
+static String get privacyPolicy10 => 'privacyPolicy10'.tr;
+static String get privacyPolicy11 => 'privacyPolicy11'.tr;
+static String get privacyPolicy12 => 'privacyPolicy12'.tr;
+static String get privacyPolicy13 => 'privacyPolicy13'.tr;
+static String get privacyPolicy14 => 'privacyPolicy14'.tr;
+static String get privacyPolicy15 => 'privacyPolicy15'.tr;
+static String get privacyPolicy16 => 'privacyPolicy16'.tr;
+static String get privacyPolicy17 => 'privacyPolicy17'.tr;
+static String get privacyPolicy18 => 'privacyPolicy18'.tr;
+static String get privacyPolicy19 => 'privacyPolicy19'.tr;
+static String get privacyPolicy20 => 'privacyPolicy20'.tr;
+static String get privacyPolicy21 => 'privacyPolicy21'.tr;
+static String get privacyPolicy22 => 'privacyPolicy22'.tr;
+static String get privacyPolicy23 => 'privacyPolicy23'.tr;
+static String get privacyPolicy24 => 'privacyPolicy24'.tr;
+static String get privacyPolicy25 => 'privacyPolicy25'.tr;
+static String get privacyPolicy26 => 'privacyPolicy26'.tr;
+static String get privacyPolicy27 => 'privacyPolicy27'.tr;
+static String get privacyPolicy28 => 'privacyPolicy28'.tr;
+static String get privacyPolicy29 => 'privacyPolicy29'.tr;
+static String get privacyPolicy30 => 'privacyPolicy30'.tr;
+static String get privacyPolicy31 => 'privacyPolicy31'.tr;
+static String get privacyPolicy32 => 'privacyPolicy32'.tr;
+static String get privacyPolicy33 => 'privacyPolicy33'.tr;
+static String get privacyPolicy34 => 'privacyPolicy34'.tr;
+static String get privacyPolicy35 => 'privacyPolicy35'.tr;
+static String get privacyPolicy36 => 'privacyPolicy36'.tr;
+static String get privacyPolicy37 => 'privacyPolicy37'.tr;
+static String get privacyPolicy38 => 'privacyPolicy38'.tr;
+static String get privacyPolicy39 => 'privacyPolicy39'.tr;
+static String get privacyPolicy40 => 'privacyPolicy40'.tr;
+static String get privacyPolicy41 => 'privacyPolicy41'.tr;
+static String get privacyPolicy42 => 'privacyPolicy42'.tr;
+static String get privacyPolicy43 => 'privacyPolicy43'.tr;
+static String get privacyPolicy44 => 'privacyPolicy44'.tr;
+static String get privacyPolicy45 => 'privacyPolicy45'.tr;
+static String get privacyPolicy46 => 'privacyPolicy46'.tr;
+static String get privacyPolicy47 => 'privacyPolicy47'.tr;
+static String get privacyPolicy48 => 'privacyPolicy48'.tr;
+static String get privacyPolicy49 => 'privacyPolicy49'.tr;
+static String get privacyPolicy50 => 'privacyPolicy50'.tr;
+static String get privacyPolicy51 => 'privacyPolicy51'.tr;
+static String get privacyPolicy52 => 'privacyPolicy52'.tr;
+static String get privacyPolicy53 => 'privacyPolicy53'.tr;
+static String get privacyPolicy54 => 'privacyPolicy54'.tr;
+static String get privacyPolicy55 => 'privacyPolicy55'.tr;
+static String get privacyPolicy56 => 'privacyPolicy56'.tr;
+static String get privacyPolicy57 => 'privacyPolicy57'.tr;
+static String get privacyPolicy58 => 'privacyPolicy58'.tr;
+static String get privacyPolicy59 => 'privacyPolicy59'.tr;
+static String get privacyPolicy60 => 'privacyPolicy60'.tr;
+static String get privacyPolicy61 => 'privacyPolicy61'.tr;
+static String get privacyPolicy62 => 'privacyPolicy62'.tr;
+static String get privacyPolicy63 => 'privacyPolicy63'.tr;
+static String get privacyPolicy64 => 'privacyPolicy64'.tr;
+static String get privacyPolicy65 => 'privacyPolicy65'.tr;
+static String get privacyPolicy66 => 'privacyPolicy66'.tr;
+static String get privacyPolicy67 => 'privacyPolicy67'.tr;
+static String get privacyPolicy68 => 'privacyPolicy68'.tr;
+static String get privacyPolicy69 => 'privacyPolicy69'.tr;
+static String get privacyPolicy70 => 'privacyPolicy70'.tr;
+static String get privacyPolicy71 => 'privacyPolicy71'.tr;
+static String get privacyPolicy72 => 'privacyPolicy72'.tr;
+static String get privacyPolicy73 => 'privacyPolicy73'.tr;
+static String get privacyPolicy74 => 'privacyPolicy74'.tr;
+static String get privacyPolicy75 => 'privacyPolicy75'.tr;
+static String get privacyPolicy76 => 'privacyPolicy76'.tr;
+static String get privacyPolicy77 => 'privacyPolicy77'.tr;
+static String get privacyPolicy78 => 'privacyPolicy78'.tr;
+static String get privacyPolicy79 => 'privacyPolicy79'.tr;
+static String get privacyPolicy80 => 'privacyPolicy80'.tr;
+static String get privacyPolicy81 => 'privacyPolicy81'.tr;
+static String get privacyPolicy82 => 'privacyPolicy82'.tr;
+static String get privacyPolicy83 => 'privacyPolicy83'.tr;
+static String get privacyPolicy84 => 'privacyPolicy84'.tr;
+static String get privacyPolicy85 => 'privacyPolicy85'.tr;
+static String get privacyPolicy86 => 'privacyPolicy86'.tr;
+static String get privacyPolicy87 => 'privacyPolicy87'.tr;
+static String get privacyPolicy88 => 'privacyPolicy88'.tr;
+static String get privacyPolicy89 => 'privacyPolicy89'.tr;
+static String get privacyPolicy90 => 'privacyPolicy90'.tr;
+static String get privacyPolicy91 => 'privacyPolicy91'.tr;
+static String get privacyPolicy92 => 'privacyPolicy92'.tr;
+static String get privacyPolicy93 => 'privacyPolicy93'.tr;
+static String get privacyPolicy94 => 'privacyPolicy94'.tr;
+static String get privacyPolicy95 => 'privacyPolicy95'.tr;
+static String get privacyPolicy96 => 'privacyPolicy96'.tr;
+static String get privacyPolicy97 => 'privacyPolicy97'.tr;
+static String get privacyPolicy98 => 'privacyPolicy98'.tr;
+static String get privacyPolicy99 => 'privacyPolicy99'.tr;
+static String get privacyPolicy100 => 'privacyPolicy100'.tr;
+static String get privacyPolicy101 => 'privacyPolicy101'.tr;
+static String get privacyPolicy102 => 'privacyPolicy102'.tr;
+static String get privacyPolicy103 => 'privacyPolicy103'.tr;
+static String get privacyPolicy104 => 'privacyPolicy104'.tr;
+static String get privacyPolicy105 => 'privacyPolicy105'.tr;
+static String get privacyPolicy106 => 'privacyPolicy106'.tr;
+static String get privacyPolicy107 => 'privacyPolicy107'.tr;
+static String get privacyPolicy108 => 'privacyPolicy108'.tr;
+static String get privacyPolicy109 => 'privacyPolicy109'.tr;
+static String get privacyPolicy110 => 'privacyPolicy110'.tr;
+static String get privacyPolicy111 => 'privacyPolicy111'.tr;
+static String get privacyPolicy112 => 'privacyPolicy112'.tr;
+static String get privacyPolicy113 => 'privacyPolicy113'.tr;
+static String get privacyPolicy114 => 'privacyPolicy114'.tr;
+static String get privacyPolicy115 => 'privacyPolicy115'.tr;
+static String get privacyPolicy116 => 'privacyPolicy116'.tr;
+static String get privacyPolicy117 => 'privacyPolicy117'.tr;
+static String get privacyPolicy118 => 'privacyPolicy118'.tr;
+static String get privacyPolicy119 => 'privacyPolicy119'.tr;
+
+static String get recentlyAdd => 'recentlyAdd'.tr;
+static String get aiFriends => 'aiFriends'.tr;
+static String get momentsAndStatus => 'momentsAndStatus'.tr;
 }

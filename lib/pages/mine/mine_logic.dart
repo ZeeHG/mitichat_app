@@ -50,11 +50,15 @@ class MineLogic extends GetxController {
     AppNavigator.startLogin();
   }
 
-  @override
-  void onInit() {
+  kickedOfflineSubInit() {
     kickedOfflineSub = imLogic.onKickedOfflineSubject.listen((value) {
       kickedOffline();
     });
+  }
+
+  @override
+  void onInit() {
+    kickedOfflineSubInit();
     super.onInit();
   }
 

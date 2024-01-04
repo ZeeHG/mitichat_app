@@ -13,4 +13,6 @@ class AccountAndSecurityLogic extends GetxController {
 
   void phoneEmailChange({required PhoneEmailChangeType type}) => AppNavigator.startPhoneEmailChange(type: type);
 
+  void deleteUser() => AppNavigator.startDeleteUser();
+
 }

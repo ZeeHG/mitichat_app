@@ -25,22 +25,22 @@ class ContactsLogic extends GetxController
   late StreamSubscription infoChangedSub;
 
   List<Map<String, dynamic>> get menus => [
-      {
-        "text": StrRes.myFriend,
-        "color": Styles.c_8544F8,
-        "shadowColor": Color.fromRGBO(132, 67, 248, 0.5),
-        "onTap": () => myFriend()
-      },
+      // {
+      //   "text": StrRes.myFriend,
+      //   "color": Styles.c_8544F8,
+      //   "shadowColor": Color.fromRGBO(132, 67, 248, 0.5),
+      //   "onTap": () => myFriend()
+      // },
       {
         "text": StrRes.myGroup,
-        "color": Styles.c_00CBC5,
-        "shadowColor": Color.fromRGBO(0, 203, 197, 0.5),
+        "color": Styles.c_8544F8,
+        "shadowColor": Color.fromRGBO(132, 67, 248, 0.5),
         "onTap": () => myGroup()
       },
       {
         "text": StrRes.newFriend,
-        "color": Styles.c_595EF9,
-        "shadowColor": Color.fromRGBO(89, 94, 249, 0.5),
+        "color": Styles.c_00CBC5,
+        "shadowColor": Color.fromRGBO(0, 203, 197, 0.5),
         "onTap": () => newFriend()
       },
       {

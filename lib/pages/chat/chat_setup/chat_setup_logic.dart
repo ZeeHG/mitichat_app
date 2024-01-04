@@ -139,8 +139,9 @@ class ChatSetupLogic extends GetxController {
   }
 
   void toggleAutoTranslate() {
-    translateLogic.updateLangConfig(conversation: conversationInfo.value,
-        data:{"autoTranslate": !isAutoTranslate});
+    translateLogic.updateLangConfig(
+        conversation: conversationInfo.value,
+        data: {"autoTranslate": !isAutoTranslate});
   }
 
   void setTargetLang() {
@@ -298,6 +299,10 @@ class ChatSetupLogic extends GetxController {
         conversationInfo: conversationInfo.value,
         multimediaType: MultimediaType.video,
       );
+
+  void complaint() {
+    AppNavigator.startComplaint(userID: conversationInfo.value.userID!);
+  }
 
   void searchChatHistoryFile() => AppNavigator.startSearchChatHistoryFile(
         conversationInfo: conversationInfo.value,

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:openim/core/controller/im_controller.dart';
+import 'package:openim/pages/home/home_logic.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rotated_corner_decoration/rotated_corner_decoration.dart';
@@ -16,6 +17,7 @@ import 'conversation_logic.dart';
 class ConversationPage extends StatelessWidget {
   final logic = Get.find<ConversationLogic>();
   final im = Get.find<IMController>();
+  final homeLogic = Get.find<HomeLogic>();
   Function(dynamic) switchHomeTab;
   RxInt homeTabIndex;
 
@@ -36,6 +38,14 @@ class ConversationPage extends StatelessWidget {
           onSwitchTab: switchHomeTab,
           homeTabIndex: homeTabIndex,
           mq: mq,
+          unhandledCount: homeLogic.unhandledCount,
+          left: AvatarView(
+                      width: 40.w,
+                      height: 40.h,
+                      text: im.userInfo.value.nickname,
+                      url: im.userInfo.value.faceURL,
+                      onTap: () => switchHomeTab(2)
+                    ),
         ),
         backgroundColor: Styles.c_FFFFFF,
         body: ConstrainedBox(
@@ -103,7 +113,7 @@ class ConversationPage extends StatelessWidget {
           motion: const ScrollMotion(),
           extentRatio: logic.existUnreadMsg(info)
               ? 0.7
-              : (logic.isPinned(info) ? 0.5 : 0.4),
+              : (logic.isPinned(info) ? 0.6 : 0.5),
           children: [
             CustomSlidableAction(
               onPressed: (_) => logic.pinConversation(info),

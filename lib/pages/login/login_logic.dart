@@ -70,7 +70,7 @@ class LoginLogic extends GetxController {
   String? get phone =>
       loginType.value == LoginType.phone ? phoneCtrl.text.trim() : null;
   LoginType operateType = LoginType.phone;
-  final agreePrivacy = false.obs;
+  final agree = false.obs;
   final translateLogic = Get.find<TranslateLogic>();
   final ttsLogic = Get.find<TtsLogic>();
 
@@ -115,12 +115,13 @@ class LoginLogic extends GetxController {
   }
 
   _onChanged() {
-    enabled.value = isPasswordLogin.value &&
-            phoneCtrl.text.trim().isNotEmpty &&
-            pwdCtrl.text.trim().isNotEmpty ||
-        !isPasswordLogin.value &&
-            phoneCtrl.text.trim().isNotEmpty &&
-            verificationCodeCtrl.text.trim().isNotEmpty;
+    enabled.value = agree.value &&
+        (isPasswordLogin.value &&
+                phoneCtrl.text.trim().isNotEmpty &&
+                pwdCtrl.text.trim().isNotEmpty ||
+            !isPasswordLogin.value &&
+                phoneCtrl.text.trim().isNotEmpty &&
+                verificationCodeCtrl.text.trim().isNotEmpty);
   }
 
   login() {
@@ -236,7 +237,8 @@ class LoginLogic extends GetxController {
     versionInfo.value = '$appName $version+$buildNumber SDK: ${OpenIM.version}';
   }
 
-  void changePrivacy(bool? bool) {
-    agreePrivacy.value = bool!;
+  void changeAgree(bool? bool) {
+    agree.value = bool!;
+    _onChanged();
   }
 }

@@ -50,4 +50,13 @@ class Urls {
 
   // tts
   static final tts = "${Config.appAuthUrl}/transcribe/url";
+
+  // 删除用户
+  static final deleteUser = "${Config.appAuthUrl}/account/delete";
+
+  static final complain = "${Config.appAuthUrl}/user/report";
+
+  static final blockMoment = "${Config.appAuthUrl}/office/work_moment/block_moment";
+
+  static final getBlockMoment = "${Config.appAuthUrl}/office/work_moment/get_block_moment";
 }

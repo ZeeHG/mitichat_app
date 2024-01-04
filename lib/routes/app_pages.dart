@@ -1,10 +1,22 @@
 import 'package:get/get.dart';
+import 'package:openim/pages/chat/complaint/complaint_binding.dart';
+import 'package:openim/pages/chat/complaint/complaint_view.dart';
+import 'package:openim/pages/friend_permissions/friend_permissions_binding.dart';
+import 'package:openim/pages/friend_permissions/friend_permissions_view.dart';
 import 'package:openim/pages/mine/account_and_security/account_and_security_binding.dart';
 import 'package:openim/pages/mine/account_and_security/account_and_security_view.dart';
+import 'package:openim/pages/mine/delete_user/delete_user_binding.dart';
+import 'package:openim/pages/mine/delete_user/delete_user_view.dart';
 import 'package:openim/pages/mine/phone_email_change/phone_email_change_binding.dart';
 import 'package:openim/pages/mine/phone_email_change/phone_email_change_view.dart';
 import 'package:openim/pages/mine/phone_email_change_detail/phone_email_change_detail_binding.dart';
 import 'package:openim/pages/mine/phone_email_change_detail/phone_email_change_detail_view.dart';
+import 'package:openim/pages/preview_selected_assets/preview_selected_assets_binding.dart';
+import 'package:openim/pages/preview_selected_assets/preview_selected_assets_view.dart';
+import 'package:openim/pages/privacy_policy/privacy_policy_binding.dart';
+import 'package:openim/pages/privacy_policy/privacy_policy_view.dart';
+import 'package:openim/pages/terms_of_server/terms_of_server_binding.dart';
+import 'package:openim/pages/terms_of_server/terms_of_server_view.dart';
 import 'package:openim_meeting/openim_meeting.dart';
 import 'package:openim_working_circle/openim_working_circle.dart';
 
@@ -562,6 +574,36 @@ class AppPages {
       name: AppRoutes.phoneEmailChangeDetail,
       page: () => PhoneEmailChangeDetailPage(),
       binding: PhoneEmailChangeDetailBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.deleteUser,
+      page: () => DeleteUserPage(),
+      binding: DeleteUserBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.complaint,
+      page: () => ComplaintPage(),
+      binding: ComplaintBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.previewSelectedAssets,
+      page: () => PreviewSelectedAssetsPage(),
+      binding: PreviewSelectedAssetsBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.termsOfServer,
+      page: () => TermsOfServerPage(),
+      binding: TermsOfServerBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.privacyPolicy,
+      page: () => PrivacyPolicyPage(),
+      binding: PrivacyPolicyBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.friendPermissions,
+      page: () => FriendPermissionsPage(),
+      binding: FriendPermissionsBinding(),
     ),
     // ...OPages.pages, // 组织架构
     ...WPages.pages, // 工作圈

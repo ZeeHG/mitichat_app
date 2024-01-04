@@ -70,7 +70,10 @@ android {
         }
 
         manifestPlaceholders = [
-                GETUI_APPID    : "Bb8eKvZxNg5MYXza0SU1JA",
+                // GETUI_APPID    : "Bb8eKvZxNg5MYXza0SU1JA",
+                GETUI_APP_ID   :  "Bb8eKvZxNg5MYXza0SU1JA",
+                GETUI_APP_KEY  : "zmgSnejQKP6eMt58PPq827",
+                GETUI_APP_SECRET : "9ehEdFOpS06l06lFkG7g28",
                 // 下面是多厂商配置，如需要开通使用请联系技术支持
                 // 如果不需要使用，预留空字段即可
                 XIAOMI_APP_ID  : "",
@@ -174,8 +177,10 @@ flutter {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    implementation 'com.getui:gtsdk:3.2.18.0'  //个推SDK
-    implementation 'com.getui:gtc:3.2.6.0'  //个推核心组件
+    implementation 'com.getui:sdk-for-gj:4.4.3.6'  //个推SDK
+
+    // implementation 'com.getui:gtsdk:3.2.18.0'  //个推SDK
+    // implementation 'com.getui:gtc:3.2.6.0'  //个推核心组件
 
     // 个推
     // 根据所需厂商选择集成

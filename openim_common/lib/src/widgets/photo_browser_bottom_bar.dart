@@ -30,7 +30,7 @@ class PhotoBrowserBottomBar extends StatelessWidget {
 
   Widget _buildBar(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(maxHeight: 142),
+      constraints: BoxConstraints(maxHeight: 150),
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: CupertinoColors.systemGrey6,

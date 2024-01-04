@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:openim/pages/home/home_logic.dart';
 import 'package:openim_common/openim_common.dart';
 
 import 'contacts_logic.dart';
@@ -11,6 +12,7 @@ class ContactsPage extends StatelessWidget {
   final logic = Get.find<ContactsLogic>();
   Function(dynamic) switchHomeTab;
   RxInt homeTabIndex;
+  final homeLogic = Get.find<HomeLogic>();
 
   ContactsPage(
       {super.key, required this.switchHomeTab, required this.homeTabIndex});
@@ -25,6 +27,7 @@ class ContactsPage extends StatelessWidget {
           onClickSearch: logic.searchContacts,
           onSwitchTab: switchHomeTab,
           homeTabIndex: homeTabIndex,
+          unhandledCount: homeLogic.unhandledCount,
           mq: mq),
       backgroundColor: Styles.c_F7F8FA,
       body: Obx(
@@ -90,6 +93,7 @@ class ContactsPage extends StatelessWidget {
               ),
             ),
             Container(
+              constraints: BoxConstraints(minWidth: 1.sw),
               color: Styles.c_FFFFFF,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,

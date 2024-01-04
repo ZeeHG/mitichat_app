@@ -6,11 +6,15 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class Apis {
-  static Options get imTokenOptions => Options(headers: {'token': DataSp.imToken});
+  static Options get imTokenOptions =>
+      Options(headers: {'token': DataSp.imToken});
 
-  static Options get chatTokenOptions => Options(headers: {'token': DataSp.chatToken});
+  static Options get chatTokenOptions =>
+      Options(headers: {'token': DataSp.chatToken});
 
   /// login
   static Future<LoginCertificate> login({
@@ -187,30 +191,31 @@ class Apis {
       options: chatTokenOptions,
     );
     if (data['users'] is List) {
-      return (data['users'] as List).map((e) => FriendInfo.fromJson(e)).toList();
+      return (data['users'] as List)
+          .map((e) => FriendInfo.fromJson(e))
+          .toList();
     }
     return [];
   }
 
-  static Future<List<UserFullInfo>?> getUserFullInfo({
-    int pageNumber = 0,
-    int showNumber = 10,
-    required List<String> userIDList,
-    CancelToken? cancelToken
-  }) async {
-    final data = await HttpUtil.post(
-      Urls.getUsersFullInfo,
-      data: {
-        'pagination': {'pageNumber': pageNumber, 'showNumber': showNumber},
-        'userIDs': userIDList,
-        'platform': IMUtils.getPlatform(),
-        // 'operationID': operationID,
-      },
-      options: chatTokenOptions,
-      cancelToken: cancelToken
-    );
+  static Future<List<UserFullInfo>?> getUserFullInfo(
+      {int pageNumber = 0,
+      int showNumber = 10,
+      required List<String> userIDList,
+      CancelToken? cancelToken}) async {
+    final data = await HttpUtil.post(Urls.getUsersFullInfo,
+        data: {
+          'pagination': {'pageNumber': pageNumber, 'showNumber': showNumber},
+          'userIDs': userIDList,
+          'platform': IMUtils.getPlatform(),
+          // 'operationID': operationID,
+        },
+        options: chatTokenOptions,
+        cancelToken: cancelToken);
     if (data['users'] is List) {
-      return (data['users'] as List).map((e) => UserFullInfo.fromJson(e)).toList();
+      return (data['users'] as List)
+          .map((e) => UserFullInfo.fromJson(e))
+          .toList();
     }
     return null;
   }
@@ -230,16 +235,17 @@ class Apis {
       options: chatTokenOptions,
     );
     if (data['users'] is List) {
-      return (data['users'] as List).map((e) => UserFullInfo.fromJson(e)).toList();
+      return (data['users'] as List)
+          .map((e) => UserFullInfo.fromJson(e))
+          .toList();
     }
     return null;
   }
 
-  static Future<UserFullInfo?> queryMyFullInfo({CancelToken? cancelToken}) async {
+  static Future<UserFullInfo?> queryMyFullInfo(
+      {CancelToken? cancelToken}) async {
     final list = await Apis.getUserFullInfo(
-      userIDList: [OpenIM.iMManager.userID],
-      cancelToken: cancelToken
-    );
+        userIDList: [OpenIM.iMManager.userID], cancelToken: cancelToken);
     return list?.firstOrNull;
   }
 
@@ -254,7 +260,13 @@ class Apis {
   }) async {
     return HttpUtil.post(
       Urls.getVerificationCode,
-      data: {"areaCode": areaCode, "phoneNumber": phoneNumber, "email": email, 'usedFor': usedFor, 'invitationCode': invitationCode},
+      data: {
+        "areaCode": areaCode,
+        "phoneNumber": phoneNumber,
+        "email": email,
+        'usedFor': usedFor,
+        'invitationCode': invitationCode
+      },
     ).then((value) {
       IMViews.showToast(StrRes.sentSuccessfully);
       return true;
@@ -292,17 +304,17 @@ class Apis {
     final url = dotenv.env['ANDROID_UPDATE_URL'] ?? "";
     final apiKey = dotenv.env['ANDROID_UPDATE_API_KEY'] ?? "";
     final appKey = dotenv.env['ANDROID_UPDATE_APP_KEY'] ?? "";
-    return dio.post<Map<String, dynamic>>(
-      url,
-      options: Options(
-        contentType: 'application/x-www-form-urlencoded',
-      ),
-      data: {
-        '_api_key': apiKey,
-        'appKey': appKey,
-      },
-      cancelToken: cancelToken
-    ).then((resp) {
+    return dio
+        .post<Map<String, dynamic>>(url,
+            options: Options(
+              contentType: 'application/x-www-form-urlencoded',
+            ),
+            data: {
+              '_api_key': apiKey,
+              'appKey': appKey,
+            },
+            cancelToken: cancelToken)
+        .then((resp) {
       Map<String, dynamic> map = resp.data!;
       if (map['code'] == 0) {
         return UpgradeInfoV2.fromJson(map['data']);
@@ -519,7 +531,6 @@ class Apis {
         options: chatTokenOptions,
       );
 
-
   /// 翻译
   static Future<dynamic> translate(
       {required String userID,
@@ -620,13 +631,17 @@ class Apis {
   }) async {
     assert(email != null);
     try {
-      var data = await HttpUtil.post(Urls.updateEmail, data: {
-        'email': email,
-        'verifyCode': verificationCode,
-        'password': IMUtils.generateMD5(password),
-        'platform': IMUtils.getPlatform(),
-        'operationID': HttpUtil.operationID,
-      }, options: chatTokenOptions,);
+      var data = await HttpUtil.post(
+        Urls.updateEmail,
+        data: {
+          'email': email,
+          'verifyCode': verificationCode,
+          'password': IMUtils.generateMD5(password),
+          'platform': IMUtils.getPlatform(),
+          'operationID': HttpUtil.operationID,
+        },
+        options: chatTokenOptions,
+      );
       return data;
     } catch (e, s) {
       Logger.print('e:$e s:$s');
@@ -642,14 +657,18 @@ class Apis {
   }) async {
     assert(phoneNumber != null);
     try {
-      var data = await HttpUtil.post(Urls.updatePhone, data: {
-        'phoneNumber': phoneNumber,
-        'areaCode': areaCode,
-        'verifyCode': verificationCode,
-        'password': IMUtils.generateMD5(password),
-        'platform': IMUtils.getPlatform(),
-        'operationID': HttpUtil.operationID,
-      }, options: chatTokenOptions,);
+      var data = await HttpUtil.post(
+        Urls.updatePhone,
+        data: {
+          'phoneNumber': phoneNumber,
+          'areaCode': areaCode,
+          'verifyCode': verificationCode,
+          'password': IMUtils.generateMD5(password),
+          'platform': IMUtils.getPlatform(),
+          'operationID': HttpUtil.operationID,
+        },
+        options: chatTokenOptions,
+      );
       return data;
     } catch (e, s) {
       Logger.print('e:$e s:$s');
@@ -665,6 +684,96 @@ class Apis {
 
     return HttpUtil.post(
       Urls.tts,
+      data: {
+        ...param,
+        'platform': IMUtils.getPlatform(),
+        'operationID': HttpUtil.operationID,
+      },
+      options: chatTokenOptions,
+    );
+  }
+
+  // 删除用户
+  static Future<dynamic> deleteUser({required String password}) async {
+    return HttpUtil.post(
+      Urls.deleteUser,
+      data: {
+        'password': IMUtils.generateMD5(password),
+        'platform': IMUtils.getPlatform(),
+        'operationID': HttpUtil.operationID,
+      },
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future<dynamic> complain({
+    required String userID,
+    required String type,
+    required String content,
+    List<AssetEntity>? assets,
+  }) async {
+    final images = [];
+    var result = [];
+    if (null != assets && assets.length > 0) {
+      result = await Future.wait(assets.map((e) async {
+        final file = await e.file;
+        final suffix = IMUtils.getSuffix(file!.path);
+        return OpenIM.iMManager.uploadFile(
+          id: const Uuid().v4(),
+          filePath: file!.path,
+          fileName: "${const Uuid().v4()}$suffix",
+        );
+      }));
+    }
+    if (result.length > 0) {
+      for (int i = 0; i < result.length; i += 1) {
+        images.add(jsonDecode(result[i])['url']);
+      }
+    }
+
+    Map<String, dynamic> param = {
+      'userID': userID,
+      'type': type,
+      'content': content,
+      'images': images,
+    };
+
+    return HttpUtil.post(
+      Urls.complain,
+      data: {
+        ...param,
+        'platform': IMUtils.getPlatform(),
+        'operationID': HttpUtil.operationID,
+      },
+      options: chatTokenOptions,
+    );
+  }
+
+
+  static Future<dynamic> blockMoment({required String userID, required int operation}) async {
+    Map<String, dynamic> param = {
+      'userID': userID,
+      'operation': operation
+    };
+
+    return HttpUtil.post(
+      Urls.blockMoment,
+      data: {
+        ...param,
+        'platform': IMUtils.getPlatform(),
+        'operationID': HttpUtil.operationID,
+      },
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future<dynamic> getBlockMoment({required String userID}) async {
+    Map<String, dynamic> param = {
+      'userID': userID
+    };
+
+    return HttpUtil.post(
+      Urls.getBlockMoment,
       data: {
         ...param,
         'platform': IMUtils.getPlatform(),

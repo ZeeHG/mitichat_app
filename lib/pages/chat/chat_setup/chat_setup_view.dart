@@ -103,6 +103,15 @@ class ChatSetupPage extends StatelessWidget {
                   isTopRadius: true,
                   isBottomRadius: true,
                 ),
+                10.verticalSpace,
+                _buildItemView(
+                  text: StrRes.complaint,
+                  textStyle: Styles.ts_333333_16sp,
+                  onTap: logic.complaint,
+                  showRightArrow: true,
+                  isTopRadius: true,
+                  isBottomRadius: true,
+                ),
                 // 10.verticalSpace,
                 // _buildItemView(
                 //   text: StrRes.complaint,
