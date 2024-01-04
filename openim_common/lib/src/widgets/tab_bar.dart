@@ -58,7 +58,7 @@ class CustomTabBar extends StatelessWidget {
     );
   }
 
-  Widget _buildItemView(int i) => Obx(() => Expanded(
+  Widget _buildItemView(int i) => Expanded(
         child: GestureDetector(
           onTap: () {
             if (null != onTabChanged) onTabChanged!(i);
@@ -69,12 +69,13 @@ class CustomTabBar extends StatelessWidget {
             margin: EdgeInsets.only(left: i != 0 ? 5.w : 0),
             child: Stack(
               children: [
+                if(null != counts?.elementAt(i)?.value)
                 Positioned(
                   top: 0,
                   right: 0,
                   child: Transform.translate(
                     offset: const Offset(2, 2),
-                    child: UnreadCountView(count: counts?.elementAt(i)?.value ?? 0),
+                    child: Obx(() => UnreadCountView(count: counts?.elementAt(i)?.value ?? 0)),
                   ),
                 ),
                 Align(
@@ -108,7 +109,7 @@ class CustomTabBar extends StatelessWidget {
             ),
           ),
         ),
-      )) ;
+      ) ;
 }
 
 class TabInfo {
