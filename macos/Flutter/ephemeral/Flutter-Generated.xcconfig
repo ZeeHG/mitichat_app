@@ -1,6 +1,6 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/Users/lakerchen/flutter
-FLUTTER_APPLICATION_PATH=/Users/lakerchen/code/openim/mitichat_fe
+FLUTTER_ROOT=D:\dev\flutter
+FLUTTER_APPLICATION_PATH=D:\work\im2\mitichat-fe
 COCOAPODS_PARALLEL_CODE_SIGN=true
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=0.0.29

@@ -73,8 +73,8 @@ class Config {
   /// 203.56.175.233
   /// static const _host = "www.bopufund.com";
   /// static const _host = "10.25.2.24";
-  // static const _host = "www.miti.chat";
-  static const _host = "10.25.2.24";
+  static const _host = "www.miti.chat";
+  // static const _host = "10.25.2.24";
 
   static const _ipRegex = '((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)';
 

@@ -1,4 +1,4 @@
-package chat.miti;
+package miti.chat;
 
 import io.flutter.embedding.android.FlutterFragmentActivity;
 

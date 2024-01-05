@@ -197,7 +197,7 @@
 -keep public class com.tencent.bugly.**{*;}
 
 # OpenIM
--keep class chat.miti.**{*;}
+-keep class miti.chat.**{*;}
 -keep class io.openim.**{*;}
 -keep class open_im_sdk.**{*;}
 -keep class open_im_sdk_callback.**{*;}
