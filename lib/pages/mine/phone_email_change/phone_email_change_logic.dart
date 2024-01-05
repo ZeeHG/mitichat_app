@@ -30,9 +30,9 @@ extension PhoneEmailChangeTypeExt on PhoneEmailChangeType {
   String get hintText {
     switch (this) {
       case PhoneEmailChangeType.phone:
-        return StrRes.plsEnterPhoneNumber;
+        return StrRes.newPhone;
       case PhoneEmailChangeType.email:
-        return StrRes.plsEnterEmail;
+        return StrRes.newEmail;
     }
   }
 

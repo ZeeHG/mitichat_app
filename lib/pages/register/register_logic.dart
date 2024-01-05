@@ -110,7 +110,7 @@ class RegisterLogic extends GetxController {
       return false;
     }
     if (needInvitationCodeRegister && invitationCodeCtrl.text.trim().isEmpty) {
-      IMViews.showToast(StrRes.plsEnterInvitationCode);
+      IMViews.showToast(StrRes.plsEnterInvitationCode2);
       return false;
     }
     return true;
@@ -135,6 +135,10 @@ class RegisterLogic extends GetxController {
       );
 
   Future<bool> getVerificationCode() async {
+    if (needInvitationCodeRegister && invitationCodeCtrl.text.trim().isEmpty) {
+      IMViews.showToast(StrRes.plsEnterInvitationCode2);
+      return false;
+    }
     if (phoneRegister) {
       if (phone?.isEmpty == true) {
         IMViews.showToast(StrRes.plsEnterPhoneNumber);

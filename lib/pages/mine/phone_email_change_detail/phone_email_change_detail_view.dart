@@ -87,7 +87,7 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                         Expanded(
                             child: InputBox.verificationCode(
                                 label: StrRes.verificationCode,
-                                hintText: StrRes.plsEnterVerificationCode,
+                                hintText: StrRes.verificationCode,
                                 controller: logic.verificationCodeCtrl,
                                 onSendVerificationCode:
                                     logic.getVerificationCode,
@@ -114,7 +114,7 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                         Expanded(
                             child: InputBox.password(
                                 label: StrRes.password,
-                                hintText: StrRes.plsEnterPassword,
+                                hintText: StrRes.curPwd,
                                 controller: logic.pwdCtrl,
                                 inputFormatters: [
                                   IMUtils.getPasswordFormatter()

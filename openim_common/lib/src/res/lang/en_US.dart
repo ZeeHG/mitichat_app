@@ -965,8 +965,10 @@ const Map<String, String> en_US = {
       "• Any other information you instruct us to share. For instance, when you connect your Miti account to a third-party app, and when you share information or content from Miti to a third-party app, Miti will share your information",
   "privacyPolicy80":
       "• Content you post or send. The sharing range of your content depends on your personal settings and the type of service you use. For example, dynamics might be sent to a single friend you choose, but your posts might be seen by any Miti user business partners and the public:",
-    "privacyPolicy81": "• Sharing Information with All Miti Users, Our Business Partners, and the Public. We may share the following information with all Miti users as well as our business partners and the public:",
-  "privacyPolicy82": "• Public information, such as your name, username, profile picture, and public profile.",
+  "privacyPolicy81":
+      "• Sharing Information with All Miti Users, Our Business Partners, and the Public. We may share the following information with all Miti users as well as our business partners and the public:",
+  "privacyPolicy82":
+      "• Public information, such as your name, username, profile picture, and public profile.",
   "privacyPolicy83":
       "• Public content, such as dynamics, posts set to be viewable by everyone, and any content you submit to inherently public services (like maps and other crowdsourcing services). The general public can view, use, and share this content both within and outside of our services, including through search results, websites, applications, and both online and offline broadcasts.",
   "privacyPolicy84":
@@ -1029,6 +1031,46 @@ const Map<String, String> en_US = {
   "privacyPolicy117":
       "If you have any questions, comments, or suggestions about this Privacy Policy, or to make complaints and appeals, contact us in the following way, and we will generally reply within 15 working days:",
   "privacyPolicy118": "Email: support@miti.chat",
+  "privacyPolicy33_1": "Usage Information.",
+  "privacyPolicy33_2":
+      "We collect information about your activity through our services. For example, we may collect information about:",
+  "privacyPolicy36_1": "Content Information. ",
+  "privacyPolicy36_2":
+      "When you use our services, you can create and share various types of content, such as articles, daily dynamics, etc., using tools like cameras. We collect information about the content you create or provide in our services and your use of tools like cameras. We may also collect other information about the content, including metadata - information about the content itself, such as the date and time it was posted and the viewers.",
+  "privacyPolicy37_1": "Device Information. ",
+  "privacyPolicy37_2":
+      "We collect information about the device you use from your device. For example, we may collect:",
+  "privacyPolicy41_1": "Camera, Photos, and Audio. ",
+  "privacyPolicy41_2":
+      "Many of our services require us to collect images and other information from your device's camera, photos, and microphone. Unless we can access your camera or photo album, you will not be able to send dynamics or upload photos from your album",
+  "privacyPolicy42_1": "Location Information. ",
+  "privacyPolicy42_2":
+      "When you use our services, we may collect information about your location. With your permission, we may also collect information about your precise location through methods such as GPS signals.",
+  "privacyPolicy43_1":
+      "Information Collected Through Cookies and Other Technologies. ",
+  "privacyPolicy43_2":
+      "Like most online services and mobile applications, we may use cookies and other technologies (such as web beacons, web storage, and unique advertising identifiers) to collect information about your activity, browser, and device. We may also use these technologies to collect information when you interact with services we offer through our partners, such as advertising and commercial features. For example, we may use information collected on other websites to show you more relevant ads. Most web browsers are set to accept cookies by default. If you wish, you can usually delete or reject browser cookies through the settings on your browser or device. But remember, deleting or rejecting cookies may affect the availability and functionality of our services.",
+  "privacyPolicy44_1": "Log Information. ",
+  "privacyPolicy44_2":
+      "When you use our website, we may also collect log information, such as:",
+  "privacyPolicy52_1": "Other Information with Your Permission. ",
+  "privacyPolicy52_2":
+      "In some cases, when you interact with our services, we may ask your permission to collect other information.",
+  "privacyPolicy75_1": "Sharing Information with Other Miti Users. ",
+  "privacyPolicy75_2":
+      "We may share the following information with other Miti users:",
+  "privacyPolicy84_1": "Sharing Information with Third Parties. ",
+  "privacyPolicy84_2":
+      "We may share information with third parties in the following ways:",
+  "privacyPolicy95_1": "Non-Personal Information. ",
+  "privacyPolicy95_2":
+      "We may also share aggregated, non-personally identifiable, or de-identified information with third parties who provide services to us or perform business purposes for us.",
   "confirmDelMoment": "Are you sure you want to delete this moment?",
-  "plsAgree": "Please read and agree to the User Agreement and Privacy Policy to proceed."
+  "plsAgree":
+      "Please read and agree to the User Agreement and Privacy Policy to proceed.",
+  "curPwd": "Current Password",
+  "newPhone": "New Mobile Number",
+  "newEmail": "New Email Address",
+  "required": "Required",
+  "plsEnterInvitationCode2": "Please Enter Your Invitation Code"
 };

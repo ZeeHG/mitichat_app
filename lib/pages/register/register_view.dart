@@ -20,19 +20,10 @@ class RegisterPage extends StatelessWidget {
           children: [
             (logic.phoneRegister? StrRes.phoneRegister : StrRes.emailRegister).toText..style = Styles.ts_333333_24sp_medium,
             21.verticalSpace,
-            InputBox.account(
-              label: logic.operateType.value.name,
-              hintText: logic.operateType.value.hintText,
-              code: logic.areaCode.value,
-              onAreaCode: logic.phoneRegister ? logic.openCountryCodePicker : null,
-              controller: logic.phoneRegister ? logic.phoneCtrl : logic.emailCtrl,
-            ),
-            16.verticalSpace,
-            InputBox.verificationCode(
-              label: StrRes.verificationCode,
-              hintText: StrRes.plsEnterVerificationCode,
-              controller: logic.verificationCodeCtrl,
-              onSendVerificationCode: logic.getVerificationCode,
+            InputBox.invitationCode(
+              label: StrRes.invitationCode,
+              hintText: sprintf(StrRes.plsEnterInvitationCode, [logic.needInvitationCodeRegister ? '(${StrRes.required})' : '(${StrRes.optional})']),
+              controller: logic.invitationCodeCtrl,
             ),
             16.verticalSpace,
             InputBox(
@@ -56,10 +47,19 @@ class RegisterPage extends StatelessWidget {
               inputFormatters: [IMUtils.getPasswordFormatter()],
             ),
             16.verticalSpace,
-            InputBox.invitationCode(
-              label: StrRes.invitationCode,
-              hintText: sprintf(StrRes.plsEnterInvitationCode, [logic.needInvitationCodeRegister ? '' : '（${StrRes.optional}）']),
-              controller: logic.invitationCodeCtrl,
+            InputBox.account(
+              label: logic.operateType.value.name,
+              hintText: logic.operateType.value.hintText,
+              code: logic.areaCode.value,
+              onAreaCode: logic.phoneRegister ? logic.openCountryCodePicker : null,
+              controller: logic.phoneRegister ? logic.phoneCtrl : logic.emailCtrl,
+            ),
+            16.verticalSpace,
+            InputBox.verificationCode(
+              label: StrRes.verificationCode,
+              hintText: StrRes.plsEnterVerificationCode,
+              controller: logic.verificationCodeCtrl,
+              onSendVerificationCode: logic.getVerificationCode,
             ),
             40.verticalSpace,
             Button(
