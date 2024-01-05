@@ -182,7 +182,7 @@ class ContactsPage extends StatelessWidget {
     required String text,
     Function()? onTap,
   }) {
-    width = width ?? 80.w;
+    width = width ?? 90.w;
     height = height ?? 50.h;
     color = color ?? Styles.c_8544F8;
     tStyle = tStyle ?? Styles.ts_FFFFFF_14sp_medium;
@@ -193,7 +193,7 @@ class ContactsPage extends StatelessWidget {
         child: Container(
             decoration: BoxDecoration(
               color: color,
-              borderRadius: BorderRadius.circular(14.r), // 设置边框圆角为14
+              borderRadius: BorderRadius.circular(14.r),
               boxShadow: [
                 BoxShadow(
                   color: shadowColor,

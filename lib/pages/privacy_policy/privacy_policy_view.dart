@@ -140,7 +140,6 @@ class PrivacyPolicyPage extends StatelessWidget {
                         boldText(StrRes.privacyPolicy116),
                         regularText(StrRes.privacyPolicy117),
                         regularText(StrRes.privacyPolicy118),
-                        regularText(StrRes.privacyPolicy119),
                       ],
                     )))));
   }
@@ -154,4 +153,14 @@ class PrivacyPolicyPage extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 13.h),
         child: text.toText..style = Styles.ts_333333_13sp,
       );
+
+  RichText richText(List<TextSpan> children) => RichText(
+    text: TextSpan(
+      children: children,
+    ),
+  );
+
+  TextSpan boldTextSpan(String text) => TextSpan(text: text, style: Styles.ts_333333_13sp_medium);
+
+  TextSpan regularTextSpan(String text) => TextSpan(text: text, style: Styles.ts_333333_13sp);
 }

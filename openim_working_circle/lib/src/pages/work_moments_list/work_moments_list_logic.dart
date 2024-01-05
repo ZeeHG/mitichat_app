@@ -341,6 +341,10 @@ class WorkMomentsListLogic extends GetxController {
   }
 
   delWorkWorkMoments(WorkMoments moments) async {
+    var confirm = await Get.dialog(CustomDialog(
+      title: StrRes.confirmDelMoment,
+    ));
+    if (!confirm) return;
     await LoadingView.singleton.wrap(
       asyncFunction: () async {
         await WApis.deleteMoments(workMomentID: moments.workMomentID!);

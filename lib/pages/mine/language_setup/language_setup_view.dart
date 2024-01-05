@@ -31,9 +31,10 @@ class LanguageSetupPage extends StatelessWidget {
                 height: .5,
               ),
               _buildItemView(
-                label: StrRes.chinese,
-                isChecked: logic.onOff["isChinese"]!.value,
-                onTap: () => logic.switchLanguage(1),
+                label: StrRes.english,
+                isChecked: logic.onOff["isEnglish"]!.value,
+                onTap: () => logic.switchLanguage(2),
+                isBottomRadius: true,
               ),
               Container(
                 margin: EdgeInsets.only(left: 26.w, right: 10.w),
@@ -41,10 +42,9 @@ class LanguageSetupPage extends StatelessWidget {
                 height: .5,
               ),
               _buildItemView(
-                label: StrRes.english,
-                isChecked: logic.onOff["isEnglish"]!.value,
-                onTap: () => logic.switchLanguage(2),
-                isBottomRadius: true,
+                label: StrRes.chinese,
+                isChecked: logic.onOff["isChinese"]!.value,
+                onTap: () => logic.switchLanguage(1),
               ),
               Container(
                 margin: EdgeInsets.only(left: 26.w, right: 10.w),

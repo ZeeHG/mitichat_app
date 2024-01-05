@@ -907,5 +907,6 @@ const Map<String, String> zh_CN = {
   "privacyPolicy116": "如何与我们联系",
   "privacyPolicy117": "如果您对本隐私政策有任何问题、评论或建议，或者要提出投诉和申诉，请通过以下方式与我们联系，我们通常会在15个工作日内回复：",
   "privacyPolicy118": "电子邮件：support@miti.chat",
-  "privacyPolicy119": "我们收集的信息"
+  "confirmDelMoment": "确认删除该动态?",
+  "plsAgree": "请先同意用户协议和隐私协议"
 };

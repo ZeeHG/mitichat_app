@@ -902,5 +902,6 @@ const Map<String, String> ja_JP = {
   "privacyPolicy116": "お問い合わせ方法",
   "privacyPolicy117": "このプライバシーポリシーに関するご質問、コメント、提案、苦情、申し立てがある場合は、以下の方法でお問い合わせください。通常、15営業日以内に返信いたします。",
   "privacyPolicy118": "メール：support@miti.chat",
-  "privacyPolicy119": "収集する情報"
+  "confirmDelMoment": "この瞬間を削除してもよろしいですか？",
+  "plsAgree": "続行するには利用規約とプライバシーポリシーをお読みいただき、同意してください。"
 };

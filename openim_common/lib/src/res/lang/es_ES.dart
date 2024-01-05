@@ -902,5 +902,6 @@ const Map<String, String> es_ES = {
   "privacyPolicy116": "Cómo contactarnos",
   "privacyPolicy117": "Si tienes alguna pregunta, comentario o sugerencia sobre esta Política de Privacidad, o para presentar quejas y apelaciones, contáctanos de la siguiente manera y generalmente responderemos en un plazo de 15 días hábiles:",
   "privacyPolicy118": "Correo electrónico: support@miti.chat",
-  "privacyPolicy119": "Información que recopilamos"
+  "confirmDelMoment": "¿Estás seguro de que quieres eliminar este momento?",
+  "plsAgree": "Por favor, lee y acepta el Acuerdo de Usuario y la Política de Privacidad para continuar."
 };

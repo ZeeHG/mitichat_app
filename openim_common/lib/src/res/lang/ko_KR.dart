@@ -981,5 +981,6 @@ const Map<String, String> ko_KR = {
   "privacyPolicy117":
       "이 개인 정보 보호 정책에 관한 질문, 의견 또는 제안이 있거나 불만 및 항소를 하려면 다음 방법으로 연락해주시면 일반적으로 15일 이내에 회신해드리겠습니다:",
   "privacyPolicy118": "이메일: support@miti.chat",
-  "privacyPolicy119": "수집하는 정보"
+  "confirmDelMoment": "이 순간을 삭제하시겠습니까?",
+  "plsAgree": "계속하려면 사용자 동의서와 개인 정보 보호 정책을 읽고 동의해주세요."
 };

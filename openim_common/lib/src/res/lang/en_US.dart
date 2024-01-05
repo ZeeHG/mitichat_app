@@ -1029,5 +1029,6 @@ const Map<String, String> en_US = {
   "privacyPolicy117":
       "If you have any questions, comments, or suggestions about this Privacy Policy, or to make complaints and appeals, contact us in the following way, and we will generally reply within 15 working days:",
   "privacyPolicy118": "Email: support@miti.chat",
-  "privacyPolicy119": "Information We Collect"
+  "confirmDelMoment": "Are you sure you want to delete this moment?",
+  "plsAgree": "Please read and agree to the User Agreement and Privacy Policy to proceed."
 };

@@ -115,7 +115,7 @@ class LoginLogic extends GetxController {
   }
 
   _onChanged() {
-    enabled.value = agree.value &&
+    enabled.value =
         (isPasswordLogin.value &&
                 phoneCtrl.text.trim().isNotEmpty &&
                 pwdCtrl.text.trim().isNotEmpty ||
@@ -124,7 +124,8 @@ class LoginLogic extends GetxController {
                 verificationCodeCtrl.text.trim().isNotEmpty);
   }
 
-  login() {
+  login(BuildContext context) {
+    FocusScope.of(context).requestFocus(new FocusNode());
     DataSp.putLoginType(loginType.value.rawValue);
     LoadingView.singleton.wrap(asyncFunction: () async {
       var suc = await _login();
@@ -147,6 +148,12 @@ class LoginLogic extends GetxController {
         IMViews.showToast(StrRes.plsEnterRightEmail);
         return false;
       }
+
+      if (!agree.value) {
+        IMViews.showToast(StrRes.plsAgree);
+        return false;
+      }
+
       final password = IMUtils.emptyStrToNull(pwdCtrl.text);
       final code = IMUtils.emptyStrToNull(verificationCodeCtrl.text);
       final data = await Apis.login(

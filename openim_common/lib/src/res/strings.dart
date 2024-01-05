@@ -1483,9 +1483,10 @@ static String get privacyPolicy115 => 'privacyPolicy115'.tr;
 static String get privacyPolicy116 => 'privacyPolicy116'.tr;
 static String get privacyPolicy117 => 'privacyPolicy117'.tr;
 static String get privacyPolicy118 => 'privacyPolicy118'.tr;
-static String get privacyPolicy119 => 'privacyPolicy119'.tr;
 
 static String get recentlyAdd => 'recentlyAdd'.tr;
 static String get aiFriends => 'aiFriends'.tr;
 static String get momentsAndStatus => 'momentsAndStatus'.tr;
+static String get confirmDelMoment => 'confirmDelMoment'.tr;
+static String get plsAgree => 'plsAgree'.tr;
 }
