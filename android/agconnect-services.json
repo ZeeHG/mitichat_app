@@ -31,17 +31,17 @@
 		"client_id":"1276047413261401408",
 		"client_secret":"65DF310337D787B52DB17BAF401DB3D9BD621803DE701AB58E989DB37469AA89",
 		"project_id":"388421841221749659",
-		"app_id":"109488479",
+		"app_id":"110027049",
 		"api_key":"DAEDAOMDeb0VDAbTj+pdHz6emSQEeT2gaF7STRK2xPLDITpEC9nx/FMf6Mfj6LIY82WO0wvV7FFzLfakd5J4kvy7Er4KmScocbUM9w==",
-		"package_name":"chat.miti"
+		"package_name":"miti.chat"
 	},
 	"oauth_client":{
-		"client_id":"109488479",
+		"client_id":"110027049",
 		"client_type":1
 	},
 	"app_info":{
-		"app_id":"109488479",
-		"package_name":"chat.miti"
+		"app_id":"110027049",
+		"package_name":"miti.chat"
 	},
 	"service":{
 		"analytics":{
@@ -79,17 +79,17 @@
 	"configuration_version":"3.0",
 	"appInfos":[
 		{
-			"package_name":"chat.miti",
+			"package_name":"miti.chat",
 			"client":{
-				"app_id":"109488479"
+				"app_id":"110027049"
 			},
 			"app_info":{
-				"package_name":"chat.miti",
-				"app_id":"109488479"
+				"package_name":"miti.chat",
+				"app_id":"110027049"
 			},
 			"oauth_client":{
 				"client_type":1,
-				"client_id":"109488479"
+				"client_id":"110027049"
 			}
 		}
 	]
