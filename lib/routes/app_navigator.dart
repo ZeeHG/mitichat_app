@@ -515,4 +515,6 @@ class AppNavigator {
 
   static startFriendPermissions({required String userID}) =>
       Get.toNamed(AppRoutes.friendPermissions, arguments: {"userID": userID});
+
+  static startRecentRequests() => Get.toNamed(AppRoutes.recentRequests);
 }

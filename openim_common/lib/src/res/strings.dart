@@ -1516,4 +1516,5 @@ static String get newPhone => 'newPhone'.tr;
 static String get newEmail => 'newEmail'.tr;
 static String get required => 'required'.tr;
 static String get plsEnterInvitationCode2 => 'plsEnterInvitationCode2'.tr;
+static String get recentRequests => 'recentRequests'.tr;
 }

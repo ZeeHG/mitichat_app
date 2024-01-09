@@ -38,17 +38,18 @@ class ContactsLogic extends GetxController
         "onTap": () => myGroup()
       },
       {
-        "text": StrRes.newFriend,
+        "text": StrRes.recentRequests,
         "color": Styles.c_00CBC5,
         "shadowColor": Color.fromRGBO(0, 203, 197, 0.5),
-        "onTap": () => newFriend()
+        // "onTap": () => newFriend(),
+        "onTap": () => newRecent()
       },
-      {
-        "text": StrRes.newGroup,
-        "color": Styles.c_FEA836,
-        "shadowColor": Color.fromRGBO(254, 168, 54, 0.5),
-        "onTap": () => newGroup()
-      },
+      // {
+      //   "text": StrRes.newGroup,
+      //   "color": Styles.c_FEA836,
+      //   "shadowColor": Color.fromRGBO(254, 168, 54, 0.5),
+      //   // "onTap": () => newGroup()
+      // },
     ];
 
   // final organizationLogic = Get.find<OrganizationLogic>();
@@ -184,6 +185,8 @@ class ContactsLogic extends GetxController
   void onUserIDList(List<String> userIDList) {}
 
   void newFriend() => AppNavigator.startFriendRequests();
+
+  void newRecent() => AppNavigator.startRecentRequests();
 
   void newGroup() => AppNavigator.startGroupRequests();
 

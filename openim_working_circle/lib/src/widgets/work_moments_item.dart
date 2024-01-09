@@ -28,9 +28,12 @@ class WorkMomentsItem extends StatelessWidget {
     this.previewPicture,
     this.showLikeCommentPopMenu,
     this.onTapAvatar,
-  }) : super(key: key);
+    this.padding,
+  }) : 
+  super(key: key);
   final WorkMoments moments;
   final String popMenuID;
+  final EdgeInsetsGeometry? padding;
   final Function(WorkMoments moments)? previewWhoCanWatchList;
   final Function(WorkMoments moments)? delMoment;
   final Function(WorkMoments moments, Comments comments)? replyComment;
@@ -66,7 +69,7 @@ class WorkMomentsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 15.h),
+      padding: padding ?? EdgeInsets.symmetric(horizontal: 18.w, vertical: 15.h),
       decoration: BoxDecoration(
         color: Styles.c_FFFFFF,
         border: BorderDirectional(

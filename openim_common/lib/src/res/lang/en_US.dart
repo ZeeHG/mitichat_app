@@ -1072,5 +1072,6 @@ const Map<String, String> en_US = {
   "newPhone": "New Mobile Number",
   "newEmail": "New Email Address",
   "required": "Required",
-  "plsEnterInvitationCode2": "Please Enter Your Invitation Code"
+  "plsEnterInvitationCode2": "Please Enter Your Invitation Code",
+  "recentRequests": "最近添加"
 };

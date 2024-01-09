@@ -85,6 +85,7 @@ abstract class AppRoutes {
   static const termsOfServer = '/terms_of_server';
   static const privacyPolicy = '/privacy_policy';
   static const friendPermissions = '/friend_permissions';
+  static const recentRequests = '/recent_requests';
 }
 
 extension RoutesExtension on String {

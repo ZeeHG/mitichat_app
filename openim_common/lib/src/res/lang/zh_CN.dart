@@ -936,4 +936,5 @@ const Map<String, String> zh_CN = {
   "newEmail": "新邮箱",
   "required": "必填",
   "plsEnterInvitationCode2": "请输入您的邀请码",
+  "recentRequests": "最近添加"
 };

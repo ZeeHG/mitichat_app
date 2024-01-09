@@ -17,9 +17,9 @@ class ServerConfigLogic extends GetxController {
     ipCtrl.clear();
     final hintText = isIP.value ? 'ip' : 'Domain';
     if (isIP.value) {
-      authCtrl.text = 'http://$hintText:50008';
-      imApiCtrl.text = 'http://$hintText:50002';
-      imWsCtrl.text = 'ws://$hintText:50001';
+      authCtrl.text = 'http://$hintText:10008';
+      imApiCtrl.text = 'http://$hintText:10002';
+      imWsCtrl.text = 'ws://$hintText:10001';
     } else {
       authCtrl.text = 'https://$hintText/chat/';
       imApiCtrl.text = 'https://$hintText/api/';

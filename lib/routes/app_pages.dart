@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:openim/pages/chat/complaint/complaint_binding.dart';
 import 'package:openim/pages/chat/complaint/complaint_view.dart';
+import 'package:openim/pages/contacts/recent_requests/recent_requests_binding.dart';
+import 'package:openim/pages/contacts/recent_requests/recent_requests_view.dart';
 import 'package:openim/pages/friend_permissions/friend_permissions_binding.dart';
 import 'package:openim/pages/friend_permissions/friend_permissions_view.dart';
 import 'package:openim/pages/mine/account_and_security/account_and_security_binding.dart';
@@ -604,6 +606,11 @@ class AppPages {
       name: AppRoutes.friendPermissions,
       page: () => FriendPermissionsPage(),
       binding: FriendPermissionsBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.recentRequests,
+      page: () => RecentRequestsPage(),
+      binding: RecentRequestsBinding(),
     ),
     // ...OPages.pages, // 组织架构
     ...WPages.pages, // 工作圈

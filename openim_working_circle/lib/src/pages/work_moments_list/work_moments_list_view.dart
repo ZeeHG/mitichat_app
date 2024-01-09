@@ -68,7 +68,7 @@ class WorkMomentsListPage extends StatelessWidget {
                             delegate: SliverChildBuilderDelegate(
                               (_, int index) {
                                 final info = logic.workMoments.elementAt(index);
-                                return Obx(() => _buildItemView(info));
+                                return Obx(() => _buildItemView(info, index));
                               },
                               childCount: logic.workMoments.length,
                             ),
@@ -180,7 +180,7 @@ class WorkMomentsListPage extends StatelessWidget {
   //       },
   //     );
 
-  Widget _buildItemView(WorkMoments moments) => WorkMomentsItem(
+  Widget _buildItemView(WorkMoments moments, int index) => WorkMomentsItem(
         moments: moments,
         popMenuID: logic.popMenuID.value,
         previewWhoCanWatchList: logic.previewWhoCanWatchList,
@@ -276,9 +276,9 @@ class WorkMomentsListPage extends StatelessWidget {
               ..height = 196.h
               ..fit = BoxFit.cover,
             ),
-            if (logic.scrollHeight <= (196.h - 44.h - MediaQuery.of(context).padding.top))
+            if (logic.scrollHeight <= (196.h - 22.h - MediaQuery.of(context).padding.top))
             Positioned(
-              bottom: 80.h,
+              bottom: 70.h,
               left: 18.w,
               child: Container(
                 width: 1.sw - 36.w,
@@ -344,13 +344,13 @@ class WorkMomentsListPage extends StatelessWidget {
               ),
               ),
             ),
-            if (logic.scrollHeight <= (196.h - 44.h - MediaQuery.of(context).padding.top))
+            if (logic.scrollHeight <= (196.h - 22.h - MediaQuery.of(context).padding.top))
             Positioned(
               bottom: 0,
               left: 0,
               child: Container(
                 width: 1.sw,
-                height: 30.h,
+                height: 16.h,
                 decoration: BoxDecoration(
                   color: Styles.c_FFFFFF,
                   borderRadius: BorderRadius.only(
