@@ -26,6 +26,17 @@ class AccountAndSecurityPage extends StatelessWidget {
               children: [
                 12.verticalSpace,
                 _buildItemView(
+                  label: StrRes.accountManage,
+                  showRightArrow: true,
+                  onTap: () => logic.accountManage(),
+                  valueWidget: AvatarView(
+                      width: 38.w,
+                      height: 38.h,
+                      text: imLogic.userInfo.value.nickname,
+                      url: imLogic.userInfo.value.faceURL,
+                    ),
+                ),
+                _buildItemView(
                   label: StrRes.phoneNumber,
                   showRightArrow: true,
                   onTap: () => logic.phoneEmailChange(type: PhoneEmailChangeType.phone),
@@ -57,6 +68,7 @@ class AccountAndSecurityPage extends StatelessWidget {
     required String label,
     TextStyle? textStyle,
     String? value,
+    Widget? valueWidget,
     bool switchOn = false,
     bool isTopRadius = false,
     bool isBottomRadius = false,
@@ -91,6 +103,8 @@ class AccountAndSecurityPage extends StatelessWidget {
                       const Spacer(),
                       if (null != value)
                         value.toText..style = Styles.ts_999999_16sp,
+                      if (null != valueWidget)
+                        valueWidget,
                       if (showSwitchButton)
                         CupertinoSwitch(
                           value: switchOn,

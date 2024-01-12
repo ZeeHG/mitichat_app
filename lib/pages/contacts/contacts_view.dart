@@ -182,7 +182,7 @@ class ContactsPage extends StatelessWidget {
     required String text,
     Function()? onTap,
   }) {
-    width = width ?? 95.w;
+    width = width ?? 110.w;
     height = height ?? 50.h;
     color = color ?? Styles.c_8544F8;
     tStyle = tStyle ?? Styles.ts_FFFFFF_14sp_medium;

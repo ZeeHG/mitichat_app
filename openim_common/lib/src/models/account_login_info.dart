@@ -1,0 +1,58 @@
+import 'dart:convert';
+
+// enum UserLoginType { emailWithPwd, phoneWithPwd }
+
+class AccountLoginInfo {
+  String id;
+  String userID;
+  String server;
+  String tls;
+  String email;
+  String areaCode;
+  String phoneNumber;
+  // "phoneWithPwd", "emailWithPwd"
+  String loginType;
+  String password;
+  String faceURL;
+  String nickname;
+  String imToken;
+  String chatToken;
+
+  AccountLoginInfo.fromJson(Map<String, dynamic> map)
+      : id = map["id"] ?? '',
+        userID = map["userID"] ?? '',
+        server = map["server"] ?? '',
+        tls = map["tls"] ?? "1",
+        email = map["email"] ?? '',
+        areaCode = map["areaCode"] ?? '',
+        phoneNumber = map["phoneNumber"] ?? '',
+        loginType = map["loginType"] ?? "phoneWithPwd",
+        password = map["password"] ?? '',
+        faceURL = map["faceURL"] ?? '',
+        nickname = map["nickname"] ?? '',
+        imToken = map["imToken"] ?? '',
+        chatToken = map['chatToken'] ?? '';
+
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['userID'] = userID;
+    data['server'] = server;
+    data['tls'] = tls;
+    data['email'] = email;
+    data['areaCode'] = areaCode;
+    data['phoneNumber'] = phoneNumber;
+    data['loginType'] = loginType;
+    data['password'] = password;
+    data['faceURL'] = faceURL;
+    data['nickname'] = nickname;
+    data['imToken'] = imToken;
+    data['chatToken'] = chatToken;
+    return data;
+  }
+
+  @override
+  String toString() {
+    return jsonEncode(this);
+  }
+}

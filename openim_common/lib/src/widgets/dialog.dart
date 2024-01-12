@@ -18,6 +18,7 @@ class CustomDialog extends StatelessWidget {
     this.leftText,
     this.onTapLeft,
     this.onTapRight,
+    this.body,
   }) : super(key: key);
   final String? bigTitle;
   final String? title;
@@ -25,6 +26,7 @@ class CustomDialog extends StatelessWidget {
   final String? content;
   final String? rightText;
   final String? leftText;
+  final Widget? body;
   final Function()? onTapLeft;
   final Function()? onTapRight;
 
@@ -42,7 +44,7 @@ class CustomDialog extends StatelessWidget {
               // crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Padding(
+                body ?? Padding(
                     padding: EdgeInsets.only(
                       top: 16.w,
                       left: 16.w,

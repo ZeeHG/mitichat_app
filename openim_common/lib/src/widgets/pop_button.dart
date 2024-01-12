@@ -17,6 +17,16 @@ class PopMenuInfo {
   });
 }
 
+class CusPopMenuInfo {
+  final Function()? onTap;
+  final Widget child;
+
+  CusPopMenuInfo({
+    this.onTap,
+    required this.child
+  });
+}
+
 class PopButton extends StatelessWidget {
   final List<PopMenuInfo> menus;
   final Widget child;
@@ -42,11 +52,13 @@ class PopButton extends StatelessWidget {
   final double? menuItemIconHeight;
   final Color? lineColor;
   final double? lineWidth;
+  final List<CusPopMenuInfo>? cusMenus;
 
-  const PopButton({
+  PopButton({
     Key? key,
-    required this.menus,
+    menus,
     required this.child,
+    this.cusMenus,
     this.popCtrl,
     this.arrowColor = const Color(0xFFFFFFFF),
     this.showArrow = false,
@@ -69,7 +81,9 @@ class PopButton extends StatelessWidget {
     this.menuItemPadding,
     this.lineColor,
     this.lineWidth = 1.0,
-  }) : super(key: key);
+  }) : 
+    menus = menus?? [],
+    super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -86,8 +100,10 @@ class PopButton extends StatelessWidget {
       menuBuilder: () => _buildPopBgView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: menus
+          children: null == cusMenus? menus
               .map((e) => _buildPopItemView(e, showLine: menus.lastOrNull != e))
+              .toList() : cusMenus!
+              .map((e) => _buildCusPopItemView(e))
               .toList(),
         ),
       ),
@@ -157,5 +173,15 @@ class PopButton extends StatelessWidget {
             ],
           ),
         ),
+      );
+
+  Widget _buildCusPopItemView(CusPopMenuInfo info) =>
+      GestureDetector(
+        onTap: () {
+          popCtrl?.hideMenu();
+          info.onTap?.call();
+        },
+        behavior: HitTestBehavior.translucent,
+        child: info.child,
       );
 }

@@ -47,7 +47,7 @@ class PhoneEmailChangeDetailLogic extends GetxController {
   }
 
   _initData() async {
-    var map = DataSp.getLoginAccount();
+    var map = DataSp.getMainLoginAccount();
     if (map is Map) {
       String? areaCode = map["areaCode"];
       if (areaCode != null && areaCode.isNotEmpty) {
@@ -137,6 +137,8 @@ class PhoneEmailChangeDetailLogic extends GetxController {
       });
       await imLogic.logout();
       await DataSp.removeLoginCertificate();
+      await DataSp.clearLockScreenPassword();
+      await DataSp.closeBiometric();
       pushLogic.logout();
       success.value = true;
     }

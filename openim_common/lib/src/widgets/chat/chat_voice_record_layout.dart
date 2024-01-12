@@ -79,11 +79,13 @@ class _ChatVoiceRecordLayoutState extends State<ChatVoiceRecordLayout> {
         onLongPressMoveUpdate: (details) {},
         onLongPressEnd: (details) async {
           setState(() {
+            myLogger.i({"message": "ChatVoiceRecordBar onLongPressEnd 触发"});
             _showVoiceRecordView = false;
           });
         },
         onLongPressStart: (details) {
           setState(() {
+            myLogger.i({"message": "ChatVoiceRecordBar onLongPressStart 触发"});
             _showVoiceRecordView = true;
           });
         },
@@ -100,6 +102,7 @@ class _ChatVoiceRecordLayoutState extends State<ChatVoiceRecordLayout> {
             onCompleted: _completed,
             onInterrupt: () {
               setState(() {
+                myLogger.i({"message": "ChatRecordVoiceView onInterrupt 触发"});
                 _interruptSub.add(true);
                 _showVoiceRecordView = false;
               });

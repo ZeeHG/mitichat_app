@@ -139,7 +139,7 @@ class PushController extends GetxController {
   }
 
   void logout() {
-    myLogger.e({"message": "push_controller登出取消解绑个推"});
+    myLogger.w({"message": "push_controller登出取消解绑个推"});
     Getuiflut().unbindAlias(OpenIM.iMManager.userID, _getClientId, true);
   }
 

@@ -1367,7 +1367,7 @@ class ChatLogic extends GetxController {
     if (null != content) {
       IMUtils.copy(text: content);
     } else {
-      myLogger.w({"message": "复制message内容, 默认方式解析content失败, 使用自定义解析"});
+      myLogger.e({"message": "复制message内容, 默认方式解析content失败, 使用自定义解析"});
       if (message.isTextType) {
         content = message.textElem!.content!;
       } else if (message.isAtTextType) {
@@ -1492,7 +1492,7 @@ class ChatLogic extends GetxController {
     } else {
       myLogger.e({
         "message": "翻译message, 获取不到原文",
-        "data": {
+        "error": {
           "message": json.encode(message),
           "messageCopyTextMap": copyTextMap[message.clientMsgID]
         }
@@ -1528,7 +1528,7 @@ class ChatLogic extends GetxController {
     } else {
       myLogger.e({
         "message": "文本转语音message, 获取不到音频",
-        "data": {"message": json.encode(message)}
+        "error": {"message": json.encode(message)}
       });
       IMViews.showToast(StrRes.noWorking);
     }

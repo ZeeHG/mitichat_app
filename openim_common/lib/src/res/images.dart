@@ -290,4 +290,7 @@ class ImageRes {
   static const appMenuUnTts = "$_dir/app_menu_untts.png";
   static const appWarn = "$_dir/app_warn.png";
   static const appAdd2 = "$_dir/app_add2.png";
+  static const appSwitch = "$_dir/app_switch.png";
+  static const appChecked2 = "$_dir/app_checked2.png";
+  static const appAdd3 = "$_dir/app_add3.png";
 }

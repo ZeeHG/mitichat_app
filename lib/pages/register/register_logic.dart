@@ -4,6 +4,7 @@ import 'package:openim/core/controller/im_controller.dart';
 import 'package:openim/core/controller/push_controller.dart';
 import 'package:openim/pages/login/login_logic.dart';
 import 'package:openim/routes/app_navigator.dart';
+import 'package:openim/utils/misc_util.dart';
 import 'package:openim_common/openim_common.dart';
 
 import '../../core/controller/app_controller.dart';
@@ -25,6 +26,9 @@ class RegisterLogic extends GetxController {
   final pushLogic = Get.find<PushController>();
   final translateLogic = Get.find<TranslateLogic>();
   final ttsLogic = Get.find<TtsLogic>();
+  final isAddAccount = false.obs;
+  final miscUtil = Get.find<MiscUtil>();
+  final server = Config.host.obs;
 
   bool get phoneRegister => operateType.value == LoginType.phone;
   String? get email => !phoneRegister ? emailCtrl.text.trim() : null;
@@ -49,6 +53,8 @@ class RegisterLogic extends GetxController {
 
   @override
   void onInit() {
+    isAddAccount.value = Get.arguments['isAddAccount'] ?? false;
+    server.value = Get.arguments['server'] ?? false;
     _initData();
     phoneCtrl.addListener(_onChanged);
     emailCtrl.addListener(_onChanged);
@@ -61,7 +67,7 @@ class RegisterLogic extends GetxController {
   }
 
   _initData() async {
-    var map = DataSp.getLoginAccount();
+    var map = DataSp.getMainLoginAccount();
     if (map is Map) {
       String? areaCode = map["areaCode"];
       if (areaCode != null && areaCode.isNotEmpty) {
@@ -208,36 +214,61 @@ class RegisterLogic extends GetxController {
   void register() async {
     if (_checkingInput()) {
       await LoadingView.singleton.wrap(asyncFunction: () async {
-        final data = await Apis.register(
-          nickname: nickname,
-          areaCode: areaCodeValue,
-          phoneNumber: phone,
-          email: email,
-          password: pwdCtrl.text,
-          verificationCode: verificationCode,
-          invitationCode: invitationCode,
-        );
-        if (null == IMUtils.emptyStrToNull(data.imToken) ||
-            null == IMUtils.emptyStrToNull(data.chatToken)) {
-          AppNavigator.startLogin();
-          return;
+        if (!isAddAccount.value) {
+          final data = await Apis.register(
+            nickname: nickname,
+            areaCode: areaCodeValue,
+            phoneNumber: phone,
+            email: email,
+            password: pwdCtrl.text,
+            verificationCode: verificationCode,
+            invitationCode: invitationCode,
+          );
+          if (null == IMUtils.emptyStrToNull(data.imToken) ||
+              null == IMUtils.emptyStrToNull(data.chatToken)) {
+            AppNavigator.startLogin();
+            return;
+          }
+          final account = {
+            "areaCode": areaCodeValue,
+            "phoneNumber": phone,
+            'email': email
+          };
+          await DataSp.putLoginCertificate(data);
+          await DataSp.putMainLoginAccount(account);
+          DataSp.putLoginType(email != null ? 1 : 0);
+          await imLogic.login(data.userID, data.imToken);
+          await setAccountLoginInfo(
+              userID: data.userID,
+              imToken: data.imToken,
+              chatToken: data.chatToken,
+              email: email,
+              phoneNumber: phone,
+              areaCode: areaCodeValue,
+              password: pwdCtrl.text,
+              faceURL: imLogic.userInfo.value.faceURL,
+              nickname: imLogic.userInfo.value.nickname);
+          Logger.print('---------im login success-------');
+          translateLogic.init(data.userID);
+          ttsLogic.init(data.userID);
+          pushLogic.login(data.userID);
+          Logger.print('---------jpush login success----');
+          AppNavigator.startMain();
+        } else {
+          final isOk = await miscUtil.registerAccount(
+            switchBack: false,
+            server: server.value,
+            nickname: nickname,
+            areaCode: areaCodeValue,
+            phoneNumber: phone,
+            email: email,
+            password: pwdCtrl.text,
+            verificationCode: verificationCode,
+            invitationCode: invitationCode,
+          );
+          if (isOk) AppNavigator.startMain();
         }
-        final account = {
-          "areaCode": areaCodeValue,
-          "phoneNumber": phone,
-          'email': email
-        };
-        await DataSp.putLoginCertificate(data);
-        await DataSp.putLoginAccount(account);
-        DataSp.putLoginType(email != null ? 1 : 0);
-        await imLogic.login(data.userID, data.imToken);
-        Logger.print('---------im login success-------');
-        translateLogic.init(data.userID);
-        ttsLogic.init(data.userID);
-        pushLogic.login(data.userID);
-        Logger.print('---------jpush login success----');
       });
-      AppNavigator.startMain();
     }
   }
 }

@@ -79,6 +79,7 @@ class _ChatVoiceRecordBarState extends State<ChatVoiceRecordBar> {
         });
       },
       onLongPressStart: (details) {
+        myLogger.i({"message": "语音录制长按开始", "data": details});
         HapticFeedback.heavyImpact();
         widget.onLongPressStart(details);
         setState(() {
@@ -86,6 +87,7 @@ class _ChatVoiceRecordBarState extends State<ChatVoiceRecordBar> {
         });
       },
       onLongPressEnd: (details) {
+        myLogger.i({"message": "语音录制长按结束", "data": details});
         widget.onLongPressEnd(details);
         setState(() {
           _pressing = false;

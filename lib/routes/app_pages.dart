@@ -7,6 +7,8 @@ import 'package:openim/pages/friend_permissions/friend_permissions_binding.dart'
 import 'package:openim/pages/friend_permissions/friend_permissions_view.dart';
 import 'package:openim/pages/mine/account_and_security/account_and_security_binding.dart';
 import 'package:openim/pages/mine/account_and_security/account_and_security_view.dart';
+import 'package:openim/pages/mine/account_manage/account_manage_binding.dart';
+import 'package:openim/pages/mine/account_manage/account_manage_view.dart';
 import 'package:openim/pages/mine/delete_user/delete_user_binding.dart';
 import 'package:openim/pages/mine/delete_user/delete_user_view.dart';
 import 'package:openim/pages/mine/phone_email_change/phone_email_change_binding.dart';
@@ -186,7 +188,7 @@ class AppPages {
         page: page,
         binding: binding,
         preventDuplicates: preventDuplicates,
-        transition: Transition.cupertino,
+        transition: [AppRoutes.home, AppRoutes.accountManage].contains(name)? Transition.noTransition : Transition.cupertino,
         popGesture: true,
       );
 
@@ -611,6 +613,11 @@ class AppPages {
       name: AppRoutes.recentRequests,
       page: () => RecentRequestsPage(),
       binding: RecentRequestsBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.accountManage,
+      page: () => AccountManagePage(),
+      binding: AccountManageBinding(),
     ),
     // ...OPages.pages, // 组织架构
     ...WPages.pages, // 工作圈

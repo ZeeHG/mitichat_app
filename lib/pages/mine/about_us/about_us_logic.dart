@@ -48,9 +48,9 @@ class AboutUsLogic extends GetxController {
       imLogic.onUploadProgress = (current, size) {
         uploadLogsProgress.value = current / size;
       };
-    }catch (e) {
+    }catch (e, s) {
       IMViews.showToast(StrRes.uploadFail);
-      myLogger.e({"message": "uploadLogs, 上传IM日志出错", "data": e});
+      myLogger.e({"message": "uploadLogs, 上传IM日志出错", "error": e, "stack": s});
     }
   }
 
@@ -83,11 +83,11 @@ class AboutUsLogic extends GetxController {
       } else {
         IMViews.showToast(StrRes.copyFail);
       }
-    } catch (e) {
+    } catch (e, s) {
       IMViews.showToast(StrRes.uploadFail);
       myLogger.e({
         "message": "uploadLogsByDate, 上传IM日志(按日期)出错",
-        "data": {"date": "${date ?? myLoggerDateStr}", "error": e}
+        "error": {"date": "${date ?? myLoggerDateStr}", "error": e, "stack": s}
       });
     }
   }
@@ -123,11 +123,11 @@ class AboutUsLogic extends GetxController {
       } else {
         if (toast) IMViews.showToast(StrRes.copyFail);
       }
-    } catch (e) {
+    } catch (e, s) {
       if (toast) IMViews.showToast(StrRes.uploadFail);
       myLogger.e({
         "message": "uploadAppLogs, 上传APP日志(按日期)出错",
-        "data": {"date": "${logInfo?["date"] ?? myLoggerDateStr}", "error": e}
+        "error": {"date": "${logInfo?["date"] ?? myLoggerDateStr}", "error": e, "stack": s}
       });
     }
   }

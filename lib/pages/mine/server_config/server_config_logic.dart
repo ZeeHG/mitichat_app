@@ -1,6 +1,7 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:openim/core/controller/im_controller.dart';
 import 'package:openim_common/openim_common.dart';
 
 class ServerConfigLogic extends GetxController {
@@ -11,6 +12,7 @@ class ServerConfigLogic extends GetxController {
   var imApiCtrl = TextEditingController();
   var imWsCtrl = TextEditingController();
   var isIP = true.obs;
+  final imLogic = Get.find<IMController>();
 
   void switchServer(bool isIp) {
     isIP.value = isIp;
@@ -21,8 +23,8 @@ class ServerConfigLogic extends GetxController {
       imApiCtrl.text = 'http://$hintText:10002';
       imWsCtrl.text = 'ws://$hintText:10001';
     } else {
-      authCtrl.text = 'https://$hintText/chat/';
-      imApiCtrl.text = 'https://$hintText/api/';
+      authCtrl.text = 'https://$hintText/chat';
+      imApiCtrl.text = 'https://$hintText/api';
       imWsCtrl.text = 'wss://$hintText/msg_gateway';
     }
   }
@@ -74,6 +76,9 @@ class ServerConfigLogic extends GetxController {
       'apiUrl': imApiCtrl.text,
       'wsUrl': imWsCtrl.text,
     });
+    imLogic.unInitOpenIM();
+    HttpUtil.init();
+    await imLogic.initOpenIM();
     IMViews.showToast(StrRes.serverSettingTips);
   }
 

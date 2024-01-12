@@ -1073,5 +1073,12 @@ const Map<String, String> en_US = {
   "newEmail": "New Email Address",
   "required": "Required",
   "plsEnterInvitationCode2": "Please Enter Your Invitation Code",
-  "recentRequests": "最近添加"
+  "recentRequests": "最近添加",
+  "accountManage": "账号管理",
+  "addOrRegisterAccount": "添加或注册账号",
+  "fail": "失败",
+  "addAccountServer": "添加账号",
+  "addAccountServerTips": "请输入添加账号的服务器地址",
+  "serverFormatErr": "服务器格式错误",
+  "serverErr": "服务器出错",
 };

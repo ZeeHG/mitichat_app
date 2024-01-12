@@ -28,7 +28,15 @@ class IMController extends GetxController with IMCallback {
     WidgetsBinding.instance.addPostFrameCallback((_) => initOpenIM());
   }
 
-  void initOpenIM() async {
+  Future<void> unInitOpenIM() async {
+    await OpenIM.iMManager.unInitSDK();
+  }
+
+  bool isLogined() {
+    return OpenIM.iMManager.isLogined;
+  }
+
+  Future<void> initOpenIM() async {
     final initialized = await OpenIM.iMManager.initSDK(
       platformID: IMUtils.getPlatform(),
       apiAddr: Config.imApiUrl,
@@ -42,9 +50,16 @@ class IMController extends GetxController with IMCallback {
         },
         onConnectFailed: (code, error) {
           imSdkStatus(IMSdkStatus.connectionFailed);
+          myLogger.e({
+            "message": "im连接失败",
+            "error": {"code": code, "error": error}
+          });
         },
         onConnectSuccess: () {
           imSdkStatus(IMSdkStatus.connectionSucceeded);
+          myLogger.i({
+            "message": "im连接成功"
+          });
         },
         onKickedOffline: () => kickedOffline("KickedOffline"),
         onUserTokenExpired: () => kickedOffline("UserTokenExpired"),
@@ -52,7 +67,8 @@ class IMController extends GetxController with IMCallback {
     );
     // Set listener
     OpenIM.iMManager
-      ..setUploadLogsListener(OnUploadLogsListener(onUploadProgress: uploadLogsProgress))
+      ..setUploadLogsListener(
+          OnUploadLogsListener(onUploadProgress: uploadLogsProgress))
       //
       ..userManager.setUserListener(OnUserListener(
           onSelfInfoUpdated: (u) {
@@ -126,20 +142,20 @@ class IMController extends GetxController with IMCallback {
         onJoinedGroupAdded: joinedGroupAdded,
         onJoinedGroupDeleted: joinedGroupDeleted,
       ));
-      // Set up signaling listener
-      // ..signalingManager.setSignalingListener(OnSignalingListener(
-      //   onInvitationCancelled: invitationCancelled,
-      //   onInvitationTimeout: invitationTimeout,
-      //   onInviteeAccepted: inviteeAccepted,
-      //   onInviteeRejected: inviteeRejected,
-      //   onReceiveNewInvitation: receiveNewInvitation,
-      //   onInviteeAcceptedByOtherDevice: inviteeAcceptedByOtherDevice,
-      //   onInviteeRejectedByOtherDevice: inviteeRejectedByOtherDevice,
-      //   onHangup: beHangup,
-      //   onRoomParticipantConnected: roomParticipantConnected,
-      //   onRoomParticipantDisconnected: roomParticipantDisconnected,
-      //   onMeetingStreamChanged: meetingSteamChanged,
-      // ));
+    // Set up signaling listener
+    // ..signalingManager.setSignalingListener(OnSignalingListener(
+    //   onInvitationCancelled: invitationCancelled,
+    //   onInvitationTimeout: invitationTimeout,
+    //   onInviteeAccepted: inviteeAccepted,
+    //   onInviteeRejected: inviteeRejected,
+    //   onReceiveNewInvitation: receiveNewInvitation,
+    //   onInviteeAcceptedByOtherDevice: inviteeAcceptedByOtherDevice,
+    //   onInviteeRejectedByOtherDevice: inviteeRejectedByOtherDevice,
+    //   onHangup: beHangup,
+    //   onRoomParticipantConnected: roomParticipantConnected,
+    //   onRoomParticipantDisconnected: roomParticipantDisconnected,
+    //   onMeetingStreamChanged: meetingSteamChanged,
+    // ));
 
     initializedSubject.sink.add(initialized);
   }
@@ -156,6 +172,7 @@ class IMController extends GetxController with IMCallback {
       _queryAtAllTag();
     } catch (e, s) {
       Logger.print('e: $e  s:$s');
+      myLogger.e({"message": "im登录错误", "error": e, "stack": s});
       await _handleLoginRepeatError(e);
       // rethrow;
       return Future.error(e, s);
@@ -163,7 +180,7 @@ class IMController extends GetxController with IMCallback {
   }
 
   Future logout() {
-    myLogger.e({"message": "im_controller, 退出登录"});
+    myLogger.w({"message": "im_controller, 退出登录"});
     return OpenIM.iMManager.logout();
   }
 
@@ -192,7 +209,8 @@ class IMController extends GetxController with IMCallback {
 
   _handleLoginRepeatError(e) async {
     if (e is PlatformException && e.code == "13002") {
-      myLogger.e({"message": "_handleLoginRepeatError, ${json.encode(e)}, 退出登录"});
+      myLogger
+          .e({"message": "_handleLoginRepeatError, ${json.encode(e)}, 退出登录"});
       await logout();
       await DataSp.removeLoginCertificate();
     }

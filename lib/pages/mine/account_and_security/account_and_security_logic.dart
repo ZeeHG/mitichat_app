@@ -15,4 +15,6 @@ class AccountAndSecurityLogic extends GetxController {
 
   void deleteUser() => AppNavigator.startDeleteUser();
 
+  void accountManage() => AppNavigator.startAccountManage();
+
 }

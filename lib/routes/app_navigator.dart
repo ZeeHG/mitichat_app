@@ -1,5 +1,7 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
+import 'package:openim/pages/home/home_binding.dart';
+import 'package:openim/pages/login/login_view.dart';
 import 'package:openim/pages/mine/phone_email_change/phone_email_change_logic.dart';
 import 'package:openim_common/openim_common.dart';
 
@@ -17,6 +19,13 @@ class AppNavigator {
 
   static void startLogin() {
     Get.offAllNamed(AppRoutes.login);
+  }
+
+  static void startLoginWithoutOff({bool isAddAccount = false, String server = Config.host}) {
+    Get.toNamed(
+      AppRoutes.login,
+      arguments: {'isAddAccount': isAddAccount, "server": server},
+    );
   }
 
   static void startBackLogin() {
@@ -393,7 +402,7 @@ class AppNavigator {
 
   static startCallRecords() => Get.toNamed(AppRoutes.callRecords);
 
-  static startRegister() => Get.toNamed(AppRoutes.register);
+  static startRegister({bool isAddAccount = false, String server = Config.host}) => Get.toNamed(AppRoutes.register, arguments: {'isAddAccount': isAddAccount, "server": server},);
 
   static void startVerifyPhone({
     String? phoneNumber,
@@ -445,7 +454,7 @@ class AppNavigator {
         'invitationCode': invitationCode
       });
 
-  static startForgetPassword() => Get.toNamed(AppRoutes.forgetPassword);
+  static startForgetPassword({bool isAddAccount = false, String server = Config.host}) => Get.toNamed(AppRoutes.forgetPassword, arguments: {'isAddAccount': isAddAccount, "server": server},);
 
   /// [usedFor] 1：注册，2：重置密码 3：登录
   static void startResetPassword({
@@ -517,4 +526,6 @@ class AppNavigator {
       Get.toNamed(AppRoutes.friendPermissions, arguments: {"userID": userID});
 
   static startRecentRequests() => Get.toNamed(AppRoutes.recentRequests);
+
+  static startAccountManage() => Get.toNamed(AppRoutes.accountManage);
 }

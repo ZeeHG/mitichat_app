@@ -33,6 +33,7 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
+    this.autofocus = true
   })  : obscureText = false,
         type = InputBoxType.phone,
         arrowColor = null,
@@ -57,6 +58,7 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
+    this.autofocus = true
   })  : obscureText = false,
         type = InputBoxType.account,
         arrowColor = null,
@@ -79,6 +81,7 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
+    this.autofocus = true
   })  : obscureText = true,
         type = InputBoxType.password,
         codeStyle = null,
@@ -104,6 +107,7 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
+    this.autofocus = true
   })  : obscureText = false,
         type = InputBoxType.verificationCode,
         code = '',
@@ -127,6 +131,7 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
+    this.autofocus = true
   })  : obscureText = false,
         type = InputBoxType.invitationCode,
         code = '',
@@ -159,6 +164,7 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
+    this.autofocus = true
   }) : super(key: key);
   final TextStyle? labelStyle;
   final TextStyle? textStyle;
@@ -181,6 +187,7 @@ class InputBox extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final bool border;
   final TextInputType? keyBoardType;
+  final bool autofocus;
 
   @override
   State<InputBox> createState() => _InputBoxState();
@@ -261,7 +268,7 @@ class _InputBoxState extends State<InputBox> {
           keyboardType: _textInputType,
           textInputAction: TextInputAction.next,
           style: widget.textStyle ?? Styles.ts_333333_16sp,
-          autofocus: true,
+          autofocus: widget.autofocus,
           obscureText: _obscureText,
           inputFormatters: [
             if (widget.type == InputBoxType.phone ||

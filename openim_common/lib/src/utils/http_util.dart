@@ -56,11 +56,12 @@ class HttpUtil {
     dio.options.baseUrl = Config.imApiUrl;
     // dio.options.connectTimeout = const Duration(seconds: 30); //30s
     // dio.options.receiveTimeout = const Duration(seconds: 30);
-    dio.options.connectTimeout = const Duration(seconds: 300); //300s
-    dio.options.receiveTimeout = const Duration(seconds: 300);
+    dio.options.connectTimeout = const Duration(seconds: 30);
+    dio.options.receiveTimeout = const Duration(seconds: 120);
   }
 
-  static String get operationID => DateTime.now().millisecondsSinceEpoch.toString();
+  static String get operationID =>
+      DateTime.now().millisecondsSinceEpoch.toString();
 
   ///
   static Future post(
@@ -78,7 +79,6 @@ class HttpUtil {
       options ??= Options();
       options.headers ??= {};
       options.headers!['operationID'] = operationID;
-
       var result = await dio.post<Map<String, dynamic>>(
         path,
         data: data,
@@ -103,10 +103,24 @@ class HttpUtil {
       if (error is DioException) {
         final errorMsg = '接口：$path  信息：${error.message}';
         // if (showErrorToast) IMViews.showToast(errorMsg);
-        
         // 手动请求取消不提示
         bool isCancel = error.type == DioExceptionType.cancel;
-        if (isCancel) myLogger.w({"message": "手动取消请求", "data": {"cancelRequset": true, "request": {"path": path, "data": data, "queryParameters": queryParameters, "options": options?.headers}}});
+        if (isCancel) {
+          myLogger.w({
+            "message": "手动取消请求",
+            "data": {
+              "cancelRequset": true,
+              "request": {
+                "path": path,
+                "data": data,
+                "queryParameters": queryParameters,
+                "options": options?.headers
+              }
+            }
+          });
+        } else {
+          IMViews.showToast(errorMsg);
+        }
         return Future.error(errorMsg);
       }
       final errorMsg = '接口：$path  信息：${error.toString()}';
@@ -131,7 +145,11 @@ class HttpUtil {
     final bytes = await File(compressPath ?? path).readAsBytes();
     final mf = MultipartFile.fromBytes(bytes, filename: fileName);
 
-    var formData = FormData.fromMap({'operationID': '${DateTime.now().millisecondsSinceEpoch}', 'fileType': 1, 'file': mf});
+    var formData = FormData.fromMap({
+      'operationID': '${DateTime.now().millisecondsSinceEpoch}',
+      'fileType': 1,
+      'file': mf
+    });
 
     var resp = await dio.post<Map<String, dynamic>>(
       "${Config.imApiUrl}/third/minio_upload",
@@ -176,7 +194,8 @@ class HttpUtil {
           intervalDo.drop(
               fun: () async {
                 await ImageGallerySaver.saveFile(cachePath);
-                IMViews.showToast("${StrRes.saveSuccessfully}($cachePath)", duration: const Duration(milliseconds: 3000));
+                IMViews.showToast("${StrRes.saveSuccessfully}($cachePath)",
+                    duration: const Duration(milliseconds: 3000));
               },
               milliseconds: 1500);
         }
@@ -199,7 +218,8 @@ class HttpUtil {
     var byteData = await image.toByteData(format: ImageByteFormat.png);
     if (byteData != null) {
       Uint8List uint8list = byteData.buffer.asUint8List();
-      var result = await ImageGallerySaver.saveImage(Uint8List.fromList(uint8list));
+      var result =
+          await ImageGallerySaver.saveImage(Uint8List.fromList(uint8list));
       if (result != null) {
         var tips = StrRes.saveSuccessfully;
         if (Platform.isAndroid) {

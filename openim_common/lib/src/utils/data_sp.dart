@@ -1,4 +1,5 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
+import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:uuid/uuid.dart';
@@ -20,6 +21,10 @@ class DataSp {
   static const _chatFontSizeFactor = '%s_chatFontSizeFactor';
   static const _chatBackground = '%s_chatBackground_%s';
   static const _loginType = 'loginType';
+  static const _accountLoginInfoMap = 'accountLoginInfo';
+  static const _curAccountLoginInfoKey = '_curAccountLoginInfoKey';
+  static const _curServerKey = '_curServerKey';
+  static const _mainLoginAccount = 'mainLoginAccount';
 
   DataSp._();
 
@@ -51,7 +56,8 @@ class DataSp {
   }
 
   static LoginCertificate? getLoginCertificate() {
-    return SpUtil().getObj(_loginCertificate, (v) => LoginCertificate.fromJson(v.cast()));
+    return SpUtil()
+        .getObj(_loginCertificate, (v) => LoginCertificate.fromJson(v.cast()));
   }
 
   static Future<bool>? removeLoginCertificate() {
@@ -103,11 +109,13 @@ class DataSp {
     return SpUtil().getInt(_language);
   }
 
-  static Future<bool>? putHaveReadUnHandleGroupApplication(List<String> idList) {
+  static Future<bool>? putHaveReadUnHandleGroupApplication(
+      List<String> idList) {
     return SpUtil().putStringList(getKey(_groupApplication), idList);
   }
 
-  static Future<bool>? putHaveReadUnHandleFriendApplication(List<String> idList) {
+  static Future<bool>? putHaveReadUnHandleFriendApplication(
+      List<String> idList) {
     return SpUtil().putStringList(getKey(_friendApplication), idList);
   }
 
@@ -172,5 +180,50 @@ class DataSp {
 
   static int getLoginType() {
     return SpUtil().getInt(_loginType) ?? 0;
+  }
+
+  static String? getCurServerKey() {
+    return SpUtil().getString(_curServerKey);
+  }
+
+  // 登录和切换时修改
+  static Future<bool>? putCurServerKey(String key) {
+    return SpUtil().putString(_curServerKey, key);
+  }
+
+  static String? getCurAccountLoginInfoKey() {
+    return SpUtil().getString(_curAccountLoginInfoKey);
+  }
+
+  // 完全登录成功后修改
+  static Future<bool>? putCurAccountLoginInfoKey(String key) {
+    return SpUtil().putString(_curAccountLoginInfoKey, key);
+  }
+
+  static Future<bool>? putAccountLoginInfoMap(
+      Map<String, AccountLoginInfo> data) {
+    final accountLoginInfoMap = getAccountLoginInfoMap() ?? {};
+    accountLoginInfoMap.addAll(data);
+    return SpUtil().putObject(_accountLoginInfoMap, accountLoginInfoMap);
+  }
+
+  static Map<String, AccountLoginInfo>? getAccountLoginInfoMap() {
+    return SpUtil().getObj(
+        _accountLoginInfoMap,
+        (map) => map.map(
+            (key, value) => MapEntry(key, AccountLoginInfo.fromJson(value))));
+  }
+
+  static AccountLoginInfo? getAccountLoginInfoByKey(String key) {
+    return getAccountLoginInfoMap()?[key];
+  }
+
+  // 同getLoginAccount, 只记录主服务器
+  static Map? getMainLoginAccount() {
+    return SpUtil().getObject(_mainLoginAccount);
+  }
+
+  static Future<bool>? putMainLoginAccount(Map map) {
+    return SpUtil().putObject(_mainLoginAccount, map);
   }
 }

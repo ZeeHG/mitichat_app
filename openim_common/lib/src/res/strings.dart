@@ -1517,4 +1517,11 @@ static String get newEmail => 'newEmail'.tr;
 static String get required => 'required'.tr;
 static String get plsEnterInvitationCode2 => 'plsEnterInvitationCode2'.tr;
 static String get recentRequests => 'recentRequests'.tr;
+static String get accountManage => 'accountManage'.tr;
+static String get addOrRegisterAccount => 'addOrRegisterAccount'.tr;
+static String get fail => 'fail'.tr;
+static String get addAccountServer => 'addAccountServer'.tr;
+static String get addAccountServerTips => 'addAccountServerTips'.tr;
+static String get serverFormatErr => 'serverFormatErr'.tr;
+static String get serverErr => 'serverErr'.tr;
 }

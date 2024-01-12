@@ -4,6 +4,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
+import 'package:openim/utils/misc_util.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:openim_meeting/openim_meeting.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -18,6 +19,7 @@ import '../home/home_logic.dart';
 
 class ConversationLogic extends GetxController {
   final popCtrl = CustomPopupMenuController();
+  final serverPopCtrl = CustomPopupMenuController();
   final list = <ConversationInfo>[].obs;
   final imLogic = Get.find<IMController>();
   final homeLogic = Get.find<HomeLogic>();
@@ -26,11 +28,36 @@ class ConversationLogic extends GetxController {
   final tempDraftText = <String, String>{};
   final pageSize = 40;
   final translateLogic = Get.find<TranslateLogic>();
+  final miscUtil = Get.find<MiscUtil>();
 
   final imStatus = IMSdkStatus.connectionSucceeded.obs;
 
   late AutoScrollController scrollController;
   int scrollIndex = -1;
+
+  switchAccount(AccountLoginInfo loginInfo) async {
+    if (loginInfo.id == curLoginInfoKey) return;
+    LoadingView.singleton.wrap(
+        navBarHeight: 0,
+        asyncFunction: () async {
+          await miscUtil.switchAccount(
+              server: loginInfo.server, userID: loginInfo.userID);
+          AppNavigator.startMain();
+        });
+  }
+
+  List<AccountLoginInfo> get loginInfoList {
+    final map = DataSp.getAccountLoginInfoMap();
+    if (null == map) {
+      return [];
+    } else {
+      return map.values.toList();
+    }
+  }
+
+  String get curLoginInfoKey {
+    return DataSp.getCurAccountLoginInfoKey() ?? "";
+  }
 
   @override
   void onInit() {

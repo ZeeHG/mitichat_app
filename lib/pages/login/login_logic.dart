@@ -3,6 +3,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:openim/pages/mine/server_config/server_config_binding.dart';
 import 'package:openim/pages/mine/server_config/server_config_view.dart';
+import 'package:openim/utils/misc_util.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -73,9 +74,13 @@ class LoginLogic extends GetxController {
   final agree = false.obs;
   final translateLogic = Get.find<TranslateLogic>();
   final ttsLogic = Get.find<TtsLogic>();
+  final miscUtil = Get.find<MiscUtil>();
+  final isAddAccount = false.obs;
+  final server = Config.host.obs;
+  int curSwitchCount = 0;
 
   _initData() async {
-    var map = DataSp.getLoginAccount();
+    var map = DataSp.getMainLoginAccount();
     if (map is Map) {
       String? phoneNumber = map["phoneNumber"];
       String? areaCode = map["areaCode"];
@@ -100,7 +105,13 @@ class LoginLogic extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
+    isAddAccount.value = Get.arguments['isAddAccount'] ?? false;
+    server.value = Get.arguments['server'] ?? false;
+    curSwitchCount = miscUtil.switchCount.value;
+    if (!isAddAccount.value) {
+      miscUtil.reloadServerConf();
+    }
     _initData();
     phoneCtrl.addListener(_onChanged);
     pwdCtrl.addListener(_onChanged);
@@ -115,42 +126,72 @@ class LoginLogic extends GetxController {
   }
 
   _onChanged() {
-    enabled.value =
-        (isPasswordLogin.value &&
-                phoneCtrl.text.trim().isNotEmpty &&
-                pwdCtrl.text.trim().isNotEmpty ||
-            !isPasswordLogin.value &&
-                phoneCtrl.text.trim().isNotEmpty &&
-                verificationCodeCtrl.text.trim().isNotEmpty);
+    enabled.value = (isPasswordLogin.value &&
+            phoneCtrl.text.trim().isNotEmpty &&
+            pwdCtrl.text.trim().isNotEmpty ||
+        !isPasswordLogin.value &&
+            phoneCtrl.text.trim().isNotEmpty &&
+            verificationCodeCtrl.text.trim().isNotEmpty);
   }
 
   login(BuildContext context) {
     FocusScope.of(context).requestFocus(new FocusNode());
     DataSp.putLoginType(loginType.value.rawValue);
-    LoadingView.singleton.wrap(asyncFunction: () async {
-      var suc = await _login();
-      if (suc) {
-        Get.find<CacheController>().resetCache();
-        AppNavigator.startMain();
-      }
-    });
+    LoadingView.singleton.wrap(
+        navBarHeight: 0,
+        asyncFunction: () async {
+          if (!isAddAccount.value) {
+            var suc = await _login();
+            if (suc) {
+              Get.find<CacheController>().resetCache();
+              AppNavigator.startMain();
+            }
+          } else {
+            if (!checkForm()) {
+              return false;
+            }
+            final password = IMUtils.emptyStrToNull(pwdCtrl.text);
+            final code = IMUtils.emptyStrToNull(verificationCodeCtrl.text);
+            final isOk = await miscUtil.loginAccount(
+                switchBack: false,
+                server: server.value,
+                areaCode: areaCode.value,
+                phoneNumber: phone,
+                email: email,
+                password: password,
+                verificationCode: isPasswordLogin.value ? null : code);
+            if (isOk) AppNavigator.startMain();
+          }
+        });
+  }
+
+  cusBack() async {
+    await miscUtil.backMain(curSwitchCount);
+  }
+
+  bool checkForm() {
+    if (phone?.isNotEmpty == true &&
+        !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
+      IMViews.showToast(StrRes.plsEnterRightPhone);
+      return false;
+    }
+
+    if (email?.isNotEmpty == true && !phoneCtrl.text.isEmail) {
+      IMViews.showToast(StrRes.plsEnterRightEmail);
+      return false;
+    }
+
+    if (!agree.value) {
+      IMViews.showToast(StrRes.plsAgree);
+      return false;
+    }
+
+    return true;
   }
 
   Future<bool> _login() async {
     try {
-      if (phone?.isNotEmpty == true &&
-          !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-        IMViews.showToast(StrRes.plsEnterRightPhone);
-        return false;
-      }
-
-      if (email?.isNotEmpty == true && !phoneCtrl.text.isEmail) {
-        IMViews.showToast(StrRes.plsEnterRightEmail);
-        return false;
-      }
-
-      if (!agree.value) {
-        IMViews.showToast(StrRes.plsAgree);
+      if (!checkForm()) {
         return false;
       }
 
@@ -165,12 +206,23 @@ class LoginLogic extends GetxController {
       );
       final account = {
         "areaCode": areaCode.value,
-        "phoneNumber": phoneCtrl.text
+        "phoneNumber": phoneCtrl.text,
+        'email': email
       };
       await DataSp.putLoginCertificate(data);
-      await DataSp.putLoginAccount(account);
+      await DataSp.putMainLoginAccount(account);
       Logger.print('login : ${data.userID}, token: ${data.imToken}');
       await imLogic.login(data.userID, data.imToken);
+      await setAccountLoginInfo(
+          userID: data.userID,
+          imToken: data.imToken,
+          chatToken: data.chatToken,
+          email: email,
+          phoneNumber: phone,
+          areaCode: areaCode.value,
+          password: password ?? "",
+          faceURL: imLogic.userInfo.value.faceURL,
+          nickname: imLogic.userInfo.value.nickname);
       Logger.print('im login success');
       translateLogic.init(data.userID);
       ttsLogic.init(data.userID);
@@ -231,9 +283,11 @@ class LoginLogic extends GetxController {
         binding: ServerConfigBinding(),
       );
 
-  void registerNow() => AppNavigator.startRegister();
+  void registerNow() =>
+      AppNavigator.startRegister(isAddAccount: isAddAccount.value, server: server.value);
 
-  void forgetPassword() => AppNavigator.startForgetPassword();
+  void forgetPassword() =>
+      AppNavigator.startForgetPassword(isAddAccount: isAddAccount.value, server: server.value);
 
   void getPackageInfo() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();

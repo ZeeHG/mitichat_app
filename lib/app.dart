@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:openim/utils/misc_util.dart';
 import 'package:openim_common/openim_common.dart';
 
 import 'core/controller/im_controller.dart';
@@ -78,8 +79,9 @@ class InitBinding extends Bindings {
     Get.put<PushController>(PushController());
     Get.put<CacheController>(CacheController());
     Get.put<DownloadController>(DownloadController());
+    Get.put(BetaTestLogic());
+    Get.put(MiscUtil());
     Get.put(TranslateLogic());
     Get.put(TtsLogic());
-    Get.put(BetaTestLogic());
   }
 }

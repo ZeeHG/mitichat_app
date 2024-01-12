@@ -37,7 +37,7 @@ class Config {
       statusBarIconBrightness: brightness,
     ));
 
-    FlutterBugly.init(androidAppId: "miti.chat", iOSAppId: "miti.chat");
+    FlutterBugly.init(androidAppId: "c9d570ff2f", iOSAppId: "81e831db28");
   }
 
   static late String cachePath;
@@ -71,14 +71,24 @@ class Config {
   /// ip
   /// web.rentsoft.cn
   /// 203.56.175.233
-  /// static const _host = "www.bopufund.com";
-  /// static const _host = "10.25.2.24";
-  static const _host = "www.miti.chat";
-  // static const _host = "10.25.2.24";
+  /// static const host = "www.bopufund.com";
+  /// static const host = "10.25.2.24";
+  static const host = "www.miti.chat";
+  // static const host = "10.25.2.24";
 
   static const _ipRegex = '((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)';
 
-  static bool get _isIP => RegExp(_ipRegex).hasMatch(_host);
+  static const _domainRegex = r'^(?:(?=[^\.]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$';
+
+  static bool get _isIP => RegExp(_ipRegex).hasMatch(host);
+
+  static bool get serverIpIsIP => RegExp(_ipRegex).hasMatch(serverIp);
+
+  static bool targetIsIP(String target) => RegExp(_ipRegex).hasMatch(target);
+
+  static bool targetIsDomain(String target) => RegExp(_domainRegex, caseSensitive: false).hasMatch(target);
+
+  static bool targetIsDomainOrIP(String target) => targetIsDomain(target) || targetIsIP(target);
 
   /// 服务器IP
   static String get serverIp {
@@ -88,7 +98,7 @@ class Config {
       ip = server['serverIP'];
       Logger.print('缓存serverIP: $ip');
     }
-    return ip ?? _host;
+    return ip ?? host;
   }
 
   /// 商业版管理后台
@@ -103,7 +113,7 @@ class Config {
       Logger.print('缓存chatTokenUrl: $url');
     }
     return url ??
-        (_isIP ? "http://$_host:10009" : "https://$_host/admin_api");
+        (_isIP ? "http://$host:10009" : "https://$host/admin_api");
   }
 
   /// 登录注册手机验 证服务器地址
@@ -119,9 +129,9 @@ class Config {
     }
     // to b
     // return url ??
-    //     (_isIP ? "http://$_host:10010" : "https://$_host/organization");
+    //     (_isIP ? "http://$host:10010" : "https://$host/organization");
     // to c
-    return url ?? (_isIP ? "http://$_host:10008" : "https://$_host/chat");
+    return url ?? (_isIP ? "http://$host:10008" : "https://$host/chat");
   }
 
   /// IM sdk api地址
@@ -135,7 +145,7 @@ class Config {
       url = server['apiUrl'];
       Logger.print('缓存apiUrl: $url');
     }
-    return url ?? (_isIP ? 'http://$_host:10002' : "https://$_host/api");
+    return url ?? (_isIP ? 'http://$host:10002' : "https://$host/api");
   }
 
   /// IM ws 地址
@@ -149,7 +159,7 @@ class Config {
       url = server['wsUrl'];
       Logger.print('缓存wsUrl: $url');
     }
-    return url ?? (_isIP ? "ws://$_host:10001" : "wss://$_host/msg_gateway");
+    return url ?? (_isIP ? "ws://$host:10001" : "wss://$host/msg_gateway");
   }
 
   /// 图片存储

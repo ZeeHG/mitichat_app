@@ -107,9 +107,19 @@ class SetPasswordLogic extends GetxController {
         'email': email
       };
       await DataSp.putLoginCertificate(data);
-      await DataSp.putLoginAccount(account);
+      await DataSp.putMainLoginAccount(account);
       DataSp.putLoginType(email != null ? 1 : 0);
       await imLogic.login(data.userID, data.imToken);
+      await setAccountLoginInfo(
+          userID: data.userID,
+          imToken: data.imToken,
+          chatToken: data.chatToken,
+          email: email,
+          phoneNumber: phoneNumber,
+          areaCode: areaCode,
+          password: pwdCtrl.text,
+          faceURL: imLogic.userInfo.value.faceURL,
+          nickname: imLogic.userInfo.value.nickname);
       Logger.print('---------im login success-------');
       translateLogic.init(data.userID);
       ttsLogic.init(data.userID);

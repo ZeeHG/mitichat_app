@@ -326,7 +326,6 @@ class AppController extends SuperController with UpgradeManger {
   Future queryClientConfig() async {
     final map = await Apis.getClientConfig();
     clientConfigMap.assignAll(map);
-
     return clientConfigMap;
   }
 

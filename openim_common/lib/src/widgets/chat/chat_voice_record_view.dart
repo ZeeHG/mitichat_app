@@ -59,13 +59,17 @@ class _ChatRecordVoiceViewState extends State<ChatRecordVoiceView> {
   @override
   void dispose() {
     (() async {
-      _timer?.cancel();
-      _timer = null;
-      // 停止记录
-      if (await _audioRecorder.isRecording()) {
-        await _audioRecorder.stop();
+      try {
+        _timer?.cancel();
+        _timer = null;
+        // 停止记录
+        if (await _audioRecorder.isRecording()) {
+          await _audioRecorder.stop();
+        }
+        widget.onCompleted?.call(_duration, _path);
+      } catch (e, s) {
+        myLogger.e({"message": "ChatRecordVoiceView 停止录制语音异常", "error": e, "stack": s});
       }
-      widget.onCompleted?.call(_duration, _path);
     })();
     super.dispose();
   }

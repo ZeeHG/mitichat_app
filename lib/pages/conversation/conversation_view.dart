@@ -21,7 +21,8 @@ class ConversationPage extends StatelessWidget {
   Function(dynamic) switchHomeTab;
   RxInt homeTabIndex;
 
-  ConversationPage({super.key, required this.switchHomeTab, required this.homeTabIndex});
+  ConversationPage(
+      {super.key, required this.switchHomeTab, required this.homeTabIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +40,35 @@ class ConversationPage extends StatelessWidget {
           homeTabIndex: homeTabIndex,
           mq: mq,
           unhandledCount: homeLogic.unhandledCount,
-          left: AvatarView(
-                      width: 40.w,
-                      height: 40.h,
-                      text: im.userInfo.value.nickname,
-                      url: im.userInfo.value.faceURL,
-                      onTap: () => switchHomeTab(2)
-                    ),
+          left: PopButton(
+            popCtrl: logic.serverPopCtrl,
+            cusMenus: List.generate(
+              logic.loginInfoList.length,
+              (i) => CusPopMenuInfo(
+                  child: _buildCusPopMenuInfo(
+                      info: logic.loginInfoList[i],
+                      showBorder: i != logic.loginInfoList.length - 1),
+                  onTap: () => logic.switchAccount(logic.loginInfoList[i])),
+            ),
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                AvatarView(
+                  width: 40.w,
+                  height: 40.h,
+                  text: im.userInfo.value.nickname,
+                  url: im.userInfo.value.faceURL,
+                  // onTap: () => switchHomeTab(2)
+                ),
+                Positioned(
+                    bottom: 0,
+                    right: -4.w,
+                    child: ImageRes.appSwitch.toImage
+                      ..width = 18.w
+                      ..height = 18.h)
+              ],
+            ),
+          ),
         ),
         backgroundColor: Styles.c_FFFFFF,
         body: ConstrainedBox(
@@ -276,6 +299,60 @@ class ConversationPage extends StatelessWidget {
                   )
               ],
             ),
+          ),
+        ),
+      );
+
+  Widget _buildCusPopMenuInfo(
+          {required AccountLoginInfo info, showBorder = true}) =>
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12.w),
+        child: Container(
+          width: 243.h,
+          height: 62.h,
+          decoration: BoxDecoration(
+            border: showBorder
+                ? BorderDirectional(
+                    bottom: BorderSide(color: Styles.c_F1F2F6, width: 1.h),
+                  )
+                : null,
+          ),
+          child: Row(
+            children: [
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  AvatarView(
+                    width: 40.w,
+                    height: 40.h,
+                    text: info.nickname,
+                    url: info.faceURL,
+                  ),
+                  if (logic.curLoginInfoKey == info.id)
+                    Positioned(
+                        bottom: 0,
+                        right: -4.w,
+                        child: ImageRes.appChecked2.toImage
+                          ..width = 18.w
+                          ..height = 18.h)
+                ],
+              ),
+              8.horizontalSpace,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  info.nickname.toText
+                    ..style = Styles.ts_333333_16sp
+                    ..maxLines = 1
+                    ..overflow = TextOverflow.ellipsis,
+                  info.server.toText
+                    ..style = Styles.ts_999999_14sp
+                    ..maxLines = 1
+                    ..overflow = TextOverflow.ellipsis,
+                ],
+              )
+            ],
           ),
         ),
       );
