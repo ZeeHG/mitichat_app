@@ -10,6 +10,7 @@ class AccountManageLogic extends GetxController {
   final loginInfoList = <AccountLoginInfo>[].obs;
   final curLoginInfoKey = "".obs;
   int curSwitchCount = 0;
+  int originSwitchCount = 0;
   final miscUtil = Get.find<MiscUtil>();
   final serverCtrl = TextEditingController();
 
@@ -18,6 +19,7 @@ class AccountManageLogic extends GetxController {
     setLoginInfoList();
     setCurLoginInfoKey();
     curSwitchCount = miscUtil.switchCount.value;
+    originSwitchCount = miscUtil.switchCount.value;
     super.onInit();
   }
 
@@ -43,7 +45,18 @@ class AccountManageLogic extends GetxController {
   }
 
   cusBack() async {
-    await miscUtil.backMain(curSwitchCount);
+    if (miscUtil.switchCount.value > curSwitchCount) {
+      LoadingView.singleton.wrap(
+          navBarHeight: 0,
+          asyncFunction: () async {
+            await miscUtil.backCurAccount();
+            AppNavigator.startMain();
+          });
+    } else if (miscUtil.switchCount.value > originSwitchCount) {
+      AppNavigator.startMain();
+    } else {
+      Get.back();
+    }
   }
 
   switchAccount(AccountLoginInfo loginInfo) async {
@@ -54,6 +67,7 @@ class AccountManageLogic extends GetxController {
           await miscUtil.switchAccount(
               server: loginInfo.server, userID: loginInfo.userID);
           setCurLoginInfoKey();
+          curSwitchCount = miscUtil.switchCount.value;
         });
   }
 

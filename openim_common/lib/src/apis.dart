@@ -17,19 +17,21 @@ class Apis {
       Options(headers: {'token': DataSp.chatToken});
 
   /// login
-  static Future<LoginCertificate> login({
-    String? areaCode,
-    String? phoneNumber,
-    String? email,
-    String? password,
-    String? verificationCode,
-  }) async {
+  static Future<LoginCertificate> login(
+      {String? areaCode,
+      String? phoneNumber,
+      String? email,
+      String? password,
+      String? verificationCode,
+      bool encryptPwdRequest = true}) async {
     try {
       var data = await HttpUtil.post(Urls.login, data: {
         "areaCode": areaCode,
         'phoneNumber': phoneNumber,
         'email': email,
-        'password': null != password ? IMUtils.generateMD5(password) : null,
+        'password': null != password
+            ? (encryptPwdRequest ? IMUtils.generateMD5(password) : password)
+            : null,
         'platform': IMUtils.getPlatform(),
         'verifyCode': verificationCode,
         // 'operationID': operationID,
@@ -42,18 +44,18 @@ class Apis {
   }
 
   /// register
-  static Future<LoginCertificate> register({
-    required String nickname,
-    required String password,
-    String? faceURL,
-    String? areaCode,
-    String? phoneNumber,
-    String? email,
-    int birth = 0,
-    int gender = 1,
-    required String verificationCode,
-    String? invitationCode,
-  }) async {
+  static Future<LoginCertificate> register(
+      {required String nickname,
+      required String password,
+      String? faceURL,
+      String? areaCode,
+      String? phoneNumber,
+      String? email,
+      int birth = 0,
+      int gender = 1,
+      required String verificationCode,
+      String? invitationCode,
+      bool encryptPwdRequest = true}) async {
     assert(phoneNumber != null || email != null);
     try {
       var data = await HttpUtil.post(Urls.register, data: {
@@ -71,7 +73,7 @@ class Apis {
           'email': email,
           "areaCode": areaCode,
           'phoneNumber': phoneNumber,
-          'password': IMUtils.generateMD5(password),
+          'password': encryptPwdRequest ? IMUtils.generateMD5(password) : password,
         },
       });
       return LoginCertificate.fromJson(data!);
@@ -749,12 +751,9 @@ class Apis {
     );
   }
 
-
-  static Future<dynamic> blockMoment({required String userID, required int operation}) async {
-    Map<String, dynamic> param = {
-      'userID': userID,
-      'operation': operation
-    };
+  static Future<dynamic> blockMoment(
+      {required String userID, required int operation}) async {
+    Map<String, dynamic> param = {'userID': userID, 'operation': operation};
 
     return HttpUtil.post(
       Urls.blockMoment,
@@ -768,9 +767,7 @@ class Apis {
   }
 
   static Future<dynamic> getBlockMoment({required String userID}) async {
-    Map<String, dynamic> param = {
-      'userID': userID
-    };
+    Map<String, dynamic> param = {'userID': userID};
 
     return HttpUtil.post(
       Urls.getBlockMoment,

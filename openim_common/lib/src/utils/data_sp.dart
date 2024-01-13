@@ -214,6 +214,13 @@ class DataSp {
             (key, value) => MapEntry(key, AccountLoginInfo.fromJson(value))));
   }
 
+  static Map<String, dynamic>? getAccountLoginInfoMap2() {
+    return SpUtil().getObj(
+        _accountLoginInfoMap,
+        (map) => map.map(
+            (key, value) => MapEntry(key, value)));
+  }
+
   static AccountLoginInfo? getAccountLoginInfoByKey(String key) {
     return getAccountLoginInfoMap()?[key];
   }

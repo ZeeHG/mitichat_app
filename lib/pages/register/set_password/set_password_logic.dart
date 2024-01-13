@@ -107,7 +107,7 @@ class SetPasswordLogic extends GetxController {
         'email': email
       };
       await DataSp.putLoginCertificate(data);
-      await DataSp.putMainLoginAccount(account);
+      // await DataSp.putMainLoginAccount(account);
       DataSp.putLoginType(email != null ? 1 : 0);
       await imLogic.login(data.userID, data.imToken);
       await setAccountLoginInfo(
@@ -117,7 +117,7 @@ class SetPasswordLogic extends GetxController {
           email: email,
           phoneNumber: phoneNumber,
           areaCode: areaCode,
-          password: pwdCtrl.text,
+          password: IMUtils.generateMD5(pwdCtrl.text)!,
           faceURL: imLogic.userInfo.value.faceURL,
           nickname: imLogic.userInfo.value.nickname);
       Logger.print('---------im login success-------');

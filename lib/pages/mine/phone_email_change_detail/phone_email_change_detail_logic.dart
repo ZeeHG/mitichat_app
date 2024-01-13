@@ -137,8 +137,6 @@ class PhoneEmailChangeDetailLogic extends GetxController {
       });
       await imLogic.logout();
       await DataSp.removeLoginCertificate();
-      await DataSp.clearLockScreenPassword();
-      await DataSp.closeBiometric();
       pushLogic.logout();
       success.value = true;
     }

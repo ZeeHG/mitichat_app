@@ -36,8 +36,6 @@ class MiscUtil extends GetxController {
       myLogger.e({"message": "tryLogout失败", "error": e, "stack": s});
     }
     await DataSp.removeLoginCertificate();
-    await DataSp.clearLockScreenPassword();
-    await DataSp.closeBiometric();
     pushLogic.logout();
   }
 
@@ -82,10 +80,13 @@ class MiscUtil extends GetxController {
     }
   }
 
-  Future<void> switchServer(String server, {bool needLogoutIm = true}) async {
+  Future<void> switchServer(String server,
+      {bool needLogoutIm = true, bool needLogout = true}) async {
     if (server.isEmpty || !Config.targetIsDomainOrIP(server)) return;
     try {
-      await tryLogout(needLogoutIm: needLogoutIm);
+      if (needLogout) {
+        await tryLogout(needLogoutIm: needLogoutIm);
+      }
       await reloadServerConf(server);
     } catch (e, s) {
       myLogger.e({
@@ -102,11 +103,13 @@ class MiscUtil extends GetxController {
       String? phoneNumber,
       String? email,
       required String password,
-      String? verificationCode}) async {
+      String? verificationCode,
+      bool encryptPwdRequest = true}) async {
     late LoginCertificate data;
     final curKey = DataSp.getCurServerKey();
     try {
       data = await Apis.login(
+        encryptPwdRequest: encryptPwdRequest,
         areaCode: areaCode,
         phoneNumber: phoneNumber,
         email: email,
@@ -121,11 +124,11 @@ class MiscUtil extends GetxController {
       });
       rethrow;
     }
-    final account = {
-      "areaCode": areaCode,
-      "phoneNumber": phoneNumber,
-      'email': email
-    };
+    // final account = {
+    //   "areaCode": areaCode,
+    //   "phoneNumber": phoneNumber,
+    //   'email': email
+    // };
     await DataSp.putLoginCertificate(data);
     try {
       await imLogic.login(data.userID, data.imToken);
@@ -166,6 +169,7 @@ class MiscUtil extends GetxController {
       });
       rethrow;
     }
+    Get.find<CacheController>().resetCache();
     await setAccountLoginInfo(
         userID: data.userID,
         imToken: data.imToken,
@@ -173,7 +177,7 @@ class MiscUtil extends GetxController {
         email: email,
         phoneNumber: phoneNumber,
         areaCode: areaCode,
-        password: password ?? "",
+        password: encryptPwdRequest? IMUtils.generateMD5(password ?? "")! : password,
         faceURL: imLogic.userInfo.value.faceURL,
         nickname: imLogic.userInfo.value.nickname);
     final translateLogic = Get.find<TranslateLogic>();
@@ -211,11 +215,11 @@ class MiscUtil extends GetxController {
       });
       rethrow;
     }
-    final account = {
-      "areaCode": areaCode,
-      "phoneNumber": phoneNumber,
-      'email': email
-    };
+    // final account = {
+    //   "areaCode": areaCode,
+    //   "phoneNumber": phoneNumber,
+    //   'email': email
+    // };
     await DataSp.putLoginCertificate(data);
     try {
       await imLogic.login(data.userID, data.imToken);
@@ -256,6 +260,7 @@ class MiscUtil extends GetxController {
       });
       rethrow;
     }
+    Get.find<CacheController>().resetCache();
     await setAccountLoginInfo(
         userID: data.userID,
         imToken: data.imToken,
@@ -263,7 +268,7 @@ class MiscUtil extends GetxController {
         email: email,
         phoneNumber: phoneNumber,
         areaCode: areaCode,
-        password: password ?? "",
+        password: IMUtils.generateMD5(password ?? "")!,
         faceURL: imLogic.userInfo.value.faceURL,
         nickname: imLogic.userInfo.value.nickname);
     final translateLogic = Get.find<TranslateLogic>();
@@ -276,7 +281,8 @@ class MiscUtil extends GetxController {
   Future<bool> switchAccount(
       {required String server,
       required String userID,
-      bool switchBack = true}) async {
+      bool switchBack = true,
+      bool useToken = false}) async {
     final targetLoginInfoKey = getLoginInfoKey(server: server, userID: userID);
     final curLoginInfoKey = DataSp.getCurAccountLoginInfoKey();
     AccountLoginInfo? targetAccountLoginInfo =
@@ -288,12 +294,33 @@ class MiscUtil extends GetxController {
       return false;
     }
     try {
-      await switchServer(targetAccountLoginInfo.server);
-      await login(
-          areaCode: targetAccountLoginInfo.areaCode,
-          phoneNumber: targetAccountLoginInfo.phoneNumber,
-          email: targetAccountLoginInfo.email,
-          password: targetAccountLoginInfo.password);
+      if (!useToken) {
+        await switchServer(targetAccountLoginInfo.server);
+        await login(
+            areaCode: targetAccountLoginInfo.areaCode,
+            phoneNumber: targetAccountLoginInfo.phoneNumber,
+            email: targetAccountLoginInfo.email,
+            password: targetAccountLoginInfo.password,
+            encryptPwdRequest: false);
+      } else {
+        pushLogic.logout();
+        await switchServer(targetAccountLoginInfo.server, needLogout: false);
+        await DataSp.putLoginCertificate(LoginCertificate.fromJson({
+          "userID": userID,
+          "imToken": targetAccountLoginInfo.imToken,
+          "chatToken": targetAccountLoginInfo.chatToken
+        }));
+        // FIXME im没有退出, 直接用token登录, 导致OpenIM.iMManager.xx还是旧的用户, 出现bug
+        await imLogic.login(userID, targetAccountLoginInfo.imToken);
+        await DataSp.putCurAccountLoginInfoKey(targetAccountLoginInfo.id);
+        await DataSp.putCurServerKey(
+            getServerKey(server: targetAccountLoginInfo.server));
+        final translateLogic = Get.find<TranslateLogic>();
+        final ttsLogic = Get.find<TtsLogic>();
+        translateLogic.init(userID);
+        ttsLogic.init(userID);
+        pushLogic.login(userID);
+      }
       showToast(StrRes.success);
       return true;
     } catch (e, s) {
@@ -315,7 +342,8 @@ class MiscUtil extends GetxController {
             areaCode: curAccountLoginInfo.areaCode,
             phoneNumber: curAccountLoginInfo.phoneNumber,
             email: curAccountLoginInfo.email,
-            password: curAccountLoginInfo.password);
+            password: curAccountLoginInfo.password,
+            encryptPwdRequest: false);
         showToast(StrRes.fail);
         return false;
       }
@@ -351,7 +379,7 @@ class MiscUtil extends GetxController {
             "areaCode": areaCode,
             "phoneNumber": phoneNumber,
             "email": email,
-            "password": password
+            // "password": password
           },
           "error": e
         },
@@ -395,7 +423,7 @@ class MiscUtil extends GetxController {
             "areaCode": areaCode,
             "phoneNumber": phoneNumber,
             "email": email,
-            "password": password,
+            // "password": password,
             "nickname": nickname,
             "verificationCode": verificationCode,
             "invitationCode": invitationCode
@@ -429,7 +457,8 @@ class MiscUtil extends GetxController {
           areaCode: curAccountLoginInfo.areaCode,
           phoneNumber: curAccountLoginInfo.phoneNumber,
           email: curAccountLoginInfo.email,
-          password: curAccountLoginInfo.password);
+          password: curAccountLoginInfo.password,
+          encryptPwdRequest: false);
       showToast(StrRes.fail);
       return false;
     }
@@ -438,10 +467,12 @@ class MiscUtil extends GetxController {
 
   Future<void> backMain(int originSwitchCount) async {
     if (switchCount.value > originSwitchCount) {
-      LoadingView.singleton.wrap(navBarHeight: 0, asyncFunction: () async {
-        await backCurAccount();
-        AppNavigator.startMain();
-      });
+      LoadingView.singleton.wrap(
+          navBarHeight: 0,
+          asyncFunction: () async {
+            await backCurAccount();
+            AppNavigator.startMain();
+          });
     } else {
       Get.back();
     }

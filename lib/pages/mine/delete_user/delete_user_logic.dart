@@ -40,8 +40,6 @@ class DeleteUserLogic extends GetxController {
     // 自动踢出
     // await imLogic.logout();
     await DataSp.removeLoginCertificate();
-    await DataSp.clearLockScreenPassword();
-    await DataSp.closeBiometric();
     pushLogic.logout();
     AppNavigator.startLogin();
   }

@@ -31,8 +31,6 @@ class MineLogic extends GetxController {
         await LoadingView.singleton.wrap(asyncFunction: () async {
           await imLogic.logout();
           await DataSp.removeLoginCertificate();
-          await DataSp.clearLockScreenPassword();
-          await DataSp.closeBiometric();
           pushLogic.logout();
         });
         AppNavigator.startLogin();

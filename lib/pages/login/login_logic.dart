@@ -166,7 +166,8 @@ class LoginLogic extends GetxController {
   }
 
   cusBack() async {
-    await miscUtil.backMain(curSwitchCount);
+    // await miscUtil.backMain(curSwitchCount);
+    Get.back();
   }
 
   bool checkForm() {
@@ -220,7 +221,7 @@ class LoginLogic extends GetxController {
           email: email,
           phoneNumber: phone,
           areaCode: areaCode.value,
-          password: password ?? "",
+          password: IMUtils.generateMD5(password ?? "")!,
           faceURL: imLogic.userInfo.value.faceURL,
           nickname: imLogic.userInfo.value.nickname);
       Logger.print('im login success');
@@ -283,11 +284,11 @@ class LoginLogic extends GetxController {
         binding: ServerConfigBinding(),
       );
 
-  void registerNow() =>
-      AppNavigator.startRegister(isAddAccount: isAddAccount.value, server: server.value);
+  void registerNow() => AppNavigator.startRegister(
+      isAddAccount: isAddAccount.value, server: server.value);
 
-  void forgetPassword() =>
-      AppNavigator.startForgetPassword(isAddAccount: isAddAccount.value, server: server.value);
+  void forgetPassword() => AppNavigator.startForgetPassword(
+      isAddAccount: isAddAccount.value, server: server.value);
 
   void getPackageInfo() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
