@@ -84,7 +84,7 @@ class LoginLogic extends GetxController {
     if (map is Map) {
       String? phoneNumber = map["phoneNumber"];
       String? areaCode = map["areaCode"];
-      if (phoneNumber != null && phoneNumber.isNotEmpty) {
+      if (phoneNumber != null && phoneNumber.isNotEmpty && !isAddAccount.value) {
         phoneCtrl.text = phoneNumber;
       }
       if (areaCode != null && areaCode.isNotEmpty) {

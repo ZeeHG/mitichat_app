@@ -460,7 +460,6 @@ class MiscUtil extends GetxController {
           email: curAccountLoginInfo.email,
           password: curAccountLoginInfo.password,
           encryptPwdRequest: false);
-      showToast(StrRes.fail);
       return false;
     }
     return true;
