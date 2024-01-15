@@ -939,7 +939,7 @@ const Map<String, String> zh_CN = {
   "recentRequests": "最近添加",
   "accountManage": "账号管理",
   "addOrRegisterAccount": "添加或注册账号",
-  "fail": "失败",
+  "fail": "操作失败",
   "addAccountServer": "添加账号",
   "addAccountServerTips": "请输入添加账号的服务器地址",
   "serverFormatErr": "服务器格式错误",

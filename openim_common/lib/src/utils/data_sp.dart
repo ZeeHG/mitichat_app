@@ -214,15 +214,26 @@ class DataSp {
             (key, value) => MapEntry(key, AccountLoginInfo.fromJson(value))));
   }
 
-  static Map<String, dynamic>? getAccountLoginInfoMap2() {
-    return SpUtil().getObj(
-        _accountLoginInfoMap,
-        (map) => map.map(
-            (key, value) => MapEntry(key, value)));
+  static Map<String, dynamic>? getAccountLoginInfoMap2Map() {
+    return SpUtil().getObj(_accountLoginInfoMap,
+        (map) => map.map((key, value) => MapEntry(key, value)));
   }
 
   static AccountLoginInfo? getAccountLoginInfoByKey(String key) {
     return getAccountLoginInfoMap()?[key];
+  }
+
+  static Future<bool>? removeAccountLoginInfoByKey(String key) {
+    final map = getAccountLoginInfoMap();
+    if (null != map && map.containsKey(key)) {
+      map.remove(key);
+      return SpUtil().putObject(_accountLoginInfoMap, map);
+    }
+    return Future.value(true);
+  }
+
+  static Future<bool>? clearAccountLoginInfo() {
+    return SpUtil().putObject(_accountLoginInfoMap, {});
   }
 
   // 同getLoginAccount, 只记录主服务器
