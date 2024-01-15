@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:openim/pages/mine/server_config/server_config_binding.dart';
-import 'package:openim/pages/mine/server_config/server_config_view.dart';
-import 'package:openim/utils/misc_util.dart';
+import 'package:miti/pages/mine/server_config/server_config_binding.dart';
+import 'package:miti/pages/mine/server_config/server_config_view.dart';
+import 'package:miti/utils/misc_util.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -109,13 +109,15 @@ class LoginLogic extends GetxController {
     isAddAccount.value = Get.arguments?['isAddAccount'] ?? false;
     server.value = Get.arguments?['server'] ?? server.value;
     curSwitchCount = miscUtil.switchCount.value;
-    if (!isAddAccount.value) {
-      miscUtil.reloadServerConf();
-    }
     _initData();
     phoneCtrl.addListener(_onChanged);
     pwdCtrl.addListener(_onChanged);
     verificationCodeCtrl.addListener(_onChanged);
+    if (!isAddAccount.value) {
+      LoadingView.singleton.wrap(
+        navBarHeight: 0,
+        asyncFunction: () => miscUtil.reloadServerConf());
+    }
     super.onInit();
   }
 

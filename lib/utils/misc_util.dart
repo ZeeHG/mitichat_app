@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
-import 'package:openim/core/controller/app_controller.dart';
-import 'package:openim/core/controller/im_controller.dart';
-import 'package:openim/core/controller/push_controller.dart';
-import 'package:openim/core/im_callback.dart';
-import 'package:openim/routes/app_navigator.dart';
+import 'package:miti/core/controller/app_controller.dart';
+import 'package:miti/core/controller/im_controller.dart';
+import 'package:miti/core/controller/push_controller.dart';
+import 'package:miti/core/im_callback.dart';
+import 'package:miti/routes/app_navigator.dart';
 import 'package:openim_common/openim_common.dart';
 
 /*
@@ -59,14 +59,14 @@ class MiscUtil extends GetxController {
   Future<void> reloadServerConf([String server = Config.host]) async {
     if (!Config.targetIsDomainOrIP(server)) return;
     final key = getServerKey(server: server);
-    final curKey = DataSp.getCurServerKey();
-    final needReload = null != curKey && key != curKey ||
-        null == curKey && key != getServerKey(server: Config.host);
-    myLogger.i({
-      "message": "reloadServerConf 准备重新加载服务配置",
-      "data": {"needReload": needReload, "server": server}
-    });
+    final curKey = DataSp.getCurServerKey() ?? "";
+    final needReload = curKey.isNotEmpty && key != curKey ||
+        curKey.isEmpty && key != getServerKey(server: Config.host);
     if (needReload) {
+      myLogger.i({
+        "message": "reloadServerConf 准备重新加载服务配置",
+        "data": {"needReload": needReload, "server": server}
+      });
       switchCount.value++;
       // FIXME 一直没有返回
       // await imLogic.unInitOpenIM();
@@ -177,7 +177,8 @@ class MiscUtil extends GetxController {
         email: email,
         phoneNumber: phoneNumber,
         areaCode: areaCode,
-        password: encryptPwdRequest? IMUtils.generateMD5(password ?? "")! : password,
+        password:
+            encryptPwdRequest ? IMUtils.generateMD5(password ?? "")! : password,
         faceURL: imLogic.userInfo.value.faceURL,
         nickname: imLogic.userInfo.value.nickname);
     final translateLogic = Get.find<TranslateLogic>();

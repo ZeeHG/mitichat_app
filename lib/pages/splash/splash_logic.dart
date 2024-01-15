@@ -24,6 +24,7 @@ class SplashLogic extends GetxController with UpgradeManger {
   void onInit() {
     initializedSub = imLogic.initializedSubject.listen((value) async {
       Logger.print('---------------------initialized---------------------');
+      myLogger.e({"message": "imSdk初始化完成", "data": value});
       await Future.delayed(const Duration(seconds: 2));
       if (null != userID && null != token) {
         await _login();

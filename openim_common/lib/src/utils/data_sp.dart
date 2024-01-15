@@ -182,8 +182,8 @@ class DataSp {
     return SpUtil().getInt(_loginType) ?? 0;
   }
 
-  static String? getCurServerKey() {
-    return SpUtil().getString(_curServerKey);
+  static String getCurServerKey() {
+    return SpUtil().getString(_curServerKey) ?? "";
   }
 
   // 登录和切换时修改
@@ -191,8 +191,8 @@ class DataSp {
     return SpUtil().putString(_curServerKey, key);
   }
 
-  static String? getCurAccountLoginInfoKey() {
-    return SpUtil().getString(_curAccountLoginInfoKey);
+  static String getCurAccountLoginInfoKey() {
+    return SpUtil().getString(_curAccountLoginInfoKey) ?? "";
   }
 
   // 完全登录成功后修改
