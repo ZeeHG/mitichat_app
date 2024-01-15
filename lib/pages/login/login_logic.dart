@@ -106,8 +106,8 @@ class LoginLogic extends GetxController {
 
   @override
   void onInit() async {
-    isAddAccount.value = Get.arguments['isAddAccount'] ?? false;
-    server.value = Get.arguments['server'] ?? false;
+    isAddAccount.value = Get.arguments?['isAddAccount'] ?? false;
+    server.value = Get.arguments?['server'] ?? server.value;
     curSwitchCount = miscUtil.switchCount.value;
     if (!isAddAccount.value) {
       miscUtil.reloadServerConf();

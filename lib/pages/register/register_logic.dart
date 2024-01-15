@@ -53,8 +53,8 @@ class RegisterLogic extends GetxController {
 
   @override
   void onInit() {
-    isAddAccount.value = Get.arguments['isAddAccount'] ?? false;
-    server.value = Get.arguments['server'] ?? false;
+    isAddAccount.value = Get.arguments?['isAddAccount'] ?? false;
+    server.value = Get.arguments?['server'] ?? server.value;
     _initData();
     phoneCtrl.addListener(_onChanged);
     emailCtrl.addListener(_onChanged);
