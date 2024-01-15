@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:openim/pages/chat/chat_setup/search_chat_history/multimedia/multimedia_logic.dart';
+import 'package:miti/pages/chat/chat_setup/search_chat_history/multimedia/multimedia_logic.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:sprintf/sprintf.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:openim/utils/misc_util.dart';
+import 'package:miti/utils/misc_util.dart';
 import 'package:openim_common/openim_common.dart';
 
 import 'core/controller/im_controller.dart';

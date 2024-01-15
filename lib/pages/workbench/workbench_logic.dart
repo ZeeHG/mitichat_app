@@ -2,7 +2,7 @@ import 'dart:io';
 
 // import 'package:flutter_openim_unimp/flutter_openim_unimp.dart';
 import 'package:get/get.dart';
-import 'package:openim/core/controller/app_controller.dart';
+import 'package:miti/core/controller/app_controller.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';

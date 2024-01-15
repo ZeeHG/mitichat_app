@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:openim/core/controller/im_controller.dart';
-import 'package:openim/core/controller/push_controller.dart';
-import 'package:openim/pages/login/login_logic.dart';
-import 'package:openim/routes/app_navigator.dart';
-import 'package:openim/utils/misc_util.dart';
+import 'package:miti/core/controller/im_controller.dart';
+import 'package:miti/core/controller/push_controller.dart';
+import 'package:miti/pages/login/login_logic.dart';
+import 'package:miti/routes/app_navigator.dart';
+import 'package:miti/utils/misc_util.dart';
 import 'package:openim_common/openim_common.dart';
 
 import '../../core/controller/app_controller.dart';

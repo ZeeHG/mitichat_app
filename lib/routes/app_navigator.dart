@@ -1,8 +1,8 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:openim/pages/home/home_binding.dart';
-import 'package:openim/pages/login/login_view.dart';
-import 'package:openim/pages/mine/phone_email_change/phone_email_change_logic.dart';
+import 'package:miti/pages/home/home_binding.dart';
+import 'package:miti/pages/login/login_view.dart';
+import 'package:miti/pages/mine/phone_email_change/phone_email_change_logic.dart';
 import 'package:openim_common/openim_common.dart';
 
 import '../pages/chat/chat_setup/search_chat_history/multimedia/multimedia_logic.dart';

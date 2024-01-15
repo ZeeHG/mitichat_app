@@ -59,7 +59,7 @@ class MiscUtil extends GetxController {
   Future<void> reloadServerConf([String server = Config.host]) async {
     if (!Config.targetIsDomainOrIP(server)) return;
     final key = getServerKey(server: server);
-    final curKey = DataSp.getCurServerKey() ?? "";
+    final curKey = DataSp.getCurServerKey();
     final needReload = curKey.isNotEmpty && key != curKey ||
         curKey.isEmpty && key != getServerKey(server: Config.host);
     if (needReload) {
@@ -288,7 +288,7 @@ class MiscUtil extends GetxController {
     final curLoginInfoKey = DataSp.getCurAccountLoginInfoKey();
     AccountLoginInfo? targetAccountLoginInfo =
         DataSp.getAccountLoginInfoByKey(targetLoginInfoKey);
-    AccountLoginInfo? curAccountLoginInfo = null != curLoginInfoKey
+    AccountLoginInfo? curAccountLoginInfo = curLoginInfoKey.isNotEmpty
         ? DataSp.getAccountLoginInfoByKey(curLoginInfoKey)
         : null;
     if (null == targetAccountLoginInfo || null == curAccountLoginInfo) {
@@ -442,7 +442,7 @@ class MiscUtil extends GetxController {
 
   Future<bool> backCurAccount() async {
     final curLoginInfoKey = DataSp.getCurAccountLoginInfoKey();
-    AccountLoginInfo? curAccountLoginInfo = null != curLoginInfoKey
+    AccountLoginInfo? curAccountLoginInfo = curLoginInfoKey.isNotEmpty
         ? DataSp.getAccountLoginInfoByKey(curLoginInfoKey)
         : null;
     if (null != curAccountLoginInfo) {

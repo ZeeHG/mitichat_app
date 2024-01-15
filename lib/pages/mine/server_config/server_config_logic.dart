@@ -1,7 +1,7 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:openim/core/controller/im_controller.dart';
+import 'package:miti/core/controller/im_controller.dart';
 import 'package:openim_common/openim_common.dart';
 
 class ServerConfigLogic extends GetxController {

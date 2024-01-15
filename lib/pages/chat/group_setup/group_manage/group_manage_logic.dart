@@ -1,6 +1,6 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:openim/pages/chat/group_setup/group_setup_logic.dart';
+import 'package:miti/pages/chat/group_setup/group_setup_logic.dart';
 import 'package:openim_common/openim_common.dart';
 
 import '../../../../routes/app_navigator.dart';
