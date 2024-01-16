@@ -30,7 +30,6 @@ dependencies:
   permission_handler: ^11.0.1
   wechat_assets_picker: ^8.4.0
   wechat_camera_picker: 
-  extended_image: ^8.2.0
   country_picker: ^2.0.20
   image_gallery_saver: ^2.0.3
   file_picker: ^6.1.1
@@ -101,6 +100,14 @@ dev_dependencies:
   flutter_lints: ^3.0.1
   hive_generator: ^2.0.0
   build_runner: ^2.3.3
+
+dependency_overrides:
+  # extended_image: ^8.2.0
+  # fixed滑动和放大手势冲突, 基于8.2.0
+  extended_image:
+    git: 
+      url: https://github.com/bpquanttech/extended_image.git
+      ref: v8.2.0-fixed
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

@@ -56,7 +56,6 @@ dependencies:
   flutter_slidable: ^3.0.1
   wechat_assets_picker: ^8.4.0
   wechat_camera_picker: ^4.0.2
-  extended_image: ^8.2.0
   flutter_screenutil: 5.8.4
   # flutter_screenutil:
   #   git: https://github.com/OpenFlutter/flutter_screenutil.git
@@ -136,6 +135,12 @@ dependency_overrides:
   photo_manager: ^3.0.0-dev.2
   photo_browser:
     path: local_plugin/photo_browser
+  # extended_image: ^8.2.0
+  # fixed滑动和放大手势冲突, 基于8.2.0
+  extended_image:
+    git: 
+      url: https://github.com/bpquanttech/extended_image.git
+      ref: v8.2.0-fixed
 
 
 dev_dependencies:

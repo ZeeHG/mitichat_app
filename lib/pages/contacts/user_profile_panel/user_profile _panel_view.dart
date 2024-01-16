@@ -21,7 +21,7 @@ class UserProfilePanelPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           appBar: TitleBar.back(
-            right: logic.isFriendship
+            right: logic.baseDataFinished.value && logic.isFriendship
                 ? (ImageRes.appMoreBlack.toImage
                   ..width = 24.w
                   ..height = 24.h
@@ -29,7 +29,7 @@ class UserProfilePanelPage extends StatelessWidget {
                 : null,
           ),
           backgroundColor: Styles.c_F7F8FA,
-          body: null == logic.userInfo.value.isFriendship
+          body: !logic.baseDataFinished.value
               ? SizedBox()
               : SizedBox(
                   height: 1.sh,
