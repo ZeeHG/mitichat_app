@@ -1524,4 +1524,5 @@ static String get addAccountServer => 'addAccountServer'.tr;
 static String get addAccountServerTips => 'addAccountServerTips'.tr;
 static String get serverFormatErr => 'serverFormatErr'.tr;
 static String get serverErr => 'serverErr'.tr;
+static String get accountErr => 'accountErr'.tr;
 }

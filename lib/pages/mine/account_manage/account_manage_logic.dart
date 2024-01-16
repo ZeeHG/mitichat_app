@@ -9,8 +9,8 @@ import 'package:openim_common/openim_common.dart';
 class AccountManageLogic extends GetxController {
   final loginInfoList = <AccountLoginInfo>[].obs;
   final curLoginInfoKey = "".obs;
-  int curSwitchCount = 0;
-  int originSwitchCount = 0;
+  int curStatusChangeCount = 0;
+  int originStatusChangeCount = 0;
   final miscUtil = Get.find<MiscUtil>();
   final serverCtrl = TextEditingController();
 
@@ -18,8 +18,8 @@ class AccountManageLogic extends GetxController {
   void onInit() {
     setLoginInfoList();
     setCurLoginInfoKey();
-    curSwitchCount = miscUtil.switchCount.value;
-    originSwitchCount = miscUtil.switchCount.value;
+    curStatusChangeCount = miscUtil.statusChangeCount.value;
+    originStatusChangeCount = miscUtil.statusChangeCount.value;
     super.onInit();
   }
 
@@ -45,14 +45,16 @@ class AccountManageLogic extends GetxController {
   }
 
   cusBack() async {
-    if (miscUtil.switchCount.value > curSwitchCount) {
+    if (miscUtil.statusChangeCount.value > curStatusChangeCount) {
+      // 最后一次操作切换了服务器
       LoadingView.singleton.wrap(
           navBarHeight: 0,
           asyncFunction: () async {
             await miscUtil.backCurAccount();
             AppNavigator.startMain();
           });
-    } else if (miscUtil.switchCount.value > originSwitchCount) {
+    } else if (miscUtil.statusChangeCount.value > originStatusChangeCount) {
+      // 只切换账号
       AppNavigator.startMain();
     } else {
       Get.back();
@@ -65,9 +67,9 @@ class AccountManageLogic extends GetxController {
         navBarHeight: 0,
         asyncFunction: () async {
           await miscUtil.switchAccount(
-              server: loginInfo.server, userID: loginInfo.userID);
+              serverWithProtocol: loginInfo.server, userID: loginInfo.userID);
           setCurLoginInfoKey();
-          curSwitchCount = miscUtil.switchCount.value;
+          curStatusChangeCount = miscUtil.statusChangeCount.value;
         });
   }
 
@@ -112,13 +114,16 @@ class AccountManageLogic extends GetxController {
         Get.back(result: true);
       },
       onTapRight: () async {
-        if (!Config.targetIsDomainOrIP(serverCtrl.text)) {
+        // http://xx
+        if (!Config.targetIsDomainOrIPWithProtocol(serverCtrl.text)) {
           showToast(StrRes.serverFormatErr);
         } else {
           LoadingView.singleton.wrap(
               navBarHeight: 0,
               asyncFunction: () async {
                 try {
+                  await miscUtil.checkServerValid(
+                      serverWithProtocol: serverCtrl.text);
                   await miscUtil.switchServer(serverCtrl.text);
                   Get.back(result: true);
                   AppNavigator.startLoginWithoutOff(

@@ -76,15 +76,17 @@ class LoginLogic extends GetxController {
   final ttsLogic = Get.find<TtsLogic>();
   final miscUtil = Get.find<MiscUtil>();
   final isAddAccount = false.obs;
-  final server = Config.host.obs;
-  int curSwitchCount = 0;
+  final server = Config.hostWithProtocol.obs;
+  int curStatusChangeCount = 0;
 
   _initData() async {
     var map = DataSp.getMainLoginAccount();
     if (map is Map) {
       String? phoneNumber = map["phoneNumber"];
       String? areaCode = map["areaCode"];
-      if (phoneNumber != null && phoneNumber.isNotEmpty && !isAddAccount.value) {
+      if (phoneNumber != null &&
+          phoneNumber.isNotEmpty &&
+          !isAddAccount.value) {
         phoneCtrl.text = phoneNumber;
       }
       if (areaCode != null && areaCode.isNotEmpty) {
@@ -108,15 +110,14 @@ class LoginLogic extends GetxController {
   void onInit() async {
     isAddAccount.value = Get.arguments?['isAddAccount'] ?? false;
     server.value = Get.arguments?['server'] ?? server.value;
-    curSwitchCount = miscUtil.switchCount.value;
+    curStatusChangeCount = miscUtil.statusChangeCount.value;
     _initData();
     phoneCtrl.addListener(_onChanged);
     pwdCtrl.addListener(_onChanged);
     verificationCodeCtrl.addListener(_onChanged);
     if (!isAddAccount.value) {
       LoadingView.singleton.wrap(
-        navBarHeight: 0,
-        asyncFunction: () => miscUtil.reloadServerConf());
+          navBarHeight: 0, asyncFunction: () => miscUtil.reloadServerConf());
     }
     super.onInit();
   }
@@ -156,7 +157,7 @@ class LoginLogic extends GetxController {
             final code = IMUtils.emptyStrToNull(verificationCodeCtrl.text);
             final isOk = await miscUtil.loginAccount(
                 switchBack: false,
-                server: server.value,
+                serverWithProtocol: server.value,
                 areaCode: areaCode.value,
                 phoneNumber: phone,
                 email: email,
@@ -168,7 +169,7 @@ class LoginLogic extends GetxController {
   }
 
   cusBack() async {
-    // await miscUtil.backMain(curSwitchCount);
+    // await miscUtil.backMain(curStatusChangeCount);
     Get.back();
   }
 
@@ -234,6 +235,7 @@ class LoginLogic extends GetxController {
       return true;
     } catch (e, s) {
       Logger.print('login e: $e $s');
+      myLogger.e({"message": "登录失败", "error": e, "stack": s});
     }
     return false;
   }

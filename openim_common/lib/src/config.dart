@@ -74,11 +74,19 @@ class Config {
   /// static const host = "www.bopufund.com";
   /// static const host = "10.25.2.24";
   static const host = "www.miti.chat";
-  // static const host = "10.25.2.24";
 
-  static const _ipRegex = '((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)';
+  // static const _ipRegex = '((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)';
+  static const _ipRegex =
+      r'((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)';
 
-  static const _domainRegex = r'^(?:(?=[^\.]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$';
+  static const _domainRegex =
+      r'^(?:(?=[^\.]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$';
+
+  static const _ipWithProtocolRegex =
+      r'^(http://|https://)((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$';
+
+  static const _domainWithProtocolRegex =
+      r'^(http://|https://)(?:(?=[^\.]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$';
 
   static bool get _isIP => RegExp(_ipRegex).hasMatch(host);
 
@@ -86,9 +94,22 @@ class Config {
 
   static bool targetIsIP(String target) => RegExp(_ipRegex).hasMatch(target);
 
-  static bool targetIsDomain(String target) => RegExp(_domainRegex, caseSensitive: false).hasMatch(target);
+  static bool targetIsDomain(String target) =>
+      RegExp(_domainRegex, caseSensitive: false).hasMatch(target);
 
-  static bool targetIsDomainOrIP(String target) => targetIsDomain(target) || targetIsIP(target);
+  static bool targetIsDomainOrIP(String target) =>
+      targetIsDomain(target) || targetIsIP(target);
+
+  static bool targetIsIPWithProtocol(String target) =>
+      RegExp(_ipWithProtocolRegex).hasMatch(target);
+
+  static bool targetIsDomainWithProtocol(String target) =>
+      RegExp(_domainWithProtocolRegex, caseSensitive: false).hasMatch(target);
+
+  static bool targetIsDomainOrIPWithProtocol(String target) =>
+      targetIsIPWithProtocol(target) || targetIsDomainWithProtocol(target);
+
+  static String get hostWithProtocol => _isIP ? "http://$host" : "https://$host";
 
   /// 服务器IP
   static String get serverIp {
@@ -105,16 +126,16 @@ class Config {
   /// $apiScheme://$host/admin_api/
   /// $apiScheme://$host:10009
   /// 端口：10009
-  static String get chatTokenUrl {
-    String? url;
-    var server = DataSp.getServerConfig();
-    if (null != server) {
-      url = server['chatTokenUrl'];
-      Logger.print('缓存chatTokenUrl: $url');
-    }
-    return url ??
-        (_isIP ? "http://$host:10009" : "https://$host/admin_api");
-  }
+  // static String get chatTokenUrl {
+  //   String? url;
+  //   var server = DataSp.getServerConfig();
+  //   if (null != server) {
+  //     url = server['chatTokenUrl'];
+  //     Logger.print('缓存chatTokenUrl: $url');
+  //   }
+  //   return url ??
+  //       (_isIP ? "http://$host:10009" : "https://$host/admin_api");
+  // }
 
   /// 登录注册手机验 证服务器地址
   /// $apiScheme://$host/chat/
@@ -173,8 +194,6 @@ class Config {
     return storage ?? 'minio';
   }
 
-
-
   // 用户id, 隐藏开关
   static const testUserIds = [
     // my2
@@ -202,5 +221,12 @@ class Config {
 
   // 机器人id
   // 有方医疗-Sophie, Nicole-高尔夫导购, 有方医疗-朱教授, Camera, Nicole-高尔夫导购, 段永平
-  static const botIds = ["3216431598", "3319670832", "4845282902", "5020681160", "7541408629", "8448328647"];
+  static const botIds = [
+    "3216431598",
+    "3319670832",
+    "4845282902",
+    "5020681160",
+    "7541408629",
+    "8448328647"
+  ];
 }

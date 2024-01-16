@@ -77,7 +77,7 @@ class AccountManagePage extends StatelessWidget {
                   url: info.faceURL,
                 ),
                 8.horizontalSpace,
-                Column(
+                Expanded(child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -90,8 +90,7 @@ class AccountManagePage extends StatelessWidget {
                       ..maxLines = 1
                       ..overflow = TextOverflow.ellipsis,
                   ],
-                ),
-                Spacer(),
+                )),
                 if (logic.curLoginInfoKey == info.id)
                   ImageRes.appChecked2.toImage
                     ..width = 18.w

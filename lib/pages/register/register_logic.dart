@@ -28,7 +28,7 @@ class RegisterLogic extends GetxController {
   final ttsLogic = Get.find<TtsLogic>();
   final isAddAccount = false.obs;
   final miscUtil = Get.find<MiscUtil>();
-  final server = Config.host.obs;
+  final server = Config.hostWithProtocol.obs;
 
   bool get phoneRegister => operateType.value == LoginType.phone;
   String? get email => !phoneRegister ? emailCtrl.text.trim() : null;
@@ -257,7 +257,7 @@ class RegisterLogic extends GetxController {
         } else {
           final isOk = await miscUtil.registerAccount(
             switchBack: false,
-            server: server.value,
+            serverWithProtocol: server.value,
             nickname: nickname,
             areaCode: areaCodeValue,
             phoneNumber: phone,

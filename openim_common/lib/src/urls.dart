@@ -62,4 +62,6 @@ class Urls {
 
   static String get getBlockMoment =>
       "${Config.appAuthUrl}/office/work_moment/get_block_moment";
+
+  static String get checkServerValid => '/client_config/get';
 }

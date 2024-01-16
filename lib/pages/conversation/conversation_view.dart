@@ -338,19 +338,21 @@ class ConversationPage extends StatelessWidget {
                 ],
               ),
               8.horizontalSpace,
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  info.nickname.toText
-                    ..style = Styles.ts_333333_16sp
-                    ..maxLines = 1
-                    ..overflow = TextOverflow.ellipsis,
-                  info.server.toText
-                    ..style = Styles.ts_999999_14sp
-                    ..maxLines = 1
-                    ..overflow = TextOverflow.ellipsis,
-                ],
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    info.nickname.toText
+                      ..style = Styles.ts_333333_16sp
+                      ..maxLines = 1
+                      ..overflow = TextOverflow.ellipsis,
+                    info.server.toText
+                      ..style = Styles.ts_999999_14sp
+                      ..maxLines = 1
+                      ..overflow = TextOverflow.ellipsis,
+                  ],
+                ),
               )
             ],
           ),

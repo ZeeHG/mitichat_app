@@ -6,7 +6,7 @@ class AccountLoginInfo {
   String id;
   String userID;
   String server;
-  String tls;
+  // String tls;
   String email;
   String areaCode;
   String phoneNumber;
@@ -22,7 +22,7 @@ class AccountLoginInfo {
       : id = map["id"] ?? '',
         userID = map["userID"] ?? '',
         server = map["server"] ?? '',
-        tls = map["tls"] ?? "1",
+        // tls = map["tls"] ?? "1",
         email = map["email"] ?? '',
         areaCode = map["areaCode"] ?? '',
         phoneNumber = map["phoneNumber"] ?? '',
@@ -38,7 +38,7 @@ class AccountLoginInfo {
     data['id'] = id;
     data['userID'] = userID;
     data['server'] = server;
-    data['tls'] = tls;
+    // data['tls'] = tls;
     data['email'] = email;
     data['areaCode'] = areaCode;
     data['phoneNumber'] = phoneNumber;

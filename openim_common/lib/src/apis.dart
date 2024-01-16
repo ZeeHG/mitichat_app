@@ -779,4 +779,13 @@ class Apis {
       options: chatTokenOptions,
     );
   }
+
+  static Future<bool> checkServerValid({required String serverWithProtocol}) async {
+    var result = await HttpUtil.post(
+      "${serverWithProtocol}${Config.targetIsDomainWithProtocol(serverWithProtocol)? '/chat' : ':10008'}${Urls.checkServerValid}",
+      data: {},
+      showErrorToast: false,
+    );
+    return true;
+  }
 }

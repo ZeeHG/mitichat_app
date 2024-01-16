@@ -23,8 +23,18 @@ class MiscUtil extends GetxController {
   final imLogic = Get.find<IMController>();
   final pushLogic = Get.find<PushController>();
   final appLogic = Get.find<AppController>();
-  final switchCount = 0.obs;
+  final statusChangeCount = 0.obs;
   final imTimeout = 30;
+
+  checkServerWithProtocolValid(String serverWithProtocol) {
+    return serverWithProtocol.isNotEmpty &&
+        Config.targetIsDomainOrIPWithProtocol(serverWithProtocol);
+  }
+
+  Future<bool> checkServerValid({required String serverWithProtocol}) async {
+    if (!checkServerWithProtocolValid(serverWithProtocol)) return false;
+    return await Apis.checkServerValid(serverWithProtocol: serverWithProtocol);
+  }
 
   Future<void> tryLogout({bool needLogoutIm = true}) async {
     try {
@@ -39,40 +49,42 @@ class MiscUtil extends GetxController {
     pushLogic.logout();
   }
 
-  Future<void> setServerConf(String server) async {
-    if (server.isEmpty || !Config.targetIsDomainOrIP(server)) return;
+  Future<void> setServerConf(String serverWithProtocol) async {
+    if (!checkServerWithProtocolValid(serverWithProtocol)) return;
+    final uri = Uri.parse(serverWithProtocol);
+    final tls = uri.scheme == "https";
     await DataSp.putServerConfig({
-      'serverIP': server,
-      'authUrl': Config.targetIsIP(server)
-          ? "http://${server}:10008"
-          : "https://${server}/chat",
-      'apiUrl': Config.targetIsIP(server)
-          ? "http://${server}:10002"
-          : "https://${server}/api",
-      'wsUrl': Config.targetIsIP(server)
-          ? "ws://${server}:10001"
-          : "wss://${server}/msg_gateway",
+      'serverIP': uri.host,
+      'authUrl': Config.targetIsIPWithProtocol(serverWithProtocol)
+          ? "${serverWithProtocol}:10008"
+          : "${serverWithProtocol}/chat",
+      'apiUrl': Config.targetIsIPWithProtocol(serverWithProtocol)
+          ? "${serverWithProtocol}:10002"
+          : "${serverWithProtocol}/api",
+      'wsUrl': Config.targetIsIPWithProtocol(serverWithProtocol)
+          ? "${tls ? 'wss' : 'ws'}://${uri.host}:10001"
+          : "${tls ? 'wss' : 'ws'}://${uri.host}/msg_gateway",
     });
-    DataSp.putCurServerKey(getServerKey(server: server));
+    DataSp.putCurServerKey(serverWithProtocol);
   }
 
-  Future<void> reloadServerConf([String server = Config.host]) async {
-    if (!Config.targetIsDomainOrIP(server)) return;
-    final key = getServerKey(server: server);
+  Future<void> reloadServerConf([String? serverWithProtocol]) async {
+    serverWithProtocol = serverWithProtocol ?? Config.hostWithProtocol;
+    if (!checkServerWithProtocolValid(serverWithProtocol)) return;
     final curKey = DataSp.getCurServerKey();
-    final needReload = curKey.isNotEmpty && key != curKey ||
-        curKey.isEmpty && key != getServerKey(server: Config.host);
+    final needReload = curKey.isNotEmpty && serverWithProtocol != curKey ||
+        curKey.isEmpty && serverWithProtocol != Config.hostWithProtocol;
     if (needReload) {
       myLogger.i({
         "message": "reloadServerConf 准备重新加载服务配置",
-        "data": {"needReload": needReload, "server": server}
+        "data": {"needReload": needReload, "server": serverWithProtocol}
       });
-      switchCount.value++;
       // FIXME 一直没有返回
       // await imLogic.unInitOpenIM();
       imLogic.unInitOpenIM();
-      await setServerConf(server);
+      await setServerConf(serverWithProtocol);
       HttpUtil.init();
+      statusChangeCount.value++;
       // FIXME 需要等到连接成功或者失败回调, 而不是函数执行完。否则无法登录im，只能登录chat。
       // FIXME initOpenIM不会出现超时, 只有login im后才会出现
       await imLogic.initOpenIM();
@@ -80,24 +92,26 @@ class MiscUtil extends GetxController {
     }
   }
 
-  Future<void> switchServer(String server,
+  Future<void> switchServer(String serverWithProtocol,
       {bool needLogoutIm = true, bool needLogout = true}) async {
-    if (server.isEmpty || !Config.targetIsDomainOrIP(server)) return;
+    if (!checkServerWithProtocolValid(serverWithProtocol)) return;
     try {
       if (needLogout) {
         await tryLogout(needLogoutIm: needLogoutIm);
+        statusChangeCount.value++;
       }
-      await reloadServerConf(server);
+      await reloadServerConf(serverWithProtocol);
     } catch (e, s) {
       myLogger.e({
         "message": "switchServer失败",
-        "error": {"server": server, "error": e},
+        "error": {"server": serverWithProtocol, "error": e},
         "stack": s
       });
       rethrow;
     }
   }
 
+  // 切换服务器后调用
   Future<void> login(
       {String? areaCode,
       String? phoneNumber,
@@ -106,7 +120,7 @@ class MiscUtil extends GetxController {
       String? verificationCode,
       bool encryptPwdRequest = true}) async {
     late LoginCertificate data;
-    final curKey = DataSp.getCurServerKey();
+    final curServerKey = DataSp.getCurServerKey();
     try {
       data = await Apis.login(
         encryptPwdRequest: encryptPwdRequest,
@@ -119,7 +133,7 @@ class MiscUtil extends GetxController {
     } catch (e, s) {
       myLogger.e({
         "message": "chat登录失败",
-        "error": {"curKey": curKey, "error": e},
+        "error": {"curServerKey": curServerKey, "error": e},
         "stack": s
       });
       rethrow;
@@ -164,13 +178,14 @@ class MiscUtil extends GetxController {
       showToast(StrRes.fail);
       myLogger.e({
         "message": "im登录失败",
-        "error": {"curKey": curKey, "error": e},
+        "error": {"curServerKey": curServerKey, "error": e},
         "stack": s
       });
       rethrow;
     }
     Get.find<CacheController>().resetCache();
     await setAccountLoginInfo(
+        serverWithProtocol: curServerKey,
         userID: data.userID,
         imToken: data.imToken,
         chatToken: data.chatToken,
@@ -188,6 +203,7 @@ class MiscUtil extends GetxController {
     pushLogic.login(data.userID);
   }
 
+  // 切换服务器后调用
   Future<void> register(
       {bool switchBack = true,
       required String nickname,
@@ -198,7 +214,7 @@ class MiscUtil extends GetxController {
       required String verificationCode,
       String? invitationCode}) async {
     late LoginCertificate data;
-    final curKey = DataSp.getCurServerKey();
+    final curServerKey = DataSp.getCurServerKey();
     try {
       data = await Apis.register(
           nickname: nickname,
@@ -211,7 +227,7 @@ class MiscUtil extends GetxController {
     } catch (e, s) {
       myLogger.e({
         "message": "chat注册失败",
-        "error": {"curKey": curKey, "error": e},
+        "error": {"curServerKey": curServerKey, "error": e},
         "stack": s
       });
       rethrow;
@@ -256,13 +272,14 @@ class MiscUtil extends GetxController {
       showToast(StrRes.fail);
       myLogger.e({
         "message": "im登录失败",
-        "error": {"curKey": curKey, "error": e},
+        "error": {"curServerKey": curServerKey, "error": e},
         "stack": s
       });
       rethrow;
     }
     Get.find<CacheController>().resetCache();
     await setAccountLoginInfo(
+        serverWithProtocol: curServerKey,
         userID: data.userID,
         imToken: data.imToken,
         chatToken: data.chatToken,
@@ -280,11 +297,13 @@ class MiscUtil extends GetxController {
   }
 
   Future<bool> switchAccount(
-      {required String server,
+      {required String serverWithProtocol,
       required String userID,
       bool switchBack = true,
       bool useToken = false}) async {
-    final targetLoginInfoKey = getLoginInfoKey(server: server, userID: userID);
+    if (!checkServerWithProtocolValid(serverWithProtocol)) return false;
+    final targetLoginInfoKey =
+        getLoginInfoKey(serverWithProtocol: serverWithProtocol, userID: userID);
     final curLoginInfoKey = DataSp.getCurAccountLoginInfoKey();
     AccountLoginInfo? targetAccountLoginInfo =
         DataSp.getAccountLoginInfoByKey(targetLoginInfoKey);
@@ -297,6 +316,7 @@ class MiscUtil extends GetxController {
     try {
       if (!useToken) {
         await switchServer(targetAccountLoginInfo.server);
+        // 用密码登录
         await login(
             areaCode: targetAccountLoginInfo.areaCode,
             phoneNumber: targetAccountLoginInfo.phoneNumber,
@@ -306,6 +326,7 @@ class MiscUtil extends GetxController {
       } else {
         pushLogic.logout();
         await switchServer(targetAccountLoginInfo.server, needLogout: false);
+        // 用token登录
         await DataSp.putLoginCertificate(LoginCertificate.fromJson({
           "userID": userID,
           "imToken": targetAccountLoginInfo.imToken,
@@ -314,8 +335,7 @@ class MiscUtil extends GetxController {
         // FIXME im没有退出, 直接用token登录, 导致OpenIM.iMManager.xx还是旧的用户, 出现bug
         await imLogic.login(userID, targetAccountLoginInfo.imToken);
         await DataSp.putCurAccountLoginInfoKey(targetAccountLoginInfo.id);
-        await DataSp.putCurServerKey(
-            getServerKey(server: targetAccountLoginInfo.server));
+        await DataSp.putCurServerKey(serverWithProtocol);
         final translateLogic = Get.find<TranslateLogic>();
         final ttsLogic = Get.find<TtsLogic>();
         translateLogic.init(userID);
@@ -330,7 +350,7 @@ class MiscUtil extends GetxController {
         "error": {
           "targetAccount": targetAccountLoginInfo.toJson(),
           "originAccount": curAccountLoginInfo.toJson(),
-          "server": server,
+          "server": serverWithProtocol,
           "userID": userID,
           "error": e
         },
@@ -338,13 +358,27 @@ class MiscUtil extends GetxController {
       });
       if (switchBack) {
         // 回退服务器和账号
-        await switchServer(curAccountLoginInfo.server, needLogoutIm: true);
-        await login(
-            areaCode: curAccountLoginInfo.areaCode,
-            phoneNumber: curAccountLoginInfo.phoneNumber,
-            email: curAccountLoginInfo.email,
-            password: curAccountLoginInfo.password,
-            encryptPwdRequest: false);
+        try {
+          await switchServer(curAccountLoginInfo.server, needLogoutIm: true);
+          await login(
+              areaCode: curAccountLoginInfo.areaCode,
+              phoneNumber: curAccountLoginInfo.phoneNumber,
+              email: curAccountLoginInfo.email,
+              password: curAccountLoginInfo.password,
+              encryptPwdRequest: false);
+        } catch (e, s) {
+          myLogger.e({
+            "message": "回退账号失败",
+            "error": {
+              "targetAccount": targetAccountLoginInfo.toJson(),
+              "originAccount": curAccountLoginInfo.toJson(),
+              "server": serverWithProtocol,
+              "userID": userID,
+              "error": e
+            },
+            "stack": s
+          });
+        }
         showToast(StrRes.fail);
         return false;
       }
@@ -352,18 +386,19 @@ class MiscUtil extends GetxController {
     }
   }
 
-  // 缺少chat的登出接口, 如果chat成功但im登录失败, 直接访问会有bug, 需要登出chat再switch, 不出可能有bug
+  // 缺少chat的登出接口, 如果chat成功但im登录失败, 直接访问会有bug, 需要登出chat再switch, 不登出可能有bug
   Future<bool> loginAccount(
-      {required String server,
+      {required String serverWithProtocol,
       bool switchBack = true,
       String? areaCode,
       String? phoneNumber,
       String? email,
       required password,
       String? verificationCode}) async {
+    if (!checkServerWithProtocolValid(serverWithProtocol)) return false;
     try {
       // 重复账号重新登录覆盖, 失败了返回页面时再switchAccount
-      await switchServer(server);
+      await switchServer(serverWithProtocol);
       await login(
           areaCode: areaCode,
           phoneNumber: phoneNumber,
@@ -376,7 +411,7 @@ class MiscUtil extends GetxController {
         "message": "多服务器登录账号失败, 尝试回退($switchBack)",
         "error": {
           "argument": {
-            "server": server,
+            "server": serverWithProtocol,
             "areaCode": areaCode,
             "phoneNumber": phoneNumber,
             "email": email,
@@ -394,7 +429,7 @@ class MiscUtil extends GetxController {
   }
 
   Future<bool> registerAccount(
-      {required String server,
+      {required String serverWithProtocol,
       bool switchBack = true,
       required String nickname,
       String? areaCode,
@@ -403,8 +438,9 @@ class MiscUtil extends GetxController {
       required password,
       required String verificationCode,
       String? invitationCode}) async {
+    if (!checkServerWithProtocolValid(serverWithProtocol)) return false;
     try {
-      await switchServer(server);
+      await switchServer(serverWithProtocol);
       await register(
           areaCode: areaCode,
           phoneNumber: phoneNumber,
@@ -420,7 +456,7 @@ class MiscUtil extends GetxController {
         "message": "多服务器注册账号失败, 尝试回退($switchBack)",
         "error": {
           "argument": {
-            "server": server,
+            "server": serverWithProtocol,
             "areaCode": areaCode,
             "phoneNumber": phoneNumber,
             "email": email,
@@ -453,20 +489,33 @@ class MiscUtil extends GetxController {
           "curAccountLoginInfo": curAccountLoginInfo.toJson(),
         },
       });
-      await switchServer(curAccountLoginInfo.server, needLogoutIm: true);
-      await login(
-          areaCode: curAccountLoginInfo.areaCode,
-          phoneNumber: curAccountLoginInfo.phoneNumber,
-          email: curAccountLoginInfo.email,
-          password: curAccountLoginInfo.password,
-          encryptPwdRequest: false);
-      return false;
+      try {
+        await switchServer(curAccountLoginInfo.server, needLogoutIm: true);
+        await login(
+            areaCode: curAccountLoginInfo.areaCode,
+            phoneNumber: curAccountLoginInfo.phoneNumber,
+            email: curAccountLoginInfo.email,
+            password: curAccountLoginInfo.password,
+            encryptPwdRequest: false);
+      } catch (e, s) {
+        myLogger.e({
+          "message": "回退账号失败",
+          "error": {
+            "curAccountLoginInfo": curAccountLoginInfo.toJson(),
+            "error": e
+          },
+          "stack": s
+        });
+        showToast(StrRes.accountErr);
+        return false;
+      }
+      return true;
     }
     return true;
   }
 
-  Future<void> backMain(int originSwitchCount) async {
-    if (switchCount.value > originSwitchCount) {
+  Future<void> backMain(int originStatusChangeCount) async {
+    if (statusChangeCount.value > originStatusChangeCount) {
       LoadingView.singleton.wrap(
           navBarHeight: 0,
           asyncFunction: () async {

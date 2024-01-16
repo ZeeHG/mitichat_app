@@ -171,7 +171,7 @@ class MatchTextView extends StatelessWidget {
         return '';
       },
       onNonMatch: (text) {
-        children.add(TextSpan(text: text.fixAutoLines(), style: textStyle));
+        children.add(TextSpan(text: text, style: textStyle));
         return '';
       },
     );

@@ -944,4 +944,5 @@ const Map<String, String> zh_CN = {
   "addAccountServerTips": "请输入添加账号的服务器地址",
   "serverFormatErr": "服务器格式错误",
   "serverErr": "服务器出错",
+  "accountErr": "账号异常",
 };

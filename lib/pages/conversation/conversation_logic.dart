@@ -41,7 +41,7 @@ class ConversationLogic extends GetxController {
         navBarHeight: 0,
         asyncFunction: () async {
           await miscUtil.switchAccount(
-              server: loginInfo.server, userID: loginInfo.userID);
+              serverWithProtocol: loginInfo.server, userID: loginInfo.userID);
           AppNavigator.startMain();
         });
   }
