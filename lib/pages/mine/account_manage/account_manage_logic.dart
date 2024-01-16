@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
-import 'package:miti/utils/misc_util.dart';
+import 'package:miti/utils/account_util.dart';
 import 'package:openim_common/openim_common.dart';
 
 class AccountManageLogic extends GetxController {

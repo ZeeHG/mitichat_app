@@ -4,7 +4,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:miti/utils/misc_util.dart';
+import 'package:miti/utils/account_util.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:openim_meeting/openim_meeting.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';

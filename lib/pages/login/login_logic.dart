@@ -3,7 +3,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti/pages/mine/server_config/server_config_binding.dart';
 import 'package:miti/pages/mine/server_config/server_config_view.dart';
-import 'package:miti/utils/misc_util.dart';
+import 'package:miti/utils/account_util.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 

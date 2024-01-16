@@ -186,7 +186,7 @@ class DataSp {
     return SpUtil().getString(_curServerKey) ?? "";
   }
 
-  // 登录和切换时修改
+  // 登录和切换服务器时修改
   static Future<bool>? putCurServerKey(String key) {
     return SpUtil().putString(_curServerKey, key);
   }
@@ -195,7 +195,7 @@ class DataSp {
     return SpUtil().getString(_curAccountLoginInfoKey) ?? "";
   }
 
-  // 完全登录成功后修改
+  // 完成登录成功后修改
   static Future<bool>? putCurAccountLoginInfoKey(String key) {
     return SpUtil().putString(_curAccountLoginInfoKey, key);
   }
