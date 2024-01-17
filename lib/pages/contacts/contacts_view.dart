@@ -96,23 +96,25 @@ class ContactsPage extends StatelessWidget {
               constraints: BoxConstraints(minWidth: 1.sw),
               color: Styles.c_FFFFFF,
               child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.only(
-                    left: 12.w, right: 12.w, top: 9.h, bottom: 20.h),
-                child: Row(
-                  children: List.generate(
-                      logic.menus.length,
-                      (index) => Row(
-                            children: [
-                              _buildMenuItemView(
-                                  text: logic.menus[index]["text"],
-                                  color: logic.menus[index]["color"],
-                                  shadowColor: logic.menus[index]["shadowColor"],
-                                  onTap: logic.menus[index]["onTap"]),
-                              10.horizontalSpace
-                            ],
-                          )),
-                )),
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.only(
+                      left: 12.w, right: 12.w, top: 9.h, bottom: 20.h),
+                  child: Row(
+                    children: List.generate(
+                        logic.menus.length,
+                        (index) => Row(
+                              children: [
+                                _buildMenuItemView(
+                                    text: logic.menus[index]["text"],
+                                    color: logic.menus[index]["color"],
+                                    shadowColor: logic.menus[index]
+                                        ["shadowColor"],
+                                    onTap: logic.menus[index]["onTap"],
+                                    badge: logic.menus[index]["key"] == "newRecent"? homeLogic.unhandledCount.value : null),
+                                10.horizontalSpace
+                              ],
+                            )),
+                  )),
             ),
             IgnorePointer(
                 ignoring: true,
@@ -179,6 +181,7 @@ class ContactsPage extends StatelessWidget {
     Color? color,
     TextStyle? tStyle,
     Color? shadowColor,
+    int? badge,
     required String text,
     Function()? onTap,
   }) {
@@ -190,24 +193,36 @@ class ContactsPage extends StatelessWidget {
     return GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: onTap,
-        child: Container(
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(14.r),
-              boxShadow: [
-                BoxShadow(
-                  color: shadowColor,
-                  blurRadius: 9.r,
-                  offset: Offset(0, 3.r),
+        child: Stack(
+          children: [
+            Container(
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(14.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: shadowColor,
+                      blurRadius: 9.r,
+                      offset: Offset(0, 3.r),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            height: height,
-            constraints: BoxConstraints(maxWidth: width),
-            // padding: EdgeInsets.symmetric(horizontal: 12.w),
-            child: Center(
-              child: text.toText..style = tStyle,
-            )));
+                height: height,
+                constraints: BoxConstraints(maxWidth: width),
+                // padding: EdgeInsets.symmetric(horizontal: 12.w),
+                child: Center(
+                  child: text.toText..style = tStyle,
+                )),
+            if (null != badge)
+              Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Transform.translate(
+                    offset: const Offset(0, 0),
+                    child: UnreadCountView(count: badge),
+                  ))
+          ],
+        ));
   }
 
 // /// 我加入的部门
