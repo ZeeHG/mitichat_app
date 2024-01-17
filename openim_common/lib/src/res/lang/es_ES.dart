@@ -930,5 +930,14 @@ const Map<String, String> es_ES = {
   "newPhone": "Nuevo número de móvil",
   "newEmail": "Nueva dirección de correo electrónico",
   "required": "Requerido",
-  "plsEnterInvitationCode2": "Por favor, introduce tu código de invitación"
+  "plsEnterInvitationCode2": "Por favor, introduce tu código de invitación",
+  "recentRequests": "Solicitudes Recientes",
+  "accountManage": "Gestión de Cuenta",
+  "addOrRegisterAccount": "Agregar o Registrar Cuenta",
+  "fail": "Operación Fallida",
+  "addAccountServer": "Agregar Cuenta",
+  "addAccountServerTips": "Por favor ingrese la dirección del servidor para agregar la cuenta",
+  "serverFormatErr": "Error de Formato del Servidor",
+  "serverErr": "Error del Servidor",
+  "accountErr": "Error de Cuenta"
 };

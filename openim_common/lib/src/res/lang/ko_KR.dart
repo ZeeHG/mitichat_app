@@ -1009,5 +1009,14 @@ const Map<String, String> ko_KR = {
   "newPhone": "새 휴대폰 번호",
   "newEmail": "새 이메일 주소",
   "required": "필수",
-  "plsEnterInvitationCode2": "초대 코드를 입력해주세요"
+  "plsEnterInvitationCode2": "초대 코드를 입력해주세요",
+  "recentRequests": "최근 요청",
+  "accountManage": "계정 관리",
+  "addOrRegisterAccount": "계정 추가 또는 등록",
+  "fail": "작업 실패",
+  "addAccountServer": "계정 추가",
+  "addAccountServerTips": "계정을 추가하려면 서버 주소를 입력하세요",
+  "serverFormatErr": "서버 형식 오류",
+  "serverErr": "서버 오류",
+  "accountErr": "계정 오류"
 };

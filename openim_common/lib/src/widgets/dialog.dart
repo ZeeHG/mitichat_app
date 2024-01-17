@@ -32,7 +32,8 @@ class CustomDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return TouchCloseSoftKeyboard(
+      child: Material(
       color: Colors.transparent,
       child: Center(
         child: ClipRRect(
@@ -97,6 +98,7 @@ class CustomDialog extends StatelessWidget {
           ),
         ),
       ),
+    ),
     );
   }
 

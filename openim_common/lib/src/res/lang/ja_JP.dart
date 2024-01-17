@@ -930,5 +930,14 @@ const Map<String, String> ja_JP = {
   "newPhone": "新しい携帯番号",
   "newEmail": "新しいメールアドレス",
   "required": "必須",
-  "plsEnterInvitationCode2": "招待コードを入力してください"
+  "plsEnterInvitationCode2": "招待コードを入力してください",
+  "recentRequests": "最近のリクエスト",
+  "accountManage": "アカウント管理",
+  "addOrRegisterAccount": "アカウントの追加または登録",
+  "fail": "操作に失敗しました",
+  "addAccountServer": "アカウントの追加",
+  "addAccountServerTips": "アカウントを追加するためにサーバーアドレスを入力してください",
+  "serverFormatErr": "サーバーフォーマットエラー",
+  "serverErr": "サーバーエラー",
+  "accountErr": "アカウントエラー"
 };
