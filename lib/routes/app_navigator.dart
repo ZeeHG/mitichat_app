@@ -528,4 +528,8 @@ class AppNavigator {
   static startRecentRequests() => Get.toNamed(AppRoutes.recentRequests);
 
   static startAccountManage() => Get.toNamed(AppRoutes.accountManage);
+
+  static startAiFriendList() => Get.toNamed(AppRoutes.aiFriendList);
+
+  static startSearchAiFriend() => Get.toNamed(AppRoutes.searchAiFriend);
 }

@@ -322,21 +322,28 @@ class _ChatItemViewState extends State<ChatItemView> {
       constraints: BoxConstraints(maxWidth: maxWidth),
       child: Column(
         children: MarkdownGenerator(
-            linesMargin: EdgeInsets.all(0),
-            ).buildWidgets(null != text
-            ? text
-            : _message.isTextType
-                ? _message.textElem!.content!
-                : IMUtils.replaceMessageAtMapping(_message, {}),
-          config: config.copy(configs: [
+          linesMargin: EdgeInsets.all(0),
+        ).buildWidgets(
+            null != text
+                ? text
+                : _message.isTextType
+                    ? _message.textElem!.content!
+                    : IMUtils.replaceMessageAtMapping(_message, {}),
+            config: config.copy(configs: [
               PConfig(
                 textStyle:
                     _isISend ? Styles.ts_FFFFFF_16sp : Styles.ts_333333_16sp,
               ),
-              ListConfig(marker: (bool isOrdered, int depth, int index) => getDefaultMarker(isOrdered, depth, _isISend ? Styles.c_FFFFFF : Styles.c_000000, index,
-              12, config))
-            ])
-        ),
+              ListConfig(
+                  marker: (bool isOrdered, int depth, int index) =>
+                      getDefaultMarker(
+                          isOrdered,
+                          depth,
+                          _isISend ? Styles.c_FFFFFF : Styles.c_000000,
+                          index,
+                          12,
+                          config))
+            ])),
       ),
     );
   }
@@ -450,7 +457,8 @@ class _ChatItemViewState extends State<ChatItemView> {
         canReEdit: widget.canReEdit,
       );
     } else if (_message.isNotificationType) {
-      if (_message.contentType == MessageType.groupInfoSetAnnouncementNotification) {
+      if (_message.contentType ==
+          MessageType.groupInfoSetAnnouncementNotification) {
         final map = json.decode(_message.notificationElem!.detail!);
         final ntf = GroupNotification.fromJson(map);
         final noticeContent = ntf.group?.notification;
@@ -531,7 +539,11 @@ class _ChatItemViewState extends State<ChatItemView> {
   Widget? get _quoteMsgView {
     final quoteMsg = _message.quoteMessage;
     return quoteMsg != null
-        ? ChatQuoteView(quoteMsg: quoteMsg, onTap: widget.onTapQuoteMessage)
+        ? ChatQuoteView(
+            quoteMsg: quoteMsg,
+            onTap: widget.onTapQuoteMessage,
+            allAtMap: IMUtils.getAtMapping(quoteMsg, widget.allAtMap),
+          )
         : null;
   }
 
@@ -546,11 +558,11 @@ class _ChatItemViewState extends State<ChatItemView> {
           onTap: () => IMUtils.copy(text: text),
         ),
         MenuInfo(
-            icon: ImageRes.appMenuUnTranslate,
-            text: StrRes.unTranslate,
-            enabled: widget.enabledUnTranslateMenu,
-            onTap: widget.onTapUnTranslateMenu,
-          ),
+          icon: ImageRes.appMenuUnTranslate,
+          text: StrRes.unTranslate,
+          enabled: widget.enabledUnTranslateMenu,
+          onTap: widget.onTapUnTranslateMenu,
+        ),
       ];
     }
     return status == "loading"
@@ -670,11 +682,11 @@ class _ChatItemViewState extends State<ChatItemView> {
                     barrierColor: Colors.transparent,
                     verticalMargin: 0,
                     child: ChatText(
-                            text: status == "show" ? text! : "",
-                            patterns: widget.patterns,
-                            textScaleFactor: widget.textScaleFactor,
-                            isISend: _isISend,
-                          ),
+                      text: status == "show" ? text! : "",
+                      patterns: widget.patterns,
+                      textScaleFactor: widget.textScaleFactor,
+                      isISend: _isISend,
+                    ),
                   ),
           );
   }
@@ -686,7 +698,9 @@ class _ChatItemViewState extends State<ChatItemView> {
           message: _message, onTap: widget.onViewMessageReadStatus)
       : null;
 
-  Widget? get _voiceReadStatusView => _message.isVoiceType && !_message.isRead! ? const ChatVoiceReadStatusView() : null;
+  Widget? get _voiceReadStatusView => _message.isVoiceType && !_message.isRead!
+      ? const ChatVoiceReadStatusView()
+      : null;
 
   List<MenuInfo> get _menusItem => [
         if (widget.enabledCopyMenu)

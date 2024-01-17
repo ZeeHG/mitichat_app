@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:logger/logger.dart';
+import 'package:openim_common/openim_common.dart' as common;
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
@@ -46,8 +47,9 @@ class PrefixPrinter extends LogPrinter {
         event.level,
         {
           "appVersion": appVersion,
+          "curAccount": common.DataSp.getCurAccountLoginInfoKey(),
           "logTime": DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
-          "logInfo": event.message
+          "logInfo": event.message,
         },
         time: event.time,
         error: event.error,

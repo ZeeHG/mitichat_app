@@ -348,8 +348,8 @@ class MiscUtil extends GetxController {
       myLogger.e({
         "message": "多服务器切换账号时登录账号失败, 尝试回退($switchBack)",
         "error": {
-          "targetAccount": targetAccountLoginInfo.toJson(),
-          "originAccount": curAccountLoginInfo.toJson(),
+          "targetAccount": targetAccountLoginInfo.toJson(delSensitiveFields: true),
+          "originAccount": curAccountLoginInfo.toJson(delSensitiveFields: true),
           "server": serverWithProtocol,
           "userID": userID,
           "error": e
@@ -370,8 +370,8 @@ class MiscUtil extends GetxController {
           myLogger.e({
             "message": "回退账号失败",
             "error": {
-              "targetAccount": targetAccountLoginInfo.toJson(),
-              "originAccount": curAccountLoginInfo.toJson(),
+              "targetAccount": targetAccountLoginInfo.toJson(delSensitiveFields: true),
+              "originAccount": curAccountLoginInfo.toJson(delSensitiveFields: true),
               "server": serverWithProtocol,
               "userID": userID,
               "error": e
@@ -486,7 +486,7 @@ class MiscUtil extends GetxController {
       myLogger.w({
         "message": "回退账号",
         "data": {
-          "curAccountLoginInfo": curAccountLoginInfo.toJson(),
+          "curAccountLoginInfo": curAccountLoginInfo.toJson(delSensitiveFields: true),
         },
       });
       try {
@@ -501,7 +501,7 @@ class MiscUtil extends GetxController {
         myLogger.e({
           "message": "回退账号失败",
           "error": {
-            "curAccountLoginInfo": curAccountLoginInfo.toJson(),
+            "curAccountLoginInfo": curAccountLoginInfo.toJson(delSensitiveFields: true),
             "error": e
           },
           "stack": s

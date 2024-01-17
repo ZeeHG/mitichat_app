@@ -1,6 +1,10 @@
 import 'package:get/get.dart';
 import 'package:miti/pages/chat/complaint/complaint_binding.dart';
 import 'package:miti/pages/chat/complaint/complaint_view.dart';
+import 'package:miti/pages/contacts/ai_friend_list/ai_friend_list_binding.dart';
+import 'package:miti/pages/contacts/ai_friend_list/ai_friend_list_view.dart';
+import 'package:miti/pages/contacts/ai_friend_list/search_ai_friend/search_ai_friend_binding.dart';
+import 'package:miti/pages/contacts/ai_friend_list/search_ai_friend/search_ai_friend_view.dart';
 import 'package:miti/pages/contacts/recent_requests/recent_requests_binding.dart';
 import 'package:miti/pages/contacts/recent_requests/recent_requests_view.dart';
 import 'package:miti/pages/friend_permissions/friend_permissions_binding.dart';
@@ -618,6 +622,16 @@ class AppPages {
       name: AppRoutes.accountManage,
       page: () => AccountManagePage(),
       binding: AccountManageBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.aiFriendList,
+      page: () => AiFriendListPage(),
+      binding: AiFriendListBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.searchAiFriend,
+      page: () => SearchAiFriendPage(),
+      binding: SearchAiFriendBinding(),
     ),
     // ...OPages.pages, // 组织架构
     ...WPages.pages, // 工作圈

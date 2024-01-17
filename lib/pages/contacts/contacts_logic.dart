@@ -41,14 +41,13 @@ class ContactsLogic extends GetxController
         "text": StrRes.recentRequests,
         "color": Styles.c_00CBC5,
         "shadowColor": Color.fromRGBO(0, 203, 197, 0.5),
-        // "onTap": () => newFriend(),
         "onTap": () => newRecent()
       },
       // {
-      //   "text": StrRes.newGroup,
+      //   "text": StrRes.aiFriends,
       //   "color": Styles.c_FEA836,
       //   "shadowColor": Color.fromRGBO(254, 168, 54, 0.5),
-      //   // "onTap": () => newGroup()
+      //   "onTap": () => aiFriendList()
       // },
     ];
 
@@ -191,6 +190,8 @@ class ContactsLogic extends GetxController
   void newGroup() => AppNavigator.startGroupRequests();
 
   void myFriend() => AppNavigator.startFriendList();
+
+  void aiFriendList() => AppNavigator.startAiFriendList();
 
   void myGroup() => AppNavigator.startGroupList();
 

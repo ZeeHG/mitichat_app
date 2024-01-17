@@ -11,22 +11,25 @@ class ChatQuoteView extends StatelessWidget {
     Key? key,
     required this.quoteMsg,
     this.onTap,
+    this.allAtMap = const <String, String>{},
   }) : super(key: key);
   final Message quoteMsg;
   final Function(Message message)? onTap;
+  final Map<String, String> allAtMap;
 
   @override
   Widget build(BuildContext context) => GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () => onTap?.call(quoteMsg),
-        child: _ChatQuoteContentView(message: quoteMsg),
+        child: _ChatQuoteContentView(message: quoteMsg, allAtMap: allAtMap),
       );
 }
 
 class _ChatQuoteContentView extends StatelessWidget {
-  const _ChatQuoteContentView({Key? key, required this.message})
+  const _ChatQuoteContentView({Key? key, required this.message, this.allAtMap = const <String, String>{},})
       : super(key: key);
   final Message message;
+  final Map<String, String> allAtMap;
 
   final _decoder = const JsonDecoder();
 
@@ -34,7 +37,7 @@ class _ChatQuoteContentView extends StatelessWidget {
   Widget build(BuildContext context) {
     String name = message.senderNickname ?? '';
     String? content;
-    final atMap = <String, String>{};
+    // final atMap = <String, String>{};
     Widget? child;
     try {
       if (message.isTextType) {
@@ -145,8 +148,8 @@ class _ChatQuoteContentView extends StatelessWidget {
           ConstrainedBox(
             constraints: BoxConstraints(maxWidth: maxWidth - 70.w),
             child: ChatText(
-              text: '$name：${content ?? ''}'.fixAutoLines(),
-              allAtMap: atMap,
+              text: '$name：${content ?? ''}',
+              allAtMap: allAtMap,
               textStyle: Styles.ts_999999_14sp,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

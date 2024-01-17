@@ -33,7 +33,7 @@ class AccountLoginInfo {
         imToken = map["imToken"] ?? '',
         chatToken = map['chatToken'] ?? '';
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson({bool delSensitiveFields = false}) {
     final data = <String, dynamic>{};
     data['id'] = id;
     data['userID'] = userID;
@@ -43,11 +43,13 @@ class AccountLoginInfo {
     data['areaCode'] = areaCode;
     data['phoneNumber'] = phoneNumber;
     data['loginType'] = loginType;
-    data['password'] = password;
     data['faceURL'] = faceURL;
     data['nickname'] = nickname;
-    data['imToken'] = imToken;
-    data['chatToken'] = chatToken;
+    if(!delSensitiveFields){
+      data['password'] = password;
+      data['imToken'] = imToken;
+      data['chatToken'] = chatToken;
+    }
     return data;
   }
 

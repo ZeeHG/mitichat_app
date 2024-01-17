@@ -2405,7 +2405,8 @@ class ChatLogic extends GetxController {
 
   bool showTtsMenu(Message message) {
     final status = ttsLogic.msgTts[message.clientMsgID]?["status"];
-    return message.isVoiceType && (message?.soundElem?.sourceUrl?.isNotEmpty ?? false) &&
+    return message.isVoiceType &&
+        (message?.soundElem?.sourceUrl?.isNotEmpty ?? false) &&
         (null == status || ["hide", "loading", "fail"].contains(status));
   }
 
