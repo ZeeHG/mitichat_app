@@ -1525,4 +1525,10 @@ static String get addAccountServerTips => 'addAccountServerTips'.tr;
 static String get serverFormatErr => 'serverFormatErr'.tr;
 static String get serverErr => 'serverErr'.tr;
 static String get accountErr => 'accountErr'.tr;
+static String get switchSuccess => 'switchSuccess'.tr;
+static String get registerSuccess => 'registerSuccess'.tr;
+static String get loginSuccess => 'loginSuccess'.tr;
+static String get loading => 'loading'.tr;
+static String get confirmDelAccount => 'confirmDelAccount'.tr;
+static String get switchServer => 'switchServer'.tr;
 }

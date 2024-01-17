@@ -35,11 +35,12 @@ class LoadingView extends NavigatorObserver {
       {required Future<T> Function() asyncFunction,
       bool showing = true,
       double? navBarHeight,
+      String? loadingTips,
       CancelToken? cancelToken}) async {
     navBarHeight = navBarHeight ?? 44.h;
     _cancelToken = cancelToken;
     await Future.delayed(1.milliseconds);
-    if (showing) show(navBarHeight: navBarHeight);
+    if (showing) show(navBarHeight: navBarHeight, loadingTips: loadingTips);
     T data;
     try {
       _cancelableOperation = CancelableOperation.fromFuture(asyncFunction());
@@ -53,7 +54,8 @@ class LoadingView extends NavigatorObserver {
     return data;
   }
 
-  void show({double? navBarHeight}) async {
+  void show({double? navBarHeight, String? loadingTips}) async {
+    loadingTips = loadingTips ?? "";
     navBarHeight = navBarHeight ?? 44.h;
     if (_isVisible) return;
     _overlayState = Overlay.of(Get.overlayContext!);
@@ -66,7 +68,16 @@ class LoadingView extends NavigatorObserver {
           height: MediaQuery.of(context).size.height - navBarHeight,
           color: Colors.transparent,
           child: Center(
-            child: SpinKitCircle(color: Styles.c_8443F8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SpinKitCircle(color: Styles.c_8443F8),
+                if (loadingTips!.isNotEmpty) ...[
+                  5.verticalSpace,
+                  Text(loadingTips, style: Styles.ts_8443F8_14sp)
+                ]
+              ],
+            ),
           ),
         ),
       ),

@@ -16,7 +16,7 @@ Future<void> setAccountLoginInfo(
     String? nickname,
     required String imToken,
     required String chatToken}) async {
-  serverWithProtocol = serverWithProtocol ?? Config.hostWithProtocol;
+  serverWithProtocol = serverWithProtocol ?? (DataSp.getCurServerKey().isNotEmpty? DataSp.getCurServerKey() : Config.hostWithProtocol);
   final uri = Uri.parse(serverWithProtocol);
   final loginType =
       (null != email && email.isNotEmpty) ? "emailWithPwd" : "phoneWithPwd";

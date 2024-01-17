@@ -945,4 +945,10 @@ const Map<String, String> zh_CN = {
   "serverFormatErr": "服务器格式错误",
   "serverErr": "服务器出错",
   "accountErr": "账号异常",
+  "switchSuccess": "切换成功",
+  "registerSuccess": "注册成功",
+  "loginSuccess": "登录成功",
+  "loading": "加载中",
+  "confirmDelAccount": "确认删除该账号？",
+  "switchServer": "切换服务器"
 };

@@ -36,6 +36,16 @@ class MiscUtil extends GetxController {
     return await Apis.checkServerValid(serverWithProtocol: serverWithProtocol);
   }
 
+  Future<void> delAccount(String loginInfoId,
+      {bool finishLogout = false}) async {
+    myLogger.i({"message": "删除账户", "data": {"loginInfoId": loginInfoId, "finishLogout": finishLogout}});
+    await DataSp.removeAccountLoginInfoByKey(loginInfoId);
+    if (finishLogout) {
+      await tryLogout();
+      AppNavigator.startLogin();
+    }
+  }
+
   Future<void> tryLogout({bool needLogoutIm = true}) async {
     try {
       if (needLogoutIm && imLogic.isLogined()) {
@@ -342,13 +352,14 @@ class MiscUtil extends GetxController {
         ttsLogic.init(userID);
         pushLogic.login(userID);
       }
-      showToast(StrRes.success);
+      showToast(StrRes.switchSuccess);
       return true;
     } catch (e, s) {
       myLogger.e({
         "message": "多服务器切换账号时登录账号失败, 尝试回退($switchBack)",
         "error": {
-          "targetAccount": targetAccountLoginInfo.toJson(delSensitiveFields: true),
+          "targetAccount":
+              targetAccountLoginInfo.toJson(delSensitiveFields: true),
           "originAccount": curAccountLoginInfo.toJson(delSensitiveFields: true),
           "server": serverWithProtocol,
           "userID": userID,
@@ -370,8 +381,10 @@ class MiscUtil extends GetxController {
           myLogger.e({
             "message": "回退账号失败",
             "error": {
-              "targetAccount": targetAccountLoginInfo.toJson(delSensitiveFields: true),
-              "originAccount": curAccountLoginInfo.toJson(delSensitiveFields: true),
+              "targetAccount":
+                  targetAccountLoginInfo.toJson(delSensitiveFields: true),
+              "originAccount":
+                  curAccountLoginInfo.toJson(delSensitiveFields: true),
               "server": serverWithProtocol,
               "userID": userID,
               "error": e
@@ -404,7 +417,7 @@ class MiscUtil extends GetxController {
           phoneNumber: phoneNumber,
           email: email,
           password: password);
-      showToast(StrRes.success);
+      showToast(StrRes.loginSuccess);
       return true;
     } catch (e, s) {
       myLogger.e({
@@ -449,7 +462,7 @@ class MiscUtil extends GetxController {
           nickname: nickname,
           verificationCode: verificationCode,
           invitationCode: invitationCode);
-      showToast(StrRes.success);
+      showToast(StrRes.registerSuccess);
       return true;
     } catch (e, s) {
       myLogger.e({
@@ -486,7 +499,8 @@ class MiscUtil extends GetxController {
       myLogger.w({
         "message": "回退账号",
         "data": {
-          "curAccountLoginInfo": curAccountLoginInfo.toJson(delSensitiveFields: true),
+          "curAccountLoginInfo":
+              curAccountLoginInfo.toJson(delSensitiveFields: true),
         },
       });
       try {
@@ -501,7 +515,8 @@ class MiscUtil extends GetxController {
         myLogger.e({
           "message": "回退账号失败",
           "error": {
-            "curAccountLoginInfo": curAccountLoginInfo.toJson(delSensitiveFields: true),
+            "curAccountLoginInfo":
+                curAccountLoginInfo.toJson(delSensitiveFields: true),
             "error": e
           },
           "stack": s

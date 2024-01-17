@@ -208,8 +208,8 @@ class ContactsPage extends StatelessWidget {
                   ],
                 ),
                 height: height,
-                constraints: BoxConstraints(maxWidth: width),
-                // padding: EdgeInsets.symmetric(horizontal: 12.w),
+                constraints: BoxConstraints(minWidth: width),
+                padding: EdgeInsets.symmetric(horizontal: 12.w),
                 child: Center(
                   child: text.toText..style = tStyle,
                 )),

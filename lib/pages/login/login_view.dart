@@ -49,7 +49,7 @@ class LoginPage extends StatelessWidget {
                                       ? TextInputType.phone
                                       : TextInputType.text,
                             ),
-                            29.verticalSpace,
+                            17.verticalSpace,
                             Offstage(
                               offstage: !logic.isPasswordLogin.value,
                               child: InputBox.password(
@@ -70,22 +70,29 @@ class LoginPage extends StatelessWidget {
                                     logic.getVerificationCode,
                               ),
                             ),
-                            10.verticalSpace,
-                            Row(
-                              children: [
-                                StrRes.forgetPassword.toText
-                                  ..style = Styles.ts_8443F8_12sp
-                                  ..onTap = _showForgetPasswordBottomSheet,
-                                const Spacer(),
-                                // (logic.isPasswordLogin.value
-                                //         ? StrRes.verificationCodeLogin
-                                //         : StrRes.passwordLogin)
-                                //     .toText
-                                //   ..style = Styles.ts_8443F8_12sp
-                                //   ..onTap = logic.togglePasswordType,
-                              ],
+                            17.verticalSpace,
+                            InputBox(
+                              readOnly: true,
+                              label: "",
+                              controller: logic.onlyReadServerCtrl,
+                              showClearBtn: false,
                             ),
-                            46.verticalSpace,
+                            // 10.verticalSpace,
+                            // Row(
+                            //   children: [
+                            //     StrRes.forgetPassword.toText
+                            //       ..style = Styles.ts_8443F8_12sp
+                            //       ..onTap = _showForgetPasswordBottomSheet,
+                            //     const Spacer(),
+                            //     // (logic.isPasswordLogin.value
+                            //     //         ? StrRes.verificationCodeLogin
+                            //     //         : StrRes.passwordLogin)
+                            //     //     .toText
+                            //     //   ..style = Styles.ts_8443F8_12sp
+                            //     //   ..onTap = logic.togglePasswordType,
+                            //   ],
+                            // ),
+                            30.verticalSpace,
                             Button(
                               text: StrRes.login,
                               enabled: logic.enabled.value,
@@ -98,40 +105,83 @@ class LoginPage extends StatelessWidget {
                   //   color: Styles.c_707070.withOpacity(0.12),
                   //   height: 56,
                   // ),
-                  20.verticalSpace,
+                  10.verticalSpace,
                   Obx(() => Padding(
                       padding: EdgeInsets.symmetric(horizontal: 36.w),
                       child: Row(
                         children: [
                           Expanded(
-                            child: CupertinoButton(
-                              onPressed: logic.toggleLoginType,
-                              color: CupertinoColors.systemGrey6,
-                              minSize: 42.h,
-                              child: Text(
-                                '${logic.loginType.value.exclusiveName} ${StrRes.login}',
-                                style: Styles.ts_8443F8_17sp,
-                              ),
+                            child: Button(
+                              text:
+                                  '${logic.loginType.value.exclusiveName} ${StrRes.login}',
+                              enabledColor: Styles.c_D9DCE3_opacity40,
+                              textStyle: Styles.ts_8443F8_16sp,
+                              onTap: logic.toggleLoginType,
                             ),
                           )
                         ],
                       ))),
-                  32.verticalSpace,
-                  RichText(
-                    text: TextSpan(
-                      // text: StrRes.noAccountYet,
-                      // style: Styles.ts_999999_12sp,
+                  20.verticalSpace,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 36.w),
+                    child: Row(
                       children: [
-                        TextSpan(
-                          text: StrRes.registerNow,
-                          style: Styles.ts_8443F8_12sp,
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = logic.registerNow,
-                        )
+                        Expanded(
+                            flex: 1,
+                            child: Container(
+                              alignment: Alignment.topLeft,
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: StrRes.switchServer,
+                                      style: Styles.ts_8443F8_12sp,
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = logic.switchServer,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )),
+                        5.horizontalSpace,
+                        Expanded(
+                            flex: 1,
+                            child: Container(
+                              alignment: Alignment.topCenter,
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: StrRes.forgetPassword,
+                                      style: Styles.ts_8443F8_12sp,
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = _showForgetPasswordBottomSheet,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )),
+                        5.horizontalSpace,
+                        Expanded(
+                            flex: 1,
+                            child: Container(
+                              alignment: Alignment.topRight,
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: StrRes.registerNow,
+                                      style: Styles.ts_8443F8_12sp,
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = logic.registerNow,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )),
                       ],
                     ),
-                  ),
-                  // 90.verticalSpace,
+                  )
                 ],
               ),
             ),
@@ -183,14 +233,14 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
             ),
-            if(logic.isAddAccount.value)
-            Padding(
-              padding: EdgeInsets.only(left: 12.w, top: 54.h),
-              child: ImageRes.backBlack.toImage
-                ..width = 24.w
-                ..height = 24.h
-                ..onTap = () => logic.cusBack(),
-            ),
+            if (logic.isAddAccount.value)
+              Padding(
+                padding: EdgeInsets.only(left: 12.w, top: 54.h),
+                child: ImageRes.backBlack.toImage
+                  ..width = 24.w
+                  ..height = 24.h
+                  ..onTap = () => logic.cusBack(),
+              ),
           ],
         ),
       ),

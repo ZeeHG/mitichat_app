@@ -39,6 +39,7 @@ class ConversationLogic extends GetxController {
     if (loginInfo.id == curLoginInfoKey) return;
     LoadingView.singleton.wrap(
         navBarHeight: 0,
+        loadingTips: StrRes.loading,
         asyncFunction: () async {
           await miscUtil.switchAccount(
               serverWithProtocol: loginInfo.server, userID: loginInfo.userID);

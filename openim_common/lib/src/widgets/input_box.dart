@@ -33,7 +33,10 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
-    this.autofocus = true
+    this.autofocus = true,
+    this.readOnly = false,
+    this.enabled = true,
+    this.showClearBtn = true
   })  : obscureText = false,
         type = InputBoxType.phone,
         arrowColor = null,
@@ -58,7 +61,10 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
-    this.autofocus = true
+    this.autofocus = true,
+    this.readOnly = false,
+    this.enabled = true,
+    this.showClearBtn = true
   })  : obscureText = false,
         type = InputBoxType.account,
         arrowColor = null,
@@ -81,7 +87,10 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
-    this.autofocus = true
+    this.autofocus = true,
+    this.readOnly = false,
+    this.enabled = true,
+    this.showClearBtn = true
   })  : obscureText = true,
         type = InputBoxType.password,
         codeStyle = null,
@@ -107,7 +116,10 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
-    this.autofocus = true
+    this.autofocus = true,
+    this.readOnly = false,
+    this.enabled = true,
+    this.showClearBtn = true
   })  : obscureText = false,
         type = InputBoxType.verificationCode,
         code = '',
@@ -131,7 +143,10 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
-    this.autofocus = true
+    this.autofocus = true,
+    this.readOnly = false,
+    this.enabled = true,
+    this.showClearBtn = true
   })  : obscureText = false,
         type = InputBoxType.invitationCode,
         code = '',
@@ -164,7 +179,10 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
-    this.autofocus = true
+    this.autofocus = true,
+    this.readOnly = false,
+    this.enabled = true,
+    this.showClearBtn = true
   }) : super(key: key);
   final TextStyle? labelStyle;
   final TextStyle? textStyle;
@@ -188,6 +206,9 @@ class InputBox extends StatefulWidget {
   final bool border;
   final TextInputType? keyBoardType;
   final bool autofocus;
+  final bool readOnly;
+  final bool enabled;
+  final bool showClearBtn;
 
   @override
   State<InputBox> createState() => _InputBoxState();
@@ -242,6 +263,7 @@ class _InputBoxState extends State<InputBox> {
               children: [
                 if (widget.type == InputBoxType.phone || widget.onAreaCode != null) _areaCodeView,
                 _textField,
+                if(widget.showClearBtn)
                 _clearBtn,
                 _eyeBtn,
                 if (widget.type == InputBoxType.verificationCode)
@@ -264,6 +286,8 @@ class _InputBoxState extends State<InputBox> {
 
   Widget get _textField => Expanded(
         child: TextField(
+          readOnly: widget.readOnly,
+          enabled: widget.enabled,
           controller: widget.controller,
           keyboardType: _textInputType,
           textInputAction: TextInputAction.next,

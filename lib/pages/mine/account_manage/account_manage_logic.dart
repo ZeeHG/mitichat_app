@@ -44,6 +44,24 @@ class AccountManageLogic extends GetxController {
     curLoginInfoKey.value = DataSp.getCurAccountLoginInfoKey();
   }
 
+  delLoginInfo(AccountLoginInfo info) async {
+    final confirm = await Get.dialog(CustomDialog(
+      title: StrRes.confirmDelAccount,
+    ));
+    if (confirm) {
+      LoadingView.singleton.wrap(
+          navBarHeight: 0,
+          asyncFunction: () async {
+            if (curLoginInfoKey.value == info.id) {
+              await miscUtil.delAccount(info.id, finishLogout: true);
+            } else {
+              loginInfoList.remove(info);
+              await miscUtil.delAccount(info.id);
+            }
+          });
+    }
+  }
+
   cusBack() async {
     if (miscUtil.statusChangeCount.value > curStatusChangeCount) {
       // 最后一次操作切换了服务器
@@ -65,6 +83,7 @@ class AccountManageLogic extends GetxController {
     if (loginInfo.id == curLoginInfoKey) return;
     LoadingView.singleton.wrap(
         navBarHeight: 0,
+        loadingTips: StrRes.loading,
         asyncFunction: () async {
           await miscUtil.switchAccount(
               serverWithProtocol: loginInfo.server, userID: loginInfo.userID);
@@ -75,7 +94,7 @@ class AccountManageLogic extends GetxController {
 
   goLogin() async {
     final confirm = await Get.dialog(CustomDialog(
-      bigTitle: StrRes.addAccountServer,
+      // bigTitle: "",
       body: Container(
         padding: EdgeInsets.only(
           top: 16.w,

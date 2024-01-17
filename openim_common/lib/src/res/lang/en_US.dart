@@ -1082,4 +1082,10 @@ const Map<String, String> en_US = {
   "serverFormatErr": "Server Format Error",
   "serverErr": "Server Error",
   "accountErr": "Account Error",
+  "switchSuccess": "Switch Successful",
+  "registerSuccess": "Registration Successful",
+  "loginSuccess": "Login Successful",
+  "loading": "Loading",
+  "confirmDelAccount": "确认删除该账号？",
+  "switchServer": "切换服务器"
 };

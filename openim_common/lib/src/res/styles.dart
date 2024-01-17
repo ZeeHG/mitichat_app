@@ -57,6 +57,7 @@ class Styles {
   static Color c_FEA836 = const Color(0xFFFEA836);
   static Color c_CCCCCC = const Color(0xFFCCCCCC);
   static Color c_BA78FC = const Color(0xFFBA78FC);
+  static Color c_D9DCE3 = const Color(0xFFD9DCE3);
 
   // static Color c_E8EAEF_opacity30 = c_E8EAEF.withOpacity(.3); // 默认背景
 
@@ -97,6 +98,7 @@ class Styles {
   static Color c_333333_opacity85 = c_333333.withOpacity(.85);
   static Color c_333333_opacity80 = c_333333.withOpacity(.8);
   static Color c_FF4E4C_opacity70 = c_FF4E4C.withOpacity(.7);
+  static Color c_D9DCE3_opacity40 = c_D9DCE3.withOpacity(.4);
 
   /// FFFFFF
   static TextStyle ts_FFFFFF_11sp = TextStyle(
