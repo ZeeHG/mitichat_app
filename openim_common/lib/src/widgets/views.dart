@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:openim_common/openim_common.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:uuid/uuid.dart';
 
@@ -125,7 +126,7 @@ class IMViews {
             SheetItem(
               label: StrRes.toolboxAlbum,
               onTap: () {
-                Permissions.requestStorage(() async {
+                Permissions.storage(permissions: [Permission.photos, Permission.videos], () async {
                   final XFile? image = await _picker.pickImage(
                     source: ImageSource.gallery,
                   );
@@ -221,7 +222,7 @@ class IMViews {
           SheetItem(
             label: StrRes.download,
             onTap: () {
-              Permissions.storage(() => onDownload?.call());
+              onDownload?.call();
             },
           ),
         ],

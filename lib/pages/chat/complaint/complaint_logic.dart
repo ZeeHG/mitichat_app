@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:openim_common/openim_common.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class ComplaintLogic extends GetxController {
@@ -36,7 +37,7 @@ class ComplaintLogic extends GetxController {
   }
 
   selectAssetsFromAlbum() async {
-    Permissions.requestStorage(() async {
+    Permissions.storage(permissions: [Permission.photos, Permission.videos], () async {
       final List<AssetEntity>? assets = await AssetPicker.pickAssets(
         Get.context!,
         pickerConfig: AssetPickerConfig(

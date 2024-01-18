@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:video_player/video_player.dart';
 
 import '../custom_cupertino_controls.dart';
@@ -97,7 +98,7 @@ class _ChatVideoPlayerViewState extends State<ChatVideoPlayerView> with SingleTi
 
     if (file == null) {
       bool existFile = false;
-      if (IMUtils.isNotNullEmptyStr(_path) && (await Permissions.checkStorage())) {
+      if (IMUtils.isNotNullEmptyStr(_path) && (await Permissions.checkStorageV2([Permission.videos]))) {
         file = File(_path!);
         existFile = await file.exists();
         if (!existFile) {

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:openim_common/openim_common.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:scan/scan.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -72,7 +73,7 @@ class _QrcodeViewState extends State<QrcodeView> with TickerProviderStateMixin {
   }
 
   void _readImage() {
-    Permissions.requestStorage(() async {
+    Permissions.storage(permissions: [Permission.photos], () async {
       final XFile? image = await _picker.pickImage(
         source: ImageSource.gallery,
       );

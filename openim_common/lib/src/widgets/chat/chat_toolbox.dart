@@ -39,7 +39,7 @@ class ChatToolBox extends StatelessWidget {
           icon: ImageRes.appToolboxAlbum,
           onTap: () {
             if (Platform.isAndroid) {
-              Permissions.requestStorage(onTapAlbum);
+              Permissions.storage(permissions: [Permission.photos, Permission.videos], onTapAlbum);
             } else {
               Permissions.photos(onTapAlbum);
             }
@@ -74,7 +74,7 @@ class ChatToolBox extends StatelessWidget {
         ToolboxItemInfo(
           text: StrRes.toolboxFile,
           icon: ImageRes.appToolboxFile,
-          onTap: () => Permissions.requestStorage(onTapFile),
+          onTap: () => Permissions.storage(permissions: [Permission.photos, Permission.videos], onTapFile),
         ),
       if (null != onTapAutoTranslate)
         ToolboxItemInfo(

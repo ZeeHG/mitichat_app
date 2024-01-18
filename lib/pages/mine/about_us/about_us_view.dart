@@ -14,7 +14,6 @@ import 'package:openim_common/openim_common.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:disable_battery_optimization/disable_battery_optimization.dart';
 import 'package:markdown_widget/markdown_widget.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../../../routes/app_navigator.dart';
 import 'about_us_logic.dart';
@@ -52,8 +51,7 @@ class AboutUsPage extends StatelessWidget {
                       ..height = 78.h
                       ..onDoubleTap = logic.startDev,
                     10.verticalSpace,
-                    '${logic.version.value}(${logic.buildNumber.value})'
-                        .toText
+                    '${logic.version.value}(${logic.buildNumber.value})'.toText
                       ..style = Styles.ts_333333_14sp,
                     16.verticalSpace,
                     Container(
@@ -80,24 +78,24 @@ class AboutUsPage extends StatelessWidget {
                       //     ),
                       //   ),
                       // ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: logic.uploadLogs,
-                      child: Container(
-                        height: 57.h,
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        child: Row(
-                          children: [
-                            StrRes.uploadImLog.toText
-                              ..style = Styles.ts_333333_16sp,
-                            const Spacer(),
-                            ImageRes.appRightArrow.toImage
-                              ..width = 24.w
-                              ..height = 24.h,
-                          ],
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: logic.uploadLogs,
+                        child: Container(
+                          height: 57.h,
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: Row(
+                            children: [
+                              StrRes.uploadImLog.toText
+                                ..style = Styles.ts_333333_16sp,
+                              const Spacer(),
+                              ImageRes.appRightArrow.toImage
+                                ..width = 24.w
+                                ..height = 24.h,
+                            ],
+                          ),
                         ),
                       ),
-                    ),
                     ...(logic.showDev.value
                         ? [
                             GestureDetector(
@@ -408,7 +406,14 @@ class AboutUsPage extends StatelessWidget {
                             GestureDetector(
                               behavior: HitTestBehavior.translucent,
                               onTap: () async {
-                                await Permissions.requestStorage();
+                                await Permissions.storage(
+                                  null,
+                                  permissions: [
+                                    Permission.photos,
+                                    Permission.videos,
+                                    Permission.audio
+                                  ],
+                                );
                                 final status =
                                     await Permissions.getPermissionsStatus([
                                   Permission.photos,
@@ -465,8 +470,7 @@ class AboutUsPage extends StatelessWidget {
                             ),
                             GestureDetector(
                               behavior: HitTestBehavior.translucent,
-                              onTap: () =>
-                                  ttsLogic.clearAllTtsMsgCache(),
+                              onTap: () => ttsLogic.clearAllTtsMsgCache(),
                               child: Container(
                                 height: 57.h,
                                 padding: EdgeInsets.symmetric(horizontal: 16.w),

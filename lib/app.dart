@@ -8,7 +8,6 @@ import 'core/controller/im_controller.dart';
 import 'core/controller/push_controller.dart';
 import 'routes/app_pages.dart';
 import 'widgets/app_view.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
 

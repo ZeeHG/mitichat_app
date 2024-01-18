@@ -111,7 +111,7 @@ class PublishLogic extends GetxController {
       );
 
   _selectAssetsFromAlbum() async {
-    Permissions.requestStorage(() async {
+    Permissions.storage(permissions: [Permissions.photosPermission, Permissions.videosPermission], () async {
       final assets2 = assetsList;
       final count = maxAssetsCount - assetsList.length;
 

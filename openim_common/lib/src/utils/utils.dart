@@ -46,7 +46,8 @@ class IntervalDo {
   //call---milliseconds---call
   void run({required Function() fuc, int milliseconds = 0}) {
     DateTime now = DateTime.now();
-    if (null == last || now.difference(last ?? now).inMilliseconds > milliseconds) {
+    if (null == last ||
+        now.difference(last ?? now).inMilliseconds > milliseconds) {
       last = now;
       fuc();
     }
@@ -165,16 +166,19 @@ class IMUtils {
     }
   }
 
-  static String? emptyStrToNull(String? str) => (null != str && str.trim().isEmpty) ? null : str;
+  static String? emptyStrToNull(String? str) =>
+      (null != str && str.trim().isEmpty) ? null : str;
 
   static bool isNotNullEmptyStr(String? str) => null != str && "" != str.trim();
 
   static bool isChinaMobile(String mobile) {
-    RegExp exp = RegExp(r'^((13[0-9])|(14[0-9])|(15[0-9])|(16[0-9])|(17[0-9])|(18[0-9])|(19[0-9]))\d{8}$');
+    RegExp exp = RegExp(
+        r'^((13[0-9])|(14[0-9])|(15[0-9])|(16[0-9])|(17[0-9])|(18[0-9])|(19[0-9]))\d{8}$');
     return exp.hasMatch(mobile);
   }
 
-  static bool isMobile(String areaCode, String mobile) => (areaCode == '+86' || areaCode == '86') ? isChinaMobile(mobile) : true;
+  static bool isMobile(String areaCode, String mobile) =>
+      (areaCode == '+86' || areaCode == '86') ? isChinaMobile(mobile) : true;
 
   /// 获取视频缩略图
   static Future<File> getVideoThumbnail(File file) async {
@@ -184,14 +188,17 @@ class IMUtils {
     final directory = await createTempDir(dir: 'video');
     final targetPath = '$directory/$name';
 
-    final String ffmpegCommand = '-i $path -ss 0 -vframes 1 -q:v 15 -y $targetPath';
+    final String ffmpegCommand =
+        '-i $path -ss 0 -vframes 1 -q:v 15 -y $targetPath';
     final session = await FFmpegKit.execute(ffmpegCommand);
 
-    final state = FFmpegKitConfig.sessionStateToString(await session.getState());
+    final state =
+        FFmpegKitConfig.sessionStateToString(await session.getState());
     final returnCode = await session.getReturnCode();
 
     if (state == SessionState.failed || !ReturnCode.isSuccess(returnCode)) {
-      Logger().printError(info: "Command failed. Please check output for the details.");
+      Logger().printError(
+          info: "Command failed. Please check output for the details.");
     }
 
     session.cancel();
@@ -208,7 +215,9 @@ class IMUtils {
 
     final output = await FFprobeKit.getMediaInformation(path);
     final streams = output.getMediaInformation()?.getStreams();
-    final isH264 = streams?.any((element) => element.getCodec()?.contains('h264') == true) ?? false;
+    final isH264 = streams
+            ?.any((element) => element.getCodec()?.contains('h264') == true) ??
+        false;
     final size = output.getMediaInformation()?.getSize() ?? '0';
     output.cancel();
 
@@ -228,11 +237,13 @@ class IMUtils {
         '$targetPath';
     final session = await FFmpegKit.execute(ffmpegCommand);
 
-    final state = FFmpegKitConfig.sessionStateToString(await session.getState());
+    final state =
+        FFmpegKitConfig.sessionStateToString(await session.getState());
     final returnCode = await session.getReturnCode();
 
     if (state == SessionState.failed || !ReturnCode.isSuccess(returnCode)) {
-      Logger().printError(info: "Command failed. Please check output for the details.");
+      Logger().printError(
+          info: "Command failed. Please check output for the details.");
       file.copySync(targetPath);
 
       return File(targetPath);
@@ -244,7 +255,8 @@ class IMUtils {
   }
 
   ///  compress file and get file.
-  static Future<File?> compressImageAndGetFile(File file, {int quality = 80}) async {
+  static Future<File?> compressImageAndGetFile(File file,
+      {int quality = 80}) async {
     var path = file.path;
     var name = path.substring(path.lastIndexOf("/") + 1);
     var targetPath = await createTempFile(name: name, dir: 'pic');
@@ -291,7 +303,9 @@ class IMUtils {
   static Future<String> createTempDir({
     required String dir,
   }) async {
-    final storage = (Platform.isIOS ? await getApplicationCacheDirectory() : await getExternalStorageDirectory());
+    final storage = (Platform.isIOS
+        ? await getApplicationCacheDirectory()
+        : await getExternalStorageDirectory());
     Directory directory = Directory('${storage!.path}/$dir');
     if (!(await directory.exists())) {
       directory.create(recursive: true);
@@ -353,14 +367,18 @@ class IMUtils {
     String? externalStorageDirPath;
     if (Platform.isAndroid) {
       try {
-        externalStorageDirPath = await AndroidPathProvider.downloadsPath;
+        // externalStorageDirPath = await AndroidPathProvider.downloadsPath;
+        final directory = await getExternalStorageDirectory();
+        externalStorageDirPath = directory?.path;
       } catch (err, st) {
         Logger.print('failed to get downloads path: $err, $st');
+        myLogger.e({"message": "获取下载目录异常","error": err, "stack": st});
         final directory = await getExternalStorageDirectory();
         externalStorageDirPath = directory?.path;
       }
     } else if (Platform.isIOS) {
-      externalStorageDirPath = (await getApplicationDocumentsDirectory()).absolute.path;
+      externalStorageDirPath =
+          (await getApplicationDocumentsDirectory()).absolute.path;
     }
     return externalStorageDirPath!;
   }
@@ -379,7 +397,8 @@ class IMUtils {
   }
 
   /// 消息列表超过5分钟则显示时间
-  static List<Message> calChatTimeInterval(List<Message> list, {bool calculate = true}) {
+  static List<Message> calChatTimeInterval(List<Message> list,
+      {bool calculate = true}) {
     if (!calculate) return list;
     var milliseconds = list.firstOrNull?.sendTime;
     if (null == milliseconds) return list;
@@ -502,7 +521,8 @@ class IMUtils {
     return "${_combTime(days, StrRes.day)}${_combTime(hours, StrRes.hours)}${_combTime(minutes, StrRes.minute)}${_combTime(seconds, StrRes.seconds)}";
   }
 
-  static String _combTime(int value, String unit) => value > 0 ? '$value$unit' : '';
+  static String _combTime(int value, String unit) =>
+      value > 0 ? '$value$unit' : '';
 
   /// 搜索聊天内容显示规则
   static String calContent({
@@ -540,7 +560,10 @@ class IMUtils {
     int maxLines = 1,
     double maxWidth = double.infinity,
   }) {
-    final TextPainter textPainter = TextPainter(text: TextSpan(text: text, style: style), maxLines: maxLines, textDirection: TextDirection.ltr)
+    final TextPainter textPainter = TextPainter(
+        text: TextSpan(text: text, style: style),
+        maxLines: maxLines,
+        textDirection: TextDirection.ltr)
       ..layout(minWidth: 0, maxWidth: maxWidth);
     return textPainter.size;
   }
@@ -551,7 +574,10 @@ class IMUtils {
     int maxLines = 1,
     double maxWidth = double.infinity,
   }) =>
-      TextPainter(text: TextSpan(text: text, style: style), maxLines: maxLines, textDirection: TextDirection.ltr)
+      TextPainter(
+          text: TextSpan(text: text, style: style),
+          maxLines: maxLines,
+          textDirection: TextDirection.ltr)
         ..layout(minWidth: 0, maxWidth: maxWidth);
 
   static bool isUrlValid(String? url) {
@@ -573,11 +599,16 @@ class IMUtils {
   }
 
   static String getGroupMemberShowName(GroupMembersInfo membersInfo) {
-    return membersInfo.userID == OpenIM.iMManager.userID ? StrRes.you : membersInfo.nickname!;
+    return membersInfo.userID == OpenIM.iMManager.userID
+        ? StrRes.you
+        : membersInfo.nickname!;
   }
 
   static String getShowName(String? userID, String? nickname) {
-    return (userID == OpenIM.iMManager.userID ? OpenIM.iMManager.userInfo.nickname : nickname) ?? '';
+    return (userID == OpenIM.iMManager.userID
+            ? OpenIM.iMManager.userInfo.nickname
+            : nickname) ??
+        '';
   }
 
   /// 通知解析
@@ -602,7 +633,8 @@ class IMUtils {
           case MessageType.groupInfoSetNotification:
             {
               final ntf = GroupNotification.fromJson(map);
-              if (ntf.group?.notification != null && ntf.group!.notification!.isNotEmpty) {
+              if (ntf.group?.notification != null &&
+                  ntf.group!.notification!.isNotEmpty) {
                 return isConversation ? ntf.group!.notification! : null;
               }
               // a 修改了群资料
@@ -623,8 +655,12 @@ class IMUtils {
               final ntf = InvitedJoinGroupNotification.fromJson(map);
               // a 邀请 b 加入群聊
               final label = StrRes.invitedJoinGroupNtf;
-              final b = ntf.invitedUserList?.map((e) => getGroupMemberShowName(e)).toList().join('、');
-              text = sprintf(label, [getGroupMemberShowName(ntf.opUser!), b ?? '']);
+              final b = ntf.invitedUserList
+                  ?.map((e) => getGroupMemberShowName(e))
+                  .toList()
+                  .join('、');
+              text = sprintf(
+                  label, [getGroupMemberShowName(ntf.opUser!), b ?? '']);
             }
             break;
           case MessageType.memberKickedNotification:
@@ -632,7 +668,10 @@ class IMUtils {
               final ntf = KickedGroupMemeberNotification.fromJson(map);
               // b 被 a 踢出群聊
               final label = StrRes.kickedGroupNtf;
-              final b = ntf.kickedUserList!.map((e) => getGroupMemberShowName(e)).toList().join('、');
+              final b = ntf.kickedUserList!
+                  .map((e) => getGroupMemberShowName(e))
+                  .toList()
+                  .join('、');
               text = sprintf(label, [b, getGroupMemberShowName(ntf.opUser!)]);
             }
             break;
@@ -657,7 +696,10 @@ class IMUtils {
               final ntf = GroupRightsTransferNoticication.fromJson(map);
               // a 将群转让给了 b
               final label = StrRes.transferredGroupNtf;
-              text = sprintf(label, [getGroupMemberShowName(ntf.opUser!), getGroupMemberShowName(ntf.newGroupOwner!)]);
+              text = sprintf(label, [
+                getGroupMemberShowName(ntf.opUser!),
+                getGroupMemberShowName(ntf.newGroupOwner!)
+              ]);
             }
             break;
           case MessageType.groupMemberMutedNotification:
@@ -666,7 +708,11 @@ class IMUtils {
               // b 被 a 禁言
               final label = StrRes.muteMemberNtf;
               final c = ntf.mutedSeconds;
-              text = sprintf(label, [getGroupMemberShowName(ntf.mutedUser!), getGroupMemberShowName(ntf.opUser!), mutedTime(c!)]);
+              text = sprintf(label, [
+                getGroupMemberShowName(ntf.mutedUser!),
+                getGroupMemberShowName(ntf.opUser!),
+                mutedTime(c!)
+              ]);
             }
             break;
           case MessageType.groupMemberCancelMutedNotification:
@@ -674,7 +720,10 @@ class IMUtils {
               final ntf = MuteMemberNotification.fromJson(map);
               // b 被 a 取消了禁言
               final label = StrRes.muteCancelMemberNtf;
-              text = sprintf(label, [getGroupMemberShowName(ntf.mutedUser!), getGroupMemberShowName(ntf.opUser!)]);
+              text = sprintf(label, [
+                getGroupMemberShowName(ntf.mutedUser!),
+                getGroupMemberShowName(ntf.opUser!)
+              ]);
             }
             break;
           case MessageType.groupMutedNotification:
@@ -711,7 +760,8 @@ class IMUtils {
             break;
           case MessageType.groupMemberInfoChangedNotification:
             final ntf = GroupMemberInfoChangedNotification.fromJson(map);
-            text = sprintf(StrRes.memberInfoChangedNtf, [getGroupMemberShowName(ntf.opUser!)]);
+            text = sprintf(StrRes.memberInfoChangedNtf,
+                [getGroupMemberShowName(ntf.opUser!)]);
             break;
           case MessageType.groupInfoSetAnnouncementNotification:
             if (isConversation) {
@@ -721,7 +771,8 @@ class IMUtils {
             break;
           case MessageType.groupInfoSetNameNotification:
             final ntf = GroupNotification.fromJson(map);
-            text = sprintf(StrRes.whoModifyGroupName, [getGroupMemberShowName(ntf.opUser!)]);
+            text = sprintf(StrRes.whoModifyGroupName,
+                [getGroupMemberShowName(ntf.opUser!)]);
             break;
         }
       }
@@ -827,7 +878,8 @@ class IMUtils {
           switch (customType) {
             case CustomMessageType.call:
               var type = map['data']['type'];
-              content = '[${type == 'video' ? StrRes.callVideo : StrRes.callVoice}]';
+              content =
+                  '[${type == 'video' ? StrRes.callVideo : StrRes.callVoice}]';
               break;
             case CustomMessageType.emoji:
               content = '[${StrRes.emoji}]';
@@ -902,7 +954,8 @@ class IMUtils {
                   switch (state) {
                     case 'beHangup':
                     case 'hangup':
-                      content = sprintf(StrRes.callDuration, [seconds2HMS(duration)]);
+                      content =
+                          sprintf(StrRes.callDuration, [seconds2HMS(duration)]);
                       break;
                     case 'cancel':
                       content = StrRes.cancelled;
@@ -968,7 +1021,8 @@ class IMUtils {
         var list = message.atTextElem!.atUsersInfo;
         list?.forEach((e) {
           final userID = e.atUserID!;
-          final groupNickname = newMapping[userID] ?? e.groupNickname ?? e.atUserID!;
+          final groupNickname =
+              newMapping[userID] ?? e.groupNickname ?? e.atUserID!;
           mapping[userID] = getAtNickname(userID, groupNickname);
         });
       }
@@ -1046,15 +1100,23 @@ class IMUtils {
     if (allList.isEmpty) {
       // 不在使用，直接在chatview中
       previewUrlPicture(
-        [MediaSource(message.pictureElem!.sourcePicture!.url!, message.pictureElem!.snapshotPicture!.url!)],
+        [
+          MediaSource(message.pictureElem!.sourcePicture!.url!,
+              message.pictureElem!.snapshotPicture!.url!)
+        ],
         currentIndex: 0,
       );
     } else {
-      final picList = allList.where((element) => element.contentType == MessageType.picture || element.contentType == MessageType.video).toList();
+      final picList = allList
+          .where((element) =>
+              element.contentType == MessageType.picture ||
+              element.contentType == MessageType.video)
+          .toList();
       final index = picList.indexOf(message);
       final urls = picList.map((e) {
         if (e.contentType == MessageType.picture) {
-          return MediaSource(e.pictureElem!.sourcePicture!.url!, e.pictureElem!.snapshotPicture!.url!);
+          return MediaSource(e.pictureElem!.sourcePicture!.url!,
+              e.pictureElem!.snapshotPicture!.url!);
         } else {
           return MediaSource(e.videoElem!.videoUrl!, e.videoElem!.snapshotUrl!);
         }
@@ -1078,7 +1140,8 @@ class IMUtils {
           const begin = Offset(0.0, 1.0);
           const end = Offset.zero;
           const curve = Curves.easeOut;
-          final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          final tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
           final offsetAnimation = animation.drive(tween);
 
           return SlideTransition(
@@ -1111,8 +1174,11 @@ class IMUtils {
       } else if (isExitCachePath) {
         availablePath = cachePath;
       }
-      final isAvailableFileSize = isExitSourcePath || isExitCachePath ? (await File(availablePath!).length() == fileSize) : false;
-      Logger.print('previewFile isAvailableFileSize: $isAvailableFileSize   isExitNetwork: $isExitNetwork');
+      final isAvailableFileSize = isExitSourcePath || isExitCachePath
+          ? (await File(availablePath!).length() == fileSize)
+          : false;
+      Logger.print(
+          'previewFile isAvailableFileSize: $isAvailableFileSize   isExitNetwork: $isExitNetwork');
       if (isAvailableFileSize) {
         String? mimeType = lookupMimeType(fileName ?? '');
         if (null != mimeType && mimeType.contains('video')) {
@@ -1124,7 +1190,9 @@ class IMUtils {
           previewPicture(Message()
             ..clientMsgID = message.clientMsgID
             ..contentType = MessageType.picture
-            ..pictureElem = PictureElem(sourcePath: availablePath, sourcePicture: PictureInfo(url: url)));
+            ..pictureElem = PictureElem(
+                sourcePath: availablePath,
+                sourcePicture: PictureInfo(url: url)));
         } else {
           openFileByOtherApp(availablePath);
         }
@@ -1160,8 +1228,10 @@ class IMUtils {
           switch (type) {
             case OperateType.save:
               if (msg.isVideoType) {
-                final cachedVideoControllerService = CachedVideoControllerService(DefaultCacheManager());
-                final cached = await cachedVideoControllerService.getCacheFile(msg.videoElem!.videoUrl!);
+                final cachedVideoControllerService =
+                    CachedVideoControllerService(DefaultCacheManager());
+                final cached = await cachedVideoControllerService
+                    .getCacheFile(msg.videoElem!.videoUrl!);
 
                 if (cached != null) {
                   HttpUtil.saveFileToGallerySaver(cached);
@@ -1201,7 +1271,8 @@ class IMUtils {
       );
     }
 
-    Positioned buildSaveImageBtn(BuildContext context, int curIndex, int totalNum) {
+    Positioned buildSaveImageBtn(
+        BuildContext context, int curIndex, int totalNum) {
       final msg = mediaMessages[curIndex];
       if (msg.isVideoType) {
         return Positioned(child: Container());
@@ -1277,7 +1348,9 @@ class IMUtils {
         if (localPath != null && File(localPath).existsSync()) {
           return ExtendedFileImageProvider(File(localPath));
         }
-        final url = msg.pictureElem?.snapshotPicture?.url?.adjustThumbnailAbsoluteString(540) ?? '';
+        final url = msg.pictureElem?.snapshotPicture?.url
+                ?.adjustThumbnailAbsoluteString(540) ??
+            '';
 
         return ExtendedNetworkImageProvider(url, cache: true);
       },
@@ -1285,7 +1358,9 @@ class IMUtils {
       customChildBuilder: (int index) {
         final msg = mediaMessages[index];
 
-        final snapshotUrl = msg.videoElem?.snapshotUrl?.adjustThumbnailAbsoluteString(540) ?? '';
+        final snapshotUrl =
+            msg.videoElem?.snapshotUrl?.adjustThumbnailAbsoluteString(540) ??
+                '';
         final url = msg.videoElem?.videoUrl ?? '';
         return CustomChild(
           child: Center(
@@ -1388,11 +1463,18 @@ class IMUtils {
     List<Message> messageList = const [],
     Function(UserInfo userInfo)? onViewUserInfo,
   }) async {
-    if (message.contentType == MessageType.picture || message.contentType == MessageType.video) {
-      final mediaMessages =
-          messageList.where((element) => element.contentType == MessageType.picture || message.contentType == MessageType.video).toList();
+    if (message.contentType == MessageType.picture ||
+        message.contentType == MessageType.video) {
+      final mediaMessages = messageList
+          .where((element) =>
+              element.contentType == MessageType.picture ||
+              message.contentType == MessageType.video)
+          .toList();
       final currentIndex = mediaMessages.indexOf(message);
-      previewMediaFile(context: Get.context!, currentIndex: currentIndex, mediaMessages: mediaMessages);
+      previewMediaFile(
+          context: Get.context!,
+          currentIndex: currentIndex,
+          mediaMessages: mediaMessages);
     } else if (message.contentType == MessageType.file) {
       previewFile(message);
     } else if (message.contentType == MessageType.card) {
@@ -1506,14 +1588,19 @@ class IMUtils {
     var mimeType = lookupMimeType(fileName) ?? '';
     if (mimeType == 'application/pdf') {
       return ImageRes.filePdf;
-    } else if (mimeType == 'application/msword' || mimeType == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+    } else if (mimeType == 'application/msword' ||
+        mimeType ==
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
       return ImageRes.fileWord;
-    } else if (mimeType == 'application/vnd.ms-excel' || mimeType == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+    } else if (mimeType == 'application/vnd.ms-excel' ||
+        mimeType ==
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
       return ImageRes.fileExcel;
     } else if (mimeType == 'application/vnd.ms-powerpoint') {
       return ImageRes.filePpt;
     } else if (mimeType.startsWith('audio/')) {
-    } else if (mimeType == 'application/zip' || mimeType == 'application/x-rar-compressed') {
+    } else if (mimeType == 'application/zip' ||
+        mimeType == 'application/x-rar-compressed') {
       return ImageRes.fileZip;
     }
     /*else if (mimeType.startsWith('audio/')) {
@@ -1555,7 +1642,10 @@ class IMUtils {
       final checkedList = <String>[];
       final values = result.values;
       for (final value in values) {
-        if (value is UserInfo || value is FriendInfo || value is UserFullInfo || value is ISUserInfo) {
+        if (value is UserInfo ||
+            value is FriendInfo ||
+            value is UserFullInfo ||
+            value is ISUserInfo) {
           checkedList.add(value.userID!);
         }
       }
@@ -1570,7 +1660,9 @@ class IMUtils {
     for (var item in checkedList) {
       if (item is ConversationInfo) {
         checkedMap[item.isSingleChat ? item.userID! : item.groupID!] = item;
-      } else if (item is UserInfo || item is UserFullInfo || item is ISUserInfo) {
+      } else if (item is UserInfo ||
+          item is UserFullInfo ||
+          item is ISUserInfo) {
         checkedMap[item.userID!] = item;
       } else if (item is GroupInfo) {
         checkedMap[item.groupID] = item;
@@ -1581,7 +1673,8 @@ class IMUtils {
     return checkedMap;
   }
 
-  static List<Map<String, String?>> convertCheckedListToForwardObj(List<dynamic> checkedList) {
+  static List<Map<String, String?>> convertCheckedListToForwardObj(
+      List<dynamic> checkedList) {
     final map = <Map<String, String?>>[];
     for (var item in checkedList) {
       if (item is UserInfo || item is UserFullInfo || item is ISUserInfo) {
@@ -1613,7 +1706,8 @@ class IMUtils {
     return null;
   }
 
-  static List<Map<String, String?>> convertCheckedListToShare(Iterable<dynamic> checkedList) {
+  static List<Map<String, String?>> convertCheckedListToShare(
+      Iterable<dynamic> checkedList) {
     final map = <Map<String, String?>>[];
     for (var item in checkedList) {
       if (item is UserInfo || item is UserFullInfo || item is ISUserInfo) {
@@ -1651,7 +1745,8 @@ class IMUtils {
     return formatDateMs(ms, format: isZH ? 'yyyy年MM月dd日' : 'yyyy/MM/dd');
   }
 
-  static Future<bool> checkingBiometric(LocalAuthentication auth) => auth.authenticate(
+  static Future<bool> checkingBiometric(LocalAuthentication auth) =>
+      auth.authenticate(
         localizedReason: '扫描您的指纹（或面部或其他）以进行身份验证',
         options: const AuthenticationOptions(
           // stickyAuth: true,
@@ -1722,25 +1817,17 @@ class IMUtils {
         r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\S]{6,20}$',
       ).hasMatch(password);
 
-  static TextInputFormatter getPasswordFormatter() => FilteringTextInputFormatter.allow(
+  static TextInputFormatter getPasswordFormatter() =>
+      FilteringTextInputFormatter.allow(
         // RegExp(r'[a-zA-Z0-9]'),
         RegExp(r'[a-zA-Z0-9\S]'),
       );
 
-
-
-
-
-
-
-
-
-
   static bool isEmail(String email) {
-    RegExp exp = RegExp(r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+$', caseSensitive: false, multiLine: false);
+    RegExp exp = RegExp(r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+$',
+        caseSensitive: false, multiLine: false);
     return exp.hasMatch(email);
   }
-
 
   static Future<File?> getFile({
     required String path,
@@ -1752,7 +1839,6 @@ class IMUtils {
       return null;
     }
   }
-
 
   static String replaceMessageAtMapping(
     Message message,

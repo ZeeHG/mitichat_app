@@ -5,12 +5,40 @@ import 'package:device_info_plus/device_info_plus.dart';
 class Permissions {
   Permissions._();
 
+  static Permission photosPermission = Permission.photos;
+
+  static Permission videosPermission = Permission.videos;
+
+  static Future<bool> overAndroid13() async {
+    if (Platform.isAndroid) {
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+      return androidInfo.version.sdkInt > 32;
+    }
+    return false;
+  }
+
   static Future<bool> checkSystemAlertWindow() async {
     return Permission.systemAlertWindow.isGranted;
   }
 
-  static Future<bool> checkStorage() async {
-    return await Permission.storage.isGranted;
+  // static Future<bool> checkStorage() async {
+  //   return await Permission.storage.isGranted;
+  // }
+
+  static Future<bool> checkStorageV2(List<Permission>? permissions) async {
+    if (await overAndroid13()) {
+      if (null == permissions) return true;
+      PermissionStatus status;
+      for (final permission in permissions) {
+        status = await permission.status;
+        if (!status.isGranted) {
+          return false;
+        }
+      }
+      return true;
+    } else {
+      return await Permission.storage.isGranted;
+    }
   }
 
   static void camera(Function()? onGranted) async {
@@ -25,29 +53,35 @@ class Permissions {
     }
   }
 
-  static void storage(Function()? onGranted) async {
-    if (await Permission.storage.request().isGranted) {
-      // Either the permission was already granted before or the user just granted it.
-      onGranted?.call();
-    }
-    if (await Permission.storage.isPermanentlyDenied) {
-      // The user opted to never again see the permission request dialog for this
-      // app. The only way to change the permission's status now is to let the
-      // user manually enable it in the system settings.
+  static Future<void> storage(Function()? onGranted,
+      {List<Permission>? permissions}) async {
+    if (await overAndroid13()) {
+      if (null == permissions) {
+        onGranted?.call();
+        return;
+      }
+      await batchRequestPermissions(permissions);
+      if (await checkStorageV2(permissions)) {
+        onGranted?.call();
+      }
+    } else {
+      if (await Permission.storage.request().isGranted) {
+        onGranted?.call();
+      }
     }
   }
 
-  static void manageExternalStorage(Function()? onGranted) async {
-    if (await Permission.manageExternalStorage.request().isGranted) {
-      // Either the permission was already granted before or the user just granted it.
-      onGranted?.call();
-    }
-    if (await Permission.storage.isPermanentlyDenied) {
-      // The user opted to never again see the permission request dialog for this
-      // app. The only way to change the permission's status now is to let the
-      // user manually enable it in the system settings.
-    }
-  }
+  // static void manageExternalStorage(Function()? onGranted) async {
+  //   if (await Permission.manageExternalStorage.request().isGranted) {
+  //     // Either the permission was already granted before or the user just granted it.
+  //     onGranted?.call();
+  //   }
+  //   if (await Permission.storage.isPermanentlyDenied) {
+  //     // The user opted to never again see the permission request dialog for this
+  //     // app. The only way to change the permission's status now is to let the
+  //     // user manually enable it in the system settings.
+  //   }
+  // }
 
   static void microphone(Function()? onGranted) async {
     if (await Permission.microphone.request().isGranted) {
@@ -155,11 +189,15 @@ class Permissions {
   }
 
   static void storageAndMicrophone(Function()? onGranted) async {
-    final permissions = [
-      Permission.storage,
-      Permission.microphone,
-      // Permission.speech,
-    ];
+    final permissions = await overAndroid13()
+        ? [
+            Permission.microphone,
+          ]
+        : [
+            Permission.storage,
+            Permission.microphone,
+            // Permission.speech,
+          ];
     bool isAllGranted = true;
     for (var permission in permissions) {
       final state = await permission.request();
@@ -170,29 +208,12 @@ class Permissions {
     }
   }
 
-  static Future<Map<Permission, PermissionStatus>> request(List<Permission> permissions) async {
+  static Future<Map<Permission, PermissionStatus>> request(
+      List<Permission> permissions) async {
     // You can request multiple permissions at once.
     Map<Permission, PermissionStatus> statuses = await permissions.request();
     return statuses;
   }
-
-
-
-
-  static void storage2(Function()? onGranted, Function()? onFinally) async {
-    if (await Permission.storage.request().isGranted) {
-      // Either the permission was already granted before or the user just granted it.
-      onGranted?.call();
-    }
-    if (await Permission.storage.isPermanentlyDenied) {
-      // The user opted to never again see the permission request dialog for this
-      // app. The only way to change the permission's status now is to let the
-      // user manually enable it in the system settings.
-    }
-
-    onFinally?.call();
-  }
-
 
   static void requestBasePermissions() async {
     final permissions = [
@@ -211,7 +232,7 @@ class Permissions {
       Permission.location,
       Permission.reminders,
       Permission.criticalAlerts,
-      Permission.storage,
+      if (!(await overAndroid13())) Permission.storage,
       Permission.camera,
       Permission.microphone,
     ];
@@ -240,23 +261,27 @@ class Permissions {
         permissions.map((item) async => await item.status).toList());
   }
 
-  // 存储兼容性测试, 不判断isGranted, 一加等机型缺少storage一直为false
-  static Future<void> requestStorage([Function()? onGranted]) async {
-    if (Platform.isAndroid) {
-      final androidInfo = await DeviceInfoPlugin().androidInfo;
-      if (androidInfo.version.sdkInt <= 32) {
-        // use [Permissions.storage.status]
-        await batchRequestPermissions([Permission.storage]);
-      } else {
-        // use [Permissions.photos.status]
-        await batchRequestPermissions(
-            [Permission.photos, Permission.audio, Permission.videos, Permission.storage]);
-      }
-    } else {
-      await batchRequestPermissions([Permission.storage]);
-    }
-    onGranted?.call();
-  }
+  // // 存储兼容性测试, 不判断isGranted, 一加等机型缺少storage一直为false
+  // static Future<void> requestStorage([Function()? onGranted]) async {
+  //   if (Platform.isAndroid) {
+  //     final androidInfo = await DeviceInfoPlugin().androidInfo;
+  //     if (androidInfo.version.sdkInt <= 32) {
+  //       // use [Permissions.storage.status]
+  //       await batchRequestPermissions([Permission.storage]);
+  //     } else {
+  //       // use [Permissions.photos.status]
+  //       await batchRequestPermissions([
+  //         Permission.photos,
+  //         Permission.audio,
+  //         Permission.videos,
+  //         Permission.storage
+  //       ]);
+  //     }
+  //   } else {
+  //     await batchRequestPermissions([Permission.storage]);
+  //   }
+  //   onGranted?.call();
+  // }
 
   static void openSettings() async {
     await openAppSettings();

@@ -5,6 +5,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ChatVideoView extends StatefulWidget {
   const ChatVideoView({
@@ -66,7 +67,7 @@ class _ChatVideoViewState extends State<ChatVideoView> {
       final exist = File(_snapshotPath!).existsSync();
       valid = valid && exist;
     } else {
-      valid = valid && await Permissions.checkStorage() && File(_snapshotPath!).existsSync();
+      valid = valid && await Permissions.checkStorageV2([Permission.videos]) && File(_snapshotPath!).existsSync();
     }
     _message.exMap['validPath_$_snapshotPath'] = valid;
 

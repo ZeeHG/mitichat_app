@@ -5,6 +5,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ChatPictureView extends StatefulWidget {
   const ChatPictureView({
@@ -85,7 +86,7 @@ class _ChatPictureViewState extends State<ChatPictureView> {
       final exist = File(_sourcePath!).existsSync();
       valid = valid && exist;
     } else {
-      valid = valid && await Permissions.checkStorage() && File(_sourcePath!).existsSync();
+      valid = valid && await Permissions.checkStorageV2([Permission.photos]) && File(_sourcePath!).existsSync();
     }
     _message.exMap['validPath_$_sourcePath'] = valid;
 
