@@ -126,7 +126,9 @@ class IMViews {
             SheetItem(
               label: StrRes.toolboxAlbum,
               onTap: () {
-                Permissions.storage(permissions: [Permission.photos, Permission.videos], () async {
+                Permissions.storage(
+                    permissions: [Permission.photos, Permission.videos],
+                    () async {
                   final XFile? image = await _picker.pickImage(
                     source: ImageSource.gallery,
                   );

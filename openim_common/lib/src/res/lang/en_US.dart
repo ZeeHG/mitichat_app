@@ -1086,6 +1086,6 @@ const Map<String, String> en_US = {
   "registerSuccess": "Registration Successful",
   "loginSuccess": "Login Successful",
   "loading": "Loading",
-  "confirmDelAccount": "确认删除该账号？",
-  "switchServer": "切换服务器"
+  "confirmDelAccount": "Confirm deletion of this account?",
+  "switchServer": "Switch Server"
 };

@@ -939,5 +939,11 @@ const Map<String, String> ja_JP = {
   "addAccountServerTips": "アカウントを追加するためにサーバーアドレスを入力してください",
   "serverFormatErr": "サーバーフォーマットエラー",
   "serverErr": "サーバーエラー",
-  "accountErr": "アカウントエラー"
+  "accountErr": "アカウントエラー",
+  "switchSuccess": "スイッチ成功",
+  "registerSuccess": "登録成功",
+  "loginSuccess": "ログイン成功",
+  "loading": "読み込み中",
+  "confirmDelAccount": "このアカウントを削除しますか？",
+  "switchServer": "サーバーを切り替える"
 };

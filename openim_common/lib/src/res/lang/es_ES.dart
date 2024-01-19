@@ -939,5 +939,11 @@ const Map<String, String> es_ES = {
   "addAccountServerTips": "Por favor ingrese la dirección del servidor para agregar la cuenta",
   "serverFormatErr": "Error de Formato del Servidor",
   "serverErr": "Error del Servidor",
-  "accountErr": "Error de Cuenta"
+  "accountErr": "Error de Cuenta",
+  "switchSuccess": "Cambio exitoso",
+  "registerSuccess": "Registro exitoso",
+  "loginSuccess": "Inicio de sesión exitoso",
+  "loading": "Cargando",
+  "confirmDelAccount": "¿Confirmar eliminación de esta cuenta?",
+  "switchServer": "Cambiar servidor"
 };

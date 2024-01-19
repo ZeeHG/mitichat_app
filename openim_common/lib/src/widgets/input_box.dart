@@ -166,7 +166,7 @@ class InputBox extends StatefulWidget {
     this.hintStyle,
     this.codeStyle,
     this.formatHintStyle,
-    this.code = '+86',
+    this.code = '+1',
     this.hintText,
     this.formatHintText,
     this.arrowColor,

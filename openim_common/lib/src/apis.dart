@@ -788,4 +788,15 @@ class Apis {
     );
     return true;
   }
+
+  static Future<dynamic> getBots() async {
+    return HttpUtil.post(
+      Urls.getBots,
+      data: {
+        'platform': IMUtils.getPlatform(),
+        'operationID': HttpUtil.operationID,
+      },
+      options: chatTokenOptions,
+    );
+  }
 }

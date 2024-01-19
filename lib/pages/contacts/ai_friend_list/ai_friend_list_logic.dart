@@ -41,6 +41,9 @@ class AiFriendListLogic extends GetxController {
   }
 
   _getFriendList() async {
+    List<String> aiList = await Apis.getBots().then((list) => list.map((e) {
+          return e["UserID"];
+        }).toList());
     final list = await OpenIM.iMManager.friendshipManager
         .getFriendListMap()
         .then((list) => list.where(_filterBlacklist))
@@ -51,6 +54,7 @@ class AiFriendListLogic extends GetxController {
                   : ISUserInfo.fromJson(fullUser.publicInfo!.toJson());
               return user;
             }).toList())
+        .then((list) => list.where((e) => aiList.contains(e.userID)).toList())
         .then((list) => IMUtils.convertToAZList(list));
 
     onUserIDList(userIDList);

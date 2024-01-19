@@ -39,9 +39,10 @@ class AccountManagePage extends StatelessWidget {
                     child: Container(
                       height: 54.h,
                       child: Row(children: [
+                        10.horizontalSpace,
                         ImageRes.appAdd3.toImage
-                          ..width = 40.w
-                          ..height = 40.h,
+                          ..width = 30.w
+                          ..height = 30.h,
                         8.horizontalSpace,
                         StrRes.addOrRegisterAccount.toText
                           ..style = Styles.ts_333333_16sp

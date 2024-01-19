@@ -1018,5 +1018,11 @@ const Map<String, String> ko_KR = {
   "addAccountServerTips": "계정을 추가하려면 서버 주소를 입력하세요",
   "serverFormatErr": "서버 형식 오류",
   "serverErr": "서버 오류",
-  "accountErr": "계정 오류"
+  "accountErr": "계정 오류",
+  "switchSuccess": "스위치 성공",
+  "registerSuccess": "등록 성공",
+  "loginSuccess": "로그인 성공",
+  "loading": "로딩 중",
+  "confirmDelAccount": "이 계정을 삭제하시겠습니까?",
+  "switchServer": "서버 변경"
 };
