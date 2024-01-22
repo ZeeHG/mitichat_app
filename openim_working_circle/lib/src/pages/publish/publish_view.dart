@@ -51,7 +51,7 @@ class PublishPage extends StatelessWidget {
                         maxLines: null,
                         expands: true,
                         style: Styles.ts_333333_16sp,
-                        maxLength: 150,
+                        maxLength: 5570,
                         decoration: InputDecoration(
                           counterStyle: Styles.ts_999999_14sp,
                           border: InputBorder.none,
