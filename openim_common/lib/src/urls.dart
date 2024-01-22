@@ -65,5 +65,5 @@ class Urls {
 
   static String get checkServerValid => '/client_config/get';
 
-  static String get getBots => '/get_bots';
+  static String get getBots => '${Config.appAuthUrl}/get_bots';
 }

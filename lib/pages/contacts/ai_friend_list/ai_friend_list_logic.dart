@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
@@ -9,20 +10,22 @@ import 'package:openim_common/openim_common.dart';
 import '../../../core/controller/im_controller.dart';
 
 class AiFriendListLogic extends GetxController {
-  final imLoic = Get.find<IMController>();
+  final imLogic = Get.find<IMController>();
   final friendList = <ISUserInfo>[].obs;
   final userIDList = <String>[];
   late StreamSubscription delSub;
   late StreamSubscription addSub;
   late StreamSubscription infoChangedSub;
+  final aiList = <String>[].obs;
 
   @override
   void onInit() {
-    delSub = imLoic.friendDelSubject.listen(_delFriend);
-    addSub = imLoic.friendAddSubject.listen(_addFriend);
-    infoChangedSub = imLoic.friendInfoChangedSubject.listen(_friendInfoChanged);
-    imLoic.onBlacklistAdd = _delFriend;
-    imLoic.onBlacklistDeleted = _addFriend;
+    delSub = imLogic.friendDelSubject.listen(_delFriend);
+    addSub = imLogic.friendAddSubject.listen(_addFriend);
+    infoChangedSub =
+        imLogic.friendInfoChangedSubject.listen(_friendInfoChanged);
+    imLogic.onBlacklistAdd = _delFriend;
+    imLogic.onBlacklistDeleted = _addFriend;
     super.onInit();
   }
 
@@ -41,9 +44,11 @@ class AiFriendListLogic extends GetxController {
   }
 
   _getFriendList() async {
-    List<String> aiList = await Apis.getBots().then((list) => list.map((e) {
-          return e["UserID"];
-        }).toList());
+
+    aiList.value = (await Apis.getBots()).map<String>((e) {
+      return e["UserID"].toString();
+    }).toList();
+
     final list = await OpenIM.iMManager.friendshipManager
         .getFriendListMap()
         .then((list) => list.where(_filterBlacklist))
@@ -56,7 +61,6 @@ class AiFriendListLogic extends GetxController {
             }).toList())
         .then((list) => list.where((e) => aiList.contains(e.userID)).toList())
         .then((list) => IMUtils.convertToAZList(list));
-
     onUserIDList(userIDList);
     friendList.assignAll(list.cast<ISUserInfo>());
   }
@@ -76,7 +80,8 @@ class AiFriendListLogic extends GetxController {
   }
 
   _addFriend(dynamic user) {
-    if (user is FriendInfo || user is BlacklistInfo) {
+    if ((user is FriendInfo || user is BlacklistInfo) &&
+        aiList.contains(user.userID)) {
       _addUser(user.toJson());
     }
   }

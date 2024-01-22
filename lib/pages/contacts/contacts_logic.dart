@@ -46,13 +46,13 @@ class ContactsLogic extends GetxController
         "shadowColor": Color.fromRGBO(0, 203, 197, 0.5),
         "onTap": () => newRecent()
       },
-      // {
-      //   "key": "aiFriendList",
-      //   "text": StrRes.aiFriends,
-      //   "color": Styles.c_FEA836,
-      //   "shadowColor": Color.fromRGBO(254, 168, 54, 0.5),
-      //   "onTap": () => aiFriendList()
-      // },
+      {
+        "key": "aiFriendList",
+        "text": StrRes.aiFriends,
+        "color": Styles.c_FEA836,
+        "shadowColor": Color.fromRGBO(254, 168, 54, 0.5),
+        "onTap": () => aiFriendList()
+      },
     ];
 
   // final organizationLogic = Get.find<OrganizationLogic>();
