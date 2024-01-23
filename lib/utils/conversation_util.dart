@@ -9,17 +9,16 @@ class ConversationUtil extends GetxController {
 
   String get accountKey => DataSp.getCurAccountLoginInfoKey();
 
-  String getKey(String conversationId) =>
-      accountKey + "__" + conversationId;
+  String getKey(String conversationID) => accountKey + "__" + conversationID;
 
-  updateStore(String conversationId, {int? waitingST = -1}) {
-    final key = getKey(conversationId);
+  updateStore(String conversationID, {int? waitingST = -1}) {
+    final key = getKey(conversationID);
     DataSp.putConversationStore({
-      key: ConversationConfig.fromJson({"waitingST": waitingST})
+      key: ConversationConfig.fromJson({"key": key, "conversationID": conversationID, "waitingST": waitingST})
     });
   }
 
-  getConversationStoreById(String conversationId) {
-    return DataSp.getConversationStore()?[getKey(conversationId)];
+  getConversationStoreById(String conversationID) {
+    return DataSp.getConversationStore()?[getKey(conversationID)];
   }
 }

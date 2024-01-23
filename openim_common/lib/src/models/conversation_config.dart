@@ -2,19 +2,19 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 class ConversationConfig {
-  String id;
-  // bool? waitingReply;
+  String key;
+  String conversationID;
   int? waitingST;
 
   ConversationConfig.fromJson(Map<String, dynamic> map)
-      : id = map["id"] ?? '',
-        // waitingReply = map["waitingReply"] ?? false,
+      : key = map["key"] ?? '',
+        conversationID = map["conversationID"] ?? '',
         waitingST = map["waitingST"] ?? 0;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    data['id'] = id;
-    // data['waitingReply'] = waitingReply;
+    data['key'] = key;
+    data['conversationID'] = conversationID;
     data['waitingST'] = waitingST;
     return data;
   }

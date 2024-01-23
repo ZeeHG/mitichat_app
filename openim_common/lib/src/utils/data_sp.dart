@@ -26,6 +26,7 @@ class DataSp {
   static const _curServerKey = '_curServerKey';
   static const _mainLoginAccount = 'mainLoginAccount';
   static const _conversationStore = 'conversationStore';
+  static const _aiStore = 'aiStore';
 
   DataSp._();
 
@@ -260,4 +261,19 @@ class DataSp {
             (key, value) => MapEntry(key, ConversationConfig.fromJson(value))));
   }
 
+  static Future<bool>? putAiStore(Map<String, Ai> data) {
+    final map = getAiStore() ?? {};
+    map.addAll(data);
+    return SpUtil().putObject(_aiStore, map);
+  }
+
+  static Map<String, Ai>? getAiStore() {
+    return SpUtil().getObj(_aiStore,
+        (map) => map.map((key, value) => MapEntry(key, Ai.fromJson(value))));
+  }
+
+  static List<String>? getAiKeys() {
+    final store = getAiStore();
+    return null == store? [] : store.keys.toList();
+  }
 }

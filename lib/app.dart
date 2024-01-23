@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:miti/utils/account_util.dart';
+import 'package:miti/utils/ai_util.dart';
 import 'package:miti/utils/conversation_util.dart';
 import 'package:openim_common/openim_common.dart';
 
@@ -81,6 +82,7 @@ class InitBinding extends Bindings {
     Get.put<DownloadController>(DownloadController());
     Get.put(BetaTestLogic());
     Get.put(AccountUtil());
+    Get.put(AiUtil());
     Get.put(ConversationUtil());
     Get.put(TranslateLogic());
     Get.put(TtsLogic());
