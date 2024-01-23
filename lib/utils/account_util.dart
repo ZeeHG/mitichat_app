@@ -19,7 +19,7 @@ import 'package:openim_common/openim_common.dart';
     6. 失败使用密码重新登录, 退出chat, im
     7. 恢复踢出监听(修改返回按钮回到home, 刷新当前页面如果有特殊数据, 重置页面历史回到home, 重新监听)
 */
-class MiscUtil extends GetxController {
+class AccountUtil extends GetxController {
   final imLogic = Get.find<IMController>();
   final pushLogic = Get.find<PushController>();
   final appLogic = Get.find<AppController>();
@@ -38,7 +38,10 @@ class MiscUtil extends GetxController {
 
   Future<void> delAccount(String loginInfoId,
       {bool finishLogout = false}) async {
-    myLogger.i({"message": "删除账户", "data": {"loginInfoId": loginInfoId, "finishLogout": finishLogout}});
+    myLogger.i({
+      "message": "删除账户",
+      "data": {"loginInfoId": loginInfoId, "finishLogout": finishLogout}
+    });
     await DataSp.removeAccountLoginInfoByKey(loginInfoId);
     if (finishLogout) {
       await tryLogout();
@@ -48,15 +51,18 @@ class MiscUtil extends GetxController {
 
   Future<void> tryLogout({bool needLogoutIm = true}) async {
     try {
-      if (needLogoutIm && imLogic.isLogined()) {
-        myLogger.e({"message": "tryLogout开始"});
-        await imLogic.logout();
+      if (DataSp.getCurAccountLoginInfoKey().isNotEmpty) {
+        if (needLogoutIm && imLogic.isLogined()) {
+          myLogger.e({"message": "tryLogout开始"});
+          await imLogic.logout();
+        }
+        await DataSp.removeLoginCertificate();
+        // OpenIM.iMManager.userID
+        pushLogic.logout();
       }
     } catch (e, s) {
       myLogger.e({"message": "tryLogout失败", "error": e, "stack": s});
     }
-    await DataSp.removeLoginCertificate();
-    pushLogic.logout();
   }
 
   Future<void> setServerConf(String serverWithProtocol) async {

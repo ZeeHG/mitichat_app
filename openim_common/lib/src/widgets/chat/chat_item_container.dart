@@ -8,6 +8,7 @@ class ChatItemContainer extends StatelessWidget {
   ChatItemContainer({
     Key? key,
     required this.id,
+    required this.message,
     this.leftFaceUrl,
     this.rightFaceUrl,
     this.leftNickname,
@@ -80,6 +81,7 @@ class ChatItemContainer extends StatelessWidget {
   final Function()? onFailedToResend;
   final translateLogic = Get.find<TranslateLogic>();
   final ttsLogic = Get.find<TtsLogic>();
+  final Message message;
 
   String? get translateText {
     final msgTranslate = translateLogic.msgTranslate?[id];
@@ -197,7 +199,7 @@ class ChatItemContainer extends StatelessWidget {
               if (showLeftNickname) 4.verticalSpace,
               Row(
                 mainAxisSize: MainAxisSize.min,
-                children: [
+                children: !message.isWaitingAiReplayType? [
                   _buildChildView(BubbleType.receiver),
                   4.horizontalSpace,
                   if (!isMultiSelModel)
@@ -208,10 +210,23 @@ class ChatItemContainer extends StatelessWidget {
                       onStartDestroy: onStartDestroy,
                     ),
                   if (null != voiceReadStatusView) voiceReadStatusView!,
+                ] : [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 5.w),
+                    height: 42.h,
+                    alignment: Alignment.centerLeft,
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      color: Styles.c_FFFFFF,
+                      borderRadius: borderRadius(isISend),
+                    ),
+                    child: ImageRes.appTranslateLoading.toImage..height = 24.h,
+                  )
                 ],
               ),
               if (ttsShow) ttsView!(text: ttsText, status: ttsStatus!),
-              if (translateShow) translateView!(text: translateText, status: translateStatus!),
+              if (translateShow)
+                translateView!(text: translateText, status: translateStatus!),
               if (null != quoteView) quoteView!,
             ],
           ),
@@ -234,7 +249,7 @@ class ChatItemContainer extends StatelessWidget {
               // 4.verticalSpace,
               Row(
                 mainAxisSize: MainAxisSize.min,
-                children: [
+                children: !message.isWaitingAiReplayType? [
                   if (!isMultiSelModel && isSendFailed)
                     ChatSendFailedView(
                       id: id,
@@ -254,10 +269,23 @@ class ChatItemContainer extends StatelessWidget {
                     ChatDelayedStatusView(isSending: isSending),
                   4.horizontalSpace,
                   _buildChildView(BubbleType.send),
+                ] : [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 5.w),
+                    height: 42.h,
+                    alignment: Alignment.centerLeft,
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      color: Styles.c_FFFFFF,
+                      borderRadius: borderRadius(isISend),
+                    ),
+                    child: ImageRes.appTranslateLoading.toImage..height = 24.h,
+                  )
                 ],
               ),
               if (ttsShow) ttsView!(text: ttsText, status: ttsStatus!),
-              if (translateShow) translateView!(text: translateText, status: translateStatus!),
+              if (translateShow)
+                translateView!(text: translateText, status: translateStatus!),
               if (null != quoteView) quoteView!,
               // if (null != readStatusView) readStatusView!,
             ],

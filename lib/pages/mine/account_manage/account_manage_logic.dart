@@ -11,15 +11,15 @@ class AccountManageLogic extends GetxController {
   final curLoginInfoKey = "".obs;
   int curStatusChangeCount = 0;
   int originStatusChangeCount = 0;
-  final miscUtil = Get.find<MiscUtil>();
+  final accountUtil = Get.find<AccountUtil>();
   final serverCtrl = TextEditingController();
 
   @override
   void onInit() {
     setLoginInfoList();
     setCurLoginInfoKey();
-    curStatusChangeCount = miscUtil.statusChangeCount.value;
-    originStatusChangeCount = miscUtil.statusChangeCount.value;
+    curStatusChangeCount = accountUtil.statusChangeCount.value;
+    originStatusChangeCount = accountUtil.statusChangeCount.value;
     super.onInit();
   }
 
@@ -53,25 +53,25 @@ class AccountManageLogic extends GetxController {
           navBarHeight: 0,
           asyncFunction: () async {
             if (curLoginInfoKey.value == info.id) {
-              await miscUtil.delAccount(info.id, finishLogout: true);
+              await accountUtil.delAccount(info.id, finishLogout: true);
             } else {
               loginInfoList.remove(info);
-              await miscUtil.delAccount(info.id);
+              await accountUtil.delAccount(info.id);
             }
           });
     }
   }
 
   cusBack() async {
-    if (miscUtil.statusChangeCount.value > curStatusChangeCount) {
+    if (accountUtil.statusChangeCount.value > curStatusChangeCount) {
       // 最后一次操作切换了服务器
       LoadingView.singleton.wrap(
           navBarHeight: 0,
           asyncFunction: () async {
-            await miscUtil.backCurAccount();
+            await accountUtil.backCurAccount();
             AppNavigator.startMain();
           });
-    } else if (miscUtil.statusChangeCount.value > originStatusChangeCount) {
+    } else if (accountUtil.statusChangeCount.value > originStatusChangeCount) {
       // 只切换账号
       AppNavigator.startMain();
     } else {
@@ -85,10 +85,10 @@ class AccountManageLogic extends GetxController {
         navBarHeight: 0,
         loadingTips: StrRes.loading,
         asyncFunction: () async {
-          await miscUtil.switchAccount(
+          await accountUtil.switchAccount(
               serverWithProtocol: loginInfo.server, userID: loginInfo.userID);
           setCurLoginInfoKey();
-          curStatusChangeCount = miscUtil.statusChangeCount.value;
+          curStatusChangeCount = accountUtil.statusChangeCount.value;
         });
   }
 
@@ -141,9 +141,9 @@ class AccountManageLogic extends GetxController {
               navBarHeight: 0,
               asyncFunction: () async {
                 try {
-                  await miscUtil.checkServerValid(
+                  await accountUtil.checkServerValid(
                       serverWithProtocol: serverCtrl.text);
-                  await miscUtil.switchServer(serverCtrl.text);
+                  await accountUtil.switchServer(serverCtrl.text);
                   Get.back(result: true);
                   AppNavigator.startLoginWithoutOff(
                       isAddAccount: true, server: serverCtrl.text);

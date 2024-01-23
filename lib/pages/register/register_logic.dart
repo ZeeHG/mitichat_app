@@ -27,7 +27,7 @@ class RegisterLogic extends GetxController {
   final translateLogic = Get.find<TranslateLogic>();
   final ttsLogic = Get.find<TtsLogic>();
   final isAddAccount = false.obs;
-  final miscUtil = Get.find<MiscUtil>();
+  final accountUtil = Get.find<AccountUtil>();
   final server = Config.hostWithProtocol.obs;
 
   bool get phoneRegister => operateType.value == LoginType.phone;
@@ -255,7 +255,7 @@ class RegisterLogic extends GetxController {
           Logger.print('---------jpush login success----');
           AppNavigator.startMain();
         } else {
-          final isOk = await miscUtil.registerAccount(
+          final isOk = await accountUtil.registerAccount(
             switchBack: false,
             serverWithProtocol: server.value,
             nickname: nickname,

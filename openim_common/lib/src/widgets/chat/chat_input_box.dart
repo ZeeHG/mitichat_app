@@ -14,6 +14,7 @@ class ChatInputBox extends StatefulWidget {
     required this.emojiView,
     required this.multiOpToolbox,
     this.allAtMap = const {},
+    this.isAiSingleChat = false,
     this.atCallback,
     this.controller,
     this.focusNode,
@@ -29,6 +30,7 @@ class ChatInputBox extends StatefulWidget {
     this.quoteContent,
     this.onClearQuote,
     this.onSend,
+    this.disabledChatInput = false,
   }) : super(key: key);
   final AtTextCallback? atCallback;
   final Map<String, String> allAtMap;
@@ -50,6 +52,8 @@ class ChatInputBox extends StatefulWidget {
   final String? quoteContent;
   final Function()? onClearQuote;
   final ValueChanged<String>? onSend;
+  final bool disabledChatInput;
+  final bool isAiSingleChat;
 
   @override
   State<ChatInputBox> createState() => _ChatInputBoxState();
@@ -137,89 +141,106 @@ class _ChatInputBoxState
         ? const ChatDisableInputBox()
         : widget.isMultiModel
             ? widget.multiOpToolbox
-            : Column(
+            : Stack(
                 children: [
-                  Container(
-                    // height: 56.h,
-                    constraints: BoxConstraints(minHeight: kInputBoxMinHeight),
-                    color: Styles.c_F7F7F7,
-                    child: Row(
-                      children: [
-                        12.horizontalSpace,
-                        (_leftKeyboardButton
-                            ? (ImageRes.openKeyboard.toImage
-                              ..onTap = onTapLeftKeyboard)
-                            : (ImageRes.openVoice.toImage..onTap = onTapSpeak))
-                          ..width = 28.w
-                          ..height = 28.h
-                          ..opacity = _opacity,
-                        12.horizontalSpace,
-                        Expanded(
-                          child: Stack(
-                            children: [
-                              Offstage(
-                                offstage: _leftKeyboardButton,
-                                child: _textFiled,
+                  Column(
+                    children: [
+                      Container(
+                        // height: 56.h,
+                        constraints:
+                            BoxConstraints(minHeight: kInputBoxMinHeight),
+                        color: Styles.c_F7F7F7,
+                        child: Row(
+                          children: [
+                            12.horizontalSpace,
+                            (_leftKeyboardButton
+                                ? (ImageRes.openKeyboard.toImage
+                                  ..onTap = onTapLeftKeyboard)
+                                : (ImageRes.openVoice.toImage
+                                  ..onTap = onTapSpeak))
+                              ..width = 28.w
+                              ..height = 28.h
+                              ..opacity = _opacity,
+                            12.horizontalSpace,
+                            Expanded(
+                              child: Stack(
+                                children: [
+                                  Offstage(
+                                    offstage: _leftKeyboardButton,
+                                    child: _textFiled,
+                                  ),
+                                  Offstage(
+                                    offstage: !_leftKeyboardButton,
+                                    child: widget.voiceRecordBar,
+                                  ),
+                                ],
                               ),
-                              Offstage(
-                                offstage: !_leftKeyboardButton,
-                                child: widget.voiceRecordBar,
-                              ),
-                            ],
-                          ),
+                            ),
+                            12.horizontalSpace,
+                            (_rightKeyboardButton
+                                ? (ImageRes.openKeyboard.toImage
+                                  ..onTap = onTapRightKeyboard)
+                                : (ImageRes.openEmoji.toImage
+                                  ..onTap = onTapEmoji))
+                              ..width = 28.w
+                              ..height = 28.h
+                              ..opacity = _opacity,
+                            12.horizontalSpace,
+                            (_sendButtonVisible
+                                    ? ImageRes.appSendMessage2
+                                    : ImageRes.openToolbox)
+                                .toImage
+                              ..width = 28.w
+                              ..height = 28.h
+                              ..opacity = _opacity
+                              ..onTap =
+                                  _sendButtonVisible ? send : toggleToolbox,
+                            12.horizontalSpace,
+                            // Visibility(
+                            //   visible: !_leftKeyboardButton || !_rightKeyboardButton,
+                            //   child: Container(
+                            //     width: 60.0.w * (1.0 - _animation.value),
+                            //     margin: EdgeInsets.only(right: 4.w),
+                            //     child: Button(
+                            //       text: StrRes.send,
+                            //       height: 32.h,
+                            //       onTap: send,
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
                         ),
-                        12.horizontalSpace,
-                        (_rightKeyboardButton
-                            ? (ImageRes.openKeyboard.toImage
-                              ..onTap = onTapRightKeyboard)
-                            : (ImageRes.openEmoji.toImage..onTap = onTapEmoji))
-                          ..width = 28.w
-                          ..height = 28.h
-                          ..opacity = _opacity,
-                        12.horizontalSpace,
-                        (_sendButtonVisible
-                                ? ImageRes.appSendMessage2
-                                : ImageRes.openToolbox)
-                            .toImage
-                          ..width = 28.w
-                          ..height = 28.h
-                          ..opacity = _opacity
-                          ..onTap = _sendButtonVisible ? send : toggleToolbox,
-                        12.horizontalSpace,
-                        // Visibility(
-                        //   visible: !_leftKeyboardButton || !_rightKeyboardButton,
-                        //   child: Container(
-                        //     width: 60.0.w * (1.0 - _animation.value),
-                        //     margin: EdgeInsets.only(right: 4.w),
-                        //     child: Button(
-                        //       text: StrRes.send,
-                        //       height: 32.h,
-                        //       onTap: send,
-                        //     ),
-                        //   ),
-                        // ),
-                      ],
-                    ),
+                      ),
+                      if (_showQuoteView)
+                        _QuoteView(
+                          content: widget.quoteContent!,
+                          onClearQuote: widget.onClearQuote,
+                        ),
+                      Visibility(
+                        visible: _toolsVisible,
+                        child: FadeInUp(
+                          duration: const Duration(milliseconds: 200),
+                          child: widget.toolbox,
+                        ),
+                      ),
+                      Visibility(
+                        visible: _emojiVisible,
+                        child: FadeInUp(
+                          duration: const Duration(milliseconds: 200),
+                          child: widget.emojiView,
+                        ),
+                      ),
+                    ],
                   ),
-                  if (_showQuoteView)
-                    _QuoteView(
-                      content: widget.quoteContent!,
-                      onClearQuote: widget.onClearQuote,
-                    ),
-                  Visibility(
-                    visible: _toolsVisible,
-                    child: FadeInUp(
-                      duration: const Duration(milliseconds: 200),
-                      child: widget.toolbox,
-                    ),
-                  ),
-                  Visibility(
-                    visible: _emojiVisible,
-                    child: FadeInUp(
-                      duration: const Duration(milliseconds: 200),
-                      child: widget.emojiView,
-                    ),
-                  ),
+                  if (widget.disabledChatInput)
+                    Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: Container(
+                          color: Styles.c_999999_opacity13,
+                        ))
                 ],
               );
   }
@@ -248,6 +269,9 @@ class _ChatInputBoxState
   void send() {
     if (!widget.enabled) return;
     if (!_emojiVisible) focus();
+    if (widget.isAiSingleChat) {
+      unfocus();
+    }
     if (null != widget.onSend && null != widget.controller) {
       widget.onSend!(widget.controller!.text.toString().trim());
     }

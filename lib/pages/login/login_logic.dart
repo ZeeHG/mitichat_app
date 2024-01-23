@@ -77,7 +77,7 @@ class LoginLogic extends GetxController {
   final agree = false.obs;
   final translateLogic = Get.find<TranslateLogic>();
   final ttsLogic = Get.find<TtsLogic>();
-  final miscUtil = Get.find<MiscUtil>();
+  final accountUtil = Get.find<AccountUtil>();
   final isAddAccount = false.obs;
   final server = Config.hostWithProtocol.obs;
   int curStatusChangeCount = 0;
@@ -118,14 +118,14 @@ class LoginLogic extends GetxController {
   void onInit() async {
     isAddAccount.value = Get.arguments?['isAddAccount'] ?? false;
     server.value = Get.arguments?['server'] ?? server.value;
-    curStatusChangeCount = miscUtil.statusChangeCount.value;
+    curStatusChangeCount = accountUtil.statusChangeCount.value;
     _initData();
     phoneCtrl.addListener(_onChanged);
     pwdCtrl.addListener(_onChanged);
     verificationCodeCtrl.addListener(_onChanged);
     // if (!isAddAccount.value) {
     //   LoadingView.singleton.wrap(
-    //       navBarHeight: 0, asyncFunction: () => miscUtil.reloadServerConf());
+    //       navBarHeight: 0, asyncFunction: () => accountUtil.reloadServerConf());
     // }
     super.onInit();
   }
@@ -163,7 +163,7 @@ class LoginLogic extends GetxController {
             }
             final password = IMUtils.emptyStrToNull(pwdCtrl.text);
             final code = IMUtils.emptyStrToNull(verificationCodeCtrl.text);
-            final isOk = await miscUtil.loginAccount(
+            final isOk = await accountUtil.loginAccount(
                 switchBack: false,
                 serverWithProtocol: server.value,
                 areaCode: areaCode.value,
@@ -177,7 +177,7 @@ class LoginLogic extends GetxController {
   }
 
   cusBack() async {
-    // await miscUtil.backMain(curStatusChangeCount);
+    // await accountUtil.backMain(curStatusChangeCount);
     Get.back();
   }
 
@@ -230,9 +230,9 @@ class LoginLogic extends GetxController {
               navBarHeight: 0,
               asyncFunction: () async {
                 try {
-                  await miscUtil.checkServerValid(
+                  await accountUtil.checkServerValid(
                       serverWithProtocol: serverCtrl.text);
-                  await miscUtil.switchServer(serverCtrl.text);
+                  await accountUtil.switchServer(serverCtrl.text);
                   Get.back(result: true);
                   if (isAddAccount.value) {
                     AppNavigator.startLoginWithoutOff(

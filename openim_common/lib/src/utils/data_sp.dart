@@ -25,6 +25,7 @@ class DataSp {
   static const _curAccountLoginInfoKey = '_curAccountLoginInfoKey';
   static const _curServerKey = '_curServerKey';
   static const _mainLoginAccount = 'mainLoginAccount';
+  static const _conversationStore = 'conversationStore';
 
   DataSp._();
 
@@ -244,4 +245,19 @@ class DataSp {
   static Future<bool>? putMainLoginAccount(Map map) {
     return SpUtil().putObject(_mainLoginAccount, map);
   }
+
+  static Future<bool>? putConversationStore(
+      Map<String, ConversationConfig> data) {
+    final map = getConversationStore() ?? {};
+    map.addAll(data);
+    return SpUtil().putObject(_conversationStore, map);
+  }
+
+  static Map<String, ConversationConfig>? getConversationStore() {
+    return SpUtil().getObj(
+        _conversationStore,
+        (map) => map.map(
+            (key, value) => MapEntry(key, ConversationConfig.fromJson(value))));
+  }
+
 }

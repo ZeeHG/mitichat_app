@@ -372,7 +372,7 @@ class IMUtils {
         externalStorageDirPath = directory?.path;
       } catch (err, st) {
         Logger.print('failed to get downloads path: $err, $st');
-        myLogger.e({"message": "获取下载目录异常","error": err, "stack": st});
+        myLogger.e({"message": "获取下载目录异常", "error": err, "stack": st});
         final directory = await getExternalStorageDirectory();
         externalStorageDirPath = directory?.path;
       }
@@ -912,6 +912,9 @@ class IMUtils {
               break;
             case CustomMessageType.groupDisbanded:
               content = StrRes.groupDisbanded;
+              break;
+            case CustomMessageType.waitingAiReplay:
+              // content = CustomMessageContent.waitingAiReplay;
               break;
             default:
               content = '[${StrRes.unsupportedMessage}]';

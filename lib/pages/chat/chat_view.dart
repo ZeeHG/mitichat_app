@@ -311,11 +311,13 @@ class ChatPage extends StatelessWidget {
                   // onSeeNewMessage: logic.scrollToIndex,
                   topView: _topNoticeView,
                   bottomView: ChatInputBox(
+                    isAiSingleChat: logic.isAiSingleChat,
                     allAtMap: logic.atUserNameMappingMap,
                     forceCloseToolboxSub: logic.forceCloseToolbox,
                     controller: logic.inputCtrl,
                     focusNode: logic.focusNode,
                     enabled: !logic.isMuted,
+                    disabledChatInput: logic.disabledChatInput,
                     hintText: logic.hintText,
                     inputFormatters: [AtTextInputFormatter(logic.openAtList)],
                     isMultiModel: logic.multiSelMode.value,
@@ -354,12 +356,12 @@ class ChatPage extends StatelessWidget {
                   ),
                   child: ChatListView(
                     onTouch: () => logic.closeToolbox(),
-                    itemCount: logic.messageList.length + 1,
+                    itemCount: logic.messageListV2.length + 1,
                     controller: logic.scrollController,
                     onScrollToBottomLoad: logic.onScrollToBottomLoad,
                     onScrollToTop: logic.onScrollToTop,
                     itemBuilder: (_, index) {
-                      if (index == logic.messageList.length) {
+                      if (index == logic.messageListV2.length) {
                         return logic.showEncryptTips.value
                             ? Align(
                               child: Container(

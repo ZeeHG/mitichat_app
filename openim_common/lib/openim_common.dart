@@ -126,3 +126,4 @@ export 'utils/betaTestLogic.dart';
 export 'utils/appCommonLogic.dart';
 export 'src/models/account_login_info.dart';
 export 'utils/accountHandle.dart';
+export 'src/models/conversation_config.dart';

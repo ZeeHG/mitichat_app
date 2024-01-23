@@ -12,6 +12,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:mime/mime.dart';
+import 'package:miti/utils/conversation_util.dart';
 import 'package:openim_common/openim_common.dart';
 // import 'package:openim_live/openim_live.dart';
 import 'package:openim_meeting/openim_meeting.dart';
@@ -63,6 +64,7 @@ class ChatLogic extends GetxController {
   late StreamSubscription ccSub;
   late StreamSubscription foregroundChangeSub;
   final appCommonLogic = Get.find<AppCommonLogic>();
+  final conversationUtil = Get.find<ConversationUtil>();
 
   late Rx<ConversationInfo> conversationInfo;
   Message? searchMessage;
@@ -115,6 +117,8 @@ class ChatLogic extends GetxController {
   late StreamSubscription groupInfoUpdatedSub;
   late StreamSubscription friendInfoChangedSub;
   StreamSubscription? userStatusChangedSub;
+  final aiList = <String>[].obs;
+  final extraMessageList = <Message>[].obs;
 
   late StreamSubscription connectionSub;
   final syncStatus = IMSdkStatus.syncEnded.obs;
@@ -154,6 +158,12 @@ class ChatLogic extends GetxController {
 
   String get memberStr => isSingleChat ? "" : "";
 
+  bool get isAiSingleChat => isSingleChat && aiList.contains(userID);
+
+  List<Message> get messageListV2 {
+    return [...messageList.value, ...(disabledChatInput? extraMessageList.value : [])];
+  }
+
   /// 是当前聊天窗口
   bool isCurrentChat(Message message) {
     var senderId = message.sendID;
@@ -189,7 +199,8 @@ class ChatLogic extends GetxController {
   }
 
   @override
-  void onReady() {
+  void onReady() async {
+    await _queryAiList();
     _queryOwnerAndAdmin();
     _checkInBlacklist();
     _isJoinedGroup();
@@ -207,6 +218,7 @@ class ChatLogic extends GetxController {
     searchMessage = arguments['searchMessage'];
     nickname.value = conversationInfo.value.showName ?? '';
     faceUrl.value = conversationInfo.value.faceURL ?? '';
+    _createWaitingAiMessage();
     _clearUnreadCount();
     _initChatConfig();
     _initPlayListener();
@@ -724,6 +736,7 @@ class ChatLogic extends GetxController {
     _reset(message);
     // 借用当前聊天窗口，给其他用户或群发送信息，如合并转发，分享名片。
     bool useOuterValue = null != userId || null != groupId;
+    setConversationConfig(waitingST: message.sendTime);
     OpenIM.iMManager.messageManager
         .sendMessage(
           message: message,
@@ -739,9 +752,16 @@ class ChatLogic extends GetxController {
     }
   }
 
+  setConversationConfig({int? waitingST}) {
+    if (isAiSingleChat) {
+      conversationUtil.updateStore(conversationID, waitingST: waitingST);
+    }
+  }
+
   ///  消息发送成功
   void _sendSucceeded(Message oldMsg, Message newMsg) {
     Logger.print('message send success----');
+    setConversationConfig(waitingST: newMsg.sendTime);
     // message.status = MessageStatus.succeeded;
     oldMsg.update(newMsg);
     sendStatusSub.addSafely(MsgStreamEv<bool>(
@@ -753,6 +773,7 @@ class ChatLogic extends GetxController {
   ///  消息发送失败
   void _senFailed(Message message, String? groupId, error, stack) async {
     Logger.print('message send failed e :$error  $stack');
+    setConversationConfig(waitingST: -1);
     message.status = MessageStatus.failed;
     sendStatusSub.addSafely(MsgStreamEv<bool>(
       id: message.clientMsgID!,
@@ -1286,8 +1307,8 @@ class ChatLogic extends GetxController {
       clickAtText(url);
       return;
     }
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
     }
     // await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
   }
@@ -1583,7 +1604,7 @@ class ChatLogic extends GetxController {
 
   Message indexOfMessage(int index, {bool calculate = true}) =>
       IMUtils.calChatTimeInterval(
-        messageList,
+        messageListV2,
         calculate: calculate,
       ).reversed.elementAt(index);
 
@@ -1620,7 +1641,7 @@ class ChatLogic extends GetxController {
   }
 
   String? getShowTime(Message message) {
-    if (message.exMap['showTime'] == true) {
+    if (message.exMap['showTime'] == true && !message.isWaitingAiReplayType) {
       return IMUtils.getChatTimeline(message.sendTime!);
     }
     return null;
@@ -1965,6 +1986,12 @@ class ChatLogic extends GetxController {
     return;
   }
 
+  Future _queryAiList() async {
+    aiList.value = (await Apis.getBots()).map<String>((e) {
+      return e["UserID"].toString();
+    }).toList();
+  }
+
   Future _queryOwnerAndAdmin() async {
     if (isGroupChat) {
       ownerAndAdmin = await OpenIM.iMManager.groupManager
@@ -2266,6 +2293,34 @@ class ChatLogic extends GetxController {
   void closeGroupAnnouncement() {
     if (null != groupInfo) {
       announcement.value = '';
+    }
+  }
+
+  _createWaitingAiMessage() async {
+    final message = await OpenIM.iMManager.messageManager.createCustomMessage(
+      data: json.encode(
+          {"customType": CustomMessageType.waitingAiReplay, "data": {}}),
+      extension: "",
+      description: "",
+    );
+    message.createTime = -1;
+    message.sendTime = -1;
+    message.sendID = userID;
+    message.recvID = OpenIM.iMManager.userID;
+    extraMessageList.add(message);
+  }
+
+  bool get disabledChatInput {
+    if (!isAiSingleChat || messageList.isEmpty) {
+      return false;
+    } else {
+      final lastMsgSendTime = messageList.last.sendTime;
+      final waitingST =
+          conversationUtil.getConversationStoreById(conversationID)?.waitingST;
+      return null != lastMsgSendTime &&
+          null != waitingST &&
+          -1 != waitingST &&
+          lastMsgSendTime <= waitingST;
     }
   }
 

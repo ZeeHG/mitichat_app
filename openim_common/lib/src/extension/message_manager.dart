@@ -91,7 +91,8 @@ extension MessageManagerExt on MessageManager {
           description: '');
 
   /// 失败提示消息
-  Future<Message> createFailedHintMessage({required int type}) => createCustomMessage(
+  Future<Message> createFailedHintMessage({required int type}) =>
+      createCustomMessage(
         data: json.encode({
           "customType": type,
           "data": {},
@@ -115,7 +116,8 @@ extension MessageExt on Message {
 
   /// 群公告消息
   bool get isNoticeType {
-    final isGroupNtf = contentType! == MessageType.groupInfoSetAnnouncementNotification;
+    final isGroupNtf =
+        contentType! == MessageType.groupInfoSetAnnouncementNotification;
     if (isGroupNtf) {
       try {
         final map = json.decode(notificationElem!.detail!);
@@ -130,7 +132,8 @@ extension MessageExt on Message {
 
   /// 群公告内容
   String? get noticeContent {
-    final isGroupNtf = contentType! == MessageType.groupInfoSetAnnouncementNotification;
+    final isGroupNtf =
+        contentType! == MessageType.groupInfoSetAnnouncementNotification;
     if (isGroupNtf) {
       try {
         final map = json.decode(notificationElem!.detail!);
@@ -150,6 +153,20 @@ extension MessageExt on Message {
         var map = json.decode(customElem!.data!);
         var customType = map['customType'];
         return CustomMessageType.call == customType;
+      } catch (e, s) {
+        Logger.print('$e $s');
+      }
+    }
+    return false;
+  }
+
+  /// 通话消息
+  bool get isWaitingAiReplayType {
+    if (isCustomType) {
+      try {
+        var map = json.decode(customElem!.data!);
+        var customType = map['customType'];
+        return CustomMessageType.waitingAiReplay == customType;
       } catch (e, s) {
         Logger.print('$e $s');
       }
@@ -293,14 +310,16 @@ class CustomMessageType {
   static const deletedByFriend = 911;
   static const removedFromGroup = 912;
   static const groupDisbanded = 913;
+
+  static const waitingAiReplay = 9001;
+}
+
+class CustomMessageContent {
+  static const waitingAiReplay = "__waitingAiReplay__";
 }
 
 extension FullUserInfoExt on FullUserInfo {
- UserInfo get simpleUserInfo {
-   return UserInfo(
-     userID: userID,
-     nickname: nickname,
-     faceURL: faceURL
-   );
- }
+  UserInfo get simpleUserInfo {
+    return UserInfo(userID: userID, nickname: nickname, faceURL: faceURL);
+  }
 }

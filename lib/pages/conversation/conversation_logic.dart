@@ -28,7 +28,7 @@ class ConversationLogic extends GetxController {
   final tempDraftText = <String, String>{};
   final pageSize = 40;
   final translateLogic = Get.find<TranslateLogic>();
-  final miscUtil = Get.find<MiscUtil>();
+  final accountUtil = Get.find<AccountUtil>();
 
   final imStatus = IMSdkStatus.connectionSucceeded.obs;
 
@@ -41,7 +41,7 @@ class ConversationLogic extends GetxController {
         navBarHeight: 0,
         loadingTips: StrRes.loading,
         asyncFunction: () async {
-          await miscUtil.switchAccount(
+          await accountUtil.switchAccount(
               serverWithProtocol: loginInfo.server, userID: loginInfo.userID);
           AppNavigator.startMain();
         });

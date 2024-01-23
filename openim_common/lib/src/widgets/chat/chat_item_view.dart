@@ -492,6 +492,7 @@ class _ChatItemViewState extends State<ChatItemView> {
     senderNickname ??= widget.leftNickname ?? _message.senderNickname;
     senderFaceURL ??= widget.leftFaceUrl ?? _message.senderFaceUrl;
     return child = ChatItemContainer(
+      message: _message,
       id: _message.clientMsgID!,
       isISend: _isISend,
       leftNickname: senderNickname,
