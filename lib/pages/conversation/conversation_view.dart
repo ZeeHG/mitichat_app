@@ -6,6 +6,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:miti/core/controller/im_controller.dart';
 import 'package:miti/pages/home/home_logic.dart';
+import 'package:miti/utils/ai_util.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rotated_corner_decoration/rotated_corner_decoration.dart';
@@ -20,6 +21,7 @@ class ConversationPage extends StatelessWidget {
   final homeLogic = Get.find<HomeLogic>();
   Function(dynamic) switchHomeTab;
   RxInt homeTabIndex;
+  final aiUtil = Get.find<AiUtil>();
 
   ConversationPage(
       {super.key, required this.switchHomeTab, required this.homeTabIndex});
@@ -164,7 +166,7 @@ class ConversationPage extends StatelessWidget {
         child: _buildItemView(info),
       ));
 
-  Widget _buildItemView(ConversationInfo info) => Ink(
+  Widget _buildItemView(ConversationInfo info) => Obx(() => Ink(
         child: Container(
           padding: EdgeInsets.only(left: 12.w),
           child: InkWell(
@@ -228,6 +230,13 @@ class ConversationPage extends StatelessWidget {
                                     ..maxLines = 1
                                     ..overflow = TextOverflow.ellipsis,
                                 ),
+                                if(aiUtil.isAi(info.userID))
+                                ...[
+                                  9.horizontalSpace,
+                                  ImageRes.appAiMarker.toImage
+                                  ..width = 18.w
+                                  ..height = 16.h,
+                                ],
                                 const Spacer(),
                                 logic.getTime(info).toText
                                   ..style = Styles.ts_999999_12sp,
@@ -301,7 +310,7 @@ class ConversationPage extends StatelessWidget {
             ),
           ),
         ),
-      );
+      )) ;
 
   Widget _buildCusPopMenuInfo(
           {required AccountLoginInfo info, showBorder = true}) =>

@@ -12,6 +12,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:mime/mime.dart';
+import 'package:miti/utils/ai_util.dart';
 import 'package:miti/utils/conversation_util.dart';
 import 'package:openim_common/openim_common.dart';
 // import 'package:openim_live/openim_live.dart';
@@ -65,6 +66,7 @@ class ChatLogic extends GetxController {
   late StreamSubscription foregroundChangeSub;
   final appCommonLogic = Get.find<AppCommonLogic>();
   final conversationUtil = Get.find<ConversationUtil>();
+  final aiUtil = Get.find<AiUtil>();
 
   late Rx<ConversationInfo> conversationInfo;
   Message? searchMessage;
@@ -117,7 +119,6 @@ class ChatLogic extends GetxController {
   late StreamSubscription groupInfoUpdatedSub;
   late StreamSubscription friendInfoChangedSub;
   StreamSubscription? userStatusChangedSub;
-  final aiList = <String>[].obs;
   final extraMessageList = <Message>[].obs;
 
   late StreamSubscription connectionSub;
@@ -158,7 +159,7 @@ class ChatLogic extends GetxController {
 
   String get memberStr => isSingleChat ? "" : "";
 
-  bool get isAiSingleChat => isSingleChat && aiList.contains(userID);
+  bool get isAiSingleChat => isSingleChat && aiUtil.isAi(userID);
 
   List<Message> get messageListV2 {
     return [...messageList.value, ...(disabledChatInput? extraMessageList.value : [])];
@@ -200,7 +201,6 @@ class ChatLogic extends GetxController {
 
   @override
   void onReady() async {
-    await _queryAiList();
     _queryOwnerAndAdmin();
     _checkInBlacklist();
     _isJoinedGroup();
@@ -1984,12 +1984,6 @@ class ChatLogic extends GetxController {
     }
 
     return;
-  }
-
-  Future _queryAiList() async {
-    aiList.value = (await Apis.getBots()).map<String>((e) {
-      return e["UserID"].toString();
-    }).toList();
   }
 
   Future _queryOwnerAndAdmin() async {

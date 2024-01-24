@@ -293,4 +293,5 @@ class ImageRes {
   static const appSwitch = "$_dir/app_switch.png";
   static const appChecked2 = "$_dir/app_checked2.png";
   static const appAdd3 = "$_dir/app_add3.png";
+  static const appAiMarker = "$_dir/app_ai_marker.png";
 }

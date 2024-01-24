@@ -3,6 +3,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:miti/utils/ai_util.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:openim_working_circle/openim_working_circle.dart';
 import 'package:openim_working_circle/src/w_apis.dart';
@@ -31,6 +32,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
   late bool _isAutoLogin;
   final auth = LocalAuthentication();
   final _errorController = PublishSubject<String>();
+  final aiUtil = Get.find<AiUtil>();
 
   Function()? onScrollToUnreadMessage;
 
@@ -124,6 +126,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
 
   @override
   void onReady() {
+    aiUtil.init();
     _getUnreadMsgCount();
     getUnhandledFriendApplicationCount();
     getUnhandledGroupApplicationCount();
@@ -209,7 +212,8 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
   @override
   void onResumed() {
     // TODO: implement onResumed
-    if (imLogic.imSdkStatusSubject.valueOrNull == IMSdkStatus.connectionSucceeded) {
+    if (imLogic.imSdkStatusSubject.valueOrNull ==
+        IMSdkStatus.connectionSucceeded) {
       _getRTCInvitationStart();
     } else {
       imLogic.imSdkStatusSubject.listen((value) {

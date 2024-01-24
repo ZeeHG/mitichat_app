@@ -6,13 +6,23 @@ import 'package:openim_common/openim_common.dart';
 
 class AiUtil extends GetxController {
   final accountUtil = Get.find<AccountUtil>();
-  final aiList = [].obs;
+  final aiStore = <String, Ai>{}.obs;
 
   String get accountKey => DataSp.getCurAccountLoginInfoKey();
+  List<String> get aiKeys => getAiKeys();
 
   String getKey(String aiUserID) => accountKey + "__" + aiUserID;
 
-  updateStore({required String aiUserID, required String botID, String? nickName}) {
+  init() {
+    final store = DataSp.getAiStore();
+    if (null != store) {
+      aiStore.addAll(store);
+    }
+    queryAiList();
+  }
+
+  updateStoreItem(
+      {required String aiUserID, required String botID, String? nickName}) {
     final key = getKey(aiUserID);
     DataSp.putAiStore({
       key: Ai.fromJson({
@@ -24,22 +34,39 @@ class AiUtil extends GetxController {
     });
   }
 
-  getAiKeys() {
-    return DataSp.getAiKeys() ?? [];
+  Future<bool?> updateStore(Map<String, Ai> store) async {
+    aiStore.addAll(store);
+    return await DataSp.putAiStore(aiStore.value);
   }
 
-  Future queryAiList() async {
-    aiList.value = (await Apis.getBots()).map<String>((e) {
-      return e["UserID"].toString();
-    }).toList();
+  List<String> getAiKeys() {
+    return aiStore.keys.toList();
+  }
 
-    aiList.value = (await Apis.getBots()).map<String>((e) {
-      return Ai.fromJson({
-        "key": getKey(e["UserID"]),
-        "userID": e["UserID"],
-        "botID": e["BotID"],
-        "nickName": e["NickName"]
-      });
-    }).toList();
+  bool isAi(String? aiUserID) {
+    if (null != aiUserID) {
+      final key = getKey(aiUserID);
+      return aiKeys.contains(key);
+    }
+    return false;
+  }
+
+  Future<bool?> queryAiList() async {
+    List<Ai> list = (await Apis.getBots())
+        .map((e) {
+          return Ai.fromJson({
+            "key": getKey(e["UserID"]),
+            "userID": e["UserID"],
+            "botID": e["BotID"],
+            "nickName": e["NickName"]
+          });
+        })
+        .toList()
+        .cast<Ai>();
+
+    Map<String, Ai> store =
+        Map.fromIterable(list, key: (e) => e.key, value: (e) => e);
+
+    return await updateStore(store);
   }
 }
