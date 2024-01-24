@@ -5,6 +5,7 @@ import 'package:azlistview/azlistview.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
+import 'package:miti/utils/ai_util.dart';
 import 'package:openim_common/openim_common.dart';
 
 import '../../../core/controller/im_controller.dart';
@@ -16,7 +17,7 @@ class AiFriendListLogic extends GetxController {
   late StreamSubscription delSub;
   late StreamSubscription addSub;
   late StreamSubscription infoChangedSub;
-  final aiList = <String>[].obs;
+  final aiUtil = Get.find<AiUtil>();
 
   @override
   void onInit() {
@@ -44,11 +45,6 @@ class AiFriendListLogic extends GetxController {
   }
 
   _getFriendList() async {
-
-    aiList.value = (await Apis.getBots()).map<String>((e) {
-      return e["UserID"].toString();
-    }).toList();
-
     final list = await OpenIM.iMManager.friendshipManager
         .getFriendListMap()
         .then((list) => list.where(_filterBlacklist))
@@ -59,7 +55,7 @@ class AiFriendListLogic extends GetxController {
                   : ISUserInfo.fromJson(fullUser.publicInfo!.toJson());
               return user;
             }).toList())
-        .then((list) => list.where((e) => aiList.contains(e.userID)).toList())
+        .then((list) => list.where((e) => aiUtil.isAi(e.userID)).toList())
         .then((list) => IMUtils.convertToAZList(list));
     onUserIDList(userIDList);
     friendList.assignAll(list.cast<ISUserInfo>());
@@ -81,7 +77,7 @@ class AiFriendListLogic extends GetxController {
 
   _addFriend(dynamic user) {
     if ((user is FriendInfo || user is BlacklistInfo) &&
-        aiList.contains(user.userID)) {
+        aiUtil.isAi(user.userID)) {
       _addUser(user.toJson());
     }
   }

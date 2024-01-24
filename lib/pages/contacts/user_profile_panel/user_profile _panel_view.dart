@@ -128,10 +128,10 @@ class UserProfilePanelPage extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      logic.getShowName().toText
+                      Expanded(child: logic.getShowName().toText
                         ..style = Styles.ts_4B3230_18sp
                         ..maxLines = 1
-                        ..overflow = TextOverflow.ellipsis,
+                        ..overflow = TextOverflow.ellipsis,),
                       12.horizontalSpace,
                       if(null != logic.userInfo.value.gender)
                       logic.userInfo.value.gender == 1
