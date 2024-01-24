@@ -53,8 +53,8 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 29
         targetSdkVersion 33
-        versionCode 302
-        versionName "alpha-v1.0.0"
+        versionCode 303
+        versionName "alpha-v1.0.1"
 
         multiDexEnabled true
 
@@ -70,10 +70,13 @@ android {
         }
 
         manifestPlaceholders = [
+                // 国内
                 // GETUI_APPID    : "Bb8eKvZxNg5MYXza0SU1JA",
+                // 海外
                 GETUI_APP_ID   :  "Bb8eKvZxNg5MYXza0SU1JA",
                 GETUI_APP_KEY  : "zmgSnejQKP6eMt58PPq827",
                 GETUI_APP_SECRET : "9ehEdFOpS06l06lFkG7g28",
+
                 // 下面是多厂商配置，如需要开通使用请联系技术支持
                 // 如果不需要使用，预留空字段即可
                 XIAOMI_APP_ID  : "",
@@ -177,10 +180,12 @@ flutter {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    // 海外
     implementation 'com.getui:sdk-for-gj:4.4.3.6'  //个推SDK
 
-    // implementation 'com.getui:gtsdk:3.2.18.0'  //个推SDK
-    // implementation 'com.getui:gtc:3.2.6.0'  //个推核心组件
+    // 国内
+    // implementation 'com.getui:gtsdk:3.3.4.0'  //个推SDK
+    // implementation 'com.getui:gtc:3.2.9.0'  //个推核心组件
 
     // 个推
     // 根据所需厂商选择集成

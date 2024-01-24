@@ -157,7 +157,7 @@ class AppController extends SuperController with UpgradeManger {
           text = "名片消息";
         }
         const androidPlatformChannelSpecifics = AndroidNotificationDetails('chat', 'miti聊天消息',
-            channelDescription: '来自miti的信息', importance: Importance.max, priority: Priority.high, ticker: 'miti新消息');
+            channelDescription: '来自miti的信息', importance: Importance.max, priority: Priority.max, ticker: 'miti新消息');
         const NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
         await flutterLocalNotificationsPlugin.show(id, '您收到了一条新消息', text, platformChannelSpecifics, payload: '');
       }
@@ -170,7 +170,7 @@ class AppController extends SuperController with UpgradeManger {
 
   Future<void> _startForegroundService() async {
     await getAppInfo();
-    const androidPlatformChannelSpecifics = AndroidNotificationDetails('pro', 'miti服务进程',
+    const androidPlatformChannelSpecifics = AndroidNotificationDetails('pro', 'miti服务进程', playSound: false, enableVibration: false,
         channelDescription: '保证miti能收到消息', importance: Importance.max, priority: Priority.high, ticker: 'miti');
 
     await flutterLocalNotificationsPlugin

@@ -162,7 +162,10 @@ class ChatLogic extends GetxController {
   bool get isAiSingleChat => isSingleChat && aiUtil.isAi(userID);
 
   List<Message> get messageListV2 {
-    return [...messageList.value, ...(disabledChatInput? extraMessageList.value : [])];
+    return [
+      ...messageList.value,
+      ...(disabledChatInput ? extraMessageList.value : [])
+    ];
   }
 
   /// 是当前聊天窗口
@@ -1307,8 +1310,8 @@ class ChatLogic extends GetxController {
       clickAtText(url);
       return;
     }
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
     }
     // await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
   }
