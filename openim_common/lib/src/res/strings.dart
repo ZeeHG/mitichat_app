@@ -1531,4 +1531,15 @@ static String get loginSuccess => 'loginSuccess'.tr;
 static String get loading => 'loading'.tr;
 static String get confirmDelAccount => 'confirmDelAccount'.tr;
 static String get switchServer => 'switchServer'.tr;
+static String get defaultNotification => 'defaultNotification'.tr;
+static String get defaultImgNotification => 'defaultImgNotification'.tr;
+static String get defaultVideoNotification => 'defaultVideoNotification'.tr;
+static String get defaultVoiceNotification => 'defaultVoiceNotification'.tr;
+static String get defaultFileNotification => 'defaultFileNotification'.tr;
+static String get defaultLocationNotification => 'defaultLocationNotification'.tr;
+static String get defaultMergeNotification => 'defaultMergeNotification'.tr;
+static String get defaultCardNotification => 'defaultCardNotification'.tr;
+static String get defaultNotificationTitle => 'defaultNotificationTitle'.tr;
+static String get myPoints => 'myPoints'.tr;
+static String get pointRules => 'pointRules'.tr;
 }

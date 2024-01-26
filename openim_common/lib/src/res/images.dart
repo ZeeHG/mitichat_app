@@ -294,4 +294,7 @@ class ImageRes {
   static const appChecked2 = "$_dir/app_checked2.png";
   static const appAdd3 = "$_dir/app_add3.png";
   static const appAiMarker = "$_dir/app_ai_marker.png";
+  static const appMyPoints = "$_dir/app_my_points.png";
+  static const appMyPointsBg = "$_dir/app_my_points_bg.png";
+  static const appSemicircle = "$_dir/app_semicircle.png";
 }

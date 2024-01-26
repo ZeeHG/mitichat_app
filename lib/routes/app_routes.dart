@@ -89,6 +89,11 @@ abstract class AppRoutes {
   static const accountManage = '/account_manage';
   static const aiFriendList = '/ai_friend_list';
   static const searchAiFriend = '/search_ai_friend';
+  static const myPoints = '/my_points';
+  static const pointRules = '/point_rules';
+  static const pointRecords = '/point_records';
+  static const inviteRecords = '/invite_records';
+  static const invite = '/invite';
 }
 
 extension RoutesExtension on String {

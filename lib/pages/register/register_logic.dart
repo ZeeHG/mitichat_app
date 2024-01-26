@@ -53,6 +53,11 @@ class RegisterLogic extends GetxController {
 
   @override
   void onInit() {
+    LoadingView.singleton.wrap(
+      asyncFunction: () async {
+        await appLogic.queryClientConfig();
+      },
+    );
     isAddAccount.value = Get.arguments?['isAddAccount'] ?? false;
     server.value = Get.arguments?['server'] ?? server.value;
     _initData();

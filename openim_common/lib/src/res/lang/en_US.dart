@@ -1087,5 +1087,14 @@ const Map<String, String> en_US = {
   "loginSuccess": "Login Successful",
   "loading": "Loading",
   "confirmDelAccount": "Confirm deletion of this account?",
-  "switchServer": "Switch Server"
+  "switchServer": "Switch Server",
+  "defaultNotification": "消息内容: ...",
+  "defaultImgNotification": "图片消息",
+  "defaultVideoNotification": "视频消息",
+  "defaultVoiceNotification": "语音消息",
+  "defaultFileNotification": "文件消息",
+  "defaultLocationNotification": "位置消息",
+  "defaultMergeNotification": "合并消息",
+  "defaultCardNotification": "名片消息",
+  "defaultNotificationTitle": "一条新消息",
 };

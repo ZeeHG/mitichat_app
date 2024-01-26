@@ -22,6 +22,8 @@ class MineLogic extends GetxController {
 
   void accountSetup() => AppNavigator.startAccountSetup();
 
+  void myPoints() => AppNavigator.startMyPoints();
+
   void aboutUs() => AppNavigator.startAboutUs();
 
   void logout() async {

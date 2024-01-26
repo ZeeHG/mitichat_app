@@ -532,4 +532,14 @@ class AppNavigator {
   static startAiFriendList() => Get.toNamed(AppRoutes.aiFriendList);
 
   static startSearchAiFriend() => Get.toNamed(AppRoutes.searchAiFriend);
+
+  static startMyPoints() => Get.toNamed(AppRoutes.myPoints);
+
+  static startPointRecords() => Get.toNamed(AppRoutes.pointRecords);
+
+  static startPointRules() => Get.toNamed(AppRoutes.pointRules);
+
+  static startInvite() => Get.toNamed(AppRoutes.invite);
+
+  static startInviteRecords() => Get.toNamed(AppRoutes.inviteRecords);
 }

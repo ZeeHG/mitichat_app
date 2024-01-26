@@ -25,11 +25,13 @@ class AppController extends SuperController with UpgradeManger {
 
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  final initializationSettingsAndroid = const AndroidInitializationSettings('@mipmap/ic_launcher');
+  final initializationSettingsAndroid =
+      const AndroidInitializationSettings('@mipmap/ic_launcher');
 
   /// Note: permissions aren't requested here just to demonstrate that can be
   /// done later
-  final DarwinInitializationSettings initializationSettingsDarwin = DarwinInitializationSettings(
+  final DarwinInitializationSettings initializationSettingsDarwin =
+      DarwinInitializationSettings(
     requestAlertPermission: false,
     requestBadgePermission: false,
     requestSoundPermission: false,
@@ -45,7 +47,8 @@ class AppController extends SuperController with UpgradeManger {
 
   RTCBridge? rtcBridge = PackageBridge.rtcBridge;
 
-  bool get shouldMuted => meetingBridge?.hasConnection == true || rtcBridge?.hasConnection == true;
+  bool get shouldMuted =>
+      meetingBridge?.hasConnection == true || rtcBridge?.hasConnection == true;
 
   final _ring = 'assets/audio/message_ring.wav';
   final _audioPlayer = AudioPlayer(
@@ -81,6 +84,7 @@ class AppController extends SuperController with UpgradeManger {
 
   @override
   void onInit() async {
+    queryClientConfig();
     _requestPermissions();
     _initPlayer();
     final initializationSettings = InitializationSettings(
@@ -97,24 +101,35 @@ class AppController extends SuperController with UpgradeManger {
   }
 
   void _requestPermissions() {
-    flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
-    flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()?.requestPermissions(
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestNotificationsPermission();
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
           alert: true,
           badge: true,
           sound: true,
         );
   }
 
-  Future<void> showNotification(im.Message message, {bool showNotification = true}) async {
+  Future<void> showNotification(im.Message message,
+      {bool showNotification = true}) async {
     if (_isGlobalNotDisturb() ||
             message.attachedInfoElem?.notSenderNotificationPush == true ||
             message.contentType == im.MessageType.typing ||
-            message.sendID == OpenIM.iMManager.userID /* ||
+            message.sendID ==
+                OpenIM.iMManager
+                    .userID /* ||
         message.contentType! >= 1000*/
         ) return;
 
     // 开启免打扰的不提示
-    var sourceID = message.sessionType == ConversationType.single ? message.sendID : message.groupID;
+    var sourceID = message.sessionType == ConversationType.single
+        ? message.sendID
+        : message.groupID;
     if (sourceID != null && message.sessionType != null) {
       var i = await OpenIM.iMManager.conversationManager.getOneConversation(
         sourceID: sourceID,
@@ -134,7 +149,7 @@ class AppController extends SuperController with UpgradeManger {
     } else {
       if (Platform.isAndroid) {
         final id = message.seq!;
-        String text = "消息内容: ...";
+        String text = StrRes.defaultNotification;
         if (message.isTextType) {
           text = message.textElem!.content!;
         } else if (message.isAtTextType) {
@@ -142,24 +157,31 @@ class AppController extends SuperController with UpgradeManger {
         } else if (message.isQuoteType) {
           text = message.quoteElem?.text ?? text;
         } else if (message.isPictureType) {
-          text = "图片消息";
+          text = StrRes.defaultImgNotification;
         } else if (message.isVideoType) {
-          text = "视频消息";
-        } else if (message.isVideoType) {
-          text = "语音消息";
+          text = StrRes.defaultVideoNotification;
+        } else if (message.isVoiceType) {
+          text = StrRes.defaultVoiceNotification;
         } else if (message.isFileType) {
-          text = "文件消息";
+          text = StrRes.defaultFileNotification;
         } else if (message.isLocationType) {
-          text = "位置消息";
+          text = StrRes.defaultLocationNotification;
         } else if (message.isMergerType) {
-          text = "聊天记录消息";
+          text = StrRes.defaultMergeNotification;
         } else if (message.isCardType) {
-          text = "名片消息";
+          text = StrRes.defaultCardNotification;
         }
-        const androidPlatformChannelSpecifics = AndroidNotificationDetails('chat', 'miti聊天消息',
-            channelDescription: '来自miti的信息', importance: Importance.max, priority: Priority.max, ticker: 'miti新消息');
-        const NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
-        await flutterLocalNotificationsPlugin.show(id, '您收到了一条新消息', text, platformChannelSpecifics, payload: '');
+        const androidPlatformChannelSpecifics = AndroidNotificationDetails(
+            'chat', 'messagePush',
+            channelDescription: 'message push',
+            importance: Importance.max,
+            priority: Priority.max,
+            ticker: 'messagePush');
+        const NotificationDetails platformChannelSpecifics =
+            NotificationDetails(android: androidPlatformChannelSpecifics);
+        await flutterLocalNotificationsPlugin.show(
+            id, StrRes.defaultNotificationTitle, text, platformChannelSpecifics,
+            payload: '');
       }
     }
   }
@@ -170,16 +192,27 @@ class AppController extends SuperController with UpgradeManger {
 
   Future<void> _startForegroundService() async {
     await getAppInfo();
-    const androidPlatformChannelSpecifics = AndroidNotificationDetails('pro', 'miti服务进程', playSound: false, enableVibration: false,
-        channelDescription: '保证miti能收到消息', importance: Importance.max, priority: Priority.high, ticker: 'miti');
+    const androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'pro', 'keepAlive',
+        playSound: false,
+        enableVibration: false,
+        channelDescription: 'keepAlive',
+        importance: Importance.max,
+        priority: Priority.defaultPriority,
+        ticker: 'keepAlive');
 
     await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-        ?.startForegroundService(1, packageInfo!.appName, 'miti正在运行...', notificationDetails: androidPlatformChannelSpecifics, payload: '');
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.startForegroundService(1, packageInfo!.appName, 'miti running...',
+            notificationDetails: androidPlatformChannelSpecifics, payload: '');
   }
 
   Future<void> _stopForegroundService() async {
-    await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.stopForegroundService();
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.stopForegroundService();
   }
 
   void showBadge(count) {
@@ -215,12 +248,17 @@ class AppController extends SuperController with UpgradeManger {
     var language = DataSp.getLanguage();
     var index = (language != null && language != 0)
         ? language
-        : (systemLocal.toString().startsWith("zh_") ? 1 : 
-           systemLocal.toString().startsWith("en_") ? 2 :
-           systemLocal.toString().startsWith("ja_") ? 3 :
-           systemLocal.toString().startsWith("ko_") ? 4 :
-           systemLocal.toString().startsWith("es_") ? 5 : 0
-        );
+        : (systemLocal.toString().startsWith("zh_")
+            ? 1
+            : systemLocal.toString().startsWith("en_")
+                ? 2
+                : systemLocal.toString().startsWith("ja_")
+                    ? 3
+                    : systemLocal.toString().startsWith("ko_")
+                        ? 4
+                        : systemLocal.toString().startsWith("es_")
+                            ? 5
+                            : 0);
     switch (index) {
       case 1:
         local = const Locale('zh', 'CN');
@@ -244,7 +282,6 @@ class AppController extends SuperController with UpgradeManger {
   @override
   void onReady() {
     _startForegroundService();
-    queryClientConfig();
     _getDeviceInfo();
     _cancelAllNotifications();
     // autoCheckVersionUpgrade();
@@ -296,7 +333,10 @@ class AppController extends SuperController with UpgradeManger {
     // 获取系统静音、震动状态
     RingerModeStatus ringerStatus = await SoundMode.ringerModeStatus;
 
-    if (!_audioPlayer.playerState.playing && isAllowBeep && (ringerStatus == RingerModeStatus.normal || ringerStatus == RingerModeStatus.unknown)) {
+    if (!_audioPlayer.playerState.playing &&
+        isAllowBeep &&
+        (ringerStatus == RingerModeStatus.normal ||
+            ringerStatus == RingerModeStatus.unknown)) {
       _audioPlayer.setAsset(_ring, package: 'openim_common');
       _audioPlayer.setLoopMode(LoopMode.off);
       _audioPlayer.setVolume(1.0);
@@ -304,7 +344,9 @@ class AppController extends SuperController with UpgradeManger {
     }
 
     if (isAllowVibration &&
-        (ringerStatus == RingerModeStatus.normal || ringerStatus == RingerModeStatus.vibrate || ringerStatus == RingerModeStatus.unknown)) {
+        (ringerStatus == RingerModeStatus.normal ||
+            ringerStatus == RingerModeStatus.vibrate ||
+            ringerStatus == RingerModeStatus.unknown)) {
       if (await Vibration.hasVibrator() == true) {
         Vibration.vibrate();
       }
@@ -324,8 +366,19 @@ class AppController extends SuperController with UpgradeManger {
   }
 
   Future queryClientConfig() async {
-    final map = await Apis.getClientConfig();
-    clientConfigMap.assignAll(map);
+    myLogger.i({"message": "获取客户端配置"});
+    Map<String, dynamic> defaultConfig = {
+      "allowSendMsgNotFriend": "0",
+      "needInvitationCodeRegister": "1"
+    };
+    Map<String, dynamic> map = defaultConfig;
+    try {
+      map = await Apis.getClientConfig();
+    } catch (e, s) {
+      myLogger.e({"message": "获取客户端配置异常, 使用默认配置", "error": {"error": e, "defalutConfig": defaultConfig}, "stack": s});
+    } finally {
+      clientConfigMap.assignAll(map);
+    }
     return clientConfigMap;
   }
 

@@ -15,6 +15,15 @@ import 'package:miti/pages/mine/account_manage/account_manage_binding.dart';
 import 'package:miti/pages/mine/account_manage/account_manage_view.dart';
 import 'package:miti/pages/mine/delete_user/delete_user_binding.dart';
 import 'package:miti/pages/mine/delete_user/delete_user_view.dart';
+import 'package:miti/pages/mine/my_points/invite/invite_binding.dart';
+import 'package:miti/pages/mine/my_points/invite/invites_view.dart';
+import 'package:miti/pages/mine/my_points/invite_records/invite_records_binding.dart';
+import 'package:miti/pages/mine/my_points/invite_records/invite_records_view.dart';
+import 'package:miti/pages/mine/my_points/my_points_binding.dart';
+import 'package:miti/pages/mine/my_points/my_points_view.dart';
+import 'package:miti/pages/mine/my_points/point_records/point_records_view.dart';
+import 'package:miti/pages/mine/my_points/point_rules/point_rules_binding.dart';
+import 'package:miti/pages/mine/my_points/point_rules/point_rules_view.dart';
 import 'package:miti/pages/mine/phone_email_change/phone_email_change_binding.dart';
 import 'package:miti/pages/mine/phone_email_change/phone_email_change_view.dart';
 import 'package:miti/pages/mine/phone_email_change_detail/phone_email_change_detail_binding.dart';
@@ -632,6 +641,31 @@ class AppPages {
       name: AppRoutes.searchAiFriend,
       page: () => SearchAiFriendPage(),
       binding: SearchAiFriendBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.myPoints,
+      page: () => MyPointsPage(),
+      binding: MyPointsBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.pointRules,
+      page: () => PointRulesPage(),
+      binding: PointRulesBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.pointRecords,
+      page: () => PointRecordsPage(),
+      binding: PointRulesBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.inviteRecords,
+      page: () => InviteRecordsPage(),
+      binding: InviteRecordsBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.invite,
+      page: () => InvitePage(),
+      binding: InviteBinding(),
     ),
     // ...OPages.pages, // 组织架构
     ...WPages.pages, // 工作圈
