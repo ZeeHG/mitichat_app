@@ -47,11 +47,11 @@ class MinePage extends StatelessWidget {
                     onTap: logic.viewMyInfo,
                     // isTopRadius: true,
                   ),
-                  // _buildItemView(
-                  //   icon: ImageRes.appMyPoints,
-                  //   label: StrRes.myPoints,
-                  //   onTap: logic.myPoints,
-                  // ),
+                  _buildItemView(
+                    icon: ImageRes.appMyPoints,
+                    label: StrRes.myPoints,
+                    onTap: logic.myPoints,
+                  ),
                   _buildItemView(
                     icon: ImageRes.appAccountSetup,
                     label: StrRes.accountSetup,

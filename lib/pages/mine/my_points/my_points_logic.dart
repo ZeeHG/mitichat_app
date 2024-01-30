@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
 
 class MyPointsLogic extends GetxController {
-  final aaa = "111".obs;
+  final aaa = "".obs;
 
   @override
   void onInit() {
@@ -21,4 +21,8 @@ class MyPointsLogic extends GetxController {
   }
 
   pointRules() => AppNavigator.startPointRules();
+
+  pointRecords() => AppNavigator.startPointRecords();
+
+  inviteRecords() => AppNavigator.startInviteRecords();
 }

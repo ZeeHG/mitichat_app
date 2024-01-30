@@ -2,8 +2,7 @@ import 'dart:async';
 import 'package:get/get.dart';
 
 class InviteRecordsLogic extends GetxController {
-
-  final inviteRecords = [].obs;
+  final inviteRecords = [{}, {}, {}].obs;
 
   @override
   void onInit() {
@@ -19,5 +18,4 @@ class InviteRecordsLogic extends GetxController {
   void onClose() {
     super.onClose();
   }
-
 }

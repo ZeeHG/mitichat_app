@@ -297,4 +297,7 @@ class ImageRes {
   static const appMyPoints = "$_dir/app_my_points.png";
   static const appMyPointsBg = "$_dir/app_my_points_bg.png";
   static const appSemicircle = "$_dir/app_semicircle.png";
+  static const appSignInTask = "$_dir/app_sign_in_task.png";
+  static const appInviteTask = "$_dir/app_invite_task.png";
+  static const appChatTask = "$_dir/app_chat_task.png";
 }

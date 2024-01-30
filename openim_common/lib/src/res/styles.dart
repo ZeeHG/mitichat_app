@@ -527,6 +527,16 @@ class Styles {
     color: c_8443F8,
     fontSize: 18.sp,
   );
+  static TextStyle ts_8443F8_18sp_medium = TextStyle(
+    color: c_8443F8,
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w500,
+  );
+  static TextStyle ts_8443F8_18sp_bold = TextStyle(
+    color: c_8443F8,
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w700,
+  );
   static TextStyle ts_8443F8_22sp_semibold = TextStyle(
     color: c_8443F8,
     fontSize: 22.sp,
@@ -703,5 +713,16 @@ class Styles {
   static TextStyle ts_343434_12p = TextStyle(
     color: c_343434,
     fontSize: 12.sp,
+  );
+
+  static TextStyle ts_343434_18p_medium = TextStyle(
+    color: c_343434,
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle ts_666666_14sp = TextStyle(
+    color: c_666666,
+    fontSize: 14.sp,
   );
 }

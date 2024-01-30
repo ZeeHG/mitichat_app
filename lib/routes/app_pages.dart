@@ -21,6 +21,7 @@ import 'package:miti/pages/mine/my_points/invite_records/invite_records_binding.
 import 'package:miti/pages/mine/my_points/invite_records/invite_records_view.dart';
 import 'package:miti/pages/mine/my_points/my_points_binding.dart';
 import 'package:miti/pages/mine/my_points/my_points_view.dart';
+import 'package:miti/pages/mine/my_points/point_records/point_records_binding.dart';
 import 'package:miti/pages/mine/my_points/point_records/point_records_view.dart';
 import 'package:miti/pages/mine/my_points/point_rules/point_rules_binding.dart';
 import 'package:miti/pages/mine/my_points/point_rules/point_rules_view.dart';
@@ -655,7 +656,7 @@ class AppPages {
     _pageBuilder(
       name: AppRoutes.pointRecords,
       page: () => PointRecordsPage(),
-      binding: PointRulesBinding(),
+      binding: PointRecordsBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.inviteRecords,

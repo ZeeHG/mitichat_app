@@ -13,11 +13,36 @@ class InviteRecordsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.newFriend),
+      appBar: TitleBar.back(title: StrRes.allRecords),
       backgroundColor: Styles.c_F8F9FA,
-      body: Obx(() => SingleChildScrollView(
-        child: Text(logic.inviteRecords.toString()),
-      )),
+      body: Obx(() => Padding(
+            padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 15.w),
+            child: ListView.builder(
+                itemCount: logic.inviteRecords.length,
+                itemBuilder: (_, index) {
+                  return Container(
+                    padding: EdgeInsets.symmetric(vertical: 15.h),
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                                width: 1.w, color: Styles.c_F1F2F6))),
+                    child: Row(
+                      children: [
+                        "AAAAAA".toText..style=Styles.ts_343434_18p_medium,
+                        Spacer(),
+                        AvatarView(
+                          url: "",
+                          text: "",
+                          width: 26.w,
+                          height: 26.h,
+                        ),
+                        10.horizontalSpace,
+                        StrRes.used.toText..style = Styles.ts_999999_14sp,
+                      ],
+                    ),
+                  );
+                }),
+          )),
     );
   }
 }
