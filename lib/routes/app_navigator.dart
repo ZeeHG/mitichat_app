@@ -542,4 +542,6 @@ class AppNavigator {
   static startInvite() => Get.toNamed(AppRoutes.invite);
 
   static startInviteRecords() => Get.toNamed(AppRoutes.inviteRecords);
+
+  static startXhs() => Get.toNamed(AppRoutes.xhs);
 }

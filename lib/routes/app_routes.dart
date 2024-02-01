@@ -94,6 +94,7 @@ abstract class AppRoutes {
   static const pointRecords = '/point_records';
   static const inviteRecords = '/invite_records';
   static const invite = '/invite';
+  static const xhs = '/xhs';
 }
 
 extension RoutesExtension on String {

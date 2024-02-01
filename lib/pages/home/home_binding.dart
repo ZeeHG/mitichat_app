@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:miti/pages/xhs/xhs_logic.dart';
 
 import '../contacts/contacts_logic.dart';
 import '../conversation/conversation_logic.dart';
@@ -16,5 +17,6 @@ class HomeBinding extends Bindings {
     Get.lazyPut(() => MineLogic());
     Get.lazyPut(() => NewDiscoverLogic());
     Get.lazyPut(() => WorkbenchLogic());
+    Get.lazyPut(() => XhsLogic());
   }
 }

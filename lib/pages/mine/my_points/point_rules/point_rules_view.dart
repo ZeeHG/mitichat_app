@@ -17,6 +17,7 @@ class PointRulesPage extends StatelessWidget {
       backgroundColor: Styles.c_F8F9FA,
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             10.verticalSpace,
             Row(
@@ -44,20 +45,45 @@ class PointRulesPage extends StatelessWidget {
             10.verticalSpace,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: ,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RichText(
+                      text: TextSpan(children: [
+                    TextSpan(text: "- ", style: Styles.ts_8443F8_14sp_medium),
+                    TextSpan(
+                        text: StrRes.dailyPlatform,
+                        style: Styles.ts_666666_14sp),
+                    TextSpan(
+                        text: StrRes.signInBracket,
+                        style: Styles.ts_8443F8_14sp),
+                  ])),
+                  RichText(
+                      text: TextSpan(children: [
+                    TextSpan(text: "- ", style: Styles.ts_8443F8_14sp_medium),
+                    TextSpan(
+                        text: StrRes.engageAI,
+                        style: Styles.ts_666666_14sp),
+                    TextSpan(
+                        text: StrRes.effectiveInteraction,
+                        style: Styles.ts_8443F8_14sp),
+                  ])),
+                  RichText(
+                      text: TextSpan(children: [
+                    TextSpan(text: "- ", style: Styles.ts_8443F8_14sp_medium),
+                    TextSpan(
+                        text: StrRes.successful,
+                        style: Styles.ts_666666_14sp),
+                    TextSpan(
+                        text: StrRes.inviteBracket,
+                        style: Styles.ts_8443F8_14sp),
+                    TextSpan(
+                        text: StrRes.newUsers, style: Styles.ts_666666_14sp),
+                  ]))
+                ],
+              ),
             ),
-            Column(
-              children: [
-                RichText(
-                    text: TextSpan(children: [
-                  TextSpan(text: "- ", style: Styles.ts_8443F8_14sp_medium),
-                  TextSpan(
-                      text: StrRes.dailyPlatform, style: Styles.ts_666666_14sp),
-                  TextSpan(
-                      text: StrRes.signInBracket, style: Styles.ts_8443F8_14sp),
-                ]))
-              ],
-            ),
+            20.verticalSpace,
             Row(
               children: [
                 ImageRes.appSemicircle.toImage..width = 5.w,

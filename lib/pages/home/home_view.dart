@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:miti/pages/xhs/xhs_view.dart';
 import 'package:openim_common/openim_common.dart';
 
 import '../contacts/contacts_view.dart';
@@ -19,16 +20,22 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle(systemNavigationBarColor: logic.index.value == 1? Styles.c_F7F8FA : Styles.c_FFFFFF),
+        value: SystemUiOverlayStyle(
+            systemNavigationBarColor:
+                logic.index.value == 1 ? Styles.c_F7F8FA : Styles.c_FFFFFF),
         child: Scaffold(
-            backgroundColor: logic.index.value == 1? Styles.c_F7F8FA : Styles.c_FFFFFF,
+            backgroundColor:
+                logic.index.value == 1 ? Styles.c_F7F8FA : Styles.c_FFFFFF,
             body: IndexedStack(
               index: logic.index.value,
               children: [
-                ConversationPage(switchHomeTab: logic.switchTab, homeTabIndex: logic.index),
-                ContactsPage(switchHomeTab: logic.switchTab, homeTabIndex: logic.index),
+                ConversationPage(
+                    switchHomeTab: logic.switchTab, homeTabIndex: logic.index),
+                ContactsPage(
+                    switchHomeTab: logic.switchTab, homeTabIndex: logic.index),
                 // WorkbenchPage(),
                 // SizedBox(),
+                XhsPage(),
                 MinePage(),
                 // NewDiscoverPage(),
               ],
@@ -53,24 +60,23 @@ class HomePage extends StatelessWidget {
                     label: StrRes.chat,
                     imgWidth: 31.w,
                     imgHeight: 22.h,
-                    onClick: logic.switchTab,
+                    onClick: (int index) => logic.switchTab(0),
                     onDoubleClick: logic.scrollToUnreadMessage,
                     count: logic.unreadMsgCount.value,
                   ),
-                  // BottomBarItem(
-                  //   selectedImgRes: ImageRes.appHomeTab2Sel,
-                  //   unselectedImgRes: ImageRes.appHomeTab2Nor,
-                  //   label: StrRes.contacts,
-                  //   imgWidth: 31.w,
-                  //   imgHeight: 22.h,
-                  //   onClick: logic.switchTab,
-                  //   count: logic.unhandledCount.value,
-                  // ),
-                  // 旧的发现
                   BottomBarItem(
                     selectedImgRes: ImageRes.appHomeTab3Nor2,
                     unselectedImgRes: ImageRes.appHomeTab3Nor2,
                     label: StrRes.discoverTab,
+                    imgWidth: 22.w,
+                    imgHeight: 22.h,
+                    onClick: (int index) => logic.switchTab(2),
+                  ),
+                  // 旧的发现
+                  BottomBarItem(
+                    selectedImgRes: ImageRes.appHomeTab3Nor3,
+                    unselectedImgRes: ImageRes.appHomeTab3Nor3,
+                    label: StrRes.workingCircle,
                     imgWidth: 24.w,
                     imgHeight: 24.h,
                     onClick: logic.viewDiscover,
@@ -93,7 +99,7 @@ class HomePage extends StatelessWidget {
                     label: StrRes.mine,
                     imgWidth: 22.w,
                     imgHeight: 22.h,
-                    onClick: logic.switchTab,
+                    onClick: (int index) => logic.switchTab(3),
                   ),
                 ],
               ),

@@ -756,7 +756,7 @@ const Map<String, String> en_US = {
   "userAgreement": "User Agreement",
   "privacyPolicy": "Privacy Policy",
   "recentlyAdd": "Recently Added",
-  "aiFriends": "AI Partners",
+  "aiFriends": "AI Buddies",
   "momentsAndStatus": "Moments and Status",
   "userAgreement1": "Welcome to Miti!",
   "userAgreement2":

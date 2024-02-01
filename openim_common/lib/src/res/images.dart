@@ -194,14 +194,15 @@ class ImageRes {
   static const forwardIcon = '$_dir/ic_forward_icon.webp';
   static const saveIcon = '$_dir/ic_save_icon.webp';
 
-
   // 新增
   static const splashLogo = "$_dir/app_logo.png";
   static const loginLogo = "$_dir/app_logo.png";
   static const checked = "$_dir/app_checked.png";
   static const workingCircleHeaderBg = "$_dir/ic_working_circle_header_bg.png";
-  static const workingCircleHeaderBg2 = "$_dir/ic_working_circle_header_bg2.png";
-  static const workingCircleHeaderBg3 = "$_dir/ic_working_circle_header_bg3.png";
+  static const workingCircleHeaderBg2 =
+      "$_dir/ic_working_circle_header_bg2.png";
+  static const workingCircleHeaderBg3 =
+      "$_dir/ic_working_circle_header_bg3.png";
   static const splash = "$_dir/splash.png";
   static const logo2 = "$_dir/logo2.png";
   static const logo3 = "$_dir/logo3.png";
@@ -300,4 +301,5 @@ class ImageRes {
   static const appSignInTask = "$_dir/app_sign_in_task.png";
   static const appInviteTask = "$_dir/app_invite_task.png";
   static const appChatTask = "$_dir/app_chat_task.png";
+  static const appUnfold = "$_dir/app_unfold.png";
 }
