@@ -1,92 +1,132 @@
-# mitichat-fe
+### OpenIM
+A OpenIM flutter demo, only support android and ios.
 
 
 
-## Getting started
+### 当前项目运行环境：flutter stable3.7.12
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
 
-## Add your files
+### 源码使用
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+##### 1，替换 app icon
+
+- ###### 将你的应用的icon设计图放到launcher_icon文件夹中，命名为app-icon.png
+
+- ###### 执行命令:
+
+```dart
+  flutter pub get
+  flutter pub run flutter_launcher_icons:main
+```
+
+##### 2， 替换 app 的名称
+
+- ###### Android：修改 openim/android/app/src/main/res/AndroidManifest.xm文件里 android:label的值
+
+```xml
+  <application
+    android:icon="@mipmap/ic_launcher"
+    android:label="您的应用名"
+    android:requestLegacyExternalStorage="true"
+    android:usesCleartextTraffic="true"
+    tools:replace="android:label">
+</application>
+```
+- ###### ios：用xcode打开工程修改应用名
+
+##### 3，替换 openim/openim_common/lib/src/config.dart 文件里的服务器地址为自己的服务器地址
+
+##### 4，连接并选择真机
+
+##### 5，执行  flutter pub get
+
+##### 6，执行 flutter run
+
+
+
+### Issues
+
+##### 1，flutter版本是？
+
+答：stable分支3.7.12
+
+##### 2，支持哪些平台？
+
+答：因为sdk的原因demo目前只能运行在android跟ios设备上
+
+##### 3，android安装包debug可以运行但release启动白屏？
+
+答：flutter的release包默认是开启了混淆，可以使用命令：flutter build release --no -shrink，如果此命令无效可如下操作
+
+在android/app/build.gradle配置的release配置加入以下配置
 
 ```
-cd existing_repo
-git remote add origin https://repo.bopufund.com/mitichat/mitichat-fe.git
-git branch -M main
-git push -uf origin main
+release {
+    minifyEnabled false
+    useProguard false
+    shrinkResources false
+}
 ```
 
-## Integrate with your tools
+##### 4，代码必须混淆怎么办？
 
-- [ ] [Set up project integrations](https://repo.bopufund.com/mitichat/mitichat-fe/-/settings/integrations)
+答：在混淆规则里加入以下规则
 
-## Collaborate with your team
+```
+-keep class io.openim.**{*;}
+-keep class open_im_sdk.**{*;}
+-keep class open_im_sdk_callback.**{*;}
+```
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+##### 5，android安装包不能安装在模拟器上？
 
-## Test and Deploy
+答：因为Demo去掉了某些cpu架构，如果你想运行在模拟器上请按以下方式：
 
-Use the built-in continuous integration in GitLab.
+在android/build.gradle配置加入
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+```
+ndk {
+    abiFilters "arm64-v8a", "armeabi-v7a", "armeabi", "x86", "x86_64"
+}
+```
 
-***
+##### 6，ios构建release包报错
 
-# Editing this README
+答：请将cpu架构设置为arm64，然后依次如下操作
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+- flutter clean
+- flutter pub get
+- cd ios
+- pod install
+- 连接真机后运行Archive
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+![ios cpu](https://user-images.githubusercontent.com/7018230/155913400-6231329a-aee9-4082-8d24-a25baad55261.png)
 
-## Name
-Choose a self-explaining name for your project.
+##### 7，ios运行的最低版本号？
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+答：13.0
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+#### 8， 有开发者遇到以下问题：
+```
+Could not build the precompiled application for the device.
+Error (Xcode): Signing for "TOCropViewController-TOCropViewControllerBundle" requires a development team. Select a development team
+in the Signing & Capabilities editor.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Error (Xcode): Signing for "DKImagePickerController-DKImagePickerController" requires a development team. Select a development team
+in the Signing & Capabilities editor.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Error (Xcode): Signing for "DKPhotoGallery-DKPhotoGallery" requires a development team. Select a development team in the Signing &
+Capabilities editor.
+```
+在Podfile添加以下代码：
+```ruby
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['EXPANDED_CODE_SIGN_IDENTITY'] = ""
+        config.build_settings['CODE_SIGNING_REQUIRED'] = "NO"
+        config.build_settings['CODE_SIGNING_ALLOWED'] = "NO"      end
+   end
+end
+```
