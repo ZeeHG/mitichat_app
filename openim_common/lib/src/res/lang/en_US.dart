@@ -1097,4 +1097,5 @@ const Map<String, String> en_US = {
   "defaultMergeNotification": "合并消息",
   "defaultCardNotification": "名片消息",
   "defaultNotificationTitle": "一条新消息",
+  "search2": "Search"
 };

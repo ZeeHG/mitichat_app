@@ -297,4 +297,5 @@ class ImageRes {
   static const appMyPoints = "$_dir/app_my_points.png";
   static const appMyPointsBg = "$_dir/app_my_points_bg.png";
   static const appSemicircle = "$_dir/app_semicircle.png";
+  static const appToolboxSearch = "$_dir/app_toolbox_search.png";
 }

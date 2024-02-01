@@ -339,6 +339,7 @@ class ChatPage extends StatelessWidget {
                       onTapGroupNote:
                           !logic.isSingleChat ? showDeveloping : null,
                       onTapVote: !logic.isSingleChat ? showDeveloping : null,
+                      onTapSearch: logic.onTapSearch
                     ),
                     voiceRecordBar: bar,
                     emojiView: ChatEmojiView(

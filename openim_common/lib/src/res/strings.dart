@@ -1542,4 +1542,5 @@ static String get defaultCardNotification => 'defaultCardNotification'.tr;
 static String get defaultNotificationTitle => 'defaultNotificationTitle'.tr;
 static String get myPoints => 'myPoints'.tr;
 static String get pointRules => 'pointRules'.tr;
+static String get search2 => 'search2'.tr;
 }

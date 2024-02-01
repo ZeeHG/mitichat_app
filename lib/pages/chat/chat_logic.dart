@@ -1063,6 +1063,10 @@ class ChatLogic extends GetxController {
     }
   }
 
+  void onTapSearch() => AppNavigator.startSearchChatHistory(
+        conversationInfo: conversationInfo.value,
+      );
+
   /// 打开相机
   void onTapCamera() async {
     final AssetEntity? entity = await CameraPicker.pickFromCamera(

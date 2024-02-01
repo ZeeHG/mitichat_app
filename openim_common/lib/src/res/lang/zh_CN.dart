@@ -1022,4 +1022,5 @@ const Map<String, String> zh_CN = {
   // "pointRules": "恭喜获得",
   // "pointRules": "米粒",
   // "pointRules": "我知道了",
+  "search2": "查找"
 };
