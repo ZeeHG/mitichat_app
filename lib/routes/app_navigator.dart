@@ -21,7 +21,8 @@ class AppNavigator {
     Get.offAllNamed(AppRoutes.login);
   }
 
-  static void startLoginWithoutOff({bool isAddAccount = false, String server = Config.host}) {
+  static void startLoginWithoutOff(
+      {bool isAddAccount = false, String server = Config.host}) {
     Get.toNamed(
       AppRoutes.login,
       arguments: {'isAddAccount': isAddAccount, "server": server},
@@ -402,7 +403,12 @@ class AppNavigator {
 
   static startCallRecords() => Get.toNamed(AppRoutes.callRecords);
 
-  static startRegister({bool isAddAccount = false, String server = Config.host}) => Get.toNamed(AppRoutes.register, arguments: {'isAddAccount': isAddAccount, "server": server},);
+  static startRegister(
+          {bool isAddAccount = false, String server = Config.host}) =>
+      Get.toNamed(
+        AppRoutes.register,
+        arguments: {'isAddAccount': isAddAccount, "server": server},
+      );
 
   static void startVerifyPhone({
     String? phoneNumber,
@@ -454,7 +460,12 @@ class AppNavigator {
         'invitationCode': invitationCode
       });
 
-  static startForgetPassword({bool isAddAccount = false, String server = Config.host}) => Get.toNamed(AppRoutes.forgetPassword, arguments: {'isAddAccount': isAddAccount, "server": server},);
+  static startForgetPassword(
+          {bool isAddAccount = false, String server = Config.host}) =>
+      Get.toNamed(
+        AppRoutes.forgetPassword,
+        arguments: {'isAddAccount': isAddAccount, "server": server},
+      );
 
   /// [usedFor] 1：注册，2：重置密码 3：登录
   static void startResetPassword({
@@ -542,4 +553,32 @@ class AppNavigator {
   static startInvite() => Get.toNamed(AppRoutes.invite);
 
   static startInviteRecords() => Get.toNamed(AppRoutes.inviteRecords);
+
+  static startMyAi() => Get.toNamed(AppRoutes.myAi);
+
+  static startSearchMyAi() => Get.toNamed(AppRoutes.searchMyAi);
+
+  static startTrainAi(
+      {required String userID,
+      required String? faceURL,
+      required String showName,
+      required Ai ai,
+      bool offAndToNamed = false}) {
+    final arguments = {
+      'userID': userID,
+      'faceURL': faceURL,
+      'showName': showName,
+      'ai': ai
+    };
+
+    return offAndToNamed
+        ? Get.offAndToNamed(AppRoutes.trainAi, arguments: arguments)
+        : Get.toNamed(
+            AppRoutes.trainAi,
+            arguments: arguments,
+          );
+  }
+
+  static startKnowledgeFiles({required String knowledgebaseId}) =>
+      Get.toNamed(AppRoutes.knowledgeFiles, arguments: {"knowledgebaseId": knowledgebaseId});
 }

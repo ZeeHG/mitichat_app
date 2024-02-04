@@ -10,6 +10,7 @@ class WrapAzListView<T extends ISuspensionBean> extends StatelessWidget {
     required this.data,
     required this.itemCount,
     required this.itemBuilder,
+    this.firstTagPaddingColor
   }) : super(key: key);
 
   /// Controller for jumping or scrolling to an item.
@@ -17,6 +18,7 @@ class WrapAzListView<T extends ISuspensionBean> extends StatelessWidget {
   final List<T> data;
   final int itemCount;
   final Widget Function(BuildContext context, T data, int index) itemBuilder;
+  final firstTagPaddingColor;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class WrapAzListView<T extends ISuspensionBean> extends StatelessWidget {
         if ('↑' == model.getSuspensionTag()) {
           return Container();
         }
-        return _buildTagView(model.getSuspensionTag());
+        return _buildTagView(model.getSuspensionTag(), index == 0 ? firstTagPaddingColor : null);
       },
       susItemHeight: 0,
       indexBarData: SuspensionUtil.getTagIndexList(data),
@@ -61,8 +63,8 @@ class WrapAzListView<T extends ISuspensionBean> extends StatelessWidget {
     );
   }
 
-  Widget _buildTagView(String tag) => Container(
-    color: Styles.c_F7F8FA,
+  Widget _buildTagView(String tag, Color? color) => Container(
+    color: color ?? Styles.c_F7F8FA,
     padding: EdgeInsets.only(top: 10.h),
     child: Column(
         children: [

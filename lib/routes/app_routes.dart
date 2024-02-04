@@ -94,6 +94,10 @@ abstract class AppRoutes {
   static const pointRecords = '/point_records';
   static const inviteRecords = '/invite_records';
   static const invite = '/invite';
+  static const myAi = '/my_ai';
+  static const searchMyAi = '/search_my_ai';
+  static const trainAi = '/train_ai';
+  static const knowledgeFiles = '/knowledge_files';
 }
 
 extension RoutesExtension on String {

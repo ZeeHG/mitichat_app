@@ -5,12 +5,16 @@ class Ai {
   String userID;
   String botID;
   String nickName;
+  int createTime;
+  String createdBy;
 
   Ai.fromJson(Map<String, dynamic> map)
       : key = map["key"] ?? '',
         userID = map["userID"] ?? '',
         botID = map["botID"] ?? '',
-        nickName = map["nickName"] ?? '';
+        nickName = map["nickName"] ?? '',
+        createTime = map["createTime"] ?? 0,
+        createdBy = map["createdBy"] ?? '';
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -18,6 +22,8 @@ class Ai {
     data['userID'] = userID;
     data['botID'] = botID;
     data['nickName'] = nickName;
+    data['createTime'] = createTime;
+    data['createdBy'] = createdBy;
     return data;
   }
 

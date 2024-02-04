@@ -291,6 +291,7 @@ class ChatPage extends StatelessWidget {
               backgroundColor: Styles.c_F7F8FA,
               appBar: TitleBar.chat(
                 title: logic.nickname.value,
+                isAiSingleChat: logic.isAiSingleChat,
                 member: logic.memberStr,
                 subTitle: logic.subTile,
                 showOnlineStatus: logic.showOnlineStatus(),

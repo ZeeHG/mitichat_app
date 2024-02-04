@@ -1251,7 +1251,7 @@ class ChatLogic extends GetxController {
         faceURL: message.senderFaceUrl,
       );
       var uid = message.sendID!;
-      // var uname = msg.senderNickName;
+      // var uname = msg.sendernickName;
       if (curMsgAtUser.contains(uid)) return;
       curMsgAtUser.add(uid);
       // 在光标出插入内容

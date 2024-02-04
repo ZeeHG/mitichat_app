@@ -1543,4 +1543,13 @@ static String get defaultNotificationTitle => 'defaultNotificationTitle'.tr;
 static String get myPoints => 'myPoints'.tr;
 static String get pointRules => 'pointRules'.tr;
 static String get search2 => 'search2'.tr;
+static String get createAi => 'createAi'.tr;
+static String get trainAi => 'trainAi'.tr;
+static String get knowledgebaseFiles => 'knowledgebaseFiles'.tr;
+static String get trainSuccessTips => 'trainSuccessTips'.tr;
+static String get trainFailTips => 'trainFailTips'.tr;
+static String get iKnow => 'iKnow'.tr;
+static String get trainFileTips1 => 'trainFileTips1'.tr;
+static String get trainFileTips2 => 'trainFileTips2'.tr;
+static String get trainInputTips => 'trainInputTips'.tr;
 }
