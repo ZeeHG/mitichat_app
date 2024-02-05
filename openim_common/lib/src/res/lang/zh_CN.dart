@@ -1026,7 +1026,7 @@ const Map<String, String> zh_CN = {
   "createAi": "创建数字人",
   "trainAi": "训练数字人",
   "knowledgebaseFiles": "文档列表",
-  "trainSuccessTips": "训练提交成功！",
+  "trainSuccessTips": "训练数据提交成功, 预估一分钟后生效, 请耐心等待",
   "trainFailTips": "训练提交失败！",
   "iKnow": "我知道了",
   "trainFileTips1": "添加附件：单次最多上传8个，单个文件不超过20M",
