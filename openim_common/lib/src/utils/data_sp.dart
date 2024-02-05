@@ -267,6 +267,10 @@ class DataSp {
     return SpUtil().putObject(_aiStore, map);
   }
 
+  static Future<bool>? clearAiStore() {
+    return SpUtil().putObject(_aiStore, {});
+  }
+
   static Map<String, Ai>? getAiStore() {
     return SpUtil().getObj(_aiStore,
         (map) => map.map((key, value) => MapEntry(key, Ai.fromJson(value))));
@@ -274,6 +278,6 @@ class DataSp {
 
   static List<String>? getAiKeys() {
     final store = getAiStore();
-    return null == store? [] : store.keys.toList();
+    return null == store ? [] : store.keys.toList();
   }
 }

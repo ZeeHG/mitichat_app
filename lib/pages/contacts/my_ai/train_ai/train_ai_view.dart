@@ -37,17 +37,19 @@ class TrainAiPage extends StatelessWidget {
                   ..overflow = TextOverflow.ellipsis
                   ..textAlign = TextAlign.center,
               ])),
-              right: SizedBox(
-                  width: 40.w,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ImageRes.files.toImage
-                        ..width = 40.w
-                        ..height = 40.h
-                        ..onTap = logic.startKnowledgeFiles,
-                    ],
-                  )),
+              right: logic.canSeeFiles
+                  ? SizedBox(
+                      width: 40.w,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ImageRes.files.toImage
+                            ..width = 40.w
+                            ..height = 40.h
+                            ..onTap = logic.startKnowledgeFiles,
+                        ],
+                      ))
+                  : SizedBox(),
             ),
             backgroundColor: Styles.c_F7F8FA,
             body: SingleChildScrollView(
@@ -121,6 +123,34 @@ class TrainAiPage extends StatelessWidget {
                       ),
                     ),
                     11.verticalSpace,
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: logic.selectKnowledgebase,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          color: Styles.c_FFFFFF,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 15.w, vertical: 15.h),
+                        child: Row(
+                          children: [
+                            StrRes.knowledgebase.toText
+                              ..style = Styles.ts_2C2C2C_16sp,
+                            Spacer(),
+                            (logic.selectedKnowledgebase.value
+                                        ?.knowledgebaseName ??
+                                    StrRes.select)
+                                .toText
+                              ..style = Styles.ts_999999_16sp,
+                            ImageRes.appRightArrow.toImage
+                              ..width = 20.w
+                              ..height = 20.h
+                          ],
+                        ),
+                      ),
+                    ),
+                    11.verticalSpace,
                     if (logic.fileNames.length < 1)
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,7 +191,7 @@ class TrainAiPage extends StatelessWidget {
                                   ],
                                 ),
                               )),
-                    80.verticalSpace,
+                    50.verticalSpace,
                     Button(
                         text: StrRes.startTrain,
                         textStyle: Styles.ts_FFFFFF_16sp,

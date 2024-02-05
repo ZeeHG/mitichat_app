@@ -15,8 +15,7 @@ class BetaTestLogic extends GetxController {
 
   bool isTestUser(String id) => Config.testUserIds.contains(id);
 
-  bool isBot(String id) => Config.botIds.contains(id);
+  bool isBot(String id) => Config.botIDs.contains(id);
 
   void setOpenChatMd(bool open) => openChatMd.value = open;
-   
 }
