@@ -67,8 +67,11 @@ class ChatHistoryFilePage extends StatelessWidget {
                         IMUtils.formatBytes(message.fileElem!.fileSize!).toText
                           ..style = Styles.ts_999999_14sp,
                         10.horizontalSpace,
-                        message.senderNickname!.toText
-                          ..style = Styles.ts_999999_14sp,
+                        Expanded(child: message.senderNickname!.toText
+                              ..style = Styles.ts_999999_14sp
+                              ..maxLines = 1
+                              ..overflow = TextOverflow.ellipsis)
+                        ,
                         10.horizontalSpace,
                         IMUtils.getChatTimeline(message.sendTime!).toText
                           ..style = Styles.ts_999999_14sp,

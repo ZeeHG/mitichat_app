@@ -5,6 +5,14 @@ import 'package:miti/pages/contacts/ai_friend_list/ai_friend_list_binding.dart';
 import 'package:miti/pages/contacts/ai_friend_list/ai_friend_list_view.dart';
 import 'package:miti/pages/contacts/ai_friend_list/search_ai_friend/search_ai_friend_binding.dart';
 import 'package:miti/pages/contacts/ai_friend_list/search_ai_friend/search_ai_friend_view.dart';
+import 'package:miti/pages/contacts/my_ai/knowledgebase_files/knowledgebase_files_binding.dart';
+import 'package:miti/pages/contacts/my_ai/knowledgebase_files/knowledgebase_files_view.dart';
+import 'package:miti/pages/contacts/my_ai/my_ai_binding.dart';
+import 'package:miti/pages/contacts/my_ai/my_ai_view.dart';
+import 'package:miti/pages/contacts/my_ai/search_my_ai/search_my_ai_binding.dart';
+import 'package:miti/pages/contacts/my_ai/search_my_ai/search_my_ai_view.dart';
+import 'package:miti/pages/contacts/my_ai/train_ai/train_ai_binding.dart';
+import 'package:miti/pages/contacts/my_ai/train_ai/train_ai_view.dart';
 import 'package:miti/pages/contacts/recent_requests/recent_requests_binding.dart';
 import 'package:miti/pages/contacts/recent_requests/recent_requests_view.dart';
 import 'package:miti/pages/friend_permissions/friend_permissions_binding.dart';
@@ -674,6 +682,26 @@ class AppPages {
       name: AppRoutes.xhs,
       page: () => XhsPage(),
       binding: XhsBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.myAi,
+      page: () => MyAiPage(),
+      binding: MyAiBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.searchMyAi,
+      page: () => SearchMyAiPage(),
+      binding: SearchMyAiBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.trainAi,
+      page: () => TrainAiPage(),
+      binding: TrainAiBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.knowledgeFiles,
+      page: () => KnowledgebaseFilesPage(),
+      binding: KnowledgebaseFilesBinding(),
     ),
     // ...OPages.pages, // 组织架构
     ...WPages.pages, // 工作圈

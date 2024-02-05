@@ -291,6 +291,7 @@ class ChatPage extends StatelessWidget {
               backgroundColor: Styles.c_F7F8FA,
               appBar: TitleBar.chat(
                 title: logic.nickname.value,
+                isAiSingleChat: logic.isAiSingleChat,
                 member: logic.memberStr,
                 subTitle: logic.subTile,
                 showOnlineStatus: logic.showOnlineStatus(),
@@ -339,6 +340,7 @@ class ChatPage extends StatelessWidget {
                       onTapGroupNote:
                           !logic.isSingleChat ? showDeveloping : null,
                       onTapVote: !logic.isSingleChat ? showDeveloping : null,
+                      onTapSearch: logic.onTapSearch
                     ),
                     voiceRecordBar: bar,
                     emojiView: ChatEmojiView(

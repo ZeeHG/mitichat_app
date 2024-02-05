@@ -135,25 +135,25 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
             )),
         bottom = Positioned(
           top: (mq?.padding.top ?? 30.h) + 55.h,
-          child: FakeSearchBox(onTap: onClickSearch, color: Styles.c_FFFFFF, borderRadius: 18.r),
+          child: FakeSearchBox(
+              onTap: onClickSearch, color: Styles.c_FFFFFF, borderRadius: 18.r),
         ),
         // left = SizedBox(width: 28.w),
         center = Expanded(
-              child: Center(
-                child: CustomTabBar(
-                  width: 100.w,
-                  labels: [StrRes.chat, StrRes.friend],
-                  counts: [0.obs, unhandledCount ?? 0.obs],
-                  index: homeTabIndex.value,
-                  onTabChanged: (i) => onSwitchTab(i),
-                  showUnderline: false,
-                  bgColor: Styles.transparent,
-                  inactiveTextStyle: Styles.ts_4B3230_18sp,
-                  activeTextStyle: Styles.ts_4B3230_20sp_medium,
-                  indicatorWidth: 20.w
-                ),
-              ),
-            ),
+          child: Center(
+            child: CustomTabBar(
+                width: 100.w,
+                labels: [StrRes.chat, StrRes.friend],
+                counts: [0.obs, unhandledCount ?? 0.obs],
+                index: homeTabIndex.value,
+                onTabChanged: (i) => onSwitchTab(i),
+                showUnderline: false,
+                bgColor: Styles.transparent,
+                inactiveTextStyle: Styles.ts_4B3230_18sp,
+                activeTextStyle: Styles.ts_4B3230_20sp_medium,
+                indicatorWidth: 20.w),
+          ),
+        ),
         // center=null,
         right = Row(
           mainAxisSize: MainAxisSize.min,
@@ -190,8 +190,8 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
               child: Padding(
                 padding: EdgeInsets.only(left: 12.w),
                 child: ImageRes.appAddBlack2.toImage
-                ..width = 28.w
-                ..height = 28.h,
+                  ..width = 28.w
+                  ..height = 28.h,
               ) /*..onTap = onClickAddBtn*/,
             ),
           ],
@@ -224,7 +224,9 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
         bottom = showBottom
             ? Positioned(
                 top: (mq?.padding.top ?? 30.h) + 55.h,
-                child: FakeSearchBox(borderRadius: 18.r,),
+                child: FakeSearchBox(
+                  borderRadius: 18.r,
+                ),
               )
             : null,
         left = Container(
@@ -256,6 +258,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       String? title,
       String? member,
       String? subTitle,
+      bool isAiSingleChat = false,
       bool showOnlineStatus = false,
       bool isOnline = false,
       bool isMultiModel = false,
@@ -330,12 +333,19 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
                       ..height = 24.h
                       ..onTap = (() => Get.back()),
                     SizedBox(width: 12.w),
-                    if (null != title)
+                    if (null != title) ...[
                       title.trim().toText
                         ..style = Styles.ts_333333_18sp_medium
                         ..maxLines = 1
                         ..overflow = TextOverflow.ellipsis
                         ..textAlign = TextAlign.center,
+                      if (isAiSingleChat) ...[
+                        9.horizontalSpace,
+                        ImageRes.appAiMarker.toImage
+                          ..width = 18.w
+                          ..height = 16.h,
+                      ]
+                    ],
                     if (null != member)
                       member.toText
                         ..style = Styles.ts_333333_18sp_medium
@@ -387,23 +397,29 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
             child: (title ?? '').toText
               ..style = (titleStyle ?? Styles.ts_333333_18sp_medium)
               ..textAlign = TextAlign.center),
-        left = hideBack? null : GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTap: onTap ?? (() => Get.back(result: result)),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ImageRes.appBackBlack.toImage
-                ..width = 24.w
-                ..height = 24.h
-                ..color = backIconColor,
-              if (null != leftTitle)
-                leftTitle.toText
-                  ..style = (leftTitleStyle ?? Styles.ts_333333_17sp_semibold),
-            ],
-          ),
-        ),
-        right = right ?? SizedBox(width: 24.w,);
+        left = hideBack
+            ? null
+            : GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: onTap ?? (() => Get.back(result: result)),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ImageRes.appBackBlack.toImage
+                      ..width = 24.w
+                      ..height = 24.h
+                      ..color = backIconColor,
+                    if (null != leftTitle)
+                      leftTitle.toText
+                        ..style =
+                            (leftTitleStyle ?? Styles.ts_333333_17sp_semibold),
+                  ],
+                ),
+              ),
+        right = right ??
+            SizedBox(
+              width: 24.w,
+            );
 
   TitleBar.discover(
       {super.key,
@@ -469,24 +485,26 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
             )),
         bottom = Positioned(
           top: (mq?.padding.top ?? 30.h) + 55.h,
-          child: FakeSearchBox(onTap: onClickSearch, borderRadius: 18.r,),
+          child: FakeSearchBox(
+            onTap: onClickSearch,
+            borderRadius: 18.r,
+          ),
         ),
         center = Expanded(
-              child: Center(
-                child: CustomTabBar(
-                  width: 100.w,
-                  counts: [0.obs, unhandledCount ?? 0.obs],
-                  labels: [StrRes.chat, StrRes.friend],
-                  index: homeTabIndex.value,
-                  onTabChanged: (i) => onSwitchTab(i),
-                  showUnderline: false,
-                  bgColor: Styles.transparent,
-                  inactiveTextStyle: Styles.ts_4B3230_18sp,
-                  activeTextStyle: Styles.ts_4B3230_20sp_medium,
-                  indicatorWidth: 20.w
-                ),
-              ),
-            ),
+          child: Center(
+            child: CustomTabBar(
+                width: 100.w,
+                counts: [0.obs, unhandledCount ?? 0.obs],
+                labels: [StrRes.chat, StrRes.friend],
+                index: homeTabIndex.value,
+                onTabChanged: (i) => onSwitchTab(i),
+                showUnderline: false,
+                bgColor: Styles.transparent,
+                inactiveTextStyle: Styles.ts_4B3230_18sp,
+                activeTextStyle: Styles.ts_4B3230_20sp_medium,
+                indicatorWidth: 20.w),
+          ),
+        ),
         left = SizedBox(
           width: 40.w,
           height: 40.h,
@@ -550,4 +568,17 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
             ..style = Styles.ts_9280B3_16sp
             ..onTap = (() => Get.back()),
         );
+
+  TitleBar.trainAi(
+      {super.key,
+      this.overBottomBg,
+      this.bottom,
+      this.left,
+      this.backIconColor,
+      this.right,
+      this.backgroundColor,
+      this.backgroundImage})
+      : height = 48.h,
+        showUnderline = false,
+        center = 0.horizontalSpace;
 }

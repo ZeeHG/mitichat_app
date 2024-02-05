@@ -18,6 +18,7 @@ class ChatToolBox extends StatelessWidget {
     this.onTapSnapchat,
     this.onTapGroupNote,
     this.onTapVote,
+    this.onTapSearch
   }) : super(key: key);
   final Function()? onTapAlbum;
   final Function()? onTapCamera;
@@ -29,6 +30,7 @@ class ChatToolBox extends StatelessWidget {
   final Function()? onTapSnapchat;
   final Function()? onTapGroupNote;
   final Function()? onTapVote;
+  final Function()? onTapSearch;
 
   @override
   Widget build(BuildContext context) {
@@ -89,14 +91,22 @@ class ChatToolBox extends StatelessWidget {
           icon: ImageRes.appToolboxSnapchat,
           onTap: () => onTapSnapchat!(),
         ),
-      // 群聊
-      if (null != onTapGroupNote)
+      
+      if (null != onTapSearch)
         ToolboxItemInfo(
-          text: StrRes.toolboxGroupNote,
-          icon: ImageRes.appToolboxGroupNote,
-          onTap: () => onTapGroupNote!(),
-          disabled: true,
+          text: StrRes.search2,
+          icon: ImageRes.appToolboxSearch,
+          onTap: () => onTapSearch!(),
         ),
+
+      // 群聊
+      // if (null != onTapGroupNote)
+      //   ToolboxItemInfo(
+      //     text: StrRes.toolboxGroupNote,
+      //     icon: ImageRes.appToolboxGroupNote,
+      //     onTap: () => onTapGroupNote!(),
+      //     disabled: true,
+      //   ),
       if (null != onTapVote)
         ToolboxItemInfo(
           text: StrRes.toolboxVote,

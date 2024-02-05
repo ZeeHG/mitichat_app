@@ -212,6 +212,7 @@ class ImageRes {
   static const appHomeTab3Nor = "$_dir/app_home_tab3_nor.png";
   static const appHomeTab3NorOld = "$_dir/app_home_tab3_nor_old.png";
   static const appHomeTab3Nor2 = "$_dir/app_home_tab3_nor2.png";
+  static const appHomeTab3Sel2 = "$_dir/app_home_tab3_sel2.png";
   static const appHomeTab3Nor3 = "$_dir/app_home_tab3_nor3.png";
   static const appHomeTab4Nor = "$_dir/app_home_tab4_nor.png";
   static const appHomeTab4Nor2 = "$_dir/app_home_tab4_nor2.png";
@@ -302,4 +303,9 @@ class ImageRes {
   static const appInviteTask = "$_dir/app_invite_task.png";
   static const appChatTask = "$_dir/app_chat_task.png";
   static const appUnfold = "$_dir/app_unfold.png";
+  static const appToolboxSearch = "$_dir/app_toolbox_search.png";
+  static const files = "$_dir/files.png";
+  static const add = "$_dir/add.png";
+  static const dialogSuccess = "$_dir/dialog_success.png";
+  static const like = "$_dir/like.png";
 }

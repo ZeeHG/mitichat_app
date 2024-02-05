@@ -11,7 +11,7 @@ import 'package:openim_common/openim_common.dart';
 
 import '../../../core/controller/im_controller.dart';
 
-class AiFriendListLogic extends GetxController {
+class MyAiLogic extends GetxController {
   final imLogic = Get.find<IMController>();
   final friendList = <ISUserInfo>[].obs;
   final userIDList = <String>[];
@@ -19,22 +19,7 @@ class AiFriendListLogic extends GetxController {
   late StreamSubscription addSub;
   late StreamSubscription infoChangedSub;
   final aiUtil = Get.find<AiUtil>();
-
-  List<Map<String, dynamic>> get menus => [
-        // {
-        //   "key": "createAi",
-        //   "text": StrRes.createAi,
-        //   "color": Styles.c_8544F8,
-        //   "shadowColor": Color.fromRGBO(0, 203, 197, 0.5),
-        // },
-        {
-          "key": "trainAi",
-          "text": StrRes.trainAi,
-          "color": Styles.c_FEA836,
-          "shadowColor": Color.fromRGBO(254, 168, 54, 0.5),
-          "onTap": () => myAi()
-        },
-      ];
+  final myAiList = <Ai>[].obs;
 
   @override
   void onInit() {
@@ -61,10 +46,19 @@ class AiFriendListLogic extends GetxController {
     super.onClose();
   }
 
-  void myAi() => AppNavigator.startMyAi();
+  void startSearchMyAi() => AppNavigator.startSearchMyAi();
+
+  void startTrainAi(ISUserInfo info) {
+    AppNavigator.startTrainAi(
+        userID: info.userID!,
+        faceURL: info.faceURL,
+        showName: info.showName,
+        ai: myAiList.firstWhere((e) => e.userID == info.userID));
+  }
 
   _getFriendList() async {
-    await aiUtil.queryAiList();
+    myAiList.value = await aiUtil.queryMyAiList();
+    final myAiUserIDList = myAiList.map((e) => e.userID).toList();
     final list = await OpenIM.iMManager.friendshipManager
         .getFriendListMap()
         .then((list) => list.where(_filterBlacklist))
@@ -75,7 +69,8 @@ class AiFriendListLogic extends GetxController {
                   : ISUserInfo.fromJson(fullUser.publicInfo!.toJson());
               return user;
             }).toList())
-        .then((list) => list.where((e) => aiUtil.isAi(e.userID)).toList())
+        .then((list) =>
+            list.where((e) => myAiUserIDList.contains(e.userID)).toList())
         .then((list) => IMUtils.convertToAZList(list));
     onUserIDList(userIDList);
     friendList.assignAll(list.cast<ISUserInfo>());
