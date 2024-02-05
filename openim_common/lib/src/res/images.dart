@@ -308,4 +308,7 @@ class ImageRes {
   static const add = "$_dir/add.png";
   static const dialogSuccess = "$_dir/dialog_success.png";
   static const like = "$_dir/like.png";
+  static const like2 = "$_dir/like2.png";
+  static const collect = "$_dir/collect.png";
+  static const comment = "$_dir/comment.png";
 }

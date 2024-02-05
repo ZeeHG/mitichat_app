@@ -182,7 +182,102 @@ class XhsPage extends StatelessWidget {
 
   List<Widget> get followPage {
     return [
-      Text("aaaaaaaa")
+      Expanded(
+          child: ListView.builder(
+              itemCount: logic.articleList.length,
+              itemBuilder: (_, i) => Obx(() {
+                    final article = logic.articleList[i];
+                    return Container(
+                      padding: EdgeInsets.only(top: 12.h, bottom: 15.h),
+                      margin: EdgeInsets.only(bottom: 6.h),
+                      color: Styles.c_FFFFFF,
+                      child: Column(
+                        children: [
+                          Container(
+                              padding: EdgeInsets.symmetric(horizontal: 12.w),
+                              child: Row(
+                                children: [
+                                  AvatarView(
+                                    url: article["user"]["avatar"],
+                                    text: article["user"]["name"].toString(),
+                                    width: 32.w,
+                                    height: 32.h,
+                                  ),
+                                  10.horizontalSpace,
+                                  article["user"]["name"].toString().toText
+                                    ..style = Styles.ts_4B3230_16sp
+                                    ..overflow = TextOverflow.ellipsis
+                                    ..maxLines = 1,
+                                  10.horizontalSpace,
+                                  article["time"].toString().toText
+                                    ..style = Styles.ts_999999_12sp,
+                                  Spacer(),
+                                  GestureDetector(
+                                    child: Container(
+                                      width: 20.w,
+                                      height: 20.h,
+                                      child: ImageRes.appMoreBlack.toImage
+                                        ..width = 20.w
+                                        ..height = 4.h,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                          12.verticalSpace,
+                          12.verticalSpace,
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12.w),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    child: article["title"].toString().toText
+                                      ..style = Styles.ts_333333_16sp_medium
+                                      ..overflow = TextOverflow.ellipsis
+                                      ..maxLines = 1),
+                                StrRes.seeDetails.toText
+                                  ..style = Styles.ts_9280B3_14sp
+                              ],
+                            ),
+                          ),
+                          12.verticalSpace,
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12.w),
+                            child: Row(
+                              children: [
+                                ImageRes.like2.toImage
+                                  ..width = 20.w
+                                  ..height = 18.h,
+                                5.horizontalSpace,
+                                Container(
+                                  width: 85.w,
+                                  child: article["likeCount"].toString().toText
+                                    ..style = Styles.ts_4B3230_12sp,
+                                ),
+                                ImageRes.collect.toImage
+                                  ..width = 20.w
+                                  ..height = 20.h,
+                                5.horizontalSpace,
+                                Container(
+                                  width: 85.w,
+                                  child: article["likeCount"].toString().toText
+                                    ..style = Styles.ts_4B3230_12sp,
+                                ),
+                                ImageRes.comment.toImage
+                                  ..width = 20.w
+                                  ..height = 20.h,
+                                5.horizontalSpace,
+                                Container(
+                                  width: 85.w,
+                                  child: article["likeCount"].toString().toText
+                                    ..style = Styles.ts_4B3230_12sp,
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  })))
     ];
   }
 }

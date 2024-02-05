@@ -1617,4 +1617,6 @@ static String get knowledgebase => 'knowledgebase'.tr;
 static String get select => 'select'.tr;
 static String get selectKnowledgebase => 'selectKnowledgebase'.tr;
 static String get pleaseUpgradeAiOrOpenKnowledgebase => 'pleaseUpgradeAiOrOpenKnowledgebase'.tr;
+static String get seeDetails =>
+      'seeDetails'.tr;
 }

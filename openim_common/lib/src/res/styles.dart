@@ -618,9 +618,19 @@ class Styles {
   );
 
   // 4B3230
+  static TextStyle ts_4B3230_12sp = TextStyle(
+    color: c_4B3230,
+    fontSize: 12.sp,
+  );
   static TextStyle ts_4B3230_16sp = TextStyle(
     color: c_4B3230,
     fontSize: 16.sp,
+  );
+
+  static TextStyle ts_4B3230_16sp_medium = TextStyle(
+    color: c_4B3230,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w500,
   );
 
   static TextStyle ts_4B3230_18sp = TextStyle(

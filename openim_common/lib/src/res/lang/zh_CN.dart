@@ -1087,7 +1087,7 @@ const Map<String, String> zh_CN = {
   "createAi": "创建数字人",
   "trainAi": "训练数字人",
   "knowledgebaseFiles": "文档列表",
-  "trainSuccessTips": "训练提交成功！",
+  "trainSuccessTips": "训练提交",
   "trainFailTips": "训练提交失败！",
   "iKnow": "我知道了",
   "trainFileTips1": "添加附件：单次最多上传8个，单个文件不超过20M",
@@ -1097,4 +1097,5 @@ const Map<String, String> zh_CN = {
   "select": "选择",
   "selectKnowledgebase": "请选择知识库",
   "pleaseUpgradeAiOrOpenKnowledgebase": "请升级数字人或者开启知识库",
+  "seeDetails": "查看全文",
 };

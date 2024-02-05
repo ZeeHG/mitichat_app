@@ -28,6 +28,10 @@ class XhsLogic extends GetxController {
       "content": "内容ddd",
       "splash": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
       "likeCount": "15.7万",
+      "time": "01-01",
+      "timeDetail": "2023年11月5日 23:58",
+      "commentCount": "1111",
+      "collectCount": "1111",
       "user": {
         "name": "小明",
         "avatar":
@@ -37,8 +41,28 @@ class XhsLogic extends GetxController {
     {
       "title": "标题",
       "content": "内容",
-      "splash": "https://img0.baidu.com/it/u=104573412,694169124&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=777",
+      "splash":
+          "https://img0.baidu.com/it/u=104573412,694169124&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=777",
       "likeCount": "15.7万",
+      "time": "01-01",
+      "timeDetail": "2023年11月5日 23:58",
+      "commentCount": "1111",
+      "collectCount": "1111",
+      "user": {
+        "name": "小明",
+        "avatar":
+            "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
+      },
+    },
+    {
+      "title": "标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题",
+      "content": "内容ddd",
+      "splash": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
+      "likeCount": "15.7万",
+      "time": "01-01",
+      "timeDetail": "2023年11月5日 23:58",
+      "commentCount": "1111",
+      "collectCount": "1111",
       "user": {
         "name": "小明",
         "avatar":
@@ -48,8 +72,28 @@ class XhsLogic extends GetxController {
     {
       "title": "标题",
       "content": "内容",
+      "splash":
+          "https://img0.baidu.com/it/u=104573412,694169124&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=777",
+      "likeCount": "15.7万",
+      "time": "01-01",
+      "timeDetail": "2023年11月5日 23:58",
+      "commentCount": "1111",
+      "collectCount": "1111",
+      "user": {
+        "name": "小明",
+        "avatar":
+            "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
+      },
+    },
+    {
+      "title": "标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题",
+      "content": "内容ddd",
       "splash": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
       "likeCount": "15.7万",
+      "time": "01-01",
+      "timeDetail": "2023年11月5日 23:58",
+      "commentCount": "1111",
+      "collectCount": "1111",
       "user": {
         "name": "小明",
         "avatar":
@@ -59,8 +103,28 @@ class XhsLogic extends GetxController {
     {
       "title": "标题",
       "content": "内容",
+      "splash":
+          "https://img0.baidu.com/it/u=104573412,694169124&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=777",
+      "likeCount": "15.7万",
+      "time": "01-01",
+      "timeDetail": "2023年11月5日 23:58",
+      "commentCount": "1111",
+      "collectCount": "1111",
+      "user": {
+        "name": "小明",
+        "avatar":
+            "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
+      },
+    },
+    {
+      "title": "标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题",
+      "content": "内容ddd",
       "splash": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
       "likeCount": "15.7万",
+      "time": "01-01",
+      "timeDetail": "2023年11月5日 23:58",
+      "commentCount": "1111",
+      "collectCount": "1111",
       "user": {
         "name": "小明",
         "avatar":
@@ -70,8 +134,28 @@ class XhsLogic extends GetxController {
     {
       "title": "标题",
       "content": "内容",
+      "splash":
+          "https://img0.baidu.com/it/u=104573412,694169124&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=777",
+      "likeCount": "15.7万",
+      "time": "01-01",
+      "timeDetail": "2023年11月5日 23:58",
+      "commentCount": "1111",
+      "collectCount": "1111",
+      "user": {
+        "name": "小明",
+        "avatar":
+            "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
+      },
+    },
+    {
+      "title": "标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题",
+      "content": "内容ddd",
       "splash": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
       "likeCount": "15.7万",
+      "time": "01-01",
+      "timeDetail": "2023年11月5日 23:58",
+      "commentCount": "1111",
+      "collectCount": "1111",
       "user": {
         "name": "小明",
         "avatar":
@@ -81,111 +165,18 @@ class XhsLogic extends GetxController {
     {
       "title": "标题",
       "content": "内容",
-      "splash": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
+      "splash":
+          "https://img0.baidu.com/it/u=104573412,694169124&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=777",
       "likeCount": "15.7万",
+      "time": "01-01",
+      "timeDetail": "2023年11月5日 23:58",
+      "commentCount": "1111",
+      "collectCount": "1111",
       "user": {
         "name": "小明",
         "avatar":
             "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      }
-    },
-    {
-      "title": "标题",
-      "content": "内容",
-      "splash": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      "likeCount": "15.7万",
-      "user": {
-        "name": "小明",
-        "avatar":
-            "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      }
-    },
-    {
-      "title": "标题",
-      "content": "内容",
-      "splash": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      "likeCount": "15.7万",
-      "user": {
-        "name": "小明",
-        "avatar":
-            "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      }
-    },
-    {
-      "title": "标题",
-      "content": "内容",
-      "splash": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      "likeCount": "15.7万",
-      "user": {
-        "name": "小明",
-        "avatar":
-            "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      }
-    },{
-      "title": "标题",
-      "content": "内容",
-      "splash": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      "likeCount": "15.7万",
-      "user": {
-        "name": "小明",
-        "avatar":
-            "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      }
-    },
-    {
-      "title": "标题",
-      "content": "内容",
-      "splash": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      "likeCount": "15.7万",
-      "user": {
-        "name": "小明",
-        "avatar":
-            "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      }
-    },
-    {
-      "title": "标题",
-      "content": "内容",
-      "splash": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      "likeCount": "15.7万",
-      "user": {
-        "name": "小明",
-        "avatar":
-            "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      }
-    },
-    {
-      "title": "标题",
-      "content": "内容",
-      "splash": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      "likeCount": "15.7万",
-      "user": {
-        "name": "小明",
-        "avatar":
-            "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      }
-    },
-    {
-      "title": "标题",
-      "content": "内容",
-      "splash": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      "likeCount": "15.7万",
-      "user": {
-        "name": "小明",
-        "avatar":
-            "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      }
-    },
-    {
-      "title": "标题",
-      "content": "内容",
-      "splash": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      "likeCount": "15.7万",
-      "user": {
-        "name": "小明",
-        "avatar":
-            "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF",
-      }
+      },
     }
   ].obs;
 
