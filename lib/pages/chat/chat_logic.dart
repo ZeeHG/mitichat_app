@@ -2321,7 +2321,9 @@ class ChatLogic extends GetxController {
       return null != lastMsgSendTime &&
           null != waitingST &&
           -1 != waitingST &&
-          lastMsgSendTime <= waitingST;
+          lastMsgSendTime <= waitingST &&
+          // 防止时间误差导致禁用, 可能会导致焚烧后最后一条消息不对导致解除
+          messageList.last.sendID == OpenIM.iMManager.userID;
     }
   }
 

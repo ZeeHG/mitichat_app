@@ -49,13 +49,14 @@ class TrainAiLogic extends GetxController {
   void train() async {
     await LoadingView.singleton.wrap(asyncFunction: () async {
       await Apis.addKnowledge(
-          knowledgebaseId: ai.value.botID,
+          botId: ai.value.botID,
           text: text.value,
           filePathList: files.value);
       inputCtrl.text = '';
       text.value = '';
       files.value = [];
     });
+    await Apis.getMyAiTask();
     final confirm = await Get.dialog(SuccessDialog(
       text: StrRes.trainSuccessTips,
       onTapConfirm: () => Get.back(),
@@ -67,11 +68,11 @@ class TrainAiLogic extends GetxController {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: true,
       type: FileType.custom,
-      allowedExtensions: ['txt', 'pdf', 'json', 'md'],
+      allowedExtensions: ['txt', 'pdf', 'json', 'md', 'zip'],
     );
 
     if (result != null) {
-      files.addAll(result.files.map((item) => item.path!).toList());
+      files.addAll(result.files.where((item) => File(item.path!).lengthSync() < 20 * 1024 * 1024).map((item) => item.path!).toList());
     }
   }
 }

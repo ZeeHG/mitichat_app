@@ -73,4 +73,7 @@ class Urls {
 
   static String get addKnowledge =>
       '${Config.appAuthUrl}/bot/add_knowledge';
+
+  static String get getMyAiTask =>
+      '${Config.appAuthUrl}/bot/task/get/mine';
 }

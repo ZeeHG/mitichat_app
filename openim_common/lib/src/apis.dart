@@ -806,9 +806,13 @@ class Apis {
     );
   }
 
-  static Future<dynamic> getKnowledgeFiles(
-      {required String knowledgebaseId}) async {
-    Map<String, dynamic> param = {'botID': knowledgebaseId};
+  static Future<dynamic> getKnowledgeFiles({
+    String? knowledgebaseId,
+    String? botId,
+  }) async {
+    Map<String, dynamic> param = null != knowledgebaseId
+        ? {'knowledgebaseID': knowledgebaseId}
+        : {'botID': botId};
 
     return HttpUtil.post(
       Urls.getKnowledgeFiles,
@@ -820,12 +824,17 @@ class Apis {
   }
 
   static Future<dynamic> addKnowledge(
-      {required String knowledgebaseId,
+      {String? knowledgebaseId,
+      String? botId,
       String? text,
       List<String>? filePathList}) async {
-    FormData formData = FormData.fromMap({
-      'knowledgebase_id': knowledgebaseId,
-    });
+    FormData formData = FormData.fromMap({});
+    if (null != knowledgebaseId) {
+      formData.fields.add(MapEntry("knowledgebase_id", knowledgebaseId));
+    }
+    if (null != botId) {
+      formData.fields.add(MapEntry("knowledgebase_id", botId));
+    }
     if (null != text) {
       formData.fields.add(MapEntry("text", text));
     }
@@ -840,9 +849,18 @@ class Apis {
       }
     }
 
+    myLogger.e(formData.fields);
+
     return HttpUtil.post(
       Urls.addKnowledge,
       data: formData,
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future<dynamic> getMyAiTask() async {
+    return HttpUtil.post(
+      Urls.getMyAiTask,
       options: chatTokenOptions,
     );
   }

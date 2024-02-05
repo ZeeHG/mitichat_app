@@ -24,7 +24,7 @@ class KnowledgebaseFilesLogic extends GetxController {
 
   Future<void> getFiles() async {
     LoadingView.singleton.wrap(asyncFunction: () async {
-      final list = await Apis.getKnowledgeFiles(knowledgebaseId: knowledgebaseId);
+      final list = await Apis.getKnowledgeFiles(botId: knowledgebaseId);
       files.value = list;
     });
   }
