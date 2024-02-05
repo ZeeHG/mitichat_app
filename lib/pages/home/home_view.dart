@@ -65,7 +65,7 @@ class HomePage extends StatelessWidget {
                     count: logic.unreadMsgCount.value,
                   ),
                   BottomBarItem(
-                    selectedImgRes: ImageRes.appHomeTab3Nor2,
+                    selectedImgRes: ImageRes.appHomeTab3Sel2,
                     unselectedImgRes: ImageRes.appHomeTab3Nor2,
                     label: StrRes.discoverTab,
                     imgWidth: 22.w,
