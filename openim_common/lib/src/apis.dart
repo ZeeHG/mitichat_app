@@ -849,8 +849,6 @@ class Apis {
       }
     }
 
-    myLogger.e(formData.fields);
-
     return HttpUtil.post(
       Urls.addKnowledge,
       data: formData,
