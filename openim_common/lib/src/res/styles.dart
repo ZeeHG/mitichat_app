@@ -27,6 +27,7 @@ class Styles {
   static Color c_0089FF = const Color(0xFF0089FF);
   static Color c_0C1C33 = const Color(0xFF0C1C33);
   static Color c_8E9AB0 = const Color(0xFF8E9AB0);
+  static Color c_2C2C2C = const Color(0xFF2C2C2C);
 
   static Color c_92B3E0_opacity50 = c_92B3E0.withOpacity(.5); // 气泡背景
   static Color c_E8EAEF_opacity50 = c_E8EAEF.withOpacity(.5);
@@ -715,5 +716,10 @@ class Styles {
     color: c_343434,
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle ts_2C2C2C_16sp = TextStyle(
+    color: c_2C2C2C,
+    fontSize: 16.sp,
   );
 }

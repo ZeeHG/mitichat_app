@@ -1552,4 +1552,8 @@ static String get iKnow => 'iKnow'.tr;
 static String get trainFileTips1 => 'trainFileTips1'.tr;
 static String get trainFileTips2 => 'trainFileTips2'.tr;
 static String get trainInputTips => 'trainInputTips'.tr;
+static String get knowledgebase => 'knowledgebase'.tr;
+static String get select => 'select'.tr;
+static String get selectKnowledgebase => 'selectKnowledgebase'.tr;
+static String get pleaseUpgradeAiOrOpenKnowledgebase => 'pleaseUpgradeAiOrOpenKnowledgebase'.tr;
 }

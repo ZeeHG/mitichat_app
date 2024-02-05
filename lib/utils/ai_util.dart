@@ -14,7 +14,9 @@ class AiUtil extends GetxController {
 
   String getKey(String aiUserID) => accountKey + "__" + aiUserID;
 
-  init() {
+  init() async{
+    // todo 暂时加上, 防止数据结构出错
+    await DataSp.clearAiStore();
     final store = DataSp.getAiStore();
     if (null != store) {
       aiStore.addAll(store);

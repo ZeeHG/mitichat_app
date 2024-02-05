@@ -579,6 +579,6 @@ class AppNavigator {
           );
   }
 
-  static startKnowledgeFiles({required String knowledgebaseId}) =>
-      Get.toNamed(AppRoutes.knowledgeFiles, arguments: {"knowledgebaseId": knowledgebaseId});
+  static startKnowledgeFiles({required Knowledgebase knowledgebase}) =>
+      Get.toNamed(AppRoutes.knowledgeFiles, arguments: {"knowledgebase": knowledgebase});
 }

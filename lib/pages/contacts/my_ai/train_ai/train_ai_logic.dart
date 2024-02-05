@@ -18,6 +18,7 @@ class TrainAiLogic extends GetxController {
 
   @override
   void onReady() {
+    getBotKnowledgebases();
     super.onReady();
   }
 
@@ -36,27 +37,54 @@ class TrainAiLogic extends GetxController {
   final inputCtrl = TextEditingController();
   final text = "".obs;
   final files = <String>[].obs;
+  final knowledgebaseList = <Knowledgebase>[].obs;
+  final selectedKnowledgebase = Rx<Knowledgebase?>(null);
+  final maxFilesCount = 8;
 
   String get count => "${text.value.length}/${maxLength.value}";
 
-  bool get canTain => text.value.length > 0 || files.value.length > 0;
+  bool get canTain =>
+      (text.value.length > 0 || files.value.length > 0) &&
+      (null != selectedKnowledgebase.value);
+
+  bool get canSeeFiles => null != selectedKnowledgebase.value;
 
   List<String> get fileNames => files.map((e) => e.split('/').last).toList();
 
-  void startKnowledgeFiles() =>
-      AppNavigator.startKnowledgeFiles(knowledgebaseId: ai.value.botID);
+  void startKnowledgeFiles() => AppNavigator.startKnowledgeFiles(
+      knowledgebase: selectedKnowledgebase.value!);
+
+  void getBotKnowledgebases() {
+    LoadingView.singleton.wrap(asyncFunction: () async {
+      final knowledgebases =
+          (await Apis.getBotKnowledgebases(botID: ai.value.botID))["data"] ??
+              [];
+      knowledgebaseList.value = knowledgebases
+          .map((e) => Knowledgebase.fromJson({
+                "key": e["knowledgebaseID"],
+                "knowledgebaseID": e["knowledgebaseID"],
+                "knowledgebaseName": e["knowledgebaseName"],
+                "documentContentDescription": e["documentContentDescription"],
+              }))
+          .toList()
+          .cast<Knowledgebase>();
+      if (knowledgebaseList.length == 0) {
+        showToast(StrRes.pleaseUpgradeAiOrOpenKnowledgebase);
+      }
+    });
+  }
 
   void train() async {
     await LoadingView.singleton.wrap(asyncFunction: () async {
       await Apis.addKnowledge(
-          botId: ai.value.botID,
+          knowledgebaseID: selectedKnowledgebase.value!.knowledgebaseID,
           text: text.value,
           filePathList: files.value);
       inputCtrl.text = '';
       text.value = '';
       files.value = [];
     });
-    await Apis.getMyAiTask();
+    // await Apis.getMyAiTask();
     final confirm = await Get.dialog(SuccessDialog(
       text: StrRes.trainSuccessTips,
       onTapConfirm: () => Get.back(),
@@ -72,7 +100,30 @@ class TrainAiLogic extends GetxController {
     );
 
     if (result != null) {
-      files.addAll(result.files.where((item) => File(item.path!).lengthSync() < 20 * 1024 * 1024).map((item) => item.path!).toList());
+      final canAddCount = maxFilesCount - files.length;
+      final list = result.files
+          .where((item) => File(item.path!).lengthSync() < 20 * 1024 * 1024)
+          .map((item) => item.path!)
+          .take(canAddCount)
+          .toList();
+      files.addAll(list);
     }
+  }
+
+  void selectKnowledgebase() async {
+    if (knowledgebaseList.length == 0) return;
+    IMViews.showSinglePicker(
+      title: StrRes.selectKnowledgebase,
+      description: "",
+      pickerData: knowledgebaseList
+          .map((element) => element.knowledgebaseName)
+          .toList(),
+      onConfirm: (indexList, valueList) {
+        final index = indexList.firstOrNull;
+        if (null != index) {
+          selectedKnowledgebase.value = knowledgebaseList[index];
+        }
+      },
+    );
   }
 }

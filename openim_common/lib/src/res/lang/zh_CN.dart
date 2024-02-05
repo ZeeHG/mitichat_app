@@ -1032,4 +1032,8 @@ const Map<String, String> zh_CN = {
   "trainFileTips1": "添加附件：单次最多上传8个，单个文件不超过20M",
   "trainFileTips2": "附件格式：txt/pdf/json/md",
   "trainInputTips": "请输入训练内容...",
+  "knowledgebase": "知识库",
+  "select": "选择",
+  "selectKnowledgebase": "请选择知识库",
+  "pleaseUpgradeAiOrOpenKnowledgebase": "请升级数字人或者开启知识库",
 };
