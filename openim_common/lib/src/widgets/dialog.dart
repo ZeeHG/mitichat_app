@@ -276,9 +276,10 @@ class SuccessDialog extends StatelessWidget {
                 ),
                 Padding(
                     padding: EdgeInsets.only(top: 43.h),
-                    child: Container(
+                    child: 
+                    Container(
                       width: 256.w,
-                      height: 200.h,
+                      constraints: BoxConstraints(minHeight: 200.h),
                       padding: EdgeInsets.only(
                           left: 10.w, right: 10.w, top: 73.h, bottom: 20.h),
                       decoration: BoxDecoration(
@@ -286,9 +287,10 @@ class SuccessDialog extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12.r),
                       ),
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          text.toText..style=Styles.ts_343434_16p_medium,
-                          40.verticalSpace,
+                          text.toText..style=Styles.ts_343434_16p_medium..textAlign= TextAlign.center,
+                          30.verticalSpace,
                           GestureDetector(
                             behavior: HitTestBehavior.translucent,
                             child: Button(
