@@ -67,6 +67,8 @@ class ChatLogic extends GetxController {
   final appCommonLogic = Get.find<AppCommonLogic>();
   final conversationUtil = Get.find<ConversationUtil>();
   final aiUtil = Get.find<AiUtil>();
+  Timer? curTimer;
+  final curTime = 0.obs;
 
   late Rx<ConversationInfo> conversationInfo;
   Message? searchMessage;
@@ -221,6 +223,9 @@ class ChatLogic extends GetxController {
     searchMessage = arguments['searchMessage'];
     nickname.value = conversationInfo.value.showName ?? '';
     faceUrl.value = conversationInfo.value.faceURL ?? '';
+    curTimer = Timer.periodic(Duration(seconds: 5), (Timer t) {
+      curTime.value = DateTime.now().millisecondsSinceEpoch;
+    });
     _createWaitingAiMessage();
     _clearUnreadCount();
     _initChatConfig();
@@ -1619,6 +1624,7 @@ class ChatLogic extends GetxController {
 
   @override
   void onClose() {
+    curTimer?.cancel();
     _clearUnreadCount();
     // ChatGetTags.caches.removeLast();
     _unSubscribeUserOnlineStatus();
@@ -2323,7 +2329,8 @@ class ChatLogic extends GetxController {
           -1 != waitingST &&
           lastMsgSendTime <= waitingST &&
           // 防止时间误差导致禁用, 可能会导致焚烧后最后一条消息不对导致解除
-          messageList.last.sendID == OpenIM.iMManager.userID;
+          messageList.last.sendID == OpenIM.iMManager.userID &&
+          curTime.value < lastMsgSendTime + 60000;
     }
   }
 

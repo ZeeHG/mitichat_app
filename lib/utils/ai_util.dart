@@ -59,7 +59,7 @@ class AiUtil extends GetxController {
   }
 
   Future<bool?> queryAiList() async {
-    List<Ai> list = (await Apis.getBots())["bots"]
+    List<Ai> list = ((await Apis.getBots())["bots"] ?? [])
         .map((e) {
           return Ai.fromJson({
             "key": getKey(e["userID"]),
@@ -80,7 +80,7 @@ class AiUtil extends GetxController {
   }
 
   Future<List<Ai>> queryMyAiList() async {
-    return (await Apis.getMyAi())["bots"]
+    return ((await Apis.getMyAi())["bots"] ?? [])
         .map((e) {
           return Ai.fromJson({
             "key": getKey(e["userID"]),

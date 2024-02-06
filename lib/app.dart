@@ -26,34 +26,39 @@ class ChatApp extends StatelessWidget {
             systemNavigationBarColor: Styles.c_F7F8FA,
             systemNavigationBarIconBrightness: Brightness.dark),
         child: AppView(
-      builder: (locale, builder) => GetMaterialApp(
-          theme: _buildTheme(context, Brightness.dark),
-          navigatorObservers: [LoadingView.singleton],
-          debugShowCheckedModeBanner: true,
-          enableLog: true,
-          builder: builder,
-          logWriterCallback: Logger.print,
-          translations: TranslationService(),
-          localizationsDelegates: const [
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            // DefaultCupertinoLocalizations.delegate,
-          ],
-          fallbackLocale: TranslationService.fallbackLocale,
-          locale: locale,
-          localeResolutionCallback: (locale, list) {
-            Get.locale ??= locale;
-            return locale;
-          },
-          supportedLocales: const [Locale('zh', 'CN'), Locale('en', 'US'), Locale('ja', 'JP'), Locale('ko', 'KR'), Locale('es', 'ES'),],
-          getPages: AppPages.routes,
-          initialBinding: InitBinding(),
-          initialRoute: AppRoutes.splash,
-          // theme: ThemeData.light().copyWith(colorScheme: ColorScheme.fromSwatch())
+          builder: (locale, builder) => GetMaterialApp(
+            theme: _buildTheme(context, Brightness.dark),
+            navigatorObservers: [LoadingView.singleton],
+            debugShowCheckedModeBanner: true,
+            enableLog: true,
+            builder: builder,
+            logWriterCallback: Logger.print,
+            translations: TranslationService(),
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              // DefaultCupertinoLocalizations.delegate,
+            ],
+            fallbackLocale: TranslationService.fallbackLocale,
+            locale: locale,
+            localeResolutionCallback: (locale, list) {
+              Get.locale ??= locale;
+              return locale;
+            },
+            supportedLocales: const [
+              Locale('zh', 'CN'),
+              Locale('en', 'US'),
+              Locale('ja', 'JP'),
+              Locale('ko', 'KR'),
+              Locale('es', 'ES'),
+            ],
+            getPages: AppPages.routes,
+            initialBinding: InitBinding(),
+            initialRoute: AppRoutes.splash,
+            // theme: ThemeData.light().copyWith(colorScheme: ColorScheme.fromSwatch())
           ),
-    )
-    );
+        ));
   }
 
   ThemeData _buildTheme(BuildContext context, Brightness brightness) {
@@ -86,5 +91,8 @@ class InitBinding extends Bindings {
     Get.put(ConversationUtil());
     Get.put(TranslateLogic());
     Get.put(TtsLogic());
+
+    final conversationUtil = Get.find<ConversationUtil>();
+    conversationUtil.resetAllWaitingST();
   }
 }

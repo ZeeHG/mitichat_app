@@ -49,7 +49,9 @@ class AiFriendListLogic extends GetxController {
 
   @override
   void onReady() {
-    _getFriendList();
+    LoadingView.singleton.wrap(asyncFunction: () async {
+      await _getFriendList();
+    });
     super.onReady();
   }
 
@@ -63,7 +65,7 @@ class AiFriendListLogic extends GetxController {
 
   void myAi() => AppNavigator.startMyAi();
 
-  _getFriendList() async {
+  Future<void> _getFriendList() async {
     await aiUtil.queryAiList();
     final list = await OpenIM.iMManager.friendshipManager
         .getFriendListMap()
