@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,87 +15,167 @@ class PublishPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TouchCloseSoftKeyboard(
-      child: Scaffold(
-        appBar: TitleBar.back(
-          onTap: logic.back,
-          title: logic.type == PublishType.picture
-              ? StrRes.publishPicture
-              : StrRes.publishVideo,
-          right: Obx(() => Button(
-            text: StrRes.publish,
-            textStyle: Styles.ts_FFFFFF_14sp,
-            disabledTextStyle: Styles.ts_FFFFFF_14sp,
-            height: 28.h,
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
-            onTap: logic.publish,
-            enabled: logic.canPublish
-          )),
-        ),
-        backgroundColor: Styles.c_F8F9FA,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              10.verticalSpace,
-              Container(
-                color: Styles.c_FFFFFF,
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 120.h,
-                      child: TextField(
-                        controller: logic.inputCtrl,
-                        focusNode: logic.focusNode,
-                        keyboardType: TextInputType.multiline,
-                        autofocus: false,
-                        minLines: null,
-                        maxLines: null,
-                        expands: true,
-                        style: Styles.ts_333333_16sp,
-                        maxLength: 5570,
-                        decoration: InputDecoration(
-                          counterStyle: Styles.ts_999999_14sp,
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 10.w,
-                            vertical: 6.h,
+      child: Obx(() => Scaffold(
+            appBar: TitleBar.back(
+              onTap: logic.back,
+              title: logic.type == PublishType.picture
+                  ? StrRes.publishPicture
+                  : StrRes.publishVideo,
+              right: Button(
+                  text: StrRes.publish,
+                  textStyle: Styles.ts_FFFFFF_14sp,
+                  disabledTextStyle: Styles.ts_FFFFFF_14sp,
+                  height: 28.h,
+                  padding: EdgeInsets.symmetric(horizontal: 12.w),
+                  onTap: logic.publish,
+                  enabled: logic.canPublish),
+            ),
+            backgroundColor: Styles.c_F8F9FA,
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  10.verticalSpace,
+                  Container(
+                    color: Styles.c_FFFFFF,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 120.h,
+                          child: TextField(
+                            controller: logic.inputCtrl,
+                            focusNode: logic.focusNode,
+                            keyboardType: TextInputType.multiline,
+                            autofocus: false,
+                            minLines: null,
+                            maxLines: null,
+                            expands: true,
+                            style: Styles.ts_333333_16sp,
+                            maxLength: 5570,
+                            decoration: InputDecoration(
+                              counterStyle: Styles.ts_999999_14sp,
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 10.w,
+                                vertical: 6.h,
+                              ),
+                              isDense: true,
+                            ),
                           ),
-                          isDense: true,
                         ),
+                        19.verticalSpace,
+                        _assetGridView,
+                      ],
+                    ),
+                  ),
+                  10.verticalSpace,
+                  // _buildItemView(
+                  //   icon: ImageRes.appLocation,
+                  //   text: StrRes.myLocation,
+                  //   onTap: showDeveloping,
+                  // ),
+                  if (!logic.isPublishXhs.value) ...[
+                    Obx(
+                      () => _buildItemView(
+                        icon: ImageRes.appRemindWhoToWatch,
+                        text: StrRes.remindWhoToWatch,
+                        onTap: logic.remindWhoToWatch,
+                        value: logic.remindWhoToWatchValue,
                       ),
                     ),
-                    19.verticalSpace,
-                    _assetGridView,
+                    Obx(
+                      () => _buildItemView(
+                        icon: ImageRes.appWhoCanWatch,
+                        text: logic.whoCanWatchLabel,
+                        showUnderline: true,
+                        onTap: logic.whoCanWatch,
+                        value: logic.whoCanWatchValue,
+                      ),
+                    )
                   ],
-                ),
+                  _buildItemView(
+                    icon: ImageRes.appWhoCanWatch,
+                    text: StrRes.allCanSee,
+                    showUnderline: true,
+                    showSwitchButton: true,
+                    onChanged: (_) => logic.changePublish(),
+                  ),
+                  if (logic.isPublishXhs.value) ...[
+                    12.verticalSpace,
+                    Container(
+                        height: 53.h,
+                        padding: EdgeInsets.only(left: 20.w, right: 12.w),
+                        decoration: BoxDecoration(
+                          color: Styles.c_FFFFFF,
+                          border: BorderDirectional(
+                            bottom: BorderSide(
+                              color: Styles.c_F1F2F6,
+                              width: 1,
+                            ),
+                          ),
+                        ),
+                        child: Center(
+                          child: InputBox(
+                            label: "",
+                            border: false,
+                            hintText: StrRes.pleaseInputTitle,
+                            controller: logic.titleCtrl,
+                          ),
+                        )),
+                    if (!logic.isReprintArticle.value)
+                      _buildItemView(
+                        icon: ImageRes.reprintArticle,
+                        text: StrRes.reprintArticle,
+                        onTap: logic.changeReprintArticle,
+                      ),
+                    if (logic.isReprintArticle.value) ...[
+                      Container(
+                          height: 53.h,
+                          padding: EdgeInsets.only(left: 20.w, right: 12.w),
+                          decoration: BoxDecoration(
+                            color: Styles.c_FFFFFF,
+                            border: BorderDirectional(
+                              bottom: BorderSide(
+                                color: Styles.c_F1F2F6,
+                                width: 1,
+                              ),
+                            ),
+                          ),
+                          child: Center(
+                            child: InputBox(
+                              label: "",
+                              border: false,
+                              hintText: StrRes.pleaseInputOriginUrl,
+                              controller: logic.originUrlCtrl,
+                            ),
+                          )),
+                      Container(
+                          height: 53.h,
+                          padding: EdgeInsets.only(left: 20.w, right: 12.w),
+                          decoration: BoxDecoration(
+                            color: Styles.c_FFFFFF,
+                            border: BorderDirectional(
+                              bottom: BorderSide(
+                                color: Styles.c_F1F2F6,
+                                width: 1,
+                              ),
+                            ),
+                          ),
+                          child: Center(
+                            child: InputBox(
+                              label: "",
+                              border: false,
+                              hintText: StrRes.pleaseInputAuthor,
+                              controller: logic.authorCtrl,
+                            ),
+                          ))
+                    ],
+                  ]
+                ],
               ),
-              10.verticalSpace,
-              // _buildItemView(
-              //   icon: ImageRes.appLocation,
-              //   text: StrRes.myLocation,
-              //   onTap: showDeveloping,
-              // ),
-              Obx(
-                () => _buildItemView(
-                  icon: ImageRes.appRemindWhoToWatch,
-                  text: StrRes.remindWhoToWatch,
-                  onTap: logic.remindWhoToWatch,
-                  value: logic.remindWhoToWatchValue,
-                ),
-              ),
-              Obx(
-                () => _buildItemView(
-                  icon: ImageRes.appWhoCanWatch,
-                  text: logic.whoCanWatchLabel,
-                  showUnderline: true,
-                  onTap: logic.whoCanWatch,
-                  value: logic.whoCanWatchValue,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
+          )),
     );
   }
 
@@ -155,7 +236,9 @@ class PublishPage extends StatelessWidget {
     required String text,
     String? value,
     bool showUnderline = false,
+    bool showSwitchButton = false,
     Function()? onTap,
+    Function(bool)? onChanged,
   }) =>
       GestureDetector(
         behavior: HitTestBehavior.translucent,
@@ -186,9 +269,16 @@ class PublishPage extends StatelessWidget {
                   ..overflow = TextOverflow.ellipsis
                   ..textAlign = TextAlign.end,
               ),
-              ImageRes.appRightArrow.toImage
-                ..width = 20.w
-                ..height = 20.h,
+              if (!showSwitchButton)
+                ImageRes.appRightArrow.toImage
+                  ..width = 20.w
+                  ..height = 20.h,
+              if (showSwitchButton)
+                CupertinoSwitch(
+                  value: logic.isPublishXhs.value,
+                  activeColor: Styles.c_07C160,
+                  onChanged: onChanged,
+                ),
             ],
           ),
         ),

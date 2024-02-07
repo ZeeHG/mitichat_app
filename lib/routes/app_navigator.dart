@@ -582,4 +582,8 @@ class AppNavigator {
 
   static startKnowledgeFiles({required Knowledgebase knowledgebase}) =>
       Get.toNamed(AppRoutes.knowledgeFiles, arguments: {"knowledgebase": knowledgebase});
+  
+  static startXhsMomentDetail({required WorkMoments xhsMoment}) =>
+      Get.toNamed(AppRoutes.xhsMomentDetail,
+          arguments: {"xhsMoment": xhsMoment});
 }

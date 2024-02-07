@@ -1170,4 +1170,5 @@ const Map<String, String> en_US = {
   "trainFileTips1": "添加附件：单次最多上传8个，单个文件不超过20M",
   "trainFileTips2": "附件格式：txt/pdf/json/md",
   "trainInputTips": "请输入训练内容...",
+  "privacyPolicyDescriptionP5": ". I give consent to receive SMS messages. Message and data rates may apply. Reply STOP to opt out",
 };

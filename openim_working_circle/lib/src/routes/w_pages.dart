@@ -18,7 +18,6 @@ import '../pages/visible_users_list/visible_users_list_binding.dart';
 import '../pages/visible_users_list/visible_users_list_view.dart';
 import '../pages/work_moments_list/work_moments_list_binding.dart';
 import '../pages/work_moments_list/work_moments_list_view.dart';
-
 part 'w_routes.dart';
 
 class WPages {

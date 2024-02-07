@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:miti/pages/xhs/xhs_logic.dart';
 import 'package:miti/pages/xhs/xhs_view.dart';
 import 'package:openim_common/openim_common.dart';
 
@@ -14,6 +15,7 @@ import 'home_logic.dart';
 
 class HomePage extends StatelessWidget {
   final logic = Get.find<HomeLogic>();
+  final xhsLogic = Get.find<XhsLogic>();
 
   HomePage({super.key});
 
@@ -70,7 +72,10 @@ class HomePage extends StatelessWidget {
                     label: StrRes.discoverTab,
                     imgWidth: 22.w,
                     imgHeight: 22.h,
-                    onClick: (int index) => logic.switchTab(2),
+                    onClick: (int index) {
+                      logic.switchTab(2);
+                      xhsLogic.refreshWorkingCircleList();
+                    },
                   ),
                   // 旧的发现
                   BottomBarItem(

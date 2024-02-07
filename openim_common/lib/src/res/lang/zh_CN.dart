@@ -395,7 +395,7 @@ const Map<String, String> zh_CN = {
   "whoCanWatch": "谁可以看",
   "remindWhoToWatch": "提醒谁看",
   "public": "公开",
-  "everyoneCanSee": "所有人可见",
+  "everyoneCanSee": "所有好友可见",
   "partiallyVisible": "部分可见",
   "visibleToTheSelected": "选中的人可见",
   "partiallyInvisible": "不给谁看",
@@ -1098,4 +1098,11 @@ const Map<String, String> zh_CN = {
   "selectKnowledgebase": "请选择知识库",
   "pleaseUpgradeAiOrOpenKnowledgebase": "请升级数字人或者开启知识库",
   "seeDetails": "查看全文",
+  "totalComment": "共%s条评论",
+  "saySomething": "说点什么...",
+  "allCanSee": "全网可见",
+  "reprintArticle": "转载作品",
+  "pleaseInputOriginUrl":"请填写链接(选填)",
+  "pleaseInputAuthor":"请标注作者(选填)",
+  "pleaseInputTitle": "请输入标题"
 };

@@ -17,6 +17,10 @@ class WApis {
     List<GroupInfo> permissionGroupList = const [],
     List<UserInfo> atUserList = const [],
     int permission = 0,
+    int momentType = 1,
+    String? title,
+    String? author,
+    String? origin_link,
   }) async {
     var metasUrl = [];
     // if (metas != null && metas.isNotEmpty) {
@@ -72,12 +76,16 @@ class WApis {
       WUrls.createMoments,
       options: Apis.chatTokenOptions,
       data: <String, dynamic>{
-        "content": {"metas": metasUrl, "text": text ?? '', "type": type},
+        "content": {"metas": metasUrl, "text": text ?? '', "type": type, "title": title,
+          "author": author,
+          "origin_link": origin_link
+        },
         'permissionUserIDs': permissionUserList.map((e) => e.userID).toList(),
         'permissionGroupIDs':
             permissionGroupList.map((e) => e.groupID).toList(),
         'atUserIDs': atUserList.map((e) => e.userID).toList(),
         'permission': permission,
+        'momentType': momentType,
       },
     );
   }
@@ -96,11 +104,13 @@ class WApis {
   /// 一条工作圈详情
   static Future<WorkMoments> getMomentsDetail({
     required String workMomentID,
+    int momentType = 1,
   }) async {
     final result = await HttpUtil.post(
       WUrls.getMomentsDetail,
       options: Apis.chatTokenOptions,
-      data: <String, dynamic>{'workMomentID': workMomentID},
+      data: <String, dynamic>{'workMomentID': workMomentID, 'momentType': momentType
+      },
     );
     return WorkMoments.fromJson(result['workMoment']);
   }
@@ -109,12 +119,14 @@ class WApis {
   static Future<WorkMomentsList> getMomentsList({
     int pageNumber = 1,
     int showNumber = 20,
+    int momentType = 1,
   }) {
     return HttpUtil.post(
       WUrls.getMomentsList,
       options: Apis.chatTokenOptions,
       data: <String, dynamic>{
-        "pagination": {"pageNumber": pageNumber, "showNumber": showNumber}
+        "pagination": {"pageNumber": pageNumber, "showNumber": showNumber},
+        'momentType': momentType
       },
     ).then((value) => WorkMomentsList.fromJson(value));
   }
@@ -123,13 +135,15 @@ class WApis {
     required String userID,
     int pageNumber = 1,
     int showNumber = 20,
+    int momentType = 1,
   }) {
     return HttpUtil.post(
       WUrls.getUserMomentsList,
       options: Apis.chatTokenOptions,
       data: <String, dynamic>{
         "userID": userID,
-        "pagination": {"pageNumber": pageNumber, "showNumber": showNumber}
+        "pagination": {"pageNumber": pageNumber, "showNumber": showNumber},
+        'momentType': momentType
       },
     ).then((value) => WorkMomentsList.fromJson(value));
   }
@@ -182,12 +196,14 @@ class WApis {
   static Future<List<WorkMoments>> getInteractiveLogs({
     int pageNumber = 1,
     int showNumber = 20,
+    int momentType = 1,
   }) async {
     final result = await HttpUtil.post(
       WUrls.getInteractiveLogs,
       options: Apis.chatTokenOptions,
       data: <String, dynamic>{
-        "pagination": {"pageNumber": pageNumber, "showNumber": showNumber}
+        "pagination": {"pageNumber": pageNumber, "showNumber": showNumber},
+        'momentType': momentType
       },
     );
     final list = result['workMoments'];
@@ -196,15 +212,21 @@ class WApis {
   }
 
   /// 1:未读数 2:消息列表 3:全部
-  static Future clearUnreadCount({required int type}) => HttpUtil.post(
+  static Future clearUnreadCount({required int type, int momentType = 1,
+  }) => HttpUtil.post(
         WUrls.clearUnreadCount,
         options: Apis.chatTokenOptions,
-        data: <String, dynamic>{"type": type},
+        data: <String, dynamic>{"type": type, 'momentType': momentType},
       );
 
-  static Future<int> getUnreadCount() async {
+  static Future<int> getUnreadCount({
+    int momentType = 1,
+  }) async {
     final result = await HttpUtil.post(
       WUrls.getUnreadCount,
+      data: {
+        'momentType': momentType
+      },
       options: Apis.chatTokenOptions,
     );
     return result['total'] ?? 0;

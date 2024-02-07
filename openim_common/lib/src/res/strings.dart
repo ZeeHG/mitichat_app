@@ -1619,4 +1619,13 @@ static String get selectKnowledgebase => 'selectKnowledgebase'.tr;
 static String get pleaseUpgradeAiOrOpenKnowledgebase => 'pleaseUpgradeAiOrOpenKnowledgebase'.tr;
 static String get seeDetails =>
       'seeDetails'.tr;
+static String get totalComment =>
+      'totalComment'.tr;
+static String get saySomething => 'saySomething'.tr;
+static String get allCanSee => 'allCanSee'.tr;
+static String get reprintArticle => 'reprintArticle'.tr;
+static String get pleaseInputOriginUrl => 'pleaseInputOriginUrl'.tr;
+static String get pleaseInputAuthor => 'pleaseInputAuthor'.tr;
+static String get pleaseInputTitle => 'pleaseInputTitle'.tr;
+static String get privacyPolicyDescriptionP5 => 'privacyPolicyDescriptionP5'.tr;
 }

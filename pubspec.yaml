@@ -2,7 +2,7 @@ name: miti
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 0.0.29+29
 
 environment:
-  sdk: '>=2.19.2 <4.0.0'
+  sdk: ">=2.19.2 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -38,7 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   dio: ^5.0.2
-#  pretty_dio_logger: ^1.3.1
+  #  pretty_dio_logger: ^1.3.1
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   shared_preferences: ^2.0.18
@@ -116,20 +116,22 @@ dependencies:
   async: ^2.11.0
   flutter_staggered_grid_view: ^0.7.0
   cached_network_image: ^3.3.1
+  smooth_page_indicator: ^1.1.0
+  card_swiper: ^3.0.1
 
-#  flutter_openim_unimp:
-#    git:
-#      url: https://github.com/hrxiang/flutter_openim_unimp.git
+  #  flutter_openim_unimp:
+  #    git:
+  #      url: https://github.com/hrxiang/flutter_openim_unimp.git
   openim_common:
     path: openim_common
-    
+
   openim_working_circle:
     path: openim_working_circle
   # openim_live:
   #   path: openim_live
   openim_meeting:
     path: openim_meeting
-  flutter_openim_sdk: 
+  flutter_openim_sdk:
     path: flutter_openim_sdk
 
 dependency_overrides:
@@ -140,10 +142,9 @@ dependency_overrides:
   # extended_image: ^8.2.0
   # fixed滑动和放大手势冲突, 基于8.2.0
   extended_image:
-    git: 
+    git:
       url: https://github.com/bpquanttech/extended_image.git
       ref: v8.2.0-fixed
-
 
 dev_dependencies:
   flutter_test:
@@ -164,7 +165,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

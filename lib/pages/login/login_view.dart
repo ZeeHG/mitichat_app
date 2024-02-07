@@ -227,6 +227,9 @@ class LoginPage extends StatelessWidget {
                               ..onTap = () => AppNavigator.startPrivacyPolicy(),
                             text: StrRes.privacyPolicyDescriptionP4,
                             style: Styles.ts_333333_12sp),
+                        TextSpan(
+                            text: StrRes.privacyPolicyDescriptionP5,
+                            style: Styles.ts_656565_12sp),
                       ])),
                     )
                   ],

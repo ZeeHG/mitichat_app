@@ -32,6 +32,12 @@ class PublishLogic extends GetxController {
   final watchList = <dynamic>[].obs;
   final remindList = <dynamic>[].obs;
   final permission = 0.obs;
+  final isPublishXhs = false.obs;
+  final isReprintArticle = false.obs;
+  final authorCtrl = TextEditingController();
+  final originUrlCtrl = TextEditingController();
+  final titleCtrl = TextEditingController();
+  final title = "".obs;
 
   WorkingCircleBridge? get bridge => PackageBridge.workingCircleBridge;
 
@@ -40,6 +46,9 @@ class PublishLogic extends GetxController {
 
   @override
   void onClose() {
+    authorCtrl.dispose();
+    originUrlCtrl.dispose();
+    titleCtrl.dispose();
     inputCtrl.dispose();
     focusNode.dispose();
     super.onClose();
@@ -52,7 +61,18 @@ class PublishLogic extends GetxController {
     inputCtrl.addListener(() {
       text.value = inputCtrl.text.trim();
     });
+    titleCtrl.addListener(() {
+      title.value = titleCtrl.text.trim();
+    });
     super.onInit();
+  }
+
+  void changePublish() {
+    isPublishXhs.value = !isPublishXhs.value;
+  }
+
+  void changeReprintArticle() {
+    isReprintArticle.value = !isReprintArticle.value;
   }
 
   _initDeviceInfo() async {
@@ -71,9 +91,17 @@ class PublishLogic extends GetxController {
       ? (assetsList.length < maxAssetsCount ? 1 : 0)
       : (assetsList.isEmpty ? 1 : 0);
 
-  bool showAddAssetsBtn(index) => (assetsList.length < maxAssetsCount) && (index == (assetsList.length + btnLength) - 1);
+  bool showAddAssetsBtn(index) =>
+      (assetsList.length < maxAssetsCount) &&
+      (index == (assetsList.length + btnLength) - 1);
 
-  bool get canPublish => assetsList.length > 0 || !text.isEmpty;
+  bool get canPublish {
+    if (!isPublishXhs.value) {
+      return assetsList.length > 0 || !text.isEmpty;
+    } else {
+      return assetsList.length > 0 && title.value.length > 0;
+    }
+  }
 
   void back() async {
     // if (canPublish) {
@@ -111,7 +139,10 @@ class PublishLogic extends GetxController {
       );
 
   _selectAssetsFromAlbum() async {
-    Permissions.storage(permissions: [Permissions.photosPermission, Permissions.videosPermission], () async {
+    Permissions.storage(permissions: [
+      Permissions.photosPermission,
+      Permissions.videosPermission
+    ], () async {
       final assets2 = assetsList;
       final count = maxAssetsCount - assetsList.length;
 
@@ -125,7 +156,8 @@ class PublishLogic extends GetxController {
             // 视频限制15s的时长
             if (type == PublishType.video &&
                 entity.videoDuration > const Duration(seconds: 15)) {
-              IMViews.showToast(sprintf(StrRes.selectVideoLimit, [15]) + StrRes.seconds);
+              IMViews.showToast(
+                  sprintf(StrRes.selectVideoLimit, [15]) + StrRes.seconds);
               return false;
             }
             // else if (type == PublishType.picture && entity.mimeType == 'image/gif') {
@@ -235,7 +267,7 @@ class PublishLogic extends GetxController {
     //   IMViews.showToast(StrRes.plsEnterDescription);
     //   return;
     // }
-      await LoadingView.singleton.wrap(asyncFunction: () async {
+    await LoadingView.singleton.wrap(asyncFunction: () async {
       final permissionUserList = <UserInfo>[];
       final permissionGroupList = <GroupInfo>[];
       final atUserList = <UserInfo>[];
@@ -243,11 +275,17 @@ class PublishLogic extends GetxController {
         if (info is GroupInfo) {
           permissionGroupList.add(info);
         } else {
-          permissionUserList.add(UserInfo(userID: info.userID, nickname: info.nickname, faceURL: info.faceURL));
+          permissionUserList.add(UserInfo(
+              userID: info.userID,
+              nickname: info.nickname,
+              faceURL: info.faceURL));
         }
       }
       for (final info in remindList) {
-        atUserList.add(UserInfo(userID: info.userID, nickname: info.nickname, faceURL: info.faceURL));
+        atUserList.add(UserInfo(
+            userID: info.userID,
+            nickname: info.nickname,
+            faceURL: info.faceURL));
       }
 
       List<Map<String, String>> metas = [];
@@ -271,16 +309,19 @@ class PublishLogic extends GetxController {
           metas.add({'thumb': thumbPic.path, 'original': file.path});
         }
       });
-
+      myLogger.e(!isPublishXhs.value ? 1 : 2);
       await WApis.publishMoments(
-        text: inputCtrl.text.trim(),
-        type: isPicture ? 0 : 1,
-        permissionUserList: permissionUserList,
-        permissionGroupList: permissionGroupList,
-        atUserList: atUserList,
-        metas: metas,
-        permission: permission.value,
-      );
+          text: inputCtrl.text.trim(),
+          type: isPicture ? 0 : 1,
+          permissionUserList: !isPublishXhs.value ? permissionUserList : [],
+          permissionGroupList: !isPublishXhs.value ? permissionGroupList : [],
+          atUserList: !isPublishXhs.value ? atUserList : [],
+          metas: metas,
+          permission: !isPublishXhs.value ? permission.value : 0,
+          momentType: !isPublishXhs.value ? 1 : 2,
+          title: !isPublishXhs.value ? null : titleCtrl.text.trim(),
+          author: !isPublishXhs.value ? null : authorCtrl.text.trim(),
+          origin_link: !isPublishXhs.value ? null : originUrlCtrl.text.trim());
     });
     bridge?.opEventSub.add({'opEvent': OpEvent.publish});
     Get.back();

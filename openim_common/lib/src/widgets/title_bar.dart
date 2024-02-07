@@ -581,4 +581,17 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       : height = 48.h,
         showUnderline = false,
         center = 0.horizontalSpace;
+  
+  TitleBar.xhsMomentDetail(
+      {super.key,
+      this.overBottomBg,
+      this.bottom,
+      this.left,
+      this.backIconColor,
+      this.right,
+      this.backgroundColor,
+      this.backgroundImage})
+      : height = 48.h,
+        showUnderline = false,
+        center = 0.horizontalSpace;
 }
