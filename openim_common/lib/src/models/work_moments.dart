@@ -220,9 +220,15 @@ class Content {
   String? text;
   String? title;
   String? author;
-  String? origin_link;
+  String? originLink;
 
-  Content({this.type, this.metas, this.text, this.title, this.author, this.origin_link});
+  Content(
+      {this.type,
+      this.metas,
+      this.text,
+      this.title,
+      this.author,
+      this.originLink});
 
   Content.fromJson(Map<String, dynamic> json) {
     type = json['type'];
@@ -235,7 +241,7 @@ class Content {
     text = json['text'];
     title = json['title'];
     author = json['author'];
-    origin_link = json['origin_link'];
+    originLink = json['originLink'];
   }
 
   Map<String, dynamic> toJson() {
@@ -247,7 +253,7 @@ class Content {
     data['text'] = text;
     data['title'] = title;
     data['author'] = author;
-    data['origin_link'] = origin_link;
+    data['originLink'] = originLink;
     return data;
   }
 }

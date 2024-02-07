@@ -321,7 +321,7 @@ class PublishLogic extends GetxController {
           momentType: !isPublishXhs.value ? 1 : 2,
           title: !isPublishXhs.value ? null : titleCtrl.text.trim(),
           author: !isPublishXhs.value ? null : authorCtrl.text.trim(),
-          origin_link: !isPublishXhs.value ? null : originUrlCtrl.text.trim());
+          originLink: !isPublishXhs.value ? null : originUrlCtrl.text.trim());
     });
     bridge?.opEventSub.add({'opEvent': OpEvent.publish});
     Get.back();

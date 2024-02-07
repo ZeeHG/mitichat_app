@@ -20,7 +20,7 @@ class WApis {
     int momentType = 1,
     String? title,
     String? author,
-    String? origin_link,
+    String? originLink,
   }) async {
     var metasUrl = [];
     // if (metas != null && metas.isNotEmpty) {
@@ -54,20 +54,22 @@ class WApis {
         allMetas.add(m[thumbKey]!);
         allMetas.add(m[originalKey]!);
       }
-      final result =
-          await Future.wait(allMetas.map((e){
-            final suffix = IMUtils.getSuffix(e);
-            return OpenIM.iMManager.uploadFile(
-              id: const Uuid().v4(),
-              filePath: e,
-              fileName: "${const Uuid().v4()}$suffix",
-            );
-          }));
+      final result = await Future.wait(allMetas.map((e) {
+        final suffix = IMUtils.getSuffix(e);
+        return OpenIM.iMManager.uploadFile(
+          id: const Uuid().v4(),
+          filePath: e,
+          fileName: "${const Uuid().v4()}$suffix",
+        );
+      }));
       if (result.length.isEven) {
         for (int i = 0; i < result.length; i += 2) {
           final thumb = jsonDecode(result[i])['url'];
           final original = jsonDecode(result[i + 1])['url'];
-          metasUrl.add({thumbKey: "$thumb?type=image&width=420&height=420", originalKey: original});
+          metasUrl.add({
+            thumbKey: "$thumb?type=image&width=420&height=420",
+            originalKey: original
+          });
         }
       }
     }
@@ -76,9 +78,13 @@ class WApis {
       WUrls.createMoments,
       options: Apis.chatTokenOptions,
       data: <String, dynamic>{
-        "content": {"metas": metasUrl, "text": text ?? '', "type": type, "title": title,
+        "content": {
+          "metas": metasUrl,
+          "text": text ?? '',
+          "type": type,
+          "title": title,
           "author": author,
-          "origin_link": origin_link
+          "originLink": originLink
         },
         'permissionUserIDs': permissionUserList.map((e) => e.userID).toList(),
         'permissionGroupIDs':
@@ -109,7 +115,9 @@ class WApis {
     final result = await HttpUtil.post(
       WUrls.getMomentsDetail,
       options: Apis.chatTokenOptions,
-      data: <String, dynamic>{'workMomentID': workMomentID, 'momentType': momentType
+      data: <String, dynamic>{
+        'workMomentID': workMomentID,
+        'momentType': momentType
       },
     );
     return WorkMoments.fromJson(result['workMoment']);
@@ -212,8 +220,11 @@ class WApis {
   }
 
   /// 1:未读数 2:消息列表 3:全部
-  static Future clearUnreadCount({required int type, int momentType = 1,
-  }) => HttpUtil.post(
+  static Future clearUnreadCount({
+    required int type,
+    int momentType = 1,
+  }) =>
+      HttpUtil.post(
         WUrls.clearUnreadCount,
         options: Apis.chatTokenOptions,
         data: <String, dynamic>{"type": type, 'momentType': momentType},
@@ -224,9 +235,7 @@ class WApis {
   }) async {
     final result = await HttpUtil.post(
       WUrls.getUnreadCount,
-      data: {
-        'momentType': momentType
-      },
+      data: {'momentType': momentType},
       options: Apis.chatTokenOptions,
     );
     return result['total'] ?? 0;
