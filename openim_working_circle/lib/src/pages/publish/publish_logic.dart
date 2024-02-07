@@ -97,9 +97,9 @@ class PublishLogic extends GetxController {
 
   bool get canPublish {
     if (!isPublishXhs.value) {
-      return assetsList.length > 0 || !text.isEmpty;
+      return assetsList.isNotEmpty || text.isNotEmpty;
     } else {
-      return assetsList.length > 0 && title.value.length > 0;
+      return assetsList.isNotEmpty && title.value.isNotEmpty;
     }
   }
 
@@ -267,6 +267,13 @@ class PublishLogic extends GetxController {
     //   IMViews.showToast(StrRes.plsEnterDescription);
     //   return;
     // }
+    if (isPublishXhs.value &&
+        originUrlCtrl.text.trim().isNotEmpty &&
+        !RegExp(regexUrl).hasMatch(originUrlCtrl.text.trim())) {
+      showToast(StrRes.pleaseInputValidUrl);
+      return;
+    }
+
     await LoadingView.singleton.wrap(asyncFunction: () async {
       final permissionUserList = <UserInfo>[];
       final permissionGroupList = <GroupInfo>[];

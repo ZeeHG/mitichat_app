@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:openim_working_circle/openim_working_circle.dart';
 import 'package:openim_working_circle/src/w_apis.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class XhsMomentDetailLogic extends GetxController {
   @override
@@ -57,6 +58,16 @@ class XhsMomentDetailLogic extends GetxController {
         await _updateData();
       },
     );
+  }
+
+  void onTapOriginCard() async {
+    final url = xhsMomentList[0]?.content?.originLink;
+    if (null != url &&
+        url.isNotEmpty) {
+      if (await canLaunchUrl(Uri.parse(url))) {
+        await launchUrl(Uri.parse(url));
+      }
+    }
   }
 
   _updateData() async {
@@ -147,8 +158,7 @@ class XhsMomentDetailLogic extends GetxController {
 
   void viewMeta({int type = 0, required List<Metas> metas, int index = 0}) {
     if (type == 1) {
-      previewVideo(metas[0]!.original!,
-          metas[0]?.thumb ?? metas[0]!.original!);
+      previewVideo(metas[0]!.original!, metas[0]?.thumb ?? metas[0]!.original!);
     } else {
       previewPicture(index, metas);
     }

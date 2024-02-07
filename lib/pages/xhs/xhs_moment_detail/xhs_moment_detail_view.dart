@@ -69,7 +69,10 @@ class XhsMomentDetailPage extends StatelessWidget {
                                 child: Swiper(
                                   itemCount: xhsMoment.content!.metas!.length,
                                   loop: false,
-                                  onTap: (index) => logic.viewMeta(type: xhsMoment.content?.type ?? 0, metas: xhsMoment.content!.metas!, index: index),
+                                  onTap: (index) => logic.viewMeta(
+                                      type: xhsMoment.content?.type ?? 0,
+                                      metas: xhsMoment.content!.metas!,
+                                      index: index),
                                   pagination: SwiperCustomPagination(
                                     builder: (BuildContext context,
                                         SwiperPluginConfig config) {
@@ -153,6 +156,107 @@ class XhsMomentDetailPage extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                if ((null != xhsMoment?.content?.author &&
+                                        xhsMoment!
+                                            .content!.author!.isNotEmpty) ||
+                                    (null != xhsMoment?.content?.originLink &&
+                                        xhsMoment!.content!.originLink!
+                                            .isNotEmpty)) ...[
+                                  GestureDetector(
+                                    behavior: HitTestBehavior.translucent,
+                                    onTap: logic.onTapOriginCard,
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.w, vertical: 10.h),
+                                      decoration: BoxDecoration(
+                                        color: Styles.c_F7F8FA,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(6.r)),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                              child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              if (null !=
+                                                      xhsMoment
+                                                          ?.content?.title &&
+                                                  xhsMoment!.content!.title!
+                                                      .isNotEmpty) ...[
+                                                xhsMoment!.content!.title!
+                                                    .toString()
+                                                    .toText
+                                                  ..style = Styles
+                                                      .ts_333333_16sp_medium
+                                                  ..overflow =
+                                                      TextOverflow.ellipsis
+                                                  ..maxLines = 1,
+                                                5.verticalSpace
+                                              ],
+                                              if (null !=
+                                                      xhsMoment
+                                                          ?.content?.author &&
+                                                  xhsMoment!.content!.author!
+                                                      .isNotEmpty)
+                                                xhsMoment!.content!.author!
+                                                    .toString()
+                                                    .toText
+                                                  ..style = Styles
+                                                      .ts_999999_12sp_medium
+                                                  ..overflow =
+                                                      TextOverflow.ellipsis
+                                                  ..maxLines = 1,
+                                            ],
+                                          )),
+                                          if (null !=
+                                              xhsMoment.content?.metas?[0]
+                                                  ?.original) ...[
+                                            14.horizontalSpace,
+                                            Container(
+                                              clipBehavior: Clip.antiAlias,
+                                              decoration: BoxDecoration(
+                                                color: Styles.c_F7F8FA,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(6.r)),
+                                              ),
+                                              child: CachedNetworkImage(
+                                                width: 82.w,
+                                                height: 45.h,
+                                                imageUrl: xhsMoment.content!
+                                                    .metas![0].original!,
+                                                placeholder: (context, url) =>
+                                                    Container(
+                                                        height: 80.h,
+                                                        child: Center(
+                                                          child: Text(
+                                                              "loading..."),
+                                                        )),
+                                                errorWidget: (context, url,
+                                                        error) =>
+                                                    Container(
+                                                        height: 80.h,
+                                                        child: Center(
+                                                          child: Text("error"),
+                                                        )),
+                                              ),
+                                            )
+                                          ]
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  20.verticalSpace
+                                ],
+                                if (null != xhsMoment?.content?.title &&
+                                    xhsMoment!.content!.title!.isNotEmpty) ...[
+                                  xhsMoment!.content!.title!.toString().toText
+                                    ..style = Styles.ts_333333_16sp_medium,
+                                  10.verticalSpace
+                                ],
                                 if (null != xhsMoment.content?.text &&
                                     xhsMoment!.content!.text!.isNotEmpty) ...[
                                   xhsMoment.content!.text.toString().toText

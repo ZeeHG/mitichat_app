@@ -3,6 +3,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:miti/pages/xhs/xhs_logic.dart';
 import 'package:miti/utils/ai_util.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:openim_working_circle/openim_working_circle.dart';
@@ -33,6 +34,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
   final auth = LocalAuthentication();
   final _errorController = PublishSubject<String>();
   final aiUtil = Get.find<AiUtil>();
+  final xhsLogic = Get.find<XhsLogic>();
 
   Function()? onScrollToUnreadMessage;
 
@@ -42,6 +44,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
 
   void viewDiscover(index) async {
     await WNavigator.startWorkMomentsList();
+    xhsLogic.refreshWorkingCircleList();
     _getUnreadMomentsCount();
   }
 

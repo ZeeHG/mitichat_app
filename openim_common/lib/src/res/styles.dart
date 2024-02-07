@@ -357,6 +357,11 @@ class Styles {
     color: c_999999,
     fontSize: 12.sp,
   );
+  static TextStyle ts_999999_12sp_medium = TextStyle(
+    color: c_999999,
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w500,
+  );
   static TextStyle ts_999999_13sp = TextStyle(
     color: c_999999,
     fontSize: 13.sp,

@@ -1628,4 +1628,6 @@ static String get pleaseInputOriginUrl => 'pleaseInputOriginUrl'.tr;
 static String get pleaseInputAuthor => 'pleaseInputAuthor'.tr;
 static String get pleaseInputTitle => 'pleaseInputTitle'.tr;
 static String get privacyPolicyDescriptionP5 => 'privacyPolicyDescriptionP5'.tr;
+static String get pleaseInputValidUrl =>
+      'pleaseInputValidUrl'.tr;
 }

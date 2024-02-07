@@ -1104,5 +1104,6 @@ const Map<String, String> zh_CN = {
   "reprintArticle": "转载作品",
   "pleaseInputOriginUrl":"请填写链接(选填)",
   "pleaseInputAuthor":"请标注作者(选填)",
-  "pleaseInputTitle": "请输入标题"
+  "pleaseInputTitle": "请输入标题",
+  "pleaseInputValidUrl": "请输入正确链接"
 };
