@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
+import 'package:miti/pages/xhs/xhs_logic.dart';
+import 'package:miti/routes/app_navigator.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:openim_working_circle/openim_working_circle.dart';
 import 'package:openim_working_circle/src/w_apis.dart';
@@ -30,6 +32,8 @@ class XhsMomentDetailLogic extends GetxController {
   final xhsMomentList = <WorkMoments>[].obs;
   final inputCtrl = TextEditingController();
   final commentHintText = ''.obs;
+  final xhsLogic = Get.find<XhsLogic>();
+
   String? replyUserID;
 
   ViewUserProfileBridge? get bridge => PackageBridge.viewUserProfileBridge;
@@ -43,6 +47,8 @@ class XhsMomentDetailLogic extends GetxController {
   List<LikeUsers> get likeUsers => xhsMomentList[0].likeUsers ?? [];
 
   int get likeUsersCount => likeUsers.length;
+
+  bool get isMyMoment => xhsMomentList[0].userID == OpenIM.iMManager.userID;
 
   /// 我点赞了
   bool get iIsLiked =>
@@ -62,8 +68,7 @@ class XhsMomentDetailLogic extends GetxController {
 
   void onTapOriginCard() async {
     final url = xhsMomentList[0]?.content?.originLink;
-    if (null != url &&
-        url.isNotEmpty) {
+    if (null != url && url.isNotEmpty) {
       if (await canLaunchUrl(Uri.parse(url))) {
         await launchUrl(Uri.parse(url));
       }
@@ -162,5 +167,10 @@ class XhsMomentDetailLogic extends GetxController {
     } else {
       previewPicture(index, metas);
     }
+  }
+
+  delXhsMoment() async {
+    await xhsLogic.delWorkWorkMoments(xhsMomentList[0]);
+    Get.back();
   }
 }

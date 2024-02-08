@@ -53,8 +53,8 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 29
         targetSdkVersion 33
-        versionCode 328
-        versionName "alpha-v1.0.6"
+        versionCode 330
+        versionName "alpha-v1.0.7"
 
         multiDexEnabled true
 

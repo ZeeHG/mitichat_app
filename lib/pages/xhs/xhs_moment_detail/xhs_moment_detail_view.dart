@@ -43,7 +43,13 @@ class XhsMomentDetailPage extends StatelessWidget {
               ..overflow = TextOverflow.ellipsis
               ..textAlign = TextAlign.center,
           ])),
-          right: SizedBox(),
+          right: logic.isMyMoment? Button(
+              text: StrRes.delete,
+              textStyle: Styles.ts_FFFFFF_14sp,
+              disabledTextStyle: Styles.ts_FFFFFF_14sp,
+              height: 28.h,
+              padding: EdgeInsets.symmetric(horizontal: 12.w),
+              onTap: logic.delXhsMoment) : SizedBox(),
         ),
         backgroundColor: Styles.c_F7F7F7,
         body: Stack(

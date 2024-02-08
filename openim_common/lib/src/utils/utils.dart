@@ -233,8 +233,7 @@ class IMUtils {
     // Compression is time consuming.
     // -i ${file.path} -preset fast -vf scale=-2:720 -crf 10 -strict experimental -b:a 192k -b:v 1000k $targetPath
     final String ffmpegCommand =
-        '-i $path -preset ultrafast -tune fastdecode -threads:v 16 -threads:a 1 -c:a copy -strict -2 -crf 20 -c:v libx264 -y '
-        '$targetPath';
+        '-i ${file.path} -preset fast -vf scale=-2:720 -crf 10 -strict experimental -b:a 192k -b:v 1000k $targetPath';
     final session = await FFmpegKit.execute(ffmpegCommand);
 
     final state =

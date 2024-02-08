@@ -354,7 +354,7 @@ class XhsLogic extends GetxController {
     );
   }
 
-  delWorkWorkMoments(WorkMoments moments) async {
+  Future<void> delWorkWorkMoments(WorkMoments moments) async {
     var confirm = await Get.dialog(CustomDialog(
       title: StrRes.confirmDelMoment,
     ));
