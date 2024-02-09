@@ -1185,5 +1185,6 @@ const Map<String, String> en_US = {
   "pleaseInputOriginUrl": "Please fill in the link (optional)",
   "pleaseInputAuthor": "Please indicate the author (optional)",
   "pleaseInputTitle": "Please enter a title",
-  "pleaseInputValidUrl": "Please enter a valid link"
+  "pleaseInputValidUrl": "Please enter a valid link",
+  "privacyPolicyDescriptionP5": ". I give consent to receive SMS messages. Message and data rates may apply. Reply STOP to opt out."
 };

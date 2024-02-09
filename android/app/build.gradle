@@ -54,8 +54,8 @@ android {
         minSdkVersion 29
         targetSdkVersion 33
         // 351, alpha-v1.0.1开始, play上架versionName+1
-        versionCode 351
-        versionName "alpha-v1.0.1"
+        versionCode 352
+        versionName "alpha-v1.0.2"
 
         multiDexEnabled true
 
