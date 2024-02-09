@@ -311,7 +311,7 @@ class PublishLogic extends GetxController {
             metas.add({'thumb': file!.path, 'original': file.path});
           }
         } else {
-          file = await IMUtils.compressVideoAndGetFile(file!);
+          // file = await IMUtils.compressVideoAndGetFile(file!);
           final thumbPic = await IMUtils.getVideoThumbnail(file!);
           metas.add({'thumb': thumbPic.path, 'original': file.path});
         }

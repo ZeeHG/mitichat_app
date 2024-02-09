@@ -160,7 +160,7 @@ class XhsPage extends StatelessWidget {
                                       Container(
                                           height: 80.h,
                                           child: Center(
-                                            child: Text("error"),
+                                            child: Text(""),
                                           )),
                                 ),
                               if (xhsMoment.content?.type == 1)
@@ -176,7 +176,7 @@ class XhsPage extends StatelessWidget {
                                       placeholder: (context, url) => Container(
                                           height: 80.h,
                                           child: Center(
-                                            child: Text("error"),
+                                            child: Text(""),
                                           )),
                                       errorWidget: (context, url, error) =>
                                           Icon(Icons.error),

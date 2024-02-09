@@ -149,7 +149,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                                                     Container(
                                                         height: 80.h,
                                                         child: Center(
-                                                          child: Text("error"),
+                                                          child: Text(""),
                                                         )),
                                               ));
                                   },
@@ -246,7 +246,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                                                     Container(
                                                         height: 80.h,
                                                         child: Center(
-                                                          child: Text("error"),
+                                                          child: Text(""),
                                                         )),
                                               ),
                                             )
