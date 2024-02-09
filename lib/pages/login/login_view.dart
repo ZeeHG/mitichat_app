@@ -155,7 +155,8 @@ class LoginPage extends StatelessWidget {
                                       text: StrRes.forgetPassword,
                                       style: Styles.ts_8443F8_12sp,
                                       recognizer: TapGestureRecognizer()
-                                        ..onTap = _showForgetPasswordBottomSheet,
+                                        ..onTap =
+                                            _showForgetPasswordBottomSheet,
                                     )
                                   ],
                                 ),
@@ -192,21 +193,25 @@ class LoginPage extends StatelessWidget {
                 () => Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Transform.scale(
-                        scale: 0.8,
-                        child: Checkbox(
-                          visualDensity: VisualDensity.compact,
-                          // activeColor: Styles.c_8443F8,
-                          fillColor: MaterialStateProperty.resolveWith(
-                              (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.selected))
-                              return Styles.c_8443F8;
-                            return null;
-                          }),
-                          value: logic.agree.value,
-                          onChanged: logic.changeAgree,
-                        )),
+                    Transform.translate(
+                      offset: Offset(0, -8.h),
+                      child: Transform.scale(
+                          scale: 0.8,
+                          child: Checkbox(
+                            visualDensity: VisualDensity.compact,
+                            // activeColor: Styles.c_8443F8,
+                            fillColor: MaterialStateProperty.resolveWith(
+                                (Set<MaterialState> states) {
+                              if (states.contains(MaterialState.selected))
+                                return Styles.c_8443F8;
+                              return null;
+                            }),
+                            value: logic.agree.value,
+                            onChanged: logic.changeAgree,
+                          )),
+                    ),
                     Container(
                       constraints: BoxConstraints(maxWidth: 270.w),
                       child: RichText(
