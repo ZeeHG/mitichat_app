@@ -25,6 +25,10 @@ class CachedVideoControllerService extends VideoControllerService {
   @override
   Future<VideoPlayerController> getVideo(String videoUrl) async {
     final file = await getCacheFile(videoUrl);
+    myLogger.i({
+      "message": "CachedVideoControllerService进行getVideo",
+      "data": {"hasFileCache": file != null}
+    });
 
     if (file == null) {
       Logger.print('[VideoControllerService]: No video in cache');
@@ -32,7 +36,8 @@ class CachedVideoControllerService extends VideoControllerService {
       Logger.print('[VideoControllerService]: Saving video to cache');
       unawaited(_cacheManager.downloadFile(videoUrl));
 
-      return VideoPlayerController.network(videoUrl);
+      // return VideoPlayerController.network(videoUrl);
+      return VideoPlayerController.networkUrl(Uri.parse(videoUrl));
     } else {
       Logger.print('[VideoControllerService]: Loading video from cache');
       return VideoPlayerController.file(file);
@@ -73,11 +78,13 @@ class ChatVideoPlayerView extends StatefulWidget {
   State<ChatVideoPlayerView> createState() => _ChatVideoPlayerViewState();
 }
 
-class _ChatVideoPlayerViewState extends State<ChatVideoPlayerView> with SingleTickerProviderStateMixin {
+class _ChatVideoPlayerViewState extends State<ChatVideoPlayerView>
+    with SingleTickerProviderStateMixin {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
 
-  final _cachedVideoControllerService = CachedVideoControllerService(DefaultCacheManager());
+  final _cachedVideoControllerService =
+      CachedVideoControllerService(DefaultCacheManager());
 
   @override
   void initState() {
@@ -98,19 +105,30 @@ class _ChatVideoPlayerViewState extends State<ChatVideoPlayerView> with SingleTi
 
     if (file == null) {
       bool existFile = false;
-      if (IMUtils.isNotNullEmptyStr(_path) && (await Permissions.checkStorageV2([Permission.videos]))) {
+      if (IMUtils.isNotNullEmptyStr(_path) &&
+          (await Permissions.checkStorageV2([Permission.videos]))) {
         file = File(_path!);
         existFile = await file.exists();
         if (!existFile) {
           file = null;
         }
       }
+      myLogger.i({
+        "message": "initializePlayer, file不存在, 使用${_path}, _path的file${existFile? '存在':'不存在'}",
+      });
     }
 
     if (null != file && file.existsSync()) {
+      myLogger.i({
+        "message": "initializePlayer, file存在, ${file.path}, ${_url}",
+      });
       _videoPlayerController = VideoPlayerController.file(file);
     } else {
-      _videoPlayerController = await _cachedVideoControllerService.getVideo(_url!);
+      myLogger.i({
+        "message": "initializePlayer, file不存在使用url, ${_url}",
+      });
+      _videoPlayerController =
+          await _cachedVideoControllerService.getVideo(_url!);
     }
 
     await _videoPlayerController.initialize();
@@ -129,7 +147,9 @@ class _ChatVideoPlayerViewState extends State<ChatVideoPlayerView> with SingleTi
       allowFullScreen: false,
       allowPlaybackSpeedChanging: false,
       showControlsOnInitialize: true,
-      customControls: CustomCupertinoControls(backgroundColor: Colors.black.withOpacity(0.7), iconColor: Colors.white),
+      customControls: CustomCupertinoControls(
+          backgroundColor: Colors.black.withOpacity(0.7),
+          iconColor: Colors.white),
       // hideControlsTimer: const Duration(seconds: 1),
       optionsTranslation: OptionsTranslation(
         playbackSpeedButtonText: StrRes.playSpeed,
@@ -158,7 +178,8 @@ class _ChatVideoPlayerViewState extends State<ChatVideoPlayerView> with SingleTi
     return SafeArea(
       child: Stack(
         children: [
-          if (_chewieController != null && _chewieController!.videoPlayerController.value.isInitialized)
+          if (_chewieController != null &&
+              _chewieController!.videoPlayerController.value.isInitialized)
             Chewie(controller: _chewieController!)
           else
             _buildCoverView(context),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -38,9 +39,12 @@ class _PreviewVideoPageState extends State<PreviewVideoPage> {
   }
 
   Future<void> initializePlayer() async {
+    myLogger.i({"message": "initializePlayer开始"});
     _videoPlayerController =
         await _cachedVideoControllerService.getVideo(widget.url);
+    myLogger.i({"message": "_videoPlayerController创建成功"});
     await _videoPlayerController.initialize();
+    myLogger.i({"message": "_videoPlayerController初始化完成, 开始创建_chewieController"});
     _createChewieController();
     setState(() {});
   }
@@ -89,7 +93,9 @@ class _PreviewVideoPageState extends State<PreviewVideoPage> {
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle(systemNavigationBarColor: Styles.c_000000, systemNavigationBarIconBrightness: Brightness.light),
+        value: SystemUiOverlayStyle(
+            systemNavigationBarColor: Styles.c_000000,
+            systemNavigationBarIconBrightness: Brightness.light),
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Styles.c_000000,
@@ -115,12 +121,30 @@ class _PreviewVideoPageState extends State<PreviewVideoPage> {
         children: [
           if (null != widget.coverUrl)
             Center(
-              child: ImageUtil.networkImage(
-                url: widget.coverUrl!,
-                loadProgress: false,
+                child:
+                    // ImageUtil.networkImage(
+                    //   url: widget.coverUrl!,
+                    //   loadProgress: false,
+                    // ),
+                    CachedNetworkImage(
+              imageUrl: widget.coverUrl!,
+            )),
+          const CircularProgressIndicator(),
+          Positioned(
+            right: 15,
+            top: MediaQuery.of(context).padding.top + 10,
+            child: GestureDetector(
+              onTap: () {
+                // Pop through controller
+                Navigator.of(context).pop();
+              },
+              child: const Icon(
+                Icons.close,
+                color: Colors.white,
+                size: 32,
               ),
             ),
-          const CircularProgressIndicator(),
+          )
         ],
       );
 }
