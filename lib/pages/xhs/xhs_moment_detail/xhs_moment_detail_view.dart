@@ -425,7 +425,10 @@ class XhsMomentDetailPage extends StatelessWidget {
                                     child: RichText(
                                       text: TextSpan(children: [
                                         if (null != comment?.replyUserID) ...[
-                                          TextSpan(
+                                          if(null != comment?.replyNickname &&
+                                              comment.replyNickname!
+                                                  .isNotEmpty)
+                                          ...[TextSpan(
                                               text: StrRes.replied,
                                               style: Styles.ts_333333_14sp),
                                           TextSpan(
@@ -433,7 +436,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                                                   (comment.replyNickname ??
                                                       "") +
                                                   "：",
-                                              style: Styles.ts_8443F8_14sp),
+                                              style: Styles.ts_8443F8_14sp)],
                                           TextSpan(
                                               text: comment.content,
                                               style: Styles.ts_333333_14sp),

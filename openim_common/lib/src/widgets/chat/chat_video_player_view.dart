@@ -34,10 +34,16 @@ class CachedVideoControllerService extends VideoControllerService {
       Logger.print('[VideoControllerService]: No video in cache');
 
       Logger.print('[VideoControllerService]: Saving video to cache');
-      unawaited(_cacheManager.downloadFile(videoUrl));
+      await (_cacheManager.downloadFile(videoUrl));
+      final file = await getCacheFile(videoUrl);
 
       // return VideoPlayerController.network(videoUrl);
-      return VideoPlayerController.networkUrl(Uri.parse(videoUrl));
+      // return VideoPlayerController.networkUrl(Uri.parse(videoUrl));
+      if (null != file) {
+        return VideoPlayerController.file(file!);
+      } else {
+        return VideoPlayerController.networkUrl(Uri.parse(videoUrl));
+      }
     } else {
       Logger.print('[VideoControllerService]: Loading video from cache');
       return VideoPlayerController.file(file);
@@ -114,7 +120,8 @@ class _ChatVideoPlayerViewState extends State<ChatVideoPlayerView>
         }
       }
       myLogger.i({
-        "message": "initializePlayer, file不存在, 使用${_path}, _path的file${existFile? '存在':'不存在'}",
+        "message":
+            "initializePlayer, file不存在, 使用${_path}, _path的file${existFile ? '存在' : '不存在'}",
       });
     }
 
