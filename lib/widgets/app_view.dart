@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +20,7 @@ class AppView extends StatelessWidget {
         onForegroundGained: () {
           ctrl.runningBackground(false);
           appCommonLogic.setForeground(true);
-          appCommonLogic.tryUpdateAppFromCache();
+          // appCommonLogic.tryUpdateAppFromCache();
         },
         onForegroundLost: () {
           ctrl.runningBackground(true);

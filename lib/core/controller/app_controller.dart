@@ -19,7 +19,7 @@ import 'im_controller.dart';
 import 'push_controller.dart';
 
 // 下载0, 后台1, 消息message.seq
-class AppController extends SuperController with UpgradeManger {
+class AppController extends SuperController {
   var isRunningBackground = false;
   var isAppBadgeSupported = false;
 
@@ -191,20 +191,21 @@ class AppController extends SuperController with UpgradeManger {
   }
 
   Future<void> _startForegroundService() async {
-    await getAppInfo();
+    // await getAppInfo();
+    if (!Platform.isAndroid) return;
     const androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'pro', 'keepAlive',
         playSound: false,
         enableVibration: false,
         channelDescription: 'keepAlive',
-        importance: Importance.max,
+        importance: Importance.low,
         priority: Priority.defaultPriority,
         ticker: 'keepAlive');
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
-        ?.startForegroundService(1, packageInfo!.appName, 'miti running...',
+        ?.startForegroundService(1, 'miti', 'miti running...',
             notificationDetails: androidPlatformChannelSpecifics, payload: '');
   }
 
@@ -237,7 +238,7 @@ class AppController extends SuperController with UpgradeManger {
   void onClose() {
     // backgroundSubject.close();
     // _stopForegroundService();
-    closeSubject();
+    // closeSubject();
     _audioPlayer.dispose();
     super.onClose();
   }
@@ -375,7 +376,11 @@ class AppController extends SuperController with UpgradeManger {
     try {
       map = await Apis.getClientConfig();
     } catch (e, s) {
-      myLogger.e({"message": "获取客户端配置异常, 使用默认配置", "error": {"error": e, "defalutConfig": defaultConfig}, "stack": s});
+      myLogger.e({
+        "message": "获取客户端配置异常, 使用默认配置",
+        "error": {"error": e, "defalutConfig": defaultConfig},
+        "stack": s
+      });
     } finally {
       clientConfigMap.assignAll(map);
     }

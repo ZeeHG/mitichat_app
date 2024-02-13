@@ -8,7 +8,7 @@ import '../../core/controller/push_controller.dart';
 import '../../routes/app_navigator.dart';
 import '../../utils/upgrade_manager.dart';
 
-class SplashLogic extends GetxController with UpgradeManger {
+class SplashLogic extends GetxController {
   final imLogic = Get.find<IMController>();
   final pushLogic = Get.find<PushController>();
   final translateLogic = Get.find<TranslateLogic>();
