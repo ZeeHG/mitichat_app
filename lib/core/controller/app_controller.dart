@@ -198,8 +198,8 @@ class AppController extends SuperController {
         playSound: false,
         enableVibration: false,
         channelDescription: 'keepAlive',
-        importance: Importance.low,
-        priority: Priority.defaultPriority,
+        importance: Importance.max,
+        priority: Priority.max,
         ticker: 'keepAlive');
 
     await flutterLocalNotificationsPlugin
