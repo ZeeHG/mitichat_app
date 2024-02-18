@@ -60,7 +60,8 @@ class IMCallback {
   final unreadMsgCountEventSubject = PublishSubject<int>();
 
   /// 好友申请列表变化（包含自己发出的以及收到的）
-  final friendApplicationChangedSubject = BehaviorSubject<FriendApplicationInfo>();
+  final friendApplicationChangedSubject =
+      BehaviorSubject<FriendApplicationInfo>();
 
   /// 新增好友
   final friendAddSubject = BehaviorSubject<FriendInfo>();
@@ -81,7 +82,8 @@ class IMCallback {
   final groupInfoUpdatedSubject = BehaviorSubject<GroupInfo>();
 
   /// 组申请列表变化（包含自己发出的以及收到的）
-  final groupApplicationChangedSubject = BehaviorSubject<GroupApplicationInfo>();
+  final groupApplicationChangedSubject =
+      BehaviorSubject<GroupApplicationInfo>();
 
   final initializedSubject = PublishSubject<bool>();
 
@@ -119,7 +121,10 @@ class IMCallback {
   }
 
   void kickedOffline(String type) {
-    myLogger.e({"message": "触发im_controller的onKickedOffline或者kickedOffline, type=$type, 退出登录"});
+    myLogger.e({
+      "message":
+          "触发im_controller的onKickedOffline或者kickedOffline, type=$type, 退出登录"
+    });
     onKickedOfflineSubject.add(type);
   }
 
@@ -149,7 +154,7 @@ class IMCallback {
   }
 
   void recvNewMessage(Message msg) {
-    initLogic.showNotification(msg, showNotification: false);
+    initLogic.showNotification(msg);
     onRecvNewMessage?.call(msg);
   }
 
