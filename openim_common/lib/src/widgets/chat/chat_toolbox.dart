@@ -53,14 +53,12 @@ class ChatToolBox extends StatelessWidget {
           icon: ImageRes.appToolboxCamera,
           onTap: () => Permissions.camera(onTapCamera),
         ),
-      // if (null != onTapCall)
-      //   ToolboxItemInfo(
-      //     text: StrRes.toolboxCall,
-      //     icon: ImageRes.appToolboxCall,
-      //     // onTap: () => Permissions.cameraAndMicrophone(onTapCall),
-      //     onTap: () => onTapCall!(),
-      //     disabled: true,
-      //   ),
+      if (null != onTapCall)
+        ToolboxItemInfo(
+          text: StrRes.toolboxCall,
+          icon: ImageRes.appToolboxCall,
+          onTap: () => Permissions.cameraAndMicrophone(onTapCall),
+        ),
       if (null != onTapLocation)
         ToolboxItemInfo(
           text: StrRes.toolboxLocation,

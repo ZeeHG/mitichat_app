@@ -232,7 +232,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
         .getSignalingInvitationInfoStartApp();
     if (null != signalingInfo.invitation) {
       // 调用视频界面
-      // imLogic.receiveNewInvitation(signalingInfo);
+      imLogic.receiveNewInvitation(signalingInfo);
     }
   }
 

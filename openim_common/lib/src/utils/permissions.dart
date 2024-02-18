@@ -181,7 +181,7 @@ class Permissions {
     //   onGranted?.call();
     // }
 
-    await batchRequestAndCheckPermissions(permissions);
+    await batchRequestAndCheckPermissions(permissions, onAgree: onGranted);
   }
 
   static Future<bool> media() async {
@@ -301,7 +301,7 @@ class Permissions {
       onAgree?.call();
       await onAgreeAsync?.call();
     } else {
-      await onDisagree?.call();
+      onDisagree?.call();
       await onDisAgreeAsync?.call();
     }
     return isAgree;

@@ -6,7 +6,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:openim_common/openim_common.dart';
-// import 'package:openim_live/openim_live.dart';
+import 'package:openim_live/openim_live.dart';
 import 'package:openim_working_circle/openim_working_circle.dart';
 import 'package:sprintf/sprintf.dart';
 
@@ -310,11 +310,11 @@ class UserProfilePanelLogic extends GetxController {
 
   void toCall() {
     IMViews.openIMCallSheet(userInfo.value.showName, (index) {
-      // imLogic.call(
-      //   callObj: CallObj.single,
-      //   callType: index == 0 ? CallType.audio : CallType.video,
-      //   inviteeUserIDList: [userInfo.value.userID!],
-      // );
+      imLogic.call(
+        callObj: CallObj.single,
+        callType: index == 0 ? CallType.audio : CallType.video,
+        inviteeUserIDList: [userInfo.value.userID!],
+      );
     });
   }
 

@@ -15,7 +15,7 @@ import 'package:mime/mime.dart';
 import 'package:miti/utils/ai_util.dart';
 import 'package:miti/utils/conversation_util.dart';
 import 'package:openim_common/openim_common.dart';
-// import 'package:openim_live/openim_live.dart';
+import 'package:openim_live/openim_live.dart';
 import 'package:openim_meeting/openim_meeting.dart';
 import 'package:photo_browser/photo_browser.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -443,13 +443,13 @@ class ChatLogic extends GetxController {
     });
 
     // 通话消息处理
-    // imLogic.onSignalingMessage = (value) {
-    //   if (value.isSingleChat && value.userID == userID ||
-    //       value.isGroupChat && value.groupID == groupID) {
-    //     messageList.add(value.message);
-    //     scrollBottom();
-    //   }
-    // };
+    imLogic.onSignalingMessage = (value) {
+      if (value.isSingleChat && value.userID == userID ||
+          value.isGroupChat && value.groupID == groupID) {
+        messageList.add(value.message);
+        scrollBottom();
+      }
+    };
 
     imLogic.roomParticipantConnectedSubject.listen((value) {
       if (value.groupID == groupID) {
@@ -1187,16 +1187,16 @@ class ChatLogic extends GetxController {
       var map = json.decode(data!);
       var customType = map['customType'];
       if (CustomMessageType.call == customType && !isInBlacklist.value) {
-        // if (rtcIsBusy) {
-        //   IMViews.showToast(StrRes.callingBusy);
-        //   return;
-        // }
-        // var type = map['data']['type'];
-        // imLogic.call(
-        //   callObj: CallObj.single,
-        //   callType: type == "audio" ? CallType.audio : CallType.video,
-        //   inviteeUserIDList: [if (isSingleChat) userID!],
-        // );
+        if (rtcIsBusy) {
+          IMViews.showToast(StrRes.callingBusy);
+          return;
+        }
+        var type = map['data']['type'];
+        imLogic.call(
+          callObj: CallObj.single,
+          callType: type == "audio" ? CallType.audio : CallType.video,
+          inviteeUserIDList: [if (isSingleChat) userID!],
+        );
       } else if (CustomMessageType.meeting == customType) {
         if (rtcIsBusy) {
           IMViews.showToast(StrRes.callingBusy);
@@ -1886,24 +1886,24 @@ class ChatLogic extends GetxController {
             groupInfo: groupInfo!,
             opType: GroupMemberOpType.call,
           );
-          // if (list is List<GroupMembersInfo>) {
-          //   final uidList = list.map((e) => e.userID!).toList();
-          //   imLogic.call(
-          //     callObj: CallObj.group,
-          //     callType: index == 0 ? CallType.audio : CallType.video,
-          //     groupID: groupID,
-          //     inviteeUserIDList: uidList,
-          //   );
-          // }
+          if (list is List<GroupMembersInfo>) {
+            final uidList = list.map((e) => e.userID!).toList();
+            imLogic.call(
+              callObj: CallObj.group,
+              callType: index == 0 ? CallType.audio : CallType.video,
+              groupID: groupID,
+              inviteeUserIDList: uidList,
+            );
+          }
         }
       });
     } else {
       IMViews.openIMCallSheet(nickname.value, (index) {
-        // imLogic.call(
-        //   callObj: CallObj.single,
-        //   callType: index == 0 ? CallType.audio : CallType.video,
-        //   inviteeUserIDList: [if (isSingleChat) userID!],
-        // );
+        imLogic.call(
+          callObj: CallObj.single,
+          callType: index == 0 ? CallType.audio : CallType.video,
+          inviteeUserIDList: [if (isSingleChat) userID!],
+        );
       });
     }
   }
@@ -2607,16 +2607,16 @@ class ChatLogic extends GetxController {
       ),
     );
     final info = roomCallingInfo.invitation!;
-    // imLogic.call(
-    //   callObj: CallObj.group,
-    //   callType: info.mediaType == 'audio' ? CallType.audio : CallType.video,
-    //   groupID: info.groupID,
-    //   roomID: info.roomID,
-    //   inviteeUserIDList: info.inviteeUserIDList ?? [],
-    //   inviterUserID: info.inviterUserID,
-    //   callState: CallState.join,
-    //   credentials: certificate,
-    // );
+    imLogic.call(
+      callObj: CallObj.group,
+      callType: info.mediaType == 'audio' ? CallType.audio : CallType.video,
+      groupID: info.groupID,
+      roomID: info.roomID,
+      inviteeUserIDList: info.inviteeUserIDList ?? [],
+      inviterUserID: info.inviterUserID,
+      callState: CallState.join,
+      credentials: certificate,
+    );
   }
 
   /// 当滚动位置处于底部时，将新镇的消息放入列表里

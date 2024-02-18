@@ -3,12 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
-// import 'package:openim_live/openim_live.dart';
+import 'package:openim_live/openim_live.dart';
 import 'dart:convert';
 import '../im_callback.dart';
 
-// class IMController extends GetxController with IMCallback, OpenIMLive {
-class IMController extends GetxController with IMCallback {
+class IMController extends GetxController with IMCallback, OpenIMLive {
   late Rx<UserFullInfo> userInfo;
   late String atAllTag;
 
@@ -16,14 +15,14 @@ class IMController extends GetxController with IMCallback {
   void onClose() {
     super.close();
     // OpenIM.iMManager.unInitSDK();
-    // onCloseLive();
+    onCloseLive();
     super.onClose();
   }
 
   @override
   void onInit() async {
     super.onInit();
-    // onInitLive();
+    onInitLive();
     // Initialize SDK
     WidgetsBinding.instance.addPostFrameCallback((_) => initOpenIM());
   }
@@ -141,21 +140,21 @@ class IMController extends GetxController with IMCallback {
         onGroupMemberInfoChanged: groupMemberInfoChanged,
         onJoinedGroupAdded: joinedGroupAdded,
         onJoinedGroupDeleted: joinedGroupDeleted,
-      ));
+      ))
     // Set up signaling listener
-    // ..signalingManager.setSignalingListener(OnSignalingListener(
-    //   onInvitationCancelled: invitationCancelled,
-    //   onInvitationTimeout: invitationTimeout,
-    //   onInviteeAccepted: inviteeAccepted,
-    //   onInviteeRejected: inviteeRejected,
-    //   onReceiveNewInvitation: receiveNewInvitation,
-    //   onInviteeAcceptedByOtherDevice: inviteeAcceptedByOtherDevice,
-    //   onInviteeRejectedByOtherDevice: inviteeRejectedByOtherDevice,
-    //   onHangup: beHangup,
-    //   onRoomParticipantConnected: roomParticipantConnected,
-    //   onRoomParticipantDisconnected: roomParticipantDisconnected,
-    //   onMeetingStreamChanged: meetingSteamChanged,
-    // ));
+    ..signalingManager.setSignalingListener(OnSignalingListener(
+      onInvitationCancelled: invitationCancelled,
+      onInvitationTimeout: invitationTimeout,
+      onInviteeAccepted: inviteeAccepted,
+      onInviteeRejected: inviteeRejected,
+      onReceiveNewInvitation: receiveNewInvitation,
+      onInviteeAcceptedByOtherDevice: inviteeAcceptedByOtherDevice,
+      onInviteeRejectedByOtherDevice: inviteeRejectedByOtherDevice,
+      onHangup: beHangup,
+      onRoomParticipantConnected: roomParticipantConnected,
+      onRoomParticipantDisconnected: roomParticipantDisconnected,
+      onMeetingStreamChanged: meetingSteamChanged,
+    ));
 
     initializedSubject.sink.add(initialized);
   }

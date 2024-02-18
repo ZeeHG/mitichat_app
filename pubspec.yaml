@@ -127,8 +127,8 @@ dependencies:
 
   openim_working_circle:
     path: openim_working_circle
-  # openim_live:
-  #   path: openim_live
+  openim_live:
+    path: openim_live
   openim_meeting:
     path: openim_meeting
   flutter_openim_sdk:

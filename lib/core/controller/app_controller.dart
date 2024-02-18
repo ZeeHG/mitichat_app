@@ -74,7 +74,7 @@ class AppController extends SuperController {
 
     if (isRunningBackground && !run) {}
     isRunningBackground = run;
-    // Get.find<IMController>().backgroundSubject.sink.add(run);
+    Get.find<IMController>().backgroundSubject.sink.add(run);
     if (!run) {
       _cancelAllNotifications();
     } else {
