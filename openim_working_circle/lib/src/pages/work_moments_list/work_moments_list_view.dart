@@ -228,7 +228,7 @@ class WorkMomentsListPage extends StatelessWidget {
         title: StrRes.discoverTab.toText
           ..style = Styles.ts_333333_18sp_medium,
         centerTitle: true,
-        expandedHeight: 196.h,
+        expandedHeight: 200.h,
         toolbarHeight: 44.h,
         backgroundColor: Styles.c_FFFFFF,
         floating: false,
@@ -273,10 +273,10 @@ class WorkMomentsListPage extends StatelessWidget {
               color: Styles.c_FFFFFF,
               child: ImageRes.workingCircleHeaderBg3.toImage
               ..width = 375.w
-              ..height = 196.h
+              ..height = 200.h
               ..fit = BoxFit.cover,
             ),
-            if (logic.scrollHeight <= (196.h - 22.h - MediaQuery.of(context).padding.top))
+            if (logic.scrollHeight <= (200.h - 22.h - MediaQuery.of(context).padding.top))
             Positioned(
               bottom: 70.h,
               left: 18.w,
@@ -344,7 +344,7 @@ class WorkMomentsListPage extends StatelessWidget {
               ),
               ),
             ),
-            if (logic.scrollHeight <= (196.h - 22.h - MediaQuery.of(context).padding.top))
+            if (logic.scrollHeight <= (200.h - 22.h - MediaQuery.of(context).padding.top))
             Positioned(
               bottom: 0,
               left: 0,
