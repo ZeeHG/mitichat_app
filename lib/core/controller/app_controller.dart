@@ -189,8 +189,14 @@ class AppController extends SuperController {
             channelDescription: 'message push',
             importance: Importance.max,
             priority: Priority.max,
+            playSound: true,
+            enableVibration: true,
             fullScreenIntent: true,
-            ticker: 'message');
+            silent: false,
+            channelShowBadge : true,
+            category: AndroidNotificationCategory.message,
+            visibility: NotificationVisibility.public,
+            ticker: 'one message');
         const NotificationDetails platformChannelSpecifics =
             NotificationDetails(android: androidPlatformChannelSpecifics);
         await flutterLocalNotificationsPlugin.show(
@@ -214,7 +220,7 @@ class AppController extends SuperController {
         channelDescription: 'keep alive',
         importance: Importance.defaultImportance,
         priority: Priority.defaultPriority,
-        ticker: 'keep alive');
+        ticker: ' ');
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
