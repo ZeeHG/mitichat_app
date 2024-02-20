@@ -48,7 +48,7 @@ class BottomBar extends StatelessWidget {
                     IntrinsicWidth(
                         child: Container(
                       // 最大图片的高度
-                      height: 22.h,
+                      height: 24.h,
                       alignment: Alignment.bottomCenter,
                       child: ((i == 0 && (index == 0 || index == 1)) || (i == 1 && index == 2) || (i == 3 && index == 3)
                           ? item.selectedImgRes.toImage
