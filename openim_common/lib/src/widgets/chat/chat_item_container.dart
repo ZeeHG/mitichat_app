@@ -287,7 +287,7 @@ class ChatItemContainer extends StatelessWidget {
               if (translateShow)
                 translateView!(text: translateText, status: translateStatus!),
               if (null != quoteView) quoteView!,
-              // if (null != readStatusView) readStatusView!,
+              if (null != readStatusView) readStatusView!,
             ],
           ),
           12.horizontalSpace,
