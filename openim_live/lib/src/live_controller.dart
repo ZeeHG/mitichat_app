@@ -312,11 +312,19 @@ mixin OpenIMLive {
   }
 
   onError(error, stack) {
-    myLogger.e({"message": "通话失败", "error": {"code": int.parse(error.code), "error": error}, stack: stack});
+    myLogger.e({"message": "通话错误", "error": error, stack: stack});
     Logger.print('onError=====> $error $stack');
     OpenIMLiveClient().close();
     _stopSound();
     if (error is PlatformException) {
+      myLogger.e({
+        "message": "通话错误详情",
+        "error": {
+          "code": int.parse(error.code),
+          "details": error.details,
+          "message": error.message
+        }
+      });
       if (int.parse(error.code) == SDKErrorCode.hasBeenBlocked) {
         IMViews.showToast(StrRes.callFail);
         return;

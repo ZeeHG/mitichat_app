@@ -745,12 +745,34 @@ class ChatLogic extends GetxController {
     // 借用当前聊天窗口，给其他用户或群发送信息，如合并转发，分享名片。
     bool useOuterValue = null != userId || null != groupId;
     setConversationConfig(waitingST: message.sendTime);
+    String text = StrRes.defaultNotification;
+    if (message.isTextType) {
+      text = message.textElem!.content!;
+    } else if (message.isAtTextType) {
+      text = IMUtils.replaceMessageAtMapping(message, {});
+    } else if (message.isQuoteType) {
+      text = message.quoteElem?.text ?? text;
+    } else if (message.isPictureType) {
+      text = StrRes.defaultImgNotification;
+    } else if (message.isVideoType) {
+      text = StrRes.defaultVideoNotification;
+    } else if (message.isVoiceType) {
+      text = StrRes.defaultVoiceNotification;
+    } else if (message.isFileType) {
+      text = StrRes.defaultFileNotification;
+    } else if (message.isLocationType) {
+      text = StrRes.defaultLocationNotification;
+    } else if (message.isMergerType) {
+      text = StrRes.defaultMergeNotification;
+    } else if (message.isCardType) {
+      text = StrRes.defaultCardNotification;
+    }
     OpenIM.iMManager.messageManager
         .sendMessage(
           message: message,
           userID: useOuterValue ? userId : userID,
           groupID: useOuterValue ? groupId : groupID,
-          offlinePushInfo: Config.offlinePushInfo,
+          offlinePushInfo: Config.offlinePushInfo..title=StrRes.defaultNotificationTitle..desc= text,
         )
         .then((value) => _sendSucceeded(message, value))
         .catchError((error, _) => _senFailed(message, groupId, error, _))

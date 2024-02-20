@@ -93,7 +93,19 @@ class AppController extends SuperController {
     );
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
-      onDidReceiveNotificationResponse: (notificationResponse) {},
+      onDidReceiveNotificationResponse: (notificationResponse) {
+        myLogger.i({
+          "message": "点击本地通知",
+          "data": {
+            "id": notificationResponse.id,
+            "actionId": notificationResponse.actionId,
+            "input": notificationResponse.input,
+            "notificationResponseType":
+                notificationResponse.notificationResponseType,
+            "payload": notificationResponse.payload,
+          }
+        });
+      },
     );
     // _startForegroundService();
     isAppBadgeSupported = await FlutterAppBadger.isAppBadgeSupported();
@@ -107,12 +119,13 @@ class AppController extends SuperController {
         ?.requestNotificationsPermission();
     flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestExactAlarmsPermission();
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
             IOSFlutterLocalNotificationsPlugin>()
         ?.requestPermissions(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
+            alert: true, badge: true, sound: true, critical: true);
   }
 
   Future<void> showNotification(im.Message message,
@@ -172,16 +185,17 @@ class AppController extends SuperController {
           text = StrRes.defaultCardNotification;
         }
         const androidPlatformChannelSpecifics = AndroidNotificationDetails(
-            'chat', 'messagePush',
+            'push', 'push',
             channelDescription: 'message push',
             importance: Importance.max,
             priority: Priority.max,
-            ticker: 'messagePush');
+            fullScreenIntent: true,
+            ticker: 'message');
         const NotificationDetails platformChannelSpecifics =
             NotificationDetails(android: androidPlatformChannelSpecifics);
         await flutterLocalNotificationsPlugin.show(
             id, StrRes.defaultNotificationTitle, text, platformChannelSpecifics,
-            payload: '');
+            payload: json.encode(message.toJson()));
       }
     }
   }
@@ -194,18 +208,18 @@ class AppController extends SuperController {
     // await getAppInfo();
     if (!Platform.isAndroid) return;
     const androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        'pro', 'keepAlive',
+        'keep', 'keep',
         playSound: false,
         enableVibration: false,
-        channelDescription: 'keepAlive',
-        importance: Importance.max,
-        priority: Priority.max,
-        ticker: 'keepAlive');
+        channelDescription: 'keep alive',
+        importance: Importance.defaultImportance,
+        priority: Priority.defaultPriority,
+        ticker: 'keep alive');
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
-        ?.startForegroundService(1, 'miti', 'miti running...',
+        ?.startForegroundService(1, 'miti', 'running...',
             notificationDetails: androidPlatformChannelSpecifics, payload: '');
   }
 
