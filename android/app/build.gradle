@@ -210,13 +210,6 @@ dependencies {
     implementation 'androidx.window:window-java:1.0.0'
 }
 
-// notification
-// buildscript {
-//     dependencies {
-//         classpath 'com.android.tools.build:gradle:7.3.1'
-//     }
-// }
-
 apply plugin: 'com.huawei.agconnect'
 //apply plugin: 'com.google.gms.google-services'
 

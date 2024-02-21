@@ -18,7 +18,7 @@ class PushController extends GetxController {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> _init() async {
-    Permissions.notification();
+    // Permissions.notification();
     initGetuiSdk();
     // iOS 配置, 安卓配置build.gradle文件
     if (Platform.isIOS) {

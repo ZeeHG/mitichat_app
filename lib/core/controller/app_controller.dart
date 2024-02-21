@@ -112,8 +112,8 @@ class AppController extends SuperController {
     super.onInit();
   }
 
-  void _requestPermissions() {
-    flutterLocalNotificationsPlugin
+  void _requestPermissions() async{
+    await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.requestNotificationsPermission();
