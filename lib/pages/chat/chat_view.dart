@@ -14,6 +14,7 @@ class ChatPage extends StatelessWidget {
   ChatPage({super.key});
 
   Widget _buildItemView(Message message) => ChatItemView(
+        showRead: logic.isAiSingleChat,
         key: logic.itemKey(message),
         // isBubbleMsg: logic.showBubbleBg(message),
         message: message,
