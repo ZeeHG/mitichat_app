@@ -176,7 +176,7 @@ class XhsLogic extends GetxController {
 
   ViewUserProfileBridge? get bridge => PackageBridge.viewUserProfileBridge;
 
-  WorkingCircleBridge? get wcBridge => PackageBridge.workingCircleBridge;
+  // WorkingCircleBridge? get wcBridge => PackageBridge.workingCircleBridge;
 
   bool get isMyself => userID == OpenIM.iMManager.userID || userID == null;
 
@@ -199,9 +199,9 @@ class XhsLogic extends GetxController {
     nickname = Get.arguments['nickname'] ?? OpenIM.iMManager.userInfo.nickname;
     faceURL =
         Get.arguments['faceURL'] ?? OpenIM.iMManager.userInfo.faceURL ?? "";
-    wcBridge?.onRecvNewMessageForWorkingCircle = _recvNewMessage;
+    // wcBridge?.onRecvNewMessageForWorkingCircle = _recvNewMessage;
     WApis.getUnreadCount(momentType: 2).then((value) => newMessageCount.value = value);
-    opEventSub = wcBridge?.opEventSub.listen(_opEventListener);
+    // opEventSub = wcBridge?.opEventSub.listen(_opEventListener);
     scrollController.addListener(_scrollListener);
     super.onInit();
   }

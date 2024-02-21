@@ -3,6 +3,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:miti/pages/contacts/contacts_logic.dart';
 import 'package:miti/pages/xhs/xhs_logic.dart';
 import 'package:miti/utils/ai_util.dart';
 import 'package:openim_common/openim_common.dart';
@@ -135,6 +136,11 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
     getUnhandledGroupApplicationCount();
     cacheLogic.initCallRecords();
     cacheLogic.initFavoriteEmoji();
+    Future.delayed(Duration(milliseconds: 500), () {
+      PackageBridge.workingCircleBridge = this;
+      final contactsLogic = Get.find<ContactsLogic>();
+      contactsLogic.initPackageBridge();
+    });
     super.onReady();
   }
 
