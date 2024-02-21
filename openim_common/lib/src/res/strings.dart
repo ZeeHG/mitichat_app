@@ -1631,4 +1631,7 @@ class StrRes {
       'privacyPolicyDescriptionP5'.tr;
   static String get pleaseInputValidUrl => 'pleaseInputValidUrl'.tr;
   static String get chatDetail => 'chatDetail'.tr;
+  static String get userID => 'userID'.tr;
+  static String get searchByPhoneAndUid => 'search_by_phone_and_uid'.tr;
+  static String get userIDOrPhone => 'userIDOrPhone'.tr;
 }

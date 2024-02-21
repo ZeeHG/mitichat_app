@@ -1178,5 +1178,8 @@ const Map<String, String> en_US = {
   "pleaseInputAuthor": "Please indicate the author (optional)",
   "pleaseInputTitle": "Please enter a title",
   "pleaseInputValidUrl": "Please enter a valid link",
-  "privacyPolicyDescriptionP5": ". I give consent to receive SMS messages. Message and data rates may apply. Reply STOP to opt out."
+  "privacyPolicyDescriptionP5": ". I give consent to receive SMS messages. Message and data rates may apply. Reply STOP to opt out.",
+  "userID": "user id",
+  "userIDOrPhone": "user id/phone",
+  'search_by_phone_and_uid': 'search by phone and uid',
 };

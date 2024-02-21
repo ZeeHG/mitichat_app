@@ -183,7 +183,6 @@ class CheckedConfirmView extends StatelessWidget {
                         ..width = 10.w
                         ..height = 6.h,
                       if (logic.checkedList.isNotEmpty) 17.horizontalSpace,
-                      // todo
                       Expanded(
                         child: logic.checkedStrTips.toText
                           ..style = Styles.ts_999999_14sp

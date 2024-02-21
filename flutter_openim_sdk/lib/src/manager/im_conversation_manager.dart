@@ -16,13 +16,16 @@ class ConversationManager {
   }
 
   /// 获取所有会话
-  Future<List<ConversationInfo>> getAllConversationList({String? operationID}) => _channel
-      .invokeMethod(
-          'getAllConversationList',
-          _buildParam({
-            "operationID": Utils.checkOperationID(operationID),
-          }))
-      .then((value) => Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
+  Future<List<ConversationInfo>> getAllConversationList(
+          {String? operationID}) =>
+      _channel
+          .invokeMethod(
+              'getAllConversationList',
+              _buildParam({
+                "operationID": Utils.checkOperationID(operationID),
+              }))
+          .then((value) =>
+              Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
 
   /// 分页获取会话
   /// [offset] 开始下标
@@ -40,7 +43,8 @@ class ConversationManager {
                 'count': count,
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
+          .then((value) =>
+              Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
 
   /// 查询会话，如果会话不存在会自动生成一个
   /// [sourceID] 如果是单聊会话传userID，如果是群聊会话传GroupID
@@ -58,7 +62,8 @@ class ConversationManager {
                 "sessionType": sessionType,
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toObj(value, (map) => ConversationInfo.fromJson(map)));
+          .then((value) =>
+              Utils.toObj(value, (map) => ConversationInfo.fromJson(map)));
 
   /// 根据会话id获取多个会话
   /// [conversationIDList] 会话id列表
@@ -73,7 +78,8 @@ class ConversationManager {
                 "conversationIDList": conversationIDList,
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
+          .then((value) =>
+              Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
 
   /// 设置会话草稿
   /// [conversationID] 会话id
@@ -339,12 +345,50 @@ class ConversationManager {
             "operationID": Utils.checkOperationID(operationID),
           }));
 
+  /// search Conversations
+  Future<List<ConversationInfo>> searchConversations(
+    String name, {
+    String? operationID,
+  }) {
+    return _channel
+        .invokeMethod(
+            'searchConversations',
+            _buildParam({
+              'name': name,
+              "operationID": Utils.checkOperationID(operationID),
+            }))
+        .then((value) =>
+            Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
+  }
+
+  Future<List<ConversationInfo>> setConversationEx(
+    String conversationID, {
+    String? ex,
+    String? operationID,
+  }) {
+    return _channel
+        .invokeMethod(
+            'setConversationEx',
+            _buildParam({
+              'conversationID': conversationID,
+              'ex': ex,
+              "operationID": Utils.checkOperationID(operationID),
+            }))
+        .then((value) =>
+            Utils.toList(value, (map) => ConversationInfo.fromJson(map)));
+  }
+
   /// 会话列表自定义排序规则。
   List<ConversationInfo> simpleSort(List<ConversationInfo> list) => list
     ..sort((a, b) {
-      if ((a.isPinned == true && b.isPinned == true) || (a.isPinned != true && b.isPinned != true)) {
-        int aCompare = a.draftTextTime! > a.latestMsgSendTime! ? a.draftTextTime! : a.latestMsgSendTime!;
-        int bCompare = b.draftTextTime! > b.latestMsgSendTime! ? b.draftTextTime! : b.latestMsgSendTime!;
+      if ((a.isPinned == true && b.isPinned == true) ||
+          (a.isPinned != true && b.isPinned != true)) {
+        int aCompare = a.draftTextTime! > a.latestMsgSendTime!
+            ? a.draftTextTime!
+            : a.latestMsgSendTime!;
+        int bCompare = b.draftTextTime! > b.latestMsgSendTime!
+            ? b.draftTextTime!
+            : b.latestMsgSendTime!;
         if (aCompare > bCompare) {
           return -1;
         } else if (aCompare < bCompare) {

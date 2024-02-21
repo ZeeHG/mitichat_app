@@ -142,4 +142,28 @@ class AddContactsBySearchLogic extends GetxController {
       );
     }
   }
+
+  String getShowTitle(info) {
+    if (!isSearchUser) {
+      return sprintf(StrRes.searchGroupNicknameIs, [getShowName(info)]);
+    }
+
+    UserFullInfo userFullInfo = info;
+    String? tips, content;
+    if (int.tryParse(searchKey) != null) {
+      // if (searchKey.length == 11) {
+      //   tips = StrRes.phoneNumber;
+      //   content = userFullInfo.phoneNumber ?? searchKey;
+      // } else {
+      //   tips = StrRes.userID;
+      //   content = userFullInfo.userID;
+      // }
+      tips = StrRes.userIDOrPhone;
+      content = searchKey;
+    } else {
+      tips = StrRes.searchNicknameIs;
+      content = getShowName(info);
+    }
+    return "$tips:$content";
+  }
 }

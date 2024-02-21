@@ -90,7 +90,7 @@ dependencies:
   just_audio: ^0.9.31
   flutter_inappwebview: ^5.7.2+3
   vibration: ^1.7.6
-  getuiflut: ^0.2.21
+  getuiflut: 0.2.21
   scroll_to_index: ^3.0.1
   flutter_screen_lock: ^9.0.1
   local_auth: ^2.1.6

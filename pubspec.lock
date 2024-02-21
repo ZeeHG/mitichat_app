@@ -865,7 +865,7 @@ packages:
       path: flutter_openim_sdk
       relative: true
     source: path
-    version: "3.4.1-alpha.5-e-1.1.3"
+    version: "3.5.1-alpha.3-e-1.1.4"
   flutter_picker:
     dependency: transitive
     description:
@@ -984,10 +984,10 @@ packages:
     dependency: "direct main"
     description:
       name: getuiflut
-      sha256: "6bf5ac61fd92ef908455a23bc84e50946dd7316846706493b6638988b9d36d9e"
+      sha256: a0cfffbfec45d74ae240716db54a644d16c7f6ac9d91399723595a3ec45bde81
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.25"
+    version: "0.2.21"
   glob:
     dependency: transitive
     description:
@@ -2493,5 +2493,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.2.0 <=3.2.3"
+  dart: ">=3.2.0 <4.0.0"
   flutter: ">=3.16.0"

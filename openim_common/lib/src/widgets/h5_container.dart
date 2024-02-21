@@ -17,8 +17,6 @@ class H5Container extends StatefulWidget {
 }
 
 class _H5ContainerState extends State<H5Container> {
-  final GlobalKey webViewKey = GlobalKey();
-
   InAppWebViewController? webViewController;
   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
       crossPlatform: InAppWebViewOptions(
@@ -60,12 +58,13 @@ class _H5ContainerState extends State<H5Container> {
 
   @override
   Widget build(BuildContext context) {
+    Logger.print('H5Container: ${widget.url}');
     return Scaffold(
       appBar: widget.title != null ? TitleBar.back(title: widget.title) : null,
       body: Stack(
         children: [
           InAppWebView(
-            key: webViewKey,
+            key: ValueKey(widget.url),
             // contextMenu: contextMenu,
             // initialUrlRequest: URLRequest(
             initialUrlRequest: URLRequest(url: Uri.parse(widget.url)),

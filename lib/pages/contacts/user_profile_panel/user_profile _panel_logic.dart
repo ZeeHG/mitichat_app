@@ -76,7 +76,7 @@ class UserProfilePanelLogic extends GetxController {
           val?.faceURL = user.faceURL;
           val?.remark = user.remark;
         });
-        // todo 上面返回不全, 重新请求更新部分字段
+        // fixme 上面返回不全, 重新请求更新部分字段
         _requestUsersInfo();
       }
     });

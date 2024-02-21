@@ -96,9 +96,6 @@ mixin OpenIMLive {
   }
 
   onInitLive() async {
-    // if (Platform.isAndroid) {
-    //   Permissions.request([Permission.systemAlertWindow]);
-    // }
     _signalingListener();
     _insertSignalingMessageListener();
     // 后台通话
@@ -234,7 +231,11 @@ mixin OpenIMLive {
             // 超时无响应
             _stopSound();
             insertSignalingMessageSubject.add(event);
-            onTimeoutCancelled(event.data);
+            final sessionType = event.data.invitation!.sessionType;
+
+            if (sessionType == 1) {
+              onTimeoutCancelled(event.data);
+            }
           }
         },
       );

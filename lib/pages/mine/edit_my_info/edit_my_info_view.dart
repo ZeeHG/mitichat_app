@@ -35,7 +35,9 @@ class EditMyInfoPage extends StatelessWidget {
               style: Styles.ts_333333_17sp,
               autofocus: true,
               keyboardType: logic.keyboardType,
-              inputFormatters: [LengthLimitingTextInputFormatter(logic.lengthLimit.value)],
+              inputFormatters: [
+                    LengthLimitingTextInputFormatter(logic.maxLength)
+                  ],
               decoration: InputDecoration(
                 border: InputBorder.none,
                 isDense: true,

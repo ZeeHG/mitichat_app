@@ -1467,12 +1467,16 @@ class IMUtils {
   }) async {
     if (message.contentType == MessageType.picture ||
         message.contentType == MessageType.video) {
-      final mediaMessages = messageList
+      var mediaMessages = messageList
           .where((element) =>
               element.contentType == MessageType.picture ||
               message.contentType == MessageType.video)
           .toList();
-      final currentIndex = mediaMessages.indexOf(message);
+      var currentIndex = mediaMessages.indexOf(message);
+      if (currentIndex == -1) {
+        mediaMessages = [message];
+        currentIndex = 0;
+      }
       previewMediaFile(
           context: Get.context!,
           currentIndex: currentIndex,

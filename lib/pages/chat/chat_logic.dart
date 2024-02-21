@@ -863,7 +863,6 @@ class ChatLogic extends GetxController {
     closeMultiSelMode();
   }
 
-  /// todo
   void _completed() {
     messageList.refresh();
     // setQuoteMsg(-1);
@@ -1102,7 +1101,7 @@ class ChatLogic extends GetxController {
       pickerConfig: CameraPickerConfig(
         enableAudio: true,
         enableRecording: true,
-        enableScaledPreview: false,
+        enableScaledPreview: true,
         resolutionPreset: ResolutionPreset.medium,
         maximumRecordingDuration: 60.seconds,
         onMinimumRecordDurationNotMet: () {
@@ -1974,6 +1973,7 @@ class ChatLogic extends GetxController {
   int readTime(Message message) {
     var isPrivate = message.attachedInfoElem?.isPrivateChat ?? false;
     var burnDuration = message.attachedInfoElem?.burnDuration ?? 30;
+    burnDuration = burnDuration > 0 ? burnDuration : 30;
     if (isPrivate) {
       privateMessageList.addIf(
           () => !privateMessageList.contains(message), message);

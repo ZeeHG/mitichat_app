@@ -11,6 +11,7 @@ class OnAdvancedMsgListener {
   Function(String msgID, List<String> list)? onRecvMessageExtensionsDeleted;
   Function(Message msg)? onRecvNewMessage;
   Function(Message msg)? onRecvOfflineNewMessage;
+  Function(Message msg)? onRecvOnlineOnlyMessage;
 
   /// Uniquely identifies
   String id;
@@ -25,6 +26,7 @@ class OnAdvancedMsgListener {
     this.onRecvMessageExtensionsDeleted,
     this.onRecvNewMessage,
     this.onRecvOfflineNewMessage,
+    this.onRecvOnlineOnlyMessage,
   }) : id = "id_${DateTime.now().microsecondsSinceEpoch}";
 
   void msgDeleted(Message msg) {
@@ -69,5 +71,9 @@ class OnAdvancedMsgListener {
 
   void recvOfflineNewMessage(Message msg) {
     onRecvOfflineNewMessage?.call(msg);
+  }
+
+  void recvOnlineOnlyMessage(Message msg) {
+    onRecvOnlineOnlyMessage?.call(msg);
   }
 }

@@ -30,6 +30,8 @@ class AppView extends StatelessWidget {
           designSize: const Size(Config.uiW, Config.uiH),
           minTextAdapt: true,
           splitScreenMode: true,
+          // todo
+          // fontSizeResolver: (fontSize, _) => fontSize.toDouble(),
           builder: (_, child) => builder(ctrl.getLocale(), _builder()),
         ),
       ),

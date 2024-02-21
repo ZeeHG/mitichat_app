@@ -399,7 +399,7 @@ class VerifyCodedButton extends StatefulWidget {
 
   const VerifyCodedButton({
     Key? key,
-    this.seconds = 300,
+    this.seconds = 60,
     required this.onTapCallback,
   }) : super(key: key);
 

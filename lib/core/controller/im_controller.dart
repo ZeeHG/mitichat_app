@@ -6,6 +6,8 @@ import 'package:openim_common/openim_common.dart';
 import 'package:openim_live/openim_live.dart';
 import 'dart:convert';
 import '../im_callback.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'dart:io';
 
 class IMController extends GetxController with IMCallback, OpenIMLive {
   late Rx<UserFullInfo> userInfo;
@@ -122,6 +124,9 @@ class IMController extends GetxController with IMCallback, OpenIMLive {
         },
         onSyncServerFinish: () {
           imSdkStatus(IMSdkStatus.syncEnded);
+          if (Platform.isAndroid) {
+            Permissions.request([Permission.systemAlertWindow]);
+          }
         },
         onSyncServerStart: () {
           imSdkStatus(IMSdkStatus.syncStart);

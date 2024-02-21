@@ -28,6 +28,8 @@ public class ConversationManager: BaseServiceManager {
         self["setConversationIsMsgDestruct"] = setConversationIsMsgDestruct
         self["setConversationMsgDestructTime"] = setConversationMsgDestructTime
         self["hideAllConversations"] = hideAllConversations
+        self["searchConversation"] = searchConversation
+        self["setConversationEx"] = setConversationEx
     }
     
     func setConversationListener(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
@@ -126,6 +128,14 @@ public class ConversationManager: BaseServiceManager {
     func hideAllConversations(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
         Open_im_sdkHideAllConversations(BaseCallback(result: result), methodCall[string: "operationID"])
     }
+
+    func searchConversation(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+            Open_im_sdkSearchConversation(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "name"])
+        }
+
+        func setConversationEx(methodCall: FlutterMethodCall, result: @escaping FlutterResult){
+            Open_im_sdkSetConversationEx(BaseCallback(result: result), methodCall[string: "operationID"], methodCall[string: "conversationID"], methodCall[jsonString: "ex"])
+        }
 }
 
 
@@ -159,6 +169,10 @@ public class ConversationListener: NSObject, Open_im_sdk_callbackOnConversationL
     
     public func onTotalUnreadMessageCountChanged(_ totalUnreadCount: Int32) {
         CommonUtil.emitEvent(channel: channel, method: "conversationListener", type: "onTotalUnreadMessageCountChanged", errCode: nil, errMsg: nil, data: totalUnreadCount)
+    }
+
+    public func onConversationUserInputStatusChanged(_ change: String?) {
+        CommonUtil.emitEvent(channel: channel, method: "conversationListener", type: "onConversationUserInputStatusChanged", errCode: nil, errMsg: nil, data: change)
     }
 }
 

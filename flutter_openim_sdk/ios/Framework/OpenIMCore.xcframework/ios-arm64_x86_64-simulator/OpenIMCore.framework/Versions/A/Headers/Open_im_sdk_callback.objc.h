@@ -29,6 +29,8 @@
 @class Open_im_sdk_callbackOnFriendshipListenerSdk;
 @protocol Open_im_sdk_callbackOnGroupListener;
 @class Open_im_sdk_callbackOnGroupListener;
+@protocol Open_im_sdk_callbackOnListenerForService;
+@class Open_im_sdk_callbackOnListenerForService;
 @protocol Open_im_sdk_callbackOnMessageKvInfoListener;
 @class Open_im_sdk_callbackOnMessageKvInfoListener;
 @protocol Open_im_sdk_callbackOnSignalingListener;
@@ -57,6 +59,7 @@
 - (void)onRecvMessageExtensionsDeleted:(NSString* _Nullable)msgID reactionExtensionKeyList:(NSString* _Nullable)reactionExtensionKeyList;
 - (void)onRecvNewMessage:(NSString* _Nullable)message;
 - (void)onRecvOfflineNewMessage:(NSString* _Nullable)message;
+- (void)onRecvOnlineOnlyMessage:(NSString* _Nullable)message;
 @end
 
 @protocol Open_im_sdk_callbackOnBatchMsgListener <NSObject>
@@ -74,10 +77,8 @@
 
 @protocol Open_im_sdk_callbackOnConversationListener <NSObject>
 - (void)onConversationChanged:(NSString* _Nullable)conversationList;
+- (void)onConversationUserInputStatusChanged:(NSString* _Nullable)change;
 - (void)onNewConversation:(NSString* _Nullable)conversationList;
-/**
- * OnSyncServerProgress(progress int)
- */
 - (void)onSyncServerFailed;
 - (void)onSyncServerFinish;
 - (void)onSyncServerStart;
@@ -133,6 +134,25 @@
 - (void)onGroupMemberInfoChanged:(NSString* _Nullable)groupMemberInfo;
 - (void)onJoinedGroupAdded:(NSString* _Nullable)groupInfo;
 - (void)onJoinedGroupDeleted:(NSString* _Nullable)groupInfo;
+@end
+
+@protocol Open_im_sdk_callbackOnListenerForService <NSObject>
+- (void)onFriendApplicationAccepted:(NSString* _Nullable)groupApplication;
+- (void)onFriendApplicationAdded:(NSString* _Nullable)friendApplication;
+- (void)onGroupApplicationAccepted:(NSString* _Nullable)groupApplication;
+- (void)onGroupApplicationAdded:(NSString* _Nullable)groupApplication;
+- (void)onHangUp:(NSString* _Nullable)hangUpCallback;
+- (void)onInvitationCancelled:(NSString* _Nullable)invitationCancelledCallback;
+- (void)onInvitationTimeout:(NSString* _Nullable)invitationTimeoutCallback;
+- (void)onInviteeAccepted:(NSString* _Nullable)inviteeAcceptedCallback;
+- (void)onInviteeAcceptedByOtherDevice:(NSString* _Nullable)inviteeAcceptedCallback;
+- (void)onInviteeRejected:(NSString* _Nullable)inviteeRejectedCallback;
+- (void)onInviteeRejectedByOtherDevice:(NSString* _Nullable)inviteeRejectedCallback;
+- (void)onReceiveCustomSignal:(NSString* _Nullable)CustomSignalCallback;
+- (void)onReceiveNewInvitation:(NSString* _Nullable)receiveNewInvitationCallback;
+- (void)onRoomParticipantConnected:(NSString* _Nullable)onRoomParticipantConnectedCallback;
+- (void)onRoomParticipantDisconnected:(NSString* _Nullable)onRoomParticipantDisconnectedCallback;
+- (void)onStreamChange:(NSString* _Nullable)OnStreamChangeCallback;
 @end
 
 @protocol Open_im_sdk_callbackOnMessageKvInfoListener <NSObject>
@@ -201,6 +221,8 @@
 
 @class Open_im_sdk_callbackOnGroupListener;
 
+@class Open_im_sdk_callbackOnListenerForService;
+
 @class Open_im_sdk_callbackOnMessageKvInfoListener;
 
 @class Open_im_sdk_callbackOnSignalingListener;
@@ -236,6 +258,7 @@
 - (void)onRecvMessageExtensionsDeleted:(NSString* _Nullable)msgID reactionExtensionKeyList:(NSString* _Nullable)reactionExtensionKeyList;
 - (void)onRecvNewMessage:(NSString* _Nullable)message;
 - (void)onRecvOfflineNewMessage:(NSString* _Nullable)message;
+- (void)onRecvOnlineOnlyMessage:(NSString* _Nullable)message;
 @end
 
 @interface Open_im_sdk_callbackOnBatchMsgListener : NSObject <goSeqRefInterface, Open_im_sdk_callbackOnBatchMsgListener> {
@@ -265,6 +288,7 @@
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (void)onConversationChanged:(NSString* _Nullable)conversationList;
+- (void)onConversationUserInputStatusChanged:(NSString* _Nullable)change;
 - (void)onNewConversation:(NSString* _Nullable)conversationList;
 /**
  * OnSyncServerProgress(progress int)
@@ -340,6 +364,41 @@
 - (void)onGroupMemberInfoChanged:(NSString* _Nullable)groupMemberInfo;
 - (void)onJoinedGroupAdded:(NSString* _Nullable)groupInfo;
 - (void)onJoinedGroupDeleted:(NSString* _Nullable)groupInfo;
+@end
+
+@interface Open_im_sdk_callbackOnListenerForService : NSObject <goSeqRefInterface, Open_im_sdk_callbackOnListenerForService> {
+}
+@property(strong, readonly) _Nonnull id _ref;
+
+- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+/**
+ * OnFriendApplicationAccepted friend application accepted
+ */
+- (void)onFriendApplicationAccepted:(NSString* _Nullable)groupApplication;
+/**
+ * OnFriendApplicationAdded someone apply to be your friend
+ */
+- (void)onFriendApplicationAdded:(NSString* _Nullable)friendApplication;
+/**
+ * OnGroupApplicationAccepted join group application accepted
+ */
+- (void)onGroupApplicationAccepted:(NSString* _Nullable)groupApplication;
+/**
+ * OnGroupApplicationAdded someone apply to join group
+ */
+- (void)onGroupApplicationAdded:(NSString* _Nullable)groupApplication;
+- (void)onHangUp:(NSString* _Nullable)hangUpCallback;
+- (void)onInvitationCancelled:(NSString* _Nullable)invitationCancelledCallback;
+- (void)onInvitationTimeout:(NSString* _Nullable)invitationTimeoutCallback;
+- (void)onInviteeAccepted:(NSString* _Nullable)inviteeAcceptedCallback;
+- (void)onInviteeAcceptedByOtherDevice:(NSString* _Nullable)inviteeAcceptedCallback;
+- (void)onInviteeRejected:(NSString* _Nullable)inviteeRejectedCallback;
+- (void)onInviteeRejectedByOtherDevice:(NSString* _Nullable)inviteeRejectedCallback;
+- (void)onReceiveCustomSignal:(NSString* _Nullable)CustomSignalCallback;
+- (void)onReceiveNewInvitation:(NSString* _Nullable)receiveNewInvitationCallback;
+- (void)onRoomParticipantConnected:(NSString* _Nullable)onRoomParticipantConnectedCallback;
+- (void)onRoomParticipantDisconnected:(NSString* _Nullable)onRoomParticipantDisconnectedCallback;
+- (void)onStreamChange:(NSString* _Nullable)OnStreamChangeCallback;
 @end
 
 @interface Open_im_sdk_callbackOnMessageKvInfoListener : NSObject <goSeqRefInterface, Open_im_sdk_callbackOnMessageKvInfoListener> {
