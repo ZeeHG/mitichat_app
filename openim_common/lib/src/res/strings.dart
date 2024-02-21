@@ -1630,4 +1630,5 @@ class StrRes {
   static String get privacyPolicyDescriptionP5 =>
       'privacyPolicyDescriptionP5'.tr;
   static String get pleaseInputValidUrl => 'pleaseInputValidUrl'.tr;
+  static String get chatDetail => 'chatDetail'.tr;
 }

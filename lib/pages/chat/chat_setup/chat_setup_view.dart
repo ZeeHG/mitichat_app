@@ -13,34 +13,35 @@ class ChatSetupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(),
+      appBar: TitleBar.back(title: StrRes.chatDetail),
       backgroundColor: Styles.c_F7F8FA,
       body: SingleChildScrollView(
         child: Obx(() => Column(
               children: [
                 _buildBaseInfoView(),
                 // _buildContentSearchView(),
-                10.verticalSpace,
                 _buildItemView(
                   text: StrRes.chatSearch,
                   showRightArrow: true,
+                  isTopRadius: true,
                   isBottomRadius: true,
                   onTap: logic.searchChatHistory,
                 ),
-                10.verticalSpace,
+                15.verticalSpace,
                 _buildItemView(
                   text: StrRes.messageNotDisturb,
                   switchOn: logic.isNotDisturb,
                   onChanged: (_) => logic.toggleNotDisturb(),
                   showSwitchButton: true,
-                  isBottomRadius: true,
+                  isTopRadius: true,
+                  showBorder: true
                 ),
                 _buildItemView(
                   text: StrRes.topContacts,
                   switchOn: logic.isPinned,
                   onChanged: (_) => logic.toggleTopContacts(),
                   showSwitchButton: true,
-                  isTopRadius: true,
+                    showBorder: true
                 ),
                 // _buildItemView(
                 //   text: StrRes.remind,
@@ -54,15 +55,15 @@ class ChatSetupPage extends StatelessWidget {
                   switchOn: true,
                   // onChanged: (_) => showDeveloping(),
                   showSwitchButton: true,
-                  isTopRadius: true,
+                    showBorder: true
                 ),
                 _buildItemView(
                   text: StrRes.burnAfterReading,
                   switchOn: logic.isBurnAfterReading,
                   onChanged: (_) => logic.toggleBurnAfterReading(),
                   showSwitchButton: true,
-                  isTopRadius: true,
                   isBottomRadius: logic.isBurnAfterReading ? false : true,
+                    showBorder: true
                 ),
                 if (logic.isBurnAfterReading)
                   _buildItemView(
@@ -71,6 +72,7 @@ class ChatSetupPage extends StatelessWidget {
                     onTap: logic.setBurnAfterReadingDuration,
                     showRightArrow: true,
                     isBottomRadius: true,
+                      showBorder: true
                   ),
                 //   _buildItemView(
                 //   text: StrRes.autoTranslate,
@@ -87,14 +89,15 @@ class ChatSetupPage extends StatelessWidget {
                 //     showRightArrow: true,
                 //     isBottomRadius: true,
                 //   ),
-                10.verticalSpace,
+                15.verticalSpace,
                 _buildItemView(
                   text: StrRes.setChatBackground,
                   onTap: logic.setBackgroundImage,
                   showRightArrow: true,
                   isTopRadius: true,
+                  isBottomRadius: true,
                 ),
-                10.verticalSpace,
+                15.verticalSpace,
                 _buildItemView(
                   text: StrRes.clearChatHistory,
                   textStyle: Styles.ts_333333_16sp,
@@ -103,7 +106,7 @@ class ChatSetupPage extends StatelessWidget {
                   isTopRadius: true,
                   isBottomRadius: true,
                 ),
-                10.verticalSpace,
+                15.verticalSpace,
                 _buildItemView(
                   text: StrRes.complaint,
                   textStyle: Styles.ts_333333_16sp,
@@ -153,10 +156,7 @@ class ChatSetupPage extends StatelessWidget {
   }
 
   Widget _buildBaseInfoView() => Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-        decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
         child: Row(
           children: [
             GestureDetector(
@@ -182,12 +182,13 @@ class ChatSetupPage extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: 60.w,
+              width: 72.w,
               child: Column(
                 children: [
                   ImageRes.addFriendTobeGroup.toImage
                     ..width = 42.w
                     ..height = 42.h
+                    ..color=Styles.c_CCCCCC
                     ..onTap = logic.createGroup,
                   // 8.verticalSpace,
                   // ''.toText
@@ -271,6 +272,7 @@ class ChatSetupPage extends StatelessWidget {
     bool isBottomRadius = false,
     bool showRightArrow = false,
     bool showSwitchButton = false,
+    bool showBorder = false,
     ValueChanged<bool>? onChanged,
     Function()? onTap,
   }) =>
@@ -278,21 +280,25 @@ class ChatSetupPage extends StatelessWidget {
         onTap: onTap,
         behavior: HitTestBehavior.translucent,
         child: Container(
-          color: Styles.c_FFFFFF,
+          margin: EdgeInsets.symmetric(horizontal: 15.w),
+          decoration: BoxDecoration(
+            color: Styles.c_FFFFFF,
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(isTopRadius ? 10.r : 0),
+              topLeft: Radius.circular(isTopRadius ? 10.r : 0),
+              bottomLeft: Radius.circular(isBottomRadius ? 10.r : 0),
+              bottomRight: Radius.circular(isBottomRadius ? 10.r : 0),
+            ),
+          ),
           child: Container(
-            height: hintText == null ? 46.h : 68.h,
+            decoration: BoxDecoration(
+              color: Styles.c_FFFFFF,
+              border:
+                  showBorder ? Border(top: BorderSide(color: Styles.c_F1F2F6, width: 1.h)): null,
+            ),
+            height: hintText == null ? 52.h : 68.h,
             padding: EdgeInsets.only(right: 20.w),
             margin: EdgeInsets.only(left: 20.w),
-            decoration: BoxDecoration(
-                border:
-                    Border(top: BorderSide(color: Styles.c_F1F2F6, width: 1.h))
-                // borderRadius: BorderRadius.only(
-                //   topRight: Radius.circular(isTopRadius ? 6.r : 0),
-                //   topLeft: Radius.circular(isTopRadius ? 6.r : 0),
-                //   bottomLeft: Radius.circular(isBottomRadius ? 6.r : 0),
-                //   bottomRight: Radius.circular(isBottomRadius ? 6.r : 0),
-                // ),
-                ),
             child: Row(
               children: [
                 null != hintText
