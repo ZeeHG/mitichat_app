@@ -1182,4 +1182,13 @@ const Map<String, String> en_US = {
   "userID": "user id",
   "userIDOrPhone": "user id/phone",
   'search_by_phone_and_uid': 'search by phone and uid',
+  "chatDetail": "Chat details",
+  "defaultImgNotification": "[Image]",
+  "defaultVideoNotification": "[Video]",
+  "defaultVoiceNotification": "[Voice]",
+  "defaultFileNotification": "[File]",
+  "defaultLocationNotification": "[Location]",
+  "defaultMergeNotification": "[Chat history]",
+  "defaultCardNotification": "[Business card]",
+  "defaultNotificationTitle": "Received a new message"
 };

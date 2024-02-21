@@ -1038,5 +1038,17 @@ const Map<String, String> es_ES = {
   "pleaseInputTitle": "Por favor, ingresa un título",
   "pleaseInputValidUrl": "Por favor, ingresa un enlace válido",
   "privacyPolicyDescriptionP5":
-      ". Acepto recibir mensajes de texto. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para cancelar la suscripción."
+      ". Acepto recibir mensajes de texto. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para cancelar la suscripción.",
+  "userID": "identificación de usuario",
+  "userIDOrPhone": "identificación de usuario/teléfono",
+  "search_by_phone_and_uid": "buscar por teléfono y uid",
+  "chatDetail": "Detalles del chat",
+  "defaultImgNotification": "[Imagen]",
+  "defaultVideoNotification": "[Video]",
+  "defaultVoiceNotification": "[Voz]",
+  "defaultFileNotification": "[Archivo]",
+  "defaultLocationNotification": "[Ubicación]",
+  "defaultMergeNotification": "[Historial de chat]",
+  "defaultCardNotification": "[Tarjeta de visita]",
+  "defaultNotificationTitle": "Recibió un nuevo mensaje"
 };

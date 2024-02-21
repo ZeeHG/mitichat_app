@@ -1119,5 +1119,17 @@ const Map<String, String> ko_KR = {
   "pleaseInputTitle": "제목을 입력하세요",
   "pleaseInputValidUrl": "유효한 링크를 입력하세요",
   "privacyPolicyDescriptionP5":
-      ". SMS 메시지 수신에 동의합니다. 메시지 및 데이터 요금이 발생할 수 있습니다. 수신 거부를 위해 STOP을 회신하세요."
+      ". SMS 메시지 수신에 동의합니다. 메시지 및 데이터 요금이 발생할 수 있습니다. 수신 거부를 위해 STOP을 회신하세요.",
+  "userID": "사용자 ID",
+  "userIDOrPhone": "사용자 ID/전화번호",
+  "search_by_phone_and_uid": "전화번호 및 UID로 검색",
+  "chatDetail": "채팅 상세 정보",
+  "defaultImgNotification": "[이미지]",
+  "defaultVideoNotification": "[비디오]",
+  "defaultVoiceNotification": "[음성]",
+  "defaultFileNotification": "[파일]",
+  "defaultLocationNotification": "[위치]",
+  "defaultMergeNotification": "[채팅 기록]",
+  "defaultCardNotification": "[명함]",
+  "defaultNotificationTitle": "새 메시지를 받았습니다"
 };

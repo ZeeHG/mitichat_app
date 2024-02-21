@@ -1099,6 +1099,9 @@ const Map<String, String> zh_CN = {
   "pleaseInputTitle": "请输入标题",
   "pleaseInputValidUrl": "请输入正确链接",
   "privacyPolicyDescriptionP5": "。我同意接收短信。发送短信可能需要支付一定的费用。如果想停止接收短信，可以回复“STOP”。",
+  "userID": "用户ID",
+  "userIDOrPhone": "用户ID/手机号",
+  'search_by_phone_and_uid': '通过手机号/ID号/搜索添加',
   "chatDetail": "聊天详情",
   "defaultImgNotification": "[图片]",
   "defaultVideoNotification": "[视频]",
@@ -1108,7 +1111,4 @@ const Map<String, String> zh_CN = {
   "defaultMergeNotification": "[聊天记录]",
   "defaultCardNotification": "[名片]",
   "defaultNotificationTitle": "收到一条新消息",
-  "userID": "用户ID",
-  "userIDOrPhone": "用户ID/手机号",
-  'search_by_phone_and_uid': '通过手机号/ID号/搜索添加',
 };

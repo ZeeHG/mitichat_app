@@ -42,7 +42,7 @@ class PublishPage extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 120.h,
+                          height: 300.h,
                           child: TextField(
                             controller: logic.inputCtrl,
                             focusNode: logic.focusNode,

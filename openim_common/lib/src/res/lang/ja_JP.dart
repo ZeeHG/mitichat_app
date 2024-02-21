@@ -1032,5 +1032,17 @@ const Map<String, String> ja_JP = {
   "pleaseInputTitle": "タイトルを入力してください",
   "pleaseInputValidUrl": "有効なリンクを入力してください",
   "privacyPolicyDescriptionP5":
-      "。SMSメッセージを受け取るための同意をします。メッセージおよびデータ料金が発生する場合があります。停止するにはSTOPと返信してください。"
+      "。SMSメッセージを受け取るための同意をします。メッセージおよびデータ料金が発生する場合があります。停止するにはSTOPと返信してください。",
+  "userID": "ユーザーID",
+  "userIDOrPhone": "ユーザーID/電話番号",
+  "search_by_phone_and_uid": "電話番号とUIDで検索",
+  "chatDetail": "チャットの詳細",
+  "defaultImgNotification": "[画像]",
+  "defaultVideoNotification": "[ビデオ]",
+  "defaultVoiceNotification": "[音声]",
+  "defaultFileNotification": "[ファイル]",
+  "defaultLocationNotification": "[場所]",
+  "defaultMergeNotification": "[チャット履歴]",
+  "defaultCardNotification": "[名刺]",
+  "defaultNotificationTitle": "新しいメッセージを受信しました"
 };
