@@ -225,7 +225,7 @@ class WorkMomentsListPage extends StatelessWidget {
       );
 
   Widget _sliverAppBar(BuildContext context) => SliverAppBar(
-        title: StrRes.discoverTab.toText
+        title: StrRes.workingCircle.toText
           ..style = Styles.ts_333333_18sp_medium,
         centerTitle: true,
         expandedHeight: 200.h,

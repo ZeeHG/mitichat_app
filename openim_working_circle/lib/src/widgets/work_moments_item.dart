@@ -99,7 +99,8 @@ class WorkMomentsItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     (moments.nickname ?? '').toText
-                    ..style = Styles.ts_9280B3_16sp_medium,
+                    ..style = Styles.ts_9280B3_16sp_medium
+                    ..onTap = () => onTapAvatar?.call(moments),
                     _buildTimeView(),
                   ],
                 ),
