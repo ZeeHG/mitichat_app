@@ -984,10 +984,10 @@ packages:
     dependency: "direct main"
     description:
       name: getuiflut
-      sha256: a0cfffbfec45d74ae240716db54a644d16c7f6ac9d91399723595a3ec45bde81
+      sha256: "6bf5ac61fd92ef908455a23bc84e50946dd7316846706493b6638988b9d36d9e"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.21"
+    version: "0.2.25"
   glob:
     dependency: transitive
     description:
@@ -2493,5 +2493,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.2.0 <4.0.0"
+  dart: ">=3.2.0 <=3.2.3"
   flutter: ">=3.16.0"

@@ -1111,4 +1111,5 @@ const Map<String, String> zh_CN = {
   "defaultMergeNotification": "[聊天记录]",
   "defaultCardNotification": "[名片]",
   "defaultNotificationTitle": "收到一条新消息",
+  "defaultNotificationTitle2": "一条新消息",
 };

@@ -22,6 +22,8 @@ import 'push_controller.dart';
 class AppController extends SuperController {
   var isRunningBackground = false;
   var isAppBadgeSupported = false;
+  var notificationSeq = 3000;
+  var hadShowMessageIdList = [];
 
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
@@ -32,9 +34,9 @@ class AppController extends SuperController {
   /// done later
   final DarwinInitializationSettings initializationSettingsDarwin =
       DarwinInitializationSettings(
-    requestAlertPermission: false,
-    requestBadgePermission: false,
-    requestSoundPermission: false,
+    requestAlertPermission: true,
+    requestBadgePermission: true,
+    requestSoundPermission: true,
     onDidReceiveLocalNotification: (
       int id,
       String? title,
@@ -112,7 +114,7 @@ class AppController extends SuperController {
     super.onInit();
   }
 
-  void _requestPermissions() async{
+  void _requestPermissions() async {
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
@@ -157,11 +159,19 @@ class AppController extends SuperController {
   }
 
   Future<void> promptSoundOrNotification(im.Message message) async {
+    if (hadShowMessageIdList.contains(message.clientMsgID)) {
+      myLogger.e({"message": "出现重复通知", "data": message.toJson()});
+      return;
+    }
+    hadShowMessageIdList.add(message.clientMsgID);
     if (!isRunningBackground) {
-      _playMessageSound();
+      if (Platform.isAndroid) {
+        _playMessageSound();
+      }
     } else {
       if (Platform.isAndroid) {
-        final id = message.seq!;
+        // final id = message.seq!;
+        notificationSeq = notificationSeq + 1;
         String text = StrRes.defaultNotification;
         if (message.isTextType) {
           text = message.textElem!.content!;
@@ -184,23 +194,27 @@ class AppController extends SuperController {
         } else if (message.isCardType) {
           text = StrRes.defaultCardNotification;
         }
-        const androidPlatformChannelSpecifics = AndroidNotificationDetails(
-            'push', 'push',
-            channelDescription: 'message push',
-            importance: Importance.max,
-            priority: Priority.max,
-            playSound: true,
-            enableVibration: true,
-            fullScreenIntent: true,
-            silent: false,
-            channelShowBadge : true,
-            category: AndroidNotificationCategory.message,
-            visibility: NotificationVisibility.public,
-            ticker: 'one message');
+        const androidPlatformChannelSpecifics =
+            AndroidNotificationDetails('push', 'push',
+                channelDescription: 'message push',
+                importance: Importance.max,
+                priority: Priority.max,
+                playSound: true,
+                enableVibration: true,
+                // 启动后通知要很久才消失
+                // fullScreenIntent: true,
+                silent: false,
+                // 无效
+                channelShowBadge: false,
+                category: AndroidNotificationCategory.message,
+                visibility: NotificationVisibility.public,
+                // 无效
+                number: 0,
+                ticker: 'one message');
         const NotificationDetails platformChannelSpecifics =
             NotificationDetails(android: androidPlatformChannelSpecifics);
-        await flutterLocalNotificationsPlugin.show(
-            id, StrRes.defaultNotificationTitle, text, platformChannelSpecifics,
+        await flutterLocalNotificationsPlugin.show(notificationSeq,
+            StrRes.defaultNotificationTitle, text, platformChannelSpecifics,
             payload: json.encode(message.toJson()));
       }
     }
@@ -230,6 +244,7 @@ class AppController extends SuperController {
   }
 
   Future<void> _stopForegroundService() async {
+    if (!Platform.isAndroid) return;
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
@@ -257,7 +272,7 @@ class AppController extends SuperController {
   @override
   void onClose() {
     // backgroundSubject.close();
-    // _stopForegroundService();
+    _stopForegroundService();
     // closeSubject();
     _audioPlayer.dispose();
     super.onClose();

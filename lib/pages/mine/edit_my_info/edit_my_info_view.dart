@@ -13,7 +13,7 @@ class EditMyInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
+    return Scaffold(
       appBar: TitleBar.back(
         title: logic.title,
         right: StrRes.save.toText
@@ -36,8 +36,8 @@ class EditMyInfoPage extends StatelessWidget {
               autofocus: true,
               keyboardType: logic.keyboardType,
               inputFormatters: [
-                    LengthLimitingTextInputFormatter(logic.maxLength)
-                  ],
+                LengthLimitingTextInputFormatter(logic.maxLength)
+              ],
               decoration: InputDecoration(
                 border: InputBorder.none,
                 isDense: true,
@@ -50,6 +50,6 @@ class EditMyInfoPage extends StatelessWidget {
           ),
         ],
       ),
-    ));
+    );
   }
 }

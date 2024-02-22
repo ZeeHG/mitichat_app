@@ -25,7 +25,7 @@ class EditMyInfoLogic extends GetxController {
   @override
   void onInit() {
     editAttr = Get.arguments['editAttr'];
-    maxLength = Get.arguments['maxLength'] ?? 16;
+    maxLength = Get.arguments['maxLength'] ?? 60;
     _initAttr();
     inputCtrl = TextEditingController(text: defaultValue);
     super.onInit();

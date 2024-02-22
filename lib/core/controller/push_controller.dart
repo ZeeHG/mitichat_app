@@ -38,14 +38,17 @@ class PushController extends GetxController {
       },
       onReceiveMessageData: (Map<String, dynamic> msg) async {
         Logger.print("Getui flutter onReceiveMessageData: $msg");
+        myLogger.i({"message": "onReceiveMessageData", "data": msg});
         _payloadInfo = msg['payload'];
       },
       onNotificationMessageArrived: (Map<String, dynamic> msg) async {
         Logger.print("Getui flutter onNotificationMessageArrived: $msg");
+        myLogger.i({"message": "onNotificationMessageArrived", "data": msg});
         _notificationState = 'Arrived';
       },
       onNotificationMessageClicked: (Map<String, dynamic> msg) async {
         Logger.print("Getui flutter onNotificationMessageClicked: $msg");
+        myLogger.i({"message": "onNotificationMessageClicked", "data": msg});
         _notificationState = 'Clicked';
       },
       // 注册 DeviceToken 回调
@@ -56,11 +59,13 @@ class PushController extends GetxController {
       // SDK收到透传消息回调
       onReceivePayload: (Map<String, dynamic> message) async {
         Logger.print("Getui flutter onReceivePayload: $message");
+        myLogger.i({"message": "onReceivePayload", "data": message});
         _onReceivePayload = "$message";
       },
       // 点击通知回调
       onReceiveNotificationResponse: (Map<String, dynamic> message) async {
         Logger.print("Getui flutter onReceiveNotificationResponse: $message");
+        myLogger.i({"message": "onReceiveNotificationResponse", "data": message});
         _onReceiveNotificationResponse = "$message";
       },
       // APPLink中携带的透传payload信息
@@ -96,7 +101,7 @@ class PushController extends GetxController {
         Logger.print("Getui flutter onTransmitUserMessageReceive: $event");
       },
       onGrantAuthorization: (String res) async {},
-      // onLiveActivityResult: (Map<String, dynamic> event) => Future.value(),
+      onLiveActivityResult: (Map<String, dynamic> event) => Future.value(),
     );
   }
 

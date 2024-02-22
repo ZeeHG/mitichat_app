@@ -772,7 +772,7 @@ class ChatLogic extends GetxController {
           message: message,
           userID: useOuterValue ? userId : userID,
           groupID: useOuterValue ? groupId : groupID,
-          offlinePushInfo: Config.offlinePushInfo..title=StrRes.defaultNotificationTitle..desc= text,
+          offlinePushInfo: Config.offlinePushInfo..title=(Platform.isIOS? StrRes.defaultNotificationTitle : StrRes.defaultNotificationTitle2)..desc= text,
         )
         .then((value) => _sendSucceeded(message, value))
         .catchError((error, _) => _senFailed(message, groupId, error, _))

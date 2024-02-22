@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
@@ -132,7 +134,9 @@ class FriendSetupLogic extends GetxController {
           userID: userID,
           groupID: groupID,
           offlinePushInfo: Config.offlinePushInfo
-            ..title = StrRes.defaultNotificationTitle
+            ..title = (Platform.isIOS
+                ? StrRes.defaultNotificationTitle
+                : StrRes.defaultNotificationTitle2)
             ..desc = StrRes.defaultCardNotification,
         );
       }

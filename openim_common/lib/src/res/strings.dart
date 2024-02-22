@@ -1541,6 +1541,7 @@ class StrRes {
   static String get defaultMergeNotification => 'defaultMergeNotification'.tr;
   static String get defaultCardNotification => 'defaultCardNotification'.tr;
   static String get defaultNotificationTitle => 'defaultNotificationTitle'.tr;
+  static String get defaultNotificationTitle2 => 'defaultNotificationTitle2'.tr;
   static String get myPoints => 'myPoints'.tr;
   static String get rulesTitle => 'rulesTitle'.tr;
   static String get earningTitle => 'earningTitle'.tr;
