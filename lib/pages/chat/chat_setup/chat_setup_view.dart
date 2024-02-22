@@ -29,20 +29,17 @@ class ChatSetupPage extends StatelessWidget {
                 ),
                 15.verticalSpace,
                 _buildItemView(
-                  text: StrRes.messageNotDisturb,
-                  switchOn: logic.isNotDisturb,
-                  onChanged: (_) => logic.toggleNotDisturb(),
-                  showSwitchButton: true,
-                  isTopRadius: true,
-                  showBorder: true
-                ),
+                    text: StrRes.messageNotDisturb,
+                    switchOn: logic.isNotDisturb,
+                    onChanged: (_) => logic.toggleNotDisturb(),
+                    showSwitchButton: true,
+                    isTopRadius: true),
                 _buildItemView(
-                  text: StrRes.topContacts,
-                  switchOn: logic.isPinned,
-                  onChanged: (_) => logic.toggleTopContacts(),
-                  showSwitchButton: true,
-                    showBorder: true
-                ),
+                    text: StrRes.topContacts,
+                    switchOn: logic.isPinned,
+                    onChanged: (_) => logic.toggleTopContacts(),
+                    showSwitchButton: true,
+                    showBorder: true),
                 // _buildItemView(
                 //   text: StrRes.remind,
                 //   switchOn: false,
@@ -51,29 +48,26 @@ class ChatSetupPage extends StatelessWidget {
                 //   isBottomRadius: true,
                 // ),
                 _buildItemView(
-                  text: StrRes.chatEncryption,
-                  switchOn: true,
-                  // onChanged: (_) => showDeveloping(),
-                  showSwitchButton: true,
-                    showBorder: true
-                ),
+                    text: StrRes.chatEncryption,
+                    switchOn: true,
+                    // onChanged: (_) => showDeveloping(),
+                    showSwitchButton: true,
+                    showBorder: true),
                 _buildItemView(
-                  text: StrRes.burnAfterReading,
-                  switchOn: logic.isBurnAfterReading,
-                  onChanged: (_) => logic.toggleBurnAfterReading(),
-                  showSwitchButton: true,
-                  isBottomRadius: logic.isBurnAfterReading ? false : true,
-                    showBorder: true
-                ),
+                    text: StrRes.burnAfterReading,
+                    switchOn: logic.isBurnAfterReading,
+                    onChanged: (_) => logic.toggleBurnAfterReading(),
+                    showSwitchButton: true,
+                    isBottomRadius: logic.isBurnAfterReading ? false : true,
+                    showBorder: true),
                 if (logic.isBurnAfterReading)
                   _buildItemView(
-                    text: "  - " + StrRes.timeSet,
-                    value: logic.getBurnAfterReadingDurationStr,
-                    onTap: logic.setBurnAfterReadingDuration,
-                    showRightArrow: true,
-                    isBottomRadius: true,
-                      showBorder: true
-                  ),
+                      text: "  - " + StrRes.timeSet,
+                      value: logic.getBurnAfterReadingDurationStr,
+                      onTap: logic.setBurnAfterReadingDuration,
+                      showRightArrow: true,
+                      isBottomRadius: true,
+                      showBorder: true),
                 //   _buildItemView(
                 //   text: StrRes.autoTranslate,
                 //   switchOn: logic.isAutoTranslate,
@@ -188,7 +182,7 @@ class ChatSetupPage extends StatelessWidget {
                   ImageRes.addFriendTobeGroup.toImage
                     ..width = 42.w
                     ..height = 42.h
-                    ..color=Styles.c_CCCCCC
+                    ..color = Styles.c_CCCCCC
                     ..onTap = logic.createGroup,
                   // 8.verticalSpace,
                   // ''.toText
@@ -281,6 +275,7 @@ class ChatSetupPage extends StatelessWidget {
         behavior: HitTestBehavior.translucent,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 15.w),
+          clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
             color: Styles.c_FFFFFF,
             borderRadius: BorderRadius.only(
@@ -293,8 +288,9 @@ class ChatSetupPage extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: Styles.c_FFFFFF,
-              border:
-                  showBorder ? Border(top: BorderSide(color: Styles.c_F1F2F6, width: 1.h)): null,
+              border: showBorder
+                  ? Border(top: BorderSide(color: Styles.c_F1F2F6, width: 1.h))
+                  : null,
             ),
             height: hintText == null ? 52.h : 68.h,
             padding: EdgeInsets.only(right: 20.w),

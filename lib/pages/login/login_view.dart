@@ -196,9 +196,9 @@ class LoginPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Transform.translate(
-                      offset: Offset(0, -8.h),
+                      offset: Offset(0, -9.h),
                       child: Transform.scale(
-                          scale: 0.8,
+                          scale: 0.75,
                           child: Checkbox(
                             visualDensity: VisualDensity.compact,
                             // activeColor: Styles.c_8443F8,
