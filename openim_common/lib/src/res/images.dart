@@ -314,4 +314,5 @@ class ImageRes {
   static const comment = "$_dir/comment.png";
   static const editComment = "$_dir/edit_comment.png";
   static const reprintArticle = "$_dir/reprint_article.png";
+  static const loading = "$_dir/loading.gif";
 }

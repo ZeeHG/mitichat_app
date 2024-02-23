@@ -1190,5 +1190,6 @@ const Map<String, String> en_US = {
   "defaultLocationNotification": "[Location]",
   "defaultMergeNotification": "[Chat history]",
   "defaultCardNotification": "[Business card]",
-  "defaultNotificationTitle": "Received a new message"
+  "defaultNotificationTitle": "Received a new message",
+  "defaultNotificationTitle2": "A new message",
 };

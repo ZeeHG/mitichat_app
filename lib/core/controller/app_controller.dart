@@ -240,7 +240,18 @@ class AppController extends SuperController {
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.startForegroundService(1, 'miti', 'running...',
-            notificationDetails: androidPlatformChannelSpecifics, payload: '');
+            notificationDetails: androidPlatformChannelSpecifics,
+            payload: ' ',
+            // foregroundServiceTypes: {
+            //   // AndroidServiceForegroundType.foregroundServiceTypeSystemExempted,
+            //   // AndroidServiceForegroundType.foregroundServiceTypePhoneCall,
+            //   // AndroidServiceForegroundType.foregroundServiceTypeDataSync,
+            //   AndroidServiceForegroundType.foregroundServiceTypeRemoteMessaging,
+
+            //   // AndroidServiceForegroundType.foregroundServiceTypeMediaPlayback,
+            //   // AndroidServiceForegroundType.foregroundServiceTypeConnectedDevice,
+            // }
+            );
   }
 
   Future<void> _stopForegroundService() async {

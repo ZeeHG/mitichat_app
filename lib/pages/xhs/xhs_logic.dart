@@ -153,8 +153,8 @@ enum OpEvent { delete, publish, update }
 class XhsLogic extends GetxController {
   final headerIndex = 0.obs;
 
-  void startXhsMomentDetail(WorkMoments xhsMoment) => AppNavigator.startXhsMomentDetail(xhsMoment: xhsMoment);
-
+  void startXhsMomentDetail(WorkMoments xhsMoment) =>
+      AppNavigator.startXhsMomentDetail(xhsMoment: xhsMoment);
 
   final refreshCtrl = RefreshController();
   final inputCtrl = TextEditingController();
@@ -172,7 +172,6 @@ class XhsLogic extends GetxController {
   late String nickname;
   late String faceURL;
   StreamSubscription? opEventSub;
-  
 
   ViewUserProfileBridge? get bridge => PackageBridge.viewUserProfileBridge;
 
@@ -200,7 +199,8 @@ class XhsLogic extends GetxController {
     faceURL =
         Get.arguments['faceURL'] ?? OpenIM.iMManager.userInfo.faceURL ?? "";
     // wcBridge?.onRecvNewMessageForWorkingCircle = _recvNewMessage;
-    WApis.getUnreadCount(momentType: 2).then((value) => newMessageCount.value = value);
+    WApis.getUnreadCount(momentType: 2)
+        .then((value) => newMessageCount.value = value);
     // opEventSub = wcBridge?.opEventSub.listen(_opEventListener);
     scrollController.addListener(_scrollListener);
     super.onInit();
@@ -218,10 +218,11 @@ class XhsLogic extends GetxController {
     super.onReady();
   }
 
-  void refreshWorkingCircleList(){
-    LoadingView.singleton.wrap(
-      asyncFunction: () => queryWorkingCircleList(),
-    );
+  void refreshWorkingCircleList() {
+    // LoadingView.singleton.wrap(
+    //   asyncFunction: () => queryWorkingCircleList(),
+    // );
+    queryWorkingCircleList();
   }
 
   /// {'opEvent': OpEvent.delete, 'data': moments}
@@ -242,13 +243,13 @@ class XhsLogic extends GetxController {
   }
 
   Future<WorkMomentsList> _request(int pageNo) => userID == null
-      ? WApis.getMomentsList(pageNumber: pageNo, showNumber: pageSize, momentType: 2)
+      ? WApis.getMomentsList(
+          pageNumber: pageNo, showNumber: pageSize, momentType: 2)
       : WApis.getUserMomentsList(
           userID: userID!,
           pageNumber: pageNo,
           showNumber: pageSize,
-          momentType: 2
-        );
+          momentType: 2);
 
   queryWorkingCircleList() async {
     try {
@@ -369,10 +370,8 @@ class XhsLogic extends GetxController {
   }
 
   _updateData(String workMomentID) async {
-    final detail = await WApis.getMomentsDetail(
-      workMomentID: workMomentID,
-      momentType: 2
-    );
+    final detail =
+        await WApis.getMomentsDetail(workMomentID: workMomentID, momentType: 2);
     final index = workMoments.indexOf(detail);
     workMoments.replaceRange(index, index + 1, [detail]);
   }

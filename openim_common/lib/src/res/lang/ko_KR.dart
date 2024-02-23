@@ -1131,5 +1131,6 @@ const Map<String, String> ko_KR = {
   "defaultLocationNotification": "[위치]",
   "defaultMergeNotification": "[채팅 기록]",
   "defaultCardNotification": "[명함]",
-  "defaultNotificationTitle": "새 메시지를 받았습니다"
+  "defaultNotificationTitle": "새 메시지를 받았습니다",
+  "defaultNotificationTitle2": "새로운 메시지"
 };

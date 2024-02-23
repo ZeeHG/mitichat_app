@@ -1044,5 +1044,6 @@ const Map<String, String> ja_JP = {
   "defaultLocationNotification": "[場所]",
   "defaultMergeNotification": "[チャット履歴]",
   "defaultCardNotification": "[名刺]",
-  "defaultNotificationTitle": "新しいメッセージを受信しました"
+  "defaultNotificationTitle": "新しいメッセージを受信しました",
+  "defaultNotificationTitle2": "新しいメッセージ"
 };

@@ -201,7 +201,7 @@ mixin OpenIMLive {
                 duration,
                 isPositive,
               ),
-              onError: onError,
+              onError: (e, s) => onError(e, s, extMessage: "重置通话错误"),
               onRoomDisconnected: () => onRoomDisconnected(event.data),
             );
           } else if (event.state == CallState.beRejected) {
@@ -306,14 +306,19 @@ mixin OpenIMLive {
       onStartCalling: () {
         _stopSound();
       },
-      onError: onError,
+      onError: (e, s) => onError(e, s, extMessage: "开始拨打通话错误, call"),
       onRoomDisconnected: () => onRoomDisconnected(signal),
       onClose: _stopSound,
     );
   }
 
-  onError(error, stack) {
-    myLogger.e({"message": "通话错误", "error": error, stack: stack});
+  onError(error, stack, {String extMessage = ""}) {
+    myLogger.e({
+      "message": "通话错误",
+      "extMessage": extMessage,
+      "error": error,
+      stack: stack
+    });
     Logger.print('onError=====> $error $stack');
     OpenIMLiveClient().close();
     _stopSound();
@@ -349,7 +354,7 @@ mixin OpenIMLive {
               ..offlinePushInfo =
                   (Config.offlinePushInfo..title = StrRes.offlineCallMessage),
           )
-          .catchError(onError);
+          .catchError((e, s) => onError(e, s, extMessage: "发起单人通话room邀请错误, onDialSingle"));
 
   /// 拨向多人
   Future<SignalingCertificate> onDialGroup(SignalingInfo signaling) =>
@@ -360,7 +365,7 @@ mixin OpenIMLive {
               ..offlinePushInfo =
                   (Config.offlinePushInfo..title = StrRes.offlineCallMessage),
           )
-          .catchError(onError);
+          .catchError((e, s) => onError(e, s, extMessage: "发起多人通话room邀请错误, onDialGroup"));
 
   /// 接听
   Future<SignalingCertificate> onTapPickup(SignalingInfo signaling) {
@@ -369,7 +374,7 @@ mixin OpenIMLive {
     _stopSound();
     return OpenIM.iMManager.signalingManager
         .signalingAccept(info: signaling)
-        .catchError(onError);
+        .catchError((e, s) => onError(e, s, extMessage: "同意接听通话错误, onTapPickup"));
   }
 
   /// 拒绝
