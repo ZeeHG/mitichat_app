@@ -80,7 +80,7 @@ class AppController extends SuperController {
     if (!run) {
       _cancelAllNotifications();
     } else {
-      _startForegroundService();
+      // _startForegroundService();
     }
   }
 
@@ -213,9 +213,48 @@ class AppController extends SuperController {
                 ticker: 'one message');
         const NotificationDetails platformChannelSpecifics =
             NotificationDetails(android: androidPlatformChannelSpecifics);
-        await flutterLocalNotificationsPlugin.show(notificationSeq,
-            StrRes.defaultNotificationTitle, text, platformChannelSpecifics,
-            payload: json.encode(message.toJson()));
+
+        final list =
+            await OpenIM.iMManager.friendshipManager.getFriendListMap();
+        final friendJson = list.firstWhere((element) {
+          final fullUser = FullUserInfo.fromJson(element);
+          return fullUser.userID == message.sendID;
+        });
+        ISUserInfo? friendInfo;
+        if (null != friendJson) {
+          final info = FullUserInfo.fromJson(friendJson);
+          friendInfo = info.friendInfo != null
+              ? ISUserInfo.fromJson(info.friendInfo!.toJson())
+              : ISUserInfo.fromJson(info.publicInfo!.toJson());
+        }
+        if (message.isSingleChat) {
+          if (null == friendInfo) {
+            myLogger.e({"message": "收到单聊消息, 找不到好友信息, ${message.sendID}"});
+          }
+          await flutterLocalNotificationsPlugin.show(
+              notificationSeq,
+              friendInfo?.showName ?? StrRes.defaultNotificationTitle3,
+              text,
+              platformChannelSpecifics,
+              payload: json.encode(message.toJson()));
+        } else if (message.isGroupChat) {
+          final list = await OpenIM.iMManager.groupManager.getJoinedGroupList();
+          final groupInfo =
+              list.firstWhere((element) => element.groupID == message.groupID);
+          if (null == groupInfo) {
+            myLogger.e({"message": "收到群聊消息, 找不到群组信息, ${message.groupID}"});
+          }
+          await flutterLocalNotificationsPlugin.show(
+              notificationSeq,
+              groupInfo?.groupName ?? StrRes.defaultNotificationTitle4,
+              "${(null != friendInfo && friendInfo!.showName.isNotEmpty) ? friendInfo?.showName : message.senderNickname ?? StrRes.friend}: ${text}",
+              platformChannelSpecifics,
+              payload: json.encode(message.toJson()));
+        } else {
+          await flutterLocalNotificationsPlugin.show(notificationSeq,
+              StrRes.defaultNotificationTitle, text, platformChannelSpecifics,
+              payload: json.encode(message.toJson()));
+        }
       }
     }
   }
@@ -239,19 +278,20 @@ class AppController extends SuperController {
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
-        ?.startForegroundService(1, 'miti', 'running...',
-            notificationDetails: androidPlatformChannelSpecifics,
-            payload: ' ',
-            // foregroundServiceTypes: {
-            //   // AndroidServiceForegroundType.foregroundServiceTypeSystemExempted,
-            //   // AndroidServiceForegroundType.foregroundServiceTypePhoneCall,
-            //   // AndroidServiceForegroundType.foregroundServiceTypeDataSync,
-            //   AndroidServiceForegroundType.foregroundServiceTypeRemoteMessaging,
+        ?.startForegroundService(
+          1, 'miti', 'running...',
+          notificationDetails: androidPlatformChannelSpecifics,
+          payload: ' ',
+          // foregroundServiceTypes: {
+          //   // AndroidServiceForegroundType.foregroundServiceTypeSystemExempted,
+          //   // AndroidServiceForegroundType.foregroundServiceTypePhoneCall,
+          //   // AndroidServiceForegroundType.foregroundServiceTypeDataSync,
+          //   AndroidServiceForegroundType.foregroundServiceTypeRemoteMessaging,
 
-            //   // AndroidServiceForegroundType.foregroundServiceTypeMediaPlayback,
-            //   // AndroidServiceForegroundType.foregroundServiceTypeConnectedDevice,
-            // }
-            );
+          //   // AndroidServiceForegroundType.foregroundServiceTypeMediaPlayback,
+          //   // AndroidServiceForegroundType.foregroundServiceTypeConnectedDevice,
+          // }
+        );
   }
 
   Future<void> _stopForegroundService() async {
@@ -283,7 +323,7 @@ class AppController extends SuperController {
   @override
   void onClose() {
     // backgroundSubject.close();
-    _stopForegroundService();
+    // _stopForegroundService();
     // closeSubject();
     _audioPlayer.dispose();
     super.onClose();
@@ -328,7 +368,7 @@ class AppController extends SuperController {
 
   @override
   void onReady() {
-    _startForegroundService();
+    // _startForegroundService();
     _getDeviceInfo();
     _cancelAllNotifications();
     // autoCheckVersionUpgrade();

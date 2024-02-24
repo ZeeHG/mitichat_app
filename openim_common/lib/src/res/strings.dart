@@ -1635,4 +1635,7 @@ class StrRes {
   static String get userID => 'userID'.tr;
   static String get searchByPhoneAndUid => 'search_by_phone_and_uid'.tr;
   static String get userIDOrPhone => 'userIDOrPhone'.tr;
+  static String get defaultNotificationTitle3 => 'defaultNotificationTitle3'.tr;
+  static String get defaultNotificationTitle4 => 'defaultNotificationTitle4'.tr;
+  static String get group => 'group'.tr;
 }

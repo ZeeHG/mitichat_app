@@ -119,6 +119,7 @@ dependencies:
   cached_network_image: ^3.3.1
   smooth_page_indicator: ^1.1.0
   card_swiper: ^3.0.1
+  flutter_background: ^1.2.0
 
   #  flutter_openim_unimp:
   #    git:

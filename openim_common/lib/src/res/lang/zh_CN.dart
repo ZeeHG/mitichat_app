@@ -1112,4 +1112,7 @@ const Map<String, String> zh_CN = {
   "defaultCardNotification": "[名片]",
   "defaultNotificationTitle": "收到一条新消息",
   "defaultNotificationTitle2": "一条新消息",
+  "defaultNotificationTitle3": "收到一条朋友的新消息",
+  "defaultNotificationTitle4": "收到一条群友的新消息",
+  "group": "群聊"
 };

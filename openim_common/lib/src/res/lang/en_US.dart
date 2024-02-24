@@ -1192,4 +1192,7 @@ const Map<String, String> en_US = {
   "defaultCardNotification": "[Business card]",
   "defaultNotificationTitle": "Received a new message",
   "defaultNotificationTitle2": "A new message",
+  "defaultNotificationTitle3": "Received a new message from a friend",
+  "defaultNotificationTitle4": "Received a new message from a group member",
+  "group": "Group"
 };

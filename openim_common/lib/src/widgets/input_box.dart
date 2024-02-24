@@ -33,7 +33,7 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
-    this.autofocus = true,
+    this.autofocus = false,
     this.readOnly = false,
     this.enabled = true,
     this.showClearBtn = true
@@ -61,7 +61,7 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
-    this.autofocus = true,
+    this.autofocus = false,
     this.readOnly = false,
     this.enabled = true,
     this.showClearBtn = true
@@ -87,7 +87,7 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
-    this.autofocus = true,
+    this.autofocus = false,
     this.readOnly = false,
     this.enabled = true,
     this.showClearBtn = true
@@ -116,7 +116,7 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
-    this.autofocus = true,
+    this.autofocus = false,
     this.readOnly = false,
     this.enabled = true,
     this.showClearBtn = true
@@ -143,7 +143,7 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
-    this.autofocus = true,
+    this.autofocus = false,
     this.readOnly = false,
     this.enabled = true,
     this.showClearBtn = true
@@ -179,7 +179,7 @@ class InputBox extends StatefulWidget {
     this.inputFormatters,
     this.border = true,
     this.keyBoardType,
-    this.autofocus = true,
+    this.autofocus = false,
     this.readOnly = false,
     this.enabled = true,
     this.showClearBtn = true

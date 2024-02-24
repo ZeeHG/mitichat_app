@@ -134,9 +134,7 @@ class FriendSetupLogic extends GetxController {
           userID: userID,
           groupID: groupID,
           offlinePushInfo: Config.offlinePushInfo
-            ..title = (Platform.isIOS
-                ? StrRes.defaultNotificationTitle
-                : StrRes.defaultNotificationTitle2)
+            ..title = OpenIM.iMManager.userInfo.nickname ?? StrRes.friend
             ..desc = StrRes.defaultCardNotification,
         );
       }

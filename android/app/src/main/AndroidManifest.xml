@@ -214,6 +214,11 @@
             android:exported="false"
             android:foregroundServiceType="mediaProjection"
             tools:targetApi="q" />
+        
+        <!-- <service
+            android:name="id.flutter.flutter_background_service.BackgroundService"
+            android:foregroundServiceType="WhatForegroundServiceTypeDoYouWant"
+        /> -->
 
         <!-- notification -->
         <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver" />

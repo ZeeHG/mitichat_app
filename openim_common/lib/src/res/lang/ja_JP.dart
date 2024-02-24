@@ -1045,5 +1045,8 @@ const Map<String, String> ja_JP = {
   "defaultMergeNotification": "[チャット履歴]",
   "defaultCardNotification": "[名刺]",
   "defaultNotificationTitle": "新しいメッセージを受信しました",
-  "defaultNotificationTitle2": "新しいメッセージ"
+  "defaultNotificationTitle2": "新しいメッセージ",
+  "defaultNotificationTitle3": "友達から新しいメッセージを受信しました",
+  "defaultNotificationTitle4": "グループメンバーから新しいメッセージを受信しました",
+  "group": "グループ"
 };

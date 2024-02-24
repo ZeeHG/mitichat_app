@@ -25,6 +25,7 @@ dependencies:
   animate_do: ^3.0.2
   uuid: ^4.2.1
   cached_network_image: ^3.3.1
+  flutter_background: ^1.2.0
   openim_common:
     path: ../openim_common
   flutter_openim_sdk:
