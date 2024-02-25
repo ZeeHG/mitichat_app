@@ -172,6 +172,12 @@ class XhsLogic extends GetxController {
   late String nickname;
   late String faceURL;
   StreamSubscription? opEventSub;
+  final activeCategory = "推荐".obs;
+  final categoryList = ["推荐", "生活", "AIGC", "Web3", "新闻资讯"].obs;
+
+  clickCategory(String value) {
+    activeCategory.value = value;
+  }
 
   ViewUserProfileBridge? get bridge => PackageBridge.viewUserProfileBridge;
 

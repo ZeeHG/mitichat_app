@@ -38,6 +38,17 @@ class PublishLogic extends GetxController {
   final originUrlCtrl = TextEditingController();
   final titleCtrl = TextEditingController();
   final title = "".obs;
+  final activeTag = "".obs;
+
+  List<String> get tags => ["生活", "AIGC", "Web3", "新闻资讯"];
+
+  void selectTag(int index) {
+    if (activeTag.value == tags[index]) {
+      activeTag.value = "";
+    } else {
+      activeTag.value = tags[index];
+    }
+  }
 
   WorkingCircleBridge? get bridge => PackageBridge.workingCircleBridge;
 

@@ -69,52 +69,52 @@ class XhsPage extends StatelessWidget {
       12.verticalSpace,
       // FakeSearchBox(
       //     onTap: logic.search, color: Styles.c_FFFFFF, borderRadius: 18.r),
-      // Container(
-      //   width: 375.w,
-      //   height: 46.w,
-      //   child: Center(
-      //     child: Row(
-      //       crossAxisAlignment: CrossAxisAlignment.center,
-      //       children: [
-      //         Expanded(
-      //             child: ListView.builder(
-      //                 scrollDirection: Axis.horizontal,
-      //                 itemCount: logic.categoryList.length,
-      //                 itemBuilder: (_, i) {
-      //                   final category = logic.categoryList.value[i];
-      //                   return Obx(() => Container(
-      //                         padding: EdgeInsets.only(
-      //                             left: i == 0 ? 20.w : 10.w, right: 10.w),
-      //                         child: Center(
-      //                           child: GestureDetector(
-      //                             onTap: () => logic.clickCategory(category),
-      //                             behavior: HitTestBehavior.translucent,
-      //                             child: Text(
-      //                               category,
-      //                               style:
-      //                                   category == logic.activeCategory.value
-      //                                       ? Styles.ts_333333_16sp_medium
-      //                                       : Styles.ts_999999_16sp,
-      //                             ),
-      //                           ),
-      //                         ),
-      //                       ));
-      //                 })),
-      //         GestureDetector(
-      //           behavior: HitTestBehavior.translucent,
-      //           child: Container(
-      //             padding: EdgeInsets.only(left: 10.w, right: 20.w),
-      //             child: Center(
-      //               child: ImageRes.appUnfold.toImage
-      //                 ..width = 12.w
-      //                 ..height = 7.h,
-      //             ),
-      //           ),
-      //         )
-      //       ],
-      //     ),
-      //   ),
-      // ),
+      Container(
+        width: 375.w,
+        height: 46.w,
+        child: Center(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: logic.categoryList.length,
+                      itemBuilder: (_, i) {
+                        final category = logic.categoryList[i];
+                        return Obx(() => Container(
+                              padding: EdgeInsets.only(
+                                  left: i == 0 ? 20.w : 15.w, right: 15.w),
+                              child: Center(
+                                child: GestureDetector(
+                                  onTap: () => logic.clickCategory(category),
+                                  behavior: HitTestBehavior.translucent,
+                                  child: Text(
+                                    category,
+                                    style:
+                                        category == logic.activeCategory.value
+                                            ? Styles.ts_333333_16sp_medium
+                                            : Styles.ts_999999_16sp,
+                                  ),
+                                ),
+                              ),
+                            ));
+                      })),
+              // GestureDetector(
+              //   behavior: HitTestBehavior.translucent,
+              //   child: Container(
+              //     padding: EdgeInsets.only(left: 10.w, right: 20.w),
+              //     child: Center(
+              //       child: ImageRes.appUnfold.toImage
+              //         ..width = 12.w
+              //         ..height = 7.h,
+              //     ),
+              //   ),
+              // )
+            ],
+          ),
+        ),
+      ),
       Expanded(
           child: SmartRefresher(
               controller: logic.refreshCtrl,

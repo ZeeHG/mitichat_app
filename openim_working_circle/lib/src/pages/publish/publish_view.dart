@@ -64,7 +64,47 @@ class PublishPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        19.verticalSpace,
+                        if(logic.isPublishXhs.value)
+                        ...[
+                          16.verticalSpace,
+                          Container(
+                            width: 1.sw,
+                            padding: EdgeInsets.symmetric(horizontal: 0),
+                            child: Wrap(
+                              spacing: 10.w,
+                              runSpacing: 5.h,
+                              alignment: WrapAlignment.start,
+                              children: List.generate(
+                                  logic.tags.length,
+                                  (index) => Obx(() {
+                                        final tag = logic.tags[index];
+                                        final isActive =
+                                            logic.activeTag.value == tag;
+                                        return GestureDetector(
+                                          behavior: HitTestBehavior.translucent,
+                                          onTap: () => logic.selectTag(index),
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 10.w,
+                                                vertical: 4.h),
+                                            decoration: BoxDecoration(
+                                              color: isActive
+                                                  ? Styles.c_8443F8
+                                                  : Styles.c_F7F7F7,
+                                              borderRadius:
+                                                  BorderRadius.circular(17.r),
+                                            ),
+                                            child: "# ${tag}".toText
+                                              ..style = isActive
+                                                  ? Styles.ts_FFFFFF_12sp
+                                                  : Styles.ts_999999_12sp,
+                                          ),
+                                        );
+                                      })),
+                            ),
+                          ),
+                        ],
+                        16.verticalSpace,
                         _assetGridView,
                       ],
                     ),
