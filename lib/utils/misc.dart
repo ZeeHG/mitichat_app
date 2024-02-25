@@ -4,7 +4,7 @@ import 'package:openim_common/utils/logger.dart';
 
 Future<void> requestBackgroundPermission(
     {bool isRetry = false,
-    bool shouldRequestBatteryOptimizationsOff = true}) async {
+    bool shouldRequestBatteryOptimizationsOff = false}) async {
   try {
     bool hasPermissions = await FlutterBackground.hasPermissions;
     final androidConfig = FlutterBackgroundAndroidConfig(
@@ -27,11 +27,11 @@ Future<void> requestBackgroundPermission(
     myLogger.e(e);
     if (e is PlatformException && (e.message ?? "").contains("battery")) {
       return await Future<void>.delayed(
-          const Duration(seconds: 1),
+          const Duration(seconds: 3),
           () => requestBackgroundPermission(
               isRetry: false, shouldRequestBatteryOptimizationsOff: false));
     } else if (!isRetry) {
-      return await Future<void>.delayed(const Duration(seconds: 1),
+      return await Future<void>.delayed(const Duration(seconds: 3),
           () => requestBackgroundPermission(isRetry: true));
     }
   }
