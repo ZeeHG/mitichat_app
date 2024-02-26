@@ -1194,5 +1194,6 @@ const Map<String, String> en_US = {
   "defaultNotificationTitle2": "A new message",
   "defaultNotificationTitle3": "Received a new message from a friend",
   "defaultNotificationTitle4": "Received a new message from a group member",
-  "group": "Group"
+  "group": "Group",
+  "noAccount": "Don't have an account,"
 };

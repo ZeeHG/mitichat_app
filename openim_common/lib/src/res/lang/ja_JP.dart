@@ -1048,5 +1048,6 @@ const Map<String, String> ja_JP = {
   "defaultNotificationTitle2": "新しいメッセージ",
   "defaultNotificationTitle3": "友達から新しいメッセージを受信しました",
   "defaultNotificationTitle4": "グループメンバーから新しいメッセージを受信しました",
-  "group": "グループ"
+  "group": "グループ",
+  "noAccount": "アカウントがありません、"
 };

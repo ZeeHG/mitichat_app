@@ -1135,5 +1135,6 @@ const Map<String, String> ko_KR = {
   "defaultNotificationTitle2": "새로운 메시지",
   "defaultNotificationTitle3": "친구로부터 새로운 메시지를 받았습니다",
   "defaultNotificationTitle4": "그룹 멤버로부터 새로운 메시지를 받았습니다",
-  "group": "그룹"
+  "group": "그룹",
+  "noAccount": "계정이 없습니다,",
 };
