@@ -18,7 +18,7 @@ class PublishPage extends StatelessWidget {
       child: Obx(() => Scaffold(
             appBar: TitleBar.back(
               onTap: logic.back,
-              title: logic.type == PublishType.picture
+              title: logic.isPicture
                   ? StrRes.publishPicture
                   : StrRes.publishVideo,
               right: Button(

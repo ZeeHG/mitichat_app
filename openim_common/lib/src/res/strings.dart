@@ -1639,4 +1639,6 @@ class StrRes {
   static String get defaultNotificationTitle4 => 'defaultNotificationTitle4'.tr;
   static String get group => 'group'.tr;
   static String get noAccount => 'noAccount'.tr;
+  static String get pleaseSelectFirstType => 'pleaseSelectFirstType'.tr;
+  static String get onlySupportOneVideo => 'onlySupportOneVideo'.tr;
 }

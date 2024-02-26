@@ -380,8 +380,11 @@ class WorkMomentsListLogic extends GetxController {
     inputCtrl.clear();
   }
 
-  publish(int type) => WNavigator.startPublishWorkMoments(
-        type: type == 0 ? PublishType.picture : PublishType.video,
+  // publish(int type) => WNavigator.startPublishWorkMoments(
+  //       type: type == 0 ? PublishType.picture : PublishType.video,
+  //     );
+  publish() => WNavigator.startPublishWorkMoments(
+        type: PublishType.picture,
       );
 
   previewPicture(int index, List<Metas> metas) {

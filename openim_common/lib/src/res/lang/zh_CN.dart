@@ -1115,5 +1115,7 @@ const Map<String, String> zh_CN = {
   "defaultNotificationTitle3": "收到一条朋友的新消息",
   "defaultNotificationTitle4": "收到一条群友的新消息",
   "group": "群聊",
-  "noAccount": "还没有账号，"
+  "noAccount": "还没有账号，",
+  "pleaseSelectFirstType": "请选择和第一个资源相同的类型文件",
+  "onlySupportOneVideo": "只支持上传一个视频"
 };

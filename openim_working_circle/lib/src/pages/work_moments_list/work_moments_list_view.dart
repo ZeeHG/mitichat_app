@@ -225,13 +225,24 @@ class WorkMomentsListPage extends StatelessWidget {
       );
 
   Widget _sliverAppBar(BuildContext context) => SliverAppBar(
-        title: Container(
-          padding: EdgeInsets.only(bottom: 20.h),
-          child: StrRes.workingCircle.toText
-            ..style = Styles.ts_333333_18sp_medium,
-        ),
+        title: (logic.scrollHeight <=
+                (180.h - 58.h - MediaQuery.of(context).padding.top))
+            ? Container(
+                padding: EdgeInsets.only(bottom: 20.h),
+                child: StrRes.workingCircle.toText
+                  ..style = Styles.ts_333333_18sp_medium,
+              )
+            : Container(
+                padding: EdgeInsets.only(bottom: 20.h),
+                child: AvatarView(
+                  width: 36.w,
+                  height: 36.h,
+                  url: logic.faceURL,
+                  text: logic.nickname,
+                  onTap: logic.viewMyProfilePanel,
+                )),
         centerTitle: true,
-        expandedHeight: 200.h,
+        expandedHeight: 180.h,
         toolbarHeight: 66.h,
         backgroundColor: Styles.c_FFFFFF,
         floating: false,
@@ -260,9 +271,32 @@ class WorkMomentsListPage extends StatelessWidget {
         // leading: ImageRes.backBlack.toImage..color = Styles.c_FFFFFF,
         actions: logic.isMyself &&
                 !(logic.scrollHeight <=
-                    (200.h - 22.h - MediaQuery.of(context).padding.top))
+                    (180.h - 58.h - MediaQuery.of(context).padding.top))
             ? [
-                _popButton2,
+                // _popButton2,
+                Container(
+                    padding: EdgeInsets.only(bottom: 20.h),
+                    child: GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: logic.publish,
+                      child: Container(
+                        // padding: EdgeInsets.only(bottom: 20.h),
+                        child: Container(
+                          width: 38.w,
+                          height: 38.h,
+                          decoration: BoxDecoration(
+                            color: Styles.c_FFFFFF_opacity70,
+                            borderRadius: BorderRadius.circular(6.r),
+                          ),
+                          child: Center(
+                            child: ImageRes.appAdd.toImage
+                              ..width = 16.w
+                              ..height = 16.h
+                              ..color = Styles.c_333333,
+                          ),
+                        ),
+                      ),
+                    )),
                 10.horizontalSpace,
                 Container(
                   padding: EdgeInsets.only(bottom: 20.h),
@@ -297,13 +331,13 @@ class WorkMomentsListPage extends StatelessWidget {
               color: Styles.c_FFFFFF,
               child: ImageRes.workingCircleHeaderBg3.toImage
                 ..width = 375.w
-                ..height = 200.h
+                ..height = 180.h
                 ..fit = BoxFit.cover,
             ),
             if (logic.scrollHeight <=
-                (200.h - 22.h - MediaQuery.of(context).padding.top))
+                (180.h - 58.h - MediaQuery.of(context).padding.top))
               Positioned(
-                bottom: 70.h,
+                bottom: 38.h,
                 left: 18.w,
                 child: Container(
                   width: 1.sw - 36.w,
@@ -345,7 +379,30 @@ class WorkMomentsListPage extends StatelessWidget {
                         //     ),
                         //   ),
                         // ),
-                        _popButton,
+                        // _popButton,
+                        GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: logic.publish,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 11.w, vertical: 0),
+                            height: 38.h,
+                            decoration: BoxDecoration(
+                              color: Styles.c_FFFFFF_opacity70,
+                              borderRadius: BorderRadius.circular(6.r),
+                            ),
+                            child: Row(
+                              children: [
+                                ImageRes.appAdd.toImage
+                                  ..width = 16.w
+                                  ..height = 16.h,
+                                6.horizontalSpace,
+                                StrRes.publishMoment.toText
+                                  ..style = Styles.ts_333333_14sp_medium
+                              ],
+                            ),
+                          ),
+                        ),
                         5.horizontalSpace,
                         GestureDetector(
                           behavior: HitTestBehavior.translucent,
@@ -369,7 +426,7 @@ class WorkMomentsListPage extends StatelessWidget {
                   ),
                 ),
               ),
-            // if (logic.scrollHeight <= (200.h - 22.h - MediaQuery.of(context).padding.top))
+            // if (logic.scrollHeight <= (180.h - 58.h - MediaQuery.of(context).padding.top))
             Positioned(
                 bottom: 0,
                 left: 0,
@@ -387,120 +444,120 @@ class WorkMomentsListPage extends StatelessWidget {
         ),
       );
 
-  Widget get _popButton => PopupMenuButton<int>(
-        offset: Offset(0, 48.h),
-        padding: EdgeInsets.zero,
-        icon: Container(
-          padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 0),
-          height: 38.h,
-          decoration: BoxDecoration(
-            color: Styles.c_FFFFFF_opacity70,
-            borderRadius: BorderRadius.circular(6.r),
-          ),
-          child: Row(
-            children: [
-              ImageRes.appAdd.toImage
-                ..width = 16.w
-                ..height = 16.h,
-              6.horizontalSpace,
-              StrRes.publishMoment.toText..style = Styles.ts_333333_14sp_medium
-            ],
-          ),
-        ),
-        itemBuilder: (_) => <PopupMenuEntry<int>>[
-          PopupMenuItem(
-            padding: EdgeInsets.only(left: 12.w),
-            height: 45.h,
-            value: 0,
-            child: Row(
-              children: [
-                ImageRes.appPublishPic.toImage
-                  ..width = 20.w
-                  ..height = 20.h,
-                12.horizontalSpace,
-                StrRes.publishPicture.toText..style = Styles.ts_333333_16sp,
-              ],
-            ),
-          ),
-          const PopupMenuDivider(),
-          PopupMenuItem(
-            padding: EdgeInsets.only(left: 12.w),
-            height: 45.h,
-            value: 1,
-            child: Row(
-              children: [
-                ImageRes.appPublishVideo.toImage
-                  ..width = 20.w
-                  ..height = 20.h,
-                12.horizontalSpace,
-                StrRes.publishVideo.toText..style = Styles.ts_333333_16sp,
-              ],
-            ),
-          ),
-        ],
-        onSelected: logic.publish,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(6.w))),
-      );
+  // Widget get _popButton => PopupMenuButton<int>(
+  //       offset: Offset(0, 48.h),
+  //       padding: EdgeInsets.zero,
+  //       icon: Container(
+  //         padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 0),
+  //         height: 38.h,
+  //         decoration: BoxDecoration(
+  //           color: Styles.c_FFFFFF_opacity70,
+  //           borderRadius: BorderRadius.circular(6.r),
+  //         ),
+  //         child: Row(
+  //           children: [
+  //             ImageRes.appAdd.toImage
+  //               ..width = 16.w
+  //               ..height = 16.h,
+  //             6.horizontalSpace,
+  //             StrRes.publishMoment.toText..style = Styles.ts_333333_14sp_medium
+  //           ],
+  //         ),
+  //       ),
+  //       itemBuilder: (_) => <PopupMenuEntry<int>>[
+  //         PopupMenuItem(
+  //           padding: EdgeInsets.only(left: 12.w),
+  //           height: 45.h,
+  //           value: 0,
+  //           child: Row(
+  //             children: [
+  //               ImageRes.appPublishPic.toImage
+  //                 ..width = 20.w
+  //                 ..height = 20.h,
+  //               12.horizontalSpace,
+  //               StrRes.publishPicture.toText..style = Styles.ts_333333_16sp,
+  //             ],
+  //           ),
+  //         ),
+  //         const PopupMenuDivider(),
+  //         PopupMenuItem(
+  //           padding: EdgeInsets.only(left: 12.w),
+  //           height: 45.h,
+  //           value: 1,
+  //           child: Row(
+  //             children: [
+  //               ImageRes.appPublishVideo.toImage
+  //                 ..width = 20.w
+  //                 ..height = 20.h,
+  //               12.horizontalSpace,
+  //               StrRes.publishVideo.toText..style = Styles.ts_333333_16sp,
+  //             ],
+  //           ),
+  //         ),
+  //       ],
+  //       onSelected: logic.publish,
+  //       shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.all(Radius.circular(6.w))),
+  //     );
 
-  Widget get _popButton2 => Padding(
-        padding: EdgeInsets.only(bottom: 20.h),
-        child: PopupMenuButton<int>(
-          offset: Offset(0, 48.h),
-          padding: EdgeInsets.zero,
-          icon: Container(
-            // padding: EdgeInsets.only(bottom: 20.h),
-            child: Container(
-              width: 38.w,
-              height: 38.h,
-              decoration: BoxDecoration(
-                color: Styles.c_FFFFFF_opacity70,
-                borderRadius: BorderRadius.circular(6.r),
-              ),
-              child: Center(
-                child: ImageRes.appAdd.toImage
-                  ..width = 16.w
-                  ..height = 16.h
-                  ..color = Styles.c_333333,
-              ),
-            ),
-          ),
-          itemBuilder: (_) => <PopupMenuEntry<int>>[
-            PopupMenuItem(
-              padding: EdgeInsets.only(left: 12.w),
-              height: 45.h,
-              value: 0,
-              child: Row(
-                children: [
-                  ImageRes.appPublishPic.toImage
-                    ..width = 20.w
-                    ..height = 20.h,
-                  12.horizontalSpace,
-                  StrRes.publishPicture.toText..style = Styles.ts_333333_16sp,
-                ],
-              ),
-            ),
-            const PopupMenuDivider(),
-            PopupMenuItem(
-              padding: EdgeInsets.only(left: 12.w),
-              height: 45.h,
-              value: 1,
-              child: Row(
-                children: [
-                  ImageRes.appPublishVideo.toImage
-                    ..width = 20.w
-                    ..height = 20.h,
-                  12.horizontalSpace,
-                  StrRes.publishVideo.toText..style = Styles.ts_333333_16sp,
-                ],
-              ),
-            ),
-          ],
-          onSelected: logic.publish,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(6.w))),
-        ),
-      );
+  // Widget get _popButton2 => Padding(
+  //       padding: EdgeInsets.only(bottom: 20.h),
+  //       child: PopupMenuButton<int>(
+  //         offset: Offset(0, 48.h),
+  //         padding: EdgeInsets.zero,
+  //         icon: Container(
+  //           // padding: EdgeInsets.only(bottom: 20.h),
+  //           child: Container(
+  //             width: 38.w,
+  //             height: 38.h,
+  //             decoration: BoxDecoration(
+  //               color: Styles.c_FFFFFF_opacity70,
+  //               borderRadius: BorderRadius.circular(6.r),
+  //             ),
+  //             child: Center(
+  //               child: ImageRes.appAdd.toImage
+  //                 ..width = 16.w
+  //                 ..height = 16.h
+  //                 ..color = Styles.c_333333,
+  //             ),
+  //           ),
+  //         ),
+  //         itemBuilder: (_) => <PopupMenuEntry<int>>[
+  //           PopupMenuItem(
+  //             padding: EdgeInsets.only(left: 12.w),
+  //             height: 45.h,
+  //             value: 0,
+  //             child: Row(
+  //               children: [
+  //                 ImageRes.appPublishPic.toImage
+  //                   ..width = 20.w
+  //                   ..height = 20.h,
+  //                 12.horizontalSpace,
+  //                 StrRes.publishPicture.toText..style = Styles.ts_333333_16sp,
+  //               ],
+  //             ),
+  //           ),
+  //           const PopupMenuDivider(),
+  //           PopupMenuItem(
+  //             padding: EdgeInsets.only(left: 12.w),
+  //             height: 45.h,
+  //             value: 1,
+  //             child: Row(
+  //               children: [
+  //                 ImageRes.appPublishVideo.toImage
+  //                   ..width = 20.w
+  //                   ..height = 20.h,
+  //                 12.horizontalSpace,
+  //                 StrRes.publishVideo.toText..style = Styles.ts_333333_16sp,
+  //               ],
+  //             ),
+  //           ),
+  //         ],
+  //         onSelected: logic.publish,
+  //         shape: RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.all(Radius.circular(6.w))),
+  //       ),
+  //     );
 
   /* Widget _buildItemView(WorkMoments moments) => Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),

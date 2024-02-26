@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'package:sprintf/sprintf.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -26,7 +27,7 @@ class PublishLogic extends GetxController {
   final inputCtrl = TextEditingController();
   final text = "".obs;
   final focusNode = FocusNode();
-  late PublishType type;
+  late Rx<PublishType> type;
   final assetsList = <AssetEntity>[].obs;
   BaseDeviceInfo? deviceInfo;
   final watchList = <dynamic>[].obs;
@@ -56,7 +57,7 @@ class PublishLogic extends GetxController {
 
   @override
   void onInit() {
-    type = Get.arguments['type'];
+    type = Rx(Get.arguments['type']);
     _initDeviceInfo();
     inputCtrl.addListener(() {
       text.value = inputCtrl.text.trim();
@@ -83,7 +84,9 @@ class PublishLogic extends GetxController {
     return deviceInfo;
   }
 
-  bool get isPicture => type == PublishType.picture;
+  bool get isPicture => !hasAssets || type.value == PublishType.picture;
+
+  bool get hasAssets => assetsList.isNotEmpty;
 
   int get maxAssetsCount => isPicture ? 9 : 1;
 
@@ -145,31 +148,62 @@ class PublishLogic extends GetxController {
     ], () async {
       final assets2 = assetsList;
       final count = maxAssetsCount - assetsList.length;
+      AssetType? firstAssetType =
+          assetsList.isEmpty ? null : assetsList[0].type;
+      int curSelectCount = assetsList.length;
 
       final List<AssetEntity>? assets = await AssetPicker.pickAssets(
         Get.context!,
         pickerConfig: AssetPickerConfig(
           selectedAssets: assetsList,
           maxAssets: maxAssetsCount,
-          requestType: isPicture ? RequestType.image : RequestType.video,
+          requestType: !hasAssets
+              ? RequestType.common
+              : isPicture
+                  ? RequestType.image
+                  : RequestType.video,
           selectPredicate: (_, entity, isSelected) {
-            // 视频限制15s的时长
-            if (type == PublishType.video &&
-                entity.videoDuration > const Duration(seconds: 15)) {
-              IMViews.showToast(
-                  sprintf(StrRes.selectVideoLimit, [15]) + StrRes.seconds);
-              return false;
+            if (!isSelected) {
+              // 多个图片, 一个视频
+              if (null != firstAssetType && entity.type != firstAssetType) {
+                showToast(StrRes.pleaseSelectFirstType);
+                return false;
+              }
+
+              if (null != firstAssetType && entity.type == AssetType.video) {
+                showToast(StrRes.onlySupportOneVideo);
+                return false;
+              }
+
+              // 视频限制15s的时长
+              if (entity.type == AssetType.video &&
+                  entity.videoDuration > const Duration(seconds: 15)) {
+                IMViews.showToast(
+                    sprintf(StrRes.selectVideoLimit, [15]) + StrRes.seconds);
+                return false;
+              }
+
+              curSelectCount++;
+              firstAssetType = entity.type;
+              return true;
+            } else {
+              curSelectCount--;
+              if (curSelectCount == 0) {
+                firstAssetType = null;
+              }
+              return true;
             }
-            // else if (type == PublishType.picture && entity.mimeType == 'image/gif') {
-            //   IMViews.showToast(StrRes.gifNotSupported);
-            //   return false;
-            // }
-            return true;
           },
         ),
       );
       if (null != assets) {
-        assetsList.assignAll(assets);
+        if (assets[0].type == AssetType.video) {
+          type.value = PublishType.video;
+          assetsList.assignAll([assets[0]]);
+        } else {
+          type.value = PublishType.picture;
+          assetsList.assignAll(assets.where((e) => e.type == AssetType.image));
+        }
       }
     });
   }
@@ -184,14 +218,17 @@ class PublishLogic extends GetxController {
           enableScaledPreview: true,
           resolutionPreset: ResolutionPreset.medium,
           maximumRecordingDuration: 15.seconds,
-          onlyEnableRecording: type == PublishType.video,
-          enableRecording: type == PublishType.video,
+          onlyEnableRecording: hasAssets && !isPicture,
+          enableRecording: !hasAssets || !isPicture,
           onMinimumRecordDurationNotMet: () {
             IMViews.showToast(StrRes.tapTooShort);
           },
         ),
       );
       if (null != assetEntity) {
+        type.value = assetEntity.type == AssetType.video
+            ? PublishType.video
+            : PublishType.picture;
         assetsList.add(assetEntity);
       }
     });
@@ -302,8 +339,9 @@ class PublishLogic extends GetxController {
         var file = await element.file;
         // var original = await element.originFile;
         // 图片需要压缩
-        if (type == PublishType.picture) {
-          final mime = IMUtils.getMediaType(file!.path);
+        final mime = IMUtils.getMediaType(file!.path);
+        if (element.type == AssetType.image) {
+          // final mime = IMUtils.getMediaType(file!.path);
           if (mime == 'image/gif') {
             metas.add({'thumb': file.path, 'original': file.path});
           } else {
@@ -316,7 +354,6 @@ class PublishLogic extends GetxController {
           metas.add({'thumb': thumbPic.path, 'original': file.path});
         }
       });
-      myLogger.e(!isPublishXhs.value ? 1 : 2);
       await WApis.publishMoments(
           text: inputCtrl.text.trim(),
           type: isPicture ? 0 : 1,
