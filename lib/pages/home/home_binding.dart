@@ -15,8 +15,8 @@ class HomeBinding extends Bindings {
     Get.lazyPut(() => ConversationLogic());
     Get.lazyPut(() => ContactsLogic());
     Get.lazyPut(() => MineLogic());
-    Get.lazyPut(() => NewDiscoverLogic());
-    Get.lazyPut(() => WorkbenchLogic());
+    // Get.lazyPut(() => NewDiscoverLogic());
+    // Get.lazyPut(() => WorkbenchLogic());
     Get.lazyPut(() => XhsLogic());
   }
 }

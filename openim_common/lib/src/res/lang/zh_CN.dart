@@ -12,7 +12,7 @@ const Map<String, String> zh_CN = {
   "login": "登录",
   "noAccountYet": "还没有账号？",
   "loginNow": "立即登录",
-  "registerNow": "快速注册",
+  "registerNow": "立即注册",
   'lockPwdErrorHint': '错误%s次',
   "newUserRegister": "新用户注册",
   "verificationCode": "验证码",
@@ -166,7 +166,7 @@ const Map<String, String> zh_CN = {
   "offlineCallMessage": "你收到了一条通话邀请消息",
   "logoutHint": "您确定要退出登录吗？",
   "myInfo": "我的资料",
-  "workingCircle": "圈",
+  "workingCircle": "圈子",
   "accountSetup": "账号设置",
   "aboutUs": "关于我们",
   "logout": "退出登录",
@@ -550,7 +550,7 @@ const Map<String, String> zh_CN = {
   "privacyPolicyDescriptionP2": "《用户协议》",
   "privacyPolicyDescriptionP3": "和",
   "privacyPolicyDescriptionP4": "《隐私协议》",
-  "moments": "圈",
+  "moments": "圈子",
   "discover": "动态",
   "saveImg": "保存图片",
   "changeStyle": "换个样式",
@@ -734,7 +734,7 @@ const Map<String, String> zh_CN = {
   "privacyPolicy": "隐私协议",
   "recentlyAdd": "最近添加",
   "aiFriends": "AI伙伴",
-  "momentsAndStatus": "圈和状态",
+  "momentsAndStatus": "圈子和状态",
   "userAgreement1": "欢迎使用 Miti！",
   "userAgreement2":
       "本服务条款（下称“条款”）适用于您使用Miti的行为，但是我们明确声明适用其他条款（而非本条款）的情况除外，且本条款还就Miti服务（下称“服务”）作了规定，具体内容见下文所述。您创建Miti账户或通过安装使用Miti，即表示您同意本条款。",
@@ -1114,5 +1114,6 @@ const Map<String, String> zh_CN = {
   "defaultNotificationTitle2": "一条新消息",
   "defaultNotificationTitle3": "收到一条朋友的新消息",
   "defaultNotificationTitle4": "收到一条群友的新消息",
-  "group": "群聊"
+  "group": "群聊",
+  "noAccount": "还没有账号，"
 };

@@ -1638,4 +1638,5 @@ class StrRes {
   static String get defaultNotificationTitle3 => 'defaultNotificationTitle3'.tr;
   static String get defaultNotificationTitle4 => 'defaultNotificationTitle4'.tr;
   static String get group => 'group'.tr;
+  static String get noAccount => 'noAccount'.tr;
 }

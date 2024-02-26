@@ -24,12 +24,12 @@ class LoginPage extends StatelessWidget {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  100.verticalSpace,
+                  90.verticalSpace,
                   ImageRes.logo2.toImage
                     ..width = 89.w
                     ..height = 81.h,
                   // ..onDoubleTap = logic.configService,
-                  55.verticalSpace,
+                  45.verticalSpace,
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 36.w),
                     child: Obx(() => Column(
@@ -92,6 +92,47 @@ class LoginPage extends StatelessWidget {
                             //     //   ..onTap = logic.togglePasswordType,
                             //   ],
                             // ),
+                            10.verticalSpace,
+                            Row(
+                              children: [
+                                Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      alignment: Alignment.topLeft,
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: StrRes.switchServer,
+                                              style: Styles.ts_8443F8_14sp,
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = logic.switchServer,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    )),
+                                10.horizontalSpace,
+                                Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      alignment: Alignment.topRight,
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: StrRes.forgetPassword,
+                                              style: Styles.ts_8443F8_14sp,
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap =
+                                                    _showForgetPasswordBottomSheet,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    )),
+                              ],
+                            ),
                             30.verticalSpace,
                             Button(
                               text: StrRes.login,
@@ -129,50 +170,17 @@ class LoginPage extends StatelessWidget {
                         Expanded(
                             flex: 1,
                             child: Container(
-                              alignment: Alignment.topLeft,
-                              child: RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: StrRes.switchServer,
-                                      style: Styles.ts_8443F8_12sp,
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = logic.switchServer,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            )),
-                        5.horizontalSpace,
-                        Expanded(
-                            flex: 1,
-                            child: Container(
                               alignment: Alignment.topCenter,
                               child: RichText(
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: StrRes.forgetPassword,
-                                      style: Styles.ts_8443F8_12sp,
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap =
-                                            _showForgetPasswordBottomSheet,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            )),
-                        5.horizontalSpace,
-                        Expanded(
-                            flex: 1,
-                            child: Container(
-                              alignment: Alignment.topRight,
-                              child: RichText(
-                                text: TextSpan(
-                                  children: [
+                                      text: StrRes.noAccount,
+                                      style: Styles.ts_333333_14sp
+                                    ),
                                     TextSpan(
                                       text: StrRes.registerNow,
-                                      style: Styles.ts_8443F8_12sp,
+                                      style: Styles.ts_8443F8_14sp,
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = logic.registerNow,
                                     )
