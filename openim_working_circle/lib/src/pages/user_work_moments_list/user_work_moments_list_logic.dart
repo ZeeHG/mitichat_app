@@ -38,8 +38,11 @@ class UserWorkMomentsListLogic extends GetxController {
     await WNavigator.startLikeOrCommentMessage();
   }
 
-  publish(int type) => WNavigator.startPublishWorkMoments(
-        type: type == 0 ? PublishType.picture : PublishType.video,
+  // publish(int type) => WNavigator.startPublishWorkMoments(
+  //       type: type == 0 ? PublishType.picture : PublishType.video,
+  //     );
+  publish() => WNavigator.startPublishWorkMoments(
+        type: PublishType.picture,
       );
 
   @override
@@ -53,7 +56,8 @@ class UserWorkMomentsListLogic extends GetxController {
   void onInit() {
     userID = Get.arguments['userID'];
     nickname = Get.arguments['nickname'] ?? OpenIM.iMManager.userInfo.nickname;
-    faceURL = Get.arguments['faceURL'] ?? OpenIM.iMManager.userInfo.faceURL ?? "";
+    faceURL =
+        Get.arguments['faceURL'] ?? OpenIM.iMManager.userInfo.faceURL ?? "";
     scrollController.addListener(_scrollListener);
     opEventSub = wcBridge?.opEventSub.listen(_opEventListener);
     super.onInit();
