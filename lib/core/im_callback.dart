@@ -45,76 +45,75 @@ class IMCallback {
   /// 已从黑名单移除
   Function(BlacklistInfo u)? onBlacklistDeleted;
 
-  final recvGroupReadReceiptSubject = BehaviorSubject<GroupMessageReceipt>();
+  var recvGroupReadReceiptSubject = BehaviorSubject<GroupMessageReceipt>();
 
   /// upload logs
   Function(int current, int size)? onUploadProgress;
 
   /// 新增会话
-  final conversationAddedSubject = BehaviorSubject<List<ConversationInfo>>();
+  var conversationAddedSubject = BehaviorSubject<List<ConversationInfo>>();
 
   /// 旧会话更新
-  final conversationChangedSubject = BehaviorSubject<List<ConversationInfo>>();
+  var conversationChangedSubject = BehaviorSubject<List<ConversationInfo>>();
 
   /// 未读消息数
-  final unreadMsgCountEventSubject = PublishSubject<int>();
+  var unreadMsgCountEventSubject = PublishSubject<int>();
 
   /// 好友申请列表变化（包含自己发出的以及收到的）
-  final friendApplicationChangedSubject =
+  var friendApplicationChangedSubject =
       BehaviorSubject<FriendApplicationInfo>();
 
   /// 新增好友
-  final friendAddSubject = BehaviorSubject<FriendInfo>();
+  var friendAddSubject = BehaviorSubject<FriendInfo>();
 
   /// 删除好友
-  final friendDelSubject = BehaviorSubject<FriendInfo>();
+  var friendDelSubject = BehaviorSubject<FriendInfo>();
 
   /// 好友信息改变
-  final friendInfoChangedSubject = BehaviorSubject<FriendInfo>();
+  var friendInfoChangedSubject = BehaviorSubject<FriendInfo>();
 
   /// 自己信息更新
-  final selfInfoUpdatedSubject = BehaviorSubject<UserInfo>();
+  var selfInfoUpdatedSubject = BehaviorSubject<UserInfo>();
 
   /// 用户在线状态更新
-  final userStatusChangedSubject = BehaviorSubject<UserStatusInfo>();
+  var userStatusChangedSubject = BehaviorSubject<UserStatusInfo>();
 
   /// 组信息更新
-  final groupInfoUpdatedSubject = BehaviorSubject<GroupInfo>();
+  var groupInfoUpdatedSubject = BehaviorSubject<GroupInfo>();
 
   /// 组申请列表变化（包含自己发出的以及收到的）
-  final groupApplicationChangedSubject =
-      BehaviorSubject<GroupApplicationInfo>();
+  var groupApplicationChangedSubject = BehaviorSubject<GroupApplicationInfo>();
 
-  final initializedSubject = PublishSubject<bool>();
+  var initializedSubject = PublishSubject<bool>();
 
   /// 群成员收到：群成员已进入
-  final memberAddedSubject = BehaviorSubject<GroupMembersInfo>();
+  var memberAddedSubject = BehaviorSubject<GroupMembersInfo>();
 
   /// 群成员收到：群成员已退出
-  final memberDeletedSubject = BehaviorSubject<GroupMembersInfo>();
+  var memberDeletedSubject = BehaviorSubject<GroupMembersInfo>();
 
   /// 群成员信息变化
-  final memberInfoChangedSubject = PublishSubject<GroupMembersInfo>();
+  var memberInfoChangedSubject = PublishSubject<GroupMembersInfo>();
 
   /// 被踢
-  final joinedGroupDeletedSubject = BehaviorSubject<GroupInfo>();
+  var joinedGroupDeletedSubject = BehaviorSubject<GroupInfo>();
 
   /// 拉人
-  final joinedGroupAddedSubject = BehaviorSubject<GroupInfo>();
+  var joinedGroupAddedSubject = BehaviorSubject<GroupInfo>();
 
-  final onKickedOfflineSubject = PublishSubject();
+  var onKickedOfflineSubject = PublishSubject();
 
-  final imSdkStatusSubject = BehaviorSubject<IMSdkStatus>();
+  var imSdkStatusSubject = BehaviorSubject<IMSdkStatus>();
 
-  final roomParticipantDisconnectedSubject = PublishSubject<RoomCallingInfo>();
+  var roomParticipantDisconnectedSubject = PublishSubject<RoomCallingInfo>();
 
-  final roomParticipantConnectedSubject = PublishSubject<RoomCallingInfo>();
+  var roomParticipantConnectedSubject = PublishSubject<RoomCallingInfo>();
 
-  final momentsSubject = PublishSubject<WorkMomentsNotification>();
+  var momentsSubject = PublishSubject<WorkMomentsNotification>();
 
-  // final customBusinessSubject = PublishSubject();
+  // var customBusinessSubject = PublishSubject();
 
-  // final meetingSteamChangedSubject = PublishSubject<dynamic>();
+  // var meetingSteamChangedSubject = PublishSubject<dynamic>();
 
   void imSdkStatus(IMSdkStatus status) {
     imSdkStatusSubject.add(status);
@@ -310,5 +309,78 @@ class IMCallback {
     joinedGroupAddedSubject.close();
     // meetingSteamChangedSubject.close();
     // customBusinessSubject.close();
+
+    recvGroupReadReceiptSubject.close();
+    unreadMsgCountEventSubject.close();
+    userStatusChangedSubject.close();
+  }
+
+  void reBuildSubject() {
+    close();
+    recvGroupReadReceiptSubject = BehaviorSubject<GroupMessageReceipt>();
+
+    /// 新增会话
+    conversationAddedSubject = BehaviorSubject<List<ConversationInfo>>();
+
+    /// 旧会话更新
+    conversationChangedSubject = BehaviorSubject<List<ConversationInfo>>();
+
+    /// 未读消息数
+    unreadMsgCountEventSubject = PublishSubject<int>();
+
+    /// 好友申请列表变化（包含自己发出的以及收到的）
+    friendApplicationChangedSubject = BehaviorSubject<FriendApplicationInfo>();
+
+    /// 新增好友
+    friendAddSubject = BehaviorSubject<FriendInfo>();
+
+    /// 删除好友
+    friendDelSubject = BehaviorSubject<FriendInfo>();
+
+    /// 好友信息改变
+    friendInfoChangedSubject = BehaviorSubject<FriendInfo>();
+
+    /// 自己信息更新
+    selfInfoUpdatedSubject = BehaviorSubject<UserInfo>();
+
+    /// 用户在线状态更新
+    userStatusChangedSubject = BehaviorSubject<UserStatusInfo>();
+
+    /// 组信息更新
+    groupInfoUpdatedSubject = BehaviorSubject<GroupInfo>();
+
+    /// 组申请列表变化（包含自己发出的以及收到的）
+    groupApplicationChangedSubject = BehaviorSubject<GroupApplicationInfo>();
+
+    initializedSubject = PublishSubject<bool>();
+
+    /// 群成员收到：群成员已进入
+    memberAddedSubject = BehaviorSubject<GroupMembersInfo>();
+
+    /// 群成员收到：群成员已退出
+    memberDeletedSubject = BehaviorSubject<GroupMembersInfo>();
+
+    /// 群成员信息变化
+    memberInfoChangedSubject = PublishSubject<GroupMembersInfo>();
+
+    /// 被踢
+    joinedGroupDeletedSubject = BehaviorSubject<GroupInfo>();
+
+    /// 拉人
+    joinedGroupAddedSubject = BehaviorSubject<GroupInfo>();
+
+    onKickedOfflineSubject = PublishSubject();
+
+    imSdkStatusSubject = BehaviorSubject<IMSdkStatus>();
+
+    roomParticipantDisconnectedSubject = PublishSubject<RoomCallingInfo>();
+
+    roomParticipantConnectedSubject = PublishSubject<RoomCallingInfo>();
+
+    momentsSubject = PublishSubject<WorkMomentsNotification>();
+
+    // customBusinessSubject = PublishSubject();
+
+    // meetingSteamChangedSubject = PublishSubject<dynamic>();
   }
 }
