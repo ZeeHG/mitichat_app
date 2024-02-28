@@ -194,7 +194,7 @@ class HttpUtil {
           intervalDo.drop(
               fun: () async {
                 await ImageGallerySaver.saveFile(cachePath);
-                IMViews.showToast("${StrRes.saveSuccessfully}($cachePath)",
+                IMViews.showToast("${StrRes.saveSuccessfully}",
                     duration: const Duration(milliseconds: 3000));
               },
               milliseconds: 1500);
@@ -205,7 +205,7 @@ class HttpUtil {
             var tips = StrRes.saveSuccessfully;
             if (Platform.isAndroid) {
               final filePath = result['filePath'].split('//').last;
-              tips = '${StrRes.saveSuccessfully}:$filePath';
+              tips = '${StrRes.saveSuccessfully}';
             }
             IMViews.showToast(tips);
           }
@@ -224,7 +224,7 @@ class HttpUtil {
         var tips = StrRes.saveSuccessfully;
         if (Platform.isAndroid) {
           final filePath = result['filePath'].split('//').last;
-          tips = '${StrRes.saveSuccessfully}:$filePath';
+          tips = '${StrRes.saveSuccessfully}';
         }
         IMViews.showToast(tips);
       }
@@ -249,7 +249,7 @@ class HttpUtil {
             var tips = StrRes.saveSuccessfully;
             if (Platform.isAndroid) {
               final filePath = result['filePath'].split('//').last;
-              tips = '${StrRes.saveSuccessfully}:$filePath';
+              tips = '${StrRes.saveSuccessfully}';
             }
             IMViews.showToast(tips);
           }
@@ -264,7 +264,7 @@ class HttpUtil {
       var tips = StrRes.saveSuccessfully;
       if (Platform.isAndroid) {
         final filePath = result['filePath'].split('//').last;
-        tips = '${StrRes.saveSuccessfully}:$filePath';
+        tips = '${StrRes.saveSuccessfully}';
       }
       IMViews.showToast(tips);
     }
