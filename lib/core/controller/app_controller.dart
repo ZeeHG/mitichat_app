@@ -224,7 +224,13 @@ class AppController extends SuperController {
               platformChannelSpecifics,
               payload: null);
         }
-      } catch (e) {
+      } catch (e, s) {
+        myLogger.e({
+          "message": "通话消息本地通知出错",
+          "data": signalingInfo.toJson(),
+          "error": e,
+          "stack": s
+        });
         await flutterLocalNotificationsPlugin.show(
             notificationSeq + DateTime.now().secondsSinceEpoch,
             StrRes.defaultNotificationTitle3,
@@ -247,30 +253,6 @@ class AppController extends SuperController {
       }
     } else {
       if (Platform.isAndroid) {
-        // final id = message.seq!;
-        notificationSeq = notificationSeq + 1;
-        String text = StrRes.defaultNotification;
-        if (message.isTextType) {
-          text = message.textElem!.content!;
-        } else if (message.isAtTextType) {
-          text = IMUtils.replaceMessageAtMapping(message, {});
-        } else if (message.isQuoteType) {
-          text = message.quoteElem?.text ?? text;
-        } else if (message.isPictureType) {
-          text = StrRes.defaultImgNotification;
-        } else if (message.isVideoType) {
-          text = StrRes.defaultVideoNotification;
-        } else if (message.isVoiceType) {
-          text = StrRes.defaultVoiceNotification;
-        } else if (message.isFileType) {
-          text = StrRes.defaultFileNotification;
-        } else if (message.isLocationType) {
-          text = StrRes.defaultLocationNotification;
-        } else if (message.isMergerType) {
-          text = StrRes.defaultMergeNotification;
-        } else if (message.isCardType) {
-          text = StrRes.defaultCardNotification;
-        }
         const androidPlatformChannelSpecifics =
             AndroidNotificationDetails('push', 'push',
                 channelDescription: 'message push',
@@ -291,46 +273,87 @@ class AppController extends SuperController {
         const NotificationDetails platformChannelSpecifics =
             NotificationDetails(android: androidPlatformChannelSpecifics);
 
-        final list =
-            await OpenIM.iMManager.friendshipManager.getFriendListMap();
-        final friendJson = list.firstWhere((element) {
-          final fullUser = FullUserInfo.fromJson(element);
-          return fullUser.userID == message.sendID;
-        });
-        ISUserInfo? friendInfo;
-        if (null != friendJson) {
-          final info = FullUserInfo.fromJson(friendJson);
-          friendInfo = info.friendInfo != null
-              ? ISUserInfo.fromJson(info.friendInfo!.toJson())
-              : ISUserInfo.fromJson(info.publicInfo!.toJson());
-        }
-        if (message.isSingleChat) {
-          if (null == friendInfo) {
-            myLogger.e({"message": "收到单聊消息, 找不到好友信息, ${message.sendID}"});
+        try {
+          // final id = message.seq!;
+          notificationSeq = notificationSeq + 1;
+          String text = StrRes.defaultNotification;
+          if (message.isTextType) {
+            text = message.textElem!.content!;
+          } else if (message.isAtTextType) {
+            text = IMUtils.replaceMessageAtMapping(message, {});
+          } else if (message.isQuoteType) {
+            text = message.quoteElem?.text ?? text;
+          } else if (message.isPictureType) {
+            text = StrRes.defaultImgNotification;
+          } else if (message.isVideoType) {
+            text = StrRes.defaultVideoNotification;
+          } else if (message.isVoiceType) {
+            text = StrRes.defaultVoiceNotification;
+          } else if (message.isFileType) {
+            text = StrRes.defaultFileNotification;
+          } else if (message.isLocationType) {
+            text = StrRes.defaultLocationNotification;
+          } else if (message.isMergerType) {
+            text = StrRes.defaultMergeNotification;
+          } else if (message.isCardType) {
+            text = StrRes.defaultCardNotification;
           }
+
+          final list =
+              await OpenIM.iMManager.friendshipManager.getFriendListMap();
+          final friendJson = list.firstWhere((element) {
+            final fullUser = FullUserInfo.fromJson(element);
+            return fullUser.userID == message.sendID;
+          });
+          ISUserInfo? friendInfo;
+          if (null != friendJson) {
+            final info = FullUserInfo.fromJson(friendJson);
+            friendInfo = info.friendInfo != null
+                ? ISUserInfo.fromJson(info.friendInfo!.toJson())
+                : ISUserInfo.fromJson(info.publicInfo!.toJson());
+          }
+          if (message.isSingleChat) {
+            if (null == friendInfo) {
+              myLogger.e({"message": "收到单聊消息, 找不到好友信息, ${message.sendID}"});
+            }
+            await flutterLocalNotificationsPlugin.show(
+                notificationSeq,
+                friendInfo?.showName ?? StrRes.defaultNotificationTitle3,
+                text,
+                platformChannelSpecifics,
+                payload: json.encode(message.toJson()));
+          } else if (message.isGroupChat) {
+            final list =
+                await OpenIM.iMManager.groupManager.getJoinedGroupList();
+            final groupInfo = list
+                .firstWhere((element) => element.groupID == message.groupID);
+            if (null == groupInfo) {
+              myLogger.e({"message": "收到群聊消息, 找不到群组信息, ${message.groupID}"});
+            }
+            await flutterLocalNotificationsPlugin.show(
+                notificationSeq,
+                groupInfo?.groupName ?? StrRes.defaultNotificationTitle4,
+                "${(null != friendInfo && friendInfo!.showName.isNotEmpty) ? friendInfo?.showName : message.senderNickname ?? StrRes.friend}: ${text}",
+                platformChannelSpecifics,
+                payload: json.encode(message.toJson()));
+          } else {
+            await flutterLocalNotificationsPlugin.show(notificationSeq,
+                StrRes.defaultNotificationTitle, text, platformChannelSpecifics,
+                payload: json.encode(message.toJson()));
+          }
+        } catch (e, s) {
+          myLogger.e({
+            "message": "message消息本地通知出错",
+            "data": message.toJson(),
+            "error": e,
+            "stack": s
+          });
           await flutterLocalNotificationsPlugin.show(
               notificationSeq,
-              friendInfo?.showName ?? StrRes.defaultNotificationTitle3,
-              text,
+              "error",
+              "error",
               platformChannelSpecifics,
-              payload: json.encode(message.toJson()));
-        } else if (message.isGroupChat) {
-          final list = await OpenIM.iMManager.groupManager.getJoinedGroupList();
-          final groupInfo =
-              list.firstWhere((element) => element.groupID == message.groupID);
-          if (null == groupInfo) {
-            myLogger.e({"message": "收到群聊消息, 找不到群组信息, ${message.groupID}"});
-          }
-          await flutterLocalNotificationsPlugin.show(
-              notificationSeq,
-              groupInfo?.groupName ?? StrRes.defaultNotificationTitle4,
-              "${(null != friendInfo && friendInfo!.showName.isNotEmpty) ? friendInfo?.showName : message.senderNickname ?? StrRes.friend}: ${text}",
-              platformChannelSpecifics,
-              payload: json.encode(message.toJson()));
-        } else {
-          await flutterLocalNotificationsPlugin.show(notificationSeq,
-              StrRes.defaultNotificationTitle, text, platformChannelSpecifics,
-              payload: json.encode(message.toJson()));
+              payload: null);
         }
       }
     }
