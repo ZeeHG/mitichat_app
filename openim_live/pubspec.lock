@@ -634,7 +634,7 @@ packages:
       path: "../flutter_openim_sdk"
       relative: true
     source: path
-    version: "3.4.1-alpha.5-e-1.1.3"
+    version: "3.5.1-alpha.3-e-1.1.4"
   flutter_picker:
     dependency: transitive
     description:
@@ -1849,7 +1849,7 @@ packages:
     source: hosted
     version: "2.1.4"
   vibration:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: vibration
       sha256: "778ace40e84852e6cf6017cdbaf6790a837d73ff3dd50b27da9ac232a19de8fc"

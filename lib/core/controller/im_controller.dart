@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
+import 'package:miti/core/controller/app_controller.dart';
 import 'package:miti/utils/misc.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:openim_live/openim_live.dart';
@@ -121,7 +122,7 @@ class IMController extends GetxController with IMCallback, OpenIMLive {
         onSyncServerFailed: () {
           imSdkStatus(IMSdkStatus.syncFailed);
         },
-        onSyncServerFinish: ()async {
+        onSyncServerFinish: () async {
           imSdkStatus(IMSdkStatus.syncEnded);
           if (Platform.isAndroid) {
             await requestBackgroundPermission();
@@ -152,7 +153,11 @@ class IMController extends GetxController with IMCallback, OpenIMLive {
         onInvitationTimeout: invitationTimeout,
         onInviteeAccepted: inviteeAccepted,
         onInviteeRejected: inviteeRejected,
-        onReceiveNewInvitation: receiveNewInvitation,
+        onReceiveNewInvitation: (SignalingInfo info) {
+          receiveNewInvitation(info);
+          final appLogic = Get.find<AppController>();
+          appLogic.promptLiveNotification(info);
+        },
         onInviteeAcceptedByOtherDevice: inviteeAcceptedByOtherDevice,
         onInviteeRejectedByOtherDevice: inviteeRejectedByOtherDevice,
         onHangup: beHangup,

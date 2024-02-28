@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
+import 'package:dart_date/dart_date.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
@@ -155,6 +156,82 @@ class AppController extends SuperController {
 
     if (showNotification) {
       promptSoundOrNotification(message);
+    }
+  }
+
+  Future<void> promptLiveNotification(SignalingInfo signalingInfo) async {
+    if (Platform.isAndroid && isRunningBackground) {
+      const androidPlatformChannelSpecifics =
+          AndroidNotificationDetails('push', 'push',
+              channelDescription: 'message push',
+              importance: Importance.max,
+              priority: Priority.max,
+              playSound: false,
+              enableVibration: false,
+              // 启动后通知要很久才消失
+              // fullScreenIntent: true,
+              silent: false,
+              // 无效
+              channelShowBadge: false,
+              category: AndroidNotificationCategory.call,
+              visibility: NotificationVisibility.public,
+              // 无效
+              number: 0,
+              ticker: 'one message');
+      const NotificationDetails platformChannelSpecifics =
+          NotificationDetails(android: androidPlatformChannelSpecifics);
+      final isGroup = signalingInfo?.invitation?.sessionType == 2;
+      final isAudio = signalingInfo?.invitation?.mediaType == 'audio';
+      final id = isGroup
+          ? signalingInfo?.invitation?.groupID
+          : signalingInfo?.invitation?.inviterUserID;
+      try {
+        final list =
+            await OpenIM.iMManager.friendshipManager.getFriendListMap();
+        final friendJson = list.firstWhere((element) {
+          final fullUser = FullUserInfo.fromJson(element);
+          return fullUser.userID == id;
+        });
+        ISUserInfo? friendInfo;
+        if (null != friendJson) {
+          final info = FullUserInfo.fromJson(friendJson);
+          friendInfo = info.friendInfo != null
+              ? ISUserInfo.fromJson(info.friendInfo!.toJson())
+              : ISUserInfo.fromJson(info.publicInfo!.toJson());
+        }
+
+        if (isGroup) {
+          final list = await OpenIM.iMManager.groupManager.getJoinedGroupList();
+          final groupInfo = list.firstWhere((element) => element.groupID == id);
+          final memberList =
+              await OpenIM.iMManager.groupManager.getGroupMemberList(
+            groupID: groupInfo.groupID,
+            count: 999,
+          );
+          final member = memberList.firstWhere((element) =>
+              element.userID == signalingInfo?.invitation?.inviterUserID);
+          await flutterLocalNotificationsPlugin.show(
+              notificationSeq + DateTime.now().secondsSinceEpoch,
+              groupInfo?.groupName ?? StrRes.defaultNotificationTitle4,
+              "${(null != friendInfo && friendInfo!.showName.isNotEmpty) ? friendInfo?.showName : member.nickname ?? StrRes.friend}: ${isAudio ? '[${StrRes.callVoice}]' : '[${StrRes.callVideo}]'}",
+              platformChannelSpecifics,
+              payload: null);
+        } else {
+          await flutterLocalNotificationsPlugin.show(
+              notificationSeq + DateTime.now().secondsSinceEpoch,
+              friendInfo?.showName ?? StrRes.defaultNotificationTitle3,
+              isAudio ? '[${StrRes.callVoice}]' : '[${StrRes.callVideo}]',
+              platformChannelSpecifics,
+              payload: null);
+        }
+      } catch (e) {
+        await flutterLocalNotificationsPlugin.show(
+            notificationSeq + DateTime.now().secondsSinceEpoch,
+            StrRes.defaultNotificationTitle3,
+            isAudio ? '[${StrRes.callVoice}]' : '[${StrRes.callVideo}]',
+            platformChannelSpecifics,
+            payload: null);
+      }
     }
   }
 
