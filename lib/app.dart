@@ -68,6 +68,13 @@ class ChatApp extends StatelessWidget {
       fontFamily: Theme.of(context).platform == TargetPlatform.iOS
           ? 'PingFang SC'
           : null,
+      dialogBackgroundColor: Styles.c_FFFFFF,
+      colorScheme: ColorScheme.light(
+          surface: Styles.c_FFFFFF,
+          onSurface: Styles.c_333333,
+          // background: Styles.c_FFFFFF,
+          // onBackground: Styles.c_333333,
+        )
       // fontFamilyFallback:
       //     Theme.of(context).platform == TargetPlatform.iOS ? null : null,
     );

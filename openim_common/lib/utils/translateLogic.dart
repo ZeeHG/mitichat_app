@@ -203,7 +203,7 @@ class TranslateLogic extends GetxController {
         onConfirm?.call(picker.selecteds, picker.getSelectedValues());
         // 在此处执行选定项目的逻辑
       },
-    ).showDialog(Get.context!);
+    ).showDialog(Get.context!, backgroundColor: Colors.white);
   }
 
   init(String id) {
