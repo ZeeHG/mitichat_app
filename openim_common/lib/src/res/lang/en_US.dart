@@ -170,7 +170,7 @@ const Map<String, String> en_US = {
   "offlineCallMessage": "You received a call invitation message",
   "logoutHint": "Are you sure you want to log out?",
   "myInfo": "My Info",
-  "workingCircle": "Work Circle",
+  "workingCircle": "Circle",
   "accountSetup": "Account Setup",
   "aboutUs": "About Us",
   "logout": "Log Out",

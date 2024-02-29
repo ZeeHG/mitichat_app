@@ -14,7 +14,7 @@ class GroupSetupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-          appBar: TitleBar.back(title: logic.appBarTitle),
+          appBar: TitleBar.back(title: logic.appBarTitle, backgroundColor: Styles.transparent),
           backgroundColor: Styles.c_F7F8FA,
           body: Obx(() => SingleChildScrollView(
                 child: Column(
@@ -507,8 +507,8 @@ class GroupSetupPage extends StatelessWidget {
                   : null,
             ),
             height: 52.h,
-            padding: EdgeInsets.only(right: 20.w),
-            margin: EdgeInsets.only(left: 20.w),
+            padding: EdgeInsets.only(right: 15.w),
+            margin: EdgeInsets.only(left: 15.w),
             child: Row(
               children: [
                 Expanded(

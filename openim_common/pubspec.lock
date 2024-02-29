@@ -684,7 +684,7 @@ packages:
       path: "../flutter_openim_sdk"
       relative: true
     source: path
-    version: "3.4.1-alpha.5-e-1.1.3"
+    version: "3.5.1-alpha.3-e-1.1.4"
   flutter_picker:
     dependency: "direct main"
     description:
@@ -1635,6 +1635,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smooth_page_indicator:
+    dependency: "direct main"
+    description:
+      name: smooth_page_indicator
+      sha256: "725bc638d5e79df0c84658e1291449996943f93bacbc2cec49963dbbab48d8ae"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   sound_mode:
     dependency: "direct main"
     description:
