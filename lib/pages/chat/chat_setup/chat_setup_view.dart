@@ -179,7 +179,7 @@ class ChatSetupPage extends StatelessWidget {
               width: 72.w,
               child: Column(
                 children: [
-                  ImageRes.addFriendTobeGroup.toImage
+                  ImageRes.addFriendTobeGroup2.toImage
                     ..width = 42.w
                     ..height = 42.h
                     ..color = Styles.c_CCCCCC

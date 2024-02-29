@@ -315,4 +315,5 @@ class ImageRes {
   static const editComment = "$_dir/edit_comment.png";
   static const reprintArticle = "$_dir/reprint_article.png";
   static const loading = "$_dir/loading.gif";
+  static const addFriendTobeGroup2 = "$_dir/ic_add_friend_tobe_group2.png";
 }
