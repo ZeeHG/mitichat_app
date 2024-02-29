@@ -90,9 +90,9 @@ class XhsPage extends StatelessWidget {
                                   onTap: () => logic.clickCategory(category),
                                   behavior: HitTestBehavior.translucent,
                                   child: Text(
-                                    category,
+                                    category.label,
                                     style:
-                                        category == logic.activeCategory.value
+                                        category.value == logic.activeCategory.value.value
                                             ? Styles.ts_333333_16sp_medium
                                             : Styles.ts_999999_16sp,
                                   ),

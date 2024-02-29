@@ -23,6 +23,13 @@ class AssetFile {
   String? path;
 }
 
+class Tag {
+  String label;
+  String value;
+
+  Tag({required String this.label, required String this.value});
+}
+
 class PublishLogic extends GetxController {
   final inputCtrl = TextEditingController();
   final text = "".obs;
@@ -39,13 +46,17 @@ class PublishLogic extends GetxController {
   final originUrlCtrl = TextEditingController();
   final titleCtrl = TextEditingController();
   final title = "".obs;
-  final activeTag = "".obs;
-
-  List<String> get tags => ["生活", "AIGC", "Web3", "新闻资讯"];
+  Rx<Tag> activeTag = Rx(Tag(label: StrRes.life, value: ""));
+  List<Tag> get tags => [
+        Tag(label: StrRes.life, value: "life"),
+        Tag(label: StrRes.aigc, value: "aigc"),
+        Tag(label: StrRes.web3, value: "web3"),
+        Tag(label: StrRes.news, value: "news"),
+      ];
 
   void selectTag(int index) {
-    if (activeTag.value == tags[index]) {
-      activeTag.value = "";
+    if (activeTag.value.value == tags[index].value) {
+      activeTag.value = Tag(label: StrRes.life, value: "");
     } else {
       activeTag.value = tags[index];
     }
@@ -376,6 +387,9 @@ class PublishLogic extends GetxController {
           momentType: !isPublishXhs.value ? 1 : 2,
           title: !isPublishXhs.value ? null : titleCtrl.text.trim(),
           author: !isPublishXhs.value ? null : authorCtrl.text.trim(),
+          category: !isPublishXhs.value
+              ? null
+              : activeTag.value.value,
           originLink: !isPublishXhs.value ? null : originUrlCtrl.text.trim());
     });
     bridge?.opEventSub.add({'opEvent': OpEvent.publish});

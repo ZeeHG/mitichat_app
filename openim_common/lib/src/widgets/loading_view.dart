@@ -65,7 +65,7 @@ class LoadingView extends NavigatorObserver {
       EdgeInsetsGeometry? padding}) async {
     loadingTips = loadingTips ?? "";
     navBarHeight = navBarHeight ?? 44.h;
-    padding = padding ?? EdgeInsets.only(bottom: 44.h);
+    padding = padding ?? EdgeInsets.only(bottom: 94.h);
     if (_isVisible) return;
     _overlayState = Overlay.of(Get.overlayContext!);
     _overlayEntry = OverlayEntry(

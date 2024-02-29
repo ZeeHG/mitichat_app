@@ -21,6 +21,7 @@ class WApis {
     String? title,
     String? author,
     String? originLink,
+    String? category
   }) async {
     var metasUrl = [];
     // if (metas != null && metas.isNotEmpty) {
@@ -84,6 +85,7 @@ class WApis {
           "type": type,
           "title": title,
           "author": author,
+          "category": category,
           "originLink": originLink
         },
         'permissionUserIDs': permissionUserList.map((e) => e.userID).toList(),
@@ -128,13 +130,15 @@ class WApis {
     int pageNumber = 1,
     int showNumber = 20,
     int momentType = 1,
+    String category = ""
   }) {
     return HttpUtil.post(
       WUrls.getMomentsList,
       options: Apis.chatTokenOptions,
       data: <String, dynamic>{
         "pagination": {"pageNumber": pageNumber, "showNumber": showNumber},
-        'momentType': momentType
+        'momentType': momentType,
+        "category": category
       },
     ).then((value) => WorkMomentsList.fromJson(value));
   }
@@ -144,6 +148,7 @@ class WApis {
     int pageNumber = 1,
     int showNumber = 20,
     int momentType = 1,
+    String category = "",
   }) {
     return HttpUtil.post(
       WUrls.getUserMomentsList,
@@ -151,7 +156,8 @@ class WApis {
       data: <String, dynamic>{
         "userID": userID,
         "pagination": {"pageNumber": pageNumber, "showNumber": showNumber},
-        'momentType': momentType
+        'momentType': momentType,
+        "category": category
       },
     ).then((value) => WorkMomentsList.fromJson(value));
   }

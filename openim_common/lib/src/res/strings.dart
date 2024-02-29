@@ -1641,4 +1641,9 @@ class StrRes {
   static String get noAccount => 'noAccount'.tr;
   static String get pleaseSelectFirstType => 'pleaseSelectFirstType'.tr;
   static String get onlySupportOneVideo => 'onlySupportOneVideo'.tr;
+  static String get life => 'life'.tr;
+  static String get aigc => 'aigc'.tr;
+  static String get web3 => 'web3'.tr;
+  static String get news => 'news'.tr;
+  static String get recommend => 'recommend'.tr;
 }

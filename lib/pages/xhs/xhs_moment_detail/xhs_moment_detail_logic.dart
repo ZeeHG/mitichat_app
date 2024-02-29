@@ -58,6 +58,14 @@ class XhsMomentDetailLogic extends GetxController {
   /// 点赞/取消点赞 朋友圈
   likeMoments() async {
     final workMomentID = xhsMomentList[0].workMomentID!;
+    if (!iIsLiked) {
+      Apis.addActionRecord(actionRecordList: [
+        ActionRecord(
+            category: ActionCategory.discover,
+            actionName: ActionName.click_like,
+            workMomentID: workMomentID)
+      ]);
+    }
     await LoadingView.singleton.wrap(
       asyncFunction: () async {
         await WApis.likeMoments(workMomentID: workMomentID, like: !iIsLiked);
@@ -70,6 +78,12 @@ class XhsMomentDetailLogic extends GetxController {
     final url = xhsMomentList[0]?.content?.originLink;
     if (null != url && url.isNotEmpty) {
       if (await canLaunchUrl(Uri.parse(url))) {
+        Apis.addActionRecord(actionRecordList: [
+          ActionRecord(
+              category: ActionCategory.discover,
+              actionName: ActionName.read_origin,
+              workMomentID: xhsMomentList[0].workMomentID)
+        ]);
         await launchUrl(Uri.parse(url));
       }
     }
@@ -86,6 +100,12 @@ class XhsMomentDetailLogic extends GetxController {
   submitComment() async {
     final text = inputCtrl.text.trim();
     if (text.isNotEmpty) {
+      Apis.addActionRecord(actionRecordList: [
+        ActionRecord(
+            category: ActionCategory.discover,
+            actionName: ActionName.publish_comment,
+            workMomentID: xhsMomentList[0].workMomentID)
+      ]);
       await LoadingView.singleton.wrap(asyncFunction: () async {
         await WApis.commentMoments(
           workMomentID: xhsMomentList[0].workMomentID!,
@@ -106,12 +126,24 @@ class XhsMomentDetailLogic extends GetxController {
 
   /// 评论朋友圈
   commentMoments() async {
+    Apis.addActionRecord(actionRecordList: [
+      ActionRecord(
+          category: ActionCategory.discover,
+          actionName: ActionName.click_comment,
+          workMomentID: xhsMomentList[0].workMomentID)
+    ]);
     commentHintText.value = '${StrRes.comment}：';
     replyUserID = null;
   }
 
   /// 回复评论
   replyComment(Comments comments) async {
+    Apis.addActionRecord(actionRecordList: [
+      ActionRecord(
+          category: ActionCategory.discover,
+          actionName: ActionName.click_comment,
+          workMomentID: xhsMomentList[0].workMomentID)
+    ]);
     if (comments.userID == OpenIM.iMManager.userID) {
       final del = await Get.bottomSheet(
         BottomSheetView(items: [SheetItem(label: StrRes.delete, result: 1)]),

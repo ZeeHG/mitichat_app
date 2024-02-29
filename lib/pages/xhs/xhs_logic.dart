@@ -14,6 +14,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 // import 'preview_video/preview_video_view.dart';
 
 enum OpEvent { delete, publish, update }
+
 // abstract class RefreshIndicatorController extends GetxController
 //     with GetTickerProviderStateMixin {
 //   final scrollController = ScrollController();
@@ -149,12 +150,25 @@ enum OpEvent { delete, publish, update }
 //
 //   Future<bool> onLoad();
 // }
+class Category {
+  String label;
+  String value;
+
+  Category({required String this.label, required String this.value});
+}
 
 class XhsLogic extends GetxController {
   final headerIndex = 0.obs;
 
-  void startXhsMomentDetail(WorkMoments xhsMoment) =>
-      AppNavigator.startXhsMomentDetail(xhsMoment: xhsMoment);
+  void startXhsMomentDetail(WorkMoments xhsMoment) {
+    AppNavigator.startXhsMomentDetail(xhsMoment: xhsMoment);
+    Apis.addActionRecord(actionRecordList: [
+      ActionRecord(
+          category: ActionCategory.discover,
+          actionName: ActionName.read,
+          workMomentID: xhsMoment.workMomentID)
+    ]);
+  }
 
   final refreshCtrl = RefreshController();
   final inputCtrl = TextEditingController();
@@ -172,11 +186,23 @@ class XhsLogic extends GetxController {
   late String nickname;
   late String faceURL;
   StreamSubscription? opEventSub;
-  final activeCategory = "推荐".obs;
-  final categoryList = ["推荐", "生活", "AIGC", "Web3", "新闻资讯"].obs;
+  Rx<Category> activeCategory =
+      Rx(Category(label: StrRes.recommend, value: ""));
 
-  clickCategory(String value) {
-    activeCategory.value = value;
+  List<Category> get categoryList => [
+        Category(label: StrRes.recommend, value: ""),
+        Category(label: StrRes.life, value: "life"),
+        Category(label: StrRes.aigc, value: "aigc"),
+        Category(label: StrRes.web3, value: "web3"),
+        Category(label: StrRes.news, value: "news"),
+      ];
+
+  clickCategory(Category category) {
+    final newRefresh = activeCategory.value.value != category.value;
+    activeCategory.value = category;
+    if (newRefresh) {
+      refreshWorkingCircleList(showLoading: true);
+    }
   }
 
   ViewUserProfileBridge? get bridge => PackageBridge.viewUserProfileBridge;
@@ -218,17 +244,18 @@ class XhsLogic extends GetxController {
 
   @override
   void onReady() {
-    LoadingView.singleton.wrap(
-      asyncFunction: () => queryWorkingCircleList(),
-    );
+    refreshWorkingCircleList(showLoading: true);
     super.onReady();
   }
 
-  void refreshWorkingCircleList() {
-    // LoadingView.singleton.wrap(
-    //   asyncFunction: () => queryWorkingCircleList(),
-    // );
-    queryWorkingCircleList();
+  void refreshWorkingCircleList({bool showLoading = false}) {
+    if (showLoading) {
+      LoadingView.singleton.wrap(
+        asyncFunction: () => queryWorkingCircleList(),
+      );
+    } else {
+      queryWorkingCircleList();
+    }
   }
 
   /// {'opEvent': OpEvent.delete, 'data': moments}
@@ -250,18 +277,23 @@ class XhsLogic extends GetxController {
 
   Future<WorkMomentsList> _request(int pageNo) => userID == null
       ? WApis.getMomentsList(
-          pageNumber: pageNo, showNumber: pageSize, momentType: 2)
+          pageNumber: pageNo,
+          showNumber: pageSize,
+          momentType: 2,
+          category: activeCategory.value.value)
       : WApis.getUserMomentsList(
           userID: userID!,
           pageNumber: pageNo,
           showNumber: pageSize,
-          momentType: 2);
+          momentType: 2,
+          category: activeCategory.value.value);
 
   queryWorkingCircleList() async {
     try {
       final result = await _request(pageNo = 1);
       final list = result.workMoments ?? [];
       hasMore.value = list.isNotEmpty && list.length == pageSize;
+      workMoments.clear();
       workMoments.assignAll(list);
     } catch (_) {}
     refreshCtrl.refreshCompleted();
@@ -298,6 +330,14 @@ class XhsLogic extends GetxController {
   likeMoments(WorkMoments moments) async {
     hiddenLikeCommentPopMenu();
     final workMomentID = moments.workMomentID!;
+    if (!iIsLiked(moments)) {
+      Apis.addActionRecord(actionRecordList: [
+        ActionRecord(
+            category: ActionCategory.discover,
+            actionName: ActionName.click_like,
+            workMomentID: workMomentID)
+      ]);
+    }
     await LoadingView.singleton.wrap(
       asyncFunction: () async {
         await WApis.likeMoments(

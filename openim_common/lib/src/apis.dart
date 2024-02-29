@@ -870,4 +870,14 @@ class Apis {
       options: chatTokenOptions,
     );
   }
+
+  // 埋点
+  static Future<dynamic> addActionRecord({required List<ActionRecord> actionRecordList}) async {
+    return HttpUtil.post(
+      data: {"actionList": List.generate(
+            actionRecordList.length, (index) => actionRecordList[index].toJson())},
+      Urls.addActionRecord,
+      options: chatTokenOptions,
+    );
+  }
 }

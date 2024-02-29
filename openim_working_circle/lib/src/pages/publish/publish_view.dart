@@ -79,7 +79,7 @@ class PublishPage extends StatelessWidget {
                                   (index) => Obx(() {
                                         final tag = logic.tags[index];
                                         final isActive =
-                                            logic.activeTag.value == tag;
+                                            logic.activeTag.value.value == tag.value;
                                         return GestureDetector(
                                           behavior: HitTestBehavior.translucent,
                                           onTap: () => logic.selectTag(index),
@@ -94,7 +94,7 @@ class PublishPage extends StatelessWidget {
                                               borderRadius:
                                                   BorderRadius.circular(17.r),
                                             ),
-                                            child: "# ${tag}".toText
+                                            child: "# ${tag.label}".toText
                                               ..style = isActive
                                                   ? Styles.ts_FFFFFF_12sp
                                                   : Styles.ts_999999_12sp,

@@ -39,8 +39,13 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
 
   Function()? onScrollToUnreadMessage;
 
-  switchTab(index) {
+  switchTab(dynamic index) {
     this.index.value = index;
+    if (index == 2) {
+      Apis.addActionRecord(actionRecordList: [
+        ActionRecord(category: ActionCategory.discover, actionName: ActionName.enter_discover)
+      ]);
+    }
   }
 
   void viewDiscover(index) async {

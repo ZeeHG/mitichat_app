@@ -130,3 +130,4 @@ export 'src/models/conversation_config.dart';
 export 'src/models/ai.dart';
 export 'src/widgets/title_bar2.dart';
 export 'src/models/knowledgebase.dart';
+export 'src/models/action_record.dart';
