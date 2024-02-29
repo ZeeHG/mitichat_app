@@ -431,6 +431,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
+  flutter_background:
+    dependency: "direct main"
+    description:
+      name: flutter_background
+      sha256: "035c31a738509d67ee70bbf174e5aa7db462c371e838ec8259700c5c4e7ca17f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   flutter_bugly:
     dependency: transitive
     description:
@@ -604,7 +612,7 @@ packages:
       path: "../flutter_openim_sdk"
       relative: true
     source: path
-    version: "3.4.1-alpha.5-e-1.1.3"
+    version: "3.5.1-alpha.3-e-1.1.4"
   flutter_picker:
     dependency: transitive
     description:
@@ -1466,6 +1474,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smooth_page_indicator:
+    dependency: transitive
+    description:
+      name: smooth_page_indicator
+      sha256: "725bc638d5e79df0c84658e1291449996943f93bacbc2cec49963dbbab48d8ae"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   sound_mode:
     dependency: transitive
     description:
