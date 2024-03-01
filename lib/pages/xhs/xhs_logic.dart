@@ -376,6 +376,7 @@ class XhsLogic extends GetxController {
     hiddenLikeCommentPopMenu();
     if (comments.userID == OpenIM.iMManager.userID) {
       final del = await Get.bottomSheet(
+        barrierColor: Styles.c_191919_opacity50,
         BottomSheetView(items: [SheetItem(label: StrRes.delete, result: 1)]),
       );
       if (del == 1) {

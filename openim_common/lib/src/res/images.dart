@@ -316,4 +316,6 @@ class ImageRes {
   static const reprintArticle = "$_dir/reprint_article.png";
   static const loading = "$_dir/loading.gif";
   static const addFriendTobeGroup2 = "$_dir/ic_add_friend_tobe_group2.png";
+  static const callVoice2 = "$_dir/ic_call_voice2.png";
+  static const callVideo2 = "$_dir/ic_call_video2.png";
 }

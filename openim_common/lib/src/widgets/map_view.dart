@@ -34,7 +34,8 @@ class MapView extends StatelessWidget {
               ),
               children: [
                 TileLayer(
-                  urlTemplate: 'https://webrd01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',
+                  urlTemplate:
+                      'https://webrd01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',
                   userAgentPackageName: '',
                 ),
                 MarkerLayer(
@@ -90,6 +91,7 @@ class MapView extends StatelessWidget {
   _openMapSheet() async {
     final availableMaps = await ml.MapLauncher.installedMaps;
     Get.bottomSheet(
+      barrierColor: Styles.c_191919_opacity50,
       BottomSheetView(
         items: availableMaps
             .map((e) => SheetItem(

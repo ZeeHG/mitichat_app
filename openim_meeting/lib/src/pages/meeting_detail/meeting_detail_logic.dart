@@ -83,6 +83,7 @@ class MeetingDetailLogic extends GetxController {
 
   editMeeting() {
     Get.bottomSheet(
+      barrierColor: Styles.c_191919_opacity50,
       BottomSheetView(
         items: [
           SheetItem(label: StrRes.updateMeetingInfo, onTap: _modifyMeetingInfo),

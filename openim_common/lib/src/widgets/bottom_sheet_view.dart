@@ -24,27 +24,35 @@ class BottomSheetView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.w),
+        // padding: EdgeInsets.symmetric(horizontal: 10.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
+              clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6.r),
+                color: Styles.c_FFFFFF,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.r),
+                    topRight: Radius.circular(20.r)),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: items.map(_parseItem).toList(),
               ),
             ),
-            10.verticalSpace,
+            // 10.verticalSpace,
+            Container(
+              color: Styles.c_F7F8FA,
+              height: 6.h,
+            ),
             _itemBgView(
               label: StrRes.cancel,
               onTap: isOverlaySheet ? onCancel : () => Get.back(),
-              borderRadius: BorderRadius.circular(6.r),
+              // borderRadius: BorderRadius.circular(6.r),
               alignment: MainAxisAlignment.center,
             ),
-            10.verticalSpace,
+            // 10.verticalSpace,
           ],
         ),
       ),
@@ -59,13 +67,14 @@ class BottomSheetView extends StatelessWidget {
     if (length == 1) {
       borderRadius = item.borderRadius ?? BorderRadius.circular(6.r);
     } else {
-      borderRadius = item.borderRadius ??
-          BorderRadius.only(
-            topLeft: isFirst ? Radius.circular(6.r) : Radius.zero,
-            topRight: isFirst ? Radius.circular(6.r) : Radius.zero,
-            bottomLeft: isLast ? Radius.circular(6.r) : Radius.zero,
-            bottomRight: isLast ? Radius.circular(6.r) : Radius.zero,
-          );
+      // borderRadius = item.borderRadius ??
+      //     BorderRadius.only(
+      //       topLeft: isFirst ? Radius.circular(6.r) : Radius.zero,
+      //       topRight: isFirst ? Radius.circular(6.r) : Radius.zero,
+      //       bottomLeft: isLast ? Radius.circular(6.r) : Radius.zero,
+      //       bottomRight: isLast ? Radius.circular(6.r) : Radius.zero,
+      //     );
+      borderRadius = item.borderRadius;
     }
     return _itemBgView(
         label: item.label,
@@ -82,37 +91,39 @@ class BottomSheetView extends StatelessWidget {
 
   Widget _itemBgView({
     required String label,
-    String? icon,
+    Widget? icon,
     Function()? onTap,
     BorderRadius? borderRadius,
     TextStyle? textStyle,
     MainAxisAlignment? alignment,
     bool line = false,
   }) =>
-      Ink(
-        decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
-          borderRadius: borderRadius,
-        ),
-        child: InkWell(
-          onTap: onTap,
+      GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: onTap,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Styles.c_FFFFFF,
+            borderRadius: borderRadius,
+          ),
           child: Container(
             decoration: line
                 ? BoxDecoration(
                     border: BorderDirectional(
-                      bottom: BorderSide(color: Styles.c_E8EAEF, width: 0.5),
+                      bottom: BorderSide(color: Styles.c_EDEDED, width: 1.h),
                     ),
                   )
                 : null,
-            height: itemHeight ?? 56.h,
+            height: itemHeight ?? 63.h,
             child: Row(
               mainAxisAlignment:
                   alignment ?? mainAxisAlignment ?? MainAxisAlignment.center,
               children: [
                 if (null != icon) 10.horizontalSpace,
                 if (null != icon) _image(icon),
-                if (null != icon) 5.horizontalSpace,
+                if (null != icon) 12.horizontalSpace,
                 _text(label, textStyle),
+                if (null != icon) 10.horizontalSpace,
               ],
             ),
           ),
@@ -120,17 +131,21 @@ class BottomSheetView extends StatelessWidget {
       );
 
   _text(String label, TextStyle? style) =>
-      label.toText..style = (style ?? textStyle ?? Styles.ts_333333_17sp);
+      label.toText..style = (style ?? textStyle ?? Styles.ts_333333_16sp);
 
-  _image(String icon) => icon.toImage
-    ..width = 24.w
-    ..height = 24.h;
+  _image(Widget icon) => Container(
+        width: 24.w,
+        height: 24.h,
+        child: Center(
+          child: icon,
+        ),
+      );
 }
 
 class SheetItem {
   final String label;
   final TextStyle? textStyle;
-  final String? icon;
+  final Widget? icon;
   final Function()? onTap;
   final BorderRadius? borderRadius;
   final MainAxisAlignment? alignment;

@@ -55,7 +55,9 @@ class BookMeetingLogic extends GetxController {
   }
 
   void changedButtonStatus() {
-    enabled.value = meetingSubjectCtrl.text.trim().isNotEmpty && startTime.isNotEmpty && duration.isNotEmpty;
+    enabled.value = meetingSubjectCtrl.text.trim().isNotEmpty &&
+        startTime.isNotEmpty &&
+        duration.isNotEmpty;
   }
 
   void selectMeetingStartTime() {
@@ -79,6 +81,7 @@ class BookMeetingLogic extends GetxController {
 
   void selectMeetingDuration() {
     Get.bottomSheet(
+      barrierColor: Styles.c_191919_opacity50,
       BottomSheetView(
         items: durationList
             .map((e) => SheetItem(
@@ -109,7 +112,8 @@ class BookMeetingLogic extends GetxController {
 
   bookMeeting() async {
     final sc = await LoadingView.singleton.wrap(
-        asyncFunction: () => OpenIM.iMManager.signalingManager.signalingCreateMeeting(
+        asyncFunction: () =>
+            OpenIM.iMManager.signalingManager.signalingCreateMeeting(
               meetingName: meetingSubjectCtrl.text,
               startTime: _startTime,
               meetingDuration: _duration,
@@ -133,7 +137,8 @@ class BookMeetingLogic extends GetxController {
 
     try {
       await LoadingView.singleton.wrap(
-          asyncFunction: () => OpenIM.iMManager.signalingManager.signalingUpdateMeetingInfo(
+          asyncFunction: () =>
+              OpenIM.iMManager.signalingManager.signalingUpdateMeetingInfo(
                 info: meetingInfo!.toJson(),
               ));
       IMViews.showToast("修改成功！");

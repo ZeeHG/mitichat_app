@@ -149,6 +149,7 @@ class PublishLogic extends GetxController {
   }
 
   void selectAssets() => Get.bottomSheet(
+        barrierColor: Styles.c_191919_opacity50,
         BottomSheetView(
           items: [
             SheetItem(
@@ -387,9 +388,7 @@ class PublishLogic extends GetxController {
           momentType: !isPublishXhs.value ? 1 : 2,
           title: !isPublishXhs.value ? null : titleCtrl.text.trim(),
           author: !isPublishXhs.value ? null : authorCtrl.text.trim(),
-          category: !isPublishXhs.value
-              ? null
-              : activeTag.value.value,
+          category: !isPublishXhs.value ? null : activeTag.value.value,
           originLink: !isPublishXhs.value ? null : originUrlCtrl.text.trim());
     });
     bridge?.opEventSub.add({'opEvent': OpEvent.publish});

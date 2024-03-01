@@ -35,10 +35,8 @@ class MyInfoLogic extends GetxController {
         attr: EditAttr.mobile,
       );
 
-  void editEmail() => AppNavigator.startEditMyInfo(
-        attr: EditAttr.email,
-        maxLength: 64
-      );
+  void editEmail() =>
+      AppNavigator.startEditMyInfo(attr: EditAttr.email, maxLength: 64);
 
   void openPhotoSheet() {
     IMViews.openPhotoSheet(
@@ -63,7 +61,8 @@ class MyInfoLogic extends GetxController {
       Get.context!,
       locale: isZh ? LocaleType.zh : LocaleType.en,
       maxTime: DateTime.now(),
-      currentTime: DateTime.fromMillisecondsSinceEpoch(imLogic.userInfo.value.birth ?? 0),
+      currentTime: DateTime.fromMillisecondsSinceEpoch(
+          imLogic.userInfo.value.birth ?? 0),
       theme: DatePickerTheme(
         cancelStyle: Styles.ts_333333_17sp,
         doneStyle: Styles.ts_8443F8_17sp,
@@ -77,6 +76,7 @@ class MyInfoLogic extends GetxController {
 
   void selectGender() {
     Get.bottomSheet(
+      barrierColor: Styles.c_191919_opacity50,
       BottomSheetView(
         items: [
           SheetItem(
@@ -128,9 +128,8 @@ class MyInfoLogic extends GetxController {
   void _queryMyFullIno() async {
     CancelToken cancelToken = CancelToken();
     final info = await LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.queryMyFullInfo(cancelToken: cancelToken),
-      cancelToken: cancelToken
-    );
+        asyncFunction: () => Apis.queryMyFullInfo(cancelToken: cancelToken),
+        cancelToken: cancelToken);
     if (null != info) {
       imLogic.userInfo.update((val) {
         val?.nickname = info.nickname;

@@ -65,24 +65,25 @@ class IMViews {
     Function(int index) onTapSheetItem,
   ) {
     return Get.bottomSheet(
+      barrierColor: Styles.c_191919_opacity50,
       BottomSheetView(
-        mainAxisAlignment: MainAxisAlignment.start,
         items: [
           SheetItem(
-            label: StrRes.callVoice,
-            icon: ImageRes.callVoice,
-            alignment: MainAxisAlignment.start,
-            onTap: () => onTapSheetItem.call(0),
+            label: StrRes.callVideo,
+            icon: ImageRes.callVideo2.toImage
+              ..width = 24.w
+              ..height = 15.h,
+            onTap: () => onTapSheetItem.call(1),
           ),
           SheetItem(
-            label: StrRes.callVideo,
-            icon: ImageRes.callVideo,
-            alignment: MainAxisAlignment.start,
-            onTap: () => onTapSheetItem.call(1),
+            label: StrRes.callVoice,
+            icon: ImageRes.callVoice2.toImage
+              ..width = 20.w
+              ..height = 21.h,
+            onTap: () => onTapSheetItem.call(0),
           ),
         ],
       ),
-      // barrierColor: Colors.transparent,
     );
   }
 
@@ -91,18 +92,22 @@ class IMViews {
     Function(int index) onTapSheetItem,
   ) {
     return Get.bottomSheet(
+      barrierColor: Styles.c_191919_opacity50,
       BottomSheetView(
-        mainAxisAlignment: MainAxisAlignment.start,
         items: [
           SheetItem(
-            label: StrRes.callVoice,
-            icon: ImageRes.callVoice,
-            onTap: () => onTapSheetItem.call(0),
+            label: StrRes.callVideo,
+            icon: ImageRes.callVideo2.toImage
+              ..width = 24.w
+              ..height = 15.h,
+            onTap: () => onTapSheetItem.call(1),
           ),
           SheetItem(
-            label: StrRes.callVideo,
-            icon: ImageRes.callVideo,
-            onTap: () => onTapSheetItem.call(1),
+            label: StrRes.callVoice,
+            icon: ImageRes.callVoice2.toImage
+              ..width = 20.w
+              ..height = 21.h,
+            onTap: () => onTapSheetItem.call(0),
           ),
         ],
       ),
@@ -119,6 +124,7 @@ class IMViews {
       List<SheetItem> items = const [],
       int quality = 95}) {
     Get.bottomSheet(
+      barrierColor: Styles.c_191919_opacity50,
       BottomSheetView(
         items: [
           ...items,

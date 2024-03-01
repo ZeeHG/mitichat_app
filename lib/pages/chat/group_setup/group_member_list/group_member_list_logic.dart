@@ -164,6 +164,7 @@ class GroupMemberListLogic extends GetxController {
 
   void addOrDelMember() async {
     final index = await Get.bottomSheet(
+      barrierColor: Styles.c_191919_opacity50,
       BottomSheetView(
         items: [
           SheetItem(label: StrRes.addMember, result: 0),
