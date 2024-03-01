@@ -523,7 +523,7 @@
 				MARKETING_VERSION = 3.3.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.app.NotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.ios.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -560,7 +560,7 @@
 				);
 				MARKETING_VERSION = 3.3.1;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.app.NotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.ios.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -595,7 +595,7 @@
 				);
 				MARKETING_VERSION = 3.3.1;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.app.NotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.ios.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -631,7 +631,7 @@
 				MARKETING_VERSION = 3.3.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.app.ScreenShareBroadcastExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.ios.ScreenShareBroadcastExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -668,7 +668,7 @@
 				);
 				MARKETING_VERSION = 3.3.1;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.app.ScreenShareBroadcastExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.ios.ScreenShareBroadcastExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -703,7 +703,7 @@
 				);
 				MARKETING_VERSION = 3.3.1;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.app.ScreenShareBroadcastExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.ios.ScreenShareBroadcastExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -771,7 +771,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 7Z6W33RSX6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -780,8 +780,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.16;
-				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.app;
+				MARKETING_VERSION = 0.0.24;
+				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -910,7 +910,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 7Z6W33RSX6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -919,8 +919,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.16;
-				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.app;
+				MARKETING_VERSION = 0.0.24;
+				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -941,7 +941,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 7Z6W33RSX6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -950,8 +950,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.16;
-				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.app;
+				MARKETING_VERSION = 0.0.24;
+				PRODUCT_BUNDLE_IDENTIFIER = chat.miti.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
