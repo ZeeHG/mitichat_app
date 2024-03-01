@@ -14,6 +14,7 @@ class ChatPage extends StatelessWidget {
   ChatPage({super.key});
 
   Widget _buildItemView(Message message) => ChatItemView(
+        showRead: logic.isAiSingleChat? true : null,
         key: logic.itemKey(message),
         // isBubbleMsg: logic.showBubbleBg(message),
         message: message,
@@ -177,12 +178,13 @@ class ChatPage extends StatelessWidget {
 
   CustomTypeInfo? _buildCustomTypeItemView(_, Message message) {
     final data = IMUtils.parseCustomMessage(message);
+    final isISend = message.sendID == OpenIM.iMManager.userID;
     if (null != data) {
       final viewType = data['viewType'];
       if (viewType == CustomMessageType.call) {
         final type = data['type'];
         final content = data['content'];
-        final view = ChatCallItemView(type: type, content: content);
+        final view = ChatCallItemView(type: type, content: content, isISend: isISend);
         return CustomTypeInfo(view);
       } else if (viewType == CustomMessageType.deletedByFriend || viewType == CustomMessageType.blockedByFriend) {
         final view = ChatFriendRelationshipAbnormalHintView(
@@ -291,6 +293,7 @@ class ChatPage extends StatelessWidget {
               backgroundColor: Styles.c_F7F8FA,
               appBar: TitleBar.chat(
                 title: logic.nickname.value,
+                isAiSingleChat: logic.isAiSingleChat,
                 member: logic.memberStr,
                 subTitle: logic.subTile,
                 showOnlineStatus: logic.showOnlineStatus(),
@@ -327,7 +330,7 @@ class ChatPage extends StatelessWidget {
                     onSend: (v) => logic.sendTextMsg(),
                     toolbox: ChatToolBox(
                       onTapAlbum: logic.onTapAlbum,
-                      // onTapCall: logic.call,
+                      onTapCall: logic.call,
                       onTapCamera: logic.onTapCamera,
                       onTapCard: logic.onTapCarte,
                       onTapFile: logic.onTapFile,

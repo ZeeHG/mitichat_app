@@ -5,6 +5,14 @@ import 'package:miti/pages/contacts/ai_friend_list/ai_friend_list_binding.dart';
 import 'package:miti/pages/contacts/ai_friend_list/ai_friend_list_view.dart';
 import 'package:miti/pages/contacts/ai_friend_list/search_ai_friend/search_ai_friend_binding.dart';
 import 'package:miti/pages/contacts/ai_friend_list/search_ai_friend/search_ai_friend_view.dart';
+import 'package:miti/pages/contacts/my_ai/knowledgebase_files/knowledgebase_files_binding.dart';
+import 'package:miti/pages/contacts/my_ai/knowledgebase_files/knowledgebase_files_view.dart';
+import 'package:miti/pages/contacts/my_ai/my_ai_binding.dart';
+import 'package:miti/pages/contacts/my_ai/my_ai_view.dart';
+import 'package:miti/pages/contacts/my_ai/search_my_ai/search_my_ai_binding.dart';
+import 'package:miti/pages/contacts/my_ai/search_my_ai/search_my_ai_view.dart';
+import 'package:miti/pages/contacts/my_ai/train_ai/train_ai_binding.dart';
+import 'package:miti/pages/contacts/my_ai/train_ai/train_ai_view.dart';
 import 'package:miti/pages/contacts/recent_requests/recent_requests_binding.dart';
 import 'package:miti/pages/contacts/recent_requests/recent_requests_view.dart';
 import 'package:miti/pages/friend_permissions/friend_permissions_binding.dart';
@@ -21,6 +29,7 @@ import 'package:miti/pages/mine/my_points/invite_records/invite_records_binding.
 import 'package:miti/pages/mine/my_points/invite_records/invite_records_view.dart';
 import 'package:miti/pages/mine/my_points/my_points_binding.dart';
 import 'package:miti/pages/mine/my_points/my_points_view.dart';
+import 'package:miti/pages/mine/my_points/point_records/point_records_binding.dart';
 import 'package:miti/pages/mine/my_points/point_records/point_records_view.dart';
 import 'package:miti/pages/mine/my_points/point_rules/point_rules_binding.dart';
 import 'package:miti/pages/mine/my_points/point_rules/point_rules_view.dart';
@@ -34,6 +43,10 @@ import 'package:miti/pages/privacy_policy/privacy_policy_binding.dart';
 import 'package:miti/pages/privacy_policy/privacy_policy_view.dart';
 import 'package:miti/pages/terms_of_server/terms_of_server_binding.dart';
 import 'package:miti/pages/terms_of_server/terms_of_server_view.dart';
+import 'package:miti/pages/xhs/xhs_binding.dart';
+import 'package:miti/pages/xhs/xhs_moment_detail/xhs_moment_detail_binding.dart';
+import 'package:miti/pages/xhs/xhs_moment_detail/xhs_moment_detail_view.dart';
+import 'package:miti/pages/xhs/xhs_view.dart';
 import 'package:openim_meeting/openim_meeting.dart';
 import 'package:openim_working_circle/openim_working_circle.dart';
 
@@ -655,7 +668,7 @@ class AppPages {
     _pageBuilder(
       name: AppRoutes.pointRecords,
       page: () => PointRecordsPage(),
-      binding: PointRulesBinding(),
+      binding: PointRecordsBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.inviteRecords,
@@ -666,6 +679,36 @@ class AppPages {
       name: AppRoutes.invite,
       page: () => InvitePage(),
       binding: InviteBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.xhs,
+      page: () => XhsPage(),
+      binding: XhsBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.myAi,
+      page: () => MyAiPage(),
+      binding: MyAiBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.searchMyAi,
+      page: () => SearchMyAiPage(),
+      binding: SearchMyAiBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.trainAi,
+      page: () => TrainAiPage(),
+      binding: TrainAiBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.knowledgeFiles,
+      page: () => KnowledgebaseFilesPage(),
+      binding: KnowledgebaseFilesBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.xhsMomentDetail,
+      page: () => XhsMomentDetailPage(),
+      binding: XhsMomentDetailBinding(),
     ),
     // ...OPages.pages, // 组织架构
     ...WPages.pages, // 工作圈

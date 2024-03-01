@@ -25,35 +25,35 @@ class ContactsLogic extends GetxController
   late StreamSubscription infoChangedSub;
 
   List<Map<String, dynamic>> get menus => [
-      // {
-      //   "key": "myFriend",
-      //   "text": StrRes.myFriend,
-      //   "color": Styles.c_8544F8,
-      //   "shadowColor": Color.fromRGBO(132, 67, 248, 0.5),
-      //   "onTap": () => myFriend()
-      // },
-      { 
-        "key": "myGroup",
-        "text": StrRes.myGroup,
-        "color": Styles.c_8544F8,
-        "shadowColor": Color.fromRGBO(132, 67, 248, 0.5),
-        "onTap": () => myGroup()
-      },
-      { 
-        "key": "newRecent",
-        "text": StrRes.recentRequests,
-        "color": Styles.c_00CBC5,
-        "shadowColor": Color.fromRGBO(0, 203, 197, 0.5),
-        "onTap": () => newRecent()
-      },
-      {
-        "key": "aiFriendList",
-        "text": StrRes.aiFriends,
-        "color": Styles.c_FEA836,
-        "shadowColor": Color.fromRGBO(254, 168, 54, 0.5),
-        "onTap": () => aiFriendList()
-      },
-    ];
+        // {
+        //   "key": "myFriend",
+        //   "text": StrRes.myFriend,
+        //   "color": Styles.c_8544F8,
+        //   "shadowColor": Color.fromRGBO(132, 67, 248, 0.5),
+        //   "onTap": () => myFriend()
+        // },
+        {
+          "key": "myGroup",
+          "text": StrRes.myGroup,
+          "color": Styles.c_8544F8,
+          "shadowColor": Color.fromRGBO(132, 67, 248, 0.5),
+          "onTap": () => myGroup()
+        },
+        {
+          "key": "newRecent",
+          "text": StrRes.recentRequests,
+          "color": Styles.c_00CBC5,
+          "shadowColor": Color.fromRGBO(0, 203, 197, 0.5),
+          "onTap": () => newRecent()
+        },
+        {
+          "key": "aiFriendList",
+          "text": StrRes.aiFriends,
+          "color": Styles.c_FEA836,
+          "shadowColor": Color.fromRGBO(254, 168, 54, 0.5),
+          "onTap": () => aiFriendList()
+        },
+      ];
 
   // final organizationLogic = Get.find<OrganizationLogic>();
   final friendApplicationList = <UserInfo>[];
@@ -89,10 +89,7 @@ class ContactsLogic extends GetxController
     // imLogic.onFriendApplicationListAccepted = (u) {
     //   getFriendApplicationList();
     // };
-    PackageBridge.selectContactsBridge = this;
-    PackageBridge.viewUserProfileBridge = this;
-    // PackageBridge.workingCircleBridge = this;
-    PackageBridge.scanBridge = this;
+    initPackageBridge();
 
     delSub = imLoic.friendDelSubject.listen(_delFriend);
     addSub = imLoic.friendAddSubject.listen(_addFriend);
@@ -119,6 +116,13 @@ class ContactsLogic extends GetxController
     // PackageBridge.workingCircleBridge = null;
     PackageBridge.scanBridge = null;
     super.onClose();
+  }
+
+  initPackageBridge() {
+    PackageBridge.selectContactsBridge = this;
+    PackageBridge.viewUserProfileBridge = this;
+    // PackageBridge.workingCircleBridge = this;
+    PackageBridge.scanBridge = this;
   }
 
   _getFriendList() async {

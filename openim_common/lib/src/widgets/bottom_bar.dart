@@ -48,9 +48,9 @@ class BottomBar extends StatelessWidget {
                     IntrinsicWidth(
                         child: Container(
                       // 最大图片的高度
-                      height: 22.h,
+                      height: 24.h,
                       alignment: Alignment.bottomCenter,
-                      child: ((i == 0 && (index == 0 || index == 1)) || (i == index && !(index == 0 || index == 1))
+                      child: ((i == 0 && (index == 0 || index == 1)) || (i == 1 && index == 2) || (i == 3 && index == 3)
                           ? item.selectedImgRes.toImage
                           : item.unselectedImgRes.toImage)
                         ..width = item.imgWidth
@@ -68,7 +68,9 @@ class BottomBar extends StatelessWidget {
                 ),
                 4.verticalSpace,
                 item.label.toText
-                  ..style = (i == 0 && (index == 0 || index == 1)) || (i == index && !(index == 0 || index == 1))
+                  ..style = (i == 0 && (index == 0 || index == 1)) ||
+                          (i == 1 && index == 2) || 
+                          (i == 3 && index == 3)
                       ? (item.selectedStyle ?? Styles.ts_8443F8_11sp)
                       : (item.unselectedStyle ?? Styles.ts_B3B3B3_11sp),
               ],

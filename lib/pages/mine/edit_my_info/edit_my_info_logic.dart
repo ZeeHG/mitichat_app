@@ -17,14 +17,15 @@ class EditMyInfoLogic extends GetxController {
   final imLogic = Get.find<IMController>();
   late TextEditingController inputCtrl;
   late EditAttr editAttr;
+  late int maxLength;
   String? title;
   String? defaultValue;
   TextInputType? keyboardType;
-  final lengthLimit = 16.obs;
 
   @override
   void onInit() {
     editAttr = Get.arguments['editAttr'];
+    maxLength = Get.arguments['maxLength'] ?? 60;
     _initAttr();
     inputCtrl = TextEditingController(text: defaultValue);
     super.onInit();
@@ -56,7 +57,6 @@ class EditMyInfoLogic extends GetxController {
         title = StrRes.email;
         defaultValue = imLogic.userInfo.value.email;
         keyboardType = TextInputType.emailAddress;
-        lengthLimit.value = 64;
         break;
     }
   }

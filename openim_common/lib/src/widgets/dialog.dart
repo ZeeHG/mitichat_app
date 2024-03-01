@@ -34,71 +34,72 @@ class CustomDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return TouchCloseSoftKeyboard(
       child: Material(
-      color: Colors.transparent,
-      child: Center(
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(8.r),
-          child: Container(
-            width: 280.w,
-            color: Styles.c_FFFFFF,
-            child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                body ?? Padding(
-                    padding: EdgeInsets.only(
-                      top: 16.w,
-                      left: 16.w,
-                      right: 16.w,
-                    ),
-                    child: Column(
-                      children: [
-                        Text(
-                          bigTitle ?? StrRes.tips,
-                          textAlign: TextAlign.center,
-                          style: Styles.ts_333333_16sp_medium,
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 27.h),
-                          child: Text(
-                            title ?? '',
-                            textAlign: TextAlign.center,
-                            style: Styles.ts_333333_14sp,
+        color: Colors.transparent,
+        child: Center(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.r),
+            child: Container(
+              width: 280.w,
+              color: Styles.c_FFFFFF,
+              child: Column(
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  body ??
+                      Padding(
+                          padding: EdgeInsets.only(
+                            top: 16.w,
+                            left: 16.w,
+                            right: 16.w,
                           ),
-                        )
-                      ],
-                    )),
-                Divider(
-                  color: Styles.c_EDEDED,
-                  height: 1.h,
-                ),
-                Row(
-                  children: [
-                    _button(
-                      bgColor: Styles.c_FFFFFF,
-                      text: leftText ?? StrRes.cancel,
-                      textStyle: Styles.ts_999999_14sp,
-                      onTap: onTapLeft ?? () => Get.back(result: false),
-                    ),
-                    Container(
-                      color: Styles.c_EDEDED,
-                      width: 1.w,
-                      height: 43.h,
-                    ),
-                    _button(
-                      bgColor: Styles.c_FFFFFF,
-                      text: rightText ?? StrRes.determine,
-                      textStyle: Styles.ts_8443F8_14sp,
-                      onTap: onTapRight ?? () => Get.back(result: true),
-                    ),
-                  ],
-                )
-              ],
+                          child: Column(
+                            children: [
+                              Text(
+                                bigTitle ?? StrRes.tips,
+                                textAlign: TextAlign.center,
+                                style: Styles.ts_333333_16sp_medium,
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 27.h),
+                                child: Text(
+                                  title ?? '',
+                                  textAlign: TextAlign.center,
+                                  style: Styles.ts_333333_14sp,
+                                ),
+                              )
+                            ],
+                          )),
+                  Divider(
+                    color: Styles.c_EDEDED,
+                    height: 1.h,
+                  ),
+                  Row(
+                    children: [
+                      _button(
+                        bgColor: Styles.c_FFFFFF,
+                        text: leftText ?? StrRes.cancel,
+                        textStyle: Styles.ts_999999_14sp,
+                        onTap: onTapLeft ?? () => Get.back(result: false),
+                      ),
+                      Container(
+                        color: Styles.c_EDEDED,
+                        width: 1.w,
+                        height: 43.h,
+                      ),
+                      _button(
+                        bgColor: Styles.c_FFFFFF,
+                        text: rightText ?? StrRes.determine,
+                        textStyle: Styles.ts_8443F8_14sp,
+                        onTap: onTapRight ?? () => Get.back(result: true),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
       ),
-    ),
     );
   }
 
@@ -251,4 +252,88 @@ class ForwardHintDialog extends StatelessWidget {
       ),
     );
   }
+}
+
+class SuccessDialog extends StatelessWidget {
+  const SuccessDialog(
+      {Key? key, required this.text, this.confirmText, this.onTapConfirm})
+      : super(key: key);
+  final String text;
+  final String? confirmText;
+  final Function()? onTapConfirm;
+
+  @override
+  Widget build(BuildContext context) {
+    return TouchCloseSoftKeyboard(
+        child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: Center(
+                child: Stack(
+              children: [
+                Container(
+                  height: 43.h,
+                  width: 256.w,
+                ),
+                Padding(
+                    padding: EdgeInsets.only(top: 43.h),
+                    child: 
+                    Container(
+                      width: 256.w,
+                      constraints: BoxConstraints(minHeight: 200.h),
+                      padding: EdgeInsets.only(
+                          left: 10.w, right: 10.w, top: 73.h, bottom: 20.h),
+                      decoration: BoxDecoration(
+                        color: Styles.c_FFFFFF,
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          text.toText..style=Styles.ts_343434_16p_medium..textAlign= TextAlign.center,
+                          30.verticalSpace,
+                          GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            child: Button(
+                                text: confirmText ?? StrRes.iKnow,
+                                textStyle: Styles.ts_FFFFFF_16sp,
+                                height: 42.h,
+                                width: 128.w,
+                                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                                onTap: onTapConfirm ?? () => Get.back(result: true)),
+                          )
+                        ],
+                      ),
+                    )),
+                Positioned(
+                    left: 85.w,
+                    child: ImageRes.dialogSuccess.toImage
+                      ..width = 86.w
+                      ..height = 86.h),
+              ],
+            ))));
+  }
+
+  Widget _button({
+    required Color bgColor,
+    required String text,
+    required TextStyle textStyle,
+    Function()? onTap,
+  }) =>
+      Expanded(
+        child: GestureDetector(
+          onTap: onTap,
+          child: Container(
+            decoration: BoxDecoration(
+              // borderRadius: BorderRadius.circular(6),
+              color: bgColor,
+            ),
+            height: 48.h,
+            alignment: Alignment.center,
+            child: Text(
+              text,
+              style: textStyle,
+            ),
+          ),
+        ),
+      );
 }

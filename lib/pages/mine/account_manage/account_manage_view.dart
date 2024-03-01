@@ -62,7 +62,7 @@ class AccountManagePage extends StatelessWidget {
         child: Slidable(
           endActionPane: ActionPane(
             motion: const ScrollMotion(),
-            extentRatio: 0.2,
+            extentRatio: 0.3,
             children: [
               CustomSlidableAction(
                 onPressed: (_) => logic.delLoginInfo(info),

@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:ui';
 import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:uuid/uuid.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
@@ -73,7 +74,8 @@ class Apis {
           'email': email,
           "areaCode": areaCode,
           'phoneNumber': phoneNumber,
-          'password': encryptPwdRequest ? IMUtils.generateMD5(password) : password,
+          'password':
+              encryptPwdRequest ? IMUtils.generateMD5(password) : password,
         },
       });
       return LoginCertificate.fromJson(data!);
@@ -780,9 +782,10 @@ class Apis {
     );
   }
 
-  static Future<bool> checkServerValid({required String serverWithProtocol}) async {
+  static Future<bool> checkServerValid(
+      {required String serverWithProtocol}) async {
     var result = await HttpUtil.post(
-      "${serverWithProtocol}${Config.targetIsDomainWithProtocol(serverWithProtocol)? '/chat' : ':10008'}${Urls.checkServerValid}",
+      "${serverWithProtocol}${Config.targetIsDomainWithProtocol(serverWithProtocol) ? '/chat' : ':10008'}${Urls.checkServerValid}",
       data: {},
       showErrorToast: false,
     );
@@ -792,10 +795,88 @@ class Apis {
   static Future<dynamic> getBots() async {
     return HttpUtil.post(
       Urls.getBots,
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future<dynamic> getMyAi() async {
+    return HttpUtil.post(
+      Urls.getMyAi,
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future<dynamic> getKnowledgeFiles({
+    String? knowledgebaseID,
+    String? botID,
+  }) async {
+    Map<String, dynamic> param = null != knowledgebaseID
+        ? {'knowledgebaseID': knowledgebaseID}
+        : {'botID': botID};
+
+    return HttpUtil.post(
+      Urls.getKnowledgeFiles,
       data: {
-        'platform': IMUtils.getPlatform(),
-        'operationID': HttpUtil.operationID,
+        ...param,
       },
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future<dynamic> addKnowledge(
+      {String? knowledgebaseID,
+      String? botID,
+      String? text,
+      List<String>? filePathList}) async {
+    FormData formData = FormData.fromMap({});
+    if (null != knowledgebaseID) {
+      formData.fields.add(MapEntry("knowledgebase_id", knowledgebaseID));
+    }
+    if (null != botID) {
+      formData.fields.add(MapEntry("knowledgebase_id", botID));
+    }
+    if (null != text) {
+      formData.fields.add(MapEntry("text", text));
+    }
+    if (null != filePathList) {
+      final multipartFile = await Future.wait(filePathList
+          .map((path) async => await MultipartFile.fromFile(path,
+              filename: path.split('/').last))
+          .toList());
+      if (multipartFile.isNotEmpty) {
+        formData.files
+            .addAll(multipartFile.map((file) => MapEntry("files", file)));
+      }
+    }
+
+    return HttpUtil.post(
+      Urls.addKnowledge,
+      data: formData,
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future<dynamic> getMyAiTask() async {
+    return HttpUtil.post(
+      Urls.getMyAiTask,
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future<dynamic> getBotKnowledgebases({required String botID}) async {
+    return HttpUtil.post(
+      data: {"botID": botID},
+      Urls.getBotKnowledgebases,
+      options: chatTokenOptions,
+    );
+  }
+
+  // 埋点
+  static Future<dynamic> addActionRecord({required List<ActionRecord> actionRecordList}) async {
+    return HttpUtil.post(
+      data: {"actionList": List.generate(
+            actionRecordList.length, (index) => actionRecordList[index].toJson())},
+      Urls.addActionRecord,
       options: chatTokenOptions,
     );
   }

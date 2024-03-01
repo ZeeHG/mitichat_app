@@ -26,7 +26,8 @@ class UserManager {
                 'userIDList': userIDList,
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (v) => FullUserInfo.fromJson(v)));
+          .then(
+              (value) => Utils.toList(value, (v) => FullUserInfo.fromJson(v)));
 
   /// Get information of the currently logged-in user
   Future<UserInfo> getSelfUserInfo({
@@ -74,7 +75,8 @@ class UserManager {
               'userIDs': userIDs,
               'operationID': Utils.checkOperationID(operationID),
             }))
-        .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
+        .then((value) =>
+            Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
   }
 
   Future unsubscribeUsersStatus(
@@ -98,7 +100,8 @@ class UserManager {
             _buildParam({
               'operationID': Utils.checkOperationID(operationID),
             }))
-        .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
+        .then((value) =>
+            Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
   }
 
   Future<List<UserStatusInfo>> getUserStatus(
@@ -112,7 +115,8 @@ class UserManager {
               'userIDs': userIDs,
               'operationID': Utils.checkOperationID(operationID),
             }))
-        .then((value) => Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
+        .then((value) =>
+            Utils.toList(value, (map) => UserStatusInfo.fromJson(map)));
   }
 
   Future<List<FullUserInfo>> getUsersInfoWithCache(
@@ -128,7 +132,20 @@ class UserManager {
               'groupID': groupID,
               'operationID': Utils.checkOperationID(operationID),
             }))
-        .then((value) => Utils.toList(value, (map) => FullUserInfo.fromJson(map)));
+        .then((value) =>
+            Utils.toList(value, (map) => FullUserInfo.fromJson(map)));
+  }
+
+  Future<String?> setSelfUserInfoEx(
+    UserInfo userInfo, {
+    String? operationID,
+  }) {
+    return _channel.invokeMethod(
+        'setSelfUserInfoEx',
+        _buildParam({
+          ...userInfo.toJson(),
+          'operationID': Utils.checkOperationID(operationID),
+        }));
   }
 
   static Map _buildParam(Map param) {

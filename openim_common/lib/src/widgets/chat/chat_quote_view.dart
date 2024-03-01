@@ -44,6 +44,10 @@ class _ChatQuoteContentView extends StatelessWidget {
         content = message.textElem!.content;
       } else if (message.isAtTextType) {
         content = message.atTextElem?.text;
+        // message.atTextElem?.atUsersInfo?.forEach((element) {
+        //   content = content?.replaceFirst(
+        //       element.atUserID ?? "", element.groupNickname ?? "");
+        // });
       } else if (message.isPictureType) {
         final picture = message.pictureElem;
         if (null != picture) {

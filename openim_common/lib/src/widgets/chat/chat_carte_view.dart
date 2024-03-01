@@ -36,7 +36,10 @@ class ChatCarteView extends StatelessWidget {
                       textStyle: Styles.ts_FFFFFF_14sp_medium,
                     ),
                     10.horizontalSpace,
-                    cardElem.nickname!.toText..style = Styles.ts_333333_16sp,
+                    Expanded(child: cardElem.nickname!.toText
+                          ..style = Styles.ts_333333_16sp
+                          ..maxLines = 1
+                          ..overflow = TextOverflow.ellipsis),
                   ],
                 ),
               ),

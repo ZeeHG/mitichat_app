@@ -160,7 +160,7 @@ class TranslateLogic extends GetxController {
       ),
       changeToFirst: true,
       hideHeader: false,
-      containerColor: Styles.c_8443F8,
+      containerColor: Styles.c_FFFFFF,
       textStyle: Styles.ts_333333_17sp,
       selectedTextStyle: Styles.ts_333333_17sp,
       itemExtent: 45.h,
@@ -203,7 +203,7 @@ class TranslateLogic extends GetxController {
         onConfirm?.call(picker.selecteds, picker.getSelectedValues());
         // 在此处执行选定项目的逻辑
       },
-    ).showDialog(Get.context!);
+    ).showDialog(Get.context!, backgroundColor: Colors.white);
   }
 
   init(String id) {

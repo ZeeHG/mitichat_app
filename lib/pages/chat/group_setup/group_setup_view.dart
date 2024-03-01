@@ -14,14 +14,14 @@ class GroupSetupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-          appBar: TitleBar.back(title: logic.appBarTitle),
+          appBar: TitleBar.back(title: logic.appBarTitle, backgroundColor: Styles.transparent),
           backgroundColor: Styles.c_F7F8FA,
           body: Obx(() => SingleChildScrollView(
                 child: Column(
                   children: [
                     if (logic.isJoinedGroup.value) _buildBaseInfoView(),
                     if (logic.isJoinedGroup.value) _buildMemberView(),
-                    10.verticalSpace,
+                    15.verticalSpace,
                     // _buildContentSearchView(),
                     // 群聊名称
                     _buildItemView(
@@ -29,7 +29,6 @@ class GroupSetupPage extends StatelessWidget {
                       value: logic.groupInfo.value.groupName,
                       showRightArrow: true,
                       isTopRadius: true,
-                      isBottomRadius: !logic.isOwner,
                       onTap:
                           logic.isOwnerOrAdmin ? logic.modifyGroupName : null,
                     ),
@@ -37,14 +36,13 @@ class GroupSetupPage extends StatelessWidget {
                     _buildItemView(
                       text: StrRes.groupQrcode,
                       showRightArrow: true,
-                      isTopRadius: true,
-                      isBottomRadius: !logic.isOwner,
+                      showBorder: true,
                       onTap: logic.viewGroupQrcode,
                     ),
                     _buildItemView(
                       text: StrRes.groupAc,
                       showRightArrow: true,
-                      isTopRadius: true,
+                      showBorder: true,
                       isBottomRadius: !logic.isOwner,
                       onTap: logic.editGroupAnnouncement,
                     ),
@@ -52,6 +50,7 @@ class GroupSetupPage extends StatelessWidget {
                       _buildItemView(
                         text: StrRes.groupManage,
                         showRightArrow: true,
+                        showBorder: true,
                         isBottomRadius: true,
                         onTap: logic.groupManage,
                       ),
@@ -62,27 +61,28 @@ class GroupSetupPage extends StatelessWidget {
                     //   isBottomRadius: true,
                     //   onTap: () => showDeveloping(),
                     // ),
-                    10.verticalSpace,
+                    15.verticalSpace,
                     // 查找聊天内容
                     _buildItemView(
                       text: StrRes.groupSearch,
                       showRightArrow: true,
+                      isTopRadius: true,
                       isBottomRadius: true,
                       onTap: logic.searchChatHistory,
                     ),
-                    10.verticalSpace,
+                    15.verticalSpace,
                     _buildItemView(
                       text: StrRes.messageNotDisturb,
                       switchOn: logic.isNotDisturb,
                       showSwitchButton: true,
-                      isBottomRadius: true,
+                      isTopRadius: true,
                       onChanged: (_) => logic.toggleNotDisturb(),
                     ),
                     _buildItemView(
                       text: StrRes.topChat,
                       switchOn: logic.isPinned,
                       showSwitchButton: true,
-                      isTopRadius: true,
+                      showBorder: true,
                       onChanged: (_) => logic.toggleTopChat(),
                     ),
                     // 保存到通讯录
@@ -95,12 +95,13 @@ class GroupSetupPage extends StatelessWidget {
                     // ),
                     // 聊天加密
                     _buildItemView(
-                      text: StrRes.chatEncryption,
-                      switchOn: true,
-                      showSwitchButton: true,
-                      isTopRadius: true,
-                      // onChanged: (_) => showDeveloping(),
-                    ),
+                        text: StrRes.chatEncryption,
+                        switchOn: true,
+                        showBorder: true,
+                        showSwitchButton: true,
+                        isBottomRadius: true
+                        // onChanged: (_) => showDeveloping(),
+                        ),
                     // _buildItemView(
                     //   text: StrRes.autoTranslate,
                     //   switchOn: logic.isAutoTranslate,
@@ -116,7 +117,7 @@ class GroupSetupPage extends StatelessWidget {
                     //     showRightArrow: true,
                     //     isBottomRadius: true,
                     //   ),
-                    10.verticalSpace,
+                    15.verticalSpace,
                     _buildItemView(
                       text: StrRes.myGroupMemberNickname,
                       value: logic.myGroupMembersInfo.value.nickname,
@@ -133,7 +134,7 @@ class GroupSetupPage extends StatelessWidget {
                     //   isTopRadius: true,
                     //   onTap: () => showDeveloping(),
                     // ),
-                    10.verticalSpace,
+                    15.verticalSpace,
                     // 设置当前聊天背景
                     // _buildItemView(
                     //   text: StrRes.setChatBackground,
@@ -176,22 +177,26 @@ class GroupSetupPage extends StatelessWidget {
                     //   isBottomRadius: true,
                     //   onTap: () => showDeveloping(),
                     // ),
-                    10.verticalSpace,
+                    15.verticalSpace,
                     if (!logic.isOwner)
                       Button(
+                        width: 1.sw - 30.w,
+                        height: 52.h,
                         text: logic.isJoinedGroup.value
                             ? StrRes.exitGroup
                             : StrRes.delete,
                         textStyle: Styles.ts_FC4D4D_16sp,
-                        radius: 0,
+                        radius: 10.r,
                         enabledColor: Styles.c_FFFFFF,
                         onTap: logic.quitGroup,
                       ),
                     if (logic.isOwner)
                       Button(
+                        width: 1.sw - 30.w,
+                        height: 52.h,
                         text: StrRes.dismissGroup,
                         textStyle: Styles.ts_FC4D4D_16sp,
-                        radius: 0,
+                        radius: 10.r,
                         enabledColor: Styles.c_FFFFFF,
                         onTap: logic.quitGroup,
                       ),
@@ -204,10 +209,14 @@ class GroupSetupPage extends StatelessWidget {
 
   Widget _buildBaseInfoView() => Container(
         height: 80.h,
+        margin: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w),
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         decoration: BoxDecoration(
           color: Styles.c_FFFFFF,
-          borderRadius: BorderRadius.circular(6.r),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10.r),
+            topRight: Radius.circular(10.r),
+          ),
         ),
         child: Row(
           children: [
@@ -277,9 +286,14 @@ class GroupSetupPage extends StatelessWidget {
       );
 
   Widget _buildMemberView() => Container(
+        margin: EdgeInsets.symmetric(horizontal: 15.w),
         padding: EdgeInsets.only(left: 20.w),
         decoration: BoxDecoration(
           color: Styles.c_FFFFFF,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10.r),
+            bottomRight: Radius.circular(10.r),
+          ),
         ),
         child: Column(
           children: [
@@ -289,10 +303,10 @@ class GroupSetupPage extends StatelessWidget {
               itemCount: logic.length(),
               shrinkWrap: true,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 6,
-                crossAxisSpacing: 16.w,
-                mainAxisSpacing: 5.h,
-                childAspectRatio: 42.w / 64.h,
+                crossAxisCount: 5,
+                crossAxisSpacing: 0,
+                mainAxisSpacing: 2.h,
+                childAspectRatio: 48.w / 48.h,
               ),
               itemBuilder: (BuildContext context, int index) {
                 return logic.itemBuilder(
@@ -318,7 +332,7 @@ class GroupSetupPage extends StatelessWidget {
                               Positioned(
                                 bottom: 0.h,
                                 child: Container(
-                                  width: 52.h,
+                                  width: 52.w,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                     color: Styles.c_E8EAEF,
@@ -334,10 +348,13 @@ class GroupSetupPage extends StatelessWidget {
                         ),
                       ),
                       2.verticalSpace,
-                      (info.nickname ?? '').toText
-                        ..style = Styles.ts_999999_10sp
-                        ..maxLines = 1
-                        ..overflow = TextOverflow.ellipsis,
+                      SizedBox(
+                          width: 50.w,
+                          child: (info.nickname ?? '').toText
+                            ..style = Styles.ts_999999_10sp
+                            ..textAlign = TextAlign.center
+                            ..maxLines = 1
+                            ..overflow = TextOverflow.ellipsis),
                     ],
                   ),
                   addButton: () => GestureDetector(
@@ -376,7 +393,7 @@ class GroupSetupPage extends StatelessWidget {
               onTap: logic.viewGroupMembers,
               child: Container(
                 padding: EdgeInsets.only(right: 20.w),
-                height: 50.h,
+                height: 52.h,
                 child: Row(
                   children: [
                     sprintf(StrRes.viewAllGroupMembers,
@@ -463,6 +480,7 @@ class GroupSetupPage extends StatelessWidget {
     bool isBottomRadius = false,
     bool showRightArrow = false,
     bool showSwitchButton = false,
+    bool showBorder = false,
     ValueChanged<bool>? onChanged,
     Function()? onTap,
   }) =>
@@ -470,21 +488,27 @@ class GroupSetupPage extends StatelessWidget {
         onTap: onTap,
         behavior: HitTestBehavior.translucent,
         child: Container(
-          color: Styles.c_FFFFFF,
+          margin: EdgeInsets.symmetric(horizontal: 15.w),
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            color: Styles.c_FFFFFF,
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(isTopRadius ? 10.r : 0),
+              topLeft: Radius.circular(isTopRadius ? 10.r : 0),
+              bottomLeft: Radius.circular(isBottomRadius ? 10.r : 0),
+              bottomRight: Radius.circular(isBottomRadius ? 10.r : 0),
+            ),
+          ),
           child: Container(
-            height: 46.h,
-            margin: EdgeInsets.only(left: 20.w),
-            padding: EdgeInsets.only(right: 20.w),
             decoration: BoxDecoration(
-                border:
-                    Border(top: BorderSide(color: Styles.c_F1F2F6, width: 1.h))
-                // borderRadius: BorderRadius.only(
-                //   topRight: Radius.circular(isTopRadius ? 6.r : 0),
-                //   topLeft: Radius.circular(isTopRadius ? 6.r : 0),
-                //   bottomLeft: Radius.circular(isBottomRadius ? 6.r : 0),
-                //   bottomRight: Radius.circular(isBottomRadius ? 6.r : 0),
-                // ),
-                ),
+              color: Styles.c_FFFFFF,
+              border: showBorder
+                  ? Border(top: BorderSide(color: Styles.c_F1F2F6, width: 1.h))
+                  : null,
+            ),
+            height: 52.h,
+            padding: EdgeInsets.only(right: 15.w),
+            margin: EdgeInsets.only(left: 15.w),
             child: Row(
               children: [
                 Expanded(

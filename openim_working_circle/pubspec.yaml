@@ -18,12 +18,14 @@ dependencies:
   wechat_assets_picker: ^8.4.0
   wechat_camera_picker: any
   device_info_plus: ^9.1.0
-  chewie: ^1.4.0
-  video_player: ^2.6.0
+  chewie: ^1.7.5
+  video_player: ^2.8.2
   flutter_cache_manager: ^3.3.0
   pull_to_refresh: ^2.0.0
   animate_do: ^3.0.2
   uuid: ^4.2.1
+  cached_network_image: ^3.3.1
+  flutter_background: ^1.2.0
   openim_common:
     path: ../openim_common
   flutter_openim_sdk:

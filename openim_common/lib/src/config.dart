@@ -109,7 +109,8 @@ class Config {
   static bool targetIsDomainOrIPWithProtocol(String target) =>
       targetIsIPWithProtocol(target) || targetIsDomainWithProtocol(target);
 
-  static String get hostWithProtocol => _isIP ? "http://$host" : "https://$host";
+  static String get hostWithProtocol =>
+      _isIP ? "http://$host" : "https://$host";
 
   /// 服务器IP
   static String get serverIp {
@@ -221,7 +222,7 @@ class Config {
 
   // 机器人id
   // 有方医疗-Sophie, Nicole-高尔夫导购, 有方医疗-朱教授, Camera, Nicole-高尔夫导购, 段永平
-  static const botIds = [
+  static const botIDs = [
     "3216431598",
     "3319670832",
     "4845282902",

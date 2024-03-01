@@ -36,9 +36,9 @@ class AboutUsLogic extends GetxController {
     buildNumber.value = packageInfo.buildNumber;
   }
 
-  void checkUpdate() {
-    appLogic.checkUpdate();
-  }
+  // void checkUpdate() {
+  //   appLogic.checkUpdate();
+  // }
 
   void uploadLogs() async {
     try{
@@ -55,10 +55,11 @@ class AboutUsLogic extends GetxController {
   }
 
   void startDev() {
-    if (betaTestLogic.isDevUser(imLogic.userInfo.value.userID!) ||
-        betaTestLogic.isTestUser(imLogic.userInfo.value.userID!)) {
-      showDev.value = true;
-    }
+    // if (betaTestLogic.isDevUser(imLogic.userInfo.value.userID!) ||
+    //     betaTestLogic.isTestUser(imLogic.userInfo.value.userID!)) {
+    //   showDev.value = true;
+    // }
+    showDev.value = true;
   }
 
   void uploadLogsByDate([String? date]) async {

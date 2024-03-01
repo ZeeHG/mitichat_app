@@ -55,6 +55,7 @@ class AccountUtil extends GetxController {
         if (needLogoutIm && imLogic.isLogined()) {
           myLogger.e({"message": "tryLogout开始"});
           await imLogic.logout();
+          imLogic.reBuildSubject();
         }
         await DataSp.removeLoginCertificate();
         // OpenIM.iMManager.userID

@@ -38,7 +38,8 @@ enum SelAction {
   notificationIssued,
 }
 
-class SelectContactsLogic extends GetxController implements OrganizationMultiSelBridge {
+class SelectContactsLogic extends GetxController
+    implements OrganizationMultiSelBridge {
   final checkedList = <String, dynamic>{}.obs; // 已经选中的
   final defaultCheckedIDList = <String>{}.obs; // 默认选中，且不能修改
   List<String>? excludeIDList; // 剔除某些数据
@@ -99,7 +100,8 @@ class SelectContactsLogic extends GetxController implements OrganizationMultiSel
       action == SelAction.remindWhoToWatch;
 
   /// 隐藏组织架构
-  bool get hiddenOrganization => action == SelAction.whoCanWatch || action == SelAction.remindWhoToWatch;
+  bool get hiddenOrganization =>
+      action == SelAction.whoCanWatch || action == SelAction.remindWhoToWatch;
 
   /// 隐藏标签组
   bool get hiddenTagGroup =>
@@ -116,7 +118,8 @@ class SelectContactsLogic extends GetxController implements OrganizationMultiSel
   /// 最近会话
   _queryConversationList() async {
     if (!hiddenConversations) {
-      final list = await OpenIM.iMManager.conversationManager.getConversationListSplit(count: 10);
+      final list = await OpenIM.iMManager.conversationManager
+          .getConversationListSplit(count: 10);
       conversationList.addAll(list);
     }
   }
@@ -168,7 +171,8 @@ class SelectContactsLogic extends GetxController implements OrganizationMultiSel
   bool isDefaultChecked(info) => defaultCheckedIDList.contains(parseID(info));
 
   @override
-  Function()? onTap(dynamic info) => isDefaultChecked(info) ? null : () => toggleChecked(info);
+  Function()? onTap(dynamic info) =>
+      isDefaultChecked(info) ? null : () => toggleChecked(info);
 
   @override
   removeItem(dynamic info) {
@@ -272,8 +276,10 @@ class SelectContactsLogic extends GetxController implements OrganizationMultiSel
     }
   }
 
-  bool get enabledConfirmButton => checkedList.isNotEmpty || action == SelAction.remindWhoToWatch;
+  bool get enabledConfirmButton =>
+      checkedList.isNotEmpty || action == SelAction.remindWhoToWatch;
 
   @override
-  Widget get checkedConfirmView => isMultiModel ? CheckedConfirmView() : const SizedBox();
+  Widget get checkedConfirmView =>
+      isMultiModel ? CheckedConfirmView() : const SizedBox();
 }

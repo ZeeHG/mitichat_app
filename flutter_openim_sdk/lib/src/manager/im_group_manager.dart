@@ -33,7 +33,8 @@ class GroupManager {
                 'reason': reason,
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (map) => GroupInviteResult.fromJson(map)));
+          .then((value) =>
+              Utils.toList(value, (map) => GroupInviteResult.fromJson(map)));
 
   /// Remove group members
   /// [groupID] Group ID
@@ -54,7 +55,8 @@ class GroupManager {
                 'reason': reason,
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (map) => GroupInviteResult.fromJson(map)));
+          .then((value) =>
+              Utils.toList(value, (map) => GroupInviteResult.fromJson(map)));
 
   /// Query group member information
   /// [groupID] Group ID
@@ -72,7 +74,8 @@ class GroupManager {
                 'userIDList': userIDList,
                 "operationID": Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
+          .then((value) =>
+              Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
 
   /// Paginate and retrieve the group member list
   /// [groupID] Group ID
@@ -96,7 +99,8 @@ class GroupManager {
                 'count': count,
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
+          .then((value) =>
+              Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
 
   /// Paginate and retrieve the group member list as a map
   /// [groupID] Group ID
@@ -177,7 +181,8 @@ class GroupManager {
                 'ownerUserID': ownerUserID,
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toObj(value, (map) => GroupInfo.fromJson(map)));
+          .then(
+              (value) => Utils.toObj(value, (map) => GroupInfo.fromJson(map)));
 
   /// Edit group information
   Future<dynamic> setGroupInfo(
@@ -203,22 +208,24 @@ class GroupManager {
                 'groupIDList': groupIDList,
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (map) => GroupInfo.fromJson(map)));
+          .then(
+              (value) => Utils.toList(value, (map) => GroupInfo.fromJson(map)));
 
   /// Apply to join a group, requiring approval from an administrator or the group.
   /// [joinSource] 2: Invited, 3: Searched, 4: Using a QR code
-  Future<dynamic> joinGroup({
-    required String groupID,
-    String? reason,
-    String? operationID,
-    int joinSource = 3,
-  }) =>
+  Future<dynamic> joinGroup(
+          {required String groupID,
+          String? reason,
+          String? operationID,
+          int joinSource = 3,
+          String? ex}) =>
       _channel.invokeMethod(
           'joinGroup',
           _buildParam({
             'groupID': groupID,
             'reason': reason,
             'joinSource': joinSource,
+            'ex': ex,
             'operationID': Utils.checkOperationID(operationID),
           }));
 
@@ -251,22 +258,28 @@ class GroupManager {
           }));
 
   /// Handle group membership applications received as a group owner or administrator
-  Future<List<GroupApplicationInfo>> getGroupApplicationListAsRecipient({String? operationID}) => _channel
-      .invokeMethod(
-          'getGroupApplicationListAsRecipient',
-          _buildParam({
-            'operationID': Utils.checkOperationID(operationID),
-          }))
-      .then((value) => Utils.toList(value, (map) => GroupApplicationInfo.fromJson(map)));
+  Future<List<GroupApplicationInfo>> getGroupApplicationListAsRecipient(
+          {String? operationID}) =>
+      _channel
+          .invokeMethod(
+              'getGroupApplicationListAsRecipient',
+              _buildParam({
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) =>
+              Utils.toList(value, (map) => GroupApplicationInfo.fromJson(map)));
 
   /// Get the list of group membership applications sent by the user
-  Future<List<GroupApplicationInfo>> getGroupApplicationListAsApplicant({String? operationID}) => _channel
-      .invokeMethod(
-          'getGroupApplicationListAsApplicant',
-          _buildParam({
-            'operationID': Utils.checkOperationID(operationID),
-          }))
-      .then((value) => Utils.toList(value, (map) => GroupApplicationInfo.fromJson(map)));
+  Future<List<GroupApplicationInfo>> getGroupApplicationListAsApplicant(
+          {String? operationID}) =>
+      _channel
+          .invokeMethod(
+              'getGroupApplicationListAsApplicant',
+              _buildParam({
+                'operationID': Utils.checkOperationID(operationID),
+              }))
+          .then((value) =>
+              Utils.toList(value, (map) => GroupApplicationInfo.fromJson(map)));
 
   /// Accept a group membership application as an administrator or group owner
   /// Note: Membership applications require approval from administrators or the group.
@@ -392,7 +405,8 @@ class GroupManager {
                 },
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (map) => GroupInfo.fromJson(map)));
+          .then(
+              (value) => Utils.toList(value, (map) => GroupInfo.fromJson(map)));
 
   /// Set group member role
   /// [groupID] Group ID
@@ -435,7 +449,8 @@ class GroupManager {
                 'excludeUserIDList': filterUserIDList,
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
+          .then((value) =>
+              Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
 
   /// Set group verification for joining
   /// [groupID] Group ID
@@ -498,7 +513,8 @@ class GroupManager {
                 'groupID': groupID,
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
+          .then((value) =>
+              Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
 
   /// Search for group members
   /// [groupID] Group ID
@@ -530,7 +546,8 @@ class GroupManager {
                 },
                 'operationID': Utils.checkOperationID(operationID),
               }))
-          .then((value) => Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
+          .then((value) =>
+              Utils.toList(value, (map) => GroupMembersInfo.fromJson(map)));
 
   /// Query a group
   /// [groupID] Group ID

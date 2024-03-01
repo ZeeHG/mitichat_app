@@ -69,10 +69,11 @@ class RegisterPage extends StatelessWidget {
             ),
             10.verticalSpace,
             Button(
-              text: logic.phoneRegister? StrRes.useEmailRegister : StrRes.usePhoneRegister,
-              textStyle: Styles.ts_333333_16sp,
-              enabledColor: Styles.c_FFFFFF,
-              borderColor: Styles.c_8443F8,
+              text: logic.phoneRegister
+                  ? StrRes.useEmailRegister
+                  : StrRes.usePhoneRegister,
+              enabledColor: Styles.c_D9DCE3_opacity40,
+              textStyle: Styles.ts_8443F8_16sp,
               onTap: logic.switchType,
             )
           ],

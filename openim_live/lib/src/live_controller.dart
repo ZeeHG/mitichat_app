@@ -12,6 +12,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:uuid/uuid.dart';
+import 'package:vibration/vibration.dart';
 
 import '../openim_live.dart';
 
@@ -96,9 +97,6 @@ mixin OpenIMLive {
   }
 
   onInitLive() async {
-    // if (Platform.isAndroid) {
-    //   Permissions.request([Permission.systemAlertWindow]);
-    // }
     _signalingListener();
     _insertSignalingMessageListener();
     // 后台通话
@@ -123,7 +121,8 @@ mixin OpenIMLive {
       },
       onReject: () async {
         // 点击系统桌面浮窗的拒绝按钮
-        await onTapReject(_beCalledEvent!.data..userID = OpenIM.iMManager.userID);
+        await onTapReject(
+            _beCalledEvent!.data..userID = OpenIM.iMManager.userID);
         // 重置拨号状态
         _beCalledEvent = null;
       },
@@ -138,17 +137,21 @@ mixin OpenIMLive {
   }
 
   /// 拦截其他干扰信令
-  Stream<CallEvent> get _stream => signalingSubject.stream /*.where((event) => LiveClient.dispatchSignaling(event))*/;
+  Stream<CallEvent> get _stream => signalingSubject
+      .stream /*.where((event) => LiveClient.dispatchSignaling(event))*/;
 
   _signalingListener() => _stream.listen(
         (event) async {
           _beCalledEvent = null;
           if (event.state == CallState.beCalled) {
-            _playSound();
+            _playSound(vibrate: true);
             final mediaType = event.data.invitation!.mediaType;
             final sessionType = event.data.invitation!.sessionType;
-            final callType = mediaType == 'audio' ? CallType.audio : CallType.video;
-            final callObj = sessionType == ConversationType.single ? CallObj.single : CallObj.group;
+            final callType =
+                mediaType == 'audio' ? CallType.audio : CallType.video;
+            final callObj = sessionType == ConversationType.single
+                ? CallObj.single
+                : CallObj.group;
 
             if (Platform.isAndroid && _isRunningBackground) {
               // 记录拨号状态
@@ -160,8 +163,12 @@ mixin OpenIMLive {
                 );
                 // 后台弹框
                 FlutterOpenimLiveAlert.showLiveAlert(
-                  title:
-                      sprintf(StrRes.inviteYouCall, [list.firstOrNull?.nickname, callType == CallType.audio ? StrRes.callVoice : StrRes.callVideo]),
+                  title: sprintf(StrRes.inviteYouCall, [
+                    list.firstOrNull?.nickname,
+                    callType == CallType.audio
+                        ? StrRes.callVoice
+                        : StrRes.callVideo
+                  ]),
                   rejectText: StrRes.rejectCall,
                   acceptText: StrRes.acceptCall,
                 );
@@ -195,7 +202,7 @@ mixin OpenIMLive {
                 duration,
                 isPositive,
               ),
-              onError: onError,
+              onError: (e, s) => onError(e, s, extMessage: "重置通话错误"),
               onRoomDisconnected: () => onRoomDisconnected(event.data),
             );
           } else if (event.state == CallState.beRejected) {
@@ -217,14 +224,19 @@ mixin OpenIMLive {
           } else if (event.state == CallState.beAccepted) {
             // 被接听
             _stopSound();
-          } else if (event.state == CallState.otherReject || event.state == CallState.otherAccepted) {
+          } else if (event.state == CallState.otherReject ||
+              event.state == CallState.otherAccepted) {
             // 被其他设备接听
             _stopSound();
           } else if (event.state == CallState.timeout) {
             // 超时无响应
             _stopSound();
             insertSignalingMessageSubject.add(event);
-            onTimeoutCancelled(event.data);
+            final sessionType = event.data.invitation!.sessionType;
+
+            if (sessionType == 1) {
+              onTimeoutCancelled(event.data);
+            }
           }
         },
       );
@@ -289,23 +301,37 @@ mixin OpenIMLive {
       onSyncGroupInfo: onSyncGroupInfo,
       onSyncGroupMemberInfo: onSyncGroupMemberInfo,
       onWaitingAccept: () {
-        if (callObj == CallObj.single) _playSound();
+        if (callObj == CallObj.single) _playSound(vibrate: false);
       },
       onBusyLine: onBusyLine,
       onStartCalling: () {
         _stopSound();
       },
-      onError: onError,
+      onError: (e, s) => onError(e, s, extMessage: "开始拨打通话错误, call"),
       onRoomDisconnected: () => onRoomDisconnected(signal),
       onClose: _stopSound,
     );
   }
 
-  onError(error, stack) {
+  onError(error, stack, {String extMessage = ""}) {
+    myLogger.e({
+      "message": "通话错误",
+      "extMessage": extMessage,
+      "error": error,
+      stack: stack
+    });
     Logger.print('onError=====> $error $stack');
     OpenIMLiveClient().close();
     _stopSound();
     if (error is PlatformException) {
+      myLogger.e({
+        "message": "通话错误详情",
+        "error": {
+          "code": int.parse(error.code),
+          "details": error.details,
+          "message": error.message
+        }
+      });
       if (int.parse(error.code) == SDKErrorCode.hasBeenBlocked) {
         IMViews.showToast(StrRes.callFail);
         return;
@@ -321,29 +347,59 @@ mixin OpenIMLive {
   }
 
   /// 拨向单人
-  Future<SignalingCertificate> onDialSingle(SignalingInfo signaling) => OpenIM.iMManager.signalingManager
-      .signalingInvite(
-        info: signaling
-          ..invitation?.timeout = 30
-          ..offlinePushInfo = (Config.offlinePushInfo..title = StrRes.offlineCallMessage),
-      )
-      .catchError(onError);
+  Future<SignalingCertificate> onDialSingle(SignalingInfo signaling) {
+    final isAudio = signaling.invitation?.mediaType == CallType.audio;
+    return OpenIM.iMManager.signalingManager
+        .signalingInvite(
+          info: signaling
+            ..invitation?.timeout = 30
+            ..offlinePushInfo = (Config.offlinePushInfo
+              ..iOSPushSound = "live_ring.wav"
+              ..title = OpenIM.iMManager.userInfo.nickname
+              ..desc = (isAudio
+                  ? '[${StrRes.callVoice}]'
+                  : '[${StrRes.callVideo}]')),
+        )
+        .catchError((e, s) =>
+            onError(e, s, extMessage: "发起单人通话room邀请错误, onDialSingle"));
+  }
 
   /// 拨向多人
-  Future<SignalingCertificate> onDialGroup(SignalingInfo signaling) => OpenIM.iMManager.signalingManager
-      .signalingInviteInGroup(
-        info: signaling
-          ..invitation?.timeout = 30
-          ..offlinePushInfo = (Config.offlinePushInfo..title = StrRes.offlineCallMessage),
-      )
-      .catchError(onError);
+  Future<SignalingCertificate> onDialGroup(SignalingInfo signaling) async {
+    final isAudio = signaling.invitation?.mediaType == CallType.audio;
+    final groupId = signaling.invitation?.groupID;
+    final list = await OpenIM.iMManager.groupManager.getJoinedGroupList();
+    final groupInfo = list.firstWhere((element) => element.groupID == groupId);
+    final memberList = await OpenIM.iMManager.groupManager.getGroupMemberList(
+      groupID: groupInfo.groupID,
+      count: 999,
+    );
+    final member = memberList.firstWhere(
+        (element) => element.userID == signaling.invitation?.inviterUserID);
+
+    return OpenIM.iMManager.signalingManager
+        .signalingInviteInGroup(
+          info: signaling
+            ..invitation?.timeout = 30
+            ..offlinePushInfo = (Config.offlinePushInfo
+              ..iOSPushSound = "live_ring.wav"
+              ..title = (groupInfo.groupName ?? StrRes.offlineCallMessage)
+              ..desc =
+                  "${member.nickname ?? StrRes.friend}: ${isAudio ? '[${StrRes.callVoice}]' : '[${StrRes.callVideo}]'}"),
+        )
+        .catchError(
+            (e, s) => onError(e, s, extMessage: "发起多人通话room邀请错误, onDialGroup"));
+  }
 
   /// 接听
   Future<SignalingCertificate> onTapPickup(SignalingInfo signaling) {
     _beCalledEvent = null; // ios bug
     _autoPickup = false;
     _stopSound();
-    return OpenIM.iMManager.signalingManager.signalingAccept(info: signaling).catchError(onError);
+    return OpenIM.iMManager.signalingManager
+        .signalingAccept(info: signaling)
+        .catchError(
+            (e, s) => onError(e, s, extMessage: "同意接听通话错误, onTapPickup"));
   }
 
   /// 拒绝
@@ -362,7 +418,8 @@ mixin OpenIMLive {
   }
 
   /// 超时取消
-  onTimeoutCancelled(SignalingInfo signaling) => OpenIM.iMManager.signalingManager.signalingCancel(
+  onTimeoutCancelled(SignalingInfo signaling) =>
+      OpenIM.iMManager.signalingManager.signalingCancel(
         info: signaling..userID = OpenIM.iMManager.userID,
       );
 
@@ -408,7 +465,8 @@ mixin OpenIMLive {
   }
 
   /// 同步群成员信息
-  Future<List<GroupMembersInfo>> onSyncGroupMemberInfo(groupID, userIDList) async {
+  Future<List<GroupMembersInfo>> onSyncGroupMemberInfo(
+      groupID, userIDList) async {
     var list = await OpenIM.iMManager.groupManager.getGroupMembersInfo(
       groupID: groupID,
       userIDList: userIDList,
@@ -450,7 +508,8 @@ mixin OpenIMLive {
               receiverID = inviteeUserID;
             }
 
-            var msg = await OpenIM.iMManager.messageManager.insertSingleMessageToLocalStorage(
+            var msg = await OpenIM.iMManager.messageManager
+                .insertSingleMessageToLocalStorage(
               receiverID: inviteeUserID,
               senderID: inviterUserID,
               // receiverID: receiverID,
@@ -460,7 +519,8 @@ mixin OpenIMLive {
                 ..isRead = true,
             );
 
-            onSignalingMessage?.call(SignalingMessageEvent(msg, 1, receiverID, null));
+            onSignalingMessage
+                ?.call(SignalingMessageEvent(msg, 1, receiverID, null));
             // signalingMessageSubject.add(
             //   SignalingMessageEvent(msg, 1, receiverID, null),
             // );
@@ -483,12 +543,25 @@ mixin OpenIMLive {
   }
 
   /// 播放提示音
-  void _playSound() async {
+  void _playSound({bool vibrate = false}) async {
     if (!_audioPlayer.playerState.playing) {
       _audioPlayer.setAsset(_ring, package: 'openim_common');
       _audioPlayer.setLoopMode(LoopMode.one);
       _audioPlayer.setVolume(1.0);
       _audioPlayer.play();
+
+      if (vibrate) {
+        try {
+          int n = 30;
+          List<int> pattern = [
+            0,
+            ...List.generate(n * 2, (index) => index % 2 == 0 ? 1000 : 500)
+          ];
+          Vibration.vibrate(pattern: pattern);
+        } catch (e) {
+          myLogger.e({"设备不支持震动"});
+        }
+      }
     }
   }
 
@@ -496,6 +569,11 @@ mixin OpenIMLive {
   void _stopSound() async {
     if (_audioPlayer.playerState.playing) {
       _audioPlayer.stop();
+    }
+    try {
+      Vibration.cancel();
+    } catch (e) {
+      myLogger.e({"震动关闭失败"});
     }
   }
 
@@ -513,7 +591,9 @@ mixin OpenIMLive {
     var isMeCall = inviterUserID == OpenIM.iMManager.userID;
     var userID = isMeCall ? inviteeUserID : inviterUserID!;
     var incomingCall = isMeCall ? false : true;
-    var userInfo = (await OpenIM.iMManager.userManager.getUsersInfo(userIDList: [userID])).firstOrNull;
+    var userInfo =
+        (await OpenIM.iMManager.userManager.getUsersInfo(userIDList: [userID]))
+            .firstOrNull;
     if (null == userInfo) return;
     final cache = Get.find<CacheController>();
     cache.addCallRecords(CallRecords(
@@ -546,5 +626,7 @@ class SignalingMessageEvent {
   bool get isSingleChat => sessionType == ConversationType.single;
 
   /// 群聊消息
-  bool get isGroupChat => sessionType == ConversationType.group || sessionType == ConversationType.superGroup;
+  bool get isGroupChat =>
+      sessionType == ConversationType.group ||
+      sessionType == ConversationType.superGroup;
 }

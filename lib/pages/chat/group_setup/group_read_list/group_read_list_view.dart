@@ -21,6 +21,7 @@ class GroupReadListPage extends StatelessWidget {
       body: Obx(() => Column(
             children: [
               CustomTabBar(
+                width: 1.sw,
                 labels: [
                   sprintf(StrRes.unreadCount, [logic.unreadCount]),
                   sprintf(StrRes.hasReadCount, [logic.hasReadCount]),

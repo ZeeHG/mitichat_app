@@ -21,7 +21,8 @@ class AppNavigator {
     Get.offAllNamed(AppRoutes.login);
   }
 
-  static void startLoginWithoutOff({bool isAddAccount = false, String server = Config.host}) {
+  static void startLoginWithoutOff(
+      {bool isAddAccount = false, String server = Config.host}) {
     Get.toNamed(
       AppRoutes.login,
       arguments: {'isAddAccount': isAddAccount, "server": server},
@@ -182,10 +183,9 @@ class AppNavigator {
 
   static startMyInfo() => Get.toNamed(AppRoutes.myInfo);
 
-  static startEditMyInfo({
-    EditAttr attr = EditAttr.nickname,
-  }) =>
-      Get.toNamed(AppRoutes.editMyInfo, arguments: {'editAttr': attr});
+  static startEditMyInfo({EditAttr attr = EditAttr.nickname, int? maxLength}) =>
+      Get.toNamed(AppRoutes.editMyInfo,
+          arguments: {'editAttr': attr, 'maxLength': maxLength});
 
   static startAccountSetup() => Get.toNamed(AppRoutes.accountSetup);
 
@@ -402,7 +402,12 @@ class AppNavigator {
 
   static startCallRecords() => Get.toNamed(AppRoutes.callRecords);
 
-  static startRegister({bool isAddAccount = false, String server = Config.host}) => Get.toNamed(AppRoutes.register, arguments: {'isAddAccount': isAddAccount, "server": server},);
+  static startRegister(
+          {bool isAddAccount = false, String server = Config.host}) =>
+      Get.toNamed(
+        AppRoutes.register,
+        arguments: {'isAddAccount': isAddAccount, "server": server},
+      );
 
   static void startVerifyPhone({
     String? phoneNumber,
@@ -454,7 +459,12 @@ class AppNavigator {
         'invitationCode': invitationCode
       });
 
-  static startForgetPassword({bool isAddAccount = false, String server = Config.host}) => Get.toNamed(AppRoutes.forgetPassword, arguments: {'isAddAccount': isAddAccount, "server": server},);
+  static startForgetPassword(
+          {bool isAddAccount = false, String server = Config.host}) =>
+      Get.toNamed(
+        AppRoutes.forgetPassword,
+        arguments: {'isAddAccount': isAddAccount, "server": server},
+      );
 
   /// [usedFor] 1：注册，2：重置密码 3：登录
   static void startResetPassword({
@@ -542,4 +552,37 @@ class AppNavigator {
   static startInvite() => Get.toNamed(AppRoutes.invite);
 
   static startInviteRecords() => Get.toNamed(AppRoutes.inviteRecords);
+
+  static startXhs() => Get.toNamed(AppRoutes.xhs);
+  static startMyAi() => Get.toNamed(AppRoutes.myAi);
+
+  static startSearchMyAi() => Get.toNamed(AppRoutes.searchMyAi);
+
+  static startTrainAi(
+      {required String userID,
+      required String? faceURL,
+      required String showName,
+      required Ai ai,
+      bool offAndToNamed = false}) {
+    final arguments = {
+      'userID': userID,
+      'faceURL': faceURL,
+      'showName': showName,
+      'ai': ai
+    };
+
+    return offAndToNamed
+        ? Get.offAndToNamed(AppRoutes.trainAi, arguments: arguments)
+        : Get.toNamed(
+            AppRoutes.trainAi,
+            arguments: arguments,
+          );
+  }
+
+  static startKnowledgeFiles({required Knowledgebase knowledgebase}) =>
+      Get.toNamed(AppRoutes.knowledgeFiles, arguments: {"knowledgebase": knowledgebase});
+  
+  static startXhsMomentDetail({required WorkMoments xhsMoment}) =>
+      Get.toNamed(AppRoutes.xhsMomentDetail,
+          arguments: {"xhsMoment": xhsMoment});
 }

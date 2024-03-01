@@ -27,6 +27,8 @@ class Styles {
   static Color c_0089FF = const Color(0xFF0089FF);
   static Color c_0C1C33 = const Color(0xFF0C1C33);
   static Color c_8E9AB0 = const Color(0xFF8E9AB0);
+  static Color c_2C2C2C = const Color(0xFF2C2C2C);
+  static Color c_CDCDCD = const Color(0xFFCDCDCD);
 
   static Color c_92B3E0_opacity50 = c_92B3E0.withOpacity(.5); // 气泡背景
   static Color c_E8EAEF_opacity50 = c_E8EAEF.withOpacity(.5);
@@ -63,6 +65,8 @@ class Styles {
   static Color c_32C5FF = const Color(0xFF32C5FF);
   static Color c_B620E0 = const Color(0xFFB620E0);
   static Color c_F7B500 = const Color(0xFFF7B500);
+  static Color c_DDDDDD = const Color(0xFFDDDDDD);
+  static Color c_767676= const Color(0xFF767676);
 
   // static Color c_E8EAEF_opacity30 = c_E8EAEF.withOpacity(.3); // 默认背景
 
@@ -91,6 +95,7 @@ class Styles {
   static Color c_F7F7F7_opacity90 = c_F7F7F7.withOpacity(.90);
   static Color c_8443F8_opacity10 = c_8443F8.withOpacity(.1);
   static Color c_8443F8_opacity20 = c_8443F8.withOpacity(.2);
+  static Color c_8443F8_opacity40 = c_8443F8.withOpacity(.4);
   static Color c_8443F8_opacity50 = c_8443F8.withOpacity(.5);
   static Color c_FF4E4C_opacity10 = c_FF4E4C.withOpacity(.1);
   static Color c_999999_opacity13 = c_999999.withOpacity(.13);
@@ -354,6 +359,11 @@ class Styles {
     color: c_999999,
     fontSize: 12.sp,
   );
+  static TextStyle ts_999999_12sp_medium = TextStyle(
+    color: c_999999,
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w500,
+  );
   static TextStyle ts_999999_13sp = TextStyle(
     color: c_999999,
     fontSize: 13.sp,
@@ -527,6 +537,16 @@ class Styles {
     color: c_8443F8,
     fontSize: 18.sp,
   );
+  static TextStyle ts_8443F8_18sp_medium = TextStyle(
+    color: c_8443F8,
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w500,
+  );
+  static TextStyle ts_8443F8_18sp_bold = TextStyle(
+    color: c_8443F8,
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w700,
+  );
   static TextStyle ts_8443F8_22sp_semibold = TextStyle(
     color: c_8443F8,
     fontSize: 22.sp,
@@ -606,9 +626,19 @@ class Styles {
   );
 
   // 4B3230
+  static TextStyle ts_4B3230_12sp = TextStyle(
+    color: c_4B3230,
+    fontSize: 12.sp,
+  );
   static TextStyle ts_4B3230_16sp = TextStyle(
     color: c_4B3230,
     fontSize: 16.sp,
+  );
+
+  static TextStyle ts_4B3230_16sp_medium = TextStyle(
+    color: c_4B3230,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w500,
   );
 
   static TextStyle ts_4B3230_18sp = TextStyle(
@@ -661,6 +691,11 @@ class Styles {
     fontSize: 12.sp,
   );
 
+  static TextStyle ts_666666_16sp = TextStyle(
+    color: c_666666,
+    fontSize: 16.sp,
+  );
+
   // c_9280B3
   static TextStyle ts_9280B3_14sp = TextStyle(
     color: c_9280B3,
@@ -703,5 +738,26 @@ class Styles {
   static TextStyle ts_343434_12p = TextStyle(
     color: c_343434,
     fontSize: 12.sp,
+  );
+
+  static TextStyle ts_343434_18p_medium = TextStyle(
+    color: c_343434,
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle ts_666666_14sp = TextStyle(
+    color: c_666666,
+    fontSize: 14.sp,
+  );
+  static TextStyle ts_343434_16p_medium = TextStyle(
+    color: c_343434,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle ts_2C2C2C_16sp = TextStyle(
+    color: c_2C2C2C,
+    fontSize: 16.sp,
   );
 }

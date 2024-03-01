@@ -25,7 +25,7 @@ class AddContactsBySearchPage extends StatelessWidget {
             focusNode: logic.focusNode,
             controller: logic.searchCtrl,
             hintText: logic.isSearchUser
-                ? StrRes.searchIDAddFriend
+                ? StrRes.searchByPhoneAndUid
                 : StrRes.searchIDAddGroup,
             enabled: true,
             autofocus: true,
@@ -85,14 +85,11 @@ class AddContactsBySearchPage extends StatelessWidget {
                 ..width = 24.w
                 ..height = 24.h,
               12.horizontalSpace,
-              sprintf(
-                  logic.isSearchUser
-                      ? StrRes.searchNicknameIs
-                      : StrRes.searchGroupNicknameIs,
-                  [logic.getShowName(info)]).toText
-                ..style = Styles.ts_9280B3_16sp
-                ..maxLines = 1
-                ..overflow = TextOverflow.ellipsis,
+              Expanded(
+                  child: logic.getShowTitle(info).toText
+                    ..style = Styles.ts_9280B3_16sp
+                    ..maxLines = 1
+                    ..overflow = TextOverflow.ellipsis),
             ],
           ),
         ),

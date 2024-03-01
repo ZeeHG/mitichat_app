@@ -14,11 +14,24 @@ class ConversationUtil extends GetxController {
   updateStore(String conversationID, {int? waitingST = -1}) {
     final key = getKey(conversationID);
     DataSp.putConversationStore({
-      key: ConversationConfig.fromJson({"key": key, "conversationID": conversationID, "waitingST": waitingST})
+      key: ConversationConfig.fromJson({
+        "key": key,
+        "conversationID": conversationID,
+        "waitingST": waitingST
+      })
     });
   }
 
   getConversationStoreById(String conversationID) {
     return DataSp.getConversationStore()?[getKey(conversationID)];
+  }
+
+  resetAllWaitingST() {
+    final store = DataSp.getConversationStore();
+    if (null != store) {
+      store.forEach((key, value) {
+        updateStore(value.conversationID, waitingST: -1);
+      });
+    }
   }
 }

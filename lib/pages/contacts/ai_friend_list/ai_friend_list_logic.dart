@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
@@ -19,6 +20,22 @@ class AiFriendListLogic extends GetxController {
   late StreamSubscription infoChangedSub;
   final aiUtil = Get.find<AiUtil>();
 
+  List<Map<String, dynamic>> get menus => [
+        // {
+        //   "key": "createAi",
+        //   "text": StrRes.createAi,
+        //   "color": Styles.c_8544F8,
+        //   "shadowColor": Color.fromRGBO(0, 203, 197, 0.5),
+        // },
+        {
+          "key": "trainAi",
+          "text": StrRes.trainAi,
+          "color": Styles.c_FEA836,
+          "shadowColor": Color.fromRGBO(254, 168, 54, 0.5),
+          "onTap": () => myAi()
+        },
+      ];
+
   @override
   void onInit() {
     delSub = imLogic.friendDelSubject.listen(_delFriend);
@@ -32,7 +49,9 @@ class AiFriendListLogic extends GetxController {
 
   @override
   void onReady() {
-    _getFriendList();
+    LoadingView.singleton.wrap(asyncFunction: () async {
+      await _getFriendList();
+    });
     super.onReady();
   }
 
@@ -44,7 +63,10 @@ class AiFriendListLogic extends GetxController {
     super.onClose();
   }
 
-  _getFriendList() async {
+  void myAi() => AppNavigator.startMyAi();
+
+  Future<void> _getFriendList() async {
+    await aiUtil.queryAiList();
     final list = await OpenIM.iMManager.friendshipManager
         .getFriendListMap()
         .then((list) => list.where(_filterBlacklist))

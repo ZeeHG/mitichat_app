@@ -10,7 +10,7 @@ class FakeSearchBox extends StatelessWidget {
       double? height,
       Color? color,
       double? borderRadius})
-      : width = width ?? 351.w,
+      : width = width ?? 350.w,
         height = height ?? 35.h,
         color = color ?? Styles.c_F7F7F7,
         borderRadius = borderRadius ?? 6.r,

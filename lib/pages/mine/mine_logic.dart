@@ -35,6 +35,7 @@ class MineLogic extends GetxController {
           await DataSp.removeLoginCertificate();
           pushLogic.logout();
         });
+        imLogic.reBuildSubject();
         AppNavigator.startLogin();
       } catch (e) {
         IMViews.showToast('e:$e');

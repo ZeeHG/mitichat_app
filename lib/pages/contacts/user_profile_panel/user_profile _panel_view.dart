@@ -128,7 +128,7 @@ class UserProfilePanelPage extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Expanded(child: logic.getShowName().toText
+                      Flexible(child: logic.getShowName().toText
                         ..style = Styles.ts_4B3230_18sp
                         ..maxLines = 1
                         ..overflow = TextOverflow.ellipsis,),
@@ -146,12 +146,12 @@ class UserProfilePanelPage extends StatelessWidget {
                   if (!logic.isGroupMemberPage ||
                       logic.isGroupMemberPage &&
                           !logic.notAllowAddGroupMemberFriend.value)
-                    Padding(
-                      padding: EdgeInsets.only(top: 11.h),
-                      child: (logic.userInfo.value.userID ?? '').toText
-                        ..style = Styles.ts_B3AAAA_14sp
-                        ..onTap = logic.copyID,
-                    ),
+                    ...[
+                      5.verticalSpace,
+                      (logic.userInfo.value.userID ?? '').toText
+                      ..style = Styles.ts_B3AAAA_14sp
+                      ..onTap = logic.copyID
+                    ]
                 ],
               ),
             ),

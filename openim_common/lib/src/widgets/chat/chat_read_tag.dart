@@ -8,9 +8,11 @@ class ChatReadTagView extends StatelessWidget {
     Key? key,
     required this.message,
     this.onTap,
+    this.showRead,
   }) : super(key: key);
   final Message message;
   final Function()? onTap;
+  final bool? showRead;
 
   int get _needReadMemberCount {
     final hasReadCount =
@@ -28,8 +30,8 @@ class ChatReadTagView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (message.isSingleChat) {
-      return (isRead ? StrRes.hasRead : StrRes.unread).toText
-        ..style = (isRead ? Styles.ts_999999_12sp : Styles.ts_8443F8_12sp);
+      return ((showRead ?? isRead) ? StrRes.hasRead : StrRes.unread).toText
+        ..style = ((showRead ?? isRead) ? Styles.ts_999999_12sp : Styles.ts_8443F8_12sp);
     } else {
       if (_needReadMemberCount == 0) return const SizedBox();
       bool isAllRead = _unreadCount <= 0;

@@ -65,5 +65,20 @@ class Urls {
 
   static String get checkServerValid => '/client_config/get';
 
-  static String get getBots => '${Config.appAuthUrl}/get_bots';
+  static String get getBots => '${Config.appAuthUrl}/bot/find/public';
+
+  static String get getMyAi => '${Config.appAuthUrl}/bot/find/mine';
+
+  static String get getKnowledgeFiles => '${Config.appAuthUrl}/bot/get_knowledge_files';
+
+  static String get addKnowledge =>
+      '${Config.appAuthUrl}/bot/add_knowledge';
+
+  static String get getMyAiTask =>
+      '${Config.appAuthUrl}/bot/task/get/mine';
+
+  static String get getBotKnowledgebases => '${Config.appAuthUrl}/knowledgebase/get_bot_knowledgebases';
+
+  static String get addActionRecord =>
+      '${Config.appAuthUrl}/action_record/add';
 }

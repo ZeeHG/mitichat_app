@@ -194,14 +194,15 @@ class ImageRes {
   static const forwardIcon = '$_dir/ic_forward_icon.webp';
   static const saveIcon = '$_dir/ic_save_icon.webp';
 
-
   // 新增
   static const splashLogo = "$_dir/app_logo.png";
   static const loginLogo = "$_dir/app_logo.png";
   static const checked = "$_dir/app_checked.png";
   static const workingCircleHeaderBg = "$_dir/ic_working_circle_header_bg.png";
-  static const workingCircleHeaderBg2 = "$_dir/ic_working_circle_header_bg2.png";
-  static const workingCircleHeaderBg3 = "$_dir/ic_working_circle_header_bg3.png";
+  static const workingCircleHeaderBg2 =
+      "$_dir/ic_working_circle_header_bg2.png";
+  static const workingCircleHeaderBg3 =
+      "$_dir/ic_working_circle_header_bg3.png";
   static const splash = "$_dir/splash.png";
   static const logo2 = "$_dir/logo2.png";
   static const logo3 = "$_dir/logo3.png";
@@ -211,6 +212,7 @@ class ImageRes {
   static const appHomeTab3Nor = "$_dir/app_home_tab3_nor.png";
   static const appHomeTab3NorOld = "$_dir/app_home_tab3_nor_old.png";
   static const appHomeTab3Nor2 = "$_dir/app_home_tab3_nor2.png";
+  static const appHomeTab3Sel2 = "$_dir/app_home_tab3_sel2.png";
   static const appHomeTab3Nor3 = "$_dir/app_home_tab3_nor3.png";
   static const appHomeTab4Nor = "$_dir/app_home_tab4_nor.png";
   static const appHomeTab4Nor2 = "$_dir/app_home_tab4_nor2.png";
@@ -297,5 +299,21 @@ class ImageRes {
   static const appMyPoints = "$_dir/app_my_points.png";
   static const appMyPointsBg = "$_dir/app_my_points_bg.png";
   static const appSemicircle = "$_dir/app_semicircle.png";
+  static const appSignInTask = "$_dir/app_sign_in_task.png";
+  static const appInviteTask = "$_dir/app_invite_task.png";
+  static const appChatTask = "$_dir/app_chat_task.png";
+  static const appUnfold = "$_dir/app_unfold.png";
   static const appToolboxSearch = "$_dir/app_toolbox_search.png";
+  static const files = "$_dir/files.png";
+  static const add = "$_dir/add.png";
+  static const dialogSuccess = "$_dir/dialog_success.png";
+  static const like = "$_dir/like.png";
+  static const like2 = "$_dir/like2.png";
+  static const likeActive = "$_dir/like_active.png";
+  static const collect = "$_dir/collect.png";
+  static const comment = "$_dir/comment.png";
+  static const editComment = "$_dir/edit_comment.png";
+  static const reprintArticle = "$_dir/reprint_article.png";
+  static const loading = "$_dir/loading.gif";
+  static const addFriendTobeGroup2 = "$_dir/ic_add_friend_tobe_group2.png";
 }

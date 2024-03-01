@@ -16,7 +16,7 @@ class MyPointsPage extends StatelessWidget {
       appBar: TitleBar2.back(
           title: StrRes.myPoints,
           backgroundColor: Styles.c_E5E4F6,
-          right: StrRes.pointRules.toText
+          right: StrRes.rulesTitle.toText
             ..style = Styles.ts_333333_16sp
             ..onTap = logic.pointRules),
       backgroundColor: Styles.c_E5E4F6,
@@ -38,7 +38,10 @@ class MyPointsPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: Column(
                     children: [
-                      50.verticalSpace,
+                      "aaa".toText..onTap=logic.inviteRecords,
+                      10.verticalSpace,
+                      "aaa".toText..onTap = logic.inviteRecords,
+                      30.verticalSpace,
                       Text(logic.aaa.value),
                       Center(
                         child: ShaderMask(
@@ -84,15 +87,15 @@ class MyPointsPage extends StatelessWidget {
                                 child: RichText(
                                   text: TextSpan(children: [
                                     TextSpan(
-                                      text: '已连续签到 ',
+                                      text: StrRes.consecutiveSignIn + " ",
                                       style: Styles.ts_343434_12p,
                                     ),
                                     TextSpan(
                                       text: '1',
-                                      style: Styles.ts_8443F8_18sp,
+                                      style: Styles.ts_8443F8_18sp_bold,
                                     ),
                                     TextSpan(
-                                      text: ' 天',
+                                      text: " " + StrRes.day,
                                       style: Styles.ts_343434_12p,
                                     ),
                                   ]),
@@ -119,52 +122,254 @@ class MyPointsPage extends StatelessWidget {
                             15.verticalSpace,
                             Row(
                               children: [
+                                ImageRes.appSemicircle.toImage..width = 5.w,
                                 10.horizontalSpace,
-                                "米粒获取".toText..style=Styles.ts_333333_16sp_medium
+                                StrRes.earningTitle.toText
+                                  ..style = Styles.ts_333333_16sp_medium
                               ],
                             ),
+                            16.verticalSpace,
                             Container(
-                              height: 38.h,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  stops: [0, 0.51, 1],
-                                  colors: [
-                                    Styles.c_F7B500_opacity10,
-                                    Styles.c_B620E0_opacity10,
-                                    Styles.c_32C5FF_opacity10,
-                                  ],
-                                ),
-                              ),
-                              child: Center(
-                                child: RichText(
-                                  text: TextSpan(children: [
-                                    TextSpan(
-                                      text: '已连续签到 ',
-                                      style: Styles.ts_343434_12p,
-                                    ),
-                                    TextSpan(
-                                      text: '1',
-                                      style: Styles.ts_8443F8_18sp,
-                                    ),
-                                    TextSpan(
-                                      text: ' 天',
-                                      style: Styles.ts_343434_12p,
-                                    ),
-                                  ]),
-                                ),
+                              width: 1.sw - 60.w,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      ImageRes.appSignInTask.toImage
+                                        ..width = 36.w,
+                                      10.horizontalSpace,
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          StrRes.dailySignIn.toText
+                                            ..style =
+                                                Styles.ts_333333_16sp_medium,
+                                          RichText(
+                                              text: TextSpan(children: [
+                                            TextSpan(
+                                                text: StrRes.mitiToken,
+                                                style: Styles.ts_999999_12sp),
+                                            TextSpan(
+                                                text: "+1",
+                                                style: Styles.ts_8443F8_12sp)
+                                          ]))
+                                        ],
+                                      ),
+                                      Spacer(),
+                                      GestureDetector(
+                                        behavior: HitTestBehavior.translucent,
+                                        child: Container(
+                                          height: 34.h,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 19.w),
+                                          decoration: BoxDecoration(
+                                              // color: Styles.c_32C5FF_opacity10,
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(21.r),
+                                              ),
+                                              border: Border.all(
+                                                color: Styles.c_8443F8,
+                                                width: 1.w,
+                                              )),
+                                          child: Center(
+                                              child: StrRes.signedIn.toText
+                                                ..style =
+                                                    Styles.ts_8443F8_14sp),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
                               ),
                             ),
+                            16.verticalSpace,
                             Container(
-                              height: 96.h,
-                            )
+                              width: 1.sw - 60.w,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      ImageRes.appInviteTask.toImage
+                                        ..width = 36.w,
+                                      10.horizontalSpace,
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          StrRes.inviteFriends.toText
+                                            ..style =
+                                                Styles.ts_333333_16sp_medium,
+                                          RichText(
+                                              text: TextSpan(children: [
+                                            TextSpan(
+                                                text: StrRes.mitiToken,
+                                                style: Styles.ts_999999_12sp),
+                                            TextSpan(
+                                                text: "+10",
+                                                style: Styles.ts_8443F8_12sp)
+                                          ]))
+                                        ],
+                                      ),
+                                      Spacer(),
+                                      GestureDetector(
+                                        behavior: HitTestBehavior.translucent,
+                                        child: Container(
+                                          height: 34.h,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 19.w),
+                                          decoration: BoxDecoration(
+                                              color: Styles.c_8443F8,
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(21.r),
+                                              ),
+                                              border: Border.all(
+                                                color: Styles.c_8443F8,
+                                                width: 1.w,
+                                              )),
+                                          child: Center(
+                                              child: StrRes.invite2.toText
+                                                ..style =
+                                                    Styles.ts_FFFFFF_14sp),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                            16.verticalSpace,
+                            Container(
+                              width: 1.sw - 60.w,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      ImageRes.appChatTask.toImage
+                                        ..width = 36.w,
+                                      10.horizontalSpace,
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          StrRes.aiAgentInteraction.toText
+                                            ..style =
+                                                Styles.ts_333333_16sp_medium,
+                                          RichText(
+                                              text: TextSpan(children: [
+                                            TextSpan(
+                                                text: StrRes.mitiToken,
+                                                style: Styles.ts_999999_12sp),
+                                            TextSpan(
+                                                text: "+1",
+                                                style: Styles.ts_8443F8_12sp)
+                                          ]))
+                                        ],
+                                      ),
+                                      Spacer(),
+                                      GestureDetector(
+                                        behavior: HitTestBehavior.translucent,
+                                        child: Container(
+                                          height: 34.h,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 19.w),
+                                          decoration: BoxDecoration(
+                                              color: Styles.c_8443F8,
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(21.r),
+                                              ),
+                                              border: Border.all(
+                                                color: Styles.c_8443F8,
+                                                width: 1.w,
+                                              )),
+                                          child: Center(
+                                              child: StrRes.interact.toText
+                                                ..style =
+                                                    Styles.ts_FFFFFF_14sp),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                            25.verticalSpace,
                           ],
                         ),
                       ),
+                      15.verticalSpace,
+                      Container(
+                          clipBehavior: Clip.hardEdge,
+                          decoration: BoxDecoration(
+                            color: Styles.c_FFFFFF_opacity95,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.r),
+                            ),
+                          ),
+                          child: Column(children: [
+                            15.verticalSpace,
+                            Row(
+                              children: [
+                                ImageRes.appSemicircle.toImage..width = 5.w,
+                                10.horizontalSpace,
+                                StrRes.history.toText
+                                  ..style = Styles.ts_333333_16sp_medium,
+                                Spacer(),
+                                GestureDetector(
+                                  behavior: HitTestBehavior.translucent,
+                                  onTap: logic.pointRecords,
+                                  child: Row(
+                                    children: [
+                                      StrRes.allRecords.toText
+                                        ..style = Styles.ts_999999_12sp,
+                                      ImageRes.appRightArrow.toImage
+                                        ..width = 16.w,
+                                      15.horizontalSpace
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            16.verticalSpace,
+                            ...List.generate(
+                                4,
+                                (index) => Container(
+                                      margin: EdgeInsets.only(bottom: 16.h),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 15.w),
+                                      child: Row(
+                                        children: [
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              StrRes.inviteFriends.toText
+                                                ..style = Styles
+                                                    .ts_333333_14sp_medium,
+                                              "2024-01-01".toText
+                                                ..style = Styles.ts_999999_12sp,
+                                            ],
+                                          ),
+                                          Spacer(),
+                                          "+5".toText
+                                            ..style =
+                                                Styles.ts_8443F8_18sp_medium,
+                                        ],
+                                      ),
+                                    )),
+                                    
+                          ])),
+                          16.verticalSpace
                     ],
                   ),
-                )
+                ),
+                
               ],
             ),
           )),

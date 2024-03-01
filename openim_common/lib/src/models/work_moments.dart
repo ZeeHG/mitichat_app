@@ -218,8 +218,17 @@ class Content {
   int? type;
   List<Metas>? metas;
   String? text;
+  String? title;
+  String? author;
+  String? originLink;
 
-  Content({this.type, this.metas, this.text});
+  Content(
+      {this.type,
+      this.metas,
+      this.text,
+      this.title,
+      this.author,
+      this.originLink});
 
   Content.fromJson(Map<String, dynamic> json) {
     type = json['type'];
@@ -230,6 +239,9 @@ class Content {
       });
     }
     text = json['text'];
+    title = json['title'];
+    author = json['author'];
+    originLink = json['originLink'];
   }
 
   Map<String, dynamic> toJson() {
@@ -239,6 +251,9 @@ class Content {
       data['metas'] = metas!.map((v) => v.toJson()).toList();
     }
     data['text'] = text;
+    data['title'] = title;
+    data['author'] = author;
+    data['originLink'] = originLink;
     return data;
   }
 }

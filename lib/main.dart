@@ -8,7 +8,7 @@ import 'app.dart';
 
 void main() async =>
     FlutterBugly.postCatchedException(() => Config.init(() async {
-          await dotenv.load(fileName: ".env");
+          // await dotenv.load(fileName: ".env");
           WidgetsFlutterBinding.ensureInitialized();
           await initLogger();
           // await initialization(null);

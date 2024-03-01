@@ -26,6 +26,7 @@ class SelectContactsFromSearchLogic extends CommonSearchLogic {
             ]));
     final friendList = result[0] as List<FriendInfo>;
     // final deptMemberList = result[1] as List<DeptMemberInfo>;
+    clearList();
     resultList
         // ..assignAll(deptMemberList)
         .addAll(friendList);

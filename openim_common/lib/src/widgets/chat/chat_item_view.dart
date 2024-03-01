@@ -135,11 +135,13 @@ class ChatItemView extends StatefulWidget {
     this.closePopMenuSubject,
     this.onClickItemView,
     this.fileDownloadProgressView,
+    this.showRead,
   }) : super(key: key);
   final ItemViewBuilder? mediaItemBuilder;
   final ItemViewBuilder? itemViewBuilder;
   final CustomTypeBuilder? customTypeBuilder;
   final NotificationTypeBuilder? notificationTypeBuilder;
+  final bool? showRead;
 
   // final Subject<Message> clickSubject;
   final Subject<MsgStreamEv<bool>>? sendStatusSubject;
@@ -696,7 +698,7 @@ class _ChatItemViewState extends State<ChatItemView> {
           _isISend &&
           _message.status == MessageStatus.succeeded
       ? ChatReadTagView(
-          message: _message, onTap: widget.onViewMessageReadStatus)
+          message: _message, onTap: widget.onViewMessageReadStatus, showRead: widget.showRead)
       : null;
 
   Widget? get _voiceReadStatusView => _message.isVoiceType && !_message.isRead!

@@ -3,6 +3,8 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:miti/pages/contacts/contacts_logic.dart';
+import 'package:miti/pages/xhs/xhs_logic.dart';
 import 'package:miti/utils/ai_util.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:openim_working_circle/openim_working_circle.dart';
@@ -33,15 +35,22 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
   final auth = LocalAuthentication();
   final _errorController = PublishSubject<String>();
   final aiUtil = Get.find<AiUtil>();
+  final xhsLogic = Get.find<XhsLogic>();
 
   Function()? onScrollToUnreadMessage;
 
-  switchTab(index) {
+  switchTab(dynamic index) {
     this.index.value = index;
+    if (index == 2) {
+      Apis.addActionRecord(actionRecordList: [
+        ActionRecord(category: ActionCategory.discover, actionName: ActionName.enter_discover)
+      ]);
+    }
   }
 
   void viewDiscover(index) async {
     await WNavigator.startWorkMomentsList();
+    xhsLogic.refreshWorkingCircleList();
     _getUnreadMomentsCount();
   }
 
@@ -132,6 +141,11 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
     getUnhandledGroupApplicationCount();
     cacheLogic.initCallRecords();
     cacheLogic.initFavoriteEmoji();
+    Future.delayed(Duration(milliseconds: 500), () {
+      PackageBridge.workingCircleBridge = this;
+      final contactsLogic = Get.find<ContactsLogic>();
+      contactsLogic.initPackageBridge();
+    });
     super.onReady();
   }
 
@@ -229,7 +243,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
         .getSignalingInvitationInfoStartApp();
     if (null != signalingInfo.invitation) {
       // 调用视频界面
-      // imLogic.receiveNewInvitation(signalingInfo);
+      imLogic.receiveNewInvitation(signalingInfo);
     }
   }
 

@@ -37,6 +37,7 @@ class MyInfoLogic extends GetxController {
 
   void editEmail() => AppNavigator.startEditMyInfo(
         attr: EditAttr.email,
+        maxLength: 64
       );
 
   void openPhotoSheet() {

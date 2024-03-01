@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti/utils/account_util.dart';
 import 'package:openim_common/openim_common.dart';
@@ -13,7 +14,9 @@ class AiUtil extends GetxController {
 
   String getKey(String aiUserID) => accountKey + "__" + aiUserID;
 
-  init() {
+  init() async{
+    // todo 暂时加上, 防止数据结构出错
+    await DataSp.clearAiStore();
     final store = DataSp.getAiStore();
     if (null != store) {
       aiStore.addAll(store);
@@ -51,14 +54,20 @@ class AiUtil extends GetxController {
     return false;
   }
 
+  bool isMyAi(Ai ai) {
+    return ai.createdBy == OpenIM.iMManager.userID;
+  }
+
   Future<bool?> queryAiList() async {
-    List<Ai> list = (await Apis.getBots())
+    List<Ai> list = ((await Apis.getBots())["bots"] ?? [])
         .map((e) {
           return Ai.fromJson({
-            "key": getKey(e["UserID"]),
-            "userID": e["UserID"],
-            "botID": e["BotID"],
-            "nickName": e["NickName"]
+            "key": getKey(e["userID"]),
+            "userID": e["userID"],
+            "botID": e["botID"],
+            "nickName": e["nickName"],
+            "createTime": e["createTime"],
+            "createdBy": e["createdBy"]
           });
         })
         .toList()
@@ -68,5 +77,21 @@ class AiUtil extends GetxController {
         Map.fromIterable(list, key: (e) => e.key, value: (e) => e);
 
     return await updateStore(store);
+  }
+
+  Future<List<Ai>> queryMyAiList() async {
+    return ((await Apis.getMyAi())["bots"] ?? [])
+        .map((e) {
+          return Ai.fromJson({
+            "key": getKey(e["userID"]),
+            "userID": e["userID"],
+            "botID": e["botID"],
+            "nickName": e["nickName"],
+            "createTime": e["createTime"],
+            "createdBy": e["createdBy"]
+          });
+        })
+        .toList()
+        .cast<Ai>();
   }
 }

@@ -36,11 +36,16 @@ class LoadingView extends NavigatorObserver {
       bool showing = true,
       double? navBarHeight,
       String? loadingTips,
+      EdgeInsetsGeometry? padding,
       CancelToken? cancelToken}) async {
     navBarHeight = navBarHeight ?? 44.h;
     _cancelToken = cancelToken;
     await Future.delayed(1.milliseconds);
-    if (showing) show(navBarHeight: navBarHeight, loadingTips: loadingTips);
+    if (showing)
+      show(
+          navBarHeight: navBarHeight,
+          loadingTips: loadingTips,
+          padding: padding);
     T data;
     try {
       _cancelableOperation = CancelableOperation.fromFuture(asyncFunction());
@@ -54,9 +59,13 @@ class LoadingView extends NavigatorObserver {
     return data;
   }
 
-  void show({double? navBarHeight, String? loadingTips}) async {
+  void show(
+      {double? navBarHeight,
+      String? loadingTips,
+      EdgeInsetsGeometry? padding}) async {
     loadingTips = loadingTips ?? "";
     navBarHeight = navBarHeight ?? 44.h;
+    padding = padding ?? EdgeInsets.only(bottom: 94.h);
     if (_isVisible) return;
     _overlayState = Overlay.of(Get.overlayContext!);
     _overlayEntry = OverlayEntry(
@@ -67,16 +76,40 @@ class LoadingView extends NavigatorObserver {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height - navBarHeight,
           color: Colors.transparent,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SpinKitCircle(color: Styles.c_8443F8),
-                if (loadingTips!.isNotEmpty) ...[
-                  5.verticalSpace,
-                  Text(loadingTips, style: Styles.ts_8443F8_14sp)
-                ]
-              ],
+          child: Container(
+            padding: padding,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // SpinKitCircle(color: Styles.c_8443F8),
+                  // if (loadingTips!.isNotEmpty) ...[
+                  //   5.verticalSpace,
+                  //   Text(loadingTips, style: Styles.ts_8443F8_14sp)
+                  // ]
+                  Container(
+                    width: 80.w,
+                    height: 80.h,
+                    decoration: BoxDecoration(
+                      color: Styles.c_FFFFFF,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromRGBO(0, 0, 0, 0.11),
+                          offset: Offset(0, 1),
+                          blurRadius: 10.r,
+                        ),
+                      ],
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(12.r)), // 边框圆角
+                    ),
+                    child: Center(
+                      child: ImageRes.loading.toImage
+                        ..width = 53.w
+                        ..height = 53.h,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

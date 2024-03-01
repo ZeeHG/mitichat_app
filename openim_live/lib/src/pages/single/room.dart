@@ -79,7 +79,8 @@ class _SingleRoomViewState extends SignalState<SingleRoomView> {
           roomOptions: RoomOptions(
               dynacast: true,
               adaptiveStream: true,
-              defaultCameraCaptureOptions: const CameraCaptureOptions(params: VideoParametersPresets.h720_169),
+              defaultCameraCaptureOptions: const CameraCaptureOptions(
+                  params: VideoParametersPresets.h720_169),
               defaultVideoPublishOptions: VideoPublishOptions(
                   simulcast: true,
                   videoCodec: 'VP9',
@@ -100,7 +101,8 @@ class _SingleRoomViewState extends SignalState<SingleRoomView> {
         _publish();
       });
     } catch (error, stackTrace) {
-      widget.onError?.call(error, stackTrace);
+      widget.onError
+          ?.call({"certificate": {...certificate.toJson(), 'token': '***'}, "error": error}, stackTrace);
     }
   }
 
