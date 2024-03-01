@@ -92,7 +92,9 @@ dependencies:
   photo_browser:
     path: ../local_plugin/photo_browser
 
-  flutter_picker: ^2.1.0
+  # flutter_picker: ^2.1.0
+  flutter_picker:
+    path: ../local_plugin/flutter_picker-2.1.0
   flutter_openim_sdk:
     path: ../flutter_openim_sdk
 dev_dependencies:
