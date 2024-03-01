@@ -43,13 +43,26 @@ class XhsMomentDetailPage extends StatelessWidget {
               ..overflow = TextOverflow.ellipsis
               ..textAlign = TextAlign.center,
           ])),
-          right: logic.isMyMoment? Button(
-              text: StrRes.delete,
-              textStyle: Styles.ts_FFFFFF_14sp,
-              disabledTextStyle: Styles.ts_FFFFFF_14sp,
-              height: 28.h,
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
-              onTap: logic.delXhsMoment) : SizedBox(),
+          // right: logic.isMyMoment? Button(
+          //     text: StrRes.delete,
+          //     textStyle: Styles.ts_FFFFFF_14sp,
+          //     disabledTextStyle: Styles.ts_FFFFFF_14sp,
+          //     height: 28.h,
+          //     padding: EdgeInsets.symmetric(horizontal: 12.w),
+          //     onTap: logic.delXhsMoment) : SizedBox(),
+          right: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: logic.openMoreSheet,
+            child: Container(
+              width: 30.w,
+              height: 30.h,
+              child: Center(
+                child: ImageRes.appMoreBlack.toImage
+                      ..width = 20.w
+                      ..height = 20.h,
+              )
+            ),
+          )
         ),
         backgroundColor: Styles.c_F7F7F7,
         body: Stack(

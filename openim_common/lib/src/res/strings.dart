@@ -1646,4 +1646,20 @@ class StrRes {
   static String get web3 => 'web3'.tr;
   static String get news => 'news'.tr;
   static String get recommend => 'recommend'.tr;
+  static String get complaint2 => 'complaint2'.tr;
+  static String get riskyLocation => 'riskyLocation'.tr;
+  static String get suspectedFraud => 'suspectedFraud'.tr;
+  static String get pornography => 'pornography'.tr;
+  static String get illegalActivities => 'illegalActivities'.tr;
+  static String get politicalSensitivity => 'politicalSensitivity'.tr;
+  static String get falseInformation => 'falseInformation'.tr;
+  static String get involvingMinors => 'involvingMinors'.tr;
+  static String get abuse => 'abuse'.tr;
+  static String get publicOrder => 'publicOrder'.tr;
+  static String get spamAds => 'spamAds'.tr;
+  static String get personalSafety => 'personalSafety'.tr;
+  static String get plagiarism => 'plagiarism'.tr;
+  static String get infringement2 => 'infringement2'.tr;
+  static String get illegalSales => 'illegalSales'.tr;
+  static String get other => 'other'.tr;
 }

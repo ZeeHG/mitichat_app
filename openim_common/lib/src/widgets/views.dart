@@ -87,6 +87,31 @@ class IMViews {
     );
   }
 
+  static openXhsDetailMoreSheet(
+    {
+      required Function(String action) onTapSheetItem,
+      bool showDelete = false
+    }
+  ) {
+    return Get.bottomSheet(
+      barrierColor: Styles.c_191919_opacity50,
+      BottomSheetView(
+        items: [
+          if(showDelete)
+          SheetItem(
+            label: StrRes.delete,
+            onTap: () => onTapSheetItem.call('delete'),
+          ),
+          SheetItem(
+            label: StrRes.complaint2,
+            textStyle: Styles.ts_FC4D4D_16sp,
+            onTap: () => onTapSheetItem.call('complaint'),
+          ),
+        ],
+      ),
+    );
+  }
+
   static openIMGroupCallSheet(
     String groupID,
     Function(int index) onTapSheetItem,

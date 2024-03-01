@@ -57,6 +57,8 @@ class Urls {
 
   static String get complain => "${Config.appAuthUrl}/user/report";
 
+  static String get complainXhs => "${Config.appAuthUrl}/office/work_moment/report";
+
   static String get blockMoment =>
       "${Config.appAuthUrl}/office/work_moment/block_moment";
 

@@ -301,7 +301,9 @@ class ChatSetupLogic extends GetxController {
       );
 
   void complaint() {
-    AppNavigator.startComplaint(userID: conversationInfo.value.userID!);
+    AppNavigator.startComplaint(
+        params: {"userID": conversationInfo.value.userID!, "complaintType": ComplaintType.user,
+    });
   }
 
   void searchChatHistoryFile() => AppNavigator.startSearchChatHistoryFile(

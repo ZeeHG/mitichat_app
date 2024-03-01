@@ -68,6 +68,7 @@ class Styles {
   static Color c_DDDDDD = const Color(0xFFDDDDDD);
   static Color c_767676= const Color(0xFF767676);
   static Color c_191919 = const Color(0xFF191919);
+  static Color c_CFCFCF = const Color(0xFFCFCFCF);
 
   // static Color c_E8EAEF_opacity30 = c_E8EAEF.withOpacity(.3); // 默认背景
 

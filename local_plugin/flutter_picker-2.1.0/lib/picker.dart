@@ -267,6 +267,54 @@ class Picker {
         });
   }
 
+  Future<List<int>?> showCusDialog(BuildContext context,
+      {bool barrierDismissible = true,
+      Color? backgroundColor,
+      PickerWidgetBuilder? builder,
+      Key? key}) {
+    return Dialog.showDialog<List<int>>(
+        context: context,
+        barrierDismissible: barrierDismissible,
+        builder: (BuildContext context) {
+          final actions = <Widget>[];
+          final theme = Theme.of(context);
+          final _cancel = PickerWidgetState._buildButton(
+              context, cancelText, cancel, cancelTextStyle, true, theme, () {
+            Navigator.pop<List<int>>(context, null);
+            if (onCancel != null) {
+              onCancel!();
+            }
+          });
+          if (_cancel != null) {
+            actions.add(_cancel);
+          }
+          final _confirm = PickerWidgetState._buildButton(
+              context, confirmText, confirm, confirmTextStyle, false, theme,
+              () async {
+            if (onConfirmBefore != null &&
+                !(await onConfirmBefore!(this, selecteds))) {
+              return; // Cancel;
+            }
+            Navigator.pop<List<int>>(context, selecteds);
+            if (onConfirm != null) {
+              onConfirm!(this, selecteds);
+            }
+          });
+          if (_confirm != null) {
+            actions.add(_confirm);
+          }
+          return AlertDialog(
+            key: key ?? Key('picker-dialog'),
+            title: title,
+            backgroundColor: backgroundColor,
+            actions: actions,
+            content: builder == null
+                ? makePicker(theme)
+                : builder(context, makePicker(theme)),
+          );
+        });
+  }
+
   /// 获取当前选择的值
   /// Get the value of the current selection
   List getSelectedValues() {

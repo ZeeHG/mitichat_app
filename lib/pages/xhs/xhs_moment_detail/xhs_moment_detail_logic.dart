@@ -206,4 +206,18 @@ class XhsMomentDetailLogic extends GetxController {
     await xhsLogic.delWorkWorkMoments(xhsMomentList[0]);
     Get.back();
   }
+
+  void openMoreSheet() async {
+    IMViews.openXhsDetailMoreSheet(
+        showDelete: isMyMoment,
+        onTapSheetItem: (action) {
+          if (action == "delete") {
+            delXhsMoment();
+          } else if (action == "complaint") {
+            AppNavigator.startComplaint(
+                params: {"pageTitle": StrRes.complaint2, "complaintType": ComplaintType.xhs,
+  "workMomentID": xhsMomentList[0].workMomentID!});
+          }
+        });
+  }
 }

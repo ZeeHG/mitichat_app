@@ -18,129 +18,250 @@ class ComplaintPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           appBar: TitleBar.back(
-            title: logic.status.value != "result" ? StrRes.complaint : "",
+            title: logic.pageTitle.value,
           ),
           backgroundColor: Styles.c_F7F8FA,
-          body: SingleChildScrollView(
-            child: Container(
-              width: 1.sw,
-              child: Column(
-                  children: logic.status.value == "select"
-                      ? [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.only(
-                                left: 12.w,
-                                right: 12.w,
-                                top: 16.h,
-                                bottom: 16.h),
-                            child: StrRes.complaintReason.toText
-                              ..style = Styles.ts_999999_14sp,
-                          ),
-                          _buildItemView(
-                              text: StrRes.harassmentContent,
-                              onTap: () =>
-                                  logic.changeType("ObjectionableContent")),
-                          _buildItemView(
-                              text: StrRes.accountHacked,
-                              onTap: () => logic.changeType("AccountStolen")),
-                          _buildItemView(
-                              text: StrRes.infringement,
-                              onTap: () => logic.changeType("Infringement")),
-                          _buildItemView(
-                              text: StrRes.impersonation,
-                              onTap: () => logic.changeType("AccountFraud")),
-                          _buildItemView(
-                              text: StrRes.minorRightsViolation,
-                              onTap: () => logic.changeType("MinorsViolation")),
-                          _buildItemView(
-                              text: StrRes.chatEncryption,
-                              onTap: () => logic.changeType("Others")),
-                        ]
-                      : logic.status.value == "input"
-                          ? [
-                              Container(
-                                margin: EdgeInsets.only(top: 16.h),
-                                padding: EdgeInsets.only(
-                                    left: 12.w,
-                                    right: 12.w,
-                                    top: 16.h,
-                                    bottom: 16.h),
-                                color: Styles.c_FFFFFF,
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+          body: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Container(
+                  width: 1.sw,
+                  child: Column(
+                      children: logic.status.value == "select"
+                          ? (logic.complaintType.value == ComplaintType.xhs
+                              ? [
+                                  12.verticalSpace,
+                                  _buildItemView(
+                                      showRadio: true,
+                                      showRightArrow: false,
+                                      text: StrRes.riskyLocation,
+                                      value: "风险地点",
+                                      onTap: () => logic.mulSelect("风险地点")),
+                                  _buildItemView(
+                                      showRadio: true,
+                                      showRightArrow: false,
+                                      text: StrRes.suspectedFraud,
+                                      value: "涉嫌欺诈",
+                                      onTap: () => logic.mulSelect("涉嫌欺诈")),
+                                  _buildItemView(
+                                      showRadio: true,
+                                      showRightArrow: false,
+                                      text: StrRes.pornography,
+                                      value: "色情低俗",
+                                      onTap: () => logic.mulSelect("色情低俗")),
+                                  _buildItemView(
+                                      showRadio: true,
+                                      showRightArrow: false,
+                                      text: StrRes.illegalActivities,
+                                      value: "违法犯罪",
+                                      onTap: () => logic.mulSelect("违法犯罪")),
+                                  _buildItemView(
+                                      showRadio: true,
+                                      showRightArrow: false,
+                                      text: StrRes.politicalSensitivity,
+                                      value: "政治敏感",
+                                      onTap: () => logic.mulSelect("政治敏感")),
+                                  _buildItemView(
+                                      showRadio: true,
+                                      showRightArrow: false,
+                                      text: StrRes.falseInformation,
+                                      value: "虚假不实",
+                                      onTap: () => logic.mulSelect("虚假不实")),
+                                  _buildItemView(
+                                      showRadio: true,
+                                      showRightArrow: false,
+                                      text: StrRes.involvingMinors,
+                                      value: "涉未成年",
+                                      onTap: () => logic.mulSelect("涉未成年")),
+                                  _buildItemView(
+                                      showRadio: true,
+                                      showRightArrow: false,
+                                      text: StrRes.abuse,
+                                      value: "辱骂引战",
+                                      onTap: () => logic.mulSelect("辱骂引战")),
+                                  _buildItemView(
+                                      showRadio: true,
+                                      showRightArrow: false,
+                                      text: StrRes.publicOrder,
+                                      value: "违反公德秩序",
+                                      onTap: () => logic.mulSelect("违反公德秩序")),
+                                  _buildItemView(
+                                      showRadio: true,
+                                      showRightArrow: false,
+                                      text: StrRes.spamAds,
+                                      value: "低差广告",
+                                      onTap: () => logic.mulSelect("低差广告")),
+                                  _buildItemView(
+                                      showRadio: true,
+                                      showRightArrow: false,
+                                      text: StrRes.personalSafety,
+                                      value: "危害人身安全",
+                                      onTap: () => logic.mulSelect("危害人身安全")),
+                                  _buildItemView(
+                                      showRadio: true,
+                                      showRightArrow: false,
+                                      text: StrRes.plagiarism,
+                                      value: "搬运抄袭洗稿",
+                                      onTap: () => logic.mulSelect("搬运抄袭洗稿")),
+                                  _buildItemView(
+                                      showRadio: true,
+                                      showRightArrow: false,
+                                      text: StrRes.infringement2,
+                                      value: "侵犯权益",
+                                      onTap: () => logic.mulSelect("侵犯权益")),
+                                  _buildItemView(
+                                      showRadio: true,
+                                      showRightArrow: false,
+                                      text: StrRes.illegalSales,
+                                      value: "违规售卖",
+                                      onTap: () => logic.mulSelect("违规售卖")),
+                                  _buildItemView(
+                                      showRadio: true,
+                                      showRightArrow: false,
+                                      text: StrRes.other,
+                                      value: "其他",
+                                      onTap: () => logic.mulSelect("其他")),
+                                  100.verticalSpace
+                                ]
+                              : [
+                                  Container(
+                                    alignment: Alignment.centerLeft,
+                                    padding: EdgeInsets.only(
+                                        left: 12.w,
+                                        right: 12.w,
+                                        top: 16.h,
+                                        bottom: 16.h),
+                                    child: StrRes.complaintReason.toText
+                                      ..style = Styles.ts_999999_14sp,
+                                  ),
+                                  _buildItemView(
+                                      text: StrRes.harassmentContent,
+                                      onTap: () => logic
+                                          .changeType("ObjectionableContent")),
+                                  _buildItemView(
+                                      text: StrRes.accountHacked,
+                                      onTap: () =>
+                                          logic.changeType("AccountStolen")),
+                                  _buildItemView(
+                                      text: StrRes.infringement,
+                                      onTap: () =>
+                                          logic.changeType("Infringement")),
+                                  _buildItemView(
+                                      text: StrRes.impersonation,
+                                      onTap: () =>
+                                          logic.changeType("AccountFraud")),
+                                  _buildItemView(
+                                      text: StrRes.minorRightsViolation,
+                                      onTap: () =>
+                                          logic.changeType("MinorsViolation")),
+                                  _buildItemView(
+                                      text: StrRes.chatEncryption,
+                                      onTap: () => logic.changeType("Others")),
+                                ])
+                          : logic.status.value == "input"
+                              ? [
+                                  Container(
+                                    margin: EdgeInsets.only(top: 16.h),
+                                    padding: EdgeInsets.only(
+                                        left: 12.w,
+                                        right: 12.w,
+                                        top: 16.h,
+                                        bottom: 16.h),
+                                    color: Styles.c_FFFFFF,
+                                    child: Column(
                                       children: [
-                                        StrRes.imageEvidence.toText
-                                          ..style = Styles.ts_333333_14sp,
-                                        "${logic.assetsList.length}/${logic.maxAssetsCount}"
-                                            .toText
-                                          ..style = Styles.ts_333333_14sp,
+                                        SizedBox(
+                                          height: 160.h,
+                                          child: TextField(
+                                            controller: logic.inputCtrl,
+                                            focusNode: logic.focusNode,
+                                            keyboardType:
+                                                TextInputType.multiline,
+                                            autofocus: false,
+                                            minLines: null,
+                                            maxLines: null,
+                                            expands: true,
+                                            style: Styles.ts_333333_14sp,
+                                            maxLength: 200,
+                                            decoration: InputDecoration(
+                                              hintText: StrRes.complaintDetails,
+                                              counterStyle:
+                                                  Styles.ts_999999_14sp,
+                                              border: InputBorder.none,
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                horizontal: 0.w,
+                                                vertical: 6.h,
+                                              ),
+                                              isDense: true,
+                                            ),
+                                          ),
+                                        ),
+                                        Divider(
+                                          height: 32.h,
+                                          color: Styles.c_F1F2F6,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            StrRes.imageEvidence.toText
+                                              ..style = Styles.ts_999999_14sp,
+                                            "${logic.assetsList.length}/${logic.maxAssetsCount}"
+                                                .toText
+                                              ..style = Styles.ts_999999_14sp,
+                                          ],
+                                        ),
+                                        16.verticalSpace,
+                                        _assetGridView,
                                       ],
                                     ),
-                                    16.verticalSpace,
-                                    _assetGridView,
-                                    Divider(
-                                      height: 32.h,
-                                      color: Styles.c_F1F2F6,
-                                    ),
-                                    SizedBox(
-                                      height: 160.h,
-                                      child: TextField(
-                                        controller: logic.inputCtrl,
-                                        focusNode: logic.focusNode,
-                                        keyboardType: TextInputType.multiline,
-                                        autofocus: false,
-                                        minLines: null,
-                                        maxLines: null,
-                                        expands: true,
-                                        style: Styles.ts_333333_14sp,
-                                        maxLength: 200,
-                                        decoration: InputDecoration(
-                                          hintText: StrRes.complaintDetails,
-                                          counterStyle: Styles.ts_999999_14sp,
-                                          border: InputBorder.none,
-                                          contentPadding: EdgeInsets.symmetric(
-                                            horizontal: 0.w,
-                                            vertical: 6.h,
-                                          ),
-                                          isDense: true,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              50.verticalSpace,
-                              Button(
-                                enabled: logic.enabled,
-                                width: 1.sw - 216.w,
-                                text: StrRes.submit,
-                                onTap: logic.submit,
-                              )
-                            ]
-                          : [
-                              45.verticalSpace,
-                              ImageRes.appSuccess.toImage
-                                ..width = 70.w
-                                ..height = 70.h,
-                              24.verticalSpace,
-                              StrRes.submitSuccess.toText
-                                ..style = Styles.ts_333333_20sp_medium,
-                              10.verticalSpace,
-                              StrRes.promiseResponse.toText
-                                ..textAlign = TextAlign.center
-                                ..style = Styles.ts_999999_16sp,
-                              45.verticalSpace,
-                              Button(
-                                width: 1.sw - 72.w,
-                                text: StrRes.backHome,
-                                onTap: logic.backHome,
-                              )
-                            ]),
-            ),
+                                  ),
+                                  50.verticalSpace,
+                                  Button(
+                                    enabled: logic.enabled,
+                                    width: 1.sw - 83.w,
+                                    text: StrRes.submit,
+                                    onTap: logic.submit,
+                                  )
+                                ]
+                              : [
+                                  45.verticalSpace,
+                                  ImageRes.appSuccess.toImage
+                                    ..width = 70.w
+                                    ..height = 70.h,
+                                  24.verticalSpace,
+                                  StrRes.submitSuccess.toText
+                                    ..style = Styles.ts_333333_20sp_medium,
+                                  10.verticalSpace,
+                                  StrRes.promiseResponse.toText
+                                    ..textAlign = TextAlign.center
+                                    ..style = Styles.ts_999999_16sp,
+                                  45.verticalSpace,
+                                  Button(
+                                    width: 1.sw - 72.w,
+                                    text: StrRes.iKnow,
+                                    onTap: logic.backHome,
+                                  )
+                                ]),
+                ),
+              ),
+              if (logic.complaintType.value == ComplaintType.xhs &&
+                  logic.status.value == 'select')
+                Positioned(
+                    bottom: 34.h,
+                    child: SizedBox(
+                      width: 1.sw,
+                      child: Center(
+                        child: Button(
+                          width: 1.sw - 72.w,
+                          text: StrRes.nextStep,
+                          enabled: logic.reasonList.isNotEmpty,
+                          onTap: () => logic.nextStep('input'),
+                        ),
+                      ),
+                    ))
+            ],
           ),
         ));
   }
@@ -178,15 +299,10 @@ class ComplaintPage extends StatelessWidget {
 
   Widget _buildItemView({
     required String text,
-    String? hintText,
     TextStyle? textStyle,
     String? value,
-    bool switchOn = false,
-    bool isTopRadius = false,
-    bool isBottomRadius = false,
     bool showRightArrow = true,
-    bool showSwitchButton = false,
-    ValueChanged<bool>? onChanged,
+    bool showRadio = false,
     Function()? onTap,
   }) =>
       GestureDetector(
@@ -195,7 +311,7 @@ class ComplaintPage extends StatelessWidget {
         child: Container(
           color: Styles.c_FFFFFF,
           child: Container(
-            height: hintText == null ? 46.h : 68.h,
+            height: 46.h,
             padding: EdgeInsets.only(right: 12.w),
             margin: EdgeInsets.only(left: 12.w),
             decoration: BoxDecoration(
@@ -203,29 +319,27 @@ class ComplaintPage extends StatelessWidget {
                     top: BorderSide(color: Styles.c_F1F2F6, width: 1.h))),
             child: Row(
               children: [
-                null != hintText
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          text.toText
-                            ..style = textStyle ?? Styles.ts_333333_16sp,
-                          hintText.toText..style = Styles.ts_999999_14sp,
-                        ],
-                      )
-                    : (text.toText..style = textStyle ?? Styles.ts_333333_16sp),
+                text.toText..style = textStyle ?? Styles.ts_333333_16sp,
                 const Spacer(),
-                if (null != value) value.toText..style = Styles.ts_999999_14sp,
-                if (showSwitchButton)
-                  CupertinoSwitch(
-                    value: switchOn,
-                    activeColor: Styles.c_07C160,
-                    onChanged: onChanged,
-                  ),
                 if (showRightArrow)
                   ImageRes.appRightArrow.toImage
                     ..width = 24.w
                     ..height = 24.h,
+                if (showRadio) ...[
+                  if (logic.reasonList.contains(value))
+                    ImageRes.appChecked2.toImage
+                      ..width = 20.w
+                      ..height = 20.h,
+                  if (!logic.reasonList.contains(value))
+                    Container(
+                        width: 20.w,
+                        height: 20.h,
+                        decoration: BoxDecoration(
+                          border:
+                              Border.all(color: Styles.c_CFCFCF, width: 1.w),
+                          borderRadius: BorderRadius.circular(10.r),
+                        ))
+                ]
               ],
             ),
           ),

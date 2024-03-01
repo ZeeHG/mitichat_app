@@ -1098,7 +1098,8 @@ const Map<String, String> zh_CN = {
   "pleaseInputAuthor": "请标注作者(选填)",
   "pleaseInputTitle": "请输入标题",
   "pleaseInputValidUrl": "请输入正确链接",
-  "privacyPolicyDescriptionP5": "。我同意接收短信。发送短信可能需要支付一定的费用。如果想停止接收短信，可以回复“STOP”。",
+  "privacyPolicyDescriptionP5":
+      "。我同意接收短信。发送短信可能需要支付一定的费用。如果想停止接收短信，可以回复“STOP”。",
   "userID": "用户ID",
   "userIDOrPhone": "用户ID/手机号",
   'search_by_phone_and_uid': '通过手机号/ID号/搜索添加',
@@ -1122,5 +1123,21 @@ const Map<String, String> zh_CN = {
   "aigc": "AIGC",
   "web3": "Web3",
   "news": "新闻资讯",
-  "recommend": "推荐"
+  "recommend": "推荐",
+  "complaint2": "举报",
+  "riskyLocation": "风险地点",
+  "suspectedFraud": "涉嫌欺诈",
+  "pornography": "色情低俗",
+  "illegalActivities": "违法犯罪",
+  "politicalSensitivity": "政治敏感",
+  "falseInformation": "虚假不实",
+  "involvingMinors": "涉未成年",
+  "abuse": "辱骂引战",
+  "publicOrder": "违反公德秩序",
+  "spamAds": "低差广告",
+  "personalSafety": "危害人身安全",
+  "plagiarism": "搬运抄袭洗稿",
+  "infringement2": "侵犯权益",
+  "illegalSales": "违规售卖",
+  "other": "其他"
 };

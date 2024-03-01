@@ -753,6 +753,49 @@ class Apis {
     );
   }
 
+  static Future<dynamic> complainXhs({
+    required String workMomentID,
+    required List<String> reason,
+    required String content,
+    List<AssetEntity>? assets,
+  }) async {
+    final images = [];
+    var result = [];
+    if (null != assets && assets.length > 0) {
+      result = await Future.wait(assets.map((e) async {
+        final file = await e.file;
+        final suffix = IMUtils.getSuffix(file!.path);
+        return OpenIM.iMManager.uploadFile(
+          id: const Uuid().v4(),
+          filePath: file!.path,
+          fileName: "${const Uuid().v4()}$suffix",
+        );
+      }));
+    }
+    if (result.length > 0) {
+      for (int i = 0; i < result.length; i += 1) {
+        images.add(jsonDecode(result[i])['url']);
+      }
+    }
+
+    Map<String, dynamic> param = {
+      'workMomentID': workMomentID,
+      'reason': reason,
+      'content': content,
+      'images': images,
+    };
+
+    return HttpUtil.post(
+      Urls.complainXhs,
+      data: {
+        ...param,
+        'platform': IMUtils.getPlatform(),
+        'operationID': HttpUtil.operationID,
+      },
+      options: chatTokenOptions,
+    );
+  }
+
   static Future<dynamic> blockMoment(
       {required String userID, required int operation}) async {
     Map<String, dynamic> param = {'userID': userID, 'operation': operation};
