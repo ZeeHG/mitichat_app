@@ -18,8 +18,10 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       this.backgroundImage,
       this.backIconColor,
       this.showUnderline = false,
+      EdgeInsetsGeometry? padding,
       this.overBottomBg})
-      : super(key: key);
+      : 
+      super(key: key);
   final double? height;
   final Widget? left;
   final Widget? center;
@@ -30,6 +32,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
   final DecorationImage? backgroundImage;
   final bool showUnderline;
   final Widget? overBottomBg;
+  final EdgeInsetsGeometry? padding = null;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +47,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
               padding: EdgeInsets.only(top: mq.padding.top),
               child: Container(
                 height: height,
-                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                padding: padding ?? EdgeInsets.symmetric(horizontal: 12.w),
                 decoration: showUnderline
                     ? BoxDecoration(
                         border: BorderDirectional(
@@ -581,7 +584,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       : height = 48.h,
         showUnderline = false,
         center = 0.horizontalSpace;
-  
+
   TitleBar.xhsMomentDetail(
       {super.key,
       this.overBottomBg,

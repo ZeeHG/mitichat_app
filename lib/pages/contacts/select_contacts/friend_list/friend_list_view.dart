@@ -15,7 +15,7 @@ class SelectContactsFromFriendsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.myFriend),
+      appBar: TitleBar.back(title: logic.appBarTitle),
       backgroundColor: Styles.c_F7F8FA,
       body: Column(
         children: [

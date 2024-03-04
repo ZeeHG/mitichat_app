@@ -50,6 +50,7 @@ class SelectContactsLogic extends GetxController
   String? ex;
   final inputCtrl = TextEditingController();
   final appBarTitle = "".obs;
+  bool selectFromFriend = false;
 
   @override
   void onInit() {
@@ -61,6 +62,7 @@ class SelectContactsLogic extends GetxController
     checkedList.addAll(Get.arguments['checkedList'] ?? {});
     openSelectedSheet = Get.arguments['openSelectedSheet'];
     ex = Get.arguments['ex'];
+    selectFromFriend = Get.arguments['selectFromFriend'];
     PackageBridge.organizationBridge = this;
     super.onInit();
   }
@@ -74,8 +76,11 @@ class SelectContactsLogic extends GetxController
 
   @override
   void onReady() {
-    _queryConversationList();
-    if (openSelectedSheet) viewSelectedContactsList();
+    if (selectFromFriend) {
+      selectFromMyFriend();
+    } else {
+      if (openSelectedSheet) viewSelectedContactsList();
+    }
     super.onReady();
   }
 
@@ -205,7 +210,12 @@ class SelectContactsLogic extends GetxController
     }
   }
 
-  String get checkedStrTips => checkedList.values.map(parseName).join('、');
+  String get checkedStrTips =>  checkedList.values.map(parseName).join('、');
+
+  List<String?> get checkedFaceUrls => checkedList.values.map(parseFaceURL).toList();
+
+  List<String?> get checkedNames =>
+      checkedList.values.map(parseName).toList();
 
   viewSelectedContactsList() => Get.bottomSheet(
         SelectedContactsListView(),
@@ -213,9 +223,13 @@ class SelectContactsLogic extends GetxController
       );
 
   selectFromMyFriend() async {
-    final result = await AppNavigator.startSelectContactsFromFriends();
+    final result = await AppNavigator.startSelectContactsFromFriends(appBarTitle: StrRes.selectFriends);
     if (null != result) {
       Get.back(result: result);
+    } else {
+      if (selectFromFriend) {
+        Get.back();
+      }
     }
   }
 

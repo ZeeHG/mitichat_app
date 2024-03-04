@@ -1662,4 +1662,5 @@ class StrRes {
   static String get infringement2 => 'infringement2'.tr;
   static String get illegalSales => 'illegalSales'.tr;
   static String get other => 'other'.tr;
+  static String get selectFriends => 'selectFriends'.tr;
 }

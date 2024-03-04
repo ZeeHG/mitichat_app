@@ -286,7 +286,8 @@ class TranslateLogic extends GetxController {
       "conversationID": conversation.conversationID,
       "conversationType": conversation.conversationType,
       "userID": conversation.userID,
-      "ex": exJsonStr
+      "ex": exJsonStr,
+      "groupID": conversation.groupID
     };
     final result =
         await Apis.setConversationConfig(conversation: requestConversation);

@@ -7,10 +7,17 @@ import '../select_contacts_logic.dart';
 
 class SelectContactsFromFriendsLogic extends FriendListLogic {
   final selectContactsLogic = Get.find<SelectContactsLogic>();
+  String appBarTitle = "";
+
+  @override
+  void onInit() {
+    appBarTitle = Get.arguments['appBarTitle'] ?? StrRes.myFriend;
+    super.onInit();
+  }
 
   @override
   searchFriend() async {
-    final result = await AppNavigator.startSelectContactsFromSearchFriends();
+    final result = await AppNavigator.startSelectContactsFromSearchFriends(appBarTitle: appBarTitle);
     if (null != result) {
       Get.back(result: result);
     }

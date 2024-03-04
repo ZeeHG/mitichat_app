@@ -332,16 +332,16 @@ class AppNavigator {
 
   static startSearchGroup() => Get.toNamed(AppRoutes.searchGroup);
 
-  static startSelectContacts({
-    required SelAction action,
-    List<String>? defaultCheckedIDList,
-    List<dynamic>? checkedList,
-    List<String>? excludeIDList,
-    bool openSelectedSheet = false,
-    String? groupID,
-    String? ex,
-    String? appBarTitle,
-  }) =>
+  static startSelectContacts(
+          {required SelAction action,
+          List<String>? defaultCheckedIDList,
+          List<dynamic>? checkedList,
+          List<String>? excludeIDList,
+          bool openSelectedSheet = false,
+          String? groupID,
+          String? ex,
+          String? appBarTitle,
+          bool selectFromFriend = false}) =>
       Get.toNamed(AppRoutes.selectContacts, arguments: {
         'action': action,
         'defaultCheckedIDList': defaultCheckedIDList,
@@ -350,17 +350,19 @@ class AppNavigator {
         'openSelectedSheet': openSelectedSheet,
         'groupID': groupID,
         'ex': ex,
-        "appBarTitle": appBarTitle
+        "appBarTitle": appBarTitle,
+        "selectFromFriend": selectFromFriend
       });
 
-  static startSelectContactsFromFriends() =>
-      Get.toNamed(AppRoutes.selectContactsFromFriends);
+  static startSelectContactsFromFriends({String? appBarTitle}) =>
+      Get.toNamed(AppRoutes.selectContactsFromFriends,
+          arguments: {"appBarTitle": appBarTitle});
 
   static startSelectContactsFromGroup() =>
       Get.toNamed(AppRoutes.selectContactsFromGroup);
 
-  static startSelectContactsFromSearchFriends() =>
-      Get.toNamed(AppRoutes.selectContactsFromSearchFriends);
+  static startSelectContactsFromSearchFriends({String? appBarTitle}) =>
+      Get.toNamed(AppRoutes.selectContactsFromSearchFriends, arguments: {"appBarTitle": appBarTitle});
 
   static startSelectContactsFromSearchGroup() =>
       Get.toNamed(AppRoutes.selectContactsFromSearchGroup);
@@ -368,14 +370,15 @@ class AppNavigator {
   static startSelectContactsFromSearch() =>
       Get.toNamed(AppRoutes.selectContactsFromSearch);
 
-  static startCreateGroup({
-    List<UserInfo> defaultCheckedList = const [],
-    String? appBarTitle,
-  }) async {
+  static startCreateGroup(
+      {List<UserInfo> defaultCheckedList = const [],
+      String? appBarTitle,
+      bool selectFromFriend = true}) async {
     final result = await startSelectContacts(
         action: SelAction.crateGroup,
         defaultCheckedIDList: defaultCheckedList.map((e) => e.userID!).toList(),
-        appBarTitle: appBarTitle);
+        appBarTitle: appBarTitle,
+        selectFromFriend: selectFromFriend);
     final list = IMUtils.convertSelectContactsResultToUserInfo(result);
     if (list is List<UserInfo>) {
       return Get.toNamed(

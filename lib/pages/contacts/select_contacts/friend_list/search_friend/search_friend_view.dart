@@ -15,21 +15,72 @@ class SelectContactsFromSearchFriendsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final originList = {...selectContactsLogic.checkedList};
     return TouchCloseSoftKeyboard(
       child: Scaffold(
-        appBar: TitleBar.search(
-          focusNode: logic.focusNode,
-          controller: logic.searchCtrl,
-          onSubmitted: (_) => logic.search(),
-          onCleared: () => logic.focusNode.requestFocus(),
-        ),
-        backgroundColor: Styles.c_F8F9FA,
-        body: Obx(() => logic.isSearchNotResult
-            ? _emptyListView
-            : ListView.builder(
-                itemCount: logic.resultList.length,
-                itemBuilder: (_, index) => _buildItemView(logic.resultList[index]),
-              )),
+        // appBar: TitleBar.search(
+        //   focusNode: logic.focusNode,
+        //   controller: logic.searchCtrl,
+        //   onSubmitted: (_) => logic.search(),
+        //   onCleared: () => logic.focusNode.requestFocus(),
+        // ),
+        appBar: TitleBar(
+            center: Expanded(
+                child: logic.appBarTitle.toText
+                  ..style = Styles.ts_333333_18sp_medium
+                  ..textAlign = TextAlign.center),
+            left: Flexible(
+                child: Container(
+              alignment: Alignment.centerLeft,
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  selectContactsLogic.checkedList.assignAll(originList);
+                  Get.back();
+                },
+                child: StrRes.cancel.toText
+                  ..style = Styles.ts_333333_16sp_medium,
+              ),
+            )),
+            right: Flexible(
+              child: Container(
+                alignment: Alignment.centerRight,
+                child: IntrinsicWidth(
+                  child: Button(
+                      text: StrRes.confirm,
+                      textStyle: Styles.ts_FFFFFF_14sp,
+                      disabledTextStyle: Styles.ts_FFFFFF_14sp,
+                      height: 28.h,
+                      padding: EdgeInsets.symmetric(horizontal: 12.w),
+                      onTap: () {
+                        Get.back();
+                      }),
+                ),
+              ),
+            )),
+        backgroundColor: Styles.c_FFFFFF,
+        body: Obx(() => Column(
+              children: [
+                Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12.w),
+                    child: SearchBox(
+                      enabled: true,
+                      controller: logic.searchCtrl,
+                      focusNode: logic.focusNode,
+                      onSubmitted: (_) => logic.search(),
+                      onChanged: (_) => logic.search(),
+                      onCleared: () => logic.focusNode.requestFocus(),
+                    )),
+                Expanded(
+                    child: logic.isSearchNotResult
+                        ? _emptyListView
+                        : ListView.builder(
+                            itemCount: logic.resultList.length,
+                            itemBuilder: (_, index) =>
+                                _buildItemView(logic.resultList[index]),
+                          ))
+              ],
+            )),
       ),
     );
   }
@@ -41,7 +92,7 @@ class SelectContactsFromSearchFriendsPage extends StatelessWidget {
           child: InkWell(
             onTap: selectContactsLogic.onTap(info),
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              padding: EdgeInsets.symmetric(horizontal: 12.w),
               child: Row(
                 children: [
                   if (selectContactsLogic.isMultiModel)

@@ -1139,5 +1139,6 @@ const Map<String, String> zh_CN = {
   "plagiarism": "搬运抄袭洗稿",
   "infringement2": "侵犯权益",
   "illegalSales": "违规售卖",
-  "other": "其他"
+  "other": "其他",
+  "selectFriends": "选择联系人"
 };

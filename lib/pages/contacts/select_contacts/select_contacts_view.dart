@@ -184,11 +184,27 @@ class CheckedConfirmView extends StatelessWidget {
                         ..height = 6.h,
                       if (logic.checkedList.isNotEmpty) 17.horizontalSpace,
                       Expanded(
-                        child: logic.checkedStrTips.toText
-                          ..style = Styles.ts_999999_14sp
-                          ..maxLines = 1
-                          ..overflow = TextOverflow.ellipsis,
-                      )
+                        // child: logic.checkedStrTips.toText
+                        //   ..style = Styles.ts_999999_14sp
+                        //   ..maxLines = 1
+                        //   ..overflow = TextOverflow.ellipsis,
+                        child: Container(
+                          height: 36.h,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: logic.checkedList.length,
+                              itemBuilder: (_, index) => Padding(
+                                    padding: EdgeInsets.only(right: 10.w),
+                                    child: AvatarView(
+                                      width: 36.w,
+                                      height: 36.h,
+                                      url: logic.checkedFaceUrls[index],
+                                      text: logic.checkedNames[index],
+                                    ),
+                                  )),
+                        ),
+                      ),
+                      10.horizontalSpace
                     ],
                   ),
                 ),

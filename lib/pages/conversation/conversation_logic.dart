@@ -518,8 +518,7 @@ class ConversationLogic extends GetxController {
       AppNavigator.startAddContactsBySearch(searchType: SearchType.user);
 
   createGroup() => AppNavigator.startCreateGroup(
-      defaultCheckedList: [OpenIM.iMManager.userInfo],
-      appBarTitle: StrRes.createGroup);
+      defaultCheckedList: [OpenIM.iMManager.userInfo]);
 
   addGroup() =>
       AppNavigator.startAddContactsBySearch(searchType: SearchType.group);
