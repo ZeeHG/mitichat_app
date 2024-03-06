@@ -782,6 +782,20 @@ class IMUtils {
     return text;
   }
 
+  /// 通知detail解析为map, 后续需要根据contentType具体转换
+  static Map<String, dynamic>? parseNtfMap(Message message) {
+    Map<String, dynamic>? map;
+    try {
+      if (message.contentType! >= 1000) {
+        final elem = message.notificationElem!;
+        map = json.decode(elem.detail!);
+      }
+    } catch (e, s) {
+      myLogger.e({"message": "parseNtfMap通知detail转换出错", "data": message.toJson(),"error": e, "stack": s});
+    }
+    return map;
+  }
+
   static String parseMsg(
     Message message, {
     bool isConversation = false,
@@ -1863,5 +1877,35 @@ class IMUtils {
       return matchText;
     });
     return newText;
+  }
+
+  // 尝试从好友showName中获取指定用户showName
+  static Future<String?> getShowNameFromFriendList({required String userID}) async {
+    final list = await OpenIM.iMManager.friendshipManager.getFriendListMap();
+    final friendJson = list.firstWhereOrNull((element) {
+      final fullUser = FullUserInfo.fromJson(element);
+      return fullUser.userID == userID;
+    });
+    ISUserInfo? friendInfo;
+    if (null != friendJson) {
+      final info = FullUserInfo.fromJson(friendJson);
+      friendInfo = info.friendInfo != null
+          ? ISUserInfo.fromJson(info.friendInfo!.toJson())
+          : ISUserInfo.fromJson(info.publicInfo!.toJson());
+    }
+    return null != friendInfo && friendInfo.showName.isNotEmpty? friendInfo.showName : null;
+  }
+
+  static Future<String?> getShowNameFromGroup({required String userID, required String groupID}) async {
+    GroupMembersInfo? member;
+    final memberList = await OpenIM.iMManager.groupManager.getGroupMemberList(
+      groupID: groupID,
+      count: 999,
+    );
+    member = memberList.firstWhereOrNull((element) => element.userID == userID);
+
+    return null != member?.nickname && member!.nickname!.isNotEmpty
+        ? member.nickname
+        : null;
   }
 }

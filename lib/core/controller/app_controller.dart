@@ -176,15 +176,15 @@ class AppController extends SuperController {
               ticker: 'one message');
       const NotificationDetails platformChannelSpecifics =
           NotificationDetails(android: androidPlatformChannelSpecifics);
-      final isGroup = signalingInfo?.invitation?.sessionType == 2;
-      final isAudio = signalingInfo?.invitation?.mediaType == 'audio';
+      final isGroup = signalingInfo.invitation?.sessionType == 2;
+      final isAudio = signalingInfo.invitation?.mediaType == 'audio';
       final id = isGroup
-          ? signalingInfo?.invitation?.groupID
-          : signalingInfo?.invitation?.inviterUserID;
+          ? signalingInfo.invitation?.groupID
+          : signalingInfo.invitation?.inviterUserID;
       try {
         final list =
             await OpenIM.iMManager.friendshipManager.getFriendListMap();
-        final friendJson = list.firstWhere((element) {
+        final friendJson = list.firstWhereOrNull((element) {
           final fullUser = FullUserInfo.fromJson(element);
           return fullUser.userID == id;
         });
@@ -198,18 +198,23 @@ class AppController extends SuperController {
 
         if (isGroup) {
           final list = await OpenIM.iMManager.groupManager.getJoinedGroupList();
-          final groupInfo = list.firstWhere((element) => element.groupID == id);
-          final memberList =
-              await OpenIM.iMManager.groupManager.getGroupMemberList(
-            groupID: groupInfo.groupID,
-            count: 999,
-          );
-          final member = memberList.firstWhere((element) =>
-              element.userID == signalingInfo?.invitation?.inviterUserID);
+          final groupInfo =
+              list.firstWhereOrNull((element) => element.groupID == id);
+          GroupMembersInfo? member;
+          if (null != groupInfo) {
+            final memberList =
+                await OpenIM.iMManager.groupManager.getGroupMemberList(
+              groupID: groupInfo.groupID,
+              count: 999,
+            );
+            member = memberList.firstWhereOrNull((element) =>
+                element.userID == signalingInfo.invitation?.inviterUserID);
+          }
+
           await flutterLocalNotificationsPlugin.show(
               notificationSeq + DateTime.now().secondsSinceEpoch,
               groupInfo?.groupName ?? StrRes.defaultNotificationTitle4,
-              "${(null != friendInfo && friendInfo!.showName.isNotEmpty) ? friendInfo?.showName : member.nickname ?? StrRes.friend}: ${isAudio ? '[${StrRes.callVoice}]' : '[${StrRes.callVideo}]'}",
+              "${(null != friendInfo && friendInfo.showName.isNotEmpty) ? friendInfo.showName : member?.nickname ?? StrRes.friend}: ${isAudio ? '[${StrRes.callVoice}]' : '[${StrRes.callVideo}]'}",
               platformChannelSpecifics,
               payload: null);
         } else {
@@ -273,6 +278,7 @@ class AppController extends SuperController {
           // final id = message.seq!;
           notificationSeq = notificationSeq + 1;
           String text = StrRes.defaultNotification;
+          String? noticeTypeMsgGroupName;
           if (message.isTextType) {
             text = message.textElem!.content!;
           } else if (message.isAtTextType) {
@@ -293,11 +299,20 @@ class AppController extends SuperController {
             text = StrRes.defaultMergeNotification;
           } else if (message.isCardType) {
             text = StrRes.defaultCardNotification;
+          } else if (message.contentType! >= 1000) {
+            // 尝试解析通知类型
+            noticeTypeMsgGroupName =
+                IMUtils.parseNtfMap(message)?["group"]?["groupName"];
+            text = IMUtils.parseNtf(message, isConversation: true) ??
+                StrRes.defaultNotificationTitle;
+          } else {
+            // 其他类型暂时不展示
+            myLogger.w({"message": "sdk收到一条消息, 未匹配需要暂时的情况", "data": message.toJson()});
           }
 
           final list =
               await OpenIM.iMManager.friendshipManager.getFriendListMap();
-          final friendJson = list.firstWhere((element) {
+          final friendJson = list.firstWhereOrNull((element) {
             final fullUser = FullUserInfo.fromJson(element);
             return fullUser.userID == message.sendID;
           });
@@ -321,20 +336,28 @@ class AppController extends SuperController {
           } else if (message.isGroupChat) {
             final list =
                 await OpenIM.iMManager.groupManager.getJoinedGroupList();
-            final groupInfo = list
-                .firstWhere((element) => element.groupID == message.groupID);
+            final groupInfo = list.firstWhereOrNull(
+                (element) => element.groupID == message.groupID);
             if (null == groupInfo) {
               myLogger.e({"message": "收到群聊消息, 找不到群组信息, ${message.groupID}"});
             }
             await flutterLocalNotificationsPlugin.show(
                 notificationSeq,
-                groupInfo?.groupName ?? StrRes.defaultNotificationTitle4,
-                "${(null != friendInfo && friendInfo!.showName.isNotEmpty) ? friendInfo?.showName : message.senderNickname ?? StrRes.friend}: ${text}",
+                groupInfo?.groupName ??
+                    noticeTypeMsgGroupName ??
+                    StrRes.defaultNotificationTitle4,
+                message.isNoticeType
+                    ? "${StrRes.groupAc}: ${text}"
+                    : ("${(null != friendInfo && friendInfo.showName.isNotEmpty) ? friendInfo.showName : message.senderNickname ?? StrRes.friend}: ${text}"),
                 platformChannelSpecifics,
                 payload: json.encode(message.toJson()));
           } else {
+            myLogger.w({
+              "message": "收到意外通知类型的消息, 消息类型(sessionType: ${message.sessionType})",
+              "data": message.toJson(),
+            });
             await flutterLocalNotificationsPlugin.show(notificationSeq,
-                StrRes.defaultNotificationTitle, text, platformChannelSpecifics,
+                StrRes.defaultNotificationTitle2, text, platformChannelSpecifics,
                 payload: json.encode(message.toJson()));
           }
         } catch (e, s) {
@@ -345,10 +368,7 @@ class AppController extends SuperController {
             "stack": s
           });
           await flutterLocalNotificationsPlugin.show(
-              notificationSeq,
-              "error",
-              "error",
-              platformChannelSpecifics,
+              notificationSeq, "error", "error", platformChannelSpecifics,
               payload: null);
         }
       }

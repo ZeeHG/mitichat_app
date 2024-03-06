@@ -55,13 +55,13 @@ class ActionRecord {
     this.actionName = ActionName.empty,
     this.workMomentID = "",
     int? actionTime,
-  }): actionTime = actionTime ?? DateTime.now().microsecondsSinceEpoch;
+  }): actionTime = actionTime ?? DateTime.now().millisecondsSinceEpoch;
 
   ActionRecord.fromJson(Map<String, dynamic> map)
       : category = map["category"] ?? '',
         actionName = map["actionName"] ?? '',
         workMomentID = map["workMomentID"] ?? '',
-        actionTime = map["actionTime"] ?? DateTime.now().microsecondsSinceEpoch;
+        actionTime = map["actionTime"] ?? DateTime.now().millisecondsSinceEpoch;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
