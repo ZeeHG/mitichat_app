@@ -447,6 +447,7 @@ class GroupSetupLogic extends GetxController {
     final result = await AppNavigator.startSelectContacts(
       action: SelAction.addMember,
       groupID: groupInfo.value.groupID,
+      selectFromFriend: true
     );
 
     final list = IMUtils.convertSelectContactsResultToUserID(result);

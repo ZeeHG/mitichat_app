@@ -1165,8 +1165,7 @@ class ChatLogic extends GetxController {
   /// 名片
   void onTapCarte() async {
     var result = await AppNavigator.startSelectContacts(
-      action: SelAction.carte,
-    );
+        action: SelAction.carte, selectFromFriend: true);
     if (result is UserInfo || result is FriendInfo) {
       sendCarte(
         userID: result.userID!,

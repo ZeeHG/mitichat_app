@@ -120,6 +120,7 @@ class CreateGroupLogic extends GetxController {
       checkedList: checkedList,
       defaultCheckedIDList: defaultCheckedList.map((e) => e.userID!).toList(),
       openSelectedSheet: isDel,
+      selectFromFriend: true
     );
     final list = IMUtils.convertSelectContactsResultToUserInfo(result);
     if (list is List<UserInfo>) {
