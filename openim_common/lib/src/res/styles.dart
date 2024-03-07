@@ -66,7 +66,7 @@ class Styles {
   static Color c_B620E0 = const Color(0xFFB620E0);
   static Color c_F7B500 = const Color(0xFFF7B500);
   static Color c_DDDDDD = const Color(0xFFDDDDDD);
-  static Color c_767676= const Color(0xFF767676);
+  static Color c_767676 = const Color(0xFF767676);
   static Color c_191919 = const Color(0xFF191919);
   static Color c_CFCFCF = const Color(0xFFCFCFCF);
 
@@ -121,646 +121,659 @@ class Styles {
   static TextStyle ts_FFFFFF_11sp = TextStyle(
     color: c_FFFFFF,
     fontSize: 11.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_FFFFFF_21sp = TextStyle(
     color: c_FFFFFF,
     fontSize: 21.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_FFFFFF_20sp_medium = TextStyle(
     color: c_FFFFFF,
     fontSize: 20.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_FFFFFF_18sp_medium = TextStyle(
     color: c_FFFFFF,
     fontSize: 18.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_FFFFFF_17sp = TextStyle(
     color: c_FFFFFF,
     fontSize: 17.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_FFFFFF_opacity70_17sp = TextStyle(
     color: c_FFFFFF_opacity70,
     fontSize: 17.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_FFFFFF_17sp_semibold = TextStyle(
     color: c_FFFFFF,
     fontSize: 17.sp,
     fontWeight: FontWeight.w600,
-  );
+  ).merge(en600);
   static TextStyle ts_FFFFFF_17sp_medium = TextStyle(
     color: c_FFFFFF,
     fontSize: 17.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_FFFFFF_16sp = TextStyle(
     color: c_FFFFFF,
     fontSize: 16.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_FFFFFF_opacity50_16sp = TextStyle(
     color: c_FFFFFF_opacity50,
     fontSize: 16.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_FFFFFF_14sp = TextStyle(
     color: c_FFFFFF,
     fontSize: 14.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_FFFFFF_opacity70_14sp = TextStyle(
     color: c_FFFFFF_opacity70,
     fontSize: 14.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_FFFFFF_14sp_medium = TextStyle(
     color: c_FFFFFF,
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_FFFFFF_12sp = TextStyle(
     color: c_FFFFFF,
     fontSize: 12.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_FFFFFF_10sp = TextStyle(
     color: c_FFFFFF,
     fontSize: 10.sp,
-  );
-
+  ).merge(en400);
 
   /// 8E9AB0
   static TextStyle ts_8E9AB0_10sp_semibold = TextStyle(
     color: c_8E9AB0,
     fontSize: 10.sp,
     fontWeight: FontWeight.w600,
-  );
+  ).merge(en600);
   static TextStyle ts_8E9AB0_10sp = TextStyle(
     color: c_8E9AB0,
     fontSize: 10.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_8E9AB0_12sp = TextStyle(
     color: c_8E9AB0,
     fontSize: 12.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_8E9AB0_13sp = TextStyle(
     color: c_8E9AB0,
     fontSize: 13.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_8E9AB0_14sp = TextStyle(
     color: c_8E9AB0,
     fontSize: 14.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_8E9AB0_15sp = TextStyle(
     color: c_8E9AB0,
     fontSize: 15.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_8E9AB0_16sp = TextStyle(
     color: c_8E9AB0,
     fontSize: 16.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_8E9AB0_17sp = TextStyle(
     color: c_8E9AB0,
     fontSize: 17.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_8E9AB0_opacity50_17sp = TextStyle(
     color: c_8E9AB0_opacity50,
     fontSize: 17.sp,
-  );
+  ).merge(en400);
 
   /// 0C1C33
   static TextStyle ts_0C1C33_10sp = TextStyle(
     color: c_0C1C33,
     fontSize: 10.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_0C1C33_12sp = TextStyle(
     color: c_0C1C33,
     fontSize: 12.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_0C1C33_12sp_medium = TextStyle(
     color: c_0C1C33,
     fontSize: 12.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_0C1C33_14sp = TextStyle(
     color: c_0C1C33,
     fontSize: 14.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_0C1C33_14sp_medium = TextStyle(
     color: c_0C1C33,
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_0C1C33_17sp = TextStyle(
     color: c_0C1C33,
     fontSize: 17.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_0C1C33_17sp_medium = TextStyle(
     color: c_0C1C33,
     fontSize: 17.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_0C1C33_17sp_semibold = TextStyle(
     color: c_0C1C33,
     fontSize: 17.sp,
     fontWeight: FontWeight.w600,
-  );
+  ).merge(en600);
   static TextStyle ts_0C1C33_20sp = TextStyle(
     color: c_0C1C33,
     fontSize: 20.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_0C1C33_20sp_medium = TextStyle(
     color: c_0C1C33,
     fontSize: 20.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_0C1C33_20sp_semibold = TextStyle(
     color: c_0C1C33,
     fontSize: 20.sp,
     fontWeight: FontWeight.w600,
-  );
+  ).merge(en600);
 
   /// 0089FF
   static TextStyle ts_0089FF_10sp_semibold = TextStyle(
     color: c_0089FF,
     fontSize: 10.sp,
     fontWeight: FontWeight.w600,
-  );
+  ).merge(en600);
   static TextStyle ts_0089FF_10sp = TextStyle(
     color: c_0089FF,
     fontSize: 10.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_0089FF_12sp = TextStyle(
     color: c_0089FF,
     fontSize: 12.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_0089FF_14sp = TextStyle(
     color: c_0089FF,
     fontSize: 14.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_0089FF_16sp = TextStyle(
     color: c_0089FF,
     fontSize: 16.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_0089FF_17sp = TextStyle(
     color: c_0089FF,
     fontSize: 17.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_0089FF_17sp_semibold = TextStyle(
     color: c_0089FF,
     fontSize: 17.sp,
     fontWeight: FontWeight.w600,
-  );
+  ).merge(en600);
   static TextStyle ts_0089FF_17sp_medium = TextStyle(
     color: c_0089FF,
     fontSize: 17.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_0089FF_14sp_medium = TextStyle(
     color: c_0089FF,
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
 
   static TextStyle ts_0089FF_22sp_semibold = TextStyle(
     color: c_0089FF,
     fontSize: 22.sp,
     fontWeight: FontWeight.w600,
-  );
+  ).merge(en600);
 
   /// FF381F
   static TextStyle ts_FF381F_17sp = TextStyle(
     color: c_FF381F,
     fontSize: 17.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_FF381F_14sp = TextStyle(
     color: c_FF381F,
     fontSize: 14.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_FF381F_12sp = TextStyle(
     color: c_FF381F,
     fontSize: 12.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_FF381F_10sp = TextStyle(
     color: c_FF381F,
     fontSize: 10.sp,
-  );
-
-  
+  ).merge(en400);
 
   /// 999999
   static TextStyle ts_999999_10sp_semibold = TextStyle(
     color: c_999999,
     fontSize: 10.sp,
     fontWeight: FontWeight.w600,
-  );
+  ).merge(en600);
   static TextStyle ts_999999_10sp = TextStyle(
     color: c_999999,
     fontSize: 10.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_999999_11sp = TextStyle(
     color: c_999999,
     fontSize: 11.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_999999_12sp = TextStyle(
     color: c_999999,
     fontSize: 12.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_999999_12sp_medium = TextStyle(
     color: c_999999,
     fontSize: 12.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_999999_13sp = TextStyle(
     color: c_999999,
     fontSize: 13.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_999999_14sp = TextStyle(
     color: c_999999,
     fontSize: 14.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_999999_15sp = TextStyle(
     color: c_999999,
     fontSize: 15.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_999999_16sp = TextStyle(
     color: c_999999,
     fontSize: 16.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_999999_17sp = TextStyle(
     color: c_999999,
     fontSize: 17.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_999999_opacity50_17sp = TextStyle(
     color: c_999999_opacity50,
     fontSize: 17.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_999999_18sp = TextStyle(
     color: c_999999_opacity50,
     fontSize: 18.sp,
-  );
+  ).merge(en400);
 
   /// 333333
   static TextStyle ts_333333_10sp = TextStyle(
     color: c_333333,
     fontSize: 10.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_333333_12sp = TextStyle(
     color: c_333333,
     fontSize: 12.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_333333_12sp_medium = TextStyle(
     color: c_333333,
     fontSize: 12.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en400);
   static TextStyle ts_333333_14sp = TextStyle(
     color: c_333333,
     fontSize: 14.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_333333_14sp_medium = TextStyle(
     color: c_333333,
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_333333_15sp = TextStyle(
     color: c_333333,
     fontSize: 15.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_333333_16sp = TextStyle(
     color: c_333333,
     fontSize: 16.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_333333_16sp_medium = TextStyle(
     color: c_333333,
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_333333_17sp = TextStyle(
     color: c_333333,
     fontSize: 17.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_333333_17sp_medium = TextStyle(
     color: c_333333,
     fontSize: 17.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
 
   static TextStyle ts_333333_17sp_semibold = TextStyle(
     color: c_333333,
     fontSize: 17.sp,
     fontWeight: FontWeight.w600,
-  );
+  ).merge(en600);
   static TextStyle ts_333333_18sp_medium = TextStyle(
     color: c_333333,
     fontSize: 18.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_333333_18sp_semibold = TextStyle(
     color: c_333333,
     fontSize: 18.sp,
     fontWeight: FontWeight.w600,
-  );
+  ).merge(en600);
   static TextStyle ts_333333_20sp = TextStyle(
     color: c_333333,
     fontSize: 20.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_333333_20sp_medium = TextStyle(
     color: c_333333,
     fontSize: 20.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_333333_20sp_semibold = TextStyle(
     color: c_333333,
     fontSize: 20.sp,
     fontWeight: FontWeight.w600,
-  );
+  ).merge(en600);
   static TextStyle ts_333333_22sp_medium = TextStyle(
     color: c_333333,
     fontSize: 22.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_333333_24sp_medium = TextStyle(
     color: c_333333,
     fontSize: 24.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_333333_13sp = TextStyle(
     color: c_333333,
     fontSize: 13.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_333333_13sp_medium = TextStyle(
     color: c_333333,
     fontSize: 13.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
 
   /// 8443F8
   static TextStyle ts_8443F8_10sp_semibold = TextStyle(
     color: c_8443F8,
     fontSize: 10.sp,
     fontWeight: FontWeight.w600,
-  );
+  ).merge(en600);
   static TextStyle ts_8443F8_10sp = TextStyle(
     color: c_8443F8,
     fontSize: 10.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_8443F8_11sp = TextStyle(
     color: c_8443F8,
     fontSize: 11.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_8443F8_12sp = TextStyle(
     color: c_8443F8,
     fontSize: 12.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_8443F8_14sp = TextStyle(
     color: c_8443F8,
     fontSize: 14.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_8443F8_16sp = TextStyle(
     color: c_8443F8,
     fontSize: 16.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_8443F8_17sp = TextStyle(
     color: c_8443F8,
     fontSize: 17.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_8443F8_17sp_semibold = TextStyle(
     color: c_8443F8,
     fontSize: 17.sp,
     fontWeight: FontWeight.w600,
-  );
+  ).merge(en600);
   static TextStyle ts_8443F8_17sp_medium = TextStyle(
     color: c_8443F8,
     fontSize: 17.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_8443F8_14sp_medium = TextStyle(
     color: c_8443F8,
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_8443F8_18sp = TextStyle(
     color: c_8443F8,
     fontSize: 18.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_8443F8_18sp_medium = TextStyle(
     color: c_8443F8,
     fontSize: 18.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_8443F8_18sp_bold = TextStyle(
     color: c_8443F8,
     fontSize: 18.sp,
     fontWeight: FontWeight.w700,
-  );
+  ).merge(en700);
   static TextStyle ts_8443F8_22sp_semibold = TextStyle(
     color: c_8443F8,
     fontSize: 22.sp,
     fontWeight: FontWeight.w600,
-  );
+  ).merge(en600);
   static TextStyle ts_8443F8_46sp_bold = TextStyle(
     color: c_8443F8,
     fontSize: 46.sp,
     fontWeight: FontWeight.w700,
-  );
+  ).merge(en700);
 
   static TextStyle ts_FFFFFF_46sp_bold = TextStyle(
     color: c_FFFFFF,
     fontSize: 46.sp,
     fontWeight: FontWeight.w700,
-  );
+  ).merge(en700);
 
   /// FF4E4C
   static TextStyle ts_FF4E4C_17sp = TextStyle(
     color: c_FF4E4C,
     fontSize: 17.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_FF4E4C_16sp = TextStyle(
     color: c_FF4E4C,
     fontSize: 16.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_FF4E4C_14sp = TextStyle(
     color: c_FF4E4C,
     fontSize: 14.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_FF4E4C_12sp = TextStyle(
     color: c_FF4E4C,
     fontSize: 12.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_FF4E4C_10sp = TextStyle(
     color: c_FF4E4C,
     fontSize: 10.sp,
-  );
+  ).merge(en400);
 
   /// 6085B1
   static TextStyle ts_6085B1_17sp_medium = TextStyle(
     color: c_6085B1,
     fontSize: 17.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_6085B1_17sp = TextStyle(
     color: c_6085B1,
     fontSize: 17.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_6085B1_12sp = TextStyle(
     color: c_6085B1,
     fontSize: 12.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_6085B1_14sp = TextStyle(
     color: c_6085B1,
     fontSize: 14.sp,
-  );
+  ).merge(en400);
 
   // 656565
   static TextStyle ts_656565_12sp = TextStyle(
     color: c_656565,
     fontSize: 12.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_656565_14sp = TextStyle(
     color: c_656565,
     fontSize: 14.sp,
-  );
+  ).merge(en400);
 
   // B3B3B3
   static TextStyle ts_B3B3B3_11sp = TextStyle(
     color: c_B3B3B3,
     fontSize: 11.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_B3B3B3_12sp = TextStyle(
     color: c_B3B3B3,
     fontSize: 12.sp,
-  );
+  ).merge(en400);
 
   // 4B3230
   static TextStyle ts_4B3230_12sp = TextStyle(
     color: c_4B3230,
     fontSize: 12.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_4B3230_16sp = TextStyle(
     color: c_4B3230,
     fontSize: 16.sp,
-  );
+  ).merge(en400);
 
   static TextStyle ts_4B3230_16sp_medium = TextStyle(
     color: c_4B3230,
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
 
   static TextStyle ts_4B3230_18sp = TextStyle(
     color: c_4B3230,
     fontSize: 18.sp,
-  );
+  ).merge(en400);
 
   static TextStyle ts_4B3230_18sp_medium = TextStyle(
     color: c_4B3230,
     fontSize: 18.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
 
   static TextStyle ts_4B3230_20sp_medium = TextStyle(
     color: c_4B3230,
     fontSize: 20.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
 
   // 332221
   static TextStyle ts_332221_16sp = TextStyle(
     color: c_332221,
     fontSize: 16.sp,
-  );
+  ).merge(en400);
 
   static TextStyle ts_332221_18sp = TextStyle(
     color: c_332221,
     fontSize: 18.sp,
-  );
+  ).merge(en400);
 
   // B3AAAA
   static TextStyle ts_B3AAAA_12sp = TextStyle(
     color: c_B3AAAA,
     fontSize: 12.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_B3AAAA_14sp = TextStyle(
     color: c_B3AAAA,
     fontSize: 14.sp,
-  );
+  ).merge(en400);
 
   // EDEDED
   static TextStyle ts_EDEDED_16sp = TextStyle(
     color: c_EDEDED,
     fontSize: 16.sp,
-  );
+  ).merge(en400);
 
   // 666666
   static TextStyle ts_666666_12sp = TextStyle(
     color: c_666666,
     fontSize: 12.sp,
-  );
+  ).merge(en400);
 
   static TextStyle ts_666666_16sp = TextStyle(
     color: c_666666,
     fontSize: 16.sp,
-  );
+  ).merge(en400);
 
   // c_9280B3
   static TextStyle ts_9280B3_14sp = TextStyle(
     color: c_9280B3,
     fontSize: 14.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_9280B3_14sp_medium = TextStyle(
     color: c_9280B3,
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
   static TextStyle ts_9280B3_16sp = TextStyle(
     color: c_9280B3,
     fontSize: 16.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_9280B3_16sp_medium = TextStyle(
     color: c_9280B3,
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
 
   // c_303137
   static TextStyle ts_303137_14sp_medium = TextStyle(
     color: c_303137,
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
 
   // c_FC4D4D
   static TextStyle ts_FC4D4D_16sp = TextStyle(
     color: c_FC4D4D,
     fontSize: 16.sp,
-  );
+  ).merge(en400);
 
   static TextStyle ts_CCCCCC_16sp = TextStyle(
     color: c_CCCCCC,
     fontSize: 16.sp,
     fontWeight: FontWeight.w400,
-  );
+  ).merge(en400);
 
   static TextStyle ts_343434_12p = TextStyle(
     color: c_343434,
     fontSize: 12.sp,
-  );
+  ).merge(en400);
 
   static TextStyle ts_343434_18p_medium = TextStyle(
     color: c_343434,
     fontSize: 18.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
 
   static TextStyle ts_666666_14sp = TextStyle(
     color: c_666666,
     fontSize: 14.sp,
-  );
+  ).merge(en400);
   static TextStyle ts_343434_16p_medium = TextStyle(
     color: c_343434,
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
-  );
+  ).merge(en500);
 
   static TextStyle ts_2C2C2C_16sp = TextStyle(
     color: c_2C2C2C,
     fontSize: 16.sp,
+  ).merge(en400);
+
+  static TextStyle en400 = const TextStyle(
+    fontFamily: "HKGrotesk-400",
+    fontWeight: FontWeight.w400
   );
+
+  static TextStyle en500 = const TextStyle(
+    fontFamily: "HKGrotesk-500",
+    fontWeight: FontWeight.w500
+  );
+
+  static TextStyle en600 =
+      const TextStyle(fontFamily: "HKGrotesk-600", fontWeight: FontWeight.w600);
+
+  static TextStyle en700 =
+      const TextStyle(fontFamily: "HKGrotesk-700", fontWeight: FontWeight.w700);
 }

@@ -65,18 +65,17 @@ class ChatApp extends StatelessWidget {
     // var baseTheme = ThemeData(brightness: brightness);
 
     return ThemeData(
-      fontFamily: Theme.of(context).platform == TargetPlatform.iOS
-          ? 'PingFang SC'
-          : null,
-      dialogBackgroundColor: Styles.c_FFFFFF,
-      bottomSheetTheme: const BottomSheetThemeData(
+        fontFamily: Theme.of(context).platform == TargetPlatform.iOS
+            ? 'PingFang SC'
+            : null,
+        fontFamilyFallback: ["sans-serif"],
+        dialogBackgroundColor: Styles.c_FFFFFF,
+        bottomSheetTheme: const BottomSheetThemeData(
             backgroundColor: Colors.transparent, modalElevation: 0),
-      dialogTheme: DialogTheme(
-        elevation: 0
-      )
-      // fontFamilyFallback:
-      //     Theme.of(context).platform == TargetPlatform.iOS ? null : null,
-    );
+        dialogTheme: DialogTheme(elevation: 0)
+        // fontFamilyFallback:
+        //     Theme.of(context).platform == TargetPlatform.iOS ? null : null,
+        );
 
     // return baseTheme.copyWith(
     //   textTheme: GoogleFonts.robotoTextTheme(baseTheme.textTheme)
