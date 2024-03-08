@@ -14,7 +14,7 @@ class ChatPage extends StatelessWidget {
   ChatPage({super.key});
 
   Widget _buildItemView(Message message) => ChatItemView(
-        showRead: logic.isAiSingleChat? true : null,
+        showRead: logic.isAiSingleChat ? true : null,
         key: logic.itemKey(message),
         // isBubbleMsg: logic.showBubbleBg(message),
         message: message,
@@ -122,13 +122,15 @@ class ChatPage extends StatelessWidget {
       );
 
   Widget? _buildMediaItem(BuildContext context, Message message) {
-    if (message.contentType != MessageType.picture && message.contentType != MessageType.video) {
+    if (message.contentType != MessageType.picture &&
+        message.contentType != MessageType.video) {
       return null;
     }
-    final mediaMessages = logic.mediaMessages;
-    final cellIndex = mediaMessages.indexOf(message);
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        await logic.searchMediaMessage();
+        final mediaMessages = logic.mediaMessages;
+        final cellIndex = mediaMessages.indexOf(message);
         logic.stopVoice();
         IMUtils.previewMediaFile(
             context: context,
@@ -154,7 +156,8 @@ class ChatPage extends StatelessWidget {
       child: Hero(
           tag: message.clientMsgID!,
           child: _buildMediaContent(message),
-          placeholderBuilder: (BuildContext context, Size heroSize, Widget child) => child),
+          placeholderBuilder:
+              (BuildContext context, Size heroSize, Widget child) => child),
     );
   }
 
@@ -184,9 +187,11 @@ class ChatPage extends StatelessWidget {
       if (viewType == CustomMessageType.call) {
         final type = data['type'];
         final content = data['content'];
-        final view = ChatCallItemView(type: type, content: content, isISend: isISend);
+        final view =
+            ChatCallItemView(type: type, content: content, isISend: isISend);
         return CustomTypeInfo(view);
-      } else if (viewType == CustomMessageType.deletedByFriend || viewType == CustomMessageType.blockedByFriend) {
+      } else if (viewType == CustomMessageType.deletedByFriend ||
+          viewType == CustomMessageType.blockedByFriend) {
         final view = ChatFriendRelationshipAbnormalHintView(
           name: logic.nickname.value,
           onTap: logic.sendFriendVerification,
@@ -329,21 +334,20 @@ class ChatPage extends StatelessWidget {
                     onClearQuote: () => logic.setQuoteMsg(null),
                     onSend: (v) => logic.sendTextMsg(),
                     toolbox: ChatToolBox(
-                      onTapAlbum: logic.onTapAlbum,
-                      onTapCall: logic.call,
-                      onTapCamera: logic.onTapCamera,
-                      onTapCard: logic.onTapCarte,
-                      onTapFile: logic.onTapFile,
-                      onTapLocation: logic.onTapLocation,
-                      onTapAutoTranslate: logic.onTapAutoTranslate,
-                      onTapSnapchat: logic.isSingleChat
-                          ? logic.toggleBurnAfterReading
-                          : null,
-                      onTapGroupNote:
-                          !logic.isSingleChat ? showDeveloping : null,
-                      onTapVote: !logic.isSingleChat ? showDeveloping : null,
-                      onTapSearch: logic.onTapSearch
-                    ),
+                        onTapAlbum: logic.onTapAlbum,
+                        onTapCall: logic.call,
+                        onTapCamera: logic.onTapCamera,
+                        onTapCard: logic.onTapCarte,
+                        onTapFile: logic.onTapFile,
+                        onTapLocation: logic.onTapLocation,
+                        onTapAutoTranslate: logic.onTapAutoTranslate,
+                        onTapSnapchat: logic.isSingleChat
+                            ? logic.toggleBurnAfterReading
+                            : null,
+                        onTapGroupNote:
+                            !logic.isSingleChat ? showDeveloping : null,
+                        onTapVote: !logic.isSingleChat ? showDeveloping : null,
+                        onTapSearch: logic.onTapSearch),
                     voiceRecordBar: bar,
                     emojiView: ChatEmojiView(
                       textEditingController: logic.inputCtrl,
@@ -368,33 +372,34 @@ class ChatPage extends StatelessWidget {
                       if (index == logic.messageListV2.length) {
                         return logic.showEncryptTips.value
                             ? Align(
-                              child: Container(
-                                width: 300.w,
-                                decoration: BoxDecoration(
-                                    color: Styles.c_EBEBEB,
-                                    borderRadius: BorderRadius.circular(6.r)),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 12.w, vertical: 6.h),
-                                margin: EdgeInsets.only(bottom: 16.h),
-                                child: RichText(
-                                  text: TextSpan(children: [
-                                    WidgetSpan(
-                                      child: ImageRes.appEncrypt.toImage
-                                        ..width = 9.w
-                                        ..height = 10.h,
-                                      alignment: PlaceholderAlignment.middle,
-                                    ),
-                                    WidgetSpan(
-                                      child: SizedBox(width: 2.w,)
-                                    ),
-                                    TextSpan(
-                                      style: Styles.ts_333333_12sp,
-                                      text: StrRes.encryptTips,
-                                    )
-                                  ]),
+                                child: Container(
+                                  width: 300.w,
+                                  decoration: BoxDecoration(
+                                      color: Styles.c_EBEBEB,
+                                      borderRadius: BorderRadius.circular(6.r)),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 12.w, vertical: 6.h),
+                                  margin: EdgeInsets.only(bottom: 16.h),
+                                  child: RichText(
+                                    text: TextSpan(children: [
+                                      WidgetSpan(
+                                        child: ImageRes.appEncrypt.toImage
+                                          ..width = 9.w
+                                          ..height = 10.h,
+                                        alignment: PlaceholderAlignment.middle,
+                                      ),
+                                      WidgetSpan(
+                                          child: SizedBox(
+                                        width: 2.w,
+                                      )),
+                                      TextSpan(
+                                        style: Styles.ts_333333_12sp,
+                                        text: StrRes.encryptTips,
+                                      )
+                                    ]),
+                                  ),
                                 ),
-                              ),
-                            )
+                              )
                             : SizedBox();
                       } else {
                         final message = logic.indexOfMessage(index);

@@ -303,11 +303,17 @@ class AppController extends SuperController {
             // 尝试解析通知类型
             noticeTypeMsgGroupName =
                 IMUtils.parseNtfMap(message)?["group"]?["groupName"];
-            text = IMUtils.parseNtf(message, isConversation: true) ??
-                StrRes.defaultNotificationTitle;
+            String? str = IMUtils.parseNtf(message, isConversation: true);
+            if (null == str) {
+              text = StrRes.defaultNotificationTitle;
+              myLogger.e({"message": "contentType>=1000的消息解析失败", "data": message.toJson()});
+            } else {
+              text = str;
+            }
           } else {
             // 其他类型暂时不展示
-            myLogger.w({"message": "sdk收到一条消息, 未匹配需要暂时的情况", "data": message.toJson()});
+            myLogger.w(
+                {"message": "sdk收到一条消息, 未匹配需要暂时的情况", "data": message.toJson()});
           }
 
           final list =
@@ -353,11 +359,15 @@ class AppController extends SuperController {
                 payload: json.encode(message.toJson()));
           } else {
             myLogger.w({
-              "message": "收到意外通知类型的消息, 消息类型(sessionType: ${message.sessionType})",
+              "message":
+                  "收到意外通知类型的消息, 消息类型(sessionType: ${message.sessionType})",
               "data": message.toJson(),
             });
-            await flutterLocalNotificationsPlugin.show(notificationSeq,
-                StrRes.defaultNotificationTitle2, text, platformChannelSpecifics,
+            await flutterLocalNotificationsPlugin.show(
+                notificationSeq,
+                StrRes.defaultNotificationTitle2,
+                text,
+                platformChannelSpecifics,
                 payload: json.encode(message.toJson()));
           }
         } catch (e, s) {

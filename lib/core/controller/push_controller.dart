@@ -19,7 +19,8 @@ class PushController extends GetxController {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> _init() async {
     // Permissions.notification();
-    initGetuiSdk();
+    // 安卓初始化
+    // initGetuiSdk();
     // iOS 配置, 安卓配置build.gradle文件
     if (Platform.isIOS) {
       Getuiflut().startSdk(
@@ -32,76 +33,88 @@ class PushController extends GetxController {
     Getuiflut().addEventHandler(
       // 注册收到 cid 的回调
       onReceiveClientId: (String message) async {
-        Logger.print("Getui flutter onReceiveClientId: $message");
         _getClientId = message;
-        print("==========, onReceiveClientId, cid: ${_getClientId}");
+        myLogger.i({
+          "message": "getui onReceiveClientId",
+          "data": "获取到${_getClientId}"
+        });
       },
       onReceiveMessageData: (Map<String, dynamic> msg) async {
-        Logger.print("Getui flutter onReceiveMessageData: $msg");
-        myLogger.i({"message": "onReceiveMessageData", "data": msg});
         _payloadInfo = msg['payload'];
+        myLogger.i({"message": "getui onReceiveMessageData", "data": msg});
       },
       onNotificationMessageArrived: (Map<String, dynamic> msg) async {
-        Logger.print("Getui flutter onNotificationMessageArrived: $msg");
-        myLogger.i({"message": "onNotificationMessageArrived", "data": msg});
         _notificationState = 'Arrived';
+        myLogger
+            .i({"message": "getui onNotificationMessageArrived", "data": msg});
       },
       onNotificationMessageClicked: (Map<String, dynamic> msg) async {
-        Logger.print("Getui flutter onNotificationMessageClicked: $msg");
-        myLogger.i({"message": "onNotificationMessageClicked", "data": msg});
         _notificationState = 'Clicked';
+        myLogger
+            .i({"message": "getui onNotificationMessageClicked", "data": msg});
       },
       // 注册 DeviceToken 回调
       onRegisterDeviceToken: (String message) async {
-        Logger.print("Getui flutter onRegisterDeviceToken: $message");
         _getDeviceToken = "$message";
+        myLogger.i({"message": "getui onRegisterDeviceToken", "data": message});
       },
       // SDK收到透传消息回调
       onReceivePayload: (Map<String, dynamic> message) async {
-        Logger.print("Getui flutter onReceivePayload: $message");
-        myLogger.i({"message": "onReceivePayload", "data": message});
         _onReceivePayload = "$message";
+        myLogger.i({"message": "getui onReceivePayload", "data": message});
       },
       // 点击通知回调
       onReceiveNotificationResponse: (Map<String, dynamic> message) async {
-        Logger.print("Getui flutter onReceiveNotificationResponse: $message");
-        myLogger.i({"message": "onReceiveNotificationResponse", "data": message});
         _onReceiveNotificationResponse = "$message";
+        myLogger.i({
+          "message": "getui onReceiveNotificationResponse",
+          "data": message
+        });
       },
       // APPLink中携带的透传payload信息
       onAppLinkPayload: (String message) async {
-        Logger.print("Getui flutter onAppLinkPayload: $message");
         _onAppLinkPayLoad = "$message";
+        myLogger.i({"message": "getui onAppLinkPayload", "data": message});
       },
       // 通知服务开启\关闭回调
       onPushModeResult: (Map<String, dynamic> message) async {
-        Logger.print("Getui flutter onPushModeResult: $message");
+        myLogger.i({"message": "getui onPushModeResult", "data": message});
       },
       // SetTag回调
       onSetTagResult: (Map<String, dynamic> message) async {
-        Logger.print("Getui flutter onSetTagResult: $message");
+        myLogger.i({"message": "getui onSetTagResult", "data": message});
       },
       // 设置别名回调
       onAliasResult: (Map<String, dynamic> message) async {
-        Logger.print("Getui flutter onAliasResult: $message");
+        myLogger.i({"message": "getui onAliasResult", "data": message});
       },
       // 查询Tag回调
       onQueryTagResult: (Map<String, dynamic> message) async {
-        Logger.print("Getui flutter onQueryTagResult: $message");
+        myLogger.i({"message": "getui onQueryTagResult", "data": message});
       },
       // APNs通知即将展示回调
       onWillPresentNotification: (Map<String, dynamic> message) async {
-        Logger.print("Getui flutter onWillPresentNotification: $message");
+        myLogger
+            .i({"message": "getui onWillPresentNotification", "data": message});
       },
       // APNs通知设置跳转回调
       onOpenSettingsForNotification: (Map<String, dynamic> message) async {
-        Logger.print("Getui flutter onOpenSettingsForNotification: $message");
+        myLogger.i({
+          "message": "getui onOpenSettingsForNotification",
+          "data": message
+        });
       },
       onTransmitUserMessageReceive: (Map<String, dynamic> event) async {
-        Logger.print("Getui flutter onTransmitUserMessageReceive: $event");
+        myLogger.i(
+            {"message": "getui onTransmitUserMessageReceive", "data": event});
       },
-      onGrantAuthorization: (String res) async {},
-      onLiveActivityResult: (Map<String, dynamic> event) => Future.value(),
+      onGrantAuthorization: (String res) async {
+        myLogger.i({"message": "getui onGrantAuthorization", "data": res});
+      },
+      onLiveActivityResult: (Map<String, dynamic> event) {
+        myLogger.i({"message": "getui onLiveActivityResult", "data": event});
+        return Future.value();
+      },
     );
   }
 
@@ -139,12 +152,14 @@ class PushController extends GetxController {
   /// alias 别名字符串
   /// aSn   绑定序列码, Android中无效，仅在iOS有效
   void login(String uid) {
+    if (!Platform.isIOS) return;
     Getuiflut().bindAlias(uid, _getClientId);
     print("==========, login, cid: ${_getClientId}");
   }
 
   void logout() {
-    myLogger.w({"message": "push_controller登出取消解绑个推"});
+    if (!Platform.isIOS) return;
+    myLogger.w({"message": "getui push_controller登出取消解绑个推"});
     Getuiflut().unbindAlias(OpenIM.iMManager.userID, _getClientId, true);
   }
 

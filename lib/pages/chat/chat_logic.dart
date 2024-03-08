@@ -193,7 +193,7 @@ class ChatLogic extends GetxController {
   }
 
   // Query multimedia messages and prepare for large image browsing.
-  void _searchMediaMessage() async {
+  Future<void> searchMediaMessage() async {
     final messageList = await OpenIM.iMManager.messageManager
         .searchLocalMessages(
             conversationID: conversationInfo.value.conversationID,
@@ -213,6 +213,11 @@ class ChatLogic extends GetxController {
     _readDraftText();
     _queryUserOnlineStatus();
     _resetGroupAtType();
+    // ever(messageList, (_) {
+    //   Future.delayed(Duration(milliseconds: 500), () {
+    //     searchMediaMessage();
+    //   });
+    // });
     super.onReady();
   }
 
@@ -231,7 +236,7 @@ class ChatLogic extends GetxController {
     _initChatConfig();
     _initPlayListener();
     _setSdkSyncDataListener();
-    _searchMediaMessage();
+    searchMediaMessage();
     // 获取在线状态
     // _startQueryOnlineStatus();
     // 新增消息监听
@@ -2793,7 +2798,7 @@ class ChatLogic extends GetxController {
       showEncryptTips.value = true;
       return false;
     }
-    _searchMediaMessage();
+    searchMediaMessage();
     list = result.messageList!;
     lastMinSeq = result.lastMinSeq;
     if (_isFirstLoad) {
@@ -2805,7 +2810,7 @@ class ChatLogic extends GetxController {
       if (list.isNotEmpty && list.length < 20) {
         final result = await _requestHistoryMessage();
         if (result.messageList?.isNotEmpty == true) {
-          _searchMediaMessage();
+          searchMediaMessage();
           list = result.messageList!;
           lastMinSeq = result.lastMinSeq;
         }
