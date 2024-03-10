@@ -2345,6 +2345,7 @@ class ChatLogic extends GetxController {
     message.createTime = -1;
     message.sendTime = -1;
     message.sendID = userID;
+    message.senderNickname = nickname.value;
     message.recvID = OpenIM.iMManager.userID;
     extraMessageList.add(message);
   }

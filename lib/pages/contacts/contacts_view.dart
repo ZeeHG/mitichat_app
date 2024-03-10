@@ -111,7 +111,7 @@ class ContactsPage extends StatelessWidget {
                                         ["shadowColor"],
                                     onTap: logic.menus[index]["onTap"],
                                     badge: logic.menus[index]["key"] == "newRecent"? homeLogic.unhandledCount.value : null),
-                                10.horizontalSpace
+                                8.horizontalSpace
                               ],
                             )),
                   )),
@@ -185,7 +185,7 @@ class ContactsPage extends StatelessWidget {
     required String text,
     Function()? onTap,
   }) {
-    width = width ?? 110.w;
+    width = width ?? 108.w;
     height = height ?? 50.h;
     color = color ?? Styles.c_8544F8;
     tStyle = tStyle ?? Styles.ts_FFFFFF_14sp_medium;

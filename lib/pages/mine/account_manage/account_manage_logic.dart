@@ -120,6 +120,7 @@ class AccountManageLogic extends GetxController {
                 autofocus: false,
                 label: "",
                 hintText: StrRes.addAccountServerTips,
+                hintStyle: Styles.ts_CCCCCC_14sp,
                 border: false,
                 controller: serverCtrl,
               ),

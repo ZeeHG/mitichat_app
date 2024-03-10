@@ -1078,7 +1078,7 @@ const Map<String, String> en_US = {
   "addOrRegisterAccount": "Add or Register an Account",
   "fail": "Operation Failed",
   "addAccountServer": "Add Account",
-  "addAccountServerTips": "Please enter the server address to add the account.",
+  "addAccountServerTips": "Please enter the server address",
   "serverFormatErr": "Server Format Error",
   "serverErr": "Server Error",
   "accountErr": "Account Error",

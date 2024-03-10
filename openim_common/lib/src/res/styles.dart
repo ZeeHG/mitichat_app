@@ -729,6 +729,12 @@ class Styles {
     fontSize: 16.sp,
   ).merge(en400);
 
+  static TextStyle ts_CCCCCC_14sp = TextStyle(
+    color: c_CCCCCC,
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w400,
+  ).merge(en400);
+
   static TextStyle ts_CCCCCC_16sp = TextStyle(
     color: c_CCCCCC,
     fontSize: 16.sp,
