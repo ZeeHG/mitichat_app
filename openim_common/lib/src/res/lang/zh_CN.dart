@@ -1140,5 +1140,7 @@ const Map<String, String> zh_CN = {
   "infringement2": "侵犯权益",
   "illegalSales": "违规售卖",
   "other": "其他",
+
+  // 上面3.8校对
   "selectFriends": "选择联系人"
 };
