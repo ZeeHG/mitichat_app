@@ -6,7 +6,6 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'xhs_logic.dart';
 
@@ -91,10 +90,10 @@ class XhsPage extends StatelessWidget {
                                   behavior: HitTestBehavior.translucent,
                                   child: Text(
                                     category.label,
-                                    style:
-                                        category.value == logic.activeCategory.value.value
-                                            ? Styles.ts_333333_16sp_medium
-                                            : Styles.ts_999999_16sp,
+                                    style: category.value ==
+                                            logic.activeCategory.value.value
+                                        ? Styles.ts_333333_16sp_medium
+                                        : Styles.ts_999999_16sp,
                                   ),
                                 ),
                               ),
@@ -116,153 +115,191 @@ class XhsPage extends StatelessWidget {
         ),
       ),
       Expanded(
-          child: SmartRefresher(
-              controller: logic.refreshCtrl,
-              // header: const MomentsIndicator(),
-              // header: const MaterialClassicHeader(color: Color(0xFF041d31)),
-              footer: IMViews.buildFooter(),
-              onRefresh: logic.queryWorkingCircleList,
-              onLoading: logic.loadMore,
-              enablePullUp: true,
-              child: MasonryGridView.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 7.h,
-                crossAxisSpacing: 7.w,
-                itemCount: logic.workMoments.length,
-                padding: EdgeInsets.only(
-                    top: 7.h, left: 12.w, right: 12.w, bottom: 12.h),
-                itemBuilder: (context, index) {
-                  return Obx(() {
-                    final xhsMoment = logic.workMoments[index];
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () => logic.startXhsMomentDetail(xhsMoment),
-                      child: Container(
-                        clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(
-                          color: Styles.c_FFFFFF,
-                          borderRadius: BorderRadius.circular(6.r),
-                        ),
-                        child: Column(
-                          children: [
-                            if (null != xhsMoment.content?.metas &&
-                                xhsMoment.content!.metas!.length > 0) ...[
-                              if (xhsMoment.content?.type != 1)
-                                CachedNetworkImage(
-                                  imageUrl:
-                                      xhsMoment.content!.metas![0]!.original!,
-                                  placeholder: (context, url) => Container(
-                                      height: 80.h,
-                                      child: Center(
-                                        child: Text("loading..."),
-                                      )),
-                                  errorWidget: (context, url, error) =>
-                                      Container(
-                                          height: 80.h,
-                                          child: Center(
-                                            child: Text(""),
-                                          )),
-                                ),
-                              if (xhsMoment.content?.type == 1)
-                                Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    CachedNetworkImage(
-                                      fit: BoxFit.cover,
-                                      imageUrl:
-                                          xhsMoment.content!.metas![0]!.thumb ??
-                                              xhsMoment.content!.metas![0]!
-                                                  .original!,
-                                      placeholder: (context, url) => Container(
-                                          height: 80.h,
-                                          child: Center(
-                                            child: Text(""),
-                                          )),
-                                      errorWidget: (context, url, error) =>
-                                          Icon(Icons.error),
+          child: PageView.builder(
+              controller: logic.pageController,
+              itemCount: logic.categoryList.length,
+              itemBuilder: (context, i) {
+                return Obx(() => SmartRefresher(
+                    controller: logic.refreshCtrlList[i],
+                    // header: const MomentsIndicator(),
+                    // header: const MaterialClassicHeader(color: Color(0xFF041d31)),
+                    footer: IMViews.buildFooter(),
+                    onRefresh: logic.queryWorkingCircleList,
+                    onLoading: logic.loadMore,
+                    enablePullUp: true,
+                    child: MasonryGridView.count(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 7.h,
+                      crossAxisSpacing: 7.w,
+                      itemCount: logic.workMoments.length,
+                      padding: EdgeInsets.only(
+                          top: 7.h, left: 12.w, right: 12.w, bottom: 12.h),
+                      itemBuilder: (context, index) {
+                        return Obx(() {
+                          final xhsMoment = index < logic.workMoments.length - 1
+                              ? logic.workMoments[index]
+                              : null;
+                          return xhsMoment == null
+                              ? SizedBox()
+                              : GestureDetector(
+                                  behavior: HitTestBehavior.translucent,
+                                  onTap: () =>
+                                      logic.startXhsMomentDetail(xhsMoment),
+                                  child: Container(
+                                    clipBehavior: Clip.hardEdge,
+                                    decoration: BoxDecoration(
+                                      color: Styles.c_FFFFFF,
+                                      borderRadius: BorderRadius.circular(6.r),
                                     ),
-                                    ImageRes.videoPause.toImage
-                                      ..width = 40.w
-                                      ..height = 40.h,
-                                  ],
-                                )
-                            ],
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 10.h, horizontal: 8.w),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  if ((context != xhsMoment.content?.title &&
-                                          xhsMoment!
-                                              .content!.title!.isNotEmpty) ||
-                                      (context != xhsMoment.content?.text &&
-                                          xhsMoment!
-                                              .content!.text!.isNotEmpty)) ...[
-                                    (xhsMoment.content?.title ??
-                                            xhsMoment.content!.text)
-                                        .toString()
-                                        .toText
-                                      ..style = Styles.ts_333333_14sp
-                                      ..overflow = TextOverflow.ellipsis
-                                      ..maxLines = 2,
-                                    12.verticalSpace
-                                  ],
-                                  Row(
-                                    children: [
-                                      AvatarView(
-                                        url: xhsMoment.faceURL,
-                                        text: xhsMoment.nickname?.toString(),
-                                        textStyle: Styles.ts_FFFFFF_11sp,
-                                        width: 20.w,
-                                        height: 20.h,
-                                      ),
-                                      6.horizontalSpace,
-                                      Expanded(
-                                          child: (xhsMoment.nickname ?? "")
-                                              .toString()
-                                              .toText
-                                            ..style = Styles.ts_999999_11sp
-                                            ..overflow = TextOverflow.ellipsis
-                                            ..maxLines = 1),
-                                      10.horizontalSpace,
-                                      GestureDetector(
-                                        behavior: HitTestBehavior.translucent,
-                                        onTap: () =>
-                                            logic.likeMoments(xhsMoment),
-                                        child: Row(
-                                          children: [
-                                            if (logic.iIsLiked(xhsMoment))
-                                              ImageRes.likeActive.toImage
-                                                ..width = 14.w
-                                                ..height = 13.h,
-                                            if (!logic.iIsLiked(xhsMoment))
-                                              ImageRes.like.toImage
-                                                ..width = 14.w
-                                                ..height = 13.h,
-                                            6.horizontalSpace,
-                                            (null != xhsMoment.likeUsers
-                                                    ? xhsMoment
-                                                        .likeUsers!.length
-                                                    : 0)
-                                                .toString()
-                                                .toText
-                                              ..style = Styles.ts_999999_11sp
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  });
-                },
-              )))
+                                    child: Column(
+                                      children: [
+                                        if (null != xhsMoment.content?.metas &&
+                                            xhsMoment.content!.metas!.length >
+                                                0) ...[
+                                          if (xhsMoment.content?.type != 1)
+                                            CachedNetworkImage(
+                                              imageUrl: xhsMoment.content!
+                                                  .metas![0]!.original!,
+                                              placeholder: (context, url) =>
+                                                  Container(
+                                                      height: 80.h,
+                                                      child: Center(
+                                                        child:
+                                                            Text("loading..."),
+                                                      )),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Container(
+                                                          height: 80.h,
+                                                          child: Center(
+                                                            child: Text(""),
+                                                          )),
+                                            ),
+                                          if (xhsMoment.content?.type == 1)
+                                            Stack(
+                                              alignment: Alignment.center,
+                                              children: [
+                                                CachedNetworkImage(
+                                                  fit: BoxFit.cover,
+                                                  imageUrl: xhsMoment.content!
+                                                          .metas![0]!.thumb ??
+                                                      xhsMoment.content!
+                                                          .metas![0]!.original!,
+                                                  placeholder: (context, url) =>
+                                                      Container(
+                                                          height: 80.h,
+                                                          child: Center(
+                                                            child: Text(""),
+                                                          )),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Icon(Icons.error),
+                                                ),
+                                                ImageRes.videoPause.toImage
+                                                  ..width = 40.w
+                                                  ..height = 40.h,
+                                              ],
+                                            )
+                                        ],
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 10.h, horizontal: 8.w),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              if ((context !=
+                                                          xhsMoment
+                                                              .content?.title &&
+                                                      xhsMoment!.content!.title!
+                                                          .isNotEmpty) ||
+                                                  (context !=
+                                                          xhsMoment
+                                                              .content?.text &&
+                                                      xhsMoment!.content!.text!
+                                                          .isNotEmpty)) ...[
+                                                (xhsMoment.content?.title ??
+                                                        xhsMoment.content!.text)
+                                                    .toString()
+                                                    .toText
+                                                  ..style =
+                                                      Styles.ts_333333_14sp
+                                                  ..overflow =
+                                                      TextOverflow.ellipsis
+                                                  ..maxLines = 2,
+                                                12.verticalSpace
+                                              ],
+                                              Row(
+                                                children: [
+                                                  AvatarView(
+                                                    url: xhsMoment.faceURL,
+                                                    text: xhsMoment.nickname
+                                                        ?.toString(),
+                                                    textStyle:
+                                                        Styles.ts_FFFFFF_11sp,
+                                                    width: 20.w,
+                                                    height: 20.h,
+                                                  ),
+                                                  6.horizontalSpace,
+                                                  Expanded(
+                                                      child:
+                                                          (xhsMoment.nickname ??
+                                                                  "")
+                                                              .toString()
+                                                              .toText
+                                                            ..style = Styles
+                                                                .ts_999999_11sp
+                                                            ..overflow =
+                                                                TextOverflow
+                                                                    .ellipsis
+                                                            ..maxLines = 1),
+                                                  10.horizontalSpace,
+                                                  GestureDetector(
+                                                    behavior: HitTestBehavior
+                                                        .translucent,
+                                                    onTap: () => logic
+                                                        .likeMoments(xhsMoment),
+                                                    child: Row(
+                                                      children: [
+                                                        if (logic.iIsLiked(
+                                                            xhsMoment))
+                                                          ImageRes.likeActive
+                                                              .toImage
+                                                            ..width = 14.w
+                                                            ..height = 13.h,
+                                                        if (!logic.iIsLiked(
+                                                            xhsMoment))
+                                                          ImageRes.like.toImage
+                                                            ..width = 14.w
+                                                            ..height = 13.h,
+                                                        6.horizontalSpace,
+                                                        (null !=
+                                                                    xhsMoment
+                                                                        .likeUsers
+                                                                ? xhsMoment
+                                                                    .likeUsers!
+                                                                    .length
+                                                                : 0)
+                                                            .toString()
+                                                            .toText
+                                                          ..style = Styles
+                                                              .ts_999999_11sp
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                        });
+                      },
+                    )));
+              }))
     ];
   }
 

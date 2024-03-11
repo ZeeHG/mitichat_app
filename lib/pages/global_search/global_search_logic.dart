@@ -15,6 +15,7 @@ class GlobalSearchLogic extends CommonSearchLogic {
   final contactsList = <UserInfo>[].obs;
   final groupList = <GroupInfo>[].obs;
   final textSearchResultItems = <SearchResultItems>[].obs;
+  String curSearchText = "";
 
   // final fileSearchResultItems = <SearchResultItems>[].obs;
   final fileMessageList = <Message>[].obs;
@@ -44,9 +45,15 @@ class GlobalSearchLogic extends CommonSearchLogic {
   }
 
   bool get isSearchNotResult =>
-      searchKey.isNotEmpty && contactsList.isEmpty && groupList.isEmpty && textSearchResultItems.isEmpty && fileMessageList.isEmpty;
+      searchKey.isNotEmpty &&
+      contactsList.isEmpty &&
+      groupList.isEmpty &&
+      textSearchResultItems.isEmpty &&
+      fileMessageList.isEmpty;
 
   search() async {
+    curSearchText = searchCtrl.text.trim();
+    final _curSearchText = curSearchText;
     final result = await LoadingView.singleton.wrap(
         asyncFunction: () => Future.wait([
               searchFriend(),
@@ -61,7 +68,9 @@ class GlobalSearchLogic extends CommonSearchLogic {
                 count: count,
               ),
             ]));
-    final friendList = (result[0] as List<FriendInfo>).map((e) => UserInfo(userID: e.userID, nickname: e.nickname, faceURL: e.faceURL));
+    if (curSearchText != _curSearchText) return;
+    final friendList = (result[0] as List<FriendInfo>).map((e) =>
+        UserInfo(userID: e.userID, nickname: e.nickname, faceURL: e.faceURL));
     // final deptMemberList = result[1] as List<DeptMemberInfo>;
     final gList = result[1] as List<GroupInfo>;
     final textMessageResult = (result[2] as SearchResult).searchResultItems;
@@ -93,7 +102,8 @@ class GlobalSearchLogic extends CommonSearchLogic {
   }
 
   void loadTextMessage() async {
-    final result = await searchTextMessage(pageIndex: ++textMessagePageIndex, count: count);
+    final result = await searchTextMessage(
+        pageIndex: ++textMessagePageIndex, count: count);
     final textMessageResult = result.searchResultItems;
     textSearchResultItems.addAll(textMessageResult ?? []);
     if ((textMessageResult ?? []).length < count) {
@@ -104,7 +114,8 @@ class GlobalSearchLogic extends CommonSearchLogic {
   }
 
   void loadFileMessage() async {
-    final result = await searchFileMessage(pageIndex: ++fileMessagePageIndex, count: count);
+    final result = await searchFileMessage(
+        pageIndex: ++fileMessagePageIndex, count: count);
     final fileMessageResult = result.searchResultItems;
     if (null != fileMessageResult && fileMessageResult.isNotEmpty) {
       for (var element in fileMessageResult) {
@@ -119,7 +130,8 @@ class GlobalSearchLogic extends CommonSearchLogic {
   }
 
   /// 最多显示2条
-  List<T> subList<T>(List<T> list) => list.sublist(0, list.length > 2 ? 2 : list.length).toList();
+  List<T> subList<T>(List<T> list) =>
+      list.sublist(0, list.length > 2 ? 2 : list.length).toList();
 
   String calContent(Message message) => IMUtils.calContent(
         content: IMUtils.parseMsg(message, replaceIdToNickname: true),
@@ -192,14 +204,18 @@ abstract class CommonSearchLogic extends GetxController {
   String get searchKey => searchCtrl.text.trim();
 
   Future<List<FriendInfo>> searchFriend() =>
-      Apis.searchFriendInfo(searchCtrl.text.trim()).then((list) => list.map((e) => FriendInfo.fromJson(e.toJson())).toList());
+      Apis.searchFriendInfo(searchCtrl.text.trim()).then(
+          (list) => list.map((e) => FriendInfo.fromJson(e.toJson())).toList());
 
   // Future<List<DeptMemberInfo>> searchDeptMember() =>
   //     OApis.searchDeptMember(keyword: searchKey)
   //         .then((value) => value.departmentMemberList ?? []);
 
   Future<List<GroupInfo>> searchGroup() =>
-      OpenIM.iMManager.groupManager.searchGroups(keywordList: [searchCtrl.text.trim()], isSearchGroupName: true, isSearchGroupID: true);
+      OpenIM.iMManager.groupManager.searchGroups(
+          keywordList: [searchCtrl.text.trim()],
+          isSearchGroupName: true,
+          isSearchGroupID: true);
 
   Future<SearchResult> searchTextMessage({
     int pageIndex = 1,

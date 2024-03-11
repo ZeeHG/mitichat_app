@@ -23,7 +23,12 @@ class ContactsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: TitleBar.contacts(
-          onClickAddContacts: logic.addContacts,
+          // onClickAddContacts: logic.addContacts,
+          popCtrl: logic.popCtrl,
+          onScan: logic.scan,
+          onAddFriend: logic.addFriend,
+          onAddGroup: logic.addGroup,
+          onCreateGroup: logic.createGroup,
           onClickSearch: logic.searchContacts,
           onSwitchTab: switchHomeTab,
           homeTabIndex: homeTabIndex,

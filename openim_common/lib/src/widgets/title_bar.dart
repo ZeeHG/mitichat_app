@@ -465,10 +465,16 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       {super.key,
       this.showUnderline = false,
       // Function()? onClickSearch,
-      Function()? onClickAddContacts,
+      // Function()? onClickAddContacts,
       Function()? onClickSearch,
       required Function(dynamic) onSwitchTab,
       required RxInt homeTabIndex,
+      CustomPopupMenuController? popCtrl,
+      Function()? onScan,
+      Function()? onAddFriend,
+      Function()? onAddGroup,
+      Function()? onCreateGroup,
+      Function()? onVideoMeeting,
       this.backIconColor,
       RxInt? unhandledCount,
       MediaQueryData? mq,
@@ -512,13 +518,54 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
           width: 40.w,
           height: 40.h,
         ),
+        // right = Row(
+        //   children: [
+        //     12.horizontalSpace,
+        //     ImageRes.appAddContacts.toImage
+        //       ..width = 28.w
+        //       ..height = 28.h
+        //       ..onTap = onClickAddContacts,
+        //   ],
+        // ),
         right = Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            12.horizontalSpace,
-            ImageRes.appAddContacts.toImage
-              ..width = 28.w
-              ..height = 28.h
-              ..onTap = onClickAddContacts,
+            PopButton(
+              popCtrl: popCtrl,
+              menus: [
+                PopMenuInfo(
+                  text: StrRes.scan,
+                  icon: ImageRes.appPopMenuScan,
+                  onTap: onScan,
+                ),
+                PopMenuInfo(
+                  text: StrRes.addFriend,
+                  icon: ImageRes.appPopMenuAddFriend,
+                  onTap: onAddFriend,
+                ),
+                PopMenuInfo(
+                  text: StrRes.addGroup,
+                  icon: ImageRes.appPopMenuAddGroup,
+                  onTap: onAddGroup,
+                ),
+                PopMenuInfo(
+                  text: StrRes.createGroup,
+                  icon: ImageRes.appPopMenuCreateGroup,
+                  onTap: onCreateGroup,
+                ),
+                // PopMenuInfo(
+                //   text: StrRes.videoMeeting,
+                //   icon: ImageRes.appPopMenuVideoMeeting,
+                //   onTap: onVideoMeeting,
+                // ),
+              ],
+              child: Padding(
+                padding: EdgeInsets.only(left: 12.w),
+                child: ImageRes.appAddBlack2.toImage
+                  ..width = 28.w
+                  ..height = 28.h,
+              ) /*..onTap = onClickAddBtn*/,
+            ),
           ],
         );
 

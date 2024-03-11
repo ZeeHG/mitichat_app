@@ -24,6 +24,7 @@ class GlobalSearchPage extends StatelessWidget {
           controller: logic.searchCtrl,
           onSubmitted: (_) => logic.search(),
           onCleared: () => logic.focusNode.requestFocus(),
+          onChanged: (_) => logic.search(),
         ),
         backgroundColor: Styles.c_F8F9FA,
         // body: Obx(() => logic.isSearchNotResult ? _emptyListView : SizedBox()),

@@ -11,6 +11,7 @@ import 'package:openim_common/openim_common.dart';
 
 import '../../core/controller/im_controller.dart';
 import '../home/home_logic.dart';
+import 'add_by_search/add_by_search_logic.dart';
 import 'select_contacts/select_contacts_logic.dart';
 
 class ContactsLogic extends GetxController
@@ -20,6 +21,7 @@ class ContactsLogic extends GetxController
   final friendList = <ISUserInfo>[].obs;
   final userIDList = <String>[];
   final imLoic = Get.find<IMController>();
+  final popCtrl = CustomPopupMenuController();
   late StreamSubscription delSub;
   late StreamSubscription addSub;
   late StreamSubscription infoChangedSub;
@@ -212,6 +214,18 @@ class ContactsLogic extends GetxController
   void createBot() => AppNavigator.startCreateBot();
 
   void notificationIssued() => AppNavigator.startNotificationIssued();
+
+  scan() => AppNavigator.startScan();
+
+  addFriend() =>
+      AppNavigator.startAddContactsBySearch(searchType: SearchType.user);
+
+  createGroup() => AppNavigator.startCreateGroup(
+      defaultCheckedList: [OpenIM.iMManager.userInfo]);
+
+  addGroup() =>
+      AppNavigator.startAddContactsBySearch(searchType: SearchType.group);
+
 
   // void workMoments() => WNavigator.startWorkMomentsList();
 

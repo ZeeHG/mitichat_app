@@ -48,6 +48,7 @@ class LoadingView extends NavigatorObserver {
           padding: padding);
     T data;
     try {
+      _cancelableOperation?.cancel();
       _cancelableOperation = CancelableOperation.fromFuture(asyncFunction());
       data = await _cancelableOperation?.value;
       // await Future.delayed(3000.milliseconds);

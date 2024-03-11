@@ -1202,7 +1202,7 @@ const Map<String, String> en_US = {
   "web3": "web3",
   "news": "news",
   "recommend": "recommend",
-  "complaint2": "report",
+  "complaint2": "Report",
   "riskyLocation": "riskyLocation",
   "suspectedFraud": "suspectedFraud",
   "pornography": "pornography",
@@ -1218,4 +1218,5 @@ const Map<String, String> en_US = {
   "infringement2": "infringement",
   "illegalSales": "illegalSales",
   "other": "other",
+  "selectFriends": "Select Friends"
 };

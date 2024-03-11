@@ -170,7 +170,7 @@ class XhsLogic extends GetxController {
     ]);
   }
 
-  final refreshCtrl = RefreshController();
+  late List<RefreshController> refreshCtrlList;
   final inputCtrl = TextEditingController();
   final workMoments = <WorkMoments>[].obs;
   final commentHintText = ''.obs;
@@ -197,13 +197,8 @@ class XhsLogic extends GetxController {
         Category(label: StrRes.news, value: "news"),
       ];
 
-  clickCategory(Category category) {
-    final newRefresh = activeCategory.value.value != category.value;
-    activeCategory.value = category;
-    if (newRefresh) {
-      refreshWorkingCircleList(showLoading: true);
-    }
-  }
+  int get activeCategoryIndex =>
+      categoryList.indexWhere((e) => e.value == activeCategory.value.value);
 
   ViewUserProfileBridge? get bridge => PackageBridge.viewUserProfileBridge;
 
@@ -214,6 +209,8 @@ class XhsLogic extends GetxController {
   final hasMore = true.obs;
   final ScrollController scrollController = ScrollController();
   final RxDouble scrollHeight = 0.0.obs;
+  final PageController pageController = PageController();
+  bool switching = false;
 
   @override
   void onClose() {
@@ -221,11 +218,14 @@ class XhsLogic extends GetxController {
     opEventSub?.cancel();
     inputCtrl.dispose();
     scrollController.dispose();
+    pageController.removeListener(_pageListener);
+    pageController.dispose();
     super.onClose();
   }
 
   @override
   void onInit() {
+    refreshCtrlList = categoryList.map((e) => RefreshController()).toList();
     userID = Get.arguments['userID'] /*?? OpenIM.iMManager.uid*/;
     nickname = Get.arguments['nickname'] ?? OpenIM.iMManager.userInfo.nickname;
     faceURL =
@@ -235,6 +235,7 @@ class XhsLogic extends GetxController {
         .then((value) => newMessageCount.value = value);
     // opEventSub = wcBridge?.opEventSub.listen(_opEventListener);
     scrollController.addListener(_scrollListener);
+    pageController.addListener(_pageListener);
     super.onInit();
   }
 
@@ -242,19 +243,41 @@ class XhsLogic extends GetxController {
     scrollHeight.value = scrollController.offset;
   }
 
+  void _pageListener() async {
+    if (switching || activeCategoryIndex == pageController.page!.round())
+      return;
+    activeCategory.value = categoryList[pageController.page!.round()];
+    refreshWorkingCircleList(silence: false);
+  }
+
+  clickCategory(Category category) {
+    final newRefresh = activeCategory.value.value != category.value;
+    activeCategory.value = category;
+    if (newRefresh) {
+      switching = true;
+      pageController
+          .animateToPage(activeCategoryIndex,
+              duration: Duration(milliseconds: 50), curve: Curves.easeInOut)
+          .then((value) {
+        switching = false;
+        refreshWorkingCircleList(silence: false);
+      });
+    }
+  }
+
   @override
   void onReady() {
-    refreshWorkingCircleList(showLoading: true);
+    refreshWorkingCircleList(silence: false);
     super.onReady();
   }
 
-  void refreshWorkingCircleList({bool showLoading = false}) {
-    if (showLoading) {
+  void refreshWorkingCircleList({bool silence = true}) {
+    if (!silence) {
       LoadingView.singleton.wrap(
-        asyncFunction: () => queryWorkingCircleList(),
+        asyncFunction: () => queryWorkingCircleList(silence: silence),
       );
     } else {
-      queryWorkingCircleList();
+      queryWorkingCircleList(silence: silence);
     }
   }
 
@@ -288,23 +311,26 @@ class XhsLogic extends GetxController {
           momentType: 2,
           category: activeCategory.value.value);
 
-  queryWorkingCircleList() async {
+  queryWorkingCircleList({bool silence = true}) async {
+    final curActiveCategoryIndex = activeCategoryIndex;
     try {
+      if (!silence) workMoments.clear();
       final result = await _request(pageNo = 1);
       final list = result.workMoments ?? [];
       hasMore.value = list.isNotEmpty && list.length == pageSize;
-      workMoments.clear();
+      if (silence) workMoments.clear();
       workMoments.assignAll(list);
     } catch (_) {}
-    refreshCtrl.refreshCompleted();
+    refreshCtrlList.map((e) => e.refreshCompleted()).toList();
     if (hasMore.value) {
-      refreshCtrl.loadComplete();
+      refreshCtrlList[curActiveCategoryIndex].loadComplete();
     } else {
-      refreshCtrl.loadNoData();
+      refreshCtrlList[curActiveCategoryIndex].loadNoData();
     }
   }
 
   loadMore() async {
+    final curActiveCategoryIndex = activeCategoryIndex;
     try {
       final result = await _request(++pageNo);
       final list = result.workMoments ?? [];
@@ -314,9 +340,9 @@ class XhsLogic extends GetxController {
       pageNo--;
     }
     if (hasMore.value) {
-      refreshCtrl.loadComplete();
+      refreshCtrlList[curActiveCategoryIndex].loadComplete();
     } else {
-      refreshCtrl.loadNoData();
+      refreshCtrlList[curActiveCategoryIndex].loadNoData();
     }
   }
 

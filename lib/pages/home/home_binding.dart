@@ -11,12 +11,12 @@ import 'home_logic.dart';
 class HomeBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => HomeLogic());
-    Get.lazyPut(() => ConversationLogic());
-    Get.lazyPut(() => ContactsLogic());
-    Get.lazyPut(() => MineLogic());
+    Get.lazyPut(() => HomeLogic(), fenix: true);
+    Get.lazyPut(() => ConversationLogic(), fenix: true);
+    Get.lazyPut(() => ContactsLogic(), fenix: true);
+    Get.lazyPut(() => MineLogic(), fenix: true);
     // Get.lazyPut(() => NewDiscoverLogic());
     // Get.lazyPut(() => WorkbenchLogic());
-    Get.lazyPut(() => XhsLogic());
+    Get.lazyPut(() => XhsLogic(), fenix: true);
   }
 }
