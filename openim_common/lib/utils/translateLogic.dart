@@ -131,7 +131,7 @@ class TranslateLogic extends GetxController {
     );
   }
 
-  void setTargetLangAndAutoTranslate(ConversationInfo conversation) {
+  void setTargetLangAndAutoTranslate(ConversationInfo conversation) async {
     final pickerData = langMap.values.toList();
     final pickerKeys = langMap.keys.toList();
     final useAutoTranslate = isAutoTranslate(conversation.conversationID).obs;
@@ -141,11 +141,15 @@ class TranslateLogic extends GetxController {
     onConfirm(List<int> indexList, List valueList) {
       final index = indexList.firstOrNull;
       if (index == 0) {
-        updateLangConfig(conversation: conversation, data: {"targetLang": null, "autoTranslate": useAutoTranslate.value});
+        updateLangConfig(conversation: conversation, data: {
+          "targetLang": null,
+          "autoTranslate": useAutoTranslate.value
+        });
       } else {
-        updateLangConfig(
-            conversation: conversation,
-            data: {"targetLang": pickerKeys[index!], "autoTranslate": useAutoTranslate.value});
+        updateLangConfig(conversation: conversation, data: {
+          "targetLang": pickerKeys[index!],
+          "autoTranslate": useAutoTranslate.value
+        });
       }
     }
 
@@ -153,43 +157,18 @@ class TranslateLogic extends GetxController {
       useAutoTranslate.value = val;
     }
 
-    Picker(
+    final picker = Picker(
       adapter: PickerDataAdapter<String>(
         pickerData: pickerData,
         isArray: false,
       ),
       changeToFirst: true,
-      hideHeader: false,
+      hideHeader: true,
       containerColor: Styles.c_FFFFFF,
       textStyle: Styles.ts_333333_17sp,
       selectedTextStyle: Styles.ts_333333_17sp,
       itemExtent: 45.h,
-      cancelTextStyle: Styles.ts_333333_17sp,
-      confirmTextStyle: Styles.ts_8443F8_17sp,
-      cancelText: StrRes.cancel,
-      confirmText: StrRes.confirm,
-      selecteds: index != null? [index] : [0],
-      builderHeader: (_) => Obx(() => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(bottom: 7.h),
-                child: StrRes.autoTranslate.toText
-                  ..style = Styles.ts_333333_17sp,
-              ),
-              CupertinoSwitch(
-                value: useAutoTranslate.value,
-                activeColor: Styles.c_07C160,
-                onChanged: onChanged,
-              ),
-              Container(
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(bottom: 7.h),
-                child: StrRes.targetLang.toText..style = Styles.ts_333333_17sp,
-              ),
-            ],
-          )),
+      selecteds: index != null ? [index] : [0],
       selectionOverlay: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -199,11 +178,48 @@ class TranslateLogic extends GetxController {
           ),
         ),
       ),
-      onConfirm: (Picker picker, List value) {
-        onConfirm?.call(picker.selecteds, picker.getSelectedValues());
-        // 在此处执行选定项目的逻辑
-      },
-    ).showCusDialog(Get.context!);
+    ).getInstance();
+    final confirm = await Get.dialog(CustomDialog(
+      body: Padding(
+          padding: EdgeInsets.only(
+            top: 16.w,
+          ),
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16.w,
+                ),
+                child: Text(
+                  StrRes.autoTranslate,
+                  textAlign: TextAlign.center,
+                  style: Styles.ts_333333_16sp_medium,
+                ),
+              ),
+              7.verticalSpace,
+              Obx(() => CupertinoSwitch(
+                value: useAutoTranslate.value,
+                activeColor: Styles.c_07C160,
+                onChanged: onChanged,
+              )),
+              Container(
+                padding: EdgeInsets.symmetric(
+                  vertical: 12.h,
+                  horizontal: 16.w,
+                ),
+                child: Text(
+                  StrRes.targetLang,
+                  textAlign: TextAlign.center,
+                  style: Styles.ts_333333_14sp,
+                ),
+              ),
+              picker.widget!
+            ],
+          )),
+    ));
+    if(confirm){
+      onConfirm.call(picker.selecteds, picker.getSelectedValues());
+    }
   }
 
   init(String id) {

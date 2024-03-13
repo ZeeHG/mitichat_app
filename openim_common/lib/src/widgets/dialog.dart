@@ -23,7 +23,7 @@ class CustomDialog extends StatelessWidget {
   final String? bigTitle;
   final String? title;
   final String? url;
-  final String? content;
+  final Widget? content;
   final String? rightText;
   final String? leftText;
   final Widget? body;
@@ -49,24 +49,31 @@ class CustomDialog extends StatelessWidget {
                       Padding(
                           padding: EdgeInsets.only(
                             top: 16.w,
-                            left: 16.w,
-                            right: 16.w,
                           ),
                           child: Column(
                             children: [
-                              Text(
-                                bigTitle ?? StrRes.tips,
-                                textAlign: TextAlign.center,
-                                style: Styles.ts_333333_16sp_medium,
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 16.w,
+                                ),
+                                child: Text(
+                                  bigTitle ?? StrRes.tips,
+                                  textAlign: TextAlign.center,
+                                  style: Styles.ts_333333_16sp_medium,
+                                ),
                               ),
                               Container(
-                                padding: EdgeInsets.symmetric(vertical: 27.h),
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 27.h,
+                                  horizontal: 16.w,
+                                ),
                                 child: Text(
                                   title ?? '',
                                   textAlign: TextAlign.center,
                                   style: Styles.ts_333333_14sp,
                                 ),
-                              )
+                              ),
+                              if (null != content) content!
                             ],
                           )),
                   Divider(
@@ -276,8 +283,7 @@ class SuccessDialog extends StatelessWidget {
                 ),
                 Padding(
                     padding: EdgeInsets.only(top: 43.h),
-                    child: 
-                    Container(
+                    child: Container(
                       width: 256.w,
                       constraints: BoxConstraints(minHeight: 200.h),
                       padding: EdgeInsets.only(
@@ -289,7 +295,9 @@ class SuccessDialog extends StatelessWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          text.toText..style=Styles.ts_343434_16p_medium..textAlign= TextAlign.center,
+                          text.toText
+                            ..style = Styles.ts_343434_16p_medium
+                            ..textAlign = TextAlign.center,
                           30.verticalSpace,
                           GestureDetector(
                             behavior: HitTestBehavior.translucent,
@@ -299,7 +307,8 @@ class SuccessDialog extends StatelessWidget {
                                 height: 42.h,
                                 width: 128.w,
                                 padding: EdgeInsets.symmetric(horizontal: 12.w),
-                                onTap: onTapConfirm ?? () => Get.back(result: true)),
+                                onTap: onTapConfirm ??
+                                    () => Get.back(result: true)),
                           )
                         ],
                       ),
