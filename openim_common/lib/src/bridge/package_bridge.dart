@@ -10,7 +10,7 @@ class PackageBridge {
   static OrganizationMultiSelBridge? organizationBridge;
   static WorkingCircleBridge? workingCircleBridge;
   static ScanBridge? scanBridge;
-  static MeetingBridge? meetingBridge;
+  // static MeetingBridge? meetingBridge;
   static RTCBridge? rtcBridge;
 }
 
@@ -67,10 +67,10 @@ abstract class WorkingCircleBridge {
   final opEventSub = PublishSubject<dynamic>();
 }
 
-abstract class MeetingBridge {
-  bool get hasConnection;
-  void dismiss();
-}
+// abstract class MeetingBridge {
+//   bool get hasConnection;
+//   void dismiss();
+// }
 
 abstract class RTCBridge {
   bool get hasConnection;

@@ -73,25 +73,27 @@ class PreviewChatHistoryPage extends StatelessWidget {
           deletedByFriend: viewType == CustomMessageType.deletedByFriend,
         );
         return CustomTypeInfo(view, false, false);
-      } else if (viewType == CustomMessageType.meeting) {
-        // 会议
-        final inviterUserID = data['inviterUserID'];
-        final inviterNickname = data['inviterNickname'];
-        final inviterFaceURL = data['inviterFaceURL'];
-        final subject = data['subject'];
-        final id = data['id'];
-        final start = data['start'];
-        final duration = data['duration'];
-        final view = ChatMeetingView(
-          inviterUserID: inviterUserID,
-          inviterNickname: inviterNickname,
-          subject: subject,
-          start: start,
-          duration: duration,
-          id: id,
-        );
-        return CustomTypeInfo(view, false, true);
-      } else if (viewType == CustomMessageType.removedFromGroup) {
+      } 
+      // else if (viewType == CustomMessageType.meeting) {
+      //   // 会议
+      //   final inviterUserID = data['inviterUserID'];
+      //   final inviterNickname = data['inviterNickname'];
+      //   final inviterFaceURL = data['inviterFaceURL'];
+      //   final subject = data['subject'];
+      //   final id = data['id'];
+      //   final start = data['start'];
+      //   final duration = data['duration'];
+      //   final view = ChatMeetingView(
+      //     inviterUserID: inviterUserID,
+      //     inviterNickname: inviterNickname,
+      //     subject: subject,
+      //     start: start,
+      //     duration: duration,
+      //     id: id,
+      //   );
+      //   return CustomTypeInfo(view, false, true);
+      // } 
+      else if (viewType == CustomMessageType.removedFromGroup) {
         return CustomTypeInfo(
           StrRes.removedFromGroupHint.toText..style = Styles.ts_999999_12sp,
           false,

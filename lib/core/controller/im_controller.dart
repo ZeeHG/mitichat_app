@@ -163,7 +163,7 @@ class IMController extends GetxController with IMCallback, OpenIMLive {
         onHangup: beHangup,
         onRoomParticipantConnected: roomParticipantConnected,
         onRoomParticipantDisconnected: roomParticipantDisconnected,
-        onMeetingStreamChanged: meetingSteamChanged,
+        // onMeetingStreamChanged: meetingSteamChanged,
       ));
 
     initializedSubject.sink.add(initialized);

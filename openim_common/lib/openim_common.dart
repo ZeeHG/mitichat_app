@@ -58,7 +58,7 @@ export 'src/widgets/chat/chat_item_container.dart';
 export 'src/widgets/chat/chat_item_view.dart';
 export 'src/widgets/chat/chat_listview.dart';
 export 'src/widgets/chat/chat_location_view.dart';
-export 'src/widgets/chat/chat_meeting_view.dart';
+// export 'src/widgets/chat/chat_meeting_view.dart';
 export 'src/widgets/chat/chat_merge_view.dart';
 export 'src/widgets/chat/chat_multi_toolbox.dart';
 export 'src/widgets/chat/chat_nickname_view.dart';

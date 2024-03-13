@@ -47,7 +47,7 @@ import 'package:miti/pages/xhs/xhs_binding.dart';
 import 'package:miti/pages/xhs/xhs_moment_detail/xhs_moment_detail_binding.dart';
 import 'package:miti/pages/xhs/xhs_moment_detail/xhs_moment_detail_view.dart';
 import 'package:miti/pages/xhs/xhs_view.dart';
-import 'package:openim_meeting/openim_meeting.dart';
+// import 'package:openim_meeting/openim_meeting.dart';
 import 'package:openim_working_circle/openim_working_circle.dart';
 
 import '../pages/bot/bot_binding.dart';
@@ -712,6 +712,6 @@ class AppPages {
     ),
     // ...OPages.pages, // 组织架构
     ...WPages.pages, // 工作圈
-    ...MPages.pages, //
+    // ...MPages.pages, //
   ];
 }

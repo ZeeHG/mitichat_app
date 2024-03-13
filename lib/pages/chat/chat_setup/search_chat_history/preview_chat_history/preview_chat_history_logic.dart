@@ -81,10 +81,11 @@ class PreviewChatHistoryLogic extends GetxController {
       var customType = map['customType'];
       if (CustomMessageType.call == customType) {
         var type = map['data']['type'];
-      } else if (CustomMessageType.meeting == customType) {
-        var data = msg.customElem!.data;
-        var map = json.decode(data!);
-      }
+      } 
+      // else if (CustomMessageType.meeting == customType) {
+      //   var data = msg.customElem!.data;
+      //   var map = json.decode(data!);
+      // }
       return;
     }
     if (msg.contentType == MessageType.voice) {}

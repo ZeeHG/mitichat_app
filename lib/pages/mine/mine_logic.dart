@@ -45,7 +45,7 @@ class MineLogic extends GetxController {
 
   void kickedOffline() async {
     myLogger.e({"message": "mine_logic监听到用户kickedOffline, 退出登录"});
-    PackageBridge.meetingBridge?.dismiss();
+    // PackageBridge.meetingBridge?.dismiss();
     PackageBridge.rtcBridge?.dismiss();
     Get.snackbar(StrRes.accountWarn, StrRes.accountException);
     await DataSp.removeLoginCertificate();

@@ -46,12 +46,14 @@ class AppController extends SuperController {
     ) async {},
   );
 
-  MeetingBridge? meetingBridge = PackageBridge.meetingBridge;
+  // MeetingBridge? meetingBridge = PackageBridge.meetingBridge;
 
   RTCBridge? rtcBridge = PackageBridge.rtcBridge;
 
-  bool get shouldMuted =>
-      meetingBridge?.hasConnection == true || rtcBridge?.hasConnection == true;
+  // bool get shouldMuted =>
+  //     meetingBridge?.hasConnection == true || rtcBridge?.hasConnection == true;
+
+  bool get shouldMuted => true;
 
   final _ring = 'assets/audio/message_ring.wav';
   final _audioPlayer = AudioPlayer(
@@ -306,7 +308,10 @@ class AppController extends SuperController {
             String? str = IMUtils.parseNtf(message, isConversation: true);
             if (null == str) {
               text = StrRes.defaultNotificationTitle;
-              myLogger.e({"message": "contentType>=1000的消息解析失败", "data": message.toJson()});
+              myLogger.e({
+                "message": "contentType>=1000的消息解析失败",
+                "data": message.toJson()
+              });
             } else {
               text = str;
             }

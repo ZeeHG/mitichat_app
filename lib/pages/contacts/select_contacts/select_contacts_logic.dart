@@ -32,7 +32,7 @@ enum SelAction {
   remindWhoToWatch,
 
   /// 会议：好友，组织架构，群，最近会话
-  meeting,
+  // meeting,
 
   /// 下发通知 好友，组织架构，群，标签，最近会话
   notificationIssued,
@@ -117,8 +117,9 @@ class SelectContactsLogic extends GetxController
       action == SelAction.recommend ||
       action == SelAction.createTag ||
       action == SelAction.whoCanWatch ||
-      action == SelAction.remindWhoToWatch ||
-      action == SelAction.meeting;
+      action == SelAction.remindWhoToWatch
+      // || action == SelAction.meeting
+      ;
 
   /// 最近会话
   _queryConversationList() async {

@@ -8,10 +8,11 @@ import '../../../core/controller/im_controller.dart';
 class CallRecordsLogic extends GetxController {
   final cacheLogic = Get.find<CacheController>();
   final imLogic = Get.find<IMController>();
-  final meetingInfoList = <MeetingInfo>[].obs;
+  // final meetingInfoList = <MeetingInfo>[].obs;
   final nicknameMapping = <String, String>{}.obs;
   final index = 0.obs;
-  final rtcIsBusy = PackageBridge.rtcBridge?.hasConnection == true || PackageBridge.meetingBridge?.hasConnection == true;
+  // final rtcIsBusy = PackageBridge.rtcBridge?.hasConnection == true || PackageBridge.meetingBridge?.hasConnection == true;
+  final rtcIsBusy = PackageBridge.rtcBridge?.hasConnection == true;
 
   @override
   void onInit() {

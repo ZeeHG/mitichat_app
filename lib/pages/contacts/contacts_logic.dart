@@ -239,10 +239,14 @@ class ContactsLogic extends GetxController
     String? groupID,
     String? ex,
   }) =>
+      // AppNavigator.startSelectContacts(
+      //   action: type == 0
+      //       ? SelAction.whoCanWatch
+      //       : (type == 1 ? SelAction.remindWhoToWatch : SelAction.meeting),
       AppNavigator.startSelectContacts(
         action: type == 0
             ? SelAction.whoCanWatch
-            : (type == 1 ? SelAction.remindWhoToWatch : SelAction.meeting),
+            : SelAction.remindWhoToWatch,
         defaultCheckedIDList: defaultCheckedIDList,
         checkedList: checkedList,
         excludeIDList: excludeIDList,

@@ -908,9 +908,9 @@ class IMUtils {
                 content = '[${StrRes.unsupportedMessage}]';
               }
               break;
-            case CustomMessageType.meeting:
-              content = '[${StrRes.meetingMessage}]';
-              break;
+            // case CustomMessageType.meeting:
+            //   content = '[${StrRes.meetingMessage}]';
+            //   break;
             case CustomMessageType.blockedByFriend:
               content = StrRes.blockedByFriendHint;
               break;
@@ -1009,9 +1009,9 @@ class IMUtils {
               case CustomMessageType.tag:
                 map['data']['viewType'] = CustomMessageType.tag;
                 return map['data'];
-              case CustomMessageType.meeting:
-                map['data']['viewType'] = CustomMessageType.meeting;
-                return map['data'];
+              // case CustomMessageType.meeting:
+              //   map['data']['viewType'] = CustomMessageType.meeting;
+              //   return map['data'];
               case CustomMessageType.deletedByFriend:
               case CustomMessageType.blockedByFriend:
               case CustomMessageType.removedFromGroup:

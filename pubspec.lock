@@ -1457,13 +1457,6 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
-  openim_meeting:
-    dependency: "direct main"
-    description:
-      path: openim_meeting
-      relative: true
-    source: path
-    version: "0.0.1"
   openim_working_circle:
     dependency: "direct main"
     description:
@@ -1495,14 +1488,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-  page_view_dot_indicator:
-    dependency: transitive
-    description:
-      name: page_view_dot_indicator
-      sha256: "32d73b9de221339a371a229f547eb9cbb6f8114b8770e76a104fb4c30e39cf22"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.0"
   path:
     dependency: transitive
     description:

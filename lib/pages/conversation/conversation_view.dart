@@ -36,7 +36,7 @@ class ConversationPage extends StatelessWidget {
           onAddFriend: logic.addFriend,
           onAddGroup: logic.addGroup,
           onCreateGroup: logic.createGroup,
-          onVideoMeeting: logic.videoMeeting,
+          // onVideoMeeting: logic.videoMeeting,
           onClickSearch: logic.globalSearch,
           onSwitchTab: switchHomeTab,
           homeTabIndex: homeTabIndex,

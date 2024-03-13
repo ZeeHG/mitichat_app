@@ -65,30 +65,30 @@ extension MessageManagerExt on MessageManager {
       );
 
   /// 视频会议
-  Future<Message> createMeetingMessage({
-    required String inviterUserID,
-    required String inviterNickname,
-    String? inviterFaceURL,
-    required String subject,
-    required String id,
-    required int start,
-    required int duration,
-  }) =>
-      createCustomMessage(
-          data: json.encode({
-            "customType": CustomMessageType.meeting,
-            "data": {
-              'inviterUserID': inviterUserID,
-              'inviterNickname': inviterNickname,
-              'inviterFaceURL': inviterFaceURL,
-              'subject': subject,
-              'id': id,
-              'start': start,
-              'duration': duration,
-            },
-          }),
-          extension: '',
-          description: '');
+  // Future<Message> createMeetingMessage({
+  //   required String inviterUserID,
+  //   required String inviterNickname,
+  //   String? inviterFaceURL,
+  //   required String subject,
+  //   required String id,
+  //   required int start,
+  //   required int duration,
+  // }) =>
+  //     createCustomMessage(
+  //         data: json.encode({
+  //           "customType": CustomMessageType.meeting,
+  //           "data": {
+  //             'inviterUserID': inviterUserID,
+  //             'inviterNickname': inviterNickname,
+  //             'inviterFaceURL': inviterFaceURL,
+  //             'subject': subject,
+  //             'id': id,
+  //             'start': start,
+  //             'duration': duration,
+  //           },
+  //         }),
+  //         extension: '',
+  //         description: '');
 
   /// 失败提示消息
   Future<Message> createFailedHintMessage({required int type}) =>
@@ -175,18 +175,18 @@ extension MessageExt on Message {
   }
 
   /// 会议消息
-  bool get isMeetingType {
-    if (isCustomType) {
-      try {
-        var map = json.decode(customElem!.data!);
-        var customType = map['customType'];
-        return CustomMessageType.meeting == customType;
-      } catch (e, s) {
-        Logger.print('$e $s');
-      }
-    }
-    return false;
-  }
+  // bool get isMeetingType {
+  //   if (isCustomType) {
+  //     try {
+  //       var map = json.decode(customElem!.data!);
+  //       var customType = map['customType'];
+  //       return CustomMessageType.meeting == customType;
+  //     } catch (e, s) {
+  //       Logger.print('$e $s');
+  //     }
+  //   }
+  //   return false;
+  // }
 
   /// 被删好友
   bool get isDeletedByFriendType {
@@ -305,7 +305,7 @@ class CustomMessageType {
   static const emoji = 902;
   static const tag = 903;
   static const moments = 904;
-  static const meeting = 905;
+  // static const meeting = 905;
   static const blockedByFriend = 910;
   static const deletedByFriend = 911;
   static const removedFromGroup = 912;

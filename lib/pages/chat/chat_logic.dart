@@ -16,7 +16,7 @@ import 'package:miti/utils/ai_util.dart';
 import 'package:miti/utils/conversation_util.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:openim_live/openim_live.dart';
-import 'package:openim_meeting/openim_meeting.dart';
+// import 'package:openim_meeting/openim_meeting.dart';
 import 'package:photo_browser/photo_browser.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rxdart/rxdart.dart' hide Rx;
@@ -144,12 +144,14 @@ class ChatLogic extends GetxController {
 
   String? groupOwnerID;
 
-  MeetingBridge? meetingBridge = PackageBridge.meetingBridge;
+  // MeetingBridge? meetingBridge = PackageBridge.meetingBridge;
 
   RTCBridge? rtcBridge = PackageBridge.rtcBridge;
 
-  bool get rtcIsBusy =>
-      meetingBridge?.hasConnection == true || rtcBridge?.hasConnection == true;
+  // bool get rtcIsBusy =>
+  //     meetingBridge?.hasConnection == true || rtcBridge?.hasConnection == true;
+
+  bool get rtcIsBusy => rtcBridge?.hasConnection == true;
 
   String? get userID => conversationInfo.value.userID;
 
@@ -1228,15 +1230,17 @@ class ChatLogic extends GetxController {
           callType: type == "audio" ? CallType.audio : CallType.video,
           inviteeUserIDList: [if (isSingleChat) userID!],
         );
-      } else if (CustomMessageType.meeting == customType) {
-        if (rtcIsBusy) {
-          IMViews.showToast(StrRes.callingBusy);
-          return;
-        }
-        var data = msg.customElem!.data;
-        var map = json.decode(data!);
-        MeetingClient().join(Get.context!, meetingID: map['data']['id']);
-      } else if (CustomMessageType.tag == customType) {
+      } 
+      // else if (CustomMessageType.meeting == customType) {
+      //   if (rtcIsBusy) {
+      //     IMViews.showToast(StrRes.callingBusy);
+      //     return;
+      //   }
+      //   var data = msg.customElem!.data;
+      //   var map = json.decode(data!);
+      //   MeetingClient().join(Get.context!, meetingID: map['data']['id']);
+      // } 
+      else if (CustomMessageType.tag == customType) {
         final data = map['data'];
         if (null != data['soundElem']) {
           final soundElem = SoundElem.fromJson(data['soundElem']);
