@@ -372,14 +372,14 @@ class IMViews {
     bool isArray = false,
     List<int>? selected,
     Function(List<int> indexList, List valueList)? onConfirm,
-  }) {
-    Picker(
+  }) async {
+    final picker = Picker(
       adapter: PickerDataAdapter<String>(
         pickerData: pickerData,
         isArray: isArray,
       ),
       changeToFirst: true,
-      hideHeader: false,
+      hideHeader: true,
       containerColor: Styles.c_FFFFFF,
       textStyle: Styles.ts_333333_17sp,
       selectedTextStyle: Styles.ts_333333_17sp,
@@ -389,17 +389,6 @@ class IMViews {
       cancelText: StrRes.cancel,
       confirmText: StrRes.confirm,
       selecteds: selected,
-      builderHeader: (_) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            alignment: Alignment.centerLeft,
-            margin: EdgeInsets.only(bottom: 7.h),
-            child: title.toText..style = Styles.ts_333333_17sp,
-          ),
-          description.toText..style = Styles.ts_999999_14sp,
-        ],
-      ),
       selectionOverlay: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -408,11 +397,43 @@ class IMViews {
             top: BorderSide(color: Styles.c_E8EAEF, width: 1),
           ),
         ),
-      ),
-      onConfirm: (Picker picker, List value) {
-        onConfirm?.call(picker.selecteds, picker.getSelectedValues());
-        // 在此处执行选定项目的逻辑
-      },
-    ).showDialog(Get.context!, backgroundColor: Colors.white);
+      )
+    ).getInstance();
+
+    final confirm = await Get.dialog(CustomDialog(
+      body: Padding(
+          padding: EdgeInsets.only(
+            top: 16.w,
+          ),
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16.w,
+                ),
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: Styles.ts_333333_16sp_medium,
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(
+                  vertical: 12.h,
+                  horizontal: 16.w,
+                ),
+                child: Text(
+                  description,
+                  textAlign: TextAlign.center,
+                  style: Styles.ts_333333_14sp,
+                ),
+              ),
+              picker.widget!
+            ],
+          )),
+    ));
+    if(confirm){
+      onConfirm?.call(picker.selecteds, picker.getSelectedValues());
+    }
   }
 }
