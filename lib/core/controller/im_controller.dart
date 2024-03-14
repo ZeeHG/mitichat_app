@@ -5,13 +5,13 @@ import 'package:get/get.dart';
 import 'package:miti/core/controller/app_controller.dart';
 import 'package:miti/utils/misc.dart';
 import 'package:miti_common/miti_common.dart';
-import 'package:openim_live/openim_live.dart';
+import 'package:miti_live/miti_live.dart';
 import 'dart:convert';
 import '../im_callback.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
 
-class IMController extends GetxController with IMCallback, OpenIMLive {
+class IMController extends GetxController with IMCallback, MitiLive {
   late Rx<UserFullInfo> userInfo;
   late String atAllTag;
 

@@ -15,7 +15,7 @@ import 'package:mime/mime.dart';
 import 'package:miti/utils/ai_util.dart';
 import 'package:miti/utils/conversation_util.dart';
 import 'package:miti_common/miti_common.dart';
-import 'package:openim_live/openim_live.dart';
+import 'package:miti_live/miti_live.dart';
 // import 'package:openim_meeting/openim_meeting.dart';
 import 'package:photo_browser/photo_browser.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';

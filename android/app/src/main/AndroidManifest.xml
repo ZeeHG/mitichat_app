@@ -184,7 +184,7 @@
             android:stopWithTask="false" />
 
         <service
-            android:name="io.openim.live.alert.flutter_openim_live_alert.services.CallService"
+            android:name="miti.live.alert.flutter_miti_live_alert.services.CallService"
             android:exported="false" />
 
         <provider

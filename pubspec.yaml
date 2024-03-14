@@ -128,8 +128,8 @@ dependencies:
 
   openim_working_circle:
     path: openim_working_circle
-  openim_live:
-    path: openim_live
+  miti_live:
+    path: miti_live
   flutter_openim_sdk:
     path: flutter_openim_sdk
 
