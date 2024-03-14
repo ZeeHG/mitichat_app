@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'xhs_logic.dart';
@@ -53,7 +53,7 @@ class XhsPage extends StatelessWidget {
                     decoration: const BoxDecoration(
                         image: DecorationImage(
                       image: AssetImage(ImageRes.appHeaderBg3,
-                          package: 'openim_common'),
+                          package: 'miti_common'),
                       fit: BoxFit.fitWidth,
                       alignment: FractionalOffset.topCenter,
                     )),

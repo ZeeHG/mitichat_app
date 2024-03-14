@@ -7,7 +7,7 @@ import 'package:flutter_openim_live_alert/flutter_openim_live_alert.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sprintf/sprintf.dart';
@@ -545,7 +545,7 @@ mixin OpenIMLive {
   /// 播放提示音
   void _playSound({bool vibrate = false}) async {
     if (!_audioPlayer.playerState.playing) {
-      _audioPlayer.setAsset(_ring, package: 'openim_common');
+      _audioPlayer.setAsset(_ring, package: 'miti_common');
       _audioPlayer.setLoopMode(LoopMode.one);
       _audioPlayer.setVolume(1.0);
       _audioPlayer.play();

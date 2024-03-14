@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:common_utils/common_utils.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../user_profile _panel_logic.dart';

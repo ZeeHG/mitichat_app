@@ -1387,6 +1387,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  miti_common:
+    dependency: "direct main"
+    description:
+      path: miti_common
+      relative: true
+    source: path
+    version: "0.0.1"
   mobile_scanner:
     dependency: "direct main"
     description:
@@ -1427,13 +1434,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.3.4"
-  openim_common:
-    dependency: "direct main"
-    description:
-      path: openim_common
-      relative: true
-    source: path
-    version: "0.0.1"
   openim_live:
     dependency: "direct main"
     description:

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class FavoriteManageLogic extends GetxController {

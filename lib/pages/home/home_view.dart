@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti/pages/xhs/xhs_logic.dart';
 import 'package:miti/pages/xhs/xhs_view.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 import '../contacts/contacts_view.dart';
 import '../conversation/conversation_view.dart';

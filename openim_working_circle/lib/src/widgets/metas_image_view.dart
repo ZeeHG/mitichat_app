@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 class MetasImageView extends StatelessWidget {
-  const MetasImageView({
-    Key? key,
-    required this.urls,
-    this.width,
-    this.height,
-    this.radius
-  }) : super(key: key);
+  const MetasImageView(
+      {Key? key, required this.urls, this.width, this.height, this.radius})
+      : super(key: key);
   final List<String> urls;
   final double? width;
   final double? height;
@@ -42,7 +38,7 @@ class MetasImageView extends StatelessWidget {
           Expanded(
             child: ImageUtil.networkImage(
               url: urls[0],
-              width: null != width? (width! - 2.w) / 2 : 38.w,
+              width: null != width ? (width! - 2.w) / 2 : 38.w,
               height: height ?? 77.h,
               fit: BoxFit.cover,
             ),
@@ -51,7 +47,7 @@ class MetasImageView extends StatelessWidget {
           Expanded(
             child: ImageUtil.networkImage(
               url: urls[1],
-              width: null != width? (width! - 2.w) / 2 : 38.w,
+              width: null != width ? (width! - 2.w) / 2 : 38.w,
               height: height ?? 77.h,
               fit: BoxFit.cover,
             ),
@@ -64,7 +60,7 @@ class MetasImageView extends StatelessWidget {
           Expanded(
             child: ImageUtil.networkImage(
               url: urls[0],
-              width: null != width? (width! - 2.w) / 2 : 38.w,
+              width: null != width ? (width! - 2.w) / 2 : 38.w,
               height: height ?? 77.h,
               fit: BoxFit.cover,
             ),
@@ -75,15 +71,15 @@ class MetasImageView extends StatelessWidget {
               children: [
                 ImageUtil.networkImage(
                   url: urls[1],
-                  width: null != width? (width! - 2.w) / 2 : 38.w,
-                  height: null != height? (height! - 2.h) / 2 : 38.h,
+                  width: null != width ? (width! - 2.w) / 2 : 38.w,
+                  height: null != height ? (height! - 2.h) / 2 : 38.h,
                   fit: BoxFit.cover,
                 ),
                 1.verticalSpace,
                 ImageUtil.networkImage(
                   url: urls[2],
-                  width: null != width? (width! - 2.w) / 2 : 38.w,
-                  height: null != height? (height! - 2.h) / 2 : 38.h,
+                  width: null != width ? (width! - 2.w) / 2 : 38.w,
+                  height: null != height ? (height! - 2.h) / 2 : 38.h,
                   fit: BoxFit.cover,
                 ),
               ],
@@ -99,15 +95,15 @@ class MetasImageView extends StatelessWidget {
               children: [
                 ImageUtil.networkImage(
                   url: urls[0],
-                  width: null != width? (width! - 2.w) / 2 : 38.w,
-                  height: null != height? (height! - 2.h) / 2 : 38.h,
+                  width: null != width ? (width! - 2.w) / 2 : 38.w,
+                  height: null != height ? (height! - 2.h) / 2 : 38.h,
                   fit: BoxFit.cover,
                 ),
                 1.verticalSpace,
                 ImageUtil.networkImage(
                   url: urls[1],
-                  width: null != width? (width! - 2.w) / 2 : 38.w,
-                  height: null != height? (height! - 2.h) / 2 : 38.h,
+                  width: null != width ? (width! - 2.w) / 2 : 38.w,
+                  height: null != height ? (height! - 2.h) / 2 : 38.h,
                   fit: BoxFit.cover,
                 ),
               ],
@@ -119,15 +115,15 @@ class MetasImageView extends StatelessWidget {
               children: [
                 ImageUtil.networkImage(
                   url: urls[2],
-                  width: null != width? (width! - 2.w) / 2 : 38.w,
-                  height: null != height? (height! - 2.h) / 2 : 38.h,
+                  width: null != width ? (width! - 2.w) / 2 : 38.w,
+                  height: null != height ? (height! - 2.h) / 2 : 38.h,
                   fit: BoxFit.cover,
                 ),
                 1.verticalSpace,
                 ImageUtil.networkImage(
                   url: urls[3],
-                  width: null != width? (width! - 2.w) / 2 : 38.w,
-                  height: null != height? (height! - 2.h) / 2 : 38.h,
+                  width: null != width ? (width! - 2.w) / 2 : 38.w,
+                  height: null != height ? (height! - 2.h) / 2 : 38.h,
                   fit: BoxFit.cover,
                 ),
               ],

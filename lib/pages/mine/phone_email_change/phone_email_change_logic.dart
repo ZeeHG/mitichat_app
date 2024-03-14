@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:miti/core/controller/im_controller.dart';
 import 'package:miti/routes/app_navigator.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 enum PhoneEmailChangeType {
   phone,

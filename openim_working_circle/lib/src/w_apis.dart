@@ -2,27 +2,26 @@ import 'dart:convert';
 
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:openim_working_circle/src/w_urls.dart';
 import 'package:uuid/uuid.dart';
 
 class WApis {
   /// 发布工作圈动态
   /// [type] 0 picture  1 video
-  static Future publishMoments({
-    String? text,
-    int type = 0,
-    List<Map<String, String>>? metas,
-    List<UserInfo> permissionUserList = const [],
-    List<GroupInfo> permissionGroupList = const [],
-    List<UserInfo> atUserList = const [],
-    int permission = 0,
-    int momentType = 1,
-    String? title,
-    String? author,
-    String? originLink,
-    String? category
-  }) async {
+  static Future publishMoments(
+      {String? text,
+      int type = 0,
+      List<Map<String, String>>? metas,
+      List<UserInfo> permissionUserList = const [],
+      List<GroupInfo> permissionGroupList = const [],
+      List<UserInfo> atUserList = const [],
+      int permission = 0,
+      int momentType = 1,
+      String? title,
+      String? author,
+      String? originLink,
+      String? category}) async {
     var metasUrl = [];
     // if (metas != null && metas.isNotEmpty) {
     //   const thumbKey = 'thumb'; // 缩率图
@@ -126,12 +125,11 @@ class WApis {
   }
 
   /// 获取工作圈列表
-  static Future<WorkMomentsList> getMomentsList({
-    int pageNumber = 1,
-    int showNumber = 20,
-    int momentType = 1,
-    String category = ""
-  }) {
+  static Future<WorkMomentsList> getMomentsList(
+      {int pageNumber = 1,
+      int showNumber = 20,
+      int momentType = 1,
+      String category = ""}) {
     return HttpUtil.post(
       WUrls.getMomentsList,
       options: Apis.chatTokenOptions,

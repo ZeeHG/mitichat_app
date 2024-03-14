@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../discover_list/discover_list_view.dart';
 import '../follow_list/follow_list_view.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 import 'new_discover_logic.dart';
 

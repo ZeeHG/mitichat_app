@@ -1,6 +1,6 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 class PreviewPicturePage extends StatefulWidget {
   const PreviewPicturePage({
@@ -86,12 +86,12 @@ class _PreviewPicturePageState extends State<PreviewPicturePage> {
               switch (state.extendedImageLoadState) {
                 case LoadState.loading:
                   {
-                      return ExtendedImage.network(
-                        meta.original!.thumbnailAbsoluteString,
-                        // "https://bkqsimg.ikafan.com/upload/image/2017/05/10/1494426013836161.png",
-                        cache: true,
-                        fit: BoxFit.fitWidth,
-                      );
+                    return ExtendedImage.network(
+                      meta.original!.thumbnailAbsoluteString,
+                      // "https://bkqsimg.ikafan.com/upload/image/2017/05/10/1494426013836161.png",
+                      cache: true,
+                      fit: BoxFit.fitWidth,
+                    );
                     final ImageChunkEvent? loadingProgress =
                         state.loadingProgress;
                     final double? progress =

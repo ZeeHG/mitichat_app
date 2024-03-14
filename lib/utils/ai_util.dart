@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti/utils/account_util.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 class AiUtil extends GetxController {
   final accountUtil = Get.find<AccountUtil>();
@@ -14,7 +14,7 @@ class AiUtil extends GetxController {
 
   String getKey(String aiUserID) => accountKey + "__" + aiUserID;
 
-  init() async{
+  init() async {
     // todo 暂时加上, 防止数据结构出错
     await DataSp.clearAiStore();
     final store = DataSp.getAiStore();

@@ -3,7 +3,7 @@ import 'package:flutter_download_manager/flutter_download_manager.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 class FileDownloadProgressView extends StatelessWidget {
   FileDownloadProgressView(this.message, {Key? key}) : super(key: key);

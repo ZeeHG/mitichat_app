@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'discover_logic.dart';
 import 'package:miti/core/controller/im_controller.dart';
 
@@ -17,7 +17,7 @@ class DiscoverPage extends StatelessWidget {
         // appBar: TitleBar.discover(
         //   title: StrLibrary .discover,
         //   // backgroundImage: const DecorationImage(
-        //   //   image: AssetImage(ImageRes.appHeaderBg, package: 'openim_common'),
+        //   //   image: AssetImage(ImageRes.appHeaderBg, package: 'miti_common'),
         //   //   fit: BoxFit.cover,
         //   //   alignment: FractionalOffset.center,
         //   // ),
@@ -41,7 +41,7 @@ class DiscoverPage extends StatelessWidget {
                           decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image: AssetImage(ImageRes.splash,
-                                      package: 'openim_common'),
+                                      package: 'miti_common'),
                                   fit: BoxFit.cover,
                                   alignment: FractionalOffset.center)),
                           child: Stack(

@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:livekit_client/livekit_client.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 import '../../openim_live.dart';
 

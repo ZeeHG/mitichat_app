@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:miti/utils/account_util.dart';
 import 'package:miti/utils/ai_util.dart';
 import 'package:miti/utils/conversation_util.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'core/controller/im_controller.dart';
 import 'core/controller/push_controller.dart';
 import 'routes/app_pages.dart';

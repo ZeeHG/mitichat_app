@@ -113,6 +113,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.10.5+9"
+  camera_android:
+    dependency: transitive
+    description:
+      name: camera_android
+      sha256: "351429510121d179b9aac5a2e8cb525c3cd6c39f4d709c5f72dfb21726e52371"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.10.8+16"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -600,10 +608,9 @@ packages:
   flutter_picker:
     dependency: transitive
     description:
-      name: flutter_picker
-      sha256: "2f94c6eefba8697b07e3cd008b75f06b4ba7053cb26d23ae0fcd5932b7dc75af"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../local_plugin/flutter_picker-2.1.0"
+      relative: true
+    source: path
     version: "2.1.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
@@ -999,6 +1006,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  miti_common:
+    dependency: "direct main"
+    description:
+      path: "../miti_common"
+      relative: true
+    source: path
+    version: "0.0.1"
   mobile_scanner:
     dependency: transitive
     description:
@@ -1031,13 +1045,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.3.4"
-  openim_common:
-    dependency: "direct main"
-    description:
-      path: "../openim_common"
-      relative: true
-    source: path
-    version: "0.0.1"
   package_info_plus:
     dependency: transitive
     description:

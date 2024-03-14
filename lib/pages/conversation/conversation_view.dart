@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:miti/core/controller/im_controller.dart';
 import 'package:miti/pages/home/home_logic.dart';
 import 'package:miti/utils/ai_util.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rotated_corner_decoration/rotated_corner_decoration.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -112,7 +112,7 @@ class ConversationPage extends StatelessWidget {
                             decoration: const BoxDecoration(
                                 image: DecorationImage(
                               image: AssetImage(ImageRes.appHeaderBg3,
-                                  package: 'openim_common'),
+                                  package: 'miti_common'),
                               fit: BoxFit.cover,
                               alignment: FractionalOffset.bottomCenter,
                             )),

@@ -123,8 +123,8 @@ dependencies:
   #  flutter_openim_unimp:
   #    git:
   #      url: https://github.com/hrxiang/flutter_openim_unimp.git
-  openim_common:
-    path: openim_common
+  miti_common:
+    path: miti_common
 
   openim_working_circle:
     path: openim_working_circle

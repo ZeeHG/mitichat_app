@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:livekit_client/livekit_client.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 import '../../live_client.dart';
 import 'widgets/call_state.dart';
@@ -101,8 +101,10 @@ class _SingleRoomViewState extends SignalState<SingleRoomView> {
         _publish();
       });
     } catch (error, stackTrace) {
-      widget.onError
-          ?.call({"certificate": {...certificate.toJson(), 'token': '***'}, "error": error}, stackTrace);
+      widget.onError?.call({
+        "certificate": {...certificate.toJson(), 'token': '***'},
+        "error": error
+      }, stackTrace);
     }
   }
 

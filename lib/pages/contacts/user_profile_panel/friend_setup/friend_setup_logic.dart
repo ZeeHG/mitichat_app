@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 import '../../../../routes/app_navigator.dart';
 import '../../../chat/chat_logic.dart';

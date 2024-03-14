@@ -10,7 +10,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart' as im;
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:sound_mode/sound_mode.dart';
 import 'package:sound_mode/utils/ringer_mode_statuses.dart';
 import 'package:vibration/vibration.dart';
@@ -466,7 +466,7 @@ class AppController extends SuperController {
     Locale? locale = Get.locale;
     String windowLocaleStr =
         View.of(context).platformDispatcher.locale.toString();
-    
+
     int? lang = DataSp.getLanguage();
     int index = (lang != null && lang != 0)
         ? lang
@@ -521,7 +521,7 @@ class AppController extends SuperController {
   }
 
   void _initPlayer() {
-    _audioPlayer.setAsset(_ring, package: 'openim_common');
+    _audioPlayer.setAsset(_ring, package: 'miti_common');
     // _audioPlayer.setLoopMode(LoopMode.off);
     // _audioPlayer.setVolume(1.0);
     _audioPlayer.playerStateStream.listen((state) {
@@ -559,7 +559,7 @@ class AppController extends SuperController {
         isAllowBeep &&
         (ringerStatus == RingerModeStatus.normal ||
             ringerStatus == RingerModeStatus.unknown)) {
-      _audioPlayer.setAsset(_ring, package: 'openim_common');
+      _audioPlayer.setAsset(_ring, package: 'miti_common');
       _audioPlayer.setLoopMode(LoopMode.off);
       _audioPlayer.setVolume(1.0);
       _audioPlayer.play();

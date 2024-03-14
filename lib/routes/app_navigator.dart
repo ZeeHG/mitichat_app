@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:miti/pages/home/home_binding.dart';
 import 'package:miti/pages/login/login_view.dart';
 import 'package:miti/pages/mine/phone_email_change/phone_email_change_logic.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 import '../pages/chat/chat_setup/search_chat_history/multimedia/multimedia_logic.dart';
 import '../pages/chat/group_setup/edit_name/edit_name_logic.dart';
@@ -362,7 +362,8 @@ class AppNavigator {
       Get.toNamed(AppRoutes.selectContactsFromGroup);
 
   static startSelectContactsFromSearchFriends({String? appBarTitle}) =>
-      Get.toNamed(AppRoutes.selectContactsFromSearchFriends, arguments: {"appBarTitle": appBarTitle});
+      Get.toNamed(AppRoutes.selectContactsFromSearchFriends,
+          arguments: {"appBarTitle": appBarTitle});
 
   static startSelectContactsFromSearchGroup() =>
       Get.toNamed(AppRoutes.selectContactsFromSearchGroup);

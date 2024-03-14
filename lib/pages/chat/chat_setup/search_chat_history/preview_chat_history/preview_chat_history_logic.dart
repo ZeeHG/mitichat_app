@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 class PreviewChatHistoryLogic extends GetxController {
@@ -37,7 +37,8 @@ class PreviewChatHistoryLogic extends GetxController {
   }
 
   Future<bool> scrollToTopLoad() async {
-    var result = await OpenIM.iMManager.messageManager.getAdvancedHistoryMessageList(
+    var result =
+        await OpenIM.iMManager.messageManager.getAdvancedHistoryMessageList(
       startMsg: messageList.first,
       conversationID: conversationInfo.conversationID,
       count: 20,
@@ -55,7 +56,8 @@ class PreviewChatHistoryLogic extends GetxController {
   }
 
   Future<bool> scrollToBottomLoad() async {
-    var result = await OpenIM.iMManager.messageManager.getAdvancedHistoryMessageListReverse(
+    var result = await OpenIM.iMManager.messageManager
+        .getAdvancedHistoryMessageListReverse(
       startMsg: messageList.last,
       conversationID: conversationInfo.conversationID,
       count: 20,
@@ -81,7 +83,7 @@ class PreviewChatHistoryLogic extends GetxController {
       var customType = map['customType'];
       if (CustomMessageType.call == customType) {
         var type = map['data']['type'];
-      } 
+      }
       // else if (CustomMessageType.meeting == customType) {
       //   var data = msg.customElem!.data;
       //   var map = json.decode(data!);
@@ -102,7 +104,8 @@ class PreviewChatHistoryLogic extends GetxController {
   }
 
   void copy(Message message) {
-    IMUtils.copy(text: copyTextMap[message.clientMsgID] ?? message.textElem!.content!);
+    IMUtils.copy(
+        text: copyTextMap[message.clientMsgID] ?? message.textElem!.content!);
   }
 
   ValueKey itemKey(Message message) => ValueKey(message.clientMsgID!);
@@ -138,7 +141,8 @@ mixin ListViewDataCtrl {
 
   List<Message> get messageList => controller.value.list;
 
-  bool get isScrollBottom => scrollController.offset == scrollController.position.maxScrollExtent;
+  bool get isScrollBottom =>
+      scrollController.offset == scrollController.position.maxScrollExtent;
 
   final newMessageCount = 0.obs;
   int newMessageStartPosition = -1;

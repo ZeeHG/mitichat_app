@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -106,7 +106,9 @@ class OpenIMLiveClient implements RTCBridge {
     Future Function()? onTapReject,
     Future<UserInfo?> Function(String userID)? onSyncUserInfo,
     Future<GroupInfo?> Function(String groupID)? onSyncGroupInfo,
-    Future<List<GroupMembersInfo>> Function(String groupID, List<String> memberIDList)? onSyncGroupMemberInfo,
+    Future<List<GroupMembersInfo>> Function(
+            String groupID, List<String> memberIDList)?
+        onSyncGroupMemberInfo,
     bool autoPickup = false,
     Function()? onWaitingAccept,
     Function()? onBusyLine,
@@ -129,7 +131,9 @@ class OpenIMLiveClient implements RTCBridge {
                 initState: initState,
                 callEventSubject: callEventSubject,
                 roomID: roomID,
-                userID: initState == CallState.call ? inviteeUserIDList.first : inviterUserID,
+                userID: initState == CallState.call
+                    ? inviteeUserIDList.first
+                    : inviterUserID,
                 onDial: onDialSingle,
                 onTapCancel: onTapCancel,
                 onTapHangup: onTapHangup,

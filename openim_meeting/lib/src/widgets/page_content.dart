@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:livekit_client/livekit_client.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 import 'participant.dart';
 import 'participant_info.dart';
@@ -18,7 +18,7 @@ class FirstPage extends StatelessWidget {
       children: [
         ParticipantWidget.widgetFor(participantTrack,
             useScreenShareTrack: true,
-        isZoom:true,
+            isZoom: true,
             onTapSwitchCamera: participantTrack.participant is LocalParticipant
                 ? () {
                     participantTrack.toggleCamera();
@@ -42,7 +42,8 @@ class OtherPage extends StatelessWidget {
   final int pageSize;
   final ValueChanged<ParticipantTrack>? onDoubleTap;
 
-  List<ParticipantTrack> get list => participantTracks.sublist(pages * pageSize, min((pages + 1) * pageSize, participantTracks.length));
+  List<ParticipantTrack> get list => participantTracks.sublist(
+      pages * pageSize, min((pages + 1) * pageSize, participantTracks.length));
 
   Widget _participantWidgetFor(ParticipantTrack track) {
     Logger.print('_participantWidgetFor: ${track.participant.metadata}'
@@ -55,7 +56,8 @@ class OtherPage extends StatelessWidget {
           onDoubleTap?.call(track);
         },
         child: ParticipantWidget.widgetFor(track,
-            useScreenShareTrack: track.screenShareTrack != null && !track.screenShareTrack!.muted,
+            useScreenShareTrack: track.screenShareTrack != null &&
+                !track.screenShareTrack!.muted,
             onTapSwitchCamera: track.participant is LocalParticipant
                 ? () {
                     track.toggleCamera();
@@ -72,11 +74,15 @@ class OtherPage extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: list.isNotEmpty ? _participantWidgetFor(list[0]) : const SizedBox(),
+                child: list.isNotEmpty
+                    ? _participantWidgetFor(list[0])
+                    : const SizedBox(),
               ),
               1.horizontalSpace,
               Expanded(
-                child: list.length > 1 ? _participantWidgetFor(list[1]) : const SizedBox(),
+                child: list.length > 1
+                    ? _participantWidgetFor(list[1])
+                    : const SizedBox(),
               ),
             ],
           ),
@@ -87,10 +93,14 @@ class OtherPage extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: list.length > 2 ? _participantWidgetFor(list[2]) : const SizedBox(),
+                child: list.length > 2
+                    ? _participantWidgetFor(list[2])
+                    : const SizedBox(),
               ),
               Expanded(
-                child: list.length > 3 ? _participantWidgetFor(list[3]) : const SizedBox(),
+                child: list.length > 3
+                    ? _participantWidgetFor(list[3])
+                    : const SizedBox(),
               ),
             ],
           ),

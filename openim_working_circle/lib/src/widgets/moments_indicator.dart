@@ -9,7 +9,7 @@ import 'dart:math';
 import 'package:flutter/material.dart'
     hide RefreshIndicator, RefreshIndicatorState;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // How much the scroll's drag gesture can overshoot the RefreshIndicator's

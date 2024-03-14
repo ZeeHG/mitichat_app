@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 import 'my_points_logic.dart';
 
@@ -29,7 +29,7 @@ class MyPointsPage extends StatelessWidget {
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(ImageRes.appMyPointsBg,
-                            package: 'openim_common'),
+                            package: 'miti_common'),
                         fit: BoxFit.fitWidth,
                         alignment: Alignment.bottomCenter,
                       ),

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 class WhoCanWatchLogic extends GetxController {
   /// 0/1/2/3, 公开/私密/部分可见/不给谁看

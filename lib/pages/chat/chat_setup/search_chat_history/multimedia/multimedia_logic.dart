@@ -1,6 +1,6 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 enum MultimediaType { picture, video }
@@ -38,7 +38,8 @@ class ChatHistoryMultimediaLogic extends GetxController {
       } else {
         var item = result.searchResultItems!.first;
         messageList.assignAll(item.messageList!);
-        groupMessage.assignAll(IMUtils.groupingMessage(item.messageList!.reversed.toList()));
+        groupMessage.assignAll(
+            IMUtils.groupingMessage(item.messageList!.reversed.toList()));
       }
     } finally {
       refreshController.refreshCompleted();
@@ -56,7 +57,8 @@ class ChatHistoryMultimediaLogic extends GetxController {
       if (result.totalCount! > 0) {
         var item = result.searchResultItems!.first;
         messageList.addAll(item.messageList!);
-        groupMessage.addAll(IMUtils.groupingMessage(item.messageList!.reversed.toList()));
+        groupMessage.addAll(
+            IMUtils.groupingMessage(item.messageList!.reversed.toList()));
       }
     } finally {
       if (messageList.length < pageIndex * pageSize) {
@@ -86,6 +88,8 @@ class ChatHistoryMultimediaLogic extends GetxController {
   }
 
   String getSnapshotUrl(Message message) {
-    return isPicture ? message.pictureElem!.sourcePicture!.url!.thumbnailAbsoluteString : message.videoElem!.snapshotUrl!.thumbnailAbsoluteString;
+    return isPicture
+        ? message.pictureElem!.sourcePicture!.url!.thumbnailAbsoluteString
+        : message.videoElem!.snapshotUrl!.thumbnailAbsoluteString;
   }
 }

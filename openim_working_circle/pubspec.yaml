@@ -4,7 +4,7 @@ version: 0.0.1
 homepage:
 
 environment:
-  sdk: '>=2.19.2 <4.0.0'
+  sdk: ">=2.19.2 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
@@ -26,11 +26,11 @@ dependencies:
   uuid: ^4.2.1
   cached_network_image: ^3.3.1
   flutter_background: ^1.2.0
-  openim_common:
-    path: ../openim_common
+  miti_common:
+    path: ../miti_common
   flutter_openim_sdk:
     path: ../flutter_openim_sdk
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -40,7 +40,7 @@ dependency_overrides:
   # extended_image: ^8.2.0
   # fixed滑动和放大手势冲突, 基于8.2.0
   extended_image:
-    git: 
+    git:
       url: https://github.com/bpquanttech/extended_image.git
       ref: v8.2.0-fixed
 
