@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:miti/pages/xhs/xhs_logic.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
-import 'package:openim_working_circle/openim_working_circle.dart';
-import 'package:openim_working_circle/src/w_apis.dart';
+import 'package:miti_circle/miti_circle.dart';
+import 'package:miti_circle/src/w_apis.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class XhsMomentDetailLogic extends GetxController {

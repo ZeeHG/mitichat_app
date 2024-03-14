@@ -6,8 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
-import 'package:openim_working_circle/openim_working_circle.dart';
-import 'package:openim_working_circle/src/w_apis.dart';
+import 'package:miti_circle/miti_circle.dart';
+import 'package:miti_circle/src/w_apis.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 

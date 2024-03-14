@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:miti_live/miti_live.dart';
-import 'package:openim_working_circle/openim_working_circle.dart';
+import 'package:miti_circle/miti_circle.dart';
 import 'package:sprintf/sprintf.dart';
 
 import '../../../core/controller/app_controller.dart';
@@ -15,7 +15,7 @@ import '../../../core/controller/im_controller.dart';
 import '../../conversation/conversation_logic.dart';
 
 import 'dart:convert';
-import 'package:openim_working_circle/src/w_apis.dart';
+import 'package:miti_circle/src/w_apis.dart';
 
 class UserProfilePanelLogic extends GetxController {
   final appLogic = Get.find<AppController>();

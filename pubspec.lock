@@ -1387,6 +1387,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  miti_circle:
+    dependency: "direct main"
+    description:
+      path: miti_circle
+      relative: true
+    source: path
+    version: "0.0.1"
   miti_common:
     dependency: "direct main"
     description:
@@ -1441,13 +1448,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.3.4"
-  openim_working_circle:
-    dependency: "direct main"
-    description:
-      path: openim_working_circle
-      relative: true
-    source: path
-    version: "0.0.1"
   package_config:
     dependency: transitive
     description:

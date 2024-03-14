@@ -6,7 +6,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../../../openim_working_circle.dart';
+import '../../../miti_circle.dart';
 import '../../w_apis.dart';
 import '../publish/publish_logic.dart';
 import '../work_moments_list/work_moments_list_logic.dart';

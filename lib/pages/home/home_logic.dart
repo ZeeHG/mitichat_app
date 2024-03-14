@@ -7,8 +7,8 @@ import 'package:miti/pages/contacts/contacts_logic.dart';
 import 'package:miti/pages/xhs/xhs_logic.dart';
 import 'package:miti/utils/ai_util.dart';
 import 'package:miti_common/miti_common.dart';
-import 'package:openim_working_circle/openim_working_circle.dart';
-import 'package:openim_working_circle/src/w_apis.dart';
+import 'package:miti_circle/miti_circle.dart';
+import 'package:miti_circle/src/w_apis.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../core/controller/app_controller.dart';

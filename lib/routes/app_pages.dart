@@ -48,7 +48,7 @@ import 'package:miti/pages/xhs/xhs_moment_detail/xhs_moment_detail_binding.dart'
 import 'package:miti/pages/xhs/xhs_moment_detail/xhs_moment_detail_view.dart';
 import 'package:miti/pages/xhs/xhs_view.dart';
 // import 'package:openim_meeting/openim_meeting.dart';
-import 'package:openim_working_circle/openim_working_circle.dart';
+import 'package:miti_circle/miti_circle.dart';
 
 import '../pages/bot/bot_binding.dart';
 import '../pages/bot/bot_view.dart';
@@ -214,7 +214,9 @@ class AppPages {
         page: page,
         binding: binding,
         preventDuplicates: preventDuplicates,
-        transition: [AppRoutes.home, AppRoutes.accountManage].contains(name)? Transition.noTransition : Transition.cupertino,
+        transition: [AppRoutes.home, AppRoutes.accountManage].contains(name)
+            ? Transition.noTransition
+            : Transition.cupertino,
         popGesture: true,
       );
 

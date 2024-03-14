@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
-import 'package:openim_working_circle/src/widgets/work_moments_item.dart';
+import 'package:miti_circle/src/widgets/work_moments_item.dart';
 
 import 'detail_logic.dart';
 

@@ -3,7 +3,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../../../openim_working_circle.dart';
+import '../../../miti_circle.dart';
 import '../../w_apis.dart';
 import '../work_moments_list/preview_picture/preview_picture_view.dart';
 import '../work_moments_list/preview_video/preview_video_view.dart';
