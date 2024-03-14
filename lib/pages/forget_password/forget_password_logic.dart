@@ -55,12 +55,12 @@ class ForgetPasswordLogic extends GetxController {
   Future<bool> getVerificationCode() async {
     if (phone?.isNotEmpty == true &&
         !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-      IMViews.showToast(StrRes.plsEnterRightPhone);
+      IMViews.showToast(StrLibrary.plsEnterRightPhone);
       return false;
     }
 
     if (email?.isNotEmpty == true && !phoneCtrl.text.isEmail) {
-      IMViews.showToast(StrRes.plsEnterRightEmail);
+      IMViews.showToast(StrLibrary.plsEnterRightEmail);
       return false;
     }
 
@@ -69,16 +69,16 @@ class ForgetPasswordLogic extends GetxController {
   }
 
   /// [usedFor] 1：注册，2：重置密码 3：登录
-  Future<bool> sendVerificationCode() => LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.requestVerificationCode(
+  Future<bool> sendVerificationCode() => LoadingView.singleton.start(
+      fn: () => Apis.requestVerificationCode(
             areaCode: areaCode.value,
             phoneNumber: phone,
             email: email,
             usedFor: 2,
           ));
 
-  checkVerificationCode() => LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.checkVerificationCode(
+  checkVerificationCode() => LoadingView.singleton.start(
+      fn: () => Apis.checkVerificationCode(
             areaCode: areaCode.value,
             phoneNumber: phone,
             email: email,

@@ -14,7 +14,7 @@ class FriendRequestsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.newFriend),
+      appBar: TitleBar.back(title: StrLibrary.newFriend),
       backgroundColor: Styles.c_F8F9FA,
       body: Obx(() => ListView.builder(
             padding: EdgeInsets.only(top: 10.h),
@@ -71,18 +71,19 @@ class FriendRequestsPage extends StatelessWidget {
               ..height = 20.h,
           if (info.isWaitingHandle && !isISendRequest)
             Button(
-              text: StrRes.lookOver,
+              text: StrLibrary.lookOver,
               textStyle: Styles.ts_FFFFFF_14sp,
               onTap: () => logic.acceptFriendApplication(info),
               height: 28.h,
               padding: EdgeInsets.symmetric(horizontal: 13.w),
             ),
           if (info.isWaitingHandle && isISendRequest)
-            StrRes.waitingForVerification.toText..style = Styles.ts_999999_14sp,
+            StrLibrary.waitingForVerification.toText
+              ..style = Styles.ts_999999_14sp,
           if (info.isRejected)
-            StrRes.rejected.toText..style = Styles.ts_999999_14sp,
+            StrLibrary.rejected.toText..style = Styles.ts_999999_14sp,
           if (info.isAgreed)
-            StrRes.approved.toText..style = Styles.ts_999999_14sp,
+            StrLibrary.approved.toText..style = Styles.ts_999999_14sp,
         ],
       ),
     );

@@ -39,7 +39,7 @@ class FakeSearchBox extends StatelessWidget {
                 ..width = 15.w
                 ..height = 15.h,
               10.horizontalSpace,
-              StrRes.search.toText..style = Styles.ts_999999_16sp
+              StrLibrary.search.toText..style = Styles.ts_999999_16sp
             ],
           )),
     );

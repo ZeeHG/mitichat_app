@@ -13,7 +13,7 @@ class InviteRecordsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.allRecords),
+      appBar: TitleBar.back(title: StrLibrary.allRecords),
       backgroundColor: Styles.c_F8F9FA,
       body: Obx(() => Padding(
             padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 15.w),
@@ -28,7 +28,7 @@ class InviteRecordsPage extends StatelessWidget {
                                 width: 1.w, color: Styles.c_F1F2F6))),
                     child: Row(
                       children: [
-                        "AAAAAA".toText..style=Styles.ts_343434_18p_medium,
+                        "AAAAAA".toText..style = Styles.ts_343434_18p_medium,
                         Spacer(),
                         AvatarView(
                           url: "",
@@ -37,7 +37,7 @@ class InviteRecordsPage extends StatelessWidget {
                           height: 26.h,
                         ),
                         10.horizontalSpace,
-                        StrRes.used.toText..style = Styles.ts_999999_14sp,
+                        StrLibrary.used.toText..style = Styles.ts_999999_14sp,
                       ],
                     ),
                   );

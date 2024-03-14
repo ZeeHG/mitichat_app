@@ -62,18 +62,18 @@ class FontSizeSlider extends StatelessWidget {
 
   Widget _buildIndicatorLabel() => Stack(
         children: [
-          StrRes.little.toText
+          StrLibrary.little.toText
             ..style = Styles.ts_333333_12sp
             ..onTap = () => onChanged?.call(.0),
           Align(
             alignment: Alignment.center,
-            child: StrRes.standard.toText
+            child: StrLibrary.standard.toText
               ..style = Styles.ts_333333_17sp
               ..onTap = () => onChanged?.call(1.0),
           ),
           Align(
             alignment: Alignment.centerRight,
-            child: StrRes.big.toText
+            child: StrLibrary.big.toText
               ..style = Styles.ts_333333_20sp
               ..onTap = () => onChanged?.call(2.0),
           ),

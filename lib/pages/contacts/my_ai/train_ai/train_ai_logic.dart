@@ -55,7 +55,7 @@ class TrainAiLogic extends GetxController {
       knowledgebase: selectedKnowledgebase.value!);
 
   void getBotKnowledgebases() {
-    LoadingView.singleton.wrap(asyncFunction: () async {
+    LoadingView.singleton.start(fn: () async {
       final knowledgebases =
           (await Apis.getBotKnowledgebases(botID: ai.value.botID))["data"] ??
               [];
@@ -69,13 +69,13 @@ class TrainAiLogic extends GetxController {
           .toList()
           .cast<Knowledgebase>();
       if (knowledgebaseList.length == 0) {
-        showToast(StrRes.pleaseUpgradeAiOrOpenKnowledgebase);
+        showToast(StrLibrary.pleaseUpgradeAiOrOpenKnowledgebase);
       }
     });
   }
 
   void train() async {
-    await LoadingView.singleton.wrap(asyncFunction: () async {
+    await LoadingView.singleton.start(fn: () async {
       await Apis.addKnowledge(
           knowledgebaseID: selectedKnowledgebase.value!.knowledgebaseID,
           text: text.value,
@@ -86,7 +86,7 @@ class TrainAiLogic extends GetxController {
     });
     // await Apis.getMyAiTask();
     final confirm = await Get.dialog(SuccessDialog(
-      text: StrRes.trainSuccessTips,
+      text: StrLibrary.trainSuccessTips,
       onTapConfirm: () => Get.back(),
     ));
   }
@@ -113,7 +113,7 @@ class TrainAiLogic extends GetxController {
   void selectKnowledgebase() async {
     if (knowledgebaseList.length == 0) return;
     IMViews.showSinglePicker(
-      title: StrRes.selectKnowledgebase,
+      title: StrLibrary.selectKnowledgebase,
       description: "",
       pickerData: knowledgebaseList
           .map((element) => element.knowledgebaseName)

@@ -15,8 +15,8 @@ class SetFriendRemarkPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-        title: StrRes.remark,
-        right: StrRes.save.toText
+        title: StrLibrary.remark,
+        right: StrLibrary.save.toText
           ..style = Styles.ts_333333_17sp
           ..onTap = logic.save,
       ),

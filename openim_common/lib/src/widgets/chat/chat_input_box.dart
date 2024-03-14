@@ -202,7 +202,7 @@ class _ChatInputBoxState
                             //     width: 60.0.w * (1.0 - _animation.value),
                             //     margin: EdgeInsets.only(right: 4.w),
                             //     child: Button(
-                            //       text: StrRes.send,
+                            //       text: StrLibrary .send,
                             //       height: 32.h,
                             //       onTap: send,
                             //     ),

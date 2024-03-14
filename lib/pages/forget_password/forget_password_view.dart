@@ -17,25 +17,29 @@ class ForgetPasswordPage extends StatelessWidget {
         child: Obx(() => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                StrRes.forgetPassword.toText..style = Styles.ts_8443F8_22sp_semibold,
+                StrLibrary.forgetPassword.toText
+                  ..style = Styles.ts_8443F8_22sp_semibold,
                 29.verticalSpace,
                 InputBox.account(
                   label: logic.loginController.operateType.name,
                   hintText: logic.loginController.operateType.hintText,
                   code: logic.areaCode.value,
-                  onAreaCode: logic.loginController.operateType == LoginType.phone ? logic.openCountryCodePicker : null,
+                  onAreaCode:
+                      logic.loginController.operateType == LoginType.phone
+                          ? logic.openCountryCodePicker
+                          : null,
                   controller: logic.phoneCtrl,
                 ),
                 16.verticalSpace,
                 InputBox.verificationCode(
-                  label: StrRes.verificationCode,
-                  hintText: StrRes.plsEnterVerificationCode,
+                  label: StrLibrary.verificationCode,
+                  hintText: StrLibrary.plsEnterVerificationCode,
                   controller: logic.verificationCodeCtrl,
                   onSendVerificationCode: logic.getVerificationCode,
                 ),
                 130.verticalSpace,
                 Button(
-                  text: StrRes.nextStep,
+                  text: StrLibrary.nextStep,
                   enabled: logic.enabled.value,
                   onTap: logic.nextStep,
                 ),

@@ -16,7 +16,7 @@ class AddContactsBySearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-        title: logic.isSearchUser ? StrRes.addFriend : StrRes.addGroup,
+        title: logic.isSearchUser ? StrLibrary.addFriend : StrLibrary.addGroup,
       ),
       backgroundColor: Styles.c_FFFFFF,
       body: Column(
@@ -25,8 +25,8 @@ class AddContactsBySearchPage extends StatelessWidget {
             focusNode: logic.focusNode,
             controller: logic.searchCtrl,
             hintText: logic.isSearchUser
-                ? StrRes.searchByPhoneAndUid
-                : StrRes.searchIDAddGroup,
+                ? StrLibrary.searchByPhoneAndUid
+                : StrLibrary.searchIDAddGroup,
             enabled: true,
             autofocus: true,
             margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
@@ -97,7 +97,9 @@ class AddContactsBySearchPage extends StatelessWidget {
 
   Widget _buildNotFoundView() => Container(
         padding: EdgeInsets.symmetric(vertical: 12.h),
-        child: (logic.isSearchUser ? StrRes.noFoundUser : StrRes.noFoundGroup)
+        child: (logic.isSearchUser
+                ? StrLibrary.noFoundUser
+                : StrLibrary.noFoundGroup)
             .toText
           ..style = Styles.ts_999999_16sp,
       );

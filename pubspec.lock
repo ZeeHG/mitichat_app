@@ -209,6 +209,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.10.5+7"
+  camera_android:
+    dependency: transitive
+    description:
+      name: camera_android
+      sha256: "351429510121d179b9aac5a2e8cb525c3cd6c39f4d709c5f72dfb21726e52371"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.10.8+16"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -632,14 +640,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
-  flutter_bugly:
-    dependency: "direct main"
-    description:
-      name: flutter_bugly
-      sha256: a2d13cb35bedb907cb020ea4862264dcc9044675a49a8313bb3ab2e61af79c77
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.4"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -656,14 +656,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
-  flutter_dotenv:
-    dependency: "direct main"
-    description:
-      name: flutter_dotenv
-      sha256: "9357883bdd153ab78cbf9ffa07656e336b8bbb2b5a3ca596b0b27e119f7c7d77"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.1.0"
   flutter_download_manager:
     dependency: "direct main"
     description:

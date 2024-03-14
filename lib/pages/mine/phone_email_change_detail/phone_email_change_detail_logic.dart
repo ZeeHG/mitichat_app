@@ -67,15 +67,15 @@ class PhoneEmailChangeDetailLogic extends GetxController {
 
   bool _checkingInput() {
     if (isPhone && !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-      IMViews.showToast(StrRes.plsEnterRightPhone);
+      IMViews.showToast(StrLibrary.plsEnterRightPhone);
       return false;
     }
     if (!isPhone && !IMUtils.isEmail(emailCtrl.text)) {
-      IMViews.showToast(StrRes.plsEnterRightEmail);
+      IMViews.showToast(StrLibrary.plsEnterRightEmail);
       return false;
     }
     if (verificationCodeCtrl.text.trim().isEmpty) {
-      IMViews.showToast(StrRes.plsEnterVerificationCode);
+      IMViews.showToast(StrLibrary.plsEnterVerificationCode);
       return false;
     }
     return true;
@@ -89,26 +89,26 @@ class PhoneEmailChangeDetailLogic extends GetxController {
   Future<bool> getVerificationCode() async {
     if (isPhone) {
       if (phone?.isEmpty == true) {
-        IMViews.showToast(StrRes.plsEnterPhoneNumber);
+        IMViews.showToast(StrLibrary.plsEnterPhoneNumber);
         return false;
       }
       if (phone?.isNotEmpty == true &&
           !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-        IMViews.showToast(StrRes.plsEnterRightPhone);
+        IMViews.showToast(StrLibrary.plsEnterRightPhone);
         return false;
       }
     } else {
       if (email?.isEmpty == true) {
-        IMViews.showToast(StrRes.plsEnterEmail);
+        IMViews.showToast(StrLibrary.plsEnterEmail);
         return false;
       }
       if (email?.isNotEmpty == true && !email!.isEmail) {
-        IMViews.showToast(StrRes.plsEnterRightEmail);
+        IMViews.showToast(StrLibrary.plsEnterRightEmail);
         return false;
       }
     }
-    return await LoadingView.singleton.wrap(
-      asyncFunction: () => requestVerificationCode(),
+    return await LoadingView.singleton.start(
+      fn: () => requestVerificationCode(),
     );
   }
 
@@ -121,7 +121,7 @@ class PhoneEmailChangeDetailLogic extends GetxController {
 
   void updateInfo() async {
     if (_checkingInput()) {
-      await LoadingView.singleton.wrap(asyncFunction: () async {
+      await LoadingView.singleton.start(fn: () async {
         final data = !isPhone
             ? await Apis.updateEmail(
                 email: email,

@@ -130,8 +130,10 @@ abstract class SignalState<T extends SignalView> extends State<T> {
         return;
       }
       widget.onClose?.call();
-      IMViews.showToast(sprintf(StrRes.otherCallHandle, [
-        event.state == CallState.otherReject ? StrRes.rejectCall : StrRes.accept
+      IMViews.showToast(sprintf(StrLibrary.otherCallHandle, [
+        event.state == CallState.otherReject
+            ? StrLibrary.rejectCall
+            : StrLibrary.accept
       ]));
     } else if (event.state == CallState.timeout) {
       widget.onClose?.call();
@@ -157,7 +159,12 @@ abstract class SignalState<T extends SignalView> extends State<T> {
     if (widget.initState == CallState.call) {
       // callStateSubject.add(CallState.connecting);
       certificate = await widget.onDial!.call();
-      myLogger.i({"message": "发出通话邀请成功, onDail", "data": {"certificate": {...certificate.toJson(), 'token': '***'}}});
+      myLogger.i({
+        "message": "发出通话邀请成功, onDail",
+        "data": {
+          "certificate": {...certificate.toJson(), 'token': '***'}
+        }
+      });
       widget.onBindRoomID?.call(roomID = certificate.roomID!);
       await connect();
     }

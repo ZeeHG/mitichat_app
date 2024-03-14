@@ -16,7 +16,7 @@ class MyQrcodePage extends StatelessWidget {
     return Obx(
       () => Scaffold(
         appBar: TitleBar.back(
-          title: StrRes.qrcode,
+          title: StrLibrary.qrcode,
         ),
         backgroundColor: Styles.c_FFFFFF,
         body: Container(
@@ -63,7 +63,7 @@ class MyQrcodePage extends StatelessWidget {
               SizedBox(
                 height: 30.h,
               ),
-              StrRes.qrcodeHint.toText
+              StrLibrary.qrcodeHint.toText
                 ..style = Styles.ts_999999_12sp
                 ..textAlign = TextAlign.center,
               SizedBox(
@@ -73,7 +73,7 @@ class MyQrcodePage extends StatelessWidget {
               //     mainAxisAlignment: MainAxisAlignment.center,
               //     crossAxisAlignment: CrossAxisAlignment.center,
               //     children: [
-              //       StrRes.scan.toText
+              //       StrLibrary .scan.toText
               //         ..style = Styles.ts_8443F8_16sp
               //         ..textAlign = TextAlign.center,
               //       Container(
@@ -82,7 +82,7 @@ class MyQrcodePage extends StatelessWidget {
               //         color: Styles.c_EDEDED,
               //         margin: EdgeInsets.symmetric(horizontal: 16.w),
               //       ),
-              //       StrRes.changeStyle.toText
+              //       StrLibrary .changeStyle.toText
               //         ..style = Styles.ts_8443F8_16sp
               //         ..textAlign = TextAlign.center,
               //       Container(
@@ -91,7 +91,7 @@ class MyQrcodePage extends StatelessWidget {
               //         color: Styles.c_EDEDED,
               //         margin: EdgeInsets.symmetric(horizontal: 16.w),
               //       ),
-              //       StrRes.saveImg.toText
+              //       StrLibrary .saveImg.toText
               //         ..style = Styles.ts_8443F8_16sp
               //         ..textAlign = TextAlign.center,
               //     ])

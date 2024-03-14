@@ -39,8 +39,8 @@ class CreateGroupLogic extends GetxController {
   completeCreation() async {
     if (allList.length > 2) {
       // convertMemberRole(UserInfo u) => GroupMemberRole(userID: u.userID);
-      var info = await LoadingView.singleton.wrap(
-        asyncFunction: () => OpenIM.iMManager.groupManager.createGroup(
+      var info = await LoadingView.singleton.start(
+        fn: () => OpenIM.iMManager.groupManager.createGroup(
           groupInfo: GroupInfo(
             groupID: '',
             groupName: groupName,
@@ -116,12 +116,11 @@ class CreateGroupLogic extends GetxController {
 
   void opMember({bool isDel = false}) async {
     final result = await AppNavigator.startSelectContacts(
-      action: SelAction.addMember,
-      checkedList: checkedList,
-      defaultCheckedIDList: defaultCheckedList.map((e) => e.userID!).toList(),
-      openSelectedSheet: isDel,
-      selectFromFriend: true
-    );
+        action: SelAction.addMember,
+        checkedList: checkedList,
+        defaultCheckedIDList: defaultCheckedList.map((e) => e.userID!).toList(),
+        openSelectedSheet: isDel,
+        selectFromFriend: true);
     final list = IMUtils.convertSelectContactsResultToUserInfo(result);
     if (list is List<UserInfo>) {
       checkedList

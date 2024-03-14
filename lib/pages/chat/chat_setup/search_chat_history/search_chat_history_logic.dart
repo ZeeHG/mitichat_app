@@ -13,36 +13,37 @@ class SearchChatHistoryLogic extends GetxController {
   final searchCtrl = TextEditingController();
   final focusNode = FocusNode();
   final messageList = <Message>[].obs;
-  late  Rx<ConversationInfo> conversationInfo;
+  late Rx<ConversationInfo> conversationInfo;
   final searchKey = "".obs;
   int pageIndex = 1;
   int pageSize = 50;
 
   get items => conversationInfo.value.isSingleChat
-      ? [StrRes.picture, StrRes.video, StrRes.file, 
-      // StrRes.link, StrRes.audio
-      ]
+      ? [
+          StrLibrary.picture, StrLibrary.video, StrLibrary.file,
+          // StrLibrary .link, StrLibrary .audio
+        ]
       : [
-          StrRes.picture,
-          StrRes.video,
-          StrRes.file,
-          // StrRes.groupMember,
-          // StrRes.link,
-          // StrRes.audio
+          StrLibrary.picture,
+          StrLibrary.video,
+          StrLibrary.file,
+          // StrLibrary .groupMember,
+          // StrLibrary .link,
+          // StrLibrary .audio
         ];
 
   void clickItem(String item) {
-    if (item == StrRes.picture) {
+    if (item == StrLibrary.picture) {
       searchChatHistoryPicture();
-    } else if (item == StrRes.video) {
+    } else if (item == StrLibrary.video) {
       searchChatHistoryVideo();
-    } else if (item == StrRes.file) {
+    } else if (item == StrLibrary.file) {
       searchChatHistoryFile();
-    } else if (item == StrRes.groupMember) {
+    } else if (item == StrLibrary.groupMember) {
       showDeveloping();
-    } else if (item == StrRes.link) {
+    } else if (item == StrLibrary.link) {
       showDeveloping();
-    } else if (item == StrRes.audio) {
+    } else if (item == StrLibrary.audio) {
       showDeveloping();
     }
   }

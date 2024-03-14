@@ -36,22 +36,22 @@ class SelectContactsPage extends StatelessWidget {
                       delegate: SliverChildListDelegate(
                         [
                           _buildCategoryItemView(
-                            label: StrRes.myFriend,
+                            label: StrLibrary.myFriend,
                             onTap: logic.selectFromMyFriend,
                           ),
                           if (!logic.hiddenGroup)
                             _buildCategoryItemView(
-                              label: StrRes.myGroup,
+                              label: StrLibrary.myGroup,
                               onTap: logic.selectFromMyGroup,
                             ),
                           // if (!logic.hiddenOrganization)
                           //   _buildCategoryItemView(
-                          //     label: StrRes.organizationStructure,
+                          //     label: StrLibrary .organizationStructure,
                           //     onTap: logic.selectFromOrganization,
                           //   ),
                           if (!logic.hiddenTagGroup)
                             _buildCategoryItemView(
-                              label: StrRes.tagGroup,
+                              label: StrLibrary.tagGroup,
                               onTap: logic.selectTagGroup,
                             ),
                         ],
@@ -64,7 +64,7 @@ class SelectContactsPage extends StatelessWidget {
                           height: 29.h,
                           alignment: Alignment.centerLeft,
                           margin: EdgeInsets.symmetric(horizontal: 12.w),
-                          child: StrRes.recentConversations.toText
+                          child: StrLibrary.recentConversations.toText
                             ..style = Styles.ts_999999_12sp,
                         ),
                       ),
@@ -213,8 +213,8 @@ class CheckedConfirmView extends StatelessWidget {
                 height: 28.h,
                 enabled: logic.enabledConfirmButton,
                 padding: EdgeInsets.symmetric(horizontal: 14.w),
-                text: sprintf(
-                    StrRes.confirmSelectedPeople, [logic.checkedList.length]),
+                text: sprintf(StrLibrary.confirmSelectedPeople,
+                    [logic.checkedList.length]),
                 textStyle: Styles.ts_FFFFFF_14sp,
                 onTap: logic.confirmSelectedList,
               ),
@@ -250,7 +250,7 @@ class SelectedContactsListView extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    sprintf(StrRes.selectedPeopleCount,
+                    sprintf(StrLibrary.selectedPeopleCount,
                         [logic.checkedList.length]).toText
                       ..style = Styles.ts_333333_16sp_medium,
                     const Spacer(),
@@ -260,7 +260,7 @@ class SelectedContactsListView extends StatelessWidget {
                       child: Container(
                         height: 52.h,
                         alignment: Alignment.center,
-                        child: StrRes.confirm.toText
+                        child: StrLibrary.confirm.toText
                           ..style = Styles.ts_8443F8_16sp,
                       ),
                     ),
@@ -322,7 +322,7 @@ class SelectedContactsListView extends StatelessWidget {
                   width: 1,
                 ),
               ),
-              child: StrRes.remove.toText..style = Styles.ts_8443F8_16sp,
+              child: StrLibrary.remove.toText..style = Styles.ts_8443F8_16sp,
             ),
           ),
         ],

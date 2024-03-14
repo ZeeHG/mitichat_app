@@ -25,7 +25,7 @@ class ChatMultiSelToolbox extends StatelessWidget {
                 ..height = 48.h
                 ..onTap = onDelete,
               4.verticalSpace,
-              StrRes.delete.toText..style = Styles.ts_FF4E4C_12sp,
+              StrLibrary.delete.toText..style = Styles.ts_FF4E4C_12sp,
             ],
           ),
           const Spacer(),
@@ -37,7 +37,7 @@ class ChatMultiSelToolbox extends StatelessWidget {
                 ..height = 48.h
                 ..onTap = onMergeForward,
               4.verticalSpace,
-              StrRes.mergeForward.toText..style = Styles.ts_333333_10sp,
+              StrLibrary.mergeForward.toText..style = Styles.ts_333333_10sp,
             ],
           ),
           98.horizontalSpace,

@@ -12,7 +12,7 @@ class FriendPermissionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
         appBar: TitleBar.back(
-          title: StrRes.friendPermissions,
+          title: StrLibrary.friendPermissions,
         ),
         backgroundColor: Styles.c_F7F8FA,
         body: SingleChildScrollView(
@@ -24,11 +24,11 @@ class FriendPermissionsPage extends StatelessWidget {
                     Container(
                       padding:
                           EdgeInsets.only(top: 20.h, bottom: 12.h, left: 12.w),
-                      child: StrRes.momentsAndStatus.toText
+                      child: StrLibrary.momentsAndStatus.toText
                         ..style = Styles.ts_999999_12sp,
                     ),
                     _buildItemView(
-                      text: StrRes.moments,
+                      text: StrLibrary.moments,
                       switchOn: logic.momentsStatus.value,
                       onChanged: (_) => logic.changeMoments(),
                       showSwitchButton: true,

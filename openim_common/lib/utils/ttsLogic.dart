@@ -11,7 +11,6 @@ import 'package:rxdart/rxdart.dart';
 import '../openim_common.dart';
 
 class TtsLogic extends GetxController {
-
   String userID = "";
   RxMap<String, dynamic> msgTts = <String, dynamic>{}.obs;
 
@@ -67,7 +66,6 @@ class TtsLogic extends GetxController {
   clearAllTtsMsgCache() {
     msgTts.value = {};
     setMsgTts({});
-    IMViews.showToast(StrRes.success);
+    IMViews.showToast(StrLibrary.success);
   }
-
 }

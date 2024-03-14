@@ -13,32 +13,32 @@ class AddContactsMethodPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.add),
+      appBar: TitleBar.back(title: StrLibrary.add),
       body: Column(
         children: [
           10.verticalSpace,
           _buildItemView(
             icon: ImageRes.scanBlue,
-            text: StrRes.scan,
-            hintText: StrRes.scanHint,
+            text: StrLibrary.scan,
+            hintText: StrLibrary.scanHint,
             onTap: logic.scan,
           ),
           _buildItemView(
             icon: ImageRes.addFriendBlue,
-            text: StrRes.addFriend,
-            hintText: StrRes.addFriendHint,
+            text: StrLibrary.addFriend,
+            hintText: StrLibrary.addFriendHint,
             onTap: logic.addFriend,
           ),
           _buildItemView(
             icon: ImageRes.createGroupBlue,
-            text: StrRes.createGroup,
-            hintText: StrRes.createGroupHint,
+            text: StrLibrary.createGroup,
+            hintText: StrLibrary.createGroupHint,
             onTap: logic.createGroup,
           ),
           _buildItemView(
             icon: ImageRes.addGroupBLue,
-            text: StrRes.addGroup,
-            hintText: StrRes.addGroupHint,
+            text: StrLibrary.addGroup,
+            hintText: StrLibrary.addGroupHint,
             onTap: logic.addGroup,
             underline: false,
           ),

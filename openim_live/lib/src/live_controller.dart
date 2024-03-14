@@ -163,14 +163,14 @@ mixin OpenIMLive {
                 );
                 // 后台弹框
                 FlutterOpenimLiveAlert.showLiveAlert(
-                  title: sprintf(StrRes.inviteYouCall, [
+                  title: sprintf(StrLibrary.inviteYouCall, [
                     list.firstOrNull?.nickname,
                     callType == CallType.audio
-                        ? StrRes.callVoice
-                        : StrRes.callVideo
+                        ? StrLibrary.callVoice
+                        : StrLibrary.callVideo
                   ]),
-                  rejectText: StrRes.rejectCall,
-                  acceptText: StrRes.acceptCall,
+                  rejectText: StrLibrary.rejectCall,
+                  acceptText: StrLibrary.acceptCall,
                 );
                 return;
               }
@@ -333,11 +333,11 @@ mixin OpenIMLive {
         }
       });
       if (int.parse(error.code) == SDKErrorCode.hasBeenBlocked) {
-        IMViews.showToast(StrRes.callFail);
+        IMViews.showToast(StrLibrary.callFail);
         return;
       }
     }
-    IMViews.showToast(StrRes.networkError);
+    IMViews.showToast(StrLibrary.networkError);
   }
 
   onRoomDisconnected(SignalingInfo signalingInfo) {
@@ -357,8 +357,8 @@ mixin OpenIMLive {
               ..iOSPushSound = "live_ring.wav"
               ..title = OpenIM.iMManager.userInfo.nickname
               ..desc = (isAudio
-                  ? '[${StrRes.callVoice}]'
-                  : '[${StrRes.callVideo}]')),
+                  ? '[${StrLibrary.callVoice}]'
+                  : '[${StrLibrary.callVideo}]')),
         )
         .catchError((e, s) =>
             onError(e, s, extMessage: "发起单人通话room邀请错误, onDialSingle"));
@@ -383,9 +383,9 @@ mixin OpenIMLive {
             ..invitation?.timeout = 30
             ..offlinePushInfo = (Config.offlinePushInfo
               ..iOSPushSound = "live_ring.wav"
-              ..title = (groupInfo.groupName ?? StrRes.offlineCallMessage)
+              ..title = (groupInfo.groupName ?? StrLibrary.offlineCallMessage)
               ..desc =
-                  "${member.nickname ?? StrRes.friend}: ${isAudio ? '[${StrRes.callVoice}]' : '[${StrRes.callVideo}]'}"),
+                  "${member.nickname ?? StrLibrary.friend}: ${isAudio ? '[${StrLibrary.callVoice}]' : '[${StrLibrary.callVideo}]'}"),
         )
         .catchError(
             (e, s) => onError(e, s, extMessage: "发起多人通话room邀请错误, onDialGroup"));

@@ -13,7 +13,7 @@ class MyAiPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.trainAi),
+      appBar: TitleBar.back(title: StrLibrary.trainAi),
       backgroundColor: Styles.c_FFFFFF,
       body: Column(
         children: [

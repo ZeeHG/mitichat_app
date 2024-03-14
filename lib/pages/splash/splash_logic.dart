@@ -6,7 +6,7 @@ import 'package:openim_common/openim_common.dart';
 import '../../core/controller/im_controller.dart';
 import '../../core/controller/push_controller.dart';
 import '../../routes/app_navigator.dart';
-import '../../utils/upgrade_manager.dart';
+// import '../../utils/upgrade_manager.dart';
 
 class SplashLogic extends GetxController {
   final imLogic = Get.find<IMController>();

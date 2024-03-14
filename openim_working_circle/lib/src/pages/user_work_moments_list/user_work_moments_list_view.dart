@@ -54,7 +54,8 @@ class UserWorkMomentsListPage extends StatelessWidget {
                         ..height = 81.35.h
                         ..fit = BoxFit.cover,
                       22.verticalSpace,
-                      StrRes.noDynamic.toText..style = Styles.ts_999999_16sp,
+                      StrLibrary.noDynamic.toText
+                        ..style = Styles.ts_999999_16sp,
                     ],
                   ),
                 ),
@@ -167,8 +168,8 @@ class UserWorkMomentsListPage extends StatelessWidget {
                                     ..maxLines = 2
                                     ..overflow = TextOverflow.ellipsis),
                                   if (!isVideo)
-                                    sprintf(StrRes.totalNPicture, [urls.length])
-                                        .toText
+                                    sprintf(StrLibrary.totalNPicture,
+                                        [urls.length]).toText
                                       ..style = Styles.ts_999999_12sp,
                                 ],
                               ),
@@ -189,7 +190,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
                 (180.h - 58.h - MediaQuery.of(context).padding.top))
             ? Container(
                 padding: EdgeInsets.only(bottom: 20.h),
-                child: StrRes.workingCircle.toText
+                child: StrLibrary.workingCircle.toText
                   ..style = Styles.ts_333333_18sp_medium,
               )
             : Container(
@@ -334,7 +335,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
                         //       children: [
                         //         ImageRes.appAdd.toImage..width=16.w..height=16.h,
                         //         6.horizontalSpace,
-                        //         StrRes.publishMoment.toText..style=Styles.ts_333333_14sp_medium
+                        //         StrLibrary .publishMoment.toText..style=Styles.ts_333333_14sp_medium
                         //       ],
                         //     ),
                         //   ),
@@ -357,7 +358,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
                                   ..width = 16.w
                                   ..height = 16.h,
                                 6.horizontalSpace,
-                                StrRes.publishMoment.toText
+                                StrLibrary.publishMoment.toText
                                   ..style = Styles.ts_333333_14sp_medium
                               ],
                             ),
@@ -418,7 +419,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
   //                           children: [
   //                             ImageRes.appAdd.toImage..width=16.w..height=16.h,
   //                             6.horizontalSpace,
-  //                             StrRes.publishMoment.toText..style=Styles.ts_333333_14sp_medium
+  //                             StrLibrary .publishMoment.toText..style=Styles.ts_333333_14sp_medium
   //                           ],
   //                         ),
   //                       ),
@@ -433,7 +434,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
   //                 ..width = 20.w
   //                 ..height = 20.h,
   //               12.horizontalSpace,
-  //               StrRes.publishPicture.toText..style = Styles.ts_333333_16sp,
+  //               StrLibrary .publishPicture.toText..style = Styles.ts_333333_16sp,
   //             ],
   //           ),
   //         ),
@@ -448,7 +449,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
   //                 ..width = 20.w
   //                 ..height = 20.h,
   //               12.horizontalSpace,
-  //               StrRes.publishVideo.toText..style = Styles.ts_333333_16sp,
+  //               StrLibrary .publishVideo.toText..style = Styles.ts_333333_16sp,
   //             ],
   //           ),
   //         ),

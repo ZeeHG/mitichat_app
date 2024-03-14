@@ -50,9 +50,10 @@ class ChatGroupCallHitView extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: sprintf(StrRes.groupVideoCallHint, [participants.length])
-                  .toText
-                ..style = Styles.ts_999999_14sp,
+              child:
+                  sprintf(StrLibrary.groupVideoCallHint, [participants.length])
+                      .toText
+                    ..style = Styles.ts_999999_14sp,
             ),
             Transform.rotate(
               angle: (showCallingMember ? 1 : 0) * pi,
@@ -102,7 +103,7 @@ class ChatGroupCallHitView extends StatelessWidget {
               child: Container(
                 height: 44.h,
                 alignment: Alignment.center,
-                child: StrRes.joinIn.toText..style = Styles.ts_8443F8_14sp,
+                child: StrLibrary.joinIn.toText..style = Styles.ts_8443F8_14sp,
               ),
             ),
           ],

@@ -1,11 +1,11 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:ui';
 import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:openim_common/openim_common.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:uuid/uuid.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -272,7 +272,7 @@ class Apis {
         'invitationCode': invitationCode
       },
     ).then((value) {
-      IMViews.showToast(StrRes.sentSuccessfully);
+      IMViews.showToast(StrLibrary.sentSuccessfully);
       return true;
     }).catchError((e, s) {
       Logger.print('e:$e s:$s');
@@ -304,28 +304,28 @@ class Apis {
   }
 
   /// 蒲公英更新检测
-  static Future<UpgradeInfoV2> checkUpgradeV2({CancelToken? cancelToken}) {
-    final url = dotenv.env['ANDROID_UPDATE_URL'] ?? "";
-    final apiKey = dotenv.env['ANDROID_UPDATE_API_KEY'] ?? "";
-    final appKey = dotenv.env['ANDROID_UPDATE_APP_KEY'] ?? "";
-    return dio
-        .post<Map<String, dynamic>>(url,
-            options: Options(
-              contentType: 'application/x-www-form-urlencoded',
-            ),
-            data: {
-              '_api_key': apiKey,
-              'appKey': appKey,
-            },
-            cancelToken: cancelToken)
-        .then((resp) {
-      Map<String, dynamic> map = resp.data!;
-      if (map['code'] == 0) {
-        return UpgradeInfoV2.fromJson(map['data']);
-      }
-      return Future.error(map);
-    });
-  }
+  // static Future<UpgradeInfoV2> checkUpgradeV2({CancelToken? cancelToken}) {
+  //   final url = dotenv.env['ANDROID_UPDATE_URL'] ?? "";
+  //   final apiKey = dotenv.env['ANDROID_UPDATE_API_KEY'] ?? "";
+  //   final appKey = dotenv.env['ANDROID_UPDATE_APP_KEY'] ?? "";
+  //   return dio
+  //       .post<Map<String, dynamic>>(url,
+  //           options: Options(
+  //             contentType: 'application/x-www-form-urlencoded',
+  //           ),
+  //           data: {
+  //             '_api_key': apiKey,
+  //             'appKey': appKey,
+  //           },
+  //           cancelToken: cancelToken)
+  //       .then((resp) {
+  //     Map<String, dynamic> map = resp.data!;
+  //     if (map['code'] == 0) {
+  //       return UpgradeInfoV2.fromJson(map['data']);
+  //     }
+  //     return Future.error(map);
+  //   });
+  // }
 
   static void queryUserOnlineStatus({
     required List<String> uidList,
@@ -385,21 +385,21 @@ class Apis {
         final pList = <String>[];
         for (var platform in e.detailPlatformStatus!) {
           if (platform.platform == "Android" || platform.platform == "IOS") {
-            pList.add(StrRes.phoneOnline);
+            pList.add(StrLibrary.phoneOnline);
           } else if (platform.platform == "Windows") {
-            pList.add(StrRes.pcOnline);
+            pList.add(StrLibrary.pcOnline);
           } else if (platform.platform == "Web") {
-            pList.add(StrRes.webOnline);
+            pList.add(StrLibrary.webOnline);
           } else if (platform.platform == "MiniWeb") {
-            pList.add(StrRes.webMiniOnline);
+            pList.add(StrLibrary.webMiniOnline);
           } else {
-            statusDesc[e.userID!] = StrRes.online;
+            statusDesc[e.userID!] = StrLibrary.online;
           }
         }
-        statusDesc[e.userID!] = '${pList.join('/')}${StrRes.online}';
+        statusDesc[e.userID!] = '${pList.join('/')}${StrLibrary.online}';
         status[e.userID!] = true;
       } else {
-        statusDesc[e.userID!] = StrRes.offline;
+        statusDesc[e.userID!] = StrLibrary.offline;
         status[e.userID!] = false;
       }
     }
@@ -541,7 +541,7 @@ class Apis {
       required String ClientMsgID,
       required String Query,
       String? TargetLang}) async {
-    TargetLang = TargetLang ?? window.locale.toString();
+    TargetLang = TargetLang ?? WidgetsBinding.instance.platformDispatcher.toString();
     Map<String, dynamic> param = {
       'userID': userID,
       'ClientMsgID': ClientMsgID,
@@ -563,7 +563,7 @@ class Apis {
   /// 翻译查找
   static Future<dynamic> findTranslate(
       {required List<String> ClientMsgIDs, String? TargetLang}) async {
-    TargetLang = TargetLang ?? window.locale.toString();
+    TargetLang = TargetLang ?? WidgetsBinding.instance.platformDispatcher.locale.toString();
     Map<String, dynamic> param = {
       'ClientMsgIDs': ClientMsgIDs,
       'TargetLang': TargetLang
@@ -915,10 +915,13 @@ class Apis {
   }
 
   // 埋点
-  static Future<dynamic> addActionRecord({required List<ActionRecord> actionRecordList}) async {
+  static Future<dynamic> addActionRecord(
+      {required List<ActionRecord> actionRecordList}) async {
     return HttpUtil.post(
-      data: {"actionList": List.generate(
-            actionRecordList.length, (index) => actionRecordList[index].toJson())},
+      data: {
+        "actionList": List.generate(actionRecordList.length,
+            (index) => actionRecordList[index].toJson())
+      },
       Urls.addActionRecord,
       options: chatTokenOptions,
     );

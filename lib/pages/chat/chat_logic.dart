@@ -540,7 +540,7 @@ class ChatLogic extends GetxController {
     });
     // 更新群成员信息
     messageList.refresh();
-    atUserNameMappingMap[OpenIM.iMManager.userID] = StrRes.you;
+    atUserNameMappingMap[OpenIM.iMManager.userID] = StrLibrary.you;
     atUserInfoMappingMap[OpenIM.iMManager.userID] = OpenIM.iMManager.userInfo;
 
     // DataSp.putAtUserMap(groupID!, atUserNameMappingMap);
@@ -677,11 +677,11 @@ class ChatLogic extends GetxController {
       if (summaryList.length >= 2) break;
     }
     if (isGroupChat) {
-      title = "群聊${StrRes.chatRecord}";
+      title = "群聊${StrLibrary.chatRecord}";
     } else {
       var partner1 = OpenIM.iMManager.userInfo.getShowName();
       var partner2 = nickname.value;
-      title = "$partner1和$partner2${StrRes.chatRecord}";
+      title = "$partner1和$partner2${StrLibrary.chatRecord}";
     }
     var message = await OpenIM.iMManager.messageManager.createMergerMessage(
       messageList: multiSelList,
@@ -752,7 +752,7 @@ class ChatLogic extends GetxController {
     // 借用当前聊天窗口，给其他用户或群发送信息，如合并转发，分享名片。
     bool useOuterValue = null != userId || null != groupId;
     setConversationConfig(waitingST: message.sendTime);
-    String text = StrRes.defaultNotification;
+    String text = StrLibrary.defaultNotification;
     if (message.isTextType) {
       text = message.textElem!.content!;
     } else if (message.isAtTextType) {
@@ -760,19 +760,19 @@ class ChatLogic extends GetxController {
     } else if (message.isQuoteType) {
       text = message.quoteElem?.text ?? text;
     } else if (message.isPictureType) {
-      text = StrRes.defaultImgNotification;
+      text = StrLibrary.defaultImgNotification;
     } else if (message.isVideoType) {
-      text = StrRes.defaultVideoNotification;
+      text = StrLibrary.defaultVideoNotification;
     } else if (message.isVoiceType) {
-      text = StrRes.defaultVoiceNotification;
+      text = StrLibrary.defaultVoiceNotification;
     } else if (message.isFileType) {
-      text = StrRes.defaultFileNotification;
+      text = StrLibrary.defaultFileNotification;
     } else if (message.isLocationType) {
-      text = StrRes.defaultLocationNotification;
+      text = StrLibrary.defaultLocationNotification;
     } else if (message.isMergerType) {
-      text = StrRes.defaultMergeNotification;
+      text = StrLibrary.defaultMergeNotification;
     } else if (message.isCardType) {
-      text = StrRes.defaultCardNotification;
+      text = StrLibrary.defaultCardNotification;
     }
     OpenIM.iMManager.messageManager
         .sendMessage(
@@ -781,8 +781,8 @@ class ChatLogic extends GetxController {
           groupID: useOuterValue ? groupId : groupID,
           offlinePushInfo: Config.offlinePushInfo
             ..title = (isSingleChat
-                ? (OpenIM.iMManager.userInfo.nickname ?? StrRes.friend)
-                : (nickname.value ?? StrRes.group))
+                ? (OpenIM.iMManager.userInfo.nickname ?? StrLibrary.friend)
+                : (nickname.value ?? StrLibrary.group))
             ..desc = (isSingleChat
                 ? text
                 : "${groupMembersInfo?.nickname ?? OpenIM.iMManager.userInfo.nickname}: ${text}"),
@@ -898,12 +898,12 @@ class ChatLogic extends GetxController {
 
   /// 删除消息
   void deleteMsg(Message message) async {
-    LoadingView.singleton.wrap(asyncFunction: () => _deleteMessage(message));
+    LoadingView.singleton.start(fn: () => _deleteMessage(message));
   }
 
   /// 批量删除
   void _deleteMultiMsg() async {
-    await LoadingView.singleton.wrap(asyncFunction: () async {
+    await LoadingView.singleton.start(fn: () async {
       for (var e in multiSelList) {
         await _deleteMessage(e);
       }
@@ -939,7 +939,7 @@ class ChatLogic extends GetxController {
   // void mergeForward() async {
   //   final result = await AppNavigator.startSelectContacts(
   //     action: SelAction.forward,
-  //     ex: sprintf(StrRes.mergeForwardHint, [multiSelList.length]),
+  //     ex: sprintf(StrLibrary .mergeForwardHint, [multiSelList.length]),
   //   );
   //   if (null != result) {
   //     final customEx = result['customEx'];
@@ -961,7 +961,7 @@ class ChatLogic extends GetxController {
       action: SelAction.forward,
       ex: null != message
           ? IMUtils.parseMsg(message)
-          : sprintf(StrRes.mergeForwardHint, [multiSelList.length]),
+          : sprintf(StrLibrary.mergeForwardHint, [multiSelList.length]),
     );
     if (null != result) {
       final customEx = result['customEx'];
@@ -1036,7 +1036,7 @@ class ChatLogic extends GetxController {
     if (checked) {
       // 合并最多20条限制
       if (multiSelList.length >= 20) {
-        Get.dialog(CustomDialog(title: StrRes.forwardMaxCountHint));
+        Get.dialog(CustomDialog(title: StrLibrary.forwardMaxCountHint));
       } else {
         multiSelList.add(message);
         multiSelList.sort((a, b) {
@@ -1090,7 +1090,7 @@ class ChatLogic extends GetxController {
       // 视频限制5分钟的时长
       if (entity.videoDuration > const Duration(seconds: 5 * 60)) {
         IMViews.showToast(
-            sprintf(StrRes.selectVideoLimit, [5]) + StrRes.minute);
+            sprintf(StrLibrary.selectVideoLimit, [5]) + StrLibrary.minute);
         return false;
       }
       return true;
@@ -1118,7 +1118,7 @@ class ChatLogic extends GetxController {
         resolutionPreset: ResolutionPreset.medium,
         maximumRecordingDuration: 60.seconds,
         onMinimumRecordDurationNotMet: () {
-          IMViews.showToast(StrRes.tapTooShort);
+          IMViews.showToast(StrLibrary.tapTooShort);
         },
       ),
     );
@@ -1192,19 +1192,19 @@ class ChatLogic extends GetxController {
           sendPicture(path: path);
           break;
         case AssetType.video:
-          var thumbnailFile = await IMUtils.getVideoThumbnail(File(path));
-          LoadingView.singleton.show();
-          final file = await IMUtils.compressVideoAndGetFile(File(path));
-          LoadingView.singleton.dismiss();
-
-          sendVideo(
-            videoPath: file!.path,
-            mimeType: asset.mimeType ?? IMUtils.getMediaType(path) ?? '',
-            duration: asset.duration,
-            // duration: mediaInfo.duration?.toInt() ?? 0,
-            thumbnailPath: thumbnailFile.path,
-          );
-          // sendVoice(duration: asset.duration, path: path);
+          File? file;
+          await LoadingView.singleton.start(fn: () async {
+            var thumbnailFile = await IMUtils.getVideoThumbnail(File(path));
+            final file = await IMUtils.compressVideoAndGetFile(File(path));
+            sendVideo(
+              videoPath: file!.path,
+              mimeType: asset.mimeType ?? IMUtils.getMediaType(path) ?? '',
+              duration: asset.duration,
+              // duration: mediaInfo.duration?.toInt() ?? 0,
+              thumbnailPath: thumbnailFile.path,
+            );
+            // sendVoice(duration: asset.duration, path: path);
+          });
           break;
         default:
           break;
@@ -1221,7 +1221,7 @@ class ChatLogic extends GetxController {
       var customType = map['customType'];
       if (CustomMessageType.call == customType && !isInBlacklist.value) {
         if (rtcIsBusy) {
-          IMViews.showToast(StrRes.callingBusy);
+          IMViews.showToast(StrLibrary.callingBusy);
           return;
         }
         var type = map['data']['type'];
@@ -1230,16 +1230,16 @@ class ChatLogic extends GetxController {
           callType: type == "audio" ? CallType.audio : CallType.video,
           inviteeUserIDList: [if (isSingleChat) userID!],
         );
-      } 
+      }
       // else if (CustomMessageType.meeting == customType) {
       //   if (rtcIsBusy) {
-      //     IMViews.showToast(StrRes.callingBusy);
+      //     IMViews.showToast(StrLibrary .callingBusy);
       //     return;
       //   }
       //   var data = msg.customElem!.data;
       //   var map = json.decode(data!);
       //   MeetingClient().join(Get.context!, meetingID: map['data']['id']);
-      // } 
+      // }
       else if (CustomMessageType.tag == customType) {
         final data = map['data'];
         if (null != data['soundElem']) {
@@ -1446,7 +1446,7 @@ class ChatLogic extends GetxController {
       if (null != content) {
         IMUtils.copy(text: content);
       } else {
-        IMViews.showToast(StrRes.copyFail);
+        IMViews.showToast(StrLibrary.copyFail);
       }
     }
   }
@@ -1493,7 +1493,7 @@ class ChatLogic extends GetxController {
   get targetLang {
     final langConfig = translateLogic.langConfig[conversationID];
     final targetLang = (null == langConfig || null == langConfig["targetLang"])
-        ? window.locale.toString()
+        ? WidgetsBinding.instance.platformDispatcher.locale.toString()
         : langConfig["targetLang"];
     return targetLang;
   }
@@ -1565,7 +1565,7 @@ class ChatLogic extends GetxController {
           "messageCopyTextMap": copyTextMap[message.clientMsgID]
         }
       });
-      IMViews.showToast(StrRes.noWorking);
+      IMViews.showToast(StrLibrary.noWorking);
     }
   }
 
@@ -1598,7 +1598,7 @@ class ChatLogic extends GetxController {
         "message": "文本转语音message, 获取不到音频",
         "error": {"message": json.encode(message)}
       });
-      IMViews.showToast(StrRes.noWorking);
+      IMViews.showToast(StrLibrary.noWorking);
     }
   }
 
@@ -1641,7 +1641,7 @@ class ChatLogic extends GetxController {
 
   /// 阅后即焚
   void toggleBurnAfterReading() {
-    LoadingView.singleton.wrap(asyncFunction: () async {
+    LoadingView.singleton.start(fn: () async {
       await OpenIM.iMManager.conversationManager.setConversationPrivateChat(
         conversationID: conversationID,
         isPrivate: !isBurnAfterReading,
@@ -1780,8 +1780,9 @@ class ChatLogic extends GetxController {
     _lastCursorIndex = cursor;
   }
 
-  // String getSubTile() => typing.value ? StrRes.typing : onlineStatusDesc.value;
-  String? get subTile => typing.value ? StrRes.typing : onlineStatusDesc.value;
+  // String getSubTile() => typing.value ? StrLibrary .typing : onlineStatusDesc.value;
+  String? get subTile =>
+      typing.value ? StrLibrary.typing : onlineStatusDesc.value;
 
   bool showOnlineStatus() => !typing.value && onlineStatusDesc.isNotEmpty;
 
@@ -1841,7 +1842,7 @@ class ChatLogic extends GetxController {
       var width = message.pictureElem?.sourcePicture?.width;
       var height = message.pictureElem?.sourcePicture?.height;
       cacheLogic.addFavoriteFromUrl(url, width, height);
-      IMViews.showToast(StrRes.addSuccessfully);
+      IMViews.showToast(StrLibrary.addSuccessfully);
     } else if (message.contentType == MessageType.customFace) {
       var index = message.faceElem?.index;
       var data = message.faceElem?.data;
@@ -1852,7 +1853,7 @@ class ChatLogic extends GetxController {
         var width = map['width'];
         var height = map['height'];
         cacheLogic.addFavoriteFromUrl(url, width, height);
-        IMViews.showToast(StrRes.addSuccessfully);
+        IMViews.showToast(StrLibrary.addSuccessfully);
       }
     }
   }
@@ -1879,14 +1880,14 @@ class ChatLogic extends GetxController {
   changeFontSize(double factor) async {
     await DataSp.putChatFontSizeFactor(factor);
     scaleFactor.value = factor;
-    IMViews.showToast(StrRes.setSuccessfully);
+    IMViews.showToast(StrLibrary.setSuccessfully);
   }
 
   /// 修改聊天背景
   changeBackground(String path) async {
     await DataSp.putChatBackground(otherId, path);
     background.value = path;
-    IMViews.showToast(StrRes.setSuccessfully);
+    IMViews.showToast(StrLibrary.setSuccessfully);
   }
 
   String get otherId => isSingleChat ? userID! : groupID!;
@@ -1895,20 +1896,20 @@ class ChatLogic extends GetxController {
   clearBackground() async {
     await DataSp.clearChatBackground(otherId);
     background.value = '';
-    IMViews.showToast(StrRes.setSuccessfully);
+    IMViews.showToast(StrLibrary.setSuccessfully);
   }
 
   /// 拨视频或音频
   void call() async {
     if (rtcIsBusy) {
-      IMViews.showToast(StrRes.callingBusy);
+      IMViews.showToast(StrLibrary.callingBusy);
       return;
     }
     if (isGroupChat) {
       if (participants.isNotEmpty) {
         var confirm = await Get.dialog(CustomDialog(
-          title: StrRes.groupCallHint,
-          rightText: StrRes.joinIn,
+          title: StrLibrary.groupCallHint,
+          rightText: StrLibrary.joinIn,
         ));
         if (confirm == true) {
           joinGroupCalling();
@@ -2117,8 +2118,8 @@ class ChatLogic extends GetxController {
     if (status != null) {
       onlineStatus.value = status.status == 1;
       onlineStatusDesc.value = status.status == 0
-          ? StrRes.offline
-          : _onlineStatusDes(status.platformIDs!) + StrRes.online;
+          ? StrLibrary.offline
+          : _onlineStatusDes(status.platformIDs!) + StrLibrary.online;
     }
   }
 
@@ -2386,8 +2387,9 @@ class ChatLogic extends GetxController {
       muteEndTime.value > DateTime.now().millisecondsSinceEpoch;
 
   /// 禁言提示
-  String? get hintText =>
-      isMuted ? (isGroupMuted ? StrRes.groupMuted : StrRes.youMuted) : null;
+  String? get hintText => isMuted
+      ? (isGroupMuted ? StrLibrary.groupMuted : StrLibrary.youMuted)
+      : null;
 
   /// 禁言后 清除所有状态
   void _mutedClearAllInput() {
@@ -2417,8 +2419,8 @@ class ChatLogic extends GetxController {
         canRevoke = true;
       } else {
         // 群组或管理员撤回群成员的消息
-        var list = await LoadingView.singleton.wrap(
-            asyncFunction: () => OpenIM.iMManager.groupManager
+        var list = await LoadingView.singleton.start(
+            fn: () => OpenIM.iMManager.groupManager
                 .getGroupOwnerAndAdmin(groupID: groupID!));
         var sender = list.firstWhereOrNull((e) => e.userID == message.sendID);
         var revoker =
@@ -2454,8 +2456,8 @@ class ChatLogic extends GetxController {
     }
     if (canRevoke) {
       try {
-        await LoadingView.singleton.wrap(
-          asyncFunction: () => OpenIM.iMManager.messageManager.revokeMessage(
+        await LoadingView.singleton.start(
+          fn: () => OpenIM.iMManager.messageManager.revokeMessage(
             conversationID: conversationInfo.value.conversationID,
             clientMsgID: message.clientMsgID!,
           ),
@@ -2634,12 +2636,11 @@ class ChatLogic extends GetxController {
 
   void joinGroupCalling() async {
     if (rtcIsBusy) {
-      IMViews.showToast(StrRes.callingBusy);
+      IMViews.showToast(StrLibrary.callingBusy);
       return;
     }
-    final certificate = await LoadingView.singleton.wrap(
-      asyncFunction: () =>
-          OpenIM.iMManager.signalingManager.signalingGetTokenByRoomID(
+    final certificate = await LoadingView.singleton.start(
+      fn: () => OpenIM.iMManager.signalingManager.signalingGetTokenByRoomID(
         roomID: roomCallingInfo.roomID!,
       ),
     );
@@ -2723,9 +2724,9 @@ class ChatLogic extends GetxController {
     switch (syncStatus.value) {
       case IMSdkStatus.syncStart:
       case IMSdkStatus.synchronizing:
-        return StrRes.synchronizing;
+        return StrLibrary.synchronizing;
       case IMSdkStatus.syncFailed:
-        return StrRes.syncFailed;
+        return StrLibrary.syncFailed;
       default:
         return null;
     }
@@ -2841,7 +2842,7 @@ class ChatLogic extends GetxController {
   recommendFriendCarte(UserInfo userInfo) async {
     final result = await AppNavigator.startSelectContacts(
       action: SelAction.recommend,
-      ex: '[${StrRes.carte}]${userInfo.nickname}',
+      ex: '[${StrLibrary.carte}]${userInfo.nickname}',
     );
     if (null != result) {
       final customEx = result['customEx'];

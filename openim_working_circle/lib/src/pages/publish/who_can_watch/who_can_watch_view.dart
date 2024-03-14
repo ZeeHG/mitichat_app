@@ -16,9 +16,9 @@ class WhoCanWatchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-        title: StrRes.whoCanWatch,
+        title: StrLibrary.whoCanWatch,
         right: Button(
-          text: StrRes.determine,
+          text: StrLibrary.determine,
           textStyle: Styles.ts_FFFFFF_14sp,
           height: 28.h,
           padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -31,28 +31,28 @@ class WhoCanWatchPage extends StatelessWidget {
               children: [
                 10.verticalSpace,
                 _buildItemView(
-                  title: StrRes.public,
-                  hint: StrRes.everyoneCanSee,
+                  title: StrLibrary.public,
+                  hint: StrLibrary.everyoneCanSee,
                   showRightArrow: false,
                   index: 0,
                 ),
                 _buildItemView(
-                  title: StrRes.private,
-                  hint: StrRes.onlyVisibleToMe,
+                  title: StrLibrary.private,
+                  hint: StrLibrary.onlyVisibleToMe,
                   showRightArrow: false,
                   index: 1,
                 ),
                 _buildItemView(
-                  title: StrRes.partiallyVisible,
-                  hint: StrRes.visibleToTheSelected,
+                  title: StrLibrary.partiallyVisible,
+                  hint: StrLibrary.visibleToTheSelected,
                   value: logic.checkedVisibleList
                       .map((e) => publishLogic.parseName(e))
                       .join('、'),
                   index: 2,
                 ),
                 _buildItemView(
-                  title: StrRes.partiallyInvisible,
-                  hint: StrRes.invisibleToTheSelected,
+                  title: StrLibrary.partiallyInvisible,
+                  hint: StrLibrary.invisibleToTheSelected,
                   value: logic.checkedInvisibleList
                       .map((e) => publishLogic.parseName(e))
                       .join('、'),

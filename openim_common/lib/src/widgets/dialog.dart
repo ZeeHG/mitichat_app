@@ -57,7 +57,7 @@ class CustomDialog extends StatelessWidget {
                                   horizontal: 16.w,
                                 ),
                                 child: Text(
-                                  bigTitle ?? StrRes.tips,
+                                  bigTitle ?? StrLibrary.tips,
                                   textAlign: TextAlign.center,
                                   style: Styles.ts_333333_16sp_medium,
                                 ),
@@ -84,7 +84,7 @@ class CustomDialog extends StatelessWidget {
                     children: [
                       _button(
                         bgColor: Styles.c_FFFFFF,
-                        text: leftText ?? StrRes.cancel,
+                        text: leftText ?? StrLibrary.cancel,
                         textStyle: Styles.ts_999999_14sp,
                         onTap: onTapLeft ?? () => Get.back(result: false),
                       ),
@@ -95,7 +95,7 @@ class CustomDialog extends StatelessWidget {
                       ),
                       _button(
                         bgColor: Styles.c_FFFFFF,
-                        text: rightText ?? StrRes.determine,
+                        text: rightText ?? StrLibrary.determine,
                         textStyle: Styles.ts_8443F8_14sp,
                         onTap: onTapRight ?? () => Get.back(result: true),
                       ),
@@ -164,7 +164,9 @@ class ForwardHintDialog extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                (list.length == 1 ? StrRes.sentTo : StrRes.sentSeparatelyTo)
+                (list.length == 1
+                        ? StrLibrary.sentTo
+                        : StrLibrary.sentSeparatelyTo)
                     .toText
                   ..style = Styles.ts_333333_17sp_medium,
                 5.verticalSpace,
@@ -228,7 +230,7 @@ class ForwardHintDialog extends StatelessWidget {
                     style: Styles.ts_333333_14sp,
                     controller: controller,
                     decoration: InputDecoration(
-                      hintText: StrRes.leaveMessage,
+                      hintText: StrLibrary.leaveMessage,
                       hintStyle: Styles.ts_999999_14sp,
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(
@@ -243,11 +245,11 @@ class ForwardHintDialog extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    StrRes.cancel.toText
+                    StrLibrary.cancel.toText
                       ..style = Styles.ts_333333_17sp
                       ..onTap = () => Get.back(),
                     26.horizontalSpace,
-                    StrRes.determine.toText
+                    StrLibrary.determine.toText
                       ..style = Styles.ts_8443F8_17sp
                       ..onTap = () => Get.back(result: true),
                   ],
@@ -302,7 +304,7 @@ class SuccessDialog extends StatelessWidget {
                           GestureDetector(
                             behavior: HitTestBehavior.translucent,
                             child: Button(
-                                text: confirmText ?? StrRes.iKnow,
+                                text: confirmText ?? StrLibrary.iKnow,
                                 textStyle: Styles.ts_FFFFFF_16sp,
                                 height: 42.h,
                                 width: 128.w,

@@ -34,37 +34,37 @@ class SendVerificationApplicationLogic extends GetxController {
 
   _applyAddFriend() async {
     try {
-      await LoadingView.singleton.wrap(
-        asyncFunction: () => OpenIM.iMManager.friendshipManager.addFriend(
+      await LoadingView.singleton.start(
+        fn: () => OpenIM.iMManager.friendshipManager.addFriend(
           userID: userID!,
           reason: inputCtrl.text.trim(),
         ),
       );
       Get.back();
-      IMViews.showToast(StrRes.sendSuccessfully);
+      IMViews.showToast(StrLibrary.sendSuccessfully);
     } catch (_) {
       if (_ is PlatformException) {
         if (_.code == '${SDKErrorCode.refuseToAddFriends}') {
-          IMViews.showToast(StrRes.canNotAddFriends);
+          IMViews.showToast(StrLibrary.canNotAddFriends);
           return;
         }
       }
-      IMViews.showToast(StrRes.sendFailed);
+      IMViews.showToast(StrLibrary.sendFailed);
     }
   }
 
   /// By Invitation = 2 , Search = 3 , QRCode  = 4
   _applyEnterGroup() {
     LoadingView.singleton
-        .wrap(
-          asyncFunction: () => OpenIM.iMManager.groupManager.joinGroup(
+        .start(
+          fn: () => OpenIM.iMManager.groupManager.joinGroup(
             groupID: groupID!,
             reason: inputCtrl.text.trim(),
             joinSource: joinGroupMethod == JoinGroupMethod.qrcode ? 4 : 3,
           ),
         )
-        .then((value) => IMViews.showToast(StrRes.sendSuccessfully))
+        .then((value) => IMViews.showToast(StrLibrary.sendSuccessfully))
         .then((value) => Get.back())
-        .catchError((e) => IMViews.showToast(StrRes.sendFailed));
+        .catchError((e) => IMViews.showToast(StrLibrary.sendFailed));
   }
 }

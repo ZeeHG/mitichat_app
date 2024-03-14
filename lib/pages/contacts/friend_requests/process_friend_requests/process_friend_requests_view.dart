@@ -13,7 +13,7 @@ class ProcessFriendRequestsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.newFriend),
+      appBar: TitleBar.back(title: StrLibrary.newFriend),
       backgroundColor: Styles.c_F8F9FA,
       body: Container(
         color: Styles.c_FFFFFF,
@@ -64,7 +64,7 @@ class ProcessFriendRequestsPage extends StatelessWidget {
                 12.horizontalSpace,
                 Flexible(
                   child: Button(
-                    text: StrRes.accept,
+                    text: StrLibrary.accept,
                     textStyle: Styles.ts_FFFFFF_17sp,
                     onTap: logic.acceptFriendApplication,
                   ),
@@ -92,7 +92,7 @@ class ProcessFriendRequestsPage extends StatelessWidget {
             onTap: logic.refuseFriendApplication,
             child: Container(
               alignment: Alignment.center,
-              child: StrRes.reject.toText..style = Styles.ts_333333_17sp,
+              child: StrLibrary.reject.toText..style = Styles.ts_333333_17sp,
             ),
           ),
         ),

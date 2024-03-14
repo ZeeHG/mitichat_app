@@ -119,10 +119,10 @@ class UserProfilePanelLogic extends GetxController {
       appLogic.clientConfigMap['allowSendMsgNotFriend'] == '1';
 
   void _getUsersInfo() {
-    LoadingView.singleton.wrap(asyncFunction: _requestUsersInfo);
+    LoadingView.singleton.start(fn: _requestUsersInfo);
   }
 
-  Future<void> _requestUsersInfo() async{
+  Future<void> _requestUsersInfo() async {
     final userID = userInfo.value.userID!;
     final list = await OpenIM.iMManager.userManager.getUsersInfoWithCache(
       [userID],
@@ -216,14 +216,14 @@ class UserProfilePanelLogic extends GetxController {
         );
         var inviterUserInfo = list.firstOrNull;
         joinGroupMethod.value = sprintf(
-          StrRes.byInviteJoinGroup,
+          StrLibrary.byInviteJoinGroup,
           [inviterUserInfo?.nickname ?? ''],
         );
       }
     } else if (other?.joinSource == 3) {
-      joinGroupMethod.value = StrRes.byIDJoinGroup;
+      joinGroupMethod.value = StrLibrary.byIDJoinGroup;
     } else if (other?.joinSource == 4) {
-      joinGroupMethod.value = StrRes.byQrcodeJoinGroup;
+      joinGroupMethod.value = StrLibrary.byQrcodeJoinGroup;
     }
   }
 
@@ -283,9 +283,8 @@ class UserProfilePanelLogic extends GetxController {
     final hasPermission = !hasAdminPermission.value;
     final roleLevel =
         hasPermission ? GroupRoleLevel.admin : GroupRoleLevel.member;
-    await LoadingView.singleton.wrap(
-        asyncFunction: () =>
-            OpenIM.iMManager.groupManager.setGroupMemberRoleLevel(
+    await LoadingView.singleton.start(
+        fn: () => OpenIM.iMManager.groupManager.setGroupMemberRoleLevel(
               groupID: groupID!,
               userID: userInfo.value.userID!,
               roleLevel: roleLevel,
@@ -297,7 +296,7 @@ class UserProfilePanelLogic extends GetxController {
     if (null != groupMembersInfo) {
       imLogic.memberInfoChangedSubject.add(groupMembersInfo!);
     }
-    IMViews.showToast(StrRes.setSuccessfully);
+    IMViews.showToast(StrLibrary.setSuccessfully);
   }
 
   void toChat() {

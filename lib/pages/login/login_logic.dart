@@ -30,27 +30,27 @@ extension LoginTypeExt on LoginType {
   String get name {
     switch (this) {
       case LoginType.phone:
-        return StrRes.phoneNumber;
+        return StrLibrary.phoneNumber;
       case LoginType.email:
-        return StrRes.email;
+        return StrLibrary.email;
     }
   }
 
   String get hintText {
     switch (this) {
       case LoginType.phone:
-        return StrRes.plsEnterPhoneNumber;
+        return StrLibrary.plsEnterPhoneNumber;
       case LoginType.email:
-        return StrRes.plsEnterEmail;
+        return StrLibrary.plsEnterEmail;
     }
   }
 
   String get exclusiveName {
     switch (this) {
       case LoginType.phone:
-        return StrRes.email;
+        return StrLibrary.email;
       case LoginType.email:
-        return StrRes.phoneNumber;
+        return StrLibrary.phoneNumber;
     }
   }
 }
@@ -83,7 +83,9 @@ class LoginLogic extends GetxController {
   int curStatusChangeCount = 0;
 
   _initData() async {
-    onlyReadServerCtrl.text = DataSp.getCurServerKey().isNotEmpty? DataSp.getCurServerKey() : Config.hostWithProtocol;
+    onlyReadServerCtrl.text = DataSp.getCurServerKey().isNotEmpty
+        ? DataSp.getCurServerKey()
+        : Config.hostWithProtocol;
     var map = DataSp.getMainLoginAccount();
     if (map is Map) {
       // String? email = map["email"];
@@ -124,8 +126,8 @@ class LoginLogic extends GetxController {
     pwdCtrl.addListener(_onChanged);
     verificationCodeCtrl.addListener(_onChanged);
     // if (!isAddAccount.value) {
-    //   LoadingView.singleton.wrap(
-    //       navBarHeight: 0, asyncFunction: () => accountUtil.reloadServerConf());
+    //   LoadingView.singleton.start(
+    //       topBarHeight: 0, fn: () => accountUtil.reloadServerConf());
     // }
     super.onInit();
   }
@@ -148,9 +150,9 @@ class LoginLogic extends GetxController {
   login(BuildContext context) {
     FocusScope.of(context).requestFocus(new FocusNode());
     DataSp.putLoginType(loginType.value.rawValue);
-    LoadingView.singleton.wrap(
-        navBarHeight: 0,
-        asyncFunction: () async {
+    LoadingView.singleton.start(
+        topBarHeight: 0,
+        fn: () async {
           if (!isAddAccount.value) {
             var suc = await _login();
             if (suc) {
@@ -193,7 +195,7 @@ class LoginLogic extends GetxController {
         child: Column(
           children: [
             Text(
-              StrRes.switchServer,
+              StrLibrary.switchServer,
               textAlign: TextAlign.center,
               style: Styles.ts_333333_16sp_medium,
             ),
@@ -208,7 +210,7 @@ class LoginLogic extends GetxController {
               child: InputBox(
                 autofocus: false,
                 label: "",
-                hintText: StrRes.addAccountServerTips,
+                hintText: StrLibrary.addAccountServerTips,
                 hintStyle: Styles.ts_CCCCCC_14sp,
                 border: false,
                 controller: serverCtrl,
@@ -225,11 +227,11 @@ class LoginLogic extends GetxController {
       onTapRight: () async {
         // http://xx
         if (!Config.targetIsDomainOrIPWithProtocol(serverCtrl.text)) {
-          showToast(StrRes.serverFormatErr);
+          showToast(StrLibrary.serverFormatErr);
         } else {
-          LoadingView.singleton.wrap(
-              navBarHeight: 0,
-              asyncFunction: () async {
+          LoadingView.singleton.start(
+              topBarHeight: 0,
+              fn: () async {
                 try {
                   await accountUtil.checkServerValid(
                       serverWithProtocol: serverCtrl.text);
@@ -241,9 +243,11 @@ class LoginLogic extends GetxController {
                   }
                   serverCtrl.text = "";
                 } catch (e) {
-                  showToast(StrRes.serverErr);
+                  showToast(StrLibrary.serverErr);
                 }
-                onlyReadServerCtrl.text = DataSp.getCurServerKey().isNotEmpty? DataSp.getCurServerKey() : Config.hostWithProtocol;
+                onlyReadServerCtrl.text = DataSp.getCurServerKey().isNotEmpty
+                    ? DataSp.getCurServerKey()
+                    : Config.hostWithProtocol;
               });
         }
       },
@@ -253,17 +257,17 @@ class LoginLogic extends GetxController {
   bool checkForm() {
     if (phone?.isNotEmpty == true &&
         !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-      IMViews.showToast(StrRes.plsEnterRightPhone);
+      IMViews.showToast(StrLibrary.plsEnterRightPhone);
       return false;
     }
 
     if (email?.isNotEmpty == true && !phoneCtrl.text.isEmail) {
-      IMViews.showToast(StrRes.plsEnterRightEmail);
+      IMViews.showToast(StrLibrary.plsEnterRightEmail);
       return false;
     }
 
     if (!agree.value) {
-      IMViews.showToast(StrRes.plsAgree);
+      IMViews.showToast(StrLibrary.plsAgree);
       return false;
     }
 
@@ -334,12 +338,12 @@ class LoginLogic extends GetxController {
   Future<bool> getVerificationCode() async {
     if (phone?.isNotEmpty == true &&
         !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-      IMViews.showToast(StrRes.plsEnterRightPhone);
+      IMViews.showToast(StrLibrary.plsEnterRightPhone);
       return false;
     }
 
     if (email?.isNotEmpty == true && !phoneCtrl.text.isEmail) {
-      IMViews.showToast(StrRes.plsEnterRightEmail);
+      IMViews.showToast(StrLibrary.plsEnterRightEmail);
       return false;
     }
 
@@ -347,8 +351,8 @@ class LoginLogic extends GetxController {
   }
 
   /// [usedFor] 1：注册，2：重置密码 3：登录
-  Future<bool> sendVerificationCode() => LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.requestVerificationCode(
+  Future<bool> sendVerificationCode() => LoadingView.singleton.start(
+      fn: () => Apis.requestVerificationCode(
             areaCode: areaCode.value,
             phoneNumber: phone,
             email: email,

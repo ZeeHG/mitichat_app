@@ -32,18 +32,17 @@ class ProcessGroupRequestsLogic extends GetxController {
   /// 2：通过邀请  3：通过搜索  4：通过二维码
   String get sourceFrom {
     if (applicationInfo.joinSource == 2) {
-      return '$inviterNickname${StrRes.byMemberInvite}';
+      return '$inviterNickname${StrLibrary.byMemberInvite}';
     } else if (applicationInfo.joinSource == 4) {
-      return StrRes.byScanQrcode;
+      return StrLibrary.byScanQrcode;
     }
-    return StrRes.bySearch;
+    return StrLibrary.bySearch;
   }
 
   void approve() {
     LoadingView.singleton
-        .wrap(
-            asyncFunction: () =>
-                OpenIM.iMManager.groupManager.acceptGroupApplication(
+        .start(
+            fn: () => OpenIM.iMManager.groupManager.acceptGroupApplication(
                   groupID: applicationInfo.groupID!,
                   userID: applicationInfo.userID!,
                   handleMsg: "reason",
@@ -54,22 +53,21 @@ class ProcessGroupRequestsLogic extends GetxController {
 
   void reject() {
     LoadingView.singleton
-        .wrap(
-            asyncFunction: () =>
-                OpenIM.iMManager.groupManager.refuseGroupApplication(
+        .start(
+            fn: () => OpenIM.iMManager.groupManager.refuseGroupApplication(
                   groupID: applicationInfo.groupID!,
                   userID: applicationInfo.userID!,
                   handleMsg: "reason",
                 ))
         .then((value) => Get.back(result: -1))
         .catchError(_parse)
-        .catchError((_) => IMViews.showToast(StrRes.rejectFailed));
+        .catchError((_) => IMViews.showToast(StrLibrary.rejectFailed));
   }
 
   _parse(e) {
     if (e is PlatformException) {
       if (e.code == '${SDKErrorCode.groupApplicationHasBeenProcessed}') {
-        IMViews.showToast(StrRes.groupRequestHandled);
+        IMViews.showToast(StrLibrary.groupRequestHandled);
         return;
       }
     }

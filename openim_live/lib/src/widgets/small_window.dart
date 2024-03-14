@@ -70,13 +70,13 @@ class SmallWindowView extends StatelessWidget {
 
   String get callStateStr {
     if (callState == CallState.call) {
-      return StrRes.waitingToAnswer;
+      return StrLibrary.waitingToAnswer;
     } else if (callState == CallState.beCalled) {
-      return StrRes.invitedYouToCall;
+      return StrLibrary.invitedYouToCall;
     } else if (callState == CallState.calling) {
-      return StrRes.calling;
+      return StrLibrary.calling;
     } else if (callState == CallState.connecting) {
-      return StrRes.connecting;
+      return StrLibrary.connecting;
     }
     return 'unknown';
   }
@@ -171,13 +171,13 @@ class SmallWindowView extends StatelessWidget {
 //
 //   String get callStateStr {
 //     if (_callState == CallState.call) {
-//       return StrRes.waitingToAnswer;
+//       return StrLibrary .waitingToAnswer;
 //     } else if (_callState == CallState.beCalled) {
-//       return StrRes.invitedYouToCall;
+//       return StrLibrary .invitedYouToCall;
 //     } else if (_callState == CallState.calling) {
-//       return StrRes.calling;
+//       return StrLibrary .calling;
 //     } else if (_callState == CallState.connecting) {
-//       return StrRes.connecting;
+//       return StrLibrary .connecting;
 //     }
 //     return 'unknown';
 //   }
@@ -238,11 +238,11 @@ class SmallWindowView extends StatelessWidget {
 //
 //   String get callStateStr {
 //     if (callState == CallState.call) {
-//       return StrRes.waitingToAnswer;
+//       return StrLibrary .waitingToAnswer;
 //     } else if (callState == CallState.beCalled) {
-//       return StrRes.invitedYouToCall;
+//       return StrLibrary .invitedYouToCall;
 //     } else if (callState == CallState.calling) {
-//       return StrRes.calling;
+//       return StrLibrary .calling;
 //     }
 //     return 'unknown';
 //   }

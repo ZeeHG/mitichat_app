@@ -23,70 +23,70 @@ class TranslateLogic extends GetxController {
   final onLangConfigChangeSub = PublishSubject();
 
   get langMap => {
-        "auto": StrRes.auto,
-        "English": StrRes.English,
-        "Spanish": StrRes.Spanish,
-        "French": StrRes.French,
-        "German": StrRes.German,
-        "Italian": StrRes.Italian,
-        "Portuguese": StrRes.Portuguese,
-        "Dutch": StrRes.Dutch,
-        "Russian": StrRes.Russian,
-        "Swedish": StrRes.Swedish,
-        "Polish": StrRes.Polish,
-        "Danish": StrRes.Danish,
-        "Norwegian": StrRes.Norwegian,
-        "Irish": StrRes.Irish,
-        "Greek": StrRes.Greek,
-        "Finnish": StrRes.Finnish,
-        "Czech": StrRes.Czech,
-        "Hungarian": StrRes.Hungarian,
-        "Romanian": StrRes.Romanian,
-        "Bulgarian": StrRes.Bulgarian,
-        "Slovak": StrRes.Slovak,
-        "Slovenian": StrRes.Slovenian,
-        "Estonian": StrRes.Estonian,
-        "Latvian": StrRes.Latvian,
-        "Lithuanian": StrRes.Lithuanian,
-        "Maltese": StrRes.Maltese,
-        "Icelandic": StrRes.Icelandic,
-        "Albanian": StrRes.Albanian,
-        "Croatian": StrRes.Croatian,
-        "Serbian": StrRes.Serbian,
-        "SimplifiedChinese": StrRes.SimplifiedChinese,
-        "TraditionalChinese": StrRes.TraditionalChinese,
-        "Japanese": StrRes.Japanese,
-        "Korean": StrRes.Korean,
-        "Arabic": StrRes.Arabic,
-        "Hindi": StrRes.Hindi,
-        "Bengali": StrRes.Bengali,
-        "Thai": StrRes.Thai,
-        "Vietnamese": StrRes.Vietnamese,
-        "Indonesian": StrRes.Indonesian,
-        "Malay": StrRes.Malay,
-        "Tamil": StrRes.Tamil,
-        "Urdu": StrRes.Urdu,
-        "Filipino": StrRes.Filipino,
-        "Persian": StrRes.Persian,
-        "Hebrew": StrRes.Hebrew,
-        "Turkish": StrRes.Turkish,
-        "Kannada": StrRes.Kannada,
-        "Malayalam": StrRes.Malayalam,
-        "Sindhi": StrRes.Sindhi,
-        "Punjabi": StrRes.Punjabi,
-        "Nepali": StrRes.Nepali,
-        "Swahili": StrRes.Swahili,
-        "Amharic": StrRes.Amharic,
-        "Zulu": StrRes.Zulu,
-        "Somali": StrRes.Somali,
-        "Hausa": StrRes.Hausa,
-        "Igbo": StrRes.Igbo,
-        "Yoruba": StrRes.Yoruba,
-        "Quechua": StrRes.Quechua,
-        "Guarani": StrRes.Guarani,
-        "Maori": StrRes.Maori,
-        "Esperanto": StrRes.Esperanto,
-        "Latin": StrRes.Latin,
+        "auto": StrLibrary.auto,
+        "English": StrLibrary.English,
+        "Spanish": StrLibrary.Spanish,
+        "French": StrLibrary.French,
+        "German": StrLibrary.German,
+        "Italian": StrLibrary.Italian,
+        "Portuguese": StrLibrary.Portuguese,
+        "Dutch": StrLibrary.Dutch,
+        "Russian": StrLibrary.Russian,
+        "Swedish": StrLibrary.Swedish,
+        "Polish": StrLibrary.Polish,
+        "Danish": StrLibrary.Danish,
+        "Norwegian": StrLibrary.Norwegian,
+        "Irish": StrLibrary.Irish,
+        "Greek": StrLibrary.Greek,
+        "Finnish": StrLibrary.Finnish,
+        "Czech": StrLibrary.Czech,
+        "Hungarian": StrLibrary.Hungarian,
+        "Romanian": StrLibrary.Romanian,
+        "Bulgarian": StrLibrary.Bulgarian,
+        "Slovak": StrLibrary.Slovak,
+        "Slovenian": StrLibrary.Slovenian,
+        "Estonian": StrLibrary.Estonian,
+        "Latvian": StrLibrary.Latvian,
+        "Lithuanian": StrLibrary.Lithuanian,
+        "Maltese": StrLibrary.Maltese,
+        "Icelandic": StrLibrary.Icelandic,
+        "Albanian": StrLibrary.Albanian,
+        "Croatian": StrLibrary.Croatian,
+        "Serbian": StrLibrary.Serbian,
+        "SimplifiedChinese": StrLibrary.SimplifiedChinese,
+        "TraditionalChinese": StrLibrary.TraditionalChinese,
+        "Japanese": StrLibrary.Japanese,
+        "Korean": StrLibrary.Korean,
+        "Arabic": StrLibrary.Arabic,
+        "Hindi": StrLibrary.Hindi,
+        "Bengali": StrLibrary.Bengali,
+        "Thai": StrLibrary.Thai,
+        "Vietnamese": StrLibrary.Vietnamese,
+        "Indonesian": StrLibrary.Indonesian,
+        "Malay": StrLibrary.Malay,
+        "Tamil": StrLibrary.Tamil,
+        "Urdu": StrLibrary.Urdu,
+        "Filipino": StrLibrary.Filipino,
+        "Persian": StrLibrary.Persian,
+        "Hebrew": StrLibrary.Hebrew,
+        "Turkish": StrLibrary.Turkish,
+        "Kannada": StrLibrary.Kannada,
+        "Malayalam": StrLibrary.Malayalam,
+        "Sindhi": StrLibrary.Sindhi,
+        "Punjabi": StrLibrary.Punjabi,
+        "Nepali": StrLibrary.Nepali,
+        "Swahili": StrLibrary.Swahili,
+        "Amharic": StrLibrary.Amharic,
+        "Zulu": StrLibrary.Zulu,
+        "Somali": StrLibrary.Somali,
+        "Hausa": StrLibrary.Hausa,
+        "Igbo": StrLibrary.Igbo,
+        "Yoruba": StrLibrary.Yoruba,
+        "Quechua": StrLibrary.Quechua,
+        "Guarani": StrLibrary.Guarani,
+        "Maori": StrLibrary.Maori,
+        "Esperanto": StrLibrary.Esperanto,
+        "Latin": StrLibrary.Latin,
       };
 
   bool isAutoTranslate(String conversationID) {
@@ -114,7 +114,7 @@ class TranslateLogic extends GetxController {
     final pickerData = langMap.values.toList();
     final pickerKeys = langMap.keys.toList();
     IMViews.showSinglePicker(
-      title: StrRes.targetLang,
+      title: StrLibrary.targetLang,
       description: "",
       pickerData: pickerData,
       onConfirm: (indexList, valueList) {
@@ -191,24 +191,24 @@ class TranslateLogic extends GetxController {
                   horizontal: 16.w,
                 ),
                 child: Text(
-                  StrRes.autoTranslate,
+                  StrLibrary.autoTranslate,
                   textAlign: TextAlign.center,
                   style: Styles.ts_333333_16sp_medium,
                 ),
               ),
               7.verticalSpace,
               Obx(() => CupertinoSwitch(
-                value: useAutoTranslate.value,
-                activeColor: Styles.c_07C160,
-                onChanged: onChanged,
-              )),
+                    value: useAutoTranslate.value,
+                    activeColor: Styles.c_07C160,
+                    onChanged: onChanged,
+                  )),
               Container(
                 padding: EdgeInsets.symmetric(
                   vertical: 12.h,
                   horizontal: 16.w,
                 ),
                 child: Text(
-                  StrRes.targetLang,
+                  StrLibrary.targetLang,
                   textAlign: TextAlign.center,
                   style: Styles.ts_333333_14sp,
                 ),
@@ -217,7 +217,7 @@ class TranslateLogic extends GetxController {
             ],
           )),
     ));
-    if(confirm){
+    if (confirm) {
       onConfirm.call(picker.selecteds, picker.getSelectedValues());
     }
   }
@@ -271,8 +271,8 @@ class TranslateLogic extends GetxController {
       {required ConversationInfo conversation,
       required Map<String, dynamic> data,
       String mode = "assign"}) {
-    LoadingView.singleton.wrap(
-        asyncFunction: () => updateLangConfigAll(
+    LoadingView.singleton.start(
+        fn: () => updateLangConfigAll(
             conversation: conversation, data: data, mode: mode));
   }
 
@@ -375,11 +375,11 @@ class TranslateLogic extends GetxController {
   clearAllTranslateMsgCache() {
     msgTranslate.value = {};
     setMsgTranslate({});
-    IMViews.showToast(StrRes.success);
+    IMViews.showToast(StrLibrary.success);
   }
 
   clearAllTranslateConfig() {
-    LoadingView.singleton.wrap(asyncFunction: () async {
+    LoadingView.singleton.start(fn: () async {
       List<ConversationInfo> conversationList =
           await OpenIM.iMManager.conversationManager.getConversationListSplit(
         offset: 0,
@@ -391,12 +391,12 @@ class TranslateLogic extends GetxController {
                 conversation: conversation, data: {}, mode: "cover");
           }).toList(), cleanUp: (value) {
         if (value == null) {
-          IMViews.showToast(StrRes.someFail);
+          IMViews.showToast(StrLibrary.someFail);
         }
       });
       langConfig.value = {};
       setLangConfig({});
-      IMViews.showToast(StrRes.allSuccess);
+      IMViews.showToast(StrLibrary.allSuccess);
     });
   }
 }

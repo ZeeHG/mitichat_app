@@ -8,8 +8,8 @@ class FriendPermissionsLogic extends GetxController {
   final userID = "".obs;
 
   changeMoments() async {
-    await LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.blockMoment(
+    await LoadingView.singleton.start(
+      fn: () => Apis.blockMoment(
           userID: userID.value, operation: momentsStatus.value ? 1 : 0),
     );
     momentsStatus.value = !momentsStatus.value;
@@ -23,8 +23,8 @@ class FriendPermissionsLogic extends GetxController {
   }
 
   _queryBlockMoment() async {
-    final result = await LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.getBlockMoment(
+    final result = await LoadingView.singleton.start(
+      fn: () => Apis.getBlockMoment(
         userID: userID.value,
       ),
     );

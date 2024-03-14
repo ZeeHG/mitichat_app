@@ -58,7 +58,8 @@ class WorkbenchLogic extends GetxController {
         if ((await file.exists()) && ((await file.length()) == size)) {
           openMinMP(appID!, wgtPath);
         } else {
-          if (uniMPInfo.value.progress == 0 || uniMPInfo.value.progress == null) {
+          if (uniMPInfo.value.progress == 0 ||
+              uniMPInfo.value.progress == null) {
             HttpUtil.download(
               url!,
               cachePath: wgtPath,
@@ -73,7 +74,7 @@ class WorkbenchLogic extends GetxController {
               },
             ).catchError((_) {
               uniMPInfo.value.progress = 0;
-              IMViews.showToast(StrRes.downloadFail);
+              IMViews.showToast(StrLibrary.downloadFail);
             });
           }
         }

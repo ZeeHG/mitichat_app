@@ -34,91 +34,91 @@ class ComplaintPage extends StatelessWidget {
                                   _buildItemView(
                                       showRadio: true,
                                       showRightArrow: false,
-                                      text: StrRes.riskyLocation,
+                                      text: StrLibrary.riskyLocation,
                                       value: "风险地点",
                                       onTap: () => logic.mulSelect("风险地点")),
                                   _buildItemView(
                                       showRadio: true,
                                       showRightArrow: false,
-                                      text: StrRes.suspectedFraud,
+                                      text: StrLibrary.suspectedFraud,
                                       value: "涉嫌欺诈",
                                       onTap: () => logic.mulSelect("涉嫌欺诈")),
                                   _buildItemView(
                                       showRadio: true,
                                       showRightArrow: false,
-                                      text: StrRes.pornography,
+                                      text: StrLibrary.pornography,
                                       value: "色情低俗",
                                       onTap: () => logic.mulSelect("色情低俗")),
                                   _buildItemView(
                                       showRadio: true,
                                       showRightArrow: false,
-                                      text: StrRes.illegalActivities,
+                                      text: StrLibrary.illegalActivities,
                                       value: "违法犯罪",
                                       onTap: () => logic.mulSelect("违法犯罪")),
                                   _buildItemView(
                                       showRadio: true,
                                       showRightArrow: false,
-                                      text: StrRes.politicalSensitivity,
+                                      text: StrLibrary.politicalSensitivity,
                                       value: "政治敏感",
                                       onTap: () => logic.mulSelect("政治敏感")),
                                   _buildItemView(
                                       showRadio: true,
                                       showRightArrow: false,
-                                      text: StrRes.falseInformation,
+                                      text: StrLibrary.falseInformation,
                                       value: "虚假不实",
                                       onTap: () => logic.mulSelect("虚假不实")),
                                   _buildItemView(
                                       showRadio: true,
                                       showRightArrow: false,
-                                      text: StrRes.involvingMinors,
+                                      text: StrLibrary.involvingMinors,
                                       value: "涉未成年",
                                       onTap: () => logic.mulSelect("涉未成年")),
                                   _buildItemView(
                                       showRadio: true,
                                       showRightArrow: false,
-                                      text: StrRes.abuse,
+                                      text: StrLibrary.abuse,
                                       value: "辱骂引战",
                                       onTap: () => logic.mulSelect("辱骂引战")),
                                   _buildItemView(
                                       showRadio: true,
                                       showRightArrow: false,
-                                      text: StrRes.publicOrder,
+                                      text: StrLibrary.publicOrder,
                                       value: "违反公德秩序",
                                       onTap: () => logic.mulSelect("违反公德秩序")),
                                   _buildItemView(
                                       showRadio: true,
                                       showRightArrow: false,
-                                      text: StrRes.spamAds,
+                                      text: StrLibrary.spamAds,
                                       value: "低差广告",
                                       onTap: () => logic.mulSelect("低差广告")),
                                   _buildItemView(
                                       showRadio: true,
                                       showRightArrow: false,
-                                      text: StrRes.personalSafety,
+                                      text: StrLibrary.personalSafety,
                                       value: "危害人身安全",
                                       onTap: () => logic.mulSelect("危害人身安全")),
                                   _buildItemView(
                                       showRadio: true,
                                       showRightArrow: false,
-                                      text: StrRes.plagiarism,
+                                      text: StrLibrary.plagiarism,
                                       value: "搬运抄袭洗稿",
                                       onTap: () => logic.mulSelect("搬运抄袭洗稿")),
                                   _buildItemView(
                                       showRadio: true,
                                       showRightArrow: false,
-                                      text: StrRes.infringement2,
+                                      text: StrLibrary.infringement2,
                                       value: "侵犯权益",
                                       onTap: () => logic.mulSelect("侵犯权益")),
                                   _buildItemView(
                                       showRadio: true,
                                       showRightArrow: false,
-                                      text: StrRes.illegalSales,
+                                      text: StrLibrary.illegalSales,
                                       value: "违规售卖",
                                       onTap: () => logic.mulSelect("违规售卖")),
                                   _buildItemView(
                                       showRadio: true,
                                       showRightArrow: false,
-                                      text: StrRes.other,
+                                      text: StrLibrary.other,
                                       value: "其他",
                                       onTap: () => logic.mulSelect("其他")),
                                   100.verticalSpace
@@ -131,31 +131,31 @@ class ComplaintPage extends StatelessWidget {
                                         right: 12.w,
                                         top: 16.h,
                                         bottom: 16.h),
-                                    child: StrRes.complaintReason.toText
+                                    child: StrLibrary.complaintReason.toText
                                       ..style = Styles.ts_999999_14sp,
                                   ),
                                   _buildItemView(
-                                      text: StrRes.harassmentContent,
+                                      text: StrLibrary.harassmentContent,
                                       onTap: () => logic
                                           .changeType("ObjectionableContent")),
                                   _buildItemView(
-                                      text: StrRes.accountHacked,
+                                      text: StrLibrary.accountHacked,
                                       onTap: () =>
                                           logic.changeType("AccountStolen")),
                                   _buildItemView(
-                                      text: StrRes.infringement,
+                                      text: StrLibrary.infringement,
                                       onTap: () =>
                                           logic.changeType("Infringement")),
                                   _buildItemView(
-                                      text: StrRes.impersonation,
+                                      text: StrLibrary.impersonation,
                                       onTap: () =>
                                           logic.changeType("AccountFraud")),
                                   _buildItemView(
-                                      text: StrRes.minorRightsViolation,
+                                      text: StrLibrary.minorRightsViolation,
                                       onTap: () =>
                                           logic.changeType("MinorsViolation")),
                                   _buildItemView(
-                                      text: StrRes.chatEncryption,
+                                      text: StrLibrary.chatEncryption,
                                       onTap: () => logic.changeType("Others")),
                                 ])
                           : logic.status.value == "input"
@@ -184,7 +184,8 @@ class ComplaintPage extends StatelessWidget {
                                             style: Styles.ts_333333_14sp,
                                             maxLength: 200,
                                             decoration: InputDecoration(
-                                              hintText: StrRes.complaintDetails,
+                                              hintText:
+                                                  StrLibrary.complaintDetails,
                                               counterStyle:
                                                   Styles.ts_999999_14sp,
                                               border: InputBorder.none,
@@ -205,7 +206,7 @@ class ComplaintPage extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            StrRes.imageEvidence.toText
+                                            StrLibrary.imageEvidence.toText
                                               ..style = Styles.ts_999999_14sp,
                                             "${logic.assetsList.length}/${logic.maxAssetsCount}"
                                                 .toText
@@ -221,7 +222,7 @@ class ComplaintPage extends StatelessWidget {
                                   Button(
                                     enabled: logic.enabled,
                                     width: 1.sw - 83.w,
-                                    text: StrRes.submit,
+                                    text: StrLibrary.submit,
                                     onTap: logic.submit,
                                   )
                                 ]
@@ -231,16 +232,16 @@ class ComplaintPage extends StatelessWidget {
                                     ..width = 70.w
                                     ..height = 70.h,
                                   24.verticalSpace,
-                                  StrRes.submitSuccess.toText
+                                  StrLibrary.submitSuccess.toText
                                     ..style = Styles.ts_333333_20sp_medium,
                                   10.verticalSpace,
-                                  StrRes.promiseResponse.toText
+                                  StrLibrary.promiseResponse.toText
                                     ..textAlign = TextAlign.center
                                     ..style = Styles.ts_999999_16sp,
                                   45.verticalSpace,
                                   Button(
                                     width: 1.sw - 72.w,
-                                    text: StrRes.iKnow,
+                                    text: StrLibrary.iKnow,
                                     onTap: logic.backHome,
                                   )
                                 ]),
@@ -255,7 +256,7 @@ class ComplaintPage extends StatelessWidget {
                       child: Center(
                         child: Button(
                           width: 1.sw - 72.w,
-                          text: StrRes.nextStep,
+                          text: StrLibrary.nextStep,
                           enabled: logic.reasonList.isNotEmpty,
                           onTap: () => logic.nextStep('input'),
                         ),

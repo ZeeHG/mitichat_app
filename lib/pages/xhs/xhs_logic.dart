@@ -187,14 +187,14 @@ class XhsLogic extends GetxController {
   late String faceURL;
   StreamSubscription? opEventSub;
   Rx<Category> activeCategory =
-      Rx(Category(label: StrRes.recommend, value: ""));
+      Rx(Category(label: StrLibrary.recommend, value: ""));
 
   List<Category> get categoryList => [
-        Category(label: StrRes.recommend, value: ""),
-        Category(label: StrRes.life, value: "life"),
-        Category(label: StrRes.aigc, value: "aigc"),
-        Category(label: StrRes.web3, value: "web3"),
-        Category(label: StrRes.news, value: "news"),
+        Category(label: StrLibrary.recommend, value: ""),
+        Category(label: StrLibrary.life, value: "life"),
+        Category(label: StrLibrary.aigc, value: "aigc"),
+        Category(label: StrLibrary.web3, value: "web3"),
+        Category(label: StrLibrary.news, value: "news"),
       ];
 
   int get activeCategoryIndex =>
@@ -273,8 +273,8 @@ class XhsLogic extends GetxController {
 
   void refreshWorkingCircleList({bool silence = true}) {
     if (!silence) {
-      LoadingView.singleton.wrap(
-        asyncFunction: () => queryWorkingCircleList(silence: silence),
+      LoadingView.singleton.start(
+        fn: () => queryWorkingCircleList(silence: silence),
       );
     } else {
       queryWorkingCircleList(silence: silence);
@@ -364,8 +364,8 @@ class XhsLogic extends GetxController {
             workMomentID: workMomentID)
       ]);
     }
-    await LoadingView.singleton.wrap(
-      asyncFunction: () async {
+    await LoadingView.singleton.start(
+      fn: () async {
         await WApis.likeMoments(
             workMomentID: workMomentID, like: !iIsLiked(moments));
         await _updateData(workMomentID);
@@ -377,7 +377,7 @@ class XhsLogic extends GetxController {
   submitComment() async {
     final text = inputCtrl.text.trim();
     if (text.isNotEmpty && null != commentWorkMomentsID) {
-      await LoadingView.singleton.wrap(asyncFunction: () async {
+      await LoadingView.singleton.start(fn: () async {
         await WApis.commentMoments(
           workMomentID: commentWorkMomentsID!,
           text: text,
@@ -392,7 +392,7 @@ class XhsLogic extends GetxController {
   /// 评论朋友圈
   commentMoments(WorkMoments moments) async {
     hiddenLikeCommentPopMenu();
-    commentHintText.value = '${StrRes.comment}：';
+    commentHintText.value = '${StrLibrary.comment}：';
     commentWorkMomentsID = moments.workMomentID!;
     replyUserID = null;
   }
@@ -403,13 +403,14 @@ class XhsLogic extends GetxController {
     if (comments.userID == OpenIM.iMManager.userID) {
       final del = await Get.bottomSheet(
         barrierColor: Styles.c_191919_opacity50,
-        BottomSheetView(items: [SheetItem(label: StrRes.delete, result: 1)]),
+        BottomSheetView(
+            items: [SheetItem(label: StrLibrary.delete, result: 1)]),
       );
       if (del == 1) {
         delComment(moments, comments);
       }
     } else {
-      commentHintText.value = '${StrRes.reply} ${comments.nickname}：';
+      commentHintText.value = '${StrLibrary.reply} ${comments.nickname}：';
       commentWorkMomentsID = moments.workMomentID!;
       replyUserID = comments.userID;
     }
@@ -417,8 +418,8 @@ class XhsLogic extends GetxController {
 
   /// 删除评论
   delComment(WorkMoments moments, Comments comments) async {
-    LoadingView.singleton.wrap(
-      asyncFunction: () async {
+    LoadingView.singleton.start(
+      fn: () async {
         await WApis.deleteComment(
           workMomentID: moments.workMomentID!,
           commentID: comments.commentID!,
@@ -430,11 +431,11 @@ class XhsLogic extends GetxController {
 
   Future<void> delWorkWorkMoments(WorkMoments moments) async {
     var confirm = await Get.dialog(CustomDialog(
-      title: StrRes.confirmDelMoment,
+      title: StrLibrary.confirmDelMoment,
     ));
     if (!confirm) return;
-    await LoadingView.singleton.wrap(
-      asyncFunction: () async {
+    await LoadingView.singleton.start(
+      fn: () async {
         await WApis.deleteMoments(workMomentID: moments.workMomentID!);
       },
     );

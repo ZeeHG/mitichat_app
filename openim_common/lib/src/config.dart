@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:openim_common/openim_common.dart';
@@ -36,8 +35,6 @@ class Config {
       statusBarBrightness: brightness,
       statusBarIconBrightness: brightness,
     ));
-
-    FlutterBugly.init(androidAppId: "c9d570ff2f", iOSAppId: "81e831db28");
   }
 
   static late String cachePath;
@@ -58,7 +55,7 @@ class Config {
 
   /// 离线消息默认类型
   static OfflinePushInfo offlinePushInfo = OfflinePushInfo(
-    title: StrRes.offlineMessage,
+    title: StrLibrary.offlineMessage,
     desc: "",
     iOSBadgeCount: true,
     iOSPushSound: '+1',

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -5,16 +7,14 @@ import 'package:miti/utils/account_util.dart';
 import 'package:miti/utils/ai_util.dart';
 import 'package:miti/utils/conversation_util.dart';
 import 'package:openim_common/openim_common.dart';
-
 import 'core/controller/im_controller.dart';
 import 'core/controller/push_controller.dart';
 import 'routes/app_pages.dart';
-import 'widgets/app_view.dart';
+import 'widgets/miti_view.dart';
 import 'package:flutter/services.dart';
-import 'dart:io';
 
-class ChatApp extends StatelessWidget {
-  ChatApp({Key? key}) : super(key: key);
+class Miti extends StatelessWidget {
+  Miti({super.key});
 
   final appCommonLogic = Get.put(AppCommonLogic());
 
@@ -25,22 +25,21 @@ class ChatApp extends StatelessWidget {
             statusBarIconBrightness: Brightness.dark,
             systemNavigationBarColor: Styles.c_F7F8FA,
             systemNavigationBarIconBrightness: Brightness.dark),
-        child: AppView(
-          builder: (locale, builder) => GetMaterialApp(
-            theme: _buildTheme(context, Brightness.dark),
+        child: MitiView(
+          builder: (locale, transitionWidgetBuilder) => GetMaterialApp(
+            theme: getTheme(Brightness.dark),
             navigatorObservers: [LoadingView.singleton],
             debugShowCheckedModeBanner: true,
             enableLog: true,
-            builder: builder,
+            builder: transitionWidgetBuilder,
             logWriterCallback: Logger.print,
-            translations: TranslationService(),
+            translations: TranslationCtrl(),
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
-              // DefaultCupertinoLocalizations.delegate,
             ],
-            fallbackLocale: TranslationService.fallbackLocale,
+            fallbackLocale: TranslationCtrl.fallbackLocale,
             locale: locale,
             localeResolutionCallback: (locale, list) {
               Get.locale ??= locale;
@@ -54,36 +53,24 @@ class ChatApp extends StatelessWidget {
               Locale('es', 'ES'),
             ],
             getPages: AppPages.routes,
-            initialBinding: InitBinding(),
+            initialBinding: AppBinding(),
             initialRoute: AppRoutes.splash,
-            // theme: ThemeData.light().copyWith(colorScheme: ColorScheme.fromSwatch())
           ),
         ));
   }
 
-  ThemeData _buildTheme(BuildContext context, Brightness brightness) {
-    // var baseTheme = ThemeData(brightness: brightness);
-
+  ThemeData getTheme(Brightness brightness) {
     return ThemeData(
-        fontFamily: Theme.of(context).platform == TargetPlatform.iOS
-            ? 'PingFang SC'
-            : null,
-        fontFamilyFallback: ["sans-serif"],
+        fontFamily: Platform.isIOS ? 'PingFang SC' : null,
+        fontFamilyFallback: [if (Platform.isIOS) "PingFang SC", "sans-serif"],
         dialogBackgroundColor: Styles.c_FFFFFF,
         bottomSheetTheme: const BottomSheetThemeData(
             backgroundColor: Colors.transparent, modalElevation: 0),
-        dialogTheme: DialogTheme(elevation: 0)
-        // fontFamilyFallback:
-        //     Theme.of(context).platform == TargetPlatform.iOS ? null : null,
-        );
-
-    // return baseTheme.copyWith(
-    //   textTheme: GoogleFonts.robotoTextTheme(baseTheme.textTheme)
-    // );
+        dialogTheme: const DialogTheme(elevation: 0));
   }
 }
 
-class InitBinding extends Bindings {
+class AppBinding extends Bindings {
   @override
   void dependencies() {
     Get.put<IMController>(IMController());

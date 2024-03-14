@@ -56,7 +56,7 @@ class GlobalSearchPage extends StatelessWidget {
         children: [
           if (logic.contactsList.isNotEmpty)
             _buildCommonContainer(
-              title: StrRes.globalSearchContacts,
+              title: StrLibrary.globalSearchContacts,
               children: logic
                   .subList(logic.contactsList)
                   .map((e) => _buildItemView(
@@ -66,13 +66,13 @@ class GlobalSearchPage extends StatelessWidget {
                       ))
                   .toList(),
               seeMoreStr: logic.contactsList.length > 2
-                  ? StrRes.seeMoreRelatedContacts
+                  ? StrLibrary.seeMoreRelatedContacts
                   : null,
               onSeeMore: () => logic.switchTab(1),
             ),
           if (logic.groupList.isNotEmpty)
             _buildCommonContainer(
-              title: StrRes.globalSearchGroup,
+              title: StrLibrary.globalSearchGroup,
               children: logic
                   .subList(logic.groupList)
                   .map((e) => _buildItemView(
@@ -83,13 +83,13 @@ class GlobalSearchPage extends StatelessWidget {
                       ))
                   .toList(),
               seeMoreStr: logic.groupList.length > 2
-                  ? StrRes.seeMoreRelatedGroup
+                  ? StrLibrary.seeMoreRelatedGroup
                   : null,
               onSeeMore: () => logic.switchTab(2),
             ),
           if (logic.textSearchResultItems.isNotEmpty)
             _buildCommonContainer(
-              title: StrRes.globalSearchChatHistory,
+              title: StrLibrary.globalSearchChatHistory,
               children: logic.subList(logic.textSearchResultItems).map((e) {
                 final message = e.messageList?.firstOrNull;
                 final showName = e.showName;
@@ -97,7 +97,7 @@ class GlobalSearchPage extends StatelessWidget {
                 final sendTime = message?.sendTime;
                 final count = e.messageCount ?? 0;
                 final content = count > 1
-                    ? sprintf(StrRes.relatedChatHistory, [count])
+                    ? sprintf(StrLibrary.relatedChatHistory, [count])
                     : logic.calContent(message!);
                 final time =
                     null == sendTime ? null : IMUtils.getChatTimeline(sendTime);
@@ -112,13 +112,13 @@ class GlobalSearchPage extends StatelessWidget {
                 );
               }).toList(),
               seeMoreStr: logic.textSearchResultItems.length > 2
-                  ? StrRes.seeMoreRelatedChatHistory
+                  ? StrLibrary.seeMoreRelatedChatHistory
                   : null,
               onSeeMore: () => logic.switchTab(3),
             ),
           if (logic.fileMessageList.isNotEmpty)
             _buildCommonContainer(
-              title: StrRes.globalSearchChatFile,
+              title: StrLibrary.globalSearchChatFile,
               children: logic
                   .subList(logic.fileMessageList)
                   .map((e) => _buildItemView(
@@ -142,7 +142,7 @@ class GlobalSearchPage extends StatelessWidget {
                       ))
                   .toList(),
               seeMoreStr: logic.fileMessageList.length > 2
-                  ? StrRes.seeMoreRelatedFile
+                  ? StrLibrary.seeMoreRelatedFile
                   : null,
               onSeeMore: () => logic.switchTab(4),
             ),
@@ -199,7 +199,7 @@ class GlobalSearchPage extends StatelessWidget {
                   final sendTime = message?.sendTime;
                   final count = e.messageCount ?? 0;
                   final content = count > 1
-                      ? sprintf(StrRes.relatedChatHistory, [count])
+                      ? sprintf(StrLibrary.relatedChatHistory, [count])
                       : logic.calContent(message!);
                   final time = null == sendTime
                       ? null
@@ -432,7 +432,7 @@ class GlobalSearchPage extends StatelessWidget {
             //   ..height = 120.h,
             // 22.verticalSpace,
             44.verticalSpace,
-            StrRes.searchNotFound.toText..style = Styles.ts_999999_16sp,
+            StrLibrary.searchNotFound.toText..style = Styles.ts_999999_16sp,
           ],
         ),
       );

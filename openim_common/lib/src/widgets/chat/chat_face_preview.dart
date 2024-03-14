@@ -12,7 +12,7 @@ class ChatFacePreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.emoji),
+      appBar: TitleBar.back(title: StrLibrary.emoji),
       backgroundColor: Styles.c_FFFFFF,
       body: Center(
         child: _networkGestureImage(url),

@@ -15,8 +15,8 @@ class SetFontSizePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-        title: StrRes.fontSize,
-        right: StrRes.save.toText..onTap = logic.saveFactor,
+        title: StrLibrary.fontSize,
+        right: StrLibrary.save.toText..onTap = logic.saveFactor,
       ),
       backgroundColor: Styles.c_F8F9FA,
       body: Column(

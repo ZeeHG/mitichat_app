@@ -14,7 +14,7 @@ class CreateBotPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: TitleBar.back(
-          title: StrRes.createBot,
+          title: StrLibrary.createBot,
         ),
         backgroundColor: Styles.c_F7F8FA,
         body: IntrinsicHeight(
@@ -25,13 +25,14 @@ class CreateBotPage extends StatelessWidget {
             child: Column(
               children: [
                 _buildItemView(
-                    label: StrRes.nicknameAndAvatar,
+                    label: StrLibrary.nicknameAndAvatar,
                     showBorder: false,
                     onTap: logic.changeBotInfo,
                     rightWeight: ImageRes.appBot.toImage
                       ..width = 38.w
                       ..height = 38.h),
-                _buildItemView(label: StrRes.training, onTap: logic.trainBot),
+                _buildItemView(
+                    label: StrLibrary.training, onTap: logic.trainBot),
               ],
             ),
           ),

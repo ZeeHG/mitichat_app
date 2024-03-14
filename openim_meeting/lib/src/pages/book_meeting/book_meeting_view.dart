@@ -16,8 +16,8 @@ class BookMeetingPage extends StatelessWidget {
       child: Scaffold(
         appBar: TitleBar.back(
           title: logic.meetingInfo != null
-              ? StrRes.updateMeetingInfo
-              : StrRes.bookAMeeting,
+              ? StrLibrary.updateMeetingInfo
+              : StrLibrary.bookAMeeting,
         ),
         backgroundColor: Styles.c_F8F9FA,
         body: SingleChildScrollView(
@@ -35,26 +35,26 @@ class BookMeetingPage extends StatelessWidget {
                   focusNode: logic.focusNode,
                   decoration: InputDecoration(
                     hintStyle: Styles.ts_8E9AB0_17sp,
-                    hintText: StrRes.plsInputMeetingSubject,
+                    hintText: StrLibrary.plsInputMeetingSubject,
                     isDense: true,
                     border: InputBorder.none,
                   ),
                 ),
               ),
               Obx(() => _buildItemView(
-                    label: StrRes.meetingStartTime,
+                    label: StrLibrary.meetingStartTime,
                     onTap: logic.selectMeetingStartTime,
                     value: logic.startTime.value,
                   )),
               Obx(() => _buildItemView(
-                    label: StrRes.meetingDuration,
+                    label: StrLibrary.meetingDuration,
                     onTap: logic.selectMeetingDuration,
                     value: logic.duration.value,
                   )),
               Obx(() => Button(
                     text: logic.meetingInfo != null
-                        ? StrRes.confirmTheChanges
-                        : StrRes.bookAMeeting,
+                        ? StrLibrary.confirmTheChanges
+                        : StrLibrary.bookAMeeting,
                     onTap: logic.meetingInfo != null
                         ? logic.modifyMeeting
                         : logic.bookMeeting,

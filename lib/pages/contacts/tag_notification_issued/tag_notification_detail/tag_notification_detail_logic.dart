@@ -38,7 +38,7 @@ class TagNotificationDetailLogic extends GetxController {
   }
 
   void againSend() async {
-    await LoadingView.singleton.wrap(asyncFunction: () async {
+    await LoadingView.singleton.start(fn: () async {
       await Apis.sendTagNotification(
         textElem: textElem,
         soundElem: soundElem,
@@ -47,7 +47,7 @@ class TagNotificationDetailLogic extends GetxController {
         groupIDList: notification.groups?.map((e) => e.groupID).toList() ?? [],
       );
     });
-    IMViews.showToast(StrRes.sendSuccessfully);
+    IMViews.showToast(StrLibrary.sendSuccessfully);
     Get.back(result: true);
   }
 

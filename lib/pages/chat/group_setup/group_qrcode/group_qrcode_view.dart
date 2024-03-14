@@ -15,7 +15,7 @@ class GroupQrcodePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
-        appBar: TitleBar.back(title: StrRes.groupQrcode),
+        appBar: TitleBar.back(title: StrLibrary.groupQrcode),
         backgroundColor: Styles.c_F8F9FA,
         body: Container(
           alignment: Alignment.topCenter,
@@ -66,7 +66,7 @@ class GroupQrcodePage extends StatelessWidget {
                 Positioned(
                   top: 140.h,
                   width: 272.w,
-                  child: StrRes.groupQrcodeHint.toText
+                  child: StrLibrary.groupQrcodeHint.toText
                     ..style = Styles.ts_999999_15sp
                     ..textAlign = TextAlign.center,
                 ),

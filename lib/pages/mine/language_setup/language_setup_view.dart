@@ -13,13 +13,13 @@ class LanguageSetupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.languageSetup),
+      appBar: TitleBar.back(title: StrLibrary.languageSetup),
       backgroundColor: Styles.c_F7F8FA,
       body: Obx(() => Column(
             children: [
               12.verticalSpace,
               // _buildItemView(
-              //   label: StrRes.followSystem,
+              //   label: StrLibrary .followSystem,
               //   isChecked: logic.isFollowSystem.value,
               //   onTap: () => logic.switchLanguage(0),
               //   isTopRadius: true,
@@ -31,7 +31,7 @@ class LanguageSetupPage extends StatelessWidget {
                 height: .5,
               ),
               _buildItemView(
-                label: StrRes.english,
+                label: StrLibrary.english,
                 isChecked: logic.onOff["isEnglish"]!.value,
                 onTap: () => logic.switchLanguage(2),
                 isBottomRadius: true,
@@ -42,7 +42,7 @@ class LanguageSetupPage extends StatelessWidget {
                 height: .5,
               ),
               _buildItemView(
-                label: StrRes.chinese,
+                label: StrLibrary.chinese,
                 isChecked: logic.onOff["isChinese"]!.value,
                 onTap: () => logic.switchLanguage(1),
               ),
@@ -52,7 +52,7 @@ class LanguageSetupPage extends StatelessWidget {
                 height: .5,
               ),
               _buildItemView(
-                label: StrRes.japanese,
+                label: StrLibrary.japanese,
                 isChecked: logic.onOff["isJapanese"]!.value,
                 onTap: () => logic.switchLanguage(3),
                 isBottomRadius: true,
@@ -63,7 +63,7 @@ class LanguageSetupPage extends StatelessWidget {
                 height: .5,
               ),
               _buildItemView(
-                label: StrRes.korean,
+                label: StrLibrary.korean,
                 isChecked: logic.onOff["isKorean"]!.value,
                 onTap: () => logic.switchLanguage(4),
                 isBottomRadius: true,
@@ -74,7 +74,7 @@ class LanguageSetupPage extends StatelessWidget {
                 height: .5,
               ),
               _buildItemView(
-                label: StrRes.spanish,
+                label: StrLibrary.spanish,
                 isChecked: logic.onOff["isSpanish"]!.value,
                 onTap: () => logic.switchLanguage(5),
                 isBottomRadius: true,

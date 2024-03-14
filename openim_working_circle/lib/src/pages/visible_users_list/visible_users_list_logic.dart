@@ -18,11 +18,13 @@ class VisibleUsersListLogic extends GetxController {
     super.onReady();
   }
 
-  String get title => workMoments.permission == 2 ? StrRes.whoCanWatch : StrRes.partiallyInvisible;
+  String get title => workMoments.permission == 2
+      ? StrLibrary.whoCanWatch
+      : StrLibrary.partiallyInvisible;
 
   void _queryUserInfo() async {
-    final list = await LoadingView.singleton.wrap(
-      asyncFunction: () => OpenIM.iMManager.userManager.getUsersInfo(
+    final list = await LoadingView.singleton.start(
+      fn: () => OpenIM.iMManager.userManager.getUsersInfo(
         userIDList: workMoments.permissionUsers!.map((e) => e.userID!).toList(),
       ),
     );

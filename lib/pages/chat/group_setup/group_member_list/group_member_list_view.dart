@@ -18,8 +18,8 @@ class GroupMemberListPage extends StatelessWidget {
     return Obx(() => Scaffold(
           appBar: TitleBar.back(
             title: logic.opType == GroupMemberOpType.del
-                ? StrRes.removeGroupMember
-                : StrRes.groupMember,
+                ? StrLibrary.removeGroupMember
+                : StrLibrary.groupMember,
             // right: logic.opType == GroupMemberOpType.view
             //     ? (ImageRes.moreBlack.toImage
             //       ..width = 28.w
@@ -59,7 +59,8 @@ class GroupMemberListPage extends StatelessWidget {
                           textStyle: Styles.ts_FFFFFF_21sp,
                         ),
                         10.horizontalSpace,
-                        StrRes.everyone.toText..style = Styles.ts_333333_17sp,
+                        StrLibrary.everyone.toText
+                          ..style = Styles.ts_333333_17sp,
                       ],
                     ),
                   ),
@@ -114,9 +115,11 @@ class GroupMemberListPage extends StatelessWidget {
                         ..overflow = TextOverflow.ellipsis,
                     ),
                     if (membersInfo.roleLevel == GroupRoleLevel.owner)
-                      StrRes.groupOwner.toText..style = Styles.ts_999999_17sp,
+                      StrLibrary.groupOwner.toText
+                        ..style = Styles.ts_999999_17sp,
                     if (membersInfo.roleLevel == GroupRoleLevel.admin)
-                      StrRes.groupAdmin.toText..style = Styles.ts_999999_17sp,
+                      StrLibrary.groupAdmin.toText
+                        ..style = Styles.ts_999999_17sp,
                   ],
                 ),
               ),
@@ -152,7 +155,7 @@ class GroupMemberListPage extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        sprintf(StrRes.selectedPeopleCount,
+                        sprintf(StrLibrary.selectedPeopleCount,
                             [logic.checkedList.length]).toText
                           ..style = Styles.ts_8443F8_14sp,
                         ImageRes.expandUpArrow.toImage
@@ -175,9 +178,8 @@ class GroupMemberListPage extends StatelessWidget {
             Button(
               height: 40.h,
               padding: EdgeInsets.symmetric(horizontal: 14.w),
-              text: sprintf(StrRes.confirmSelectedPeople, [
-                logic.checkedList.length
-              ]),
+              text: sprintf(
+                  StrLibrary.confirmSelectedPeople, [logic.checkedList.length]),
               textStyle: Styles.ts_FFFFFF_14sp,
               onTap: logic.confirmSelectedMember,
             ),
@@ -212,7 +214,7 @@ class SelectedMemberListView extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    sprintf(StrRes.selectedPeopleCount,
+                    sprintf(StrLibrary.selectedPeopleCount,
                         [logic.checkedList.length]).toText
                       ..style = Styles.ts_333333_17sp_medium,
                     const Spacer(),
@@ -222,7 +224,7 @@ class SelectedMemberListView extends StatelessWidget {
                       child: Container(
                         height: 52.h,
                         alignment: Alignment.center,
-                        child: StrRes.confirm.toText
+                        child: StrLibrary.confirm.toText
                           ..style = Styles.ts_8443F8_17sp,
                       ),
                     ),
@@ -271,7 +273,7 @@ class SelectedMemberListView extends StatelessWidget {
                     width: 1,
                   ),
                 ),
-                child: StrRes.remove.toText..style = Styles.ts_8443F8_17sp,
+                child: StrLibrary.remove.toText..style = Styles.ts_8443F8_17sp,
               ),
             ),
           ],

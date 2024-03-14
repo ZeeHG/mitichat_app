@@ -27,10 +27,10 @@ class MineLogic extends GetxController {
   void aboutUs() => AppNavigator.startAboutUs();
 
   void logout() async {
-    var confirm = await Get.dialog(CustomDialog(title: StrRes.logoutHint));
+    var confirm = await Get.dialog(CustomDialog(title: StrLibrary.logoutHint));
     if (confirm == true) {
       try {
-        await LoadingView.singleton.wrap(asyncFunction: () async {
+        await LoadingView.singleton.start(fn: () async {
           await imLogic.logout();
           await DataSp.removeLoginCertificate();
           pushLogic.logout();
@@ -47,7 +47,7 @@ class MineLogic extends GetxController {
     myLogger.e({"message": "mine_logic监听到用户kickedOffline, 退出登录"});
     // PackageBridge.meetingBridge?.dismiss();
     PackageBridge.rtcBridge?.dismiss();
-    Get.snackbar(StrRes.accountWarn, StrRes.accountException);
+    Get.snackbar(StrLibrary.accountWarn, StrLibrary.accountException);
     await DataSp.removeLoginCertificate();
     pushLogic.logout();
     AppNavigator.startLogin();

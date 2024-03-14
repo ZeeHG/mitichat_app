@@ -15,83 +15,82 @@ enum InputBoxType {
 }
 
 class InputBox extends StatefulWidget {
-  const InputBox.phone({
-    super.key,
-    required this.label,
-    required this.code,
-    this.onAreaCode,
-    this.controller,
-    this.focusNode,
-    this.labelStyle,
-    this.textStyle,
-    this.codeStyle,
-    this.hintStyle,
-    this.formatHintStyle,
-    this.hintText,
-    this.formatHintText,
-    this.margin,
-    this.inputFormatters,
-    this.border = true,
-    this.keyBoardType,
-    this.autofocus = false,
-    this.readOnly = false,
-    this.enabled = true,
-    this.showClearBtn = true
-  })  : obscureText = false,
+  const InputBox.phone(
+      {super.key,
+      required this.label,
+      required this.code,
+      this.onAreaCode,
+      this.controller,
+      this.focusNode,
+      this.labelStyle,
+      this.textStyle,
+      this.codeStyle,
+      this.hintStyle,
+      this.formatHintStyle,
+      this.hintText,
+      this.formatHintText,
+      this.margin,
+      this.inputFormatters,
+      this.border = true,
+      this.keyBoardType,
+      this.autofocus = false,
+      this.readOnly = false,
+      this.enabled = true,
+      this.showClearBtn = true})
+      : obscureText = false,
         type = InputBoxType.phone,
         arrowColor = null,
         clearBtnColor = null,
         onSendVerificationCode = null;
 
-  InputBox.account({
-    super.key,
-    required this.label,
-    required this.code,
-    this.onAreaCode,
-    this.controller,
-    this.focusNode,
-    this.labelStyle,
-    this.textStyle,
-    this.codeStyle,
-    this.hintStyle,
-    this.formatHintStyle,
-    this.hintText,
-    this.formatHintText,
-    this.margin,
-    this.inputFormatters,
-    this.border = true,
-    this.keyBoardType,
-    this.autofocus = false,
-    this.readOnly = false,
-    this.enabled = true,
-    this.showClearBtn = true
-  })  : obscureText = false,
+  InputBox.account(
+      {super.key,
+      required this.label,
+      required this.code,
+      this.onAreaCode,
+      this.controller,
+      this.focusNode,
+      this.labelStyle,
+      this.textStyle,
+      this.codeStyle,
+      this.hintStyle,
+      this.formatHintStyle,
+      this.hintText,
+      this.formatHintText,
+      this.margin,
+      this.inputFormatters,
+      this.border = true,
+      this.keyBoardType,
+      this.autofocus = false,
+      this.readOnly = false,
+      this.enabled = true,
+      this.showClearBtn = true})
+      : obscureText = false,
         type = InputBoxType.account,
         arrowColor = null,
         clearBtnColor = null,
         onSendVerificationCode = null;
 
-
-  const InputBox.password({
-    super.key,
-    required this.label,
-    this.controller,
-    this.focusNode,
-    this.labelStyle,
-    this.textStyle,
-    this.hintStyle,
-    this.formatHintStyle,
-    this.hintText,
-    this.formatHintText,
-    this.margin,
-    this.inputFormatters,
-    this.border = true,
-    this.keyBoardType,
-    this.autofocus = false,
-    this.readOnly = false,
-    this.enabled = true,
-    this.showClearBtn = true
-  })  : obscureText = true,
+  const InputBox.password(
+      {super.key,
+      required this.label,
+      this.controller,
+      this.focusNode,
+      this.labelStyle,
+      this.textStyle,
+      this.hintStyle,
+      this.formatHintStyle,
+      this.hintText,
+      this.formatHintText,
+      this.margin,
+      this.inputFormatters,
+      this.border = true,
+      this.keyBoardType,
+      this.autofocus = false,
+      this.readOnly = false,
+      this.enabled = true,
+      this.showClearBtn = true})
+      : obscureText = true,
         type = InputBoxType.password,
         codeStyle = null,
         code = '',
@@ -100,27 +99,27 @@ class InputBox extends StatefulWidget {
         onSendVerificationCode = null,
         onAreaCode = null;
 
-  const InputBox.verificationCode({
-    super.key,
-    required this.label,
-    this.onSendVerificationCode,
-    this.controller,
-    this.focusNode,
-    this.labelStyle,
-    this.textStyle,
-    this.hintStyle,
-    this.formatHintStyle,
-    this.hintText,
-    this.formatHintText,
-    this.margin,
-    this.inputFormatters,
-    this.border = true,
-    this.keyBoardType,
-    this.autofocus = false,
-    this.readOnly = false,
-    this.enabled = true,
-    this.showClearBtn = true
-  })  : obscureText = false,
+  const InputBox.verificationCode(
+      {super.key,
+      required this.label,
+      this.onSendVerificationCode,
+      this.controller,
+      this.focusNode,
+      this.labelStyle,
+      this.textStyle,
+      this.hintStyle,
+      this.formatHintStyle,
+      this.hintText,
+      this.formatHintText,
+      this.margin,
+      this.inputFormatters,
+      this.border = true,
+      this.keyBoardType,
+      this.autofocus = false,
+      this.readOnly = false,
+      this.enabled = true,
+      this.showClearBtn = true})
+      : obscureText = false,
         type = InputBoxType.verificationCode,
         code = '',
         codeStyle = null,
@@ -128,26 +127,26 @@ class InputBox extends StatefulWidget {
         arrowColor = null,
         clearBtnColor = null;
 
-  const InputBox.invitationCode({
-    super.key,
-    required this.label,
-    this.controller,
-    this.focusNode,
-    this.labelStyle,
-    this.textStyle,
-    this.formatHintStyle,
-    this.hintStyle,
-    this.hintText,
-    this.formatHintText,
-    this.margin,
-    this.inputFormatters,
-    this.border = true,
-    this.keyBoardType,
-    this.autofocus = false,
-    this.readOnly = false,
-    this.enabled = true,
-    this.showClearBtn = true
-  })  : obscureText = false,
+  const InputBox.invitationCode(
+      {super.key,
+      required this.label,
+      this.controller,
+      this.focusNode,
+      this.labelStyle,
+      this.textStyle,
+      this.formatHintStyle,
+      this.hintStyle,
+      this.hintText,
+      this.formatHintText,
+      this.margin,
+      this.inputFormatters,
+      this.border = true,
+      this.keyBoardType,
+      this.autofocus = false,
+      this.readOnly = false,
+      this.enabled = true,
+      this.showClearBtn = true})
+      : obscureText = false,
         type = InputBoxType.invitationCode,
         code = '',
         codeStyle = null,
@@ -156,34 +155,34 @@ class InputBox extends StatefulWidget {
         arrowColor = null,
         clearBtnColor = null;
 
-  const InputBox({
-    Key? key,
-    required this.label,
-    this.controller,
-    this.focusNode,
-    this.labelStyle,
-    this.textStyle,
-    this.hintStyle,
-    this.codeStyle,
-    this.formatHintStyle,
-    this.code = '+1',
-    this.hintText,
-    this.formatHintText,
-    this.arrowColor,
-    this.clearBtnColor,
-    this.obscureText = false,
-    this.type = InputBoxType.account,
-    this.onAreaCode,
-    this.onSendVerificationCode,
-    this.margin,
-    this.inputFormatters,
-    this.border = true,
-    this.keyBoardType,
-    this.autofocus = false,
-    this.readOnly = false,
-    this.enabled = true,
-    this.showClearBtn = true
-  }) : super(key: key);
+  const InputBox(
+      {Key? key,
+      required this.label,
+      this.controller,
+      this.focusNode,
+      this.labelStyle,
+      this.textStyle,
+      this.hintStyle,
+      this.codeStyle,
+      this.formatHintStyle,
+      this.code = '+1',
+      this.hintText,
+      this.formatHintText,
+      this.arrowColor,
+      this.clearBtnColor,
+      this.obscureText = false,
+      this.type = InputBoxType.account,
+      this.onAreaCode,
+      this.onSendVerificationCode,
+      this.margin,
+      this.inputFormatters,
+      this.border = true,
+      this.keyBoardType,
+      this.autofocus = false,
+      this.readOnly = false,
+      this.enabled = true,
+      this.showClearBtn = true})
+      : super(key: key);
   final TextStyle? labelStyle;
   final TextStyle? textStyle;
   final TextStyle? hintStyle;
@@ -256,15 +255,19 @@ class _InputBoxState extends State<InputBox> {
             decoration: BoxDecoration(
               // border: Border.all(color: Styles.c_EAEAEA, width: 1),
               // borderRadius: BorderRadius.circular(8.r),
-              border: widget.border? Border(bottom: BorderSide(color: Styles.c_EAEAEA, width: 1.h)) : Border(bottom: BorderSide.none),
+              border: widget.border
+                  ? Border(
+                      bottom: BorderSide(color: Styles.c_EAEAEA, width: 1.h))
+                  : Border(bottom: BorderSide.none),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (widget.type == InputBoxType.phone || widget.onAreaCode != null) _areaCodeView,
+                if (widget.type == InputBoxType.phone ||
+                    widget.onAreaCode != null)
+                  _areaCodeView,
                 _textField,
-                if(widget.showClearBtn)
-                _clearBtn,
+                if (widget.showClearBtn) _clearBtn,
                 _eyeBtn,
                 if (widget.type == InputBoxType.verificationCode)
                   VerifyCodedButton(
@@ -462,7 +465,7 @@ class _VerifyCodedButtonState extends State<VerifyCodedButton> {
 
   @override
   Widget build(BuildContext context) =>
-      (_isEnabled ? StrRes.sendVerificationCode : '${_seconds}S').toText
+      (_isEnabled ? StrLibrary.sendVerificationCode : '${_seconds}S').toText
         ..style = Styles.ts_8443F8_16sp
         ..onTap = () {
           if (_isEnabled) {

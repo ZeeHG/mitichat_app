@@ -16,8 +16,8 @@ class AccountManagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-          appBar:
-              TitleBar.back(title: StrRes.accountManage, onTap: logic.cusBack),
+          appBar: TitleBar.back(
+              title: StrLibrary.accountManage, onTap: logic.cusBack),
           backgroundColor: Styles.c_F7F8FA,
           body: SingleChildScrollView(
             child: Column(
@@ -44,7 +44,7 @@ class AccountManagePage extends StatelessWidget {
                           ..width = 30.w
                           ..height = 30.h,
                         8.horizontalSpace,
-                        StrRes.addOrRegisterAccount.toText
+                        StrLibrary.addOrRegisterAccount.toText
                           ..style = Styles.ts_333333_16sp
                       ]),
                     ),
@@ -68,7 +68,7 @@ class AccountManagePage extends StatelessWidget {
                 onPressed: (_) => logic.delLoginInfo(info),
                 flex: 1,
                 backgroundColor: Styles.c_FF4E4C,
-                child: StrRes.delete.toText..style = Styles.ts_FFFFFF_16sp,
+                child: StrLibrary.delete.toText..style = Styles.ts_FFFFFF_16sp,
               ),
             ],
           ),

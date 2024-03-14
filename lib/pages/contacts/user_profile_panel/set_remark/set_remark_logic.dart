@@ -12,16 +12,16 @@ class SetFriendRemarkLogic extends GetxController {
 
   void save() async {
     try {
-      await LoadingView.singleton.wrap(
-        asyncFunction: () => OpenIM.iMManager.friendshipManager.setFriendRemark(
+      await LoadingView.singleton.start(
+        fn: () => OpenIM.iMManager.friendshipManager.setFriendRemark(
           userID: userProfilesLogic.userInfo.value.userID!,
           remark: inputCtrl.text.trim(),
         ),
       );
-      IMViews.showToast(StrRes.saveSuccessfully);
+      IMViews.showToast(StrLibrary.saveSuccessfully);
       Get.back(result: inputCtrl.text.trim());
     } catch (_) {
-      IMViews.showToast(StrRes.saveFailed);
+      IMViews.showToast(StrLibrary.saveFailed);
     }
   }
 

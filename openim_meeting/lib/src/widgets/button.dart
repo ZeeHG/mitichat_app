@@ -81,7 +81,7 @@ class ImageButton extends StatelessWidget {
     bool on = true,
     this.enabled = true,
     this.textStyle,
-  })  : label = on ? StrRes.meetingMute : StrRes.meetingUnmute,
+  })  : label = on ? StrLibrary.meetingMute : StrLibrary.meetingUnmute,
         icon = on ? ImageRes.meetingMicOnWhite : ImageRes.meetingMicOffWhite,
         expanded = true,
         super(key: key);
@@ -96,7 +96,7 @@ class ImageButton extends StatelessWidget {
     bool on = true,
     this.enabled = true,
     this.textStyle,
-  })  : label = on ? StrRes.meetingCloseVideo : StrRes.meetingOpenVideo,
+  })  : label = on ? StrLibrary.meetingCloseVideo : StrLibrary.meetingOpenVideo,
         icon =
             on ? ImageRes.meetingCameraOnWhite : ImageRes.meetingCameraOffWhite,
         expanded = true,
@@ -112,7 +112,8 @@ class ImageButton extends StatelessWidget {
     this.height,
     this.enabled = true,
     this.textStyle,
-  })  : label = on ? StrRes.meetingEndSharing : StrRes.meetingShareScreen,
+  })  : label =
+            on ? StrLibrary.meetingEndSharing : StrLibrary.meetingShareScreen,
         icon =
             on ? ImageRes.meetingScreenShareOn : ImageRes.meetingScreenShareOff,
         expanded = true,
@@ -127,7 +128,7 @@ class ImageButton extends StatelessWidget {
     this.width,
     this.height,
     this.textStyle,
-  })  : label = sprintf(StrRes.meetingMembers, [count]),
+  })  : label = sprintf(StrLibrary.meetingMembers, [count]),
         icon = ImageRes.meetingMembers,
         expanded = true,
         enabled = true,
@@ -141,7 +142,7 @@ class ImageButton extends StatelessWidget {
     this.width,
     this.height,
     this.textStyle,
-  })  : label = StrRes.settings,
+  })  : label = StrLibrary.settings,
         icon = ImageRes.meetingSetting,
         expanded = true,
         enabled = true,

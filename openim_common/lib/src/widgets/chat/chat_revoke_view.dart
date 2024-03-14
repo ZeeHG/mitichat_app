@@ -19,7 +19,7 @@ class ChatRevokeView extends StatelessWidget {
 
   bool get _isISend => message.sendID == OpenIM.iMManager.userID;
 
-  String get _who => _isISend ? StrRes.you : message.senderNickname ?? '';
+  String get _who => _isISend ? StrLibrary.you : message.senderNickname ?? '';
 
   @override
   Widget build(BuildContext context) {
@@ -34,18 +34,18 @@ class ChatRevokeView extends StatelessWidget {
       revoker = _who;
     } else {
       if (info.revokerID == OpenIM.iMManager.userID) {
-        // revoker = StrRes.you;
+        // revoker = StrLibrary .you;
         revoker = info.revokerID!;
-        value[revoker] = StrRes.you;
+        value[revoker] = StrLibrary.you;
       } else {
         // revoker = info.revokerNickname!;
         revoker = info.revokerID!;
         value[revoker] = info.revokerNickname!;
       }
       if (info.sourceMessageSendID == OpenIM.iMManager.userID) {
-        // sender = StrRes.you;
+        // sender = StrLibrary .you;
         sender = info.sourceMessageSendID!;
-        value[sender] = StrRes.you;
+        value[sender] = StrLibrary.you;
       } else {
         // sender = info.sourceMessageSenderNickname!;
         sender = info.sourceMessageSendID!;
@@ -55,7 +55,7 @@ class ChatRevokeView extends StatelessWidget {
 
     final List<InlineSpan> children = <InlineSpan>[];
     if (sender != null) {
-      final text = sprintf(StrRes.aRevokeBMsg, [revoker, sender]);
+      final text = sprintf(StrLibrary.aRevokeBMsg, [revoker, sender]);
       text.splitMapJoin(
         RegExp('($revoker|$sender)'),
         onMatch: (match) {
@@ -80,7 +80,7 @@ class ChatRevokeView extends StatelessWidget {
         },
       );
     } else {
-      final isIRevoke = revoker == StrRes.you;
+      final isIRevoke = revoker == StrLibrary.you;
       children
         ..add(TextSpan(
           text: '$revoker ',
@@ -94,12 +94,12 @@ class ChatRevokeView extends StatelessWidget {
                 ),
         ))
         ..add(TextSpan(
-          text: StrRes.revokeMsg,
+          text: StrLibrary.revokeMsg,
           style: Styles.ts_999999_12sp,
         ));
       if (isIRevoke && _isISend && canReEdit) {
         children.add(TextSpan(
-          text: ' ${StrRes.reEdit}',
+          text: ' ${StrLibrary.reEdit}',
           style: Styles.ts_8443F8_12sp,
           recognizer: TapGestureRecognizer()..onTap = onReEdit,
         ));

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
 
@@ -27,7 +28,7 @@ class LanguageSetupLogic extends GetxController {
   }
 
   void _initLanguageSetting() {
-    Locale systemLocal = window.locale;
+    Locale systemLocal = WidgetsBinding.instance.platformDispatcher.locale;
     var language = DataSp.getLanguage();
     var index = (language != null && language != 0)
         ? language
@@ -79,7 +80,7 @@ class LanguageSetupLogic extends GetxController {
         break;
       default:
         setLang("isFollowSystem");
-        Get.updateLocale(window.locale);
+        Get.updateLocale(WidgetsBinding.instance.platformDispatcher.locale);
         break;
     }
   }

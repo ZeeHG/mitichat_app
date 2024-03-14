@@ -42,7 +42,7 @@ class WhoCanWatchLogic extends GetxController {
   determine() {
     if (permission.value == 2 && checkedVisibleList.isEmpty ||
         permission.value == 3 && checkedInvisibleList.isEmpty) {
-      IMViews.showToast(StrRes.selectContactsLimit);
+      IMViews.showToast(StrLibrary.selectContactsLimit);
       return;
     }
     Get.back(result: {

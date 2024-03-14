@@ -18,7 +18,7 @@ class BuildTagNotificationPage extends StatelessWidget {
       builder: (bar) => TouchCloseSoftKeyboard(
         child: Scaffold(
           appBar: TitleBar.back(
-            title: StrRes.issueNotice,
+            title: StrLibrary.issueNotice,
           ),
           backgroundColor: Styles.c_F8F9FA,
           body: Column(
@@ -33,7 +33,7 @@ class BuildTagNotificationPage extends StatelessWidget {
                 child: Obx(() => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        StrRes.receiveMember.toText
+                        StrLibrary.receiveMember.toText
                           ..style = Styles.ts_999999_14sp,
                         if (logic.list.isNotEmpty)
                           Padding(

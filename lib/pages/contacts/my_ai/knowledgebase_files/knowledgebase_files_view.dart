@@ -15,7 +15,8 @@ class KnowledgebaseFilesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-          title: StrRes.knowledgebaseFiles, backgroundColor: Styles.c_F7F8FA),
+          title: StrLibrary.knowledgebaseFiles,
+          backgroundColor: Styles.c_F7F8FA),
       backgroundColor: Styles.c_F7F8FA,
       body: Obx(() => ListView.builder(
             itemCount: logic.files.length,

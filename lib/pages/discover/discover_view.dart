@@ -14,82 +14,88 @@ class DiscoverPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: TitleBar.discover(
-      //   title: StrRes.discover,
-      //   // backgroundImage: const DecorationImage(
-      //   //   image: AssetImage(ImageRes.appHeaderBg, package: 'openim_common'),
-      //   //   fit: BoxFit.cover,
-      //   //   alignment: FractionalOffset.center,
-      //   // ),
-      // ),
-      backgroundColor: Styles.c_FFFFFF,
-      body: Obx(
-        () => MediaQuery.removePadding(
-        context: context,
-        removeTop: true,
-        child: Stack(
-          children: [
-            ListView.builder(
-                controller: logic.scrollController,
-                itemCount: logic.moments.length + 1,
-                itemBuilder: (_, index) {
-                  if (index == 0) {
-                    return Container(
-                      height: 240.h,
-                      margin: EdgeInsets.only(bottom: 38.h),
-                      clipBehavior: Clip.none,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(ImageRes.splash,
-                                  package: 'openim_common'),
-                              fit: BoxFit.cover,
-                              alignment: FractionalOffset.center)),
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Positioned(
-                            right: 18.w,
-                            bottom: -20.h,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(im.userInfo.value.nickname!),
-                                Text(logic.scrollHeight.toString()),
-                                12.horizontalSpace,
-                                AvatarView(
-                                  width: 60.w,
-                                  height: 60.h,
-                                  text: im.userInfo.value.nickname,
-                                  url: im.userInfo.value.faceURL,
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    );
-                  } else {
-                    final info = logic.moments.elementAt(index - 1);
-                    return _buildItemView(info);
-                  }
-                }),
-            Container(
-              decoration: BoxDecoration(
-                color: logic.scrollHeight.value <= 190? Styles.transparent : Styles.c_FFFFFF
-              ),
-              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-              child: TitleBar.discover(
-                title: StrRes.discover,
-                backgroundColor: Styles.transparent,
-                backIconColor: logic.scrollHeight.value <= 190? Styles.c_FFFFFF: Styles.c_333333,
-                titleStyle: logic.scrollHeight.value <= 190? Styles.ts_FFFFFF_17sp_semibold : Styles.ts_333333_17sp_semibold,
-              ),
+        // appBar: TitleBar.discover(
+        //   title: StrLibrary .discover,
+        //   // backgroundImage: const DecorationImage(
+        //   //   image: AssetImage(ImageRes.appHeaderBg, package: 'openim_common'),
+        //   //   fit: BoxFit.cover,
+        //   //   alignment: FractionalOffset.center,
+        //   // ),
+        // ),
+        backgroundColor: Styles.c_FFFFFF,
+        body: Obx(
+          () => MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: Stack(
+              children: [
+                ListView.builder(
+                    controller: logic.scrollController,
+                    itemCount: logic.moments.length + 1,
+                    itemBuilder: (_, index) {
+                      if (index == 0) {
+                        return Container(
+                          height: 240.h,
+                          margin: EdgeInsets.only(bottom: 38.h),
+                          clipBehavior: Clip.none,
+                          decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(ImageRes.splash,
+                                      package: 'openim_common'),
+                                  fit: BoxFit.cover,
+                                  alignment: FractionalOffset.center)),
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              Positioned(
+                                right: 18.w,
+                                bottom: -20.h,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(im.userInfo.value.nickname!),
+                                    Text(logic.scrollHeight.toString()),
+                                    12.horizontalSpace,
+                                    AvatarView(
+                                      width: 60.w,
+                                      height: 60.h,
+                                      text: im.userInfo.value.nickname,
+                                      url: im.userInfo.value.faceURL,
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      } else {
+                        final info = logic.moments.elementAt(index - 1);
+                        return _buildItemView(info);
+                      }
+                    }),
+                Container(
+                  decoration: BoxDecoration(
+                      color: logic.scrollHeight.value <= 190
+                          ? Styles.transparent
+                          : Styles.c_FFFFFF),
+                  padding:
+                      EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                  child: TitleBar.discover(
+                    title: StrLibrary.discover,
+                    backgroundColor: Styles.transparent,
+                    backIconColor: logic.scrollHeight.value <= 190
+                        ? Styles.c_FFFFFF
+                        : Styles.c_333333,
+                    titleStyle: logic.scrollHeight.value <= 190
+                        ? Styles.ts_FFFFFF_17sp_semibold
+                        : Styles.ts_333333_17sp_semibold,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-    ));
+          ),
+        ));
   }
 
   Widget _buildItemView(Moment moment) => Container(

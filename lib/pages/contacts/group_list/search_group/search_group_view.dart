@@ -62,7 +62,7 @@ class SearchGroupPage extends StatelessWidget {
                       style: Styles.ts_333333_17sp,
                       keyStyle: Styles.ts_8443F8_17sp,
                     ),
-                    sprintf(StrRes.nPerson, [info.memberCount]).toText
+                    sprintf(StrLibrary.nPerson, [info.memberCount]).toText
                       ..style = Styles.ts_999999_14sp,
                   ],
                 ),
@@ -83,7 +83,7 @@ class SearchGroupPage extends StatelessWidget {
             //   ..height = 120.h,
             // 22.verticalSpace,
             44.verticalSpace,
-            StrRes.searchNotFound.toText..style = Styles.ts_999999_17sp,
+            StrLibrary.searchNotFound.toText..style = Styles.ts_999999_17sp,
           ],
         ),
       );

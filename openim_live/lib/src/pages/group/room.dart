@@ -67,7 +67,7 @@ class _GroupRoomViewState extends SignalState<GroupRoomView> {
     final token = certificate.token!;
     final busyLineUsers = certificate.busyLineUserIDList ?? [];
     if (busyLineUsers.isNotEmpty) {
-      IMViews.showToast(StrRes.busyVideoCallHint);
+      IMViews.showToast(StrLibrary.busyVideoCallHint);
     }
     // Try to connect to a room
     // This will throw an Exception if it fails for any reason.
@@ -84,7 +84,8 @@ class _GroupRoomViewState extends SignalState<GroupRoomView> {
           roomOptions: RoomOptions(
               dynacast: true,
               adaptiveStream: true,
-              defaultCameraCaptureOptions: const CameraCaptureOptions(params: VideoParametersPresets.h540_169),
+              defaultCameraCaptureOptions: const CameraCaptureOptions(
+                  params: VideoParametersPresets.h540_169),
               defaultVideoPublishOptions: VideoPublishOptions(
                   simulcast: true,
                   videoCodec: 'VP9',

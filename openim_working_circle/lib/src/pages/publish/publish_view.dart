@@ -19,10 +19,10 @@ class PublishPage extends StatelessWidget {
             appBar: TitleBar.back(
               onTap: logic.back,
               title: logic.isPicture
-                  ? StrRes.publishPicture
-                  : StrRes.publishVideo,
+                  ? StrLibrary.publishPicture
+                  : StrLibrary.publishVideo,
               right: Button(
-                  text: StrRes.publish,
+                  text: StrLibrary.publish,
                   textStyle: Styles.ts_FFFFFF_14sp,
                   disabledTextStyle: Styles.ts_FFFFFF_14sp,
                   height: 28.h,
@@ -64,8 +64,7 @@ class PublishPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        if(logic.isPublishXhs.value)
-                        ...[
+                        if (logic.isPublishXhs.value) ...[
                           16.verticalSpace,
                           Container(
                             width: 1.sw,
@@ -79,7 +78,8 @@ class PublishPage extends StatelessWidget {
                                   (index) => Obx(() {
                                         final tag = logic.tags[index];
                                         final isActive =
-                                            logic.activeTag.value.value == tag.value;
+                                            logic.activeTag.value.value ==
+                                                tag.value;
                                         return GestureDetector(
                                           behavior: HitTestBehavior.translucent,
                                           onTap: () => logic.selectTag(index),
@@ -112,14 +112,14 @@ class PublishPage extends StatelessWidget {
                   10.verticalSpace,
                   // _buildItemView(
                   //   icon: ImageRes.appLocation,
-                  //   text: StrRes.myLocation,
+                  //   text: StrLibrary .myLocation,
                   //   onTap: showDeveloping,
                   // ),
                   if (!logic.isPublishXhs.value) ...[
                     Obx(
                       () => _buildItemView(
                         icon: ImageRes.appRemindWhoToWatch,
-                        text: StrRes.remindWhoToWatch,
+                        text: StrLibrary.remindWhoToWatch,
                         onTap: logic.remindWhoToWatch,
                         value: logic.remindWhoToWatchValue,
                       ),
@@ -136,7 +136,7 @@ class PublishPage extends StatelessWidget {
                   ],
                   _buildItemView(
                     icon: ImageRes.appWhoCanWatch,
-                    text: StrRes.allCanSee,
+                    text: StrLibrary.allCanSee,
                     showUnderline: true,
                     showSwitchButton: true,
                     onChanged: (_) => logic.changePublish(),
@@ -159,14 +159,14 @@ class PublishPage extends StatelessWidget {
                           child: InputBox(
                             label: "",
                             border: false,
-                            hintText: StrRes.pleaseInputTitle,
+                            hintText: StrLibrary.pleaseInputTitle,
                             controller: logic.titleCtrl,
                           ),
                         )),
                     if (!logic.isReprintArticle.value)
                       _buildItemView(
                         icon: ImageRes.reprintArticle,
-                        text: StrRes.reprintArticle,
+                        text: StrLibrary.reprintArticle,
                         onTap: logic.changeReprintArticle,
                       ),
                     if (logic.isReprintArticle.value) ...[
@@ -186,7 +186,7 @@ class PublishPage extends StatelessWidget {
                             child: InputBox(
                               label: "",
                               border: false,
-                              hintText: StrRes.pleaseInputOriginUrl,
+                              hintText: StrLibrary.pleaseInputOriginUrl,
                               controller: logic.originUrlCtrl,
                             ),
                           )),
@@ -206,7 +206,7 @@ class PublishPage extends StatelessWidget {
                             child: InputBox(
                               label: "",
                               border: false,
-                              hintText: StrRes.pleaseInputAuthor,
+                              hintText: StrLibrary.pleaseInputAuthor,
                               controller: logic.authorCtrl,
                             ),
                           ))

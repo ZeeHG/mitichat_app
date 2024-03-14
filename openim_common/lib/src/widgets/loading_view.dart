@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:async/async.dart';
@@ -16,66 +15,65 @@ class LoadingView extends NavigatorObserver {
   OverlayState? _overlayState;
   OverlayEntry? _overlayEntry;
   bool _isVisible = false;
-  CancelToken? _cancelToken;
+  CancelToken? cancelToken;
   CancelableOperation? _cancelableOperation;
 
   @override
   void didPop(Route route, Route? previousRoute) {
-    dismiss();
+    close(true);
     super.didPop(route, previousRoute);
   }
 
   @override
   void didPush(Route route, Route? previousRoute) {
-    dismiss();
+    close(true);
     super.didPush(route, previousRoute);
   }
 
-  Future<T> wrap<T>(
-      {required Future<T> Function() asyncFunction,
-      bool showing = true,
-      double? navBarHeight,
+  Future<T> start<T>(
+      {required Future<T> Function() fn,
+      bool fullScreenAnimation = true,
+      double? topBarHeight,
       String? loadingTips,
       EdgeInsetsGeometry? padding,
       CancelToken? cancelToken}) async {
-    navBarHeight = navBarHeight ?? 44.h;
-    _cancelToken = cancelToken;
-    await Future.delayed(1.milliseconds);
-    if (showing)
-      show(
-          navBarHeight: navBarHeight,
+    cancelToken = cancelToken;
+    await Future.delayed(2.milliseconds);
+    if (fullScreenAnimation) {
+      showAnimation(
+          topBarHeight: topBarHeight,
           loadingTips: loadingTips,
           padding: padding);
+    }
     T data;
     try {
       _cancelableOperation?.cancel();
-      _cancelableOperation = CancelableOperation.fromFuture(asyncFunction());
+      _cancelableOperation = CancelableOperation.fromFuture(fn());
       data = await _cancelableOperation?.value;
-      // await Future.delayed(3000.milliseconds);
-    } catch (_) {
+    } catch (e) {
       rethrow;
     } finally {
-      dismiss();
+      close();
     }
     return data;
   }
 
-  void show(
-      {double? navBarHeight,
+  void showAnimation(
+      {double? topBarHeight,
       String? loadingTips,
       EdgeInsetsGeometry? padding}) async {
     loadingTips = loadingTips ?? "";
-    navBarHeight = navBarHeight ?? 44.h;
+    topBarHeight = topBarHeight ?? 44.h;
     padding = padding ?? EdgeInsets.only(bottom: 94.h);
     if (_isVisible) return;
     _overlayState = Overlay.of(Get.overlayContext!);
     _overlayEntry = OverlayEntry(
       builder: (BuildContext context) => Positioned(
-        top: MediaQuery.of(context).padding.top + navBarHeight!,
+        top: MediaQuery.of(context).padding.top + topBarHeight!,
         left: 0,
         child: Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height - navBarHeight,
+          height: MediaQuery.of(context).size.height - topBarHeight,
           color: Colors.transparent,
           child: Container(
             padding: padding,
@@ -83,11 +81,6 @@ class LoadingView extends NavigatorObserver {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // SpinKitCircle(color: Styles.c_8443F8),
-                  // if (loadingTips!.isNotEmpty) ...[
-                  //   5.verticalSpace,
-                  //   Text(loadingTips, style: Styles.ts_8443F8_14sp)
-                  // ]
                   Container(
                     width: 80.w,
                     height: 80.h,
@@ -95,13 +88,13 @@ class LoadingView extends NavigatorObserver {
                       color: Styles.c_FFFFFF,
                       boxShadow: [
                         BoxShadow(
-                          color: Color.fromRGBO(0, 0, 0, 0.11),
-                          offset: Offset(0, 1),
+                          color: const Color.fromRGBO(0, 0, 0, 0.11),
+                          offset: const Offset(0, 1),
                           blurRadius: 10.r,
                         ),
                       ],
                       borderRadius:
-                          BorderRadius.all(Radius.circular(12.r)), // 边框圆角
+                          BorderRadius.all(Radius.circular(12.r)),
                     ),
                     child: Center(
                       child: ImageRes.loading.toImage
@@ -120,13 +113,15 @@ class LoadingView extends NavigatorObserver {
     _overlayState?.insert(_overlayEntry!);
   }
 
-  dismiss() async {
+  close([bool isNav = false]) async {
     if (!_isVisible) return;
-    _overlayEntry?.remove();
     _isVisible = false;
-    _cancelToken?.cancel({"cancelReason": "loadingViewSwitchPage"});
+    _overlayEntry?.remove();
+
+    cancelToken?.cancel({"reason": isNav ? "导航触发取消" : "正常取消"});
+    cancelToken = null;
+
     _cancelableOperation?.cancel();
-    _cancelToken = null;
     _cancelableOperation = null;
   }
 }

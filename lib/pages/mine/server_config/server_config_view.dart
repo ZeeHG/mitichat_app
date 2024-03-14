@@ -17,14 +17,17 @@ class ServerConfigPage extends StatelessWidget {
     bool enabled = true,
   }) =>
       Container(
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF000000).withOpacity(0.15),
-            offset: const Offset(0, 1),
-            spreadRadius: 0,
-            blurRadius: 4,
-          ),
-        ]),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(4),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF000000).withOpacity(0.15),
+                offset: const Offset(0, 1),
+                spreadRadius: 0,
+                blurRadius: 4,
+              ),
+            ]),
         padding: const EdgeInsets.all(10),
         margin: EdgeInsets.only(
           left: 22.w,
@@ -53,7 +56,7 @@ class ServerConfigPage extends StatelessWidget {
     return TouchCloseSoftKeyboard(
       child: Scaffold(
         appBar: TitleBar.back(
-          right: StrRes.save.toText
+          right: StrLibrary.save.toText
             ..style = Styles.ts_333333_17sp
             ..onTap = logic.confirm,
         ),
@@ -61,35 +64,36 @@ class ServerConfigPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              StrRes.serverSettingTips.toText..style = const TextStyle(color: Colors.red),
+              StrLibrary.serverSettingTips.toText
+                ..style = const TextStyle(color: Colors.red),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: () => logic.switchServer(true),
-                    child: StrRes.switchToIP.toText,
+                    child: StrLibrary.switchToIP.toText,
                   ),
                   ElevatedButton(
                     onPressed: () => logic.switchServer(false),
-                    child: StrRes.switchToDomain.toText,
+                    child: StrLibrary.switchToDomain.toText,
                   ),
                 ],
               ),
               Obx(() => _buildItemField(
-                    label: StrRes.serverAddress,
+                    label: StrLibrary.serverAddress,
                     hintText: logic.isIP.value ? 'IP' : 'Domain',
                     controller: logic.ipCtrl,
                   )),
               _buildItemField(
-                label: StrRes.appAddress,
+                label: StrLibrary.appAddress,
                 controller: logic.authCtrl,
               ),
               _buildItemField(
-                label: StrRes.sdkApiAddress,
+                label: StrLibrary.sdkApiAddress,
                 controller: logic.imApiCtrl,
               ),
               _buildItemField(
-                label: StrRes.sdkWsAddress,
+                label: StrLibrary.sdkWsAddress,
                 controller: logic.imWsCtrl,
               ),
             ],

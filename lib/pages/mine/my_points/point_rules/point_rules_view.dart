@@ -13,7 +13,7 @@ class PointRulesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.newFriend),
+      appBar: TitleBar.back(title: StrLibrary.newFriend),
       backgroundColor: Styles.c_F8F9FA,
       body: SingleChildScrollView(
         child: Column(
@@ -23,14 +23,14 @@ class PointRulesPage extends StatelessWidget {
             Row(
               children: [
                 15.horizontalSpace,
-                StrRes.whatAreMitiToken.toText
+                StrLibrary.whatAreMitiToken.toText
                   ..style = Styles.ts_333333_16sp_medium
               ],
             ),
             10.verticalSpace,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: StrRes.welcomeMessage.toText
+              child: StrLibrary.welcomeMessage.toText
                 ..style = Styles.ts_666666_14sp,
             ),
             20.verticalSpace,
@@ -38,7 +38,7 @@ class PointRulesPage extends StatelessWidget {
               children: [
                 ImageRes.appSemicircle.toImage..width = 5.w,
                 10.horizontalSpace,
-                StrRes.earningTitle2.toText
+                StrLibrary.earningTitle2.toText
                   ..style = Styles.ts_333333_16sp_medium
               ],
             ),
@@ -52,33 +52,34 @@ class PointRulesPage extends StatelessWidget {
                       text: TextSpan(children: [
                     TextSpan(text: "- ", style: Styles.ts_8443F8_14sp_medium),
                     TextSpan(
-                        text: StrRes.dailyPlatform,
+                        text: StrLibrary.dailyPlatform,
                         style: Styles.ts_666666_14sp),
                     TextSpan(
-                        text: StrRes.signInBracket,
+                        text: StrLibrary.signInBracket,
                         style: Styles.ts_8443F8_14sp),
                   ])),
                   RichText(
                       text: TextSpan(children: [
                     TextSpan(text: "- ", style: Styles.ts_8443F8_14sp_medium),
                     TextSpan(
-                        text: StrRes.engageAI,
+                        text: StrLibrary.engageAI,
                         style: Styles.ts_666666_14sp),
                     TextSpan(
-                        text: StrRes.effectiveInteraction,
+                        text: StrLibrary.effectiveInteraction,
                         style: Styles.ts_8443F8_14sp),
                   ])),
                   RichText(
                       text: TextSpan(children: [
                     TextSpan(text: "- ", style: Styles.ts_8443F8_14sp_medium),
                     TextSpan(
-                        text: StrRes.successful,
+                        text: StrLibrary.successful,
                         style: Styles.ts_666666_14sp),
                     TextSpan(
-                        text: StrRes.inviteBracket,
+                        text: StrLibrary.inviteBracket,
                         style: Styles.ts_8443F8_14sp),
                     TextSpan(
-                        text: StrRes.newUsers, style: Styles.ts_666666_14sp),
+                        text: StrLibrary.newUsers,
+                        style: Styles.ts_666666_14sp),
                   ]))
                 ],
               ),
@@ -88,7 +89,7 @@ class PointRulesPage extends StatelessWidget {
               children: [
                 ImageRes.appSemicircle.toImage..width = 5.w,
                 10.horizontalSpace,
-                StrRes.consumingMitiToken.toText
+                StrLibrary.consumingMitiToken.toText
                   ..style = Styles.ts_333333_16sp_medium
               ],
             ),
@@ -96,7 +97,8 @@ class PointRulesPage extends StatelessWidget {
               children: [
                 ImageRes.appSemicircle.toImage..width = 5.w,
                 10.horizontalSpace,
-                StrRes.earningTable.toText..style = Styles.ts_333333_16sp_medium
+                StrLibrary.earningTable.toText
+                  ..style = Styles.ts_333333_16sp_medium
               ],
             ),
           ],

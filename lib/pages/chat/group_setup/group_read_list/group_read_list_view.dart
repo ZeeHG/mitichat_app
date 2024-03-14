@@ -16,15 +16,15 @@ class GroupReadListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.messageRecipientList),
+      appBar: TitleBar.back(title: StrLibrary.messageRecipientList),
       backgroundColor: Styles.c_F8F9FA,
       body: Obx(() => Column(
             children: [
               CustomTabBar(
                 width: 1.sw,
                 labels: [
-                  sprintf(StrRes.unreadCount, [logic.unreadCount]),
-                  sprintf(StrRes.hasReadCount, [logic.hasReadCount]),
+                  sprintf(StrLibrary.unreadCount, [logic.unreadCount]),
+                  sprintf(StrLibrary.hasReadCount, [logic.hasReadCount]),
                 ],
                 index: logic.index.value,
                 onTabChanged: (i) => logic.switchTab(i),

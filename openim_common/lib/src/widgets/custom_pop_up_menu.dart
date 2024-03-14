@@ -91,9 +91,9 @@ class _CustomPopupMenuState extends State<CopyCustomPopupMenu> {
       ),
     );
 
-    final viewInsets = EdgeInsets.fromWindowPadding(
-      WidgetsBinding.instance.window.viewInsets,
-      WidgetsBinding.instance.window.devicePixelRatio,
+    final viewInsets = EdgeInsets.fromViewPadding(
+      WidgetsBinding.instance.platformDispatcher.views.first.viewInsets,
+      WidgetsBinding.instance.platformDispatcher.views.first.devicePixelRatio
     );
 
     var keyboardHeight = viewInsets.bottom;

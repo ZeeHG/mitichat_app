@@ -28,7 +28,7 @@ class WorkMomentsDetailLogic extends GetxController {
 
   @override
   void onReady() {
-    LoadingView.singleton.wrap(asyncFunction: () => _updateData());
+    LoadingView.singleton.start(fn: () => _updateData());
     super.onReady();
   }
 
@@ -77,8 +77,8 @@ class WorkMomentsDetailLogic extends GetxController {
   /// 点赞/取消点赞 朋友圈
   likeMoments() async {
     hiddenLikeCommentPopMenu();
-    await LoadingView.singleton.wrap(
-      asyncFunction: () async {
+    await LoadingView.singleton.start(
+      fn: () async {
         await WApis.likeMoments(workMomentID: workMomentID, like: !iIsLiked());
         await _updateData();
       },
@@ -89,7 +89,7 @@ class WorkMomentsDetailLogic extends GetxController {
   submitComment() async {
     final text = inputCtrl.text.trim();
     if (text.isNotEmpty) {
-      await LoadingView.singleton.wrap(asyncFunction: () async {
+      await LoadingView.singleton.start(fn: () async {
         await WApis.commentMoments(
           workMomentID: workMomentID,
           text: text,
@@ -104,7 +104,7 @@ class WorkMomentsDetailLogic extends GetxController {
   /// 评论朋友圈
   commentMoments() async {
     hiddenLikeCommentPopMenu();
-    commentHintText.value = '${StrRes.comment}：';
+    commentHintText.value = '${StrLibrary.comment}：';
     replyUserID = null;
   }
 
@@ -114,21 +114,22 @@ class WorkMomentsDetailLogic extends GetxController {
     if (comments.userID == OpenIM.iMManager.userID) {
       final del = await Get.bottomSheet(
         barrierColor: Styles.c_191919_opacity50,
-        BottomSheetView(items: [SheetItem(label: StrRes.delete, result: 1)]),
+        BottomSheetView(
+            items: [SheetItem(label: StrLibrary.delete, result: 1)]),
       );
       if (del == 1) {
         delComment(comments);
       }
     } else {
-      commentHintText.value = '${StrRes.reply}${comments.nickname}：';
+      commentHintText.value = '${StrLibrary.reply}${comments.nickname}：';
       replyUserID = comments.userID;
     }
   }
 
   /// 删除评论
   delComment(Comments comments) async {
-    LoadingView.singleton.wrap(
-      asyncFunction: () async {
+    LoadingView.singleton.start(
+      fn: () async {
         await WApis.deleteComment(
             workMomentID: workMomentID, commentID: comments.commentID!);
         await _updateData();
@@ -137,8 +138,8 @@ class WorkMomentsDetailLogic extends GetxController {
   }
 
   delWorkWorkMoments(WorkMoments moments) async {
-    await LoadingView.singleton.wrap(
-      asyncFunction: () async {
+    await LoadingView.singleton.start(
+      fn: () async {
         await WApis.deleteMoments(workMomentID: moments.workMomentID!);
       },
     );

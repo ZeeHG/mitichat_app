@@ -26,13 +26,13 @@ class CacheController extends GetxController {
   }
 
   void addFavoriteFromPath(String path, int width, int height) async {
-    var result = await LoadingView.singleton.wrap(
-      asyncFunction: () => OpenIM.iMManager.uploadFile(
+    var result = await LoadingView.singleton.start(
+      fn: () => OpenIM.iMManager.uploadFile(
         id: const Uuid().v4(),
         filePath: path,
         fileName: path,
       ),
-      // asyncFunction: () => HttpUtil.uploadImageForMinio(path: path),
+      // fn: () => HttpUtil.uploadImageForMinio(path: path),
     );
     if (result is String) {
       final url = jsonDecode(result)['url'];
@@ -100,7 +100,8 @@ class CacheController extends GetxController {
   }
 
   deleteCallRecords(CallRecords records) async {
-    callRecordList.removeWhere((element) => element.userID == records.userID && element.date == records.date);
+    callRecordList.removeWhere((element) =>
+        element.userID == records.userID && element.date == records.date);
     await callRecordBox?.put(userID, callRecordList);
   }
 

@@ -26,8 +26,11 @@ class ChatQuoteView extends StatelessWidget {
 }
 
 class _ChatQuoteContentView extends StatelessWidget {
-  const _ChatQuoteContentView({Key? key, required this.message, this.allAtMap = const <String, String>{},})
-      : super(key: key);
+  const _ChatQuoteContentView({
+    Key? key,
+    required this.message,
+    this.allAtMap = const <String, String>{},
+  }) : super(key: key);
   final Message message;
   final Map<String, String> allAtMap;
 
@@ -84,10 +87,10 @@ class _ChatQuoteContentView extends StatelessWidget {
           );
         }
       } else if (message.isVoiceType) {
-        content = '[${StrRes.voice}]';
+        content = '[${StrLibrary.voice}]';
       } else if (message.isCardType) {
         String name = message.cardElem!.nickname!;
-        content = '[${StrRes.carte}]$name';
+        content = '[${StrLibrary.carte}]$name';
       } else if (message.isFileType) {
         final file = message.fileElem;
         if (null != file) {
@@ -105,7 +108,7 @@ class _ChatQuoteContentView extends StatelessWidget {
           final url = map['url'];
           final name = map['name'];
           final addr = map['addr'];
-          content = '[${StrRes.location}]$name($addr)';
+          content = '[${StrLibrary.location}]$name($addr)';
           child = Stack(
             alignment: Alignment.center,
             children: [
@@ -126,14 +129,14 @@ class _ChatQuoteContentView extends StatelessWidget {
         }
       } else if (message.isQuoteType) {
       } else if (message.isMergerType) {
-        content = '[${StrRes.chatRecord}]';
+        content = '[${StrLibrary.chatRecord}]';
       } else if (message.isCustomFaceType) {
       } else if (message.isCustomType) {
         if (message.isTagTextType) {
           content = message.tagContent?.textElem?.content;
         }
       } else if (message.isRevokeType) {
-        content = StrRes.quoteContentBeRevoked;
+        content = StrLibrary.quoteContentBeRevoked;
       } else if (message.isNotificationType) {}
     } catch (e, s) {
       Logger.print('$e   $s');

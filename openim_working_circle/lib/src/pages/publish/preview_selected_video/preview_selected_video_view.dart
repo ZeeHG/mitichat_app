@@ -17,7 +17,7 @@ class PreviewSelectedVideoPage extends StatelessWidget {
         backgroundColor: Styles.c_000000,
         backIconColor: Styles.c_FFFFFF,
         leftTitleStyle: Styles.ts_FFFFFF_17sp_semibold,
-        right: StrRes.delete.toText
+        right: StrLibrary.delete.toText
           ..style = Styles.ts_FFFFFF_17sp_semibold
           ..onTap = logic.delete,
       ),

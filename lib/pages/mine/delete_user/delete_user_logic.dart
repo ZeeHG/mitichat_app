@@ -16,18 +16,18 @@ class DeleteUserLogic extends GetxController {
 
   showDeleteUserModal() async {
     final confirm = await Get.dialog(CustomDialog(
-      bigTitle: StrRes.deleteUserModalTitle,
-      leftText: StrRes.deleteUserModalBtn1,
-      rightText: StrRes.deleteUserModalBtn2,
-      title: StrRes.deleteUserModalTips,
+      bigTitle: StrLibrary.deleteUserModalTitle,
+      leftText: StrLibrary.deleteUserModalBtn1,
+      rightText: StrLibrary.deleteUserModalBtn2,
+      title: StrLibrary.deleteUserModalTips,
       onTapLeft: () => Get.back(result: true),
       onTapRight: () => Get.back(result: false),
     ));
     if (confirm) {
       mineLogic.kickedOfflineSub.cancel();
       try {
-        await LoadingView.singleton.wrap(
-          asyncFunction: () => Apis.deleteUser(password: pwdCtrl.text.trim()),
+        await LoadingView.singleton.start(
+          fn: () => Apis.deleteUser(password: pwdCtrl.text.trim()),
         );
         success.value = true;
       } catch (e) {

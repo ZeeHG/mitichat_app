@@ -215,9 +215,10 @@ class WorkMomentsListPage extends StatelessWidget {
                   color: Styles.c_000000_opacity60,
                   borderRadius: BorderRadius.circular(4.r),
                 ),
-                child: sprintf(StrRes.nMessage, [logic.newMessageCount.value])
-                    .toText
-                  ..style = Styles.ts_FFFFFF_16sp,
+                child:
+                    sprintf(StrLibrary.nMessage, [logic.newMessageCount.value])
+                        .toText
+                      ..style = Styles.ts_FFFFFF_16sp,
               ),
             ),
           ),
@@ -229,7 +230,7 @@ class WorkMomentsListPage extends StatelessWidget {
                 (180.h - 58.h - MediaQuery.of(context).padding.top))
             ? Container(
                 padding: EdgeInsets.only(bottom: 20.h),
-                child: StrRes.workingCircle.toText
+                child: StrLibrary.workingCircle.toText
                   ..style = Styles.ts_333333_18sp_medium,
               )
             : Container(
@@ -374,7 +375,7 @@ class WorkMomentsListPage extends StatelessWidget {
                         //       children: [
                         //         ImageRes.appAdd.toImage..width=16.w..height=16.h,
                         //         6.horizontalSpace,
-                        //         StrRes.publishMoment.toText..style=Styles.ts_333333_14sp_medium
+                        //         StrLibrary .publishMoment.toText..style=Styles.ts_333333_14sp_medium
                         //       ],
                         //     ),
                         //   ),
@@ -397,7 +398,7 @@ class WorkMomentsListPage extends StatelessWidget {
                                   ..width = 16.w
                                   ..height = 16.h,
                                 6.horizontalSpace,
-                                StrRes.publishMoment.toText
+                                StrLibrary.publishMoment.toText
                                   ..style = Styles.ts_333333_14sp_medium
                               ],
                             ),
@@ -460,7 +461,7 @@ class WorkMomentsListPage extends StatelessWidget {
   //               ..width = 16.w
   //               ..height = 16.h,
   //             6.horizontalSpace,
-  //             StrRes.publishMoment.toText..style = Styles.ts_333333_14sp_medium
+  //             StrLibrary .publishMoment.toText..style = Styles.ts_333333_14sp_medium
   //           ],
   //         ),
   //       ),
@@ -475,7 +476,7 @@ class WorkMomentsListPage extends StatelessWidget {
   //                 ..width = 20.w
   //                 ..height = 20.h,
   //               12.horizontalSpace,
-  //               StrRes.publishPicture.toText..style = Styles.ts_333333_16sp,
+  //               StrLibrary .publishPicture.toText..style = Styles.ts_333333_16sp,
   //             ],
   //           ),
   //         ),
@@ -490,7 +491,7 @@ class WorkMomentsListPage extends StatelessWidget {
   //                 ..width = 20.w
   //                 ..height = 20.h,
   //               12.horizontalSpace,
-  //               StrRes.publishVideo.toText..style = Styles.ts_333333_16sp,
+  //               StrLibrary .publishVideo.toText..style = Styles.ts_333333_16sp,
   //             ],
   //           ),
   //         ),
@@ -533,7 +534,7 @@ class WorkMomentsListPage extends StatelessWidget {
   //                   ..width = 20.w
   //                   ..height = 20.h,
   //                 12.horizontalSpace,
-  //                 StrRes.publishPicture.toText..style = Styles.ts_333333_16sp,
+  //                 StrLibrary .publishPicture.toText..style = Styles.ts_333333_16sp,
   //               ],
   //             ),
   //           ),
@@ -548,7 +549,7 @@ class WorkMomentsListPage extends StatelessWidget {
   //                   ..width = 20.w
   //                   ..height = 20.h,
   //                 12.horizontalSpace,
-  //                 StrRes.publishVideo.toText..style = Styles.ts_333333_16sp,
+  //                 StrLibrary .publishVideo.toText..style = Styles.ts_333333_16sp,
   //               ],
   //             ),
   //           ),
@@ -596,7 +597,7 @@ class WorkMomentsListPage extends StatelessWidget {
                   if (null != moments.atUsers && moments.atUsers!.isNotEmpty)
                     Padding(
                       padding: EdgeInsets.only(top: 6.h),
-                      child: sprintf(StrRes.mentioned, [
+                      child: sprintf(StrLibrary .mentioned, [
                         moments.atUsers!.map((e) => e.userName).join('、')
                       ]).toText
                         ..style = Styles.ts_999999_12sp,
@@ -633,8 +634,8 @@ class WorkMomentsListPage extends StatelessWidget {
                                       ),
                                       4.horizontalSpace,
                                       (moments.permission == 1
-                                              ? StrRes.private
-                                              : StrRes.partiallyVisible)
+                                              ? StrLibrary .private
+                                              : StrLibrary .partiallyVisible)
                                           .toText
                                         ..style = Styles.ts_6085B1_12sp,
                                     ],
@@ -651,7 +652,7 @@ class WorkMomentsListPage extends StatelessWidget {
                                 child: Container(
                                   height: 26.h,
                                   alignment: Alignment.center,
-                                  child: StrRes.delete.toText
+                                  child: StrLibrary .delete.toText
                                     ..style = Styles.ts_6085B1_12sp,
                                 ),
                               ),
@@ -712,7 +713,7 @@ class WorkMomentsListPage extends StatelessWidget {
                       if (e.replyUserName != null &&
                           e.replyUserName!.isNotEmpty)
                         TextSpan(
-                          text: ' ${StrRes.reply} ',
+                          text: ' ${StrLibrary .reply} ',
                           style: Styles.ts_333333_14sp,
                           children: [
                             TextSpan(

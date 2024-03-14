@@ -68,7 +68,7 @@ class ChatMeetingView extends StatelessWidget {
               2.horizontalSpace,
               Expanded(
                 // child: sprintf(
-                //         StrRes.invitesYouToVideoConference, [inviterNickname])
+                //         StrLibrary .invitesYouToVideoConference, [inviterNickname])
                 //     .toText
                 //   ..style = Styles.ts_333333_17sp
                 //   ..maxLines = 1
@@ -82,12 +82,12 @@ class ChatMeetingView extends StatelessWidget {
           ),
           8.verticalSpace,
           // _buildMeetingInfoItemView(
-          //   StrRes.meetingSubjectIs,
+          //   StrLibrary .meetingSubjectIs,
           //   subject ?? '',
           // ),
           // 2.verticalSpace,
           _buildMeetingInfoItemView(
-            StrRes.meetingStartTimeIs,
+            StrLibrary.meetingStartTimeIs,
             DateUtil.formatDateMs(
               start * 1000,
               format: IMUtils.getTimeFormat2(),
@@ -95,18 +95,18 @@ class ChatMeetingView extends StatelessWidget {
           ),
           2.verticalSpace,
           _buildMeetingInfoItemView(
-            StrRes.meetingDurationIs,
-            '${duration / 60 / 60} ${StrRes.hours}',
+            StrLibrary.meetingDurationIs,
+            '${duration / 60 / 60} ${StrLibrary.hours}',
           ),
           2.verticalSpace,
-          _buildMeetingInfoItemView(StrRes.meetingNoIs, id),
+          _buildMeetingInfoItemView(StrLibrary.meetingNoIs, id),
           2.verticalSpace,
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                child: StrRes.enterMeeting.toText
+                child: StrLibrary.enterMeeting.toText
                   ..style = Styles.ts_8443F8_17sp
                   ..textAlign = TextAlign.center
                   ..maxLines = 1

@@ -14,24 +14,24 @@ class JoinMeetingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return TouchCloseSoftKeyboard(
       child: Scaffold(
-        appBar: TitleBar.back(title: StrRes.joinMeeting),
+        appBar: TitleBar.back(title: StrLibrary.joinMeeting),
         backgroundColor: Styles.c_F8F9FA,
         body: SingleChildScrollView(
           child: Column(
             children: [
               12.verticalSpace,
               _buildItemView(
-                label: StrRes.meetingNo,
-                hintText: StrRes.plsInputMeetingNo,
+                label: StrLibrary.meetingNo,
+                hintText: StrLibrary.plsInputMeetingNo,
                 controller: logic.meetingNumberCtrl,
               ),
               // _buildItemView(
-              //   label: StrRes.yourMeetingName,
-              //   hintText: StrRes.plsInputYouMeetingName,
+              //   label: StrLibrary .yourMeetingName,
+              //   hintText: StrLibrary .plsInputYouMeetingName,
               //   controller: logic.yourNameCtrl,
               // ),
               Obx(() => Button(
-                    text: StrRes.enterMeeting,
+                    text: StrLibrary.enterMeeting,
                     onTap: logic.joinMeeting,
                     enabled: logic.enabled.value,
                     margin: EdgeInsets.symmetric(

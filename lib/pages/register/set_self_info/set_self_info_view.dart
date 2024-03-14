@@ -16,19 +16,19 @@ class SetSelfInfoPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            StrRes.plsCompleteInfo.toText
+            StrLibrary.plsCompleteInfo.toText
               ..style = Styles.ts_8443F8_22sp_semibold,
             _buildInputItemView(
-              label: StrRes.nickname,
+              label: StrLibrary.nickname,
               controller: logic.nicknameCtrl,
             ),
             Obx(() => _buildItemView(
-                  label: StrRes.avatar,
+                  label: StrLibrary.avatar,
                   isAvatar: true,
                   nickname: logic.nickname.value,
                   onTap: logic.openPhotoSheet,
                 )),
-            _buildItemView(label: StrRes.gender),
+            _buildItemView(label: StrLibrary.gender),
           ],
         ),
       );

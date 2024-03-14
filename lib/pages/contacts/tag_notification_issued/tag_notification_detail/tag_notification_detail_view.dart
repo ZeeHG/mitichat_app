@@ -14,7 +14,7 @@ class TagNotificationDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.detail),
+      appBar: TitleBar.back(title: StrLibrary.detail),
       backgroundColor: Styles.c_F8F9FA,
       body: Column(
         children: [
@@ -59,7 +59,7 @@ class TagNotificationDetailPage extends StatelessWidget {
                                 ),
                               )),
                         if (null == logic.textElem && null == logic.soundElem)
-                          StrRes.unsupportedMessage.toText
+                          StrLibrary.unsupportedMessage.toText
                             ..style = Styles.ts_333333_16sp,
                       ],
                     ),
@@ -76,7 +76,7 @@ class TagNotificationDetailPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        StrRes.receiveMember.toText
+                        StrLibrary.receiveMember.toText
                           ..style = Styles.ts_999999_14sp,
                         12.verticalSpace,
                         Wrap(
@@ -101,7 +101,7 @@ class TagNotificationDetailPage extends StatelessWidget {
             color: Styles.c_FFFFFF,
             child: Button(
               margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
-              text: StrRes.sendAnother,
+              text: StrLibrary.sendAnother,
               onTap: logic.againSend,
             ),
           )

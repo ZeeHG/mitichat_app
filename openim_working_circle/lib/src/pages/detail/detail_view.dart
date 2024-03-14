@@ -14,7 +14,7 @@ class WorkMomentsDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.detail),
+      appBar: TitleBar.back(title: StrLibrary.detail),
       backgroundColor: Styles.c_FFFFFF,
       body: Obx(() => logic.workMoments.value.nickname == null
           ? const SizedBox()

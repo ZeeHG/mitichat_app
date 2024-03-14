@@ -14,9 +14,9 @@ class MyPointsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar2.back(
-          title: StrRes.myPoints,
+          title: StrLibrary.myPoints,
           backgroundColor: Styles.c_E5E4F6,
-          right: StrRes.rulesTitle.toText
+          right: StrLibrary.rulesTitle.toText
             ..style = Styles.ts_333333_16sp
             ..onTap = logic.pointRules),
       backgroundColor: Styles.c_E5E4F6,
@@ -38,7 +38,7 @@ class MyPointsPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: Column(
                     children: [
-                      "aaa".toText..onTap=logic.inviteRecords,
+                      "aaa".toText..onTap = logic.inviteRecords,
                       10.verticalSpace,
                       "aaa".toText..onTap = logic.inviteRecords,
                       30.verticalSpace,
@@ -87,7 +87,7 @@ class MyPointsPage extends StatelessWidget {
                                 child: RichText(
                                   text: TextSpan(children: [
                                     TextSpan(
-                                      text: StrRes.consecutiveSignIn + " ",
+                                      text: StrLibrary.consecutiveSignIn + " ",
                                       style: Styles.ts_343434_12p,
                                     ),
                                     TextSpan(
@@ -95,7 +95,7 @@ class MyPointsPage extends StatelessWidget {
                                       style: Styles.ts_8443F8_18sp_bold,
                                     ),
                                     TextSpan(
-                                      text: " " + StrRes.day,
+                                      text: " " + StrLibrary.day,
                                       style: Styles.ts_343434_12p,
                                     ),
                                   ]),
@@ -124,7 +124,7 @@ class MyPointsPage extends StatelessWidget {
                               children: [
                                 ImageRes.appSemicircle.toImage..width = 5.w,
                                 10.horizontalSpace,
-                                StrRes.earningTitle.toText
+                                StrLibrary.earningTitle.toText
                                   ..style = Styles.ts_333333_16sp_medium
                               ],
                             ),
@@ -144,13 +144,13 @@ class MyPointsPage extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          StrRes.dailySignIn.toText
+                                          StrLibrary.dailySignIn.toText
                                             ..style =
                                                 Styles.ts_333333_16sp_medium,
                                           RichText(
                                               text: TextSpan(children: [
                                             TextSpan(
-                                                text: StrRes.mitiToken,
+                                                text: StrLibrary.mitiToken,
                                                 style: Styles.ts_999999_12sp),
                                             TextSpan(
                                                 text: "+1",
@@ -175,7 +175,7 @@ class MyPointsPage extends StatelessWidget {
                                                 width: 1.w,
                                               )),
                                           child: Center(
-                                              child: StrRes.signedIn.toText
+                                              child: StrLibrary.signedIn.toText
                                                 ..style =
                                                     Styles.ts_8443F8_14sp),
                                         ),
@@ -201,13 +201,13 @@ class MyPointsPage extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          StrRes.inviteFriends.toText
+                                          StrLibrary.inviteFriends.toText
                                             ..style =
                                                 Styles.ts_333333_16sp_medium,
                                           RichText(
                                               text: TextSpan(children: [
                                             TextSpan(
-                                                text: StrRes.mitiToken,
+                                                text: StrLibrary.mitiToken,
                                                 style: Styles.ts_999999_12sp),
                                             TextSpan(
                                                 text: "+10",
@@ -232,7 +232,7 @@ class MyPointsPage extends StatelessWidget {
                                                 width: 1.w,
                                               )),
                                           child: Center(
-                                              child: StrRes.invite2.toText
+                                              child: StrLibrary.invite2.toText
                                                 ..style =
                                                     Styles.ts_FFFFFF_14sp),
                                         ),
@@ -258,13 +258,13 @@ class MyPointsPage extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          StrRes.aiAgentInteraction.toText
+                                          StrLibrary.aiAgentInteraction.toText
                                             ..style =
                                                 Styles.ts_333333_16sp_medium,
                                           RichText(
                                               text: TextSpan(children: [
                                             TextSpan(
-                                                text: StrRes.mitiToken,
+                                                text: StrLibrary.mitiToken,
                                                 style: Styles.ts_999999_12sp),
                                             TextSpan(
                                                 text: "+1",
@@ -289,7 +289,7 @@ class MyPointsPage extends StatelessWidget {
                                                 width: 1.w,
                                               )),
                                           child: Center(
-                                              child: StrRes.interact.toText
+                                              child: StrLibrary.interact.toText
                                                 ..style =
                                                     Styles.ts_FFFFFF_14sp),
                                         ),
@@ -318,7 +318,7 @@ class MyPointsPage extends StatelessWidget {
                               children: [
                                 ImageRes.appSemicircle.toImage..width = 5.w,
                                 10.horizontalSpace,
-                                StrRes.history.toText
+                                StrLibrary.history.toText
                                   ..style = Styles.ts_333333_16sp_medium,
                                 Spacer(),
                                 GestureDetector(
@@ -326,7 +326,7 @@ class MyPointsPage extends StatelessWidget {
                                   onTap: logic.pointRecords,
                                   child: Row(
                                     children: [
-                                      StrRes.allRecords.toText
+                                      StrLibrary.allRecords.toText
                                         ..style = Styles.ts_999999_12sp,
                                       ImageRes.appRightArrow.toImage
                                         ..width = 16.w,
@@ -349,7 +349,7 @@ class MyPointsPage extends StatelessWidget {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              StrRes.inviteFriends.toText
+                                              StrLibrary.inviteFriends.toText
                                                 ..style = Styles
                                                     .ts_333333_14sp_medium,
                                               "2024-01-01".toText
@@ -363,13 +363,11 @@ class MyPointsPage extends StatelessWidget {
                                         ],
                                       ),
                                     )),
-                                    
                           ])),
-                          16.verticalSpace
+                      16.verticalSpace
                     ],
                   ),
                 ),
-                
               ],
             ),
           )),

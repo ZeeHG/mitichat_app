@@ -99,7 +99,7 @@ class ImageTextButton extends StatelessWidget {
 
   ImageTextButton.call({super.key, this.onTap})
       : icon = ImageRes.audioAndVideoCall,
-        text = StrRes.audioAndVideoCall,
+        text = StrLibrary.audioAndVideoCall,
         color = Styles.c_FFFFFF,
         textStyle = null,
         iconWidth = null,
@@ -109,7 +109,7 @@ class ImageTextButton extends StatelessWidget {
 
   ImageTextButton.message({super.key, this.onTap})
       : icon = ImageRes.message,
-        text = StrRes.sendMessage,
+        text = StrLibrary.sendMessage,
         color = Styles.c_8443F8,
         textStyle = Styles.ts_FFFFFF_16sp,
         iconWidth = null,

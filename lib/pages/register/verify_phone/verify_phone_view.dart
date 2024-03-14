@@ -18,7 +18,11 @@ class VerifyPhonePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            sprintf(StrRes.enterVerificationCode, [logic.email?.isNotEmpty == true ? StrRes.email : StrRes.phoneNumber]).toText
+            sprintf(StrLibrary.enterVerificationCode, [
+              logic.email?.isNotEmpty == true
+                  ? StrLibrary.email
+                  : StrLibrary.phoneNumber
+            ]).toText
               ..style = Styles.ts_8443F8_22sp_semibold,
             10.verticalSpace,
             '${logic.account}'.toText..style = Styles.ts_999999_12sp,
@@ -85,7 +89,7 @@ class VerifyPhonePage extends StatelessWidget {
             ),
             170.verticalSpace,
             Obx(() => Button(
-                  text: StrRes.nextStep,
+                  text: StrLibrary.nextStep,
                   enabled: logic.enabled.value,
                   onTap: () => logic.completed(logic.codeEditCtrl.text),
                 )),

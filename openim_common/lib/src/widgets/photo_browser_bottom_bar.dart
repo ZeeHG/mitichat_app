@@ -12,7 +12,8 @@ class PhotoBrowserBottomBar extends StatelessWidget {
   PhotoBrowserBottomBar({Key? key, this.onPressedButton}) : super(key: key);
   ValueChanged<OperateType>? onPressedButton;
 
-  PhotoBrowserBottomBar.show(BuildContext context, {ValueChanged<OperateType>? onPressedButton}) {
+  PhotoBrowserBottomBar.show(BuildContext context,
+      {ValueChanged<OperateType>? onPressedButton}) {
     showModalBottomSheet(
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
@@ -44,7 +45,8 @@ class PhotoBrowserBottomBar extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildItem(ImageRes.forwardIcon.toImage, StrRes.menuForward, onPressed: () {
+              _buildItem(ImageRes.forwardIcon.toImage, StrLibrary.menuForward,
+                  onPressed: () {
                 Navigator.of(context).pop();
                 onPressedButton?.call(OperateType.forward);
               }),
@@ -52,7 +54,7 @@ class PhotoBrowserBottomBar extends StatelessWidget {
                   ImageRes.saveIcon.toImage
                     ..width = 20
                     ..height = 20,
-                  StrRes.save, onPressed: () {
+                  StrLibrary.save, onPressed: () {
                 Navigator.of(context).pop();
                 onPressedButton?.call(OperateType.save);
               })
@@ -62,11 +64,12 @@ class PhotoBrowserBottomBar extends StatelessWidget {
             height: 6.h,
           ),
           ConstrainedBox(
-            constraints: BoxConstraints(minWidth: MediaQuery.of(context).size.width, maxHeight: 40.h),
+            constraints: BoxConstraints(
+                minWidth: MediaQuery.of(context).size.width, maxHeight: 40.h),
             child: CupertinoButton(
                 padding: EdgeInsets.zero,
                 minSize: 40.h,
-                child: Text(StrRes.cancel, style: Styles.ts_333333_12sp),
+                child: Text(StrLibrary.cancel, style: Styles.ts_333333_12sp),
                 onPressed: () {
                   Navigator.of(context).pop();
                 }),
@@ -81,7 +84,9 @@ class PhotoBrowserBottomBar extends StatelessWidget {
       CupertinoButton(
           padding: EdgeInsets.only(top: 16, bottom: 8),
           child: Container(
-            decoration: BoxDecoration(color: CupertinoColors.white, borderRadius: BorderRadius.all(Radius.circular(5))),
+            decoration: BoxDecoration(
+                color: CupertinoColors.white,
+                borderRadius: BorderRadius.all(Radius.circular(5))),
             height: 48,
             width: 48,
             child: Center(child: icon),

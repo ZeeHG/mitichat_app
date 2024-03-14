@@ -18,7 +18,7 @@ class AccountAndSecurityPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-        title: StrRes.accountAndSecurity,
+        title: StrLibrary.accountAndSecurity,
       ),
       backgroundColor: Styles.c_F7F8FA,
       body: Obx(() => SingleChildScrollView(
@@ -26,35 +26,37 @@ class AccountAndSecurityPage extends StatelessWidget {
               children: [
                 12.verticalSpace,
                 _buildItemView(
-                  label: StrRes.accountManage,
+                  label: StrLibrary.accountManage,
                   showRightArrow: true,
                   onTap: () => logic.accountManage(),
                   valueWidget: AvatarView(
-                      width: 38.w,
-                      height: 38.h,
-                      text: imLogic.userInfo.value.nickname,
-                      url: imLogic.userInfo.value.faceURL,
-                    ),
+                    width: 38.w,
+                    height: 38.h,
+                    text: imLogic.userInfo.value.nickname,
+                    url: imLogic.userInfo.value.faceURL,
+                  ),
                 ),
                 _buildItemView(
-                  label: StrRes.phoneNumber,
+                  label: StrLibrary.phoneNumber,
                   showRightArrow: true,
-                  onTap: () => logic.phoneEmailChange(type: PhoneEmailChangeType.phone),
+                  onTap: () =>
+                      logic.phoneEmailChange(type: PhoneEmailChangeType.phone),
                   value: imLogic.userInfo.value.phoneNumber,
                 ),
                 _buildItemView(
-                  label: StrRes.email,
+                  label: StrLibrary.email,
                   showRightArrow: true,
-                  onTap: () => logic.phoneEmailChange(type: PhoneEmailChangeType.email),
+                  onTap: () =>
+                      logic.phoneEmailChange(type: PhoneEmailChangeType.email),
                   value: imLogic.userInfo.value.email,
                 ),
                 _buildItemView(
-                  label: StrRes.changePassword,
+                  label: StrLibrary.changePassword,
                   showRightArrow: true,
                   onTap: logic.changePwd,
                 ),
                 _buildItemView(
-                  label: StrRes.deleteUser,
+                  label: StrLibrary.deleteUser,
                   showRightArrow: true,
                   onTap: logic.deleteUser,
                 ),
@@ -103,8 +105,7 @@ class AccountAndSecurityPage extends StatelessWidget {
                       const Spacer(),
                       if (null != value)
                         value.toText..style = Styles.ts_999999_16sp,
-                      if (null != valueWidget)
-                        valueWidget,
+                      if (null != valueWidget) valueWidget,
                       if (showSwitchButton)
                         CupertinoSwitch(
                           value: switchOn,

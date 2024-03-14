@@ -43,7 +43,9 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
     this.index.value = index;
     if (index == 2) {
       Apis.addActionRecord(actionRecordList: [
-        ActionRecord(category: ActionCategory.discover, actionName: ActionName.enter_discover)
+        ActionRecord(
+            category: ActionCategory.discover,
+            actionName: ActionName.enter_discover)
       ]);
     }
   }
@@ -190,7 +192,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
         },
         onMaxRetries: (_) async {
           Get.back();
-          await LoadingView.singleton.wrap(asyncFunction: () async {
+          await LoadingView.singleton.start(fn: () async {
             await imLogic.logout();
             await DataSp.removeLoginCertificate();
             await DataSp.clearLockScreenPassword();

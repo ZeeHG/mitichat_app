@@ -16,7 +16,7 @@ class ChatHistoryFilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.file, showUnderline: true),
+      appBar: TitleBar.back(title: StrLibrary.file, showUnderline: true),
       backgroundColor: Styles.c_F8F9FA,
       body: Obx(() => SmartRefresher(
             controller: logic.refreshController,
@@ -67,11 +67,11 @@ class ChatHistoryFilePage extends StatelessWidget {
                         IMUtils.formatBytes(message.fileElem!.fileSize!).toText
                           ..style = Styles.ts_999999_14sp,
                         10.horizontalSpace,
-                        Expanded(child: message.senderNickname!.toText
+                        Expanded(
+                            child: message.senderNickname!.toText
                               ..style = Styles.ts_999999_14sp
                               ..maxLines = 1
-                              ..overflow = TextOverflow.ellipsis)
-                        ,
+                              ..overflow = TextOverflow.ellipsis),
                         10.horizontalSpace,
                         IMUtils.getChatTimeline(message.sendTime!).toText
                           ..style = Styles.ts_999999_14sp,

@@ -37,8 +37,8 @@ class AccountSetupLogic extends GetxController {
   bool get isAllowVibration => imLogic.userInfo.value.allowVibration == 1;
 
   void _queryMyFullInfo() async {
-    final data = await LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.queryMyFullInfo(),
+    final data = await LoadingView.singleton.start(
+      fn: () => Apis.queryMyFullInfo(),
     );
     if (data is UserFullInfo) {
       final userInfo = UserFullInfo.fromJson(data.toJson());
@@ -52,7 +52,9 @@ class AccountSetupLogic extends GetxController {
 
   void toggleNotDisturbMode() async {
     var status = isGlobalNotDisturb ? 0 : 2;
-    await LoadingView.singleton.wrap(asyncFunction: () => OpenIM.iMManager.conversationManager.setGlobalRecvMessageOpt(status: status));
+    await LoadingView.singleton.start(
+        fn: () => OpenIM.iMManager.conversationManager
+            .setGlobalRecvMessageOpt(status: status));
     imLogic.userInfo.update((val) {
       val?.globalRecvMsgOpt = status;
     });
@@ -61,8 +63,8 @@ class AccountSetupLogic extends GetxController {
   void toggleBeep() async {
     final allowBeep = !isAllowBeep ? 1 : 2;
     // 1关闭 2开启
-    await LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.updateUserInfo(
+    await LoadingView.singleton.start(
+      fn: () => Apis.updateUserInfo(
         allowBeep: allowBeep,
         userID: OpenIM.iMManager.userID,
       ),
@@ -75,8 +77,8 @@ class AccountSetupLogic extends GetxController {
   void toggleVibration() async {
     final allowVibration = !isAllowVibration ? 1 : 2;
     // 1关闭 2开启
-    await LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.updateUserInfo(
+    await LoadingView.singleton.start(
+      fn: () => Apis.updateUserInfo(
         allowVibration: allowVibration,
         userID: OpenIM.iMManager.userID,
       ),
@@ -89,8 +91,8 @@ class AccountSetupLogic extends GetxController {
   void toggleForbidAddMeToFriend() async {
     final allowAddFriend = !isAllowAddFriend ? 1 : 2;
     // 1关闭 2开启
-    final data = await LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.updateUserInfo(
+    final data = await LoadingView.singleton.start(
+      fn: () => Apis.updateUserInfo(
         allowAddFriend: allowAddFriend,
         userID: OpenIM.iMManager.userID,
       ),
@@ -104,10 +106,10 @@ class AccountSetupLogic extends GetxController {
 
   void clearChatHistory() async {
     var confirm = await Get.dialog(CustomDialog(
-      title: StrRes.confirmClearChatHistory,
+      title: StrLibrary.confirmClearChatHistory,
     ));
     if (confirm == true) {
-      LoadingView.singleton.wrap(asyncFunction: () async {
+      LoadingView.singleton.start(fn: () async {
         await OpenIM.iMManager.messageManager.deleteAllMsgFromLocalAndSvr();
       });
     }
@@ -116,29 +118,29 @@ class AccountSetupLogic extends GetxController {
   void languageSetting() => AppNavigator.startLanguageSetup();
 
   void _updateLanguage() {
-    Locale systemLocal = window.locale;
+    Locale systemLocal = PlatformDispatcher.instance.locale;
     var language = DataSp.getLanguage();
     var index = (language != null && language != 0)
         ? language
         : (systemLocal.toString().startsWith("zh_") ? 1 : 2);
     switch (index) {
       case 1:
-        curLanguage.value = StrRes.chinese;
+        curLanguage.value = StrLibrary.chinese;
         break;
       case 2:
-        curLanguage.value = StrRes.english;
+        curLanguage.value = StrLibrary.english;
         break;
       case 3:
-        curLanguage.value = StrRes.japanese;
+        curLanguage.value = StrLibrary.japanese;
         break;
       case 4:
-        curLanguage.value = StrRes.korean;
+        curLanguage.value = StrLibrary.korean;
         break;
       case 5:
-        curLanguage.value = StrRes.spanish;
+        curLanguage.value = StrLibrary.spanish;
         break;
       default:
-        curLanguage.value = StrRes.followSystem;
+        curLanguage.value = StrLibrary.followSystem;
         break;
     }
   }

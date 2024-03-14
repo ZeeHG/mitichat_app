@@ -41,15 +41,17 @@ class AboutUsLogic extends GetxController {
   // }
 
   void uploadLogs() async {
-    try{
+    try {
       uploadLogsProgress.value = 0.01;
-      OpenIM.iMManager.uploadLogs().then((value) => IMViews.showToast(StrRes.uploaded));
+      OpenIM.iMManager
+          .uploadLogs()
+          .then((value) => IMViews.showToast(StrLibrary.uploaded));
 
       imLogic.onUploadProgress = (current, size) {
         uploadLogsProgress.value = current / size;
       };
-    }catch (e, s) {
-      IMViews.showToast(StrRes.uploadFail);
+    } catch (e, s) {
+      IMViews.showToast(StrLibrary.uploadFail);
       myLogger.e({"message": "uploadLogs, 上传IM日志出错", "error": e, "stack": s});
     }
   }
@@ -65,8 +67,8 @@ class AboutUsLogic extends GetxController {
   void uploadLogsByDate([String? date]) async {
     try {
       var dateStr = "open-im-sdk-core.${date ?? myLoggerDateStr}";
-      var result = await LoadingView.singleton.wrap(
-        asyncFunction: () => OpenIM.iMManager.uploadFile(
+      var result = await LoadingView.singleton.start(
+        fn: () => OpenIM.iMManager.uploadFile(
           id: const Uuid().v4(),
           filePath: Config.cachePath + dateStr,
           fileName: (imLogic.userInfo.value.userID ?? "null") +
@@ -77,15 +79,15 @@ class AboutUsLogic extends GetxController {
               ".log",
         ),
       );
-      IMViews.showToast(StrRes.uploaded);
+      IMViews.showToast(StrLibrary.uploaded);
       if (result is String) {
         String url = jsonDecode(result)['url'];
         IMUtils.copy(text: !url.isEmpty ? url : "log url is not empty");
       } else {
-        IMViews.showToast(StrRes.copyFail);
+        IMViews.showToast(StrLibrary.copyFail);
       }
     } catch (e, s) {
-      IMViews.showToast(StrRes.uploadFail);
+      IMViews.showToast(StrLibrary.uploadFail);
       myLogger.e({
         "message": "uploadLogsByDate, 上传IM日志(按日期)出错",
         "error": {"date": "${date ?? myLoggerDateStr}", "error": e, "stack": s}
@@ -98,7 +100,7 @@ class AboutUsLogic extends GetxController {
       bool toast = true,
       bool copy = true}) async {
     try {
-      var asyncFunction = () => OpenIM.iMManager.uploadFile(
+      var fn = () => OpenIM.iMManager.uploadFile(
             id: const Uuid().v4(),
             filePath: logInfo?["path"] ?? myLoggerPath,
             fileName: (imLogic.userInfo.value.userID ?? "null") +
@@ -110,25 +112,29 @@ class AboutUsLogic extends GetxController {
           );
       var result;
       if (null != logInfo) {
-        result = await asyncFunction();
+        result = await fn();
       } else {
-        result = await LoadingView.singleton.wrap(
-          asyncFunction: asyncFunction,
+        result = await LoadingView.singleton.start(
+          fn: fn,
         );
       }
-      if (toast) IMViews.showToast(StrRes.uploaded);
+      if (toast) IMViews.showToast(StrLibrary.uploaded);
       if (result is String) {
         String url = jsonDecode(result)['url'];
         if (copy) IMUtils.copy(text: !url.isEmpty ? url : "url is not empty");
         return url;
       } else {
-        if (toast) IMViews.showToast(StrRes.copyFail);
+        if (toast) IMViews.showToast(StrLibrary.copyFail);
       }
     } catch (e, s) {
-      if (toast) IMViews.showToast(StrRes.uploadFail);
+      if (toast) IMViews.showToast(StrLibrary.uploadFail);
       myLogger.e({
         "message": "uploadAppLogs, 上传APP日志(按日期)出错",
-        "error": {"date": "${logInfo?["date"] ?? myLoggerDateStr}", "error": e, "stack": s}
+        "error": {
+          "date": "${logInfo?["date"] ?? myLoggerDateStr}",
+          "error": e,
+          "stack": s
+        }
       });
     }
   }
@@ -149,19 +155,19 @@ class AboutUsLogic extends GetxController {
     }
     var result = [];
     try {
-      result = await LoadingView.singleton.wrap(
-          asyncFunction: () => Future.wait(logInfoList
+      result = await LoadingView.singleton.start(
+          fn: () => Future.wait(logInfoList
               .map((logInfo) => uploadAppLogsByDate(
                   logInfo: logInfo, toast: false, copy: false))
               .toList()));
     } finally {
-      // IMViews.showToast(StrRes.uploaded);
+      // IMViews.showToast(StrLibrary .uploaded);
       IMUtils.copy(text: result.join(", "));
     }
   }
 
   @override
-  void onReady() async{
+  void onReady() async {
     getPackageInfo();
     cid.value = await pushLogic.getClientId();
     super.onReady();

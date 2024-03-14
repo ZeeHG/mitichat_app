@@ -32,7 +32,7 @@ class XhsPage extends StatelessWidget {
                     Center(
                       child: CustomTabBar(
                           width: 100.w,
-                          labels: [StrRes.discoverTab, StrRes.follow],
+                          labels: [StrLibrary.discoverTab, StrLibrary.follow],
                           index: logic.headerIndex.value,
                           onTabChanged: (i) => logic.switchHeaderIndex(i),
                           showUnderline: false,
@@ -272,7 +272,7 @@ class XhsPage extends StatelessWidget {
                                       ..style = Styles.ts_333333_16sp_medium
                                       ..overflow = TextOverflow.ellipsis
                                       ..maxLines = 1),
-                                StrRes.seeDetails.toText
+                                StrLibrary.seeDetails.toText
                                   ..style = Styles.ts_9280B3_14sp
                               ],
                             ),

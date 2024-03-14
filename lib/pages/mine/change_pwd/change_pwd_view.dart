@@ -15,18 +15,18 @@ class ChangePwdPage extends StatelessWidget {
     return TouchCloseSoftKeyboard(
       child: Scaffold(
         appBar: TitleBar.back(
-            title: StrRes.changePassword,
+            title: StrLibrary.changePassword,
             right: Container(
               width: 56.w,
               height: 28.h,
               child: Button(
-                text: StrRes.determine,
+                text: StrLibrary.determine,
                 enabled: logic.enabled,
                 onTap: logic.confirm,
                 textStyle: Styles.ts_FFFFFF_16sp,
               ),
             )
-            // StrRes.determine.toText
+            // StrLibrary .determine.toText
             //   ..style = Styles.ts_333333_16sp
             //   ..onTap = logic.confirm,
             ),
@@ -36,7 +36,7 @@ class ChangePwdPage extends StatelessWidget {
             children: [
               12.verticalSpace,
               _buildItemView(
-                label: StrRes.oldPwd,
+                label: StrLibrary.oldPwd,
                 controller: logic.oldPwdCtrl,
                 autofocus: true,
                 isTopRadius: true,
@@ -47,7 +47,7 @@ class ChangePwdPage extends StatelessWidget {
                 height: 1.h,
               ),
               _buildItemView(
-                label: StrRes.newPwd,
+                label: StrLibrary.newPwd,
                 controller: logic.newPwdCtrl,
               ),
               Container(
@@ -56,7 +56,7 @@ class ChangePwdPage extends StatelessWidget {
                 height: 1.h,
               ),
               _buildItemView(
-                label: StrRes.confirmNewPwd,
+                label: StrLibrary.confirmNewPwd,
                 controller: logic.againPwdCtrl,
                 isBottomRadius: true,
               ),
@@ -64,7 +64,7 @@ class ChangePwdPage extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 margin: EdgeInsets.only(top: 12.h, left: 12.w),
                 child: Text(
-                  StrRes.pwdTips,
+                  StrLibrary.pwdTips,
                   style: Styles.ts_999999_12sp,
                 ),
               ),

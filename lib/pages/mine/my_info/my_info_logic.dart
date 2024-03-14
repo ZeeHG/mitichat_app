@@ -42,8 +42,8 @@ class MyInfoLogic extends GetxController {
     IMViews.openPhotoSheet(
         onData: (path, url) async {
           if (url != null) {
-            LoadingView.singleton.wrap(
-              asyncFunction: () => Apis.updateUserInfo(
+            LoadingView.singleton.start(
+              fn: () => Apis.updateUserInfo(
                       userID: OpenIM.iMManager.userID, faceURL: url)
                   .then((value) => imLogic.userInfo.update((val) {
                         val?.faceURL = url;
@@ -80,11 +80,11 @@ class MyInfoLogic extends GetxController {
       BottomSheetView(
         items: [
           SheetItem(
-            label: StrRes.man,
+            label: StrLibrary.man,
             onTap: () => _updateGender(1),
           ),
           SheetItem(
-            label: StrRes.woman,
+            label: StrLibrary.woman,
             onTap: () => _updateGender(2),
           ),
         ],
@@ -93,8 +93,8 @@ class MyInfoLogic extends GetxController {
   }
 
   void _updateGender(int gender) {
-    LoadingView.singleton.wrap(
-      asyncFunction: () =>
+    LoadingView.singleton.start(
+      fn: () =>
           Apis.updateUserInfo(userID: OpenIM.iMManager.userID, gender: gender)
               .then((value) => imLogic.userInfo.update((val) {
                     val?.gender = gender;
@@ -103,8 +103,8 @@ class MyInfoLogic extends GetxController {
   }
 
   void _updateBirthday(int birthday) {
-    LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.updateUserInfo(
+    LoadingView.singleton.start(
+      fn: () => Apis.updateUserInfo(
         userID: OpenIM.iMManager.userID,
         birth: birthday * 1000,
       ).then((value) => imLogic.userInfo.update((val) {
@@ -127,8 +127,8 @@ class MyInfoLogic extends GetxController {
 
   void _queryMyFullIno() async {
     CancelToken cancelToken = CancelToken();
-    final info = await LoadingView.singleton.wrap(
-        asyncFunction: () => Apis.queryMyFullInfo(cancelToken: cancelToken),
+    final info = await LoadingView.singleton.start(
+        fn: () => Apis.queryMyFullInfo(cancelToken: cancelToken),
         cancelToken: cancelToken);
     if (null != info) {
       imLogic.userInfo.update((val) {

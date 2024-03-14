@@ -21,7 +21,7 @@ class ChatDisableInputBox extends StatelessWidget {
                   ..width = 14.w
                   ..height = 14.h,
                 6.horizontalSpace,
-                StrRes.notSendMessageNotInGroup.toText
+                StrLibrary.notSendMessageNotInGroup.toText
                   ..style = Styles.ts_999999_14sp,
               ],
             ),

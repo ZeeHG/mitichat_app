@@ -15,7 +15,7 @@ import 'package:sound_mode/sound_mode.dart';
 import 'package:sound_mode/utils/ringer_mode_statuses.dart';
 import 'package:vibration/vibration.dart';
 
-import '../../utils/upgrade_manager.dart';
+// import '../../utils/upgrade_manager.dart';
 import 'im_controller.dart';
 import 'push_controller.dart';
 
@@ -215,15 +215,17 @@ class AppController extends SuperController {
 
           await flutterLocalNotificationsPlugin.show(
               notificationSeq + DateTime.now().secondsSinceEpoch,
-              groupInfo?.groupName ?? StrRes.defaultNotificationTitle4,
-              "${(null != friendInfo && friendInfo.showName.isNotEmpty) ? friendInfo.showName : member?.nickname ?? StrRes.friend}: ${isAudio ? '[${StrRes.callVoice}]' : '[${StrRes.callVideo}]'}",
+              groupInfo?.groupName ?? StrLibrary.defaultNotificationTitle4,
+              "${(null != friendInfo && friendInfo.showName.isNotEmpty) ? friendInfo.showName : member?.nickname ?? StrLibrary.friend}: ${isAudio ? '[${StrLibrary.callVoice}]' : '[${StrLibrary.callVideo}]'}",
               platformChannelSpecifics,
               payload: null);
         } else {
           await flutterLocalNotificationsPlugin.show(
               notificationSeq + DateTime.now().secondsSinceEpoch,
-              friendInfo?.showName ?? StrRes.defaultNotificationTitle3,
-              isAudio ? '[${StrRes.callVoice}]' : '[${StrRes.callVideo}]',
+              friendInfo?.showName ?? StrLibrary.defaultNotificationTitle3,
+              isAudio
+                  ? '[${StrLibrary.callVoice}]'
+                  : '[${StrLibrary.callVideo}]',
               platformChannelSpecifics,
               payload: null);
         }
@@ -236,8 +238,8 @@ class AppController extends SuperController {
         });
         await flutterLocalNotificationsPlugin.show(
             notificationSeq + DateTime.now().secondsSinceEpoch,
-            StrRes.defaultNotificationTitle3,
-            isAudio ? '[${StrRes.callVoice}]' : '[${StrRes.callVideo}]',
+            StrLibrary.defaultNotificationTitle3,
+            isAudio ? '[${StrLibrary.callVoice}]' : '[${StrLibrary.callVideo}]',
             platformChannelSpecifics,
             payload: null);
       }
@@ -279,7 +281,7 @@ class AppController extends SuperController {
         try {
           // final id = message.seq!;
           notificationSeq = notificationSeq + 1;
-          String text = StrRes.defaultNotification;
+          String text = StrLibrary.defaultNotification;
           String? noticeTypeMsgGroupName;
           if (message.isTextType) {
             text = message.textElem!.content!;
@@ -288,26 +290,26 @@ class AppController extends SuperController {
           } else if (message.isQuoteType) {
             text = message.quoteElem?.text ?? text;
           } else if (message.isPictureType) {
-            text = StrRes.defaultImgNotification;
+            text = StrLibrary.defaultImgNotification;
           } else if (message.isVideoType) {
-            text = StrRes.defaultVideoNotification;
+            text = StrLibrary.defaultVideoNotification;
           } else if (message.isVoiceType) {
-            text = StrRes.defaultVoiceNotification;
+            text = StrLibrary.defaultVoiceNotification;
           } else if (message.isFileType) {
-            text = StrRes.defaultFileNotification;
+            text = StrLibrary.defaultFileNotification;
           } else if (message.isLocationType) {
-            text = StrRes.defaultLocationNotification;
+            text = StrLibrary.defaultLocationNotification;
           } else if (message.isMergerType) {
-            text = StrRes.defaultMergeNotification;
+            text = StrLibrary.defaultMergeNotification;
           } else if (message.isCardType) {
-            text = StrRes.defaultCardNotification;
+            text = StrLibrary.defaultCardNotification;
           } else if (message.contentType! >= 1000) {
             // 尝试解析通知类型
             noticeTypeMsgGroupName =
                 IMUtils.parseNtfMap(message)?["group"]?["groupName"];
             String? str = IMUtils.parseNtf(message, isConversation: true);
             if (null == str) {
-              text = StrRes.defaultNotificationTitle;
+              text = StrLibrary.defaultNotificationTitle;
               myLogger.e({
                 "message": "contentType>=1000的消息解析失败",
                 "data": message.toJson()
@@ -340,7 +342,7 @@ class AppController extends SuperController {
             }
             await flutterLocalNotificationsPlugin.show(
                 notificationSeq,
-                friendInfo?.showName ?? StrRes.defaultNotificationTitle3,
+                friendInfo?.showName ?? StrLibrary.defaultNotificationTitle3,
                 text,
                 platformChannelSpecifics,
                 payload: json.encode(message.toJson()));
@@ -356,10 +358,10 @@ class AppController extends SuperController {
                 notificationSeq,
                 groupInfo?.groupName ??
                     noticeTypeMsgGroupName ??
-                    StrRes.defaultNotificationTitle4,
+                    StrLibrary.defaultNotificationTitle4,
                 message.isNoticeType
-                    ? "${StrRes.groupAc}: ${text}"
-                    : ("${(null != friendInfo && friendInfo.showName.isNotEmpty) ? friendInfo.showName : message.senderNickname ?? StrRes.friend}: ${text}"),
+                    ? "${StrLibrary.groupAc}: ${text}"
+                    : ("${(null != friendInfo && friendInfo.showName.isNotEmpty) ? friendInfo.showName : message.senderNickname ?? StrLibrary.friend}: ${text}"),
                 platformChannelSpecifics,
                 payload: json.encode(message.toJson()));
           } else {
@@ -370,7 +372,7 @@ class AppController extends SuperController {
             });
             await flutterLocalNotificationsPlugin.show(
                 notificationSeq,
-                StrRes.defaultNotificationTitle2,
+                StrLibrary.defaultNotificationTitle2,
                 text,
                 platformChannelSpecifics,
                 payload: json.encode(message.toJson()));
@@ -460,41 +462,43 @@ class AppController extends SuperController {
     super.onClose();
   }
 
-  Locale? getLocale() {
-    var local = Get.locale;
-    Locale systemLocal = window.locale;
-    var language = DataSp.getLanguage();
-    var index = (language != null && language != 0)
-        ? language
-        : (systemLocal.toString().startsWith("zh_")
+  Locale? getCurLocale(BuildContext context) {
+    Locale? locale = Get.locale;
+    String windowLocaleStr =
+        View.of(context).platformDispatcher.locale.toString();
+    
+    int? lang = DataSp.getLanguage();
+    int index = (lang != null && lang != 0)
+        ? lang
+        : (windowLocaleStr.startsWith("zh_")
             ? 1
-            : systemLocal.toString().startsWith("en_")
+            : windowLocaleStr.startsWith("en_")
                 ? 2
-                : systemLocal.toString().startsWith("ja_")
+                : windowLocaleStr.startsWith("ja_")
                     ? 3
-                    : systemLocal.toString().startsWith("ko_")
+                    : windowLocaleStr.startsWith("ko_")
                         ? 4
-                        : systemLocal.toString().startsWith("es_")
+                        : windowLocaleStr.startsWith("es_")
                             ? 5
                             : 0);
     switch (index) {
       case 1:
-        local = const Locale('zh', 'CN');
+        locale = const Locale('zh', 'CN');
         break;
       case 2:
-        local = const Locale('en', 'US');
+        locale = const Locale('en', 'US');
         break;
       case 3:
-        local = const Locale('ja', 'JP');
+        locale = const Locale('ja', 'JP');
         break;
       case 4:
-        local = const Locale('ko', 'KR');
+        locale = const Locale('ko', 'KR');
         break;
       case 5:
-        local = const Locale('es', 'ES');
+        locale = const Locale('es', 'ES');
         break;
     }
-    return local;
+    return locale;
   }
 
   @override

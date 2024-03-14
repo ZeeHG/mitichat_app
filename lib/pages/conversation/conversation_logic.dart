@@ -38,10 +38,10 @@ class ConversationLogic extends GetxController {
 
   switchAccount(AccountLoginInfo loginInfo) async {
     if (loginInfo.id == curLoginInfoKey) return;
-    LoadingView.singleton.wrap(
-        navBarHeight: 0,
-        loadingTips: StrRes.loading,
-        asyncFunction: () async {
+    LoadingView.singleton.start(
+        topBarHeight: 0,
+        loadingTips: StrLibrary.loading,
+        fn: () async {
           await accountUtil.switchAccount(
               serverWithProtocol: loginInfo.server, userID: loginInfo.userID);
           AppNavigator.startMain();
@@ -157,23 +157,23 @@ class ConversationLogic extends GetxController {
         var map = json.decode(info.draftText!);
         String text = map['text'];
         if (text.isNotEmpty) {
-          prefix = '[${StrRes.draftText}]';
+          prefix = '[${StrLibrary.draftText}]';
         }
       } else {
         switch (info.groupAtType) {
           case GroupAtType.atAll:
-            prefix = '[@${StrRes.everyone}]';
+            prefix = '[@${StrLibrary.everyone}]';
             break;
           case GroupAtType.atAllAtMe:
-            prefix = '[@${StrRes.everyone} @${StrRes.you}]';
+            prefix = '[@${StrLibrary.everyone} @${StrLibrary.you}]';
             break;
           case GroupAtType.atMe:
-            prefix = '[@${StrRes.you}]';
+            prefix = '[@${StrLibrary.you}]';
             break;
           case GroupAtType.atNormal:
             break;
           case GroupAtType.groupNotification:
-            prefix = '[${StrRes.groupAc}]';
+            prefix = '[${StrLibrary.groupAc}]';
             break;
         }
       }
@@ -207,7 +207,7 @@ class ConversationLogic extends GetxController {
     } catch (e, s) {
       Logger.print('------e:$e s:$s');
     }
-    return '[${StrRes.unsupportedMessage}]';
+    return '[${StrLibrary.unsupportedMessage}]';
   }
 
   Map<String, String> getAtUserMap(ConversationInfo info) {
@@ -318,13 +318,13 @@ class ConversationLogic extends GetxController {
     switch (imStatus.value) {
       case IMSdkStatus.syncStart:
       case IMSdkStatus.synchronizing:
-        return StrRes.synchronizing;
+        return StrLibrary.synchronizing;
       case IMSdkStatus.syncFailed:
-        return StrRes.syncFailed;
+        return StrLibrary.syncFailed;
       case IMSdkStatus.connecting:
-        return StrRes.connecting;
+        return StrLibrary.connecting;
       case IMSdkStatus.connectionFailed:
-        return StrRes.connectionFailed;
+        return StrLibrary.connectionFailed;
       case IMSdkStatus.connectionSucceeded:
       case IMSdkStatus.syncEnded:
         return null;
@@ -429,9 +429,8 @@ class ConversationLogic extends GetxController {
     required String sourceID,
     required int sessionType,
   }) =>
-      LoadingView.singleton.wrap(
-          asyncFunction: () =>
-              OpenIM.iMManager.conversationManager.getOneConversation(
+      LoadingView.singleton.start(
+          fn: () => OpenIM.iMManager.conversationManager.getOneConversation(
                 sourceID: sourceID,
                 sessionType: sessionType,
               ));

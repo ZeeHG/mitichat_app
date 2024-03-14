@@ -46,7 +46,7 @@ class _ChatVoiceRecordLayoutState extends State<ChatVoiceRecordLayout> {
     } else {
       if (sec == 0) {
         File(path).delete();
-        IMViews.showToast(StrRes.talkTooShort);
+        IMViews.showToast(StrLibrary.talkTooShort);
       } else {
         widget.onCompleted?.call(sec, path);
       }
@@ -107,34 +107,37 @@ class _ChatVoiceRecordLayoutState extends State<ChatVoiceRecordLayout> {
                 _showVoiceRecordView = false;
               });
             },
-            builder: (_, sec, startTimestamp) => startTimestamp > 0? Material(
-              color: Colors.transparent,
-              child: Center(
-                child: Container(
-                  width: 138.w,
-                  height: 124.h,
-                  padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
-                  decoration: BoxDecoration(
-                    color: _isCancelSend
-                        ? Styles.c_FF4E4C_opacity70
-                        : Styles.c_333333_opacity60,
-                    borderRadius: BorderRadius.circular(6.r),
-                  ),
-                  child: Column(
-                    children: [
-                      IMUtils.seconds2HMS(sec).toText
-                        ..style = Styles.ts_FFFFFF_12sp,
-                      Expanded(child: _lottieAnimWidget),
-                      (_isCancelSend
-                              ? StrRes.liftFingerToCancelSend
-                              : StrRes.releaseToSendSwipeUpToCancel)
-                          .toText
-                        ..style = Styles.ts_FFFFFF_12sp,
-                    ],
-                  ),
-                ),
-              ),
-            ) : SizedBox(),
+            builder: (_, sec, startTimestamp) => startTimestamp > 0
+                ? Material(
+                    color: Colors.transparent,
+                    child: Center(
+                      child: Container(
+                        width: 138.w,
+                        height: 124.h,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 6.w, vertical: 6.h),
+                        decoration: BoxDecoration(
+                          color: _isCancelSend
+                              ? Styles.c_FF4E4C_opacity70
+                              : Styles.c_333333_opacity60,
+                          borderRadius: BorderRadius.circular(6.r),
+                        ),
+                        child: Column(
+                          children: [
+                            IMUtils.seconds2HMS(sec).toText
+                              ..style = Styles.ts_FFFFFF_12sp,
+                            Expanded(child: _lottieAnimWidget),
+                            (_isCancelSend
+                                    ? StrLibrary.liftFingerToCancelSend
+                                    : StrLibrary.releaseToSendSwipeUpToCancel)
+                                .toText
+                              ..style = Styles.ts_FFFFFF_12sp,
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                : SizedBox(),
           ),
         ),
       ],

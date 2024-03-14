@@ -16,7 +16,7 @@ class CreateGroupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return TouchCloseSoftKeyboard(
       child: Scaffold(
-        appBar: TitleBar.back(title: StrRes.createGroup),
+        appBar: TitleBar.back(title: StrLibrary.createGroup),
         backgroundColor: Styles.c_F7F8FA,
         body: SingleChildScrollView(
           child: SizedBox(
@@ -33,7 +33,7 @@ class CreateGroupPage extends StatelessWidget {
                     vertical: 12.h,
                   ),
                   child: Button(
-                    text: StrRes.completeCreation,
+                    text: StrLibrary.completeCreation,
                     onTap: logic.completeCreation,
                   ),
                 ),
@@ -75,7 +75,7 @@ class CreateGroupPage extends StatelessWidget {
                     inputFormatters: [LengthLimitingTextInputFormatter(16)],
                     decoration: InputDecoration(
                       hintStyle: Styles.ts_999999_17sp,
-                      hintText: StrRes.plsEnterGroupNameHint,
+                      hintText: StrLibrary.plsEnterGroupNameHint,
                       border: InputBorder.none,
                     ),
                   ),
@@ -96,9 +96,9 @@ class CreateGroupPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
               child: Row(
                 children: [
-                  StrRes.groupMember.toText..style = Styles.ts_999999_17sp,
+                  StrLibrary.groupMember.toText..style = Styles.ts_999999_17sp,
                   const Spacer(),
-                  sprintf(StrRes.nPerson, [logic.allList.length]).toText
+                  sprintf(StrLibrary.nPerson, [logic.allList.length]).toText
                     ..style = Styles.ts_999999_17sp,
                 ],
               ),
@@ -140,7 +140,8 @@ class CreateGroupPage extends StatelessWidget {
                         ImageRes.addMember.toImage
                           ..width = 48.w
                           ..height = 48.h,
-                        StrRes.addMember.toText..style = Styles.ts_999999_10sp,
+                        StrLibrary.addMember.toText
+                          ..style = Styles.ts_999999_10sp,
                       ],
                     ),
                   ),
@@ -151,7 +152,8 @@ class CreateGroupPage extends StatelessWidget {
                         ImageRes.delMember.toImage
                           ..width = 48.w
                           ..height = 48.h,
-                        StrRes.delMember.toText..style = Styles.ts_999999_10sp,
+                        StrLibrary.delMember.toText
+                          ..style = Styles.ts_999999_10sp,
                       ],
                     ),
                   ),

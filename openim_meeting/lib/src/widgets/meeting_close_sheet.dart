@@ -22,7 +22,7 @@ class MeetingCloseSheetView extends StatelessWidget {
         onCancel: () => controller?.reverse(),
         items: [
           SheetItem(
-            label: StrRes.leaveMeeting,
+            label: StrLibrary.leaveMeeting,
             onTap: () => controller?.reverse().then((value) {
               OverlayWidget().showDialog(
                 context: context,
@@ -32,14 +32,14 @@ class MeetingCloseSheetView extends StatelessWidget {
                     OverlayWidget().dismiss();
                     onLeave?.call();
                   },
-                  title: StrRes.leaveMeetingConfirmHint,
+                  title: StrLibrary.leaveMeetingConfirmHint,
                 ),
               );
             }),
           ),
           if (isHost)
             SheetItem(
-              label: StrRes.endMeeting,
+              label: StrLibrary.endMeeting,
               textStyle: Styles.ts_FF381F_17sp,
               onTap: () => controller?.reverse().then((value) {
                 OverlayWidget().showDialog(
@@ -50,7 +50,7 @@ class MeetingCloseSheetView extends StatelessWidget {
                       OverlayWidget().dismiss();
                       onDismiss?.call();
                     },
-                    title: StrRes.endMeetingConfirmHit,
+                    title: StrLibrary.endMeetingConfirmHit,
                   ),
                 );
               }),

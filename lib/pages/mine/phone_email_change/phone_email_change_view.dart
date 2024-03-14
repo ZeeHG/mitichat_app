@@ -20,33 +20,58 @@ class PhoneEmailChangePage extends StatelessWidget {
       appBar: TitleBar.back(),
       backgroundColor: Styles.c_FFFFFF,
       body: Obx(() => Container(
-        width: 1.sw,
-        padding: EdgeInsets.symmetric(horizontal: 12.w),
-        child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          43.verticalSpace,
-          (logic.isPhone && (null == imLogic.userInfo.value.phoneNumber || imLogic.userInfo.value.phoneNumber!.isEmpty)) || (!logic.isPhone && (null == imLogic.userInfo.value.email || imLogic.userInfo.value.email!.isEmpty))?
-            (sprintf(StrRes.noBind, [logic.isPhone? StrRes.mobile : StrRes.email]).toText..style=Styles.ts_999999_18sp) :
-            ((logic.isPhone? StrRes.curBindPhone : StrRes.curBindEmail).toText..style=Styles.ts_999999_18sp),
-          20.verticalSpace,
-          if(logic.isPhone && null != imLogic.userInfo.value.phoneNumber)
-            imLogic.userInfo.value.phoneNumber!.toText..style=Styles.ts_333333_24sp_medium,
-          if(!logic.isPhone && null != imLogic.userInfo.value.email)
-            imLogic.userInfo.value.email!.toText..style=Styles.ts_333333_24sp_medium,
-          50.verticalSpace,
-          Button(
-            width: 1.sw - 86.w,
-            text: logic.isPhone && (imLogic.userInfo.value.phoneNumber?.isNotEmpty ?? false)? StrRes.changePhone : 
-                  logic.isPhone && (imLogic.userInfo.value.phoneNumber?.isEmpty ?? true)? StrRes.bindPhone : 
-                  !logic.isPhone && (imLogic.userInfo.value.email?.isNotEmpty ?? false)? StrRes.changeEmail : 
-                  StrRes.bindEmail,
-            onTap: logic.phoneEmailChangeDetail,
-          )
-        ]
-        // (logic.isPhone? imLogic.userInfo.value.phoneNumber : imLogic.userInfo.value.email),
-      ),
-      )),
+            width: 1.sw,
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  43.verticalSpace,
+                  (logic.isPhone &&
+                              (null == imLogic.userInfo.value.phoneNumber ||
+                                  imLogic
+                                      .userInfo.value.phoneNumber!.isEmpty)) ||
+                          (!logic.isPhone &&
+                              (null == imLogic.userInfo.value.email ||
+                                  imLogic.userInfo.value.email!.isEmpty))
+                      ? (sprintf(StrLibrary.noBind,
+                              [logic.isPhone ? StrLibrary.mobile : StrLibrary.email])
+                          .toText
+                        ..style = Styles.ts_999999_18sp)
+                      : ((logic.isPhone
+                              ? StrLibrary.curBindPhone
+                              : StrLibrary.curBindEmail)
+                          .toText
+                        ..style = Styles.ts_999999_18sp),
+                  20.verticalSpace,
+                  if (logic.isPhone &&
+                      null != imLogic.userInfo.value.phoneNumber)
+                    imLogic.userInfo.value.phoneNumber!.toText
+                      ..style = Styles.ts_333333_24sp_medium,
+                  if (!logic.isPhone && null != imLogic.userInfo.value.email)
+                    imLogic.userInfo.value.email!.toText
+                      ..style = Styles.ts_333333_24sp_medium,
+                  50.verticalSpace,
+                  Button(
+                    width: 1.sw - 86.w,
+                    text: logic.isPhone &&
+                            (imLogic.userInfo.value.phoneNumber?.isNotEmpty ??
+                                false)
+                        ? StrLibrary.changePhone
+                        : logic.isPhone &&
+                                (imLogic.userInfo.value.phoneNumber?.isEmpty ??
+                                    true)
+                            ? StrLibrary.bindPhone
+                            : !logic.isPhone &&
+                                    (imLogic.userInfo.value.email?.isNotEmpty ??
+                                        false)
+                                ? StrLibrary.changeEmail
+                                : StrLibrary.bindEmail,
+                    onTap: logic.phoneEmailChangeDetail,
+                  )
+                ]
+                // (logic.isPhone? imLogic.userInfo.value.phoneNumber : imLogic.userInfo.value.email),
+                ),
+          )),
     );
   }
 }

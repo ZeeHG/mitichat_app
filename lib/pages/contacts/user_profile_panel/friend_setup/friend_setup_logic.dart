@@ -32,8 +32,8 @@ class FriendSetupLogic extends GetxController {
 
   /// 加入黑名单
   void addBlacklist() async {
-    var confirm =
-        await Get.dialog(CustomDialog(title: StrRes.areYouSureAddBlacklist));
+    var confirm = await Get.dialog(
+        CustomDialog(title: StrLibrary.areYouSureAddBlacklist));
     if (confirm == true) {
       await OpenIM.iMManager.friendshipManager.addBlacklist(
         userID: userProfilesLogic.userInfo.value.userID!,
@@ -57,11 +57,11 @@ class FriendSetupLogic extends GetxController {
   /// 解除好友关系
   void deleteFromFriendList() async {
     var confirm = await Get.dialog(CustomDialog(
-      title: StrRes.areYouSureDelFriend,
-      rightText: StrRes.delete,
+      title: StrLibrary.areYouSureDelFriend,
+      rightText: StrLibrary.delete,
     ));
     if (confirm) {
-      await LoadingView.singleton.wrap(asyncFunction: () async {
+      await LoadingView.singleton.start(fn: () async {
         await OpenIM.iMManager.friendshipManager.deleteFriend(
           userID: userProfilesLogic.userInfo.value.userID!,
         );
@@ -105,7 +105,7 @@ class FriendSetupLogic extends GetxController {
     }
     final result = await AppNavigator.startSelectContacts(
       action: SelAction.recommend,
-      ex: '[${StrRes.carte}]${userProfilesLogic.userInfo.value.nickname}',
+      ex: '[${StrLibrary.carte}]${userProfilesLogic.userInfo.value.nickname}',
     );
     if (null != result) {
       final customEx = result['customEx'];
@@ -123,8 +123,8 @@ class FriendSetupLogic extends GetxController {
           userID: userID,
           groupID: groupID,
           offlinePushInfo: Config.offlinePushInfo
-            ..title = OpenIM.iMManager.userInfo.nickname ?? StrRes.friend
-            ..desc = StrRes.defaultCardNotification,
+            ..title = OpenIM.iMManager.userInfo.nickname ?? StrLibrary.friend
+            ..desc = StrLibrary.defaultCardNotification,
         );
       }
     }

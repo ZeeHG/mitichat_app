@@ -19,7 +19,6 @@ dependencies:
   shared_preferences: ^2.0.18
   sprintf: ^7.0.0
   uuid: ^4.2.1
-  flutter_bugly: ^0.4.4
   path_provider: ^2.0.13
   android_path_provider: ^0.3.0
   image_picker: ^1.0.4

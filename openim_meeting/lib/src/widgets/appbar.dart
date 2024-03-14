@@ -61,7 +61,8 @@ class MeetingAppBar extends StatelessWidget {
                       color: Styles.c_FF381F,
                       borderRadius: BorderRadius.circular(6.r),
                     ),
-                    child: StrRes.over.toText..style = Styles.ts_FFFFFF_17sp,
+                    child: StrLibrary.over.toText
+                      ..style = Styles.ts_FFFFFF_17sp,
                   ),
                 ),
                 16.horizontalSpace,

@@ -17,7 +17,8 @@ class VerifyPhoneLogic extends GetxController {
   late int usedFor;
   String? invitationCode;
 
-  String get account => phoneNumber?.isNotEmpty == true ? (areaCode + phoneNumber!) : email!;
+  String get account =>
+      phoneNumber?.isNotEmpty == true ? (areaCode + phoneNumber!) : email!;
   @override
   void onInit() {
     phoneNumber = Get.arguments['phoneNumber'];
@@ -43,8 +44,8 @@ class VerifyPhoneLogic extends GetxController {
     codeErrorCtrl.add(ErrorAnimationType.shake);
   }
 
-  Future<bool> requestVerificationCode() => LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.requestVerificationCode(
+  Future<bool> requestVerificationCode() => LoadingView.singleton.start(
+      fn: () => Apis.requestVerificationCode(
             areaCode: areaCode,
             phoneNumber: phoneNumber,
             email: email,
@@ -52,7 +53,8 @@ class VerifyPhoneLogic extends GetxController {
             invitationCode: invitationCode,
           ));
 
-  Future checkVerificationCode(String verificationCode) => Apis.checkVerificationCode(
+  Future checkVerificationCode(String verificationCode) =>
+      Apis.checkVerificationCode(
         areaCode: areaCode,
         phoneNumber: phoneNumber,
         email: email,
@@ -63,8 +65,8 @@ class VerifyPhoneLogic extends GetxController {
 
   void completed(value) async {
     try {
-      await LoadingView.singleton.wrap(
-        asyncFunction: () => checkVerificationCode(value),
+      await LoadingView.singleton.start(
+        fn: () => checkVerificationCode(value),
       );
       AppNavigator.startSetPassword(
         areaCode: areaCode,

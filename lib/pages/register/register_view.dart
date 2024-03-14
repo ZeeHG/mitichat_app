@@ -15,34 +15,43 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => RegisterBgView(
-        child: Obx(() => Column(
+          child: Obx(
+        () => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            (logic.phoneRegister? StrRes.phoneRegister : StrRes.emailRegister).toText..style = Styles.ts_333333_24sp_medium,
+            (logic.phoneRegister
+                    ? StrLibrary.phoneRegister
+                    : StrLibrary.emailRegister)
+                .toText
+              ..style = Styles.ts_333333_24sp_medium,
             21.verticalSpace,
             InputBox.invitationCode(
-              label: StrRes.invitationCode,
-              hintText: sprintf(StrRes.plsEnterInvitationCode, [logic.needInvitationCodeRegister ? '(${StrRes.required})' : '(${StrRes.optional})']),
+              label: StrLibrary.invitationCode,
+              hintText: sprintf(StrLibrary.plsEnterInvitationCode, [
+                logic.needInvitationCodeRegister
+                    ? '(${StrLibrary.required})'
+                    : '(${StrLibrary.optional})'
+              ]),
               controller: logic.invitationCodeCtrl,
             ),
             16.verticalSpace,
             InputBox(
-              label: StrRes.nickname,
-              hintText: StrRes.plsEnterYourNickname,
+              label: StrLibrary.nickname,
+              hintText: StrLibrary.plsEnterYourNickname,
               controller: logic.nicknameCtrl,
             ),
             16.verticalSpace,
             InputBox.password(
-              label: StrRes.password,
-              hintText: StrRes.plsEnterPassword,
+              label: StrLibrary.password,
+              hintText: StrLibrary.plsEnterPassword,
               controller: logic.pwdCtrl,
-              formatHintText: StrRes.loginPwdFormat,
+              formatHintText: StrLibrary.loginPwdFormat,
               inputFormatters: [IMUtils.getPasswordFormatter()],
             ),
             16.verticalSpace,
             InputBox.password(
-              label: StrRes.confirmPassword,
-              hintText: StrRes.plsConfirmPasswordAgain,
+              label: StrLibrary.confirmPassword,
+              hintText: StrLibrary.plsConfirmPasswordAgain,
               controller: logic.pwdAgainCtrl,
               inputFormatters: [IMUtils.getPasswordFormatter()],
             ),
@@ -51,27 +60,29 @@ class RegisterPage extends StatelessWidget {
               label: logic.operateType.value.name,
               hintText: logic.operateType.value.hintText,
               code: logic.areaCode.value,
-              onAreaCode: logic.phoneRegister ? logic.openCountryCodePicker : null,
-              controller: logic.phoneRegister ? logic.phoneCtrl : logic.emailCtrl,
+              onAreaCode:
+                  logic.phoneRegister ? logic.openCountryCodePicker : null,
+              controller:
+                  logic.phoneRegister ? logic.phoneCtrl : logic.emailCtrl,
             ),
             16.verticalSpace,
             InputBox.verificationCode(
-              label: StrRes.verificationCode,
-              hintText: StrRes.plsEnterVerificationCode,
+              label: StrLibrary.verificationCode,
+              hintText: StrLibrary.plsEnterVerificationCode,
               controller: logic.verificationCodeCtrl,
               onSendVerificationCode: logic.getVerificationCode,
             ),
             40.verticalSpace,
             Button(
-              text: StrRes.register,
+              text: StrLibrary.register,
               enabled: logic.enabled.value,
               onTap: logic.register,
             ),
             10.verticalSpace,
             Button(
               text: logic.phoneRegister
-                  ? StrRes.useEmailRegister
-                  : StrRes.usePhoneRegister,
+                  ? StrLibrary.useEmailRegister
+                  : StrLibrary.usePhoneRegister,
               enabledColor: Styles.c_D9DCE3_opacity40,
               textStyle: Styles.ts_8443F8_16sp,
               onTap: logic.switchType,

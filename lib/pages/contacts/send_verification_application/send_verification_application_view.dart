@@ -16,9 +16,9 @@ class SendVerificationApplicationPage extends StatelessWidget {
       child: Scaffold(
         appBar: TitleBar.back(
           title: logic.isEnterGroup
-              ? StrRes.groupVerification
-              : StrRes.friendVerification,
-          right: StrRes.send.toText
+              ? StrLibrary.groupVerification
+              : StrLibrary.friendVerification,
+          right: StrLibrary.send.toText
             ..style = Styles.ts_333333_17sp
             ..onTap = logic.send,
         ),
@@ -30,8 +30,8 @@ class SendVerificationApplicationPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 16.w),
                 child: (logic.isEnterGroup
-                        ? StrRes.sendEnterGroupApplication
-                        : StrRes.sendToBeFriendApplication)
+                        ? StrLibrary.sendEnterGroupApplication
+                        : StrLibrary.sendToBeFriendApplication)
                     .toText
                   ..style = Styles.ts_999999_14sp,
               ),

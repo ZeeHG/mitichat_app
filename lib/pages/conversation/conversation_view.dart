@@ -145,7 +145,8 @@ class ConversationPage extends StatelessWidget {
               flex: logic.isPinned(info) ? 3 : 2,
               backgroundColor: Styles.c_8443F8,
               child:
-                  (logic.isPinned(info) ? StrRes.cancelTop : StrRes.top).toText
+                  (logic.isPinned(info) ? StrLibrary.cancelTop : StrLibrary.top)
+                      .toText
                     ..style = Styles.ts_FFFFFF_16sp,
             ),
             if (logic.existUnreadMsg(info))
@@ -153,13 +154,14 @@ class ConversationPage extends StatelessWidget {
                 onPressed: (_) => logic.markMessageHasRead(info),
                 flex: 3,
                 backgroundColor: Styles.c_999999,
-                child: StrRes.markHasRead.toText..style = Styles.ts_FFFFFF_16sp,
+                child: StrLibrary.markHasRead.toText
+                  ..style = Styles.ts_FFFFFF_16sp,
               ),
             CustomSlidableAction(
               onPressed: (_) => logic.deleteConversation(info),
               flex: 2,
               backgroundColor: Styles.c_FF4E4C,
-              child: StrRes.delete.toText..style = Styles.ts_FFFFFF_16sp,
+              child: StrLibrary.delete.toText..style = Styles.ts_FFFFFF_16sp,
             ),
           ],
         ),
@@ -230,12 +232,11 @@ class ConversationPage extends StatelessWidget {
                                     ..maxLines = 1
                                     ..overflow = TextOverflow.ellipsis,
                                 ),
-                                if(aiUtil.isAi(info.userID))
-                                ...[
+                                if (aiUtil.isAi(info.userID)) ...[
                                   9.horizontalSpace,
                                   ImageRes.appAiMarker.toImage
-                                  ..width = 18.w
-                                  ..height = 16.h,
+                                    ..width = 18.w
+                                    ..height = 16.h,
                                 ],
                                 const Spacer(),
                                 logic.getTime(info).toText
@@ -255,7 +256,8 @@ class ConversationPage extends StatelessWidget {
                                       if (logic.isNotDisturb(info) &&
                                           logic.getUnreadCount(info) > 0)
                                         TextSpan(
-                                          text: '[${sprintf(StrRes.nPieces, [
+                                          text:
+                                              '[${sprintf(StrLibrary.nPieces, [
                                                 logic.getUnreadCount(info)
                                               ])}] ',
                                           style: Styles.ts_999999_14sp,
@@ -310,7 +312,7 @@ class ConversationPage extends StatelessWidget {
             ),
           ),
         ),
-      )) ;
+      ));
 
   Widget _buildCusPopMenuInfo(
           {required AccountLoginInfo info, showBorder = true}) =>

@@ -75,7 +75,7 @@ class SelectContactsFromSearchGroupPage extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        sprintf(StrRes.nPerson, [info.memberCount]).toText
+                        sprintf(StrLibrary.nPerson, [info.memberCount]).toText
                           ..style = Styles.ts_999999_14sp,
                       ],
                     ),
@@ -99,7 +99,7 @@ class SelectContactsFromSearchGroupPage extends StatelessWidget {
             //   ..height = 120.h,
             // 22.verticalSpace,
             44.verticalSpace,
-            StrRes.searchNotFound.toText..style = Styles.ts_999999_17sp,
+            StrLibrary.searchNotFound.toText..style = Styles.ts_999999_17sp,
           ],
         ),
       );

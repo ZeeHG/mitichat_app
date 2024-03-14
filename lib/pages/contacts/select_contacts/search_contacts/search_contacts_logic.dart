@@ -18,8 +18,8 @@ class SelectContactsFromSearchLogic extends CommonSearchLogic {
   }
 
   void search() async {
-    final result = await LoadingView.singleton.wrap(
-        asyncFunction: () => Future.wait([
+    final result = await LoadingView.singleton.start(
+        fn: () => Future.wait([
               searchFriend(),
               // if (!selectContactsLogic.hiddenOrganization) searchDeptMember(),
               if (!selectContactsLogic.hiddenGroup) searchGroup(),

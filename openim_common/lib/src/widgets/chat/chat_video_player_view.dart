@@ -159,8 +159,8 @@ class _ChatVideoPlayerViewState extends State<ChatVideoPlayerView>
           iconColor: Colors.white),
       // hideControlsTimer: const Duration(seconds: 1),
       optionsTranslation: OptionsTranslation(
-        playbackSpeedButtonText: StrRes.playSpeed,
-        cancelButtonText: StrRes.cancel,
+        playbackSpeedButtonText: StrLibrary.playSpeed,
+        cancelButtonText: StrLibrary.cancel,
       ),
       additionalOptions: (context) => [
         OptionItem(
@@ -169,7 +169,7 @@ class _ChatVideoPlayerViewState extends State<ChatVideoPlayerView>
             Get.back();
           },
           iconData: Icons.download_outlined,
-          title: StrRes.download,
+          title: StrLibrary.download,
         ),
       ],
     );

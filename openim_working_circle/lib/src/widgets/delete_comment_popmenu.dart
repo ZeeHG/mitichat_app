@@ -60,7 +60,7 @@ class _DeleteCommentPopMenuState extends State<DeleteCommentPopMenu> {
             ],
           ),
           child: Text(
-            StrRes.delete,
+            StrLibrary.delete,
             style: Styles.ts_FFFFFF_12sp,
           ),
         ),

@@ -31,37 +31,37 @@ class LiveButton extends StatelessWidget {
     super.key,
     this.onTap,
     bool on = true,
-  })  : text = StrRes.microphone,
+  })  : text = StrLibrary.microphone,
         icon = on ? ImageRes.liveMicOn : ImageRes.liveMicOff;
 
   LiveButton.speaker({
     super.key,
     this.onTap,
     bool on = true,
-  })  : text = StrRes.speaker,
+  })  : text = StrLibrary.speaker,
         icon = on ? ImageRes.liveSpeakerOn : ImageRes.liveSpeakerOff;
 
   LiveButton.hungUp({
     super.key,
     this.onTap,
-  })  : text = StrRes.hangUp,
+  })  : text = StrLibrary.hangUp,
         icon = ImageRes.liveHangUp;
 
   LiveButton.reject({
     super.key,
     this.onTap,
-  })  : text = StrRes.reject,
+  })  : text = StrLibrary.reject,
         icon = ImageRes.liveHangUp;
 
   LiveButton.cancel({
     super.key,
     this.onTap,
-  })  : text = StrRes.cancel,
+  })  : text = StrLibrary.cancel,
         icon = ImageRes.liveHangUp;
 
   LiveButton.pickUp({
     super.key,
     this.onTap,
-  })  : text = StrRes.pickUp,
+  })  : text = StrLibrary.pickUp,
         icon = ImageRes.livePicUp;
 }

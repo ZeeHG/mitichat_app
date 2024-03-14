@@ -127,37 +127,37 @@ class _MenuItemView extends StatelessWidget {
 final allMenus = <MenuInfo>[
   MenuInfo(
     icon: ImageRes.menuCopy,
-    text: StrRes.menuCopy,
+    text: StrLibrary.menuCopy,
     onTap: () {},
   ),
   MenuInfo(
     icon: ImageRes.menuDel,
-    text: StrRes.menuDel,
+    text: StrLibrary.menuDel,
     onTap: () {},
   ),
   MenuInfo(
     icon: ImageRes.menuForward,
-    text: StrRes.menuForward,
+    text: StrLibrary.menuForward,
     onTap: () {},
   ),
   MenuInfo(
     icon: ImageRes.menuReply,
-    text: StrRes.menuReply,
+    text: StrLibrary.menuReply,
     onTap: () {},
   ),
   MenuInfo(
     icon: ImageRes.menuMulti,
-    text: StrRes.menuMulti,
+    text: StrLibrary.menuMulti,
     onTap: () {},
   ),
   MenuInfo(
     icon: ImageRes.menuRevoke,
-    text: StrRes.menuRevoke,
+    text: StrLibrary.menuRevoke,
     onTap: () {},
   ),
   MenuInfo(
     icon: ImageRes.menuAddFace,
-    text: StrRes.menuAdd,
+    text: StrLibrary.menuAdd,
     onTap: () {},
   ),
 ];

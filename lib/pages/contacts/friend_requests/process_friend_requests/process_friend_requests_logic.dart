@@ -14,31 +14,31 @@ class ProcessFriendRequestsLogic extends GetxController {
   /// 接受好友申请
   void acceptFriendApplication() async {
     LoadingView.singleton
-        .wrap(
-            asyncFunction: () => OpenIM.iMManager.friendshipManager
+        .start(
+            fn: () => OpenIM.iMManager.friendshipManager
                 .acceptFriendApplication(userID: applicationInfo.fromUserID!))
         .then(_addSuccessfully)
-        .catchError((_) => IMViews.showToast(StrRes.addFailed));
+        .catchError((_) => IMViews.showToast(StrLibrary.addFailed));
   }
 
   /// 拒绝好友申请
   void refuseFriendApplication() async {
     LoadingView.singleton
-        .wrap(
-            asyncFunction: () => OpenIM.iMManager.friendshipManager
+        .start(
+            fn: () => OpenIM.iMManager.friendshipManager
                 .refuseFriendApplication(userID: applicationInfo.fromUserID!))
         .then(_rejectSuccessfully)
-        .catchError((_) => IMViews.showToast(StrRes.rejectFailed));
+        .catchError((_) => IMViews.showToast(StrLibrary.rejectFailed));
   }
 
   _addSuccessfully(_) {
-    IMViews.showToast(StrRes.addSuccessfully);
+    IMViews.showToast(StrLibrary.addSuccessfully);
     Get.back(result: 1);
     return _;
   }
 
   _rejectSuccessfully(_) {
-    IMViews.showToast(StrRes.rejectSuccessfully);
+    IMViews.showToast(StrLibrary.rejectSuccessfully);
     Get.back(result: -1);
     return _;
   }

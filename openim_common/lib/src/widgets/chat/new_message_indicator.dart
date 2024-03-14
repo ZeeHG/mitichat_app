@@ -41,7 +41,7 @@ class NewMessageIndicator extends StatelessWidget {
                 ..width = 16.w
                 ..height = 16.h,
               4.horizontalSpace,
-              sprintf(StrRes.nMessage, [newMessageCount]).toText
+              sprintf(StrLibrary.nMessage, [newMessageCount]).toText
                 ..style = Styles.ts_8443F8_12sp,
             ],
           ),

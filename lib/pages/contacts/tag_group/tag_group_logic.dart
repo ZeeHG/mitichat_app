@@ -35,11 +35,11 @@ class TagGroupLogic extends GetxController {
 
   void delete(TagInfo tagInfo) async {
     final result = await Get.dialog(
-      CustomDialog(title: StrRes.confirmDelTagGroupHint),
+      CustomDialog(title: StrLibrary.confirmDelTagGroupHint),
     );
     if (result == true) {
-      await LoadingView.singleton.wrap(
-        asyncFunction: () => Apis.deleteTag(tagID: tagInfo.tagID!),
+      await LoadingView.singleton.start(
+        fn: () => Apis.deleteTag(tagID: tagInfo.tagID!),
       );
       tagGroups.remove(tagInfo);
     }

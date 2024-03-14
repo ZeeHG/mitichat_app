@@ -100,7 +100,8 @@ class SearchChatHistoryPage extends StatelessWidget {
   Widget get _defaultView => Column(
         children: [
           52.verticalSpace,
-          StrRes.quicklyFindChatHistory.toText..style = Styles.ts_B3B3B3_12sp,
+          StrLibrary.quicklyFindChatHistory.toText
+            ..style = Styles.ts_B3B3B3_12sp,
           16.verticalSpace,
           Container(
             alignment: Alignment.center,
@@ -135,7 +136,8 @@ class SearchChatHistoryPage extends StatelessWidget {
               ..width = 125.w
               ..height = 76.h,
             22.verticalSpace,
-            sprintf(StrRes.notFoundChatHistory, [logic.searchKey.value]).toText
+            sprintf(StrLibrary.notFoundChatHistory, [logic.searchKey.value])
+                .toText
               ..style = Styles.ts_999999_16sp,
           ],
         ),
@@ -147,8 +149,8 @@ class SearchChatHistoryPage extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: "${logic.items[index]}".toText
-          ..style = Styles.ts_9280B3_16sp
-          ..onTap = () => logic.clickItem(logic.items[index]!),
+        ..style = Styles.ts_9280B3_16sp
+        ..onTap = () => logic.clickItem(logic.items[index]!),
     );
   }
 }

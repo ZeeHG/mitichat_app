@@ -54,8 +54,8 @@ class CreateTagGroupLogic extends GetxController {
   }
 
   void completeCreation() async {
-    await LoadingView.singleton.wrap(
-      asyncFunction: () async {
+    await LoadingView.singleton.start(
+      fn: () async {
         final increaseUserIDList = <String>[];
         final reduceUserIDList = <String>[];
         if (isEdit) {

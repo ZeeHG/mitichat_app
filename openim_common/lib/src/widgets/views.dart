@@ -69,14 +69,14 @@ class IMViews {
       BottomSheetView(
         items: [
           SheetItem(
-            label: StrRes.callVideo,
+            label: StrLibrary.callVideo,
             icon: ImageRes.callVideo2.toImage
               ..width = 24.w
               ..height = 15.h,
             onTap: () => onTapSheetItem.call(1),
           ),
           SheetItem(
-            label: StrRes.callVoice,
+            label: StrLibrary.callVoice,
             icon: ImageRes.callVoice2.toImage
               ..width = 20.w
               ..height = 21.h,
@@ -88,22 +88,19 @@ class IMViews {
   }
 
   static openXhsDetailMoreSheet(
-    {
-      required Function(String action) onTapSheetItem,
-      bool showDelete = false
-    }
-  ) {
+      {required Function(String action) onTapSheetItem,
+      bool showDelete = false}) {
     return Get.bottomSheet(
       barrierColor: Styles.c_191919_opacity50,
       BottomSheetView(
         items: [
-          if(showDelete)
+          if (showDelete)
+            SheetItem(
+              label: StrLibrary.delete,
+              onTap: () => onTapSheetItem.call('delete'),
+            ),
           SheetItem(
-            label: StrRes.delete,
-            onTap: () => onTapSheetItem.call('delete'),
-          ),
-          SheetItem(
-            label: StrRes.complaint2,
+            label: StrLibrary.complaint2,
             textStyle: Styles.ts_FC4D4D_16sp,
             onTap: () => onTapSheetItem.call('complaint'),
           ),
@@ -121,14 +118,14 @@ class IMViews {
       BottomSheetView(
         items: [
           SheetItem(
-            label: StrRes.callVideo,
+            label: StrLibrary.callVideo,
             icon: ImageRes.callVideo2.toImage
               ..width = 24.w
               ..height = 15.h,
             onTap: () => onTapSheetItem.call(1),
           ),
           SheetItem(
-            label: StrRes.callVoice,
+            label: StrLibrary.callVoice,
             icon: ImageRes.callVoice2.toImage
               ..width = 20.w
               ..height = 21.h,
@@ -155,7 +152,7 @@ class IMViews {
           ...items,
           if (fromGallery)
             SheetItem(
-              label: StrRes.toolboxAlbum,
+              label: StrLibrary.toolboxAlbum,
               onTap: () {
                 Permissions.storage(
                     permissions: [Permission.photos, Permission.videos],
@@ -173,7 +170,7 @@ class IMViews {
             ),
           if (fromCamera)
             SheetItem(
-              label: StrRes.toolboxCamera,
+              label: StrLibrary.toolboxCamera,
               onTap: () {
                 Permissions.camera(() async {
                   final XFile? image = await _picker.pickImage(
@@ -213,7 +210,7 @@ class IMViews {
       dynamic result;
       if (null != cropFile) {
         Logger.print('-----------crop path: ${cropFile.path}');
-        result = await LoadingView.singleton.wrap(asyncFunction: () async {
+        result = await LoadingView.singleton.start(fn: () async {
           final image = await IMUtils.compressImageAndGetFile(
               File(cropFile!.path),
               quality: quality);
@@ -226,7 +223,7 @@ class IMViews {
         });
       } else {
         Logger.print('-----------source path: $path');
-        result = await LoadingView.singleton.wrap(asyncFunction: () async {
+        result = await LoadingView.singleton.start(fn: () async {
           final image = await IMUtils.compressImageAndGetFile(File(path),
               quality: quality);
 
@@ -253,7 +250,7 @@ class IMViews {
       BottomSheetView(
         items: [
           SheetItem(
-            label: StrRes.download,
+            label: StrLibrary.download,
             onTap: () {
               onDownload?.call();
             },
@@ -348,7 +345,7 @@ class IMViews {
         ),
         //Optional. Styles the search field.
         inputDecoration: InputDecoration(
-          labelText: StrRes.search,
+          labelText: StrLibrary.search,
           // hintText: 'Start typing to search',
           prefixIcon: const Icon(Icons.search),
           border: OutlineInputBorder(
@@ -374,31 +371,30 @@ class IMViews {
     Function(List<int> indexList, List valueList)? onConfirm,
   }) async {
     final picker = Picker(
-      adapter: PickerDataAdapter<String>(
-        pickerData: pickerData,
-        isArray: isArray,
-      ),
-      changeToFirst: true,
-      hideHeader: true,
-      containerColor: Styles.c_FFFFFF,
-      textStyle: Styles.ts_333333_17sp,
-      selectedTextStyle: Styles.ts_333333_17sp,
-      itemExtent: 45.h,
-      cancelTextStyle: Styles.ts_333333_17sp,
-      confirmTextStyle: Styles.ts_8443F8_17sp,
-      cancelText: StrRes.cancel,
-      confirmText: StrRes.confirm,
-      selecteds: selected,
-      selectionOverlay: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          border: BorderDirectional(
-            bottom: BorderSide(color: Styles.c_E8EAEF, width: 1),
-            top: BorderSide(color: Styles.c_E8EAEF, width: 1),
-          ),
+        adapter: PickerDataAdapter<String>(
+          pickerData: pickerData,
+          isArray: isArray,
         ),
-      )
-    ).getInstance();
+        changeToFirst: true,
+        hideHeader: true,
+        containerColor: Styles.c_FFFFFF,
+        textStyle: Styles.ts_333333_17sp,
+        selectedTextStyle: Styles.ts_333333_17sp,
+        itemExtent: 45.h,
+        cancelTextStyle: Styles.ts_333333_17sp,
+        confirmTextStyle: Styles.ts_8443F8_17sp,
+        cancelText: StrLibrary.cancel,
+        confirmText: StrLibrary.confirm,
+        selecteds: selected,
+        selectionOverlay: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            border: BorderDirectional(
+              bottom: BorderSide(color: Styles.c_E8EAEF, width: 1),
+              top: BorderSide(color: Styles.c_E8EAEF, width: 1),
+            ),
+          ),
+        )).getInstance();
 
     final confirm = await Get.dialog(CustomDialog(
       body: Padding(
@@ -432,7 +428,7 @@ class IMViews {
             ],
           )),
     ));
-    if(confirm){
+    if (confirm) {
       onConfirm?.call(picker.selecteds, picker.getSelectedValues());
     }
   }

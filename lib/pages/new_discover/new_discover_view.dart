@@ -28,7 +28,7 @@ class NewDiscoverPage extends StatelessWidget {
               child: Center(
                 child: CustomTabBar(
                   width: 102.w,
-                  labels: [StrRes.follow, StrRes.discover],
+                  labels: [StrLibrary.follow, StrLibrary.discover],
                   index: logic.index.value,
                   onTabChanged: (i) => logic.switchTab(i),
                   showUnderline: false,

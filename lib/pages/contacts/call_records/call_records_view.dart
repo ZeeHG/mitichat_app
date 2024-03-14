@@ -13,12 +13,12 @@ class CallRecordsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.callRecords),
+      appBar: TitleBar.back(title: StrLibrary.callRecords),
       backgroundColor: Styles.c_FFFFFF,
       body: Obx(() => Column(
             children: [
               CustomTabBar(
-                labels: [StrRes.allCall, StrRes.missedCall],
+                labels: [StrLibrary.allCall, StrLibrary.missedCall],
                 index: logic.index.value,
                 onTabChanged: (i) => logic.switchTab(i),
                 showUnderline: true,
@@ -80,7 +80,7 @@ class CallRecordsPage extends StatelessWidget {
                         ..style = (records.success
                             ? Styles.ts_333333_17sp
                             : Styles.ts_FF4E4C_17sp),
-                      '[${records.type == 'video' ? StrRes.callVideo : StrRes.callVoice}]${IMUtils.getChatTimeline(records.date)}'
+                      '[${records.type == 'video' ? StrLibrary.callVideo : StrLibrary.callVoice}]${IMUtils.getChatTimeline(records.date)}'
                           .toText
                         ..style = (records.success
                             ? Styles.ts_333333_14sp
@@ -91,8 +91,8 @@ class CallRecordsPage extends StatelessWidget {
                 (records.success
                         ? IMUtils.seconds2HMS(records.duration)
                         : (records.incomingCall
-                            ? StrRes.incomingCall
-                            : StrRes.outgoingCall))
+                            ? StrLibrary.incomingCall
+                            : StrLibrary.outgoingCall))
                     .toText
                   ..style = (records.success
                       ? Styles.ts_333333_14sp

@@ -53,8 +53,8 @@ class RegisterLogic extends GetxController {
 
   @override
   void onInit() {
-    LoadingView.singleton.wrap(
-      asyncFunction: () async {
+    LoadingView.singleton.start(
+      fn: () async {
         await appLogic.queryClientConfig();
       },
     );
@@ -98,30 +98,30 @@ class RegisterLogic extends GetxController {
 
   bool _checkingInput() {
     if (phoneRegister && !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-      IMViews.showToast(StrRes.plsEnterRightPhone);
+      IMViews.showToast(StrLibrary.plsEnterRightPhone);
       return false;
     }
     if (!phoneRegister && !IMUtils.isEmail(emailCtrl.text)) {
-      IMViews.showToast(StrRes.plsEnterRightEmail);
+      IMViews.showToast(StrLibrary.plsEnterRightEmail);
       return false;
     }
     if (verificationCodeCtrl.text.trim().isEmpty) {
-      IMViews.showToast(StrRes.plsEnterVerificationCode);
+      IMViews.showToast(StrLibrary.plsEnterVerificationCode);
       return false;
     }
     if (nicknameCtrl.text.trim().isEmpty) {
-      IMViews.showToast(StrRes.plsEnterYourNickname);
+      IMViews.showToast(StrLibrary.plsEnterYourNickname);
       return false;
     }
     if (!IMUtils.isValidPassword(pwdCtrl.text)) {
-      IMViews.showToast(StrRes.wrongPasswordFormat);
+      IMViews.showToast(StrLibrary.wrongPasswordFormat);
       return false;
     } else if (pwdCtrl.text != pwdAgainCtrl.text) {
-      IMViews.showToast(StrRes.twicePwdNoSame);
+      IMViews.showToast(StrLibrary.twicePwdNoSame);
       return false;
     }
     if (needInvitationCodeRegister && invitationCodeCtrl.text.trim().isEmpty) {
-      IMViews.showToast(StrRes.plsEnterInvitationCode2);
+      IMViews.showToast(StrLibrary.plsEnterInvitationCode2);
       return false;
     }
     return true;
@@ -147,31 +147,31 @@ class RegisterLogic extends GetxController {
 
   Future<bool> getVerificationCode() async {
     if (needInvitationCodeRegister && invitationCodeCtrl.text.trim().isEmpty) {
-      IMViews.showToast(StrRes.plsEnterInvitationCode2);
+      IMViews.showToast(StrLibrary.plsEnterInvitationCode2);
       return false;
     }
     if (phoneRegister) {
       if (phone?.isEmpty == true) {
-        IMViews.showToast(StrRes.plsEnterPhoneNumber);
+        IMViews.showToast(StrLibrary.plsEnterPhoneNumber);
         return false;
       }
       if (phone?.isNotEmpty == true &&
           !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-        IMViews.showToast(StrRes.plsEnterRightPhone);
+        IMViews.showToast(StrLibrary.plsEnterRightPhone);
         return false;
       }
     } else {
       if (email?.isEmpty == true) {
-        IMViews.showToast(StrRes.plsEnterEmail);
+        IMViews.showToast(StrLibrary.plsEnterEmail);
         return false;
       }
       if (email?.isNotEmpty == true && !email!.isEmail) {
-        IMViews.showToast(StrRes.plsEnterRightEmail);
+        IMViews.showToast(StrLibrary.plsEnterRightEmail);
         return false;
       }
     }
-    return await LoadingView.singleton.wrap(
-      asyncFunction: () => requestVerificationCode(),
+    return await LoadingView.singleton.start(
+      fn: () => requestVerificationCode(),
     );
   }
 
@@ -193,17 +193,17 @@ class RegisterLogic extends GetxController {
   void next() async {
     if (loginController.operateType == LoginType.phone &&
         !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-      IMViews.showToast(StrRes.plsEnterRightPhone);
+      IMViews.showToast(StrLibrary.plsEnterRightPhone);
       return;
     }
 
     if (loginController.operateType == LoginType.email &&
         !phoneCtrl.text.isEmail) {
-      IMViews.showToast(StrRes.plsEnterRightEmail);
+      IMViews.showToast(StrLibrary.plsEnterRightEmail);
       return;
     }
-    final success = await LoadingView.singleton.wrap(
-      asyncFunction: () => requestVerificationCode(),
+    final success = await LoadingView.singleton.start(
+      fn: () => requestVerificationCode(),
     );
     if (success) {
       AppNavigator.startVerifyPhone(
@@ -218,7 +218,7 @@ class RegisterLogic extends GetxController {
 
   void register() async {
     if (_checkingInput()) {
-      await LoadingView.singleton.wrap(asyncFunction: () async {
+      await LoadingView.singleton.start(fn: () async {
         if (!isAddAccount.value) {
           final data = await Apis.register(
             nickname: nickname,

@@ -48,16 +48,16 @@ class BottomSheetView extends StatelessWidget {
             height: 6.h,
           ),
           _itemBgView(
-            label: StrRes.cancel,
+            label: StrLibrary.cancel,
             onTap: isOverlaySheet ? onCancel : () => Get.back(),
             // borderRadius: BorderRadius.circular(6.r),
             alignment: MainAxisAlignment.center,
           ),
           if (Platform.isIOS)
-          Container(
-            color: Styles.c_F7F8FA,
-            height: MediaQuery.of(context).padding.bottom,
-          )
+            Container(
+              color: Styles.c_F7F8FA,
+              height: MediaQuery.of(context).padding.bottom,
+            )
           // 10.verticalSpace,
         ],
       ),

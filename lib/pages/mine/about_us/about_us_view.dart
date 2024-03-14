@@ -30,7 +30,7 @@ class AboutUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-          appBar: TitleBar.back(title: StrRes.aboutUs),
+          appBar: TitleBar.back(title: StrLibrary.aboutUs),
           backgroundColor: Styles.c_F8F9FA,
           body: SingleChildScrollView(
               child: Column(
@@ -68,7 +68,7 @@ class AboutUsPage extends StatelessWidget {
                       //     padding: EdgeInsets.symmetric(horizontal: 16.w),
                       //     child: Row(
                       //       children: [
-                      //         StrRes.checkNewVersion.toText
+                      //         StrLibrary .checkNewVersion.toText
                       //           ..style = Styles.ts_333333_16sp,
                       //         const Spacer(),
                       //         ImageRes.appRightArrow.toImage
@@ -86,7 +86,7 @@ class AboutUsPage extends StatelessWidget {
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
                           child: Row(
                             children: [
-                              StrRes.uploadImLog.toText
+                              StrLibrary.uploadImLog.toText
                                 ..style = Styles.ts_333333_16sp,
                               const Spacer(),
                               ImageRes.appRightArrow.toImage
@@ -106,7 +106,7 @@ class AboutUsPage extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                                 child: Row(
                                   children: [
-                                    (StrRes.uploadImLogByDate).toText
+                                    (StrLibrary.uploadImLogByDate).toText
                                       ..style = Styles.ts_333333_16sp,
                                     const Spacer(),
                                     ImageRes.appRightArrow.toImage
@@ -124,7 +124,7 @@ class AboutUsPage extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                                 child: Row(
                                   children: [
-                                    StrRes.uploadAppLog.toText
+                                    StrLibrary.uploadAppLog.toText
                                       ..style = Styles.ts_333333_16sp,
                                     const Spacer(),
                                     ImageRes.appRightArrow.toImage
@@ -142,7 +142,7 @@ class AboutUsPage extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                                 child: Row(
                                   children: [
-                                    StrRes.uploadAppLogByDate.toText
+                                    StrLibrary.uploadAppLogByDate.toText
                                       ..style = Styles.ts_333333_16sp,
                                     const Spacer(),
                                     ImageRes.appRightArrow.toImage

@@ -38,8 +38,8 @@ class EditGroupAnnouncementLogic extends GetxController {
   }
 
   void _queryGroupInfo() async {
-    var list = await LoadingView.singleton.wrap(
-      asyncFunction: () => OpenIM.iMManager.groupManager.getGroupsInfo(
+    var list = await LoadingView.singleton.start(
+      fn: () => OpenIM.iMManager.groupManager.getGroupsInfo(
         groupIDList: [groupInfo.value.groupID],
       ),
     );
@@ -70,7 +70,10 @@ class EditGroupAnnouncementLogic extends GetxController {
     bool isSelf = ntfUpdateUserID == OpenIM.iMManager.userID;
     final list = await OpenIM.iMManager.groupManager.getGroupMembersInfo(
       groupID: groupInfo.value.groupID,
-      userIDList: [if (null != ntfUpdateUserID) ntfUpdateUserID!, if (!isSelf) OpenIM.iMManager.userID],
+      userIDList: [
+        if (null != ntfUpdateUserID) ntfUpdateUserID!,
+        if (!isSelf) OpenIM.iMManager.userID
+      ],
     );
     final user = list.firstWhereOrNull((e) => e.userID == ntfUpdateUserID);
     if (null != user) {
@@ -79,19 +82,23 @@ class EditGroupAnnouncementLogic extends GetxController {
         val?.faceURL = user.faceURL;
       });
     }
-    final me = list.firstWhereOrNull((e) => e.userID == OpenIM.iMManager.userID);
-    hasEditPermissions.value = me?.roleLevel == GroupRoleLevel.admin || me?.roleLevel == GroupRoleLevel.owner;
+    final me =
+        list.firstWhereOrNull((e) => e.userID == OpenIM.iMManager.userID);
+    hasEditPermissions.value = me?.roleLevel == GroupRoleLevel.admin ||
+        me?.roleLevel == GroupRoleLevel.owner;
   }
 
   editing() {
     onlyRead.value = false;
-    Future.delayed(const Duration(milliseconds: 20), () => focusNode.requestFocus());
+    Future.delayed(
+        const Duration(milliseconds: 20), () => focusNode.requestFocus());
   }
 
   void publish() async {
-    await LoadingView.singleton.wrap(
-      asyncFunction: () =>
-          OpenIM.iMManager.groupManager.setGroupInfo(GroupInfo(groupID: groupInfo.value.groupID, notification: inputCtrl.text.trim())),
+    await LoadingView.singleton.start(
+      fn: () => OpenIM.iMManager.groupManager.setGroupInfo(GroupInfo(
+          groupID: groupInfo.value.groupID,
+          notification: inputCtrl.text.trim())),
     );
     groupInfo.update((val) {
       val?.notification = inputCtrl.text.trim();

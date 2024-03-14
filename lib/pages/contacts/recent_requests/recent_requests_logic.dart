@@ -42,7 +42,7 @@ class RecentRequestsLogic extends GetxController {
   }
 
   getData() async {
-    await LoadingView.singleton.wrap(asyncFunction: () async {
+    await LoadingView.singleton.start(fn: () async {
       await Future.wait(
           [getFriendRequestsList(), getApplicationList(), getJoinedGroup()]);
 
@@ -64,7 +64,6 @@ class RecentRequestsLogic extends GetxController {
       }
       return 0;
     });
-
   }
 
   /// 获取好友申请列表
@@ -118,7 +117,7 @@ class RecentRequestsLogic extends GetxController {
   }
 
   Future<void> getApplicationList() async {
-    final list = await LoadingView.singleton.wrap(asyncFunction: () async {
+    final list = await LoadingView.singleton.start(fn: () async {
       final list = await Future.wait([
         OpenIM.iMManager.groupManager.getGroupApplicationListAsRecipient(),
         OpenIM.iMManager.groupManager.getGroupApplicationListAsApplicant(),

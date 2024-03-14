@@ -194,7 +194,7 @@ class HttpUtil {
           intervalDo.drop(
               fun: () async {
                 await ImageGallerySaver.saveFile(cachePath);
-                IMViews.showToast("${StrRes.saveSuccessfully}",
+                IMViews.showToast("${StrLibrary.saveSuccessfully}",
                     duration: const Duration(milliseconds: 3000));
               },
               milliseconds: 1500);
@@ -202,10 +202,10 @@ class HttpUtil {
         if (count == total) {
           final result = await ImageGallerySaver.saveFile(cachePath);
           if (result != null) {
-            var tips = StrRes.saveSuccessfully;
+            var tips = StrLibrary.saveSuccessfully;
             if (Platform.isAndroid) {
               final filePath = result['filePath'].split('//').last;
-              tips = '${StrRes.saveSuccessfully}';
+              tips = '${StrLibrary.saveSuccessfully}';
             }
             IMViews.showToast(tips);
           }
@@ -221,10 +221,10 @@ class HttpUtil {
       var result =
           await ImageGallerySaver.saveImage(Uint8List.fromList(uint8list));
       if (result != null) {
-        var tips = StrRes.saveSuccessfully;
+        var tips = StrLibrary.saveSuccessfully;
         if (Platform.isAndroid) {
           final filePath = result['filePath'].split('//').last;
-          tips = '${StrRes.saveSuccessfully}';
+          tips = '${StrLibrary.saveSuccessfully}';
         }
         IMViews.showToast(tips);
       }
@@ -246,10 +246,10 @@ class HttpUtil {
         if (count == total) {
           final result = await ImageGallerySaver.saveFile(cachePath);
           if (result != null) {
-            var tips = StrRes.saveSuccessfully;
+            var tips = StrLibrary.saveSuccessfully;
             if (Platform.isAndroid) {
               final filePath = result['filePath'].split('//').last;
-              tips = '${StrRes.saveSuccessfully}';
+              tips = '${StrLibrary.saveSuccessfully}';
             }
             IMViews.showToast(tips);
           }
@@ -261,10 +261,10 @@ class HttpUtil {
   static void saveFileToGallerySaver(File file) async {
     final result = await ImageGallerySaver.saveFile(file.path);
     if (result != null) {
-      var tips = StrRes.saveSuccessfully;
+      var tips = StrLibrary.saveSuccessfully;
       if (Platform.isAndroid) {
         final filePath = result['filePath'].split('//').last;
-        tips = '${StrRes.saveSuccessfully}';
+        tips = '${StrLibrary.saveSuccessfully}';
       }
       IMViews.showToast(tips);
     }

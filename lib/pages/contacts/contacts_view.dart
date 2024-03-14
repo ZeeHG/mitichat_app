@@ -43,13 +43,13 @@ class ContactsPage extends StatelessWidget {
             //     children: [
             //       _buildItemView(
             //         assetsName: ImageRes.appNewFriend,
-            //         label: StrRes.newFriend,
+            //         label: StrLibrary .newFriend,
             //         count: logic.friendApplicationCount,
             //         onTap: logic.newFriend,
             //       ),
             //       _buildItemView(
             //         assetsName: ImageRes.appNewGroup,
-            //         label: StrRes.newGroupRequest,
+            //         label: StrLibrary .newGroupRequest,
             //         count: logic.groupApplicationCount,
             //         onTap: logic.newGroup,
             //       ),
@@ -59,22 +59,22 @@ class ContactsPage extends StatelessWidget {
             //       ),
             //       _buildItemView(
             //         assetsName: ImageRes.appMyFriend,
-            //         label: StrRes.myFriend,
+            //         label: StrLibrary .myFriend,
             //         onTap: logic.myFriend,
             //       ),
             //       _buildItemView(
             //         assetsName: ImageRes.appMyGroup,
-            //         label: StrRes.myGroup,
+            //         label: StrLibrary .myGroup,
             //         onTap: logic.myGroup,
             //       ),
             //       // _buildItemView(
             //       //   assetsName: ImageRes.appTagGroup,
-            //       //   label: StrRes.tagGroup,
+            //       //   label: StrLibrary .tagGroup,
             //       //   onTap: logic.tagGroup,
             //       // ),
             //       // _buildItemView(
             //       //   assetsName: ImageRes.appIssueNotice,
-            //       //   label: StrRes.issueNotice,
+            //       //   label: StrLibrary .issueNotice,
             //       //   onTap: logic.notificationIssued,
             //       // ),
             //       // Container(
@@ -83,7 +83,7 @@ class ContactsPage extends StatelessWidget {
             //       // ),
             //       // _buildItemView(
             //       //   assetsName: ImageRes.appBot,
-            //       //   label: StrRes.createBot,
+            //       //   label: StrLibrary .createBot,
             //       //   onTap: logic.createBot,
             //       // ),
             //     ],
@@ -115,7 +115,10 @@ class ContactsPage extends StatelessWidget {
                                     shadowColor: logic.menus[index]
                                         ["shadowColor"],
                                     onTap: logic.menus[index]["onTap"],
-                                    badge: logic.menus[index]["key"] == "newRecent"? homeLogic.unhandledCount.value : null),
+                                    badge:
+                                        logic.menus[index]["key"] == "newRecent"
+                                            ? homeLogic.unhandledCount.value
+                                            : null),
                                 8.horizontalSpace
                               ],
                             )),

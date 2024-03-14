@@ -60,8 +60,8 @@ class SearchGroupMemberLogic extends GetxController {
   }
 
   Future<List<GroupMembersInfo>> _request(int offset) =>
-      LoadingView.singleton.wrap(
-        asyncFunction: () => OpenIM.iMManager.groupManager.searchGroupMembers(
+      LoadingView.singleton.start(
+        fn: () => OpenIM.iMManager.groupManager.searchGroupMembers(
           groupID: groupInfo.groupID,
           isSearchMemberNickname: true,
           isSearchUserID: true,
@@ -124,7 +124,8 @@ class SearchGroupMemberLogic extends GetxController {
 
   static _transferGroupRight(GroupMembersInfo membersInfo) async {
     var confirm = await Get.dialog(CustomDialog(
-      title: sprintf(StrRes.confirmTransferGroupToUser, [membersInfo.nickname]),
+      title: sprintf(
+          StrLibrary.confirmTransferGroupToUser, [membersInfo.nickname]),
     ));
     if (confirm == true) {
       Get.back(result: membersInfo);

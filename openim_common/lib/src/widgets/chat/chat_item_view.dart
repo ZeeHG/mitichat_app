@@ -534,7 +534,7 @@ class _ChatItemViewState extends State<ChatItemView> {
         behavior: HitTestBehavior.translucent,
         onTap: widget.onClickItemView,
         child: child ??
-            ChatText(text: StrRes.unsupportedMessage, isISend: _isISend),
+            ChatText(text: StrLibrary.unsupportedMessage, isISend: _isISend),
       ),
     );
   }
@@ -556,13 +556,13 @@ class _ChatItemViewState extends State<ChatItemView> {
       _translateMenusItem = [
         MenuInfo(
           icon: ImageRes.menuCopy,
-          text: StrRes.menuCopy,
+          text: StrLibrary.menuCopy,
           enabled: true,
           onTap: () => IMUtils.copy(text: text),
         ),
         MenuInfo(
           icon: ImageRes.appMenuUnTranslate,
-          text: StrRes.unTranslate,
+          text: StrLibrary.unTranslate,
           enabled: widget.enabledUnTranslateMenu,
           onTap: widget.onTapUnTranslateMenu,
         ),
@@ -591,7 +591,7 @@ class _ChatItemViewState extends State<ChatItemView> {
             ),
             child: status == "fail"
                 ? ChatText(
-                    text: StrRes.translateFail,
+                    text: StrLibrary.translateFail,
                     textStyle: Styles.ts_FF4E4C_16sp,
                     patterns: widget.patterns,
                     textScaleFactor: widget.textScaleFactor,
@@ -626,19 +626,19 @@ class _ChatItemViewState extends State<ChatItemView> {
       _ttsMenusItem = [
         MenuInfo(
           icon: ImageRes.menuCopy,
-          text: StrRes.menuCopy,
+          text: StrLibrary.menuCopy,
           enabled: true,
           onTap: () => IMUtils.copy(text: text),
         ),
         MenuInfo(
           icon: ImageRes.appMenuUnTts,
-          text: StrRes.hide,
+          text: StrLibrary.hide,
           enabled: widget.enabledUnTtsMenu,
           onTap: widget.onTapUnTtsMenu,
         ),
         // MenuInfo(
         //     icon: ImageRes.menuForward,
-        //     text: StrRes.menuForward,
+        //     text: StrLibrary .menuForward,
         //     enabled: true,
         //     onTap: widget.onTapForwardMenu,
         //   )
@@ -667,7 +667,7 @@ class _ChatItemViewState extends State<ChatItemView> {
             ),
             child: status == "fail"
                 ? ChatText(
-                    text: StrRes.translateFail,
+                    text: StrLibrary.translateFail,
                     textStyle: Styles.ts_FF4E4C_16sp,
                     patterns: widget.patterns,
                     textScaleFactor: widget.textScaleFactor,
@@ -698,7 +698,9 @@ class _ChatItemViewState extends State<ChatItemView> {
           _isISend &&
           _message.status == MessageStatus.succeeded
       ? ChatReadTagView(
-          message: _message, onTap: widget.onViewMessageReadStatus, showRead: widget.showRead)
+          message: _message,
+          onTap: widget.onViewMessageReadStatus,
+          showRead: widget.showRead)
       : null;
 
   Widget? get _voiceReadStatusView => _message.isVoiceType && !_message.isRead!
@@ -709,77 +711,77 @@ class _ChatItemViewState extends State<ChatItemView> {
         if (widget.enabledCopyMenu)
           MenuInfo(
             icon: ImageRes.menuCopy,
-            text: StrRes.menuCopy,
+            text: StrLibrary.menuCopy,
             enabled: widget.enabledCopyMenu,
             onTap: widget.onTapCopyMenu,
           ),
         if (widget.enabledDelMenu)
           MenuInfo(
             icon: ImageRes.menuDel,
-            text: StrRes.menuDel,
+            text: StrLibrary.menuDel,
             enabled: widget.enabledDelMenu,
             onTap: widget.onTapDelMenu,
           ),
         if (widget.enabledTranslateMenu)
           MenuInfo(
             icon: ImageRes.appMenuTranslate,
-            text: StrRes.translate,
+            text: StrLibrary.translate,
             enabled: widget.enabledTranslateMenu,
             onTap: widget.onTapTranslateMenu,
           ),
         if (widget.enabledUnTranslateMenu)
           MenuInfo(
             icon: ImageRes.appMenuUnTranslate,
-            text: StrRes.unTranslate,
+            text: StrLibrary.unTranslate,
             enabled: widget.enabledUnTranslateMenu,
             onTap: widget.onTapUnTranslateMenu,
           ),
         if (widget.enabledTtsMenu)
           MenuInfo(
             icon: ImageRes.appMenuTts,
-            text: StrRes.tts,
+            text: StrLibrary.tts,
             enabled: widget.enabledTtsMenu,
             onTap: widget.onTapTtsMenu,
           ),
         if (widget.enabledUnTtsMenu)
           MenuInfo(
             icon: ImageRes.appMenuUnTts,
-            text: StrRes.hide,
+            text: StrLibrary.hide,
             enabled: widget.enabledUnTtsMenu,
             onTap: widget.onTapUnTtsMenu,
           ),
         if (widget.enabledForwardMenu)
           MenuInfo(
             icon: ImageRes.menuForward,
-            text: StrRes.menuForward,
+            text: StrLibrary.menuForward,
             enabled: widget.enabledForwardMenu,
             onTap: widget.onTapForwardMenu,
           ),
         if (widget.enabledReplyMenu)
           MenuInfo(
             icon: ImageRes.menuReply,
-            text: StrRes.menuReply,
+            text: StrLibrary.menuReply,
             enabled: widget.enabledReplyMenu,
             onTap: widget.onTapReplyMenu,
           ),
         if (widget.enabledMultiMenu)
           MenuInfo(
             icon: ImageRes.menuMulti,
-            text: StrRes.menuMulti,
+            text: StrLibrary.menuMulti,
             enabled: widget.enabledMultiMenu,
             onTap: widget.onTapMultiMenu,
           ),
         if (widget.enabledRevokeMenu)
           MenuInfo(
             icon: ImageRes.menuRevoke,
-            text: StrRes.menuRevoke,
+            text: StrLibrary.menuRevoke,
             enabled: widget.enabledRevokeMenu,
             onTap: widget.onTapRevokeMenu,
           ),
         if (widget.enabledAddEmojiMenu)
           MenuInfo(
             icon: ImageRes.menuAddFace,
-            text: StrRes.menuAdd,
+            text: StrLibrary.menuAdd,
             enabled: widget.enabledAddEmojiMenu,
             onTap: widget.onTapAddEmojiMenu,
           ),

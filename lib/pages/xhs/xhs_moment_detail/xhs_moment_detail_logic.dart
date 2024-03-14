@@ -66,8 +66,8 @@ class XhsMomentDetailLogic extends GetxController {
             workMomentID: workMomentID)
       ]);
     }
-    await LoadingView.singleton.wrap(
-      asyncFunction: () async {
+    await LoadingView.singleton.start(
+      fn: () async {
         await WApis.likeMoments(workMomentID: workMomentID, like: !iIsLiked);
         await _updateData();
       },
@@ -106,7 +106,7 @@ class XhsMomentDetailLogic extends GetxController {
             actionName: ActionName.publish_comment,
             workMomentID: xhsMomentList[0].workMomentID)
       ]);
-      await LoadingView.singleton.wrap(asyncFunction: () async {
+      await LoadingView.singleton.start(fn: () async {
         await WApis.commentMoments(
           workMomentID: xhsMomentList[0].workMomentID!,
           text: text,
@@ -132,7 +132,7 @@ class XhsMomentDetailLogic extends GetxController {
           actionName: ActionName.click_comment,
           workMomentID: xhsMomentList[0].workMomentID)
     ]);
-    commentHintText.value = '${StrRes.comment}：';
+    commentHintText.value = '${StrLibrary.comment}：';
     replyUserID = null;
   }
 
@@ -147,21 +147,22 @@ class XhsMomentDetailLogic extends GetxController {
     if (comments.userID == OpenIM.iMManager.userID) {
       final del = await Get.bottomSheet(
         barrierColor: Styles.c_191919_opacity50,
-        BottomSheetView(items: [SheetItem(label: StrRes.delete, result: 1)]),
+        BottomSheetView(
+            items: [SheetItem(label: StrLibrary.delete, result: 1)]),
       );
       if (del == 1) {
         delComment(comments);
       }
     } else {
-      commentHintText.value = '${StrRes.reply} ${comments.nickname}：';
+      commentHintText.value = '${StrLibrary.reply} ${comments.nickname}：';
       replyUserID = comments.userID;
     }
   }
 
   /// 删除评论
   delComment(Comments comments) async {
-    LoadingView.singleton.wrap(
-      asyncFunction: () async {
+    LoadingView.singleton.start(
+      fn: () async {
         await WApis.deleteComment(
           workMomentID: xhsMomentList[0].workMomentID!,
           commentID: comments.commentID!,
@@ -214,9 +215,11 @@ class XhsMomentDetailLogic extends GetxController {
           if (action == "delete") {
             delXhsMoment();
           } else if (action == "complaint") {
-            AppNavigator.startComplaint(
-                params: {"pageTitle": StrRes.complaint2, "complaintType": ComplaintType.xhs,
-  "workMomentID": xhsMomentList[0].workMomentID!});
+            AppNavigator.startComplaint(params: {
+              "pageTitle": StrLibrary.complaint2,
+              "complaintType": ComplaintType.xhs,
+              "workMomentID": xhsMomentList[0].workMomentID!
+            });
           }
         });
   }

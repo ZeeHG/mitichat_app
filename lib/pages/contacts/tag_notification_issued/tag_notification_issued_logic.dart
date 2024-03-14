@@ -20,7 +20,7 @@ class TagNotificationIssuedLogic extends GetxController {
 
   @override
   void onReady() {
-    LoadingView.singleton.wrap(asyncFunction: () => queryNotificationLogs());
+    LoadingView.singleton.start(fn: () => queryNotificationLogs());
     super.onReady();
   }
 
@@ -87,17 +87,17 @@ class TagNotificationIssuedLogic extends GetxController {
   void newBuild() async {
     final result = await AppNavigator.startNewBuildNotification();
     if (result == true) {
-      LoadingView.singleton.wrap(asyncFunction: () => queryNotificationLogs());
+      LoadingView.singleton.start(fn: () => queryNotificationLogs());
     }
   }
 
   delete(TagNotification ntf) async {
     final result = await Get.dialog(
-      CustomDialog(title: StrRes.confirmDelTagNotificationHint),
+      CustomDialog(title: StrLibrary.confirmDelTagNotificationHint),
     );
     if (result == true) {
-      await LoadingView.singleton.wrap(
-        asyncFunction: () => Apis.delTagNotificationLog(ids: [ntf.id!]),
+      await LoadingView.singleton.start(
+        fn: () => Apis.delTagNotificationLog(ids: [ntf.id!]),
       );
       list.remove(ntf);
     }
@@ -109,7 +109,7 @@ class TagNotificationIssuedLogic extends GetxController {
       notification: ntf,
     );
     if (result == true) {
-      LoadingView.singleton.wrap(asyncFunction: () => queryNotificationLogs());
+      LoadingView.singleton.start(fn: () => queryNotificationLogs());
     }
   }
 

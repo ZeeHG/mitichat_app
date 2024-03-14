@@ -22,48 +22,46 @@ class XhsMomentDetailPage extends StatelessWidget {
       final xhsMoment = logic.xhsMomentList[0];
       return Scaffold(
         appBar: TitleBar.xhsMomentDetail(
-          backgroundColor: Styles.c_FFFFFF,
-          left: Expanded(
-              child: Row(children: [
-            ImageRes.appBackBlack.toImage
-              ..width = 24.w
-              ..height = 24.h
-              ..onTap = (() => Get.back()),
-            SizedBox(width: 12.w),
-            AvatarView(
-              url: xhsMoment.faceURL,
-              text: xhsMoment.nickname,
-              width: 36.w,
-              height: 36.h,
-            ),
-            9.horizontalSpace,
-            (xhsMoment.nickname ?? "").toText
-              ..style = Styles.ts_333333_18sp_medium
-              ..maxLines = 1
-              ..overflow = TextOverflow.ellipsis
-              ..textAlign = TextAlign.center,
-          ])),
-          // right: logic.isMyMoment? Button(
-          //     text: StrRes.delete,
-          //     textStyle: Styles.ts_FFFFFF_14sp,
-          //     disabledTextStyle: Styles.ts_FFFFFF_14sp,
-          //     height: 28.h,
-          //     padding: EdgeInsets.symmetric(horizontal: 12.w),
-          //     onTap: logic.delXhsMoment) : SizedBox(),
-          right: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: logic.openMoreSheet,
-            child: Container(
-              width: 30.w,
-              height: 30.h,
-              child: Center(
-                child: ImageRes.appMoreBlack.toImage
+            backgroundColor: Styles.c_FFFFFF,
+            left: Expanded(
+                child: Row(children: [
+              ImageRes.appBackBlack.toImage
+                ..width = 24.w
+                ..height = 24.h
+                ..onTap = (() => Get.back()),
+              SizedBox(width: 12.w),
+              AvatarView(
+                url: xhsMoment.faceURL,
+                text: xhsMoment.nickname,
+                width: 36.w,
+                height: 36.h,
+              ),
+              9.horizontalSpace,
+              (xhsMoment.nickname ?? "").toText
+                ..style = Styles.ts_333333_18sp_medium
+                ..maxLines = 1
+                ..overflow = TextOverflow.ellipsis
+                ..textAlign = TextAlign.center,
+            ])),
+            // right: logic.isMyMoment? Button(
+            //     text: StrLibrary .delete,
+            //     textStyle: Styles.ts_FFFFFF_14sp,
+            //     disabledTextStyle: Styles.ts_FFFFFF_14sp,
+            //     height: 28.h,
+            //     padding: EdgeInsets.symmetric(horizontal: 12.w),
+            //     onTap: logic.delXhsMoment) : SizedBox(),
+            right: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: logic.openMoreSheet,
+              child: Container(
+                  width: 30.w,
+                  height: 30.h,
+                  child: Center(
+                    child: ImageRes.appMoreBlack.toImage
                       ..width = 20.w
                       ..height = 20.h,
-              )
-            ),
-          )
-        ),
+                  )),
+            )),
         backgroundColor: Styles.c_F7F7F7,
         body: Stack(
           alignment: Alignment.center,
@@ -157,13 +155,13 @@ class XhsMomentDetailPage extends StatelessWidget {
                                                           child: Text(
                                                               "loading..."),
                                                         )),
-                                                errorWidget: (context, url,
-                                                        error) =>
-                                                    Container(
-                                                        height: 80.h,
-                                                        child: Center(
-                                                          child: Text(""),
-                                                        )),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Container(
+                                                            height: 80.h,
+                                                            child: Center(
+                                                              child: Text(""),
+                                                            )),
                                               ));
                                   },
                                 ),
@@ -254,13 +252,13 @@ class XhsMomentDetailPage extends StatelessWidget {
                                                           child: Text(
                                                               "loading..."),
                                                         )),
-                                                errorWidget: (context, url,
-                                                        error) =>
-                                                    Container(
-                                                        height: 80.h,
-                                                        child: Center(
-                                                          child: Text(""),
-                                                        )),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Container(
+                                                            height: 80.h,
+                                                            child: Center(
+                                                              child: Text(""),
+                                                            )),
                                               ),
                                             )
                                           ]
@@ -299,7 +297,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                                   Row(
                                     children: [
                                       12.horizontalSpace,
-                                      sprintf(StrRes.totalComment,
+                                      sprintf(StrLibrary.totalComment,
                                           [logic.commentsCount]).trim().toText
                                         ..style = Styles.ts_999999_12sp,
                                     ],
@@ -337,7 +335,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                                       ..height = 14.h,
                                     6.horizontalSpace,
                                     Expanded(
-                                        child: StrRes.saySomething.toText
+                                        child: StrLibrary.saySomething.toText
                                           ..style = Styles.ts_999999_14sp)
                                   ],
                                 )),
@@ -438,18 +436,19 @@ class XhsMomentDetailPage extends StatelessWidget {
                                     child: RichText(
                                       text: TextSpan(children: [
                                         if (null != comment?.replyUserID) ...[
-                                          if(null != comment?.replyNickname &&
+                                          if (null != comment?.replyNickname &&
                                               comment.replyNickname!
-                                                  .isNotEmpty)
-                                          ...[TextSpan(
-                                              text: StrRes.replied,
-                                              style: Styles.ts_333333_14sp),
-                                          TextSpan(
-                                              text: " " +
-                                                  (comment.replyNickname ??
-                                                      "") +
-                                                  "：",
-                                              style: Styles.ts_8443F8_14sp)],
+                                                  .isNotEmpty) ...[
+                                            TextSpan(
+                                                text: StrLibrary.replied,
+                                                style: Styles.ts_333333_14sp),
+                                            TextSpan(
+                                                text: " " +
+                                                    (comment.replyNickname ??
+                                                        "") +
+                                                    "：",
+                                                style: Styles.ts_8443F8_14sp)
+                                          ],
                                           TextSpan(
                                               text: comment.content,
                                               style: Styles.ts_333333_14sp),

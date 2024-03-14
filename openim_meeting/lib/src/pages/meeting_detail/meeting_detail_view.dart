@@ -15,7 +15,7 @@ class MeetingDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-        title: StrRes.meetingDetail,
+        title: StrLibrary.meetingDetail,
         right: Row(
           children: [
             ImageRes.meetingForward.toImage
@@ -67,8 +67,8 @@ class MeetingDetailPage extends StatelessWidget {
                         ),
                         child: Text(
                           logic.isStartedMeeting()
-                              ? StrRes.started
-                              : StrRes.didNotStart,
+                              ? StrLibrary.started
+                              : StrLibrary.didNotStart,
                           style: Styles.ts_FFFFFF_12sp,
                         ),
                       ),
@@ -112,19 +112,19 @@ class MeetingDetailPage extends StatelessWidget {
               child: Column(
                 children: [
                   _buildItemView(
-                    value: sprintf(StrRes.meetingNoIs, [logic.meetingNo]),
+                    value: sprintf(StrLibrary.meetingNoIs, [logic.meetingNo]),
                     showCopy: true,
                     onTap: logic.copy,
                   ),
                   _buildItemView(
                     value: sprintf(
-                        StrRes.meetingOrganizerIs, [logic.meetingCreator]),
+                        StrLibrary.meetingOrganizerIs, [logic.meetingCreator]),
                   ),
                 ],
               ),
             ),
             Button(
-              text: StrRes.enterMeeting,
+              text: StrLibrary.enterMeeting,
               onTap: logic.enterMeeting,
               margin: EdgeInsets.symmetric(
                 horizontal: 72.w,

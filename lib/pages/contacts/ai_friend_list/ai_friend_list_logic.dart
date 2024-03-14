@@ -23,13 +23,13 @@ class AiFriendListLogic extends GetxController {
   List<Map<String, dynamic>> get menus => [
         // {
         //   "key": "createAi",
-        //   "text": StrRes.createAi,
+        //   "text": StrLibrary .createAi,
         //   "color": Styles.c_8544F8,
         //   "shadowColor": Color.fromRGBO(0, 203, 197, 0.5),
         // },
         {
           "key": "trainAi",
-          "text": StrRes.trainAi,
+          "text": StrLibrary.trainAi,
           "color": Styles.c_FEA836,
           "shadowColor": Color.fromRGBO(254, 168, 54, 0.5),
           "onTap": () => myAi()
@@ -49,7 +49,7 @@ class AiFriendListLogic extends GetxController {
 
   @override
   void onReady() {
-    LoadingView.singleton.wrap(asyncFunction: () async {
+    LoadingView.singleton.start(fn: () async {
       await _getFriendList();
     });
     super.onReady();

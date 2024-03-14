@@ -13,7 +13,7 @@ class AiFriendListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.aiFriends),
+      appBar: TitleBar.back(title: StrLibrary.aiFriends),
       backgroundColor: Styles.c_FFFFFF,
       body: Column(
         children: [
@@ -52,11 +52,10 @@ class AiFriendListPage extends StatelessWidget {
           Flexible(
             child: Obx(
               () => WrapAzListView<ISUserInfo>(
-                data: logic.friendList,
-                itemCount: logic.friendList.length,
-                itemBuilder: (_, data, index) => _buildItemView(data),
-                firstTagPaddingColor: Styles.c_FFFFFF
-              ),
+                  data: logic.friendList,
+                  itemCount: logic.friendList.length,
+                  itemBuilder: (_, data, index) => _buildItemView(data),
+                  firstTagPaddingColor: Styles.c_FFFFFF),
             ),
           ),
         ],

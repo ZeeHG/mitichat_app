@@ -76,7 +76,7 @@ class ComplaintLogic extends GetxController {
 
   submit() async {
     if (complaintType.value == ComplaintType.xhs) {
-      await LoadingView.singleton.wrap(asyncFunction: () async {
+      await LoadingView.singleton.start(fn: () async {
         await Apis.complainXhs(
           workMomentID: params["workMomentID"] ?? "",
           content: content.value,
@@ -85,7 +85,7 @@ class ComplaintLogic extends GetxController {
         );
       });
     } else {
-      await LoadingView.singleton.wrap(asyncFunction: () async {
+      await LoadingView.singleton.start(fn: () async {
         await Apis.complain(
           userID: params["userID"] ?? "",
           content: content.value,
@@ -114,7 +114,7 @@ class ComplaintLogic extends GetxController {
   @override
   void onInit() {
     params.value = Get.arguments["params"];
-    pageTitle.value = params["pageTitle"] ?? StrRes.complaint;
+    pageTitle.value = params["pageTitle"] ?? StrLibrary.complaint;
     complaintType.value = params["complaintType"] ?? ComplaintType.user;
     inputCtrl.addListener(() {
       content.value = inputCtrl.text.trim();

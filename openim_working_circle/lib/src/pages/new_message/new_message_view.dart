@@ -19,8 +19,8 @@ class NewMessagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: TitleBar.back(
-          title: StrRes.message,
-          right: StrRes.clearAll.toText
+          title: StrLibrary.message,
+          right: StrLibrary.clearAll.toText
             ..style = Styles.ts_333333_16sp
             ..onTap = logic.clearNewMessage,
         ),
@@ -120,7 +120,7 @@ class NewMessagePage extends StatelessWidget {
                           RichText(
                               text: TextSpan(children: [
                             TextSpan(
-                              text: StrRes.likedWho2,
+                              text: StrLibrary.likedWho2,
                               style: Styles.ts_333333_14sp,
                             ),
                             TextSpan(
@@ -132,14 +132,15 @@ class NewMessagePage extends StatelessWidget {
                       )
                     // 提到了你
                     : info.type == 2
-                        ? (sprintf(StrRes.mentionedWho, [info.atUsers?.firstOrNull?.nickname]).toText
+                        ? (sprintf(StrLibrary.mentionedWho,
+                            [info.atUsers?.firstOrNull?.nickname]).toText
                           ..style = Styles.ts_333333_14sp)
                         // 评论了你
                         : (null == replyNickname || replyNickname.isEmpty)
                             ? RichText(
                                 text: TextSpan(children: [
                                 TextSpan(
-                                  text: StrRes.commentedWho2,
+                                  text: StrLibrary.commentedWho2,
                                   style: Styles.ts_333333_14sp,
                                 ),
                                 TextSpan(
@@ -156,7 +157,7 @@ class NewMessagePage extends StatelessWidget {
                                 text: TextSpan(children: [
                                   // 回复：xxx ： 内容
                                   TextSpan(
-                                    text: StrRes.replied,
+                                    text: StrLibrary.replied,
                                     style: Styles.ts_333333_14sp,
                                   ),
                                   TextSpan(

@@ -21,27 +21,27 @@ extension PhoneEmailChangeTypeExt on PhoneEmailChangeType {
   String get name {
     switch (this) {
       case PhoneEmailChangeType.phone:
-        return StrRes.phoneNumber;
+        return StrLibrary.phoneNumber;
       case PhoneEmailChangeType.email:
-        return StrRes.email;
+        return StrLibrary.email;
     }
   }
 
   String get hintText {
     switch (this) {
       case PhoneEmailChangeType.phone:
-        return StrRes.newPhone;
+        return StrLibrary.newPhone;
       case PhoneEmailChangeType.email:
-        return StrRes.newEmail;
+        return StrLibrary.newEmail;
     }
   }
 
   String get exclusiveName {
     switch (this) {
       case PhoneEmailChangeType.phone:
-        return StrRes.email;
+        return StrLibrary.email;
       case PhoneEmailChangeType.email:
-        return StrRes.phoneNumber;
+        return StrLibrary.phoneNumber;
     }
   }
 }

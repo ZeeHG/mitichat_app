@@ -14,8 +14,8 @@ class SetMuteForGroupMemberPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-        title: StrRes.setMute,
-        right: StrRes.determine.toText
+        title: StrLibrary.setMute,
+        right: StrLibrary.determine.toText
           ..style = Styles.ts_333333_17sp
           ..onTap = logic.completed,
       ),
@@ -27,24 +27,24 @@ class SetMuteForGroupMemberPage extends StatelessWidget {
             children: [
               12.verticalSpace,
               _buildItemView(
-                label: StrRes.tenMinutes,
+                label: StrLibrary.tenMinutes,
                 index: 0,
                 isTopRadius: true,
               ),
               _buildItemView(
-                label: StrRes.oneHour,
+                label: StrLibrary.oneHour,
                 index: 1,
               ),
               _buildItemView(
-                label: StrRes.twelveHours,
+                label: StrLibrary.twelveHours,
                 index: 2,
               ),
               _buildItemView(
-                label: StrRes.oneDay,
+                label: StrLibrary.oneDay,
                 index: 3,
               ),
               _buildItemView(
-                label: StrRes.unmute,
+                label: StrLibrary.unmute,
                 index: 4,
                 isBottomRadius: true,
               ),
@@ -102,7 +102,7 @@ class SetMuteForGroupMemberPage extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            StrRes.custom.toText..style = Styles.ts_333333_17sp,
+            StrLibrary.custom.toText..style = Styles.ts_333333_17sp,
             Expanded(
               child: TextField(
                 controller: logic.controller,
@@ -118,7 +118,7 @@ class SetMuteForGroupMemberPage extends StatelessWidget {
               ),
             ),
             10.horizontalSpace,
-            StrRes.day.toText..style = Styles.ts_333333_17sp,
+            StrLibrary.day.toText..style = Styles.ts_333333_17sp,
           ],
         ),
       );

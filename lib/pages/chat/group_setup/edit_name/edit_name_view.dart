@@ -16,7 +16,7 @@ class EditGroupNamePage extends StatelessWidget {
     return Scaffold(
       appBar: TitleBar.back(
         title: logic.title,
-        right: StrRes.save.toText
+        right: StrLibrary.save.toText
           ..style = Styles.ts_333333_17sp
           ..onTap = logic.save,
       ),

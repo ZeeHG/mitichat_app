@@ -111,7 +111,7 @@ class IMUtils {
 
   static void copy({required String text}) {
     Clipboard.setData(ClipboardData(text: text));
-    IMViews.showToast(StrRes.copySuccessfully);
+    IMViews.showToast(StrLibrary.copySuccessfully);
   }
 
   static List<ISuspensionBean> convertToAZList(List<ISuspensionBean> list) {
@@ -517,7 +517,7 @@ class IMUtils {
     int hours = (mss % (60 * 60 * 24)) ~/ (60 * 60);
     int minutes = (mss % (60 * 60)) ~/ 60;
     int seconds = mss % 60;
-    return "${_combTime(days, StrRes.day)}${_combTime(hours, StrRes.hours)}${_combTime(minutes, StrRes.minute)}${_combTime(seconds, StrRes.seconds)}";
+    return "${_combTime(days, StrLibrary.day)}${_combTime(hours, StrLibrary.hours)}${_combTime(minutes, StrLibrary.minute)}${_combTime(seconds, StrLibrary.seconds)}";
   }
 
   static String _combTime(int value, String unit) =>
@@ -599,7 +599,7 @@ class IMUtils {
 
   static String getGroupMemberShowName(GroupMembersInfo membersInfo) {
     return membersInfo.userID == OpenIM.iMManager.userID
-        ? StrRes.you
+        ? StrLibrary.you
         : membersInfo.nickname!;
   }
 
@@ -625,7 +625,7 @@ class IMUtils {
             {
               final ntf = GroupNotification.fromJson(map);
               // a 创建了群聊
-              final label = StrRes.createGroupNtf;
+              final label = StrLibrary.createGroupNtf;
               text = sprintf(label, [getGroupMemberShowName(ntf.opUser!)]);
             }
             break;
@@ -637,7 +637,7 @@ class IMUtils {
                 return isConversation ? ntf.group!.notification! : null;
               }
               // a 修改了群资料
-              final label = StrRes.editGroupInfoNtf;
+              final label = StrLibrary.editGroupInfoNtf;
               text = sprintf(label, [getGroupMemberShowName(ntf.opUser!)]);
             }
             break;
@@ -645,7 +645,7 @@ class IMUtils {
             {
               final ntf = QuitGroupNotification.fromJson(map);
               // a 退出了群聊
-              final label = StrRes.quitGroupNtf;
+              final label = StrLibrary.quitGroupNtf;
               text = sprintf(label, [getGroupMemberShowName(ntf.quitUser!)]);
             }
             break;
@@ -653,7 +653,7 @@ class IMUtils {
             {
               final ntf = InvitedJoinGroupNotification.fromJson(map);
               // a 邀请 b 加入群聊
-              final label = StrRes.invitedJoinGroupNtf;
+              final label = StrLibrary.invitedJoinGroupNtf;
               final b = ntf.invitedUserList
                   ?.map((e) => getGroupMemberShowName(e))
                   .toList()
@@ -666,7 +666,7 @@ class IMUtils {
             {
               final ntf = KickedGroupMemeberNotification.fromJson(map);
               // b 被 a 踢出群聊
-              final label = StrRes.kickedGroupNtf;
+              final label = StrLibrary.kickedGroupNtf;
               final b = ntf.kickedUserList!
                   .map((e) => getGroupMemberShowName(e))
                   .toList()
@@ -678,7 +678,7 @@ class IMUtils {
             {
               final ntf = EnterGroupNotification.fromJson(map);
               // a 加入了群聊
-              final label = StrRes.joinGroupNtf;
+              final label = StrLibrary.joinGroupNtf;
               text = sprintf(label, [getGroupMemberShowName(ntf.entrantUser!)]);
             }
             break;
@@ -686,7 +686,7 @@ class IMUtils {
             {
               final ntf = GroupNotification.fromJson(map);
               // a 解散了群聊
-              final label = StrRes.dismissGroupNtf;
+              final label = StrLibrary.dismissGroupNtf;
               text = sprintf(label, [getGroupMemberShowName(ntf.opUser!)]);
             }
             break;
@@ -694,7 +694,7 @@ class IMUtils {
             {
               final ntf = GroupRightsTransferNoticication.fromJson(map);
               // a 将群转让给了 b
-              final label = StrRes.transferredGroupNtf;
+              final label = StrLibrary.transferredGroupNtf;
               text = sprintf(label, [
                 getGroupMemberShowName(ntf.opUser!),
                 getGroupMemberShowName(ntf.newGroupOwner!)
@@ -705,7 +705,7 @@ class IMUtils {
             {
               final ntf = MuteMemberNotification.fromJson(map);
               // b 被 a 禁言
-              final label = StrRes.muteMemberNtf;
+              final label = StrLibrary.muteMemberNtf;
               final c = ntf.mutedSeconds;
               text = sprintf(label, [
                 getGroupMemberShowName(ntf.mutedUser!),
@@ -718,7 +718,7 @@ class IMUtils {
             {
               final ntf = MuteMemberNotification.fromJson(map);
               // b 被 a 取消了禁言
-              final label = StrRes.muteCancelMemberNtf;
+              final label = StrLibrary.muteCancelMemberNtf;
               text = sprintf(label, [
                 getGroupMemberShowName(ntf.mutedUser!),
                 getGroupMemberShowName(ntf.opUser!)
@@ -729,7 +729,7 @@ class IMUtils {
             {
               final ntf = MuteMemberNotification.fromJson(map);
               // a 开起了群禁言
-              final label = StrRes.muteGroupNtf;
+              final label = StrLibrary.muteGroupNtf;
               text = sprintf(label, [getGroupMemberShowName(ntf.opUser!)]);
             }
             break;
@@ -737,29 +737,29 @@ class IMUtils {
             {
               final ntf = MuteMemberNotification.fromJson(map);
               // a 关闭了群禁言
-              final label = StrRes.muteCancelGroupNtf;
+              final label = StrLibrary.muteCancelGroupNtf;
               text = sprintf(label, [getGroupMemberShowName(ntf.opUser!)]);
             }
             break;
           case MessageType.friendApplicationApprovedNotification:
             {
               // 你们已成为好友
-              text = StrRes.friendAddedNtf;
+              text = StrLibrary.friendAddedNtf;
             }
             break;
           case MessageType.burnAfterReadingNotification:
             {
               final ntf = BurnAfterReadingNotification.fromJson(map);
               if (ntf.isPrivate == true) {
-                text = StrRes.openPrivateChatNtf;
+                text = StrLibrary.openPrivateChatNtf;
               } else {
-                text = StrRes.closePrivateChatNtf;
+                text = StrLibrary.closePrivateChatNtf;
               }
             }
             break;
           case MessageType.groupMemberInfoChangedNotification:
             final ntf = GroupMemberInfoChangedNotification.fromJson(map);
-            text = sprintf(StrRes.memberInfoChangedNtf,
+            text = sprintf(StrLibrary.memberInfoChangedNtf,
                 [getGroupMemberShowName(ntf.opUser!)]);
             break;
           case MessageType.groupInfoSetAnnouncementNotification:
@@ -770,7 +770,7 @@ class IMUtils {
             break;
           case MessageType.groupInfoSetNameNotification:
             final ntf = GroupNotification.fromJson(map);
-            text = sprintf(StrRes.whoModifyGroupName,
+            text = sprintf(StrLibrary.whoModifyGroupName,
                 [getGroupMemberShowName(ntf.opUser!)]);
             break;
         }
@@ -791,7 +791,12 @@ class IMUtils {
         map = json.decode(elem.detail!);
       }
     } catch (e, s) {
-      myLogger.e({"message": "parseNtfMap通知detail转换出错", "data": message.toJson(),"error": e, "stack": s});
+      myLogger.e({
+        "message": "parseNtfMap通知detail转换出错",
+        "data": message.toJson(),
+        "error": e,
+        "stack": s
+      });
     }
     return map;
   }
@@ -820,25 +825,25 @@ class IMUtils {
           }
           break;
         case MessageType.picture:
-          content = '[${StrRes.picture}]';
+          content = '[${StrLibrary.picture}]';
           break;
         case MessageType.voice:
-          content = '[${StrRes.voice}]';
+          content = '[${StrLibrary.voice}]';
           break;
         case MessageType.video:
-          content = '[${StrRes.video}]';
+          content = '[${StrLibrary.video}]';
           break;
         case MessageType.file:
-          content = '[${StrRes.file}]';
+          content = '[${StrLibrary.file}]';
           break;
         case MessageType.location:
-          content = '[${StrRes.location}]';
+          content = '[${StrLibrary.location}]';
           break;
         case MessageType.merger:
-          content = '[${StrRes.chatRecord}]';
+          content = '[${StrLibrary.chatRecord}]';
           break;
         case MessageType.card:
-          content = '[${StrRes.carte}]';
+          content = '[${StrLibrary.carte}]';
           break;
         case MessageType.quote:
           content = message.quoteElem?.text ?? '';
@@ -850,38 +855,38 @@ class IMUtils {
           if (message.isSingleChat) {
             // 单聊
             if (isSelf) {
-              content = '${StrRes.you} ${StrRes.revokeMsg}';
+              content = '${StrLibrary.you} ${StrLibrary.revokeMsg}';
             } else {
-              content = '${message.senderNickname} ${StrRes.revokeMsg}';
+              content = '${message.senderNickname} ${StrLibrary.revokeMsg}';
             }
           } else {
             // 群聊撤回包含：撤回自己消息，群组或管理员撤回其他人消息
             if (info.revokerID == info.sourceMessageSendID) {
               if (isSelf) {
-                content = '${StrRes.you} ${StrRes.revokeMsg}';
+                content = '${StrLibrary.you} ${StrLibrary.revokeMsg}';
               } else {
-                content = '${message.senderNickname} ${StrRes.revokeMsg}';
+                content = '${message.senderNickname} ${StrLibrary.revokeMsg}';
               }
             } else {
               late String revoker;
               late String sender;
               if (info.revokerID == OpenIM.iMManager.userID) {
-                revoker = StrRes.you;
+                revoker = StrLibrary.you;
               } else {
                 revoker = info.revokerNickname!;
               }
               if (info.sourceMessageSendID == OpenIM.iMManager.userID) {
-                sender = StrRes.you;
+                sender = StrLibrary.you;
               } else {
                 sender = info.sourceMessageSenderNickname!;
               }
 
-              content = sprintf(StrRes.aRevokeBMsg, [revoker, sender]);
+              content = sprintf(StrLibrary.aRevokeBMsg, [revoker, sender]);
             }
           }
           break;
         case MessageType.customFace:
-          content = '[${StrRes.emoji}]';
+          content = '[${StrLibrary.emoji}]';
           break;
         case MessageType.custom:
           var data = message.customElem!.data;
@@ -892,10 +897,10 @@ class IMUtils {
             case CustomMessageType.call:
               var type = map['data']['type'];
               content =
-                  '[${type == 'video' ? StrRes.callVideo : StrRes.callVoice}]';
+                  '[${type == 'video' ? StrLibrary.callVideo : StrLibrary.callVoice}]';
               break;
             case CustomMessageType.emoji:
-              content = '[${StrRes.emoji}]';
+              content = '[${StrLibrary.emoji}]';
               break;
             case CustomMessageType.tag:
               if (null != customData['textElem']) {
@@ -903,34 +908,34 @@ class IMUtils {
                 content = textElem.content;
               } else if (null != customData['soundElem']) {
                 // final soundElem = SoundElem.fromJson(customData['soundElem']);
-                content = '[${StrRes.voice}]';
+                content = '[${StrLibrary.voice}]';
               } else {
-                content = '[${StrRes.unsupportedMessage}]';
+                content = '[${StrLibrary.unsupportedMessage}]';
               }
               break;
             // case CustomMessageType.meeting:
-            //   content = '[${StrRes.meetingMessage}]';
+            //   content = '[${StrLibrary .meetingMessage}]';
             //   break;
             case CustomMessageType.blockedByFriend:
-              content = StrRes.blockedByFriendHint;
+              content = StrLibrary.blockedByFriendHint;
               break;
             case CustomMessageType.deletedByFriend:
               content = sprintf(
-                StrRes.deletedByFriendHint,
+                StrLibrary.deletedByFriendHint,
                 [''],
               );
               break;
             case CustomMessageType.removedFromGroup:
-              content = StrRes.removedFromGroupHint;
+              content = StrLibrary.removedFromGroupHint;
               break;
             case CustomMessageType.groupDisbanded:
-              content = StrRes.groupDisbanded;
+              content = StrLibrary.groupDisbanded;
               break;
             case CustomMessageType.waitingAiReplay:
               // content = CustomMessageContent.waitingAiReplay;
               break;
             default:
-              content = '[${StrRes.unsupportedMessage}]';
+              content = '[${StrLibrary.unsupportedMessage}]';
               break;
           }
           break;
@@ -941,7 +946,7 @@ class IMUtils {
           content = oa.text!;
           break;
         default:
-          content = '[${StrRes.unsupportedMessage}]';
+          content = '[${StrLibrary.unsupportedMessage}]';
           break;
       }
     } catch (e, s) {
@@ -949,7 +954,7 @@ class IMUtils {
       Logger.print('Stack trace:\n $s');
     }
     content = content?.replaceAll("\n", " ");
-    return content ?? '[${StrRes.unsupportedMessage}]';
+    return content ?? '[${StrLibrary.unsupportedMessage}]';
   }
 
   static dynamic parseCustomMessage(Message message) {
@@ -970,26 +975,26 @@ class IMUtils {
                   switch (state) {
                     case 'beHangup':
                     case 'hangup':
-                      content =
-                          sprintf(StrRes.callDuration, [seconds2HMS(duration)]);
+                      content = sprintf(
+                          StrLibrary.callDuration, [seconds2HMS(duration)]);
                       break;
                     case 'cancel':
-                      content = StrRes.cancelled;
+                      content = StrLibrary.cancelled;
                       break;
                     case 'beCanceled':
-                      content = StrRes.cancelledByCaller;
+                      content = StrLibrary.cancelledByCaller;
                       break;
                     case 'reject':
-                      content = StrRes.rejected;
+                      content = StrLibrary.rejected;
                       break;
                     case 'beRejected':
-                      content = StrRes.rejectedByCaller;
+                      content = StrLibrary.rejectedByCaller;
                       break;
                     case 'timeout':
-                      content = StrRes.callTimeout;
+                      content = StrLibrary.callTimeout;
                       break;
                     case 'networkError':
-                      content = StrRes.networkAnomaly;
+                      content = StrLibrary.networkAnomaly;
                       break;
                     default:
                       break;
@@ -1049,11 +1054,11 @@ class IMUtils {
   static String getAtNickname(String atUserID, String atNickname) {
     // String nickname = atNickname;
     // if (atUserID == OpenIM.iMManager.uid) {
-    //   nickname = StrRes.you;
+    //   nickname = StrLibrary .you;
     // } else if (atUserID == 'atAllTag') {
-    //   nickname = StrRes.everyone;
+    //   nickname = StrLibrary .everyone;
     // }
-    return atUserID == 'atAllTag' ? StrRes.everyone : atNickname;
+    return atUserID == 'atAllTag' ? StrLibrary.everyone : atNickname;
   }
 
   static void previewUrlPicture(
@@ -1880,7 +1885,8 @@ class IMUtils {
   }
 
   // 尝试从好友showName中获取指定用户showName
-  static Future<String?> getShowNameFromFriendList({required String userID}) async {
+  static Future<String?> getShowNameFromFriendList(
+      {required String userID}) async {
     final list = await OpenIM.iMManager.friendshipManager.getFriendListMap();
     final friendJson = list.firstWhereOrNull((element) {
       final fullUser = FullUserInfo.fromJson(element);
@@ -1893,10 +1899,13 @@ class IMUtils {
           ? ISUserInfo.fromJson(info.friendInfo!.toJson())
           : ISUserInfo.fromJson(info.publicInfo!.toJson());
     }
-    return null != friendInfo && friendInfo.showName.isNotEmpty? friendInfo.showName : null;
+    return null != friendInfo && friendInfo.showName.isNotEmpty
+        ? friendInfo.showName
+        : null;
   }
 
-  static Future<String?> getShowNameFromGroup({required String userID, required String groupID}) async {
+  static Future<String?> getShowNameFromGroup(
+      {required String userID, required String groupID}) async {
     GroupMembersInfo? member;
     final memberList = await OpenIM.iMManager.groupManager.getGroupMemberList(
       groupID: groupID,

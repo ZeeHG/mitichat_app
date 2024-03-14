@@ -16,7 +16,7 @@ class MeetingPage extends StatelessWidget {
     return FocusDetector(
       onVisibilityGained: logic.queryUnfinishedMeeting,
       child: Scaffold(
-        appBar: TitleBar.back(title: StrRes.videoMeeting),
+        appBar: TitleBar.back(title: StrLibrary.videoMeeting),
         backgroundColor: Styles.c_FFFFFF,
         body: Column(
           children: [
@@ -25,19 +25,19 @@ class MeetingPage extends StatelessWidget {
               children: [
                 26.horizontalSpace,
                 _buildButtonIcon(
-                  text: StrRes.joinMeeting,
+                  text: StrLibrary.joinMeeting,
                   icon: ImageRes.meetingJoin,
                   onTap: logic.joinMeeting,
                 ),
                 const Spacer(),
                 _buildButtonIcon(
-                  text: StrRes.quickMeeting,
+                  text: StrLibrary.quickMeeting,
                   icon: ImageRes.meetingQuickStart,
                   onTap: logic.quickMeeting,
                 ),
                 const Spacer(),
                 _buildButtonIcon(
-                  text: StrRes.bookAMeeting,
+                  text: StrLibrary.bookAMeeting,
                   icon: ImageRes.meetingBook,
                   onTap: logic.bookMeeting,
                 ),
@@ -100,8 +100,8 @@ class MeetingPage extends StatelessWidget {
                             horizontal: 5.w,
                           ),
                           child: (logic.isStartedMeeting(meetingInfo)
-                                  ? StrRes.started
-                                  : StrRes.didNotStart)
+                                  ? StrLibrary.started
+                                  : StrLibrary.didNotStart)
                               .toText
                             ..style = Styles.ts_FFFFFF_10sp,
                         ),

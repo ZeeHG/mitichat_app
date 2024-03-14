@@ -57,7 +57,8 @@ class _ExpandedTextState extends State<ExpandedText> {
                   },
                   child: Padding(
                     padding: EdgeInsets.only(top: 2.h),
-                    child: (_isExpand ? StrRes.rollUp : StrRes.fullText).toText
+                    child: (_isExpand ? StrLibrary.rollUp : StrLibrary.fullText)
+                        .toText
                       ..style = Styles.ts_8443F8_17sp,
                   ),
                 ),

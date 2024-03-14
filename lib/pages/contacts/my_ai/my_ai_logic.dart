@@ -34,7 +34,7 @@ class MyAiLogic extends GetxController {
 
   @override
   void onReady() {
-    LoadingView.singleton.wrap(asyncFunction: () async {
+    LoadingView.singleton.start(fn: () async {
       await _getFriendList();
     });
 
@@ -59,7 +59,7 @@ class MyAiLogic extends GetxController {
         ai: myAiList.firstWhere((e) => e.userID == info.userID));
   }
 
-  Future<void>  _getFriendList() async {
+  Future<void> _getFriendList() async {
     myAiList.value = await aiUtil.queryMyAiList();
     final myAiUserIDList = myAiList.map((e) => e.userID).toList();
     final list = await OpenIM.iMManager.friendshipManager

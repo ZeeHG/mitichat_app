@@ -59,8 +59,8 @@ class AddContactsBySearchLogic extends GetxController {
   }
 
   void searchUser() async {
-    var list = await LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.searchUserFullInfo(
+    var list = await LoadingView.singleton.start(
+      fn: () => Apis.searchUserFullInfo(
         content: searchKey,
         pageNumber: pageNo = 1,
         showNumber: 20,
@@ -81,8 +81,8 @@ class AddContactsBySearchLogic extends GetxController {
   }
 
   void loadMoreUser() async {
-    var list = await LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.searchUserFullInfo(
+    var list = await LoadingView.singleton.start(
+      fn: () => Apis.searchUserFullInfo(
         content: searchKey,
         pageNumber: ++pageNo,
         showNumber: 20,
@@ -108,15 +108,15 @@ class AddContactsBySearchLogic extends GetxController {
     final keyword = searchCtrl.text;
     // String searchPrefix = "%s";
     // if (keyword == userInfo.userID) {
-    //   searchPrefix = StrRes.searchIDIs;
+    //   searchPrefix = StrLibrary .searchIDIs;
     // } else if (keyword == userInfo.phoneNumber) {
-    //   searchPrefix = StrRes.searchPhoneIs;
+    //   searchPrefix = StrLibrary .searchPhoneIs;
     // } else if (keyword == userInfo.email) {
-    //   searchPrefix = StrRes.searchEmailIs;
+    //   searchPrefix = StrLibrary .searchEmailIs;
     // } else if (keyword == userInfo.nickname) {
-    //   searchPrefix = StrRes.searchNicknameIs;
+    //   searchPrefix = StrLibrary .searchNicknameIs;
     // }
-    return sprintf(StrRes.searchNicknameIs, [userInfo.nickname]);
+    return sprintf(StrLibrary.searchNicknameIs, [userInfo.nickname]);
   }
 
   String? getShowName(dynamic info) {
@@ -145,23 +145,23 @@ class AddContactsBySearchLogic extends GetxController {
 
   String getShowTitle(info) {
     if (!isSearchUser) {
-      return sprintf(StrRes.searchGroupNicknameIs, [getShowName(info)]);
+      return sprintf(StrLibrary.searchGroupNicknameIs, [getShowName(info)]);
     }
 
     UserFullInfo userFullInfo = info;
     String? tips, content;
     if (int.tryParse(searchKey) != null) {
       // if (searchKey.length == 11) {
-      //   tips = StrRes.phoneNumber;
+      //   tips = StrLibrary .phoneNumber;
       //   content = userFullInfo.phoneNumber ?? searchKey;
       // } else {
-      //   tips = StrRes.userID;
+      //   tips = StrLibrary .userID;
       //   content = userFullInfo.userID;
       // }
-      tips = StrRes.userIDOrPhone;
+      tips = StrLibrary.userIDOrPhone;
       content = searchKey;
     } else {
-      tips = StrRes.searchNicknameIs;
+      tips = StrLibrary.searchNicknameIs;
       content = getShowName(info);
     }
     return "$tips:$content";

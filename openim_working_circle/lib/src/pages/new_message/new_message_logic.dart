@@ -48,8 +48,8 @@ class NewMessageLogic extends GetxController {
   }
 
   void clearNewMessage() async {
-    await LoadingView.singleton.wrap(
-      asyncFunction: () => WApis.clearUnreadCount(type: 3),
+    await LoadingView.singleton.start(
+      fn: () => WApis.clearUnreadCount(type: 3),
     );
     list.clear();
   }

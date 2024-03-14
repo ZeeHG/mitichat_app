@@ -48,7 +48,7 @@ class SelectContactsFromFriendsPage extends StatelessWidget {
                                   child: ChatRadio(checked: logic.isSelectAll),
                                 )),
                             12.horizontalSpace,
-                            StrRes.selectAll.toText
+                            StrLibrary.selectAll.toText
                               ..style = Styles.ts_333333_16sp,
                           ],
                         ),

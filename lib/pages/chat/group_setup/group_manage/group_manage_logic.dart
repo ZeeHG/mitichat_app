@@ -16,7 +16,7 @@ class GroupManageLogic extends GetxController {
   bool get allowAddFriend => groupInfo.value.applyMemberFriend == 1;
 
   void toggleGroupMute() {
-    LoadingView.singleton.wrap(asyncFunction: () async {
+    LoadingView.singleton.start(fn: () async {
       await OpenIM.iMManager.groupManager.changeGroupMute(
         groupID: groupInfo.value.groupID,
         mute: !(groupInfo.value.status == 3),
@@ -26,8 +26,8 @@ class GroupManageLogic extends GetxController {
 
   /// 不允许通过群获取成员资料 0：关闭，1：打开
   void toggleMemberProfiles() async {
-    await LoadingView.singleton.wrap(
-      asyncFunction: () => OpenIM.iMManager.groupManager.setGroupLookMemberInfo(
+    await LoadingView.singleton.start(
+      fn: () => OpenIM.iMManager.groupManager.setGroupLookMemberInfo(
         groupID: groupInfo.value.groupID,
         status: !allowLookProfiles ? 1 : 0,
       ),
@@ -36,9 +36,8 @@ class GroupManageLogic extends GetxController {
 
   /// 0：关闭，1：打开
   void toggleAddMemberToFriend() async {
-    await LoadingView.singleton.wrap(
-      asyncFunction: () =>
-          OpenIM.iMManager.groupManager.setGroupApplyMemberFriend(
+    await LoadingView.singleton.start(
+      fn: () => OpenIM.iMManager.groupManager.setGroupApplyMemberFriend(
         groupID: groupInfo.value.groupID,
         status: !allowAddFriend ? 1 : 0,
       ),
@@ -51,15 +50,15 @@ class GroupManageLogic extends GetxController {
       BottomSheetView(
         items: [
           SheetItem(
-            label: StrRes.allowAnyoneJoinGroup,
+            label: StrLibrary.allowAnyoneJoinGroup,
             result: 0,
           ),
           SheetItem(
-            label: StrRes.inviteNotVerification,
+            label: StrLibrary.inviteNotVerification,
             result: 1,
           ),
           SheetItem(
-            label: StrRes.needVerification,
+            label: StrLibrary.needVerification,
             result: 2,
           ),
         ],
@@ -71,8 +70,8 @@ class GroupManageLogic extends GetxController {
           : (index == 1
               ? GroupVerification.applyNeedVerificationInviteDirectly
               : GroupVerification.allNeedVerification);
-      await LoadingView.singleton.wrap(
-        asyncFunction: () => OpenIM.iMManager.groupManager.setGroupVerification(
+      await LoadingView.singleton.start(
+        fn: () => OpenIM.iMManager.groupManager.setGroupVerification(
           groupID: groupInfo.value.groupID,
           needVerification: value,
         ),
@@ -86,11 +85,11 @@ class GroupManageLogic extends GetxController {
   String get joinGroupOption {
     final value = groupInfo.value.needVerification;
     if (value == GroupVerification.allNeedVerification) {
-      return StrRes.needVerification;
+      return StrLibrary.needVerification;
     } else if (value == GroupVerification.directly) {
-      return StrRes.allowAnyoneJoinGroup;
+      return StrLibrary.allowAnyoneJoinGroup;
     }
-    return StrRes.inviteNotVerification;
+    return StrLibrary.inviteNotVerification;
   }
 
   void transferGroupOwnerRight() async {
@@ -99,8 +98,8 @@ class GroupManageLogic extends GetxController {
       opType: GroupMemberOpType.transferRight,
     );
     if (result is GroupMembersInfo) {
-      await LoadingView.singleton.wrap(
-        asyncFunction: () => OpenIM.iMManager.groupManager.transferGroupOwner(
+      await LoadingView.singleton.start(
+        fn: () => OpenIM.iMManager.groupManager.transferGroupOwner(
           groupID: groupInfo.value.groupID,
           userID: result.userID!,
         ),

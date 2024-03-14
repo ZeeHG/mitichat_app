@@ -16,7 +16,9 @@ class CreateTagGroupPage extends StatelessWidget {
     return TouchCloseSoftKeyboard(
       child: Scaffold(
         appBar: TitleBar.back(
-          title: logic.isEdit ? StrRes.editTagGroup : StrRes.createTagGroup,
+          title: logic.isEdit
+              ? StrLibrary.editTagGroup
+              : StrLibrary.createTagGroup,
         ),
         backgroundColor: Styles.c_F8F9FA,
         body: Stack(
@@ -33,8 +35,8 @@ class CreateTagGroupPage extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Obx(() => Button(
                     text: logic.isEdit
-                        ? StrRes.completeEdit
-                        : StrRes.completeCreation,
+                        ? StrLibrary.completeEdit
+                        : StrLibrary.completeCreation,
                     enabled: logic.enabled.value,
                     margin: EdgeInsets.symmetric(
                       horizontal: 16.w,
@@ -71,7 +73,7 @@ class CreateTagGroupPage extends StatelessWidget {
             ),
             isDense: true,
             hintStyle: Styles.ts_999999_17sp,
-            hintText: StrRes.plsEnterTagGroupName,
+            hintText: StrLibrary.plsEnterTagGroupName,
           ),
         ),
       );
@@ -93,7 +95,7 @@ class CreateTagGroupPage extends StatelessWidget {
         child: Obx(() => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                StrRes.tagGroupMember.toText..style = Styles.ts_999999_14sp,
+                StrLibrary.tagGroupMember.toText..style = Styles.ts_999999_14sp,
                 // 12.verticalSpace,
                 if (logic.memberList.isNotEmpty)
                   Padding(

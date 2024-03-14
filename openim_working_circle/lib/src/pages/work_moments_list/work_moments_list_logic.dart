@@ -205,8 +205,8 @@ class WorkMomentsListLogic extends GetxController {
 
   @override
   void onReady() {
-    LoadingView.singleton.wrap(
-      asyncFunction: () => queryWorkingCircleList(),
+    LoadingView.singleton.start(
+      fn: () => queryWorkingCircleList(),
     );
     super.onReady();
   }
@@ -277,8 +277,8 @@ class WorkMomentsListLogic extends GetxController {
   likeMoments(WorkMoments moments) async {
     hiddenLikeCommentPopMenu();
     final workMomentID = moments.workMomentID!;
-    await LoadingView.singleton.wrap(
-      asyncFunction: () async {
+    await LoadingView.singleton.start(
+      fn: () async {
         await WApis.likeMoments(
             workMomentID: workMomentID, like: !iIsLiked(moments));
         await _updateData(workMomentID);
@@ -290,7 +290,7 @@ class WorkMomentsListLogic extends GetxController {
   submitComment() async {
     final text = inputCtrl.text.trim();
     if (text.isNotEmpty && null != commentWorkMomentsID) {
-      await LoadingView.singleton.wrap(asyncFunction: () async {
+      await LoadingView.singleton.start(fn: () async {
         await WApis.commentMoments(
           workMomentID: commentWorkMomentsID!,
           text: text,
@@ -305,7 +305,7 @@ class WorkMomentsListLogic extends GetxController {
   /// 评论朋友圈
   commentMoments(WorkMoments moments) async {
     hiddenLikeCommentPopMenu();
-    commentHintText.value = '${StrRes.comment}：';
+    commentHintText.value = '${StrLibrary.comment}：';
     commentWorkMomentsID = moments.workMomentID!;
     replyUserID = null;
   }
@@ -316,13 +316,14 @@ class WorkMomentsListLogic extends GetxController {
     if (comments.userID == OpenIM.iMManager.userID) {
       final del = await Get.bottomSheet(
         barrierColor: Styles.c_191919_opacity50,
-        BottomSheetView(items: [SheetItem(label: StrRes.delete, result: 1)]),
+        BottomSheetView(
+            items: [SheetItem(label: StrLibrary.delete, result: 1)]),
       );
       if (del == 1) {
         delComment(moments, comments);
       }
     } else {
-      commentHintText.value = '${StrRes.reply} ${comments.nickname}：';
+      commentHintText.value = '${StrLibrary.reply} ${comments.nickname}：';
       commentWorkMomentsID = moments.workMomentID!;
       replyUserID = comments.userID;
     }
@@ -330,8 +331,8 @@ class WorkMomentsListLogic extends GetxController {
 
   /// 删除评论
   delComment(WorkMoments moments, Comments comments) async {
-    LoadingView.singleton.wrap(
-      asyncFunction: () async {
+    LoadingView.singleton.start(
+      fn: () async {
         await WApis.deleteComment(
           workMomentID: moments.workMomentID!,
           commentID: comments.commentID!,
@@ -343,11 +344,11 @@ class WorkMomentsListLogic extends GetxController {
 
   delWorkWorkMoments(WorkMoments moments) async {
     var confirm = await Get.dialog(CustomDialog(
-      title: StrRes.confirmDelMoment,
+      title: StrLibrary.confirmDelMoment,
     ));
     if (!confirm) return;
-    await LoadingView.singleton.wrap(
-      asyncFunction: () async {
+    await LoadingView.singleton.start(
+      fn: () async {
         await WApis.deleteMoments(workMomentID: moments.workMomentID!);
       },
     );

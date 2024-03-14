@@ -25,8 +25,8 @@ class PersonalInfoLogic extends GetxController {
   }
 
   void _queryUserFullInfo() async {
-    final list = await LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.getUserFullInfo(userIDList: [userID]),
+    final list = await LoadingView.singleton.start(
+      fn: () => Apis.getUserFullInfo(userIDList: [userID]),
     );
     final info = list?.firstOrNull;
     if (null != info) {

@@ -81,14 +81,17 @@ class GroupSetupLogic extends GetxController {
     });
 
     _mISub = imLogic.memberInfoChangedSubject.listen((e) {
-      if (e.groupID == groupInfo.value.groupID && e.userID == myGroupMembersInfo.value.userID) {
+      if (e.groupID == groupInfo.value.groupID &&
+          e.userID == myGroupMembersInfo.value.userID) {
         myGroupMembersInfo.update((val) {
           val?.nickname = e.nickname;
           val?.roleLevel = e.roleLevel;
         });
       }
-      if (e.groupID == groupInfo.value.groupID && e.userID == groupInfo.value.ownerUserID) {
-        var index = memberList.indexWhere((element) => element.userID == groupInfo.value.ownerUserID);
+      if (e.groupID == groupInfo.value.groupID &&
+          e.userID == groupInfo.value.ownerUserID) {
+        var index = memberList.indexWhere(
+            (element) => element.userID == groupInfo.value.ownerUserID);
         if (index == -1) {
           memberList.insert(0, e);
         } else if (index != 0) {
@@ -154,7 +157,8 @@ class GroupSetupLogic extends GetxController {
 
   bool get isOwnerOrAdmin => isOwner || isAdmin;
 
-  bool get isAdmin => myGroupMembersInfo.value.roleLevel == GroupRoleLevel.admin;
+  bool get isAdmin =>
+      myGroupMembersInfo.value.roleLevel == GroupRoleLevel.admin;
 
   bool get isOwner => groupInfo.value.ownerUserID == OpenIM.iMManager.userID;
 
@@ -166,11 +170,12 @@ class GroupSetupLogic extends GetxController {
 
   bool get isMsgDestruct => conversationInfo.value.isMsgDestruct == true;
 
-  int get destructDuration => conversationInfo.value.msgDestructTime ?? 7 * 24 * 60 * 60;
+  int get destructDuration =>
+      conversationInfo.value.msgDestructTime ?? 7 * 24 * 60 * 60;
 
   String get appBarTitle {
     return (groupInfo.value.memberCount ?? 0) > 0
-        ? "${StrRes.groupChatSetup}（${groupInfo.value.memberCount}）"
+        ? "${StrLibrary.groupChatSetup}（${groupInfo.value.memberCount}）"
         : "";
   }
 
@@ -187,8 +192,9 @@ class GroupSetupLogic extends GetxController {
   String? get targetLang => translateLogic.getTargetLang(conversationID);
 
   void toggleAutoTranslate() {
-    translateLogic.updateLangConfig(conversation: conversationInfo.value,
-        data:{"autoTranslate": !isAutoTranslate});
+    translateLogic.updateLangConfig(
+        conversation: conversationInfo.value,
+        data: {"autoTranslate": !isAutoTranslate});
   }
 
   void setTargetLang() {
@@ -314,11 +320,13 @@ class GroupSetupLogic extends GetxController {
         conversationInfo: conversationInfo.value,
       );
 
-  void searchChatHistoryPicture() => AppNavigator.startSearchChatHistoryMultimedia(
+  void searchChatHistoryPicture() =>
+      AppNavigator.startSearchChatHistoryMultimedia(
         conversationInfo: conversationInfo.value,
       );
 
-  void searchChatHistoryVideo() => AppNavigator.startSearchChatHistoryMultimedia(
+  void searchChatHistoryVideo() =>
+      AppNavigator.startSearchChatHistoryMultimedia(
         conversationInfo: conversationInfo.value,
         multimediaType: MultimediaType.video,
       );
@@ -329,7 +337,8 @@ class GroupSetupLogic extends GetxController {
 
   void _removeConversation() async {
     // 删除群会话
-    await OpenIM.iMManager.conversationManager.deleteConversationAndDeleteAllMsg(
+    await OpenIM.iMManager.conversationManager
+        .deleteConversationAndDeleteAllMsg(
       conversationID: conversationInfo.value.conversationID,
     );
 
@@ -340,7 +349,7 @@ class GroupSetupLogic extends GetxController {
     if (isJoinedGroup.value) {
       if (isOwner) {
         var confirm = await Get.dialog(CustomDialog(
-          title: StrRes.dismissGroupHint,
+          title: StrLibrary.dismissGroupHint,
         ));
         if (confirm == true) {
           // transferGroup();
@@ -354,7 +363,7 @@ class GroupSetupLogic extends GetxController {
         }
       } else {
         var confirm = await Get.dialog(CustomDialog(
-          title: StrRes.quitGroupHint,
+          title: StrLibrary.quitGroupHint,
         ));
         if (confirm == true) {
           // 退群
@@ -381,7 +390,9 @@ class GroupSetupLogic extends GetxController {
 
   int length() {
     int buttons = isOwnerOrAdmin ? 2 : 1;
-    return (memberList.length + buttons) > 10 ? 10 : (memberList.length + buttons);
+    return (memberList.length + buttons) > 10
+        ? 10
+        : (memberList.length + buttons);
   }
 
   Widget itemBuilder({
@@ -413,8 +424,8 @@ class GroupSetupLogic extends GetxController {
   }
 
   void toggleTopChat() async {
-    await LoadingView.singleton.wrap(
-      asyncFunction: () => OpenIM.iMManager.conversationManager.pinConversation(
+    await LoadingView.singleton.start(
+      fn: () => OpenIM.iMManager.conversationManager.pinConversation(
         conversationID: conversationID,
         isPinned: !isPinned,
       ),
@@ -422,8 +433,9 @@ class GroupSetupLogic extends GetxController {
   }
 
   void toggleNotDisturb() {
-    LoadingView.singleton.wrap(
-        asyncFunction: () => OpenIM.iMManager.conversationManager.setConversationRecvMessageOpt(
+    LoadingView.singleton.start(
+        fn: () =>
+            OpenIM.iMManager.conversationManager.setConversationRecvMessageOpt(
               conversationID: conversationID,
               status: !isNotDisturb ? 2 : 0,
             ));
@@ -431,29 +443,29 @@ class GroupSetupLogic extends GetxController {
 
   void clearChatHistory() async {
     var confirm = await Get.dialog(CustomDialog(
-      title: StrRes.confirmClearChatHistory,
-      rightText: StrRes.clearAll,
+      title: StrLibrary.confirmClearChatHistory,
+      rightText: StrLibrary.clearAll,
     ));
     if (confirm == true) {
-      await OpenIM.iMManager.conversationManager.clearConversationAndDeleteAllMsg(
+      await OpenIM.iMManager.conversationManager
+          .clearConversationAndDeleteAllMsg(
         conversationID: conversationID,
       );
       chatLogic.clearAllMessage();
-      IMViews.showToast(StrRes.clearSuccessfully);
+      IMViews.showToast(StrLibrary.clearSuccessfully);
     }
   }
 
   void addMember() async {
     final result = await AppNavigator.startSelectContacts(
-      action: SelAction.addMember,
-      groupID: groupInfo.value.groupID,
-      selectFromFriend: true
-    );
+        action: SelAction.addMember,
+        groupID: groupInfo.value.groupID,
+        selectFromFriend: true);
 
     final list = IMUtils.convertSelectContactsResultToUserID(result);
     if (list is List<String>) {
-      await LoadingView.singleton.wrap(
-        asyncFunction: () => OpenIM.iMManager.groupManager.inviteUserToGroup(
+      await LoadingView.singleton.start(
+        fn: () => OpenIM.iMManager.groupManager.inviteUserToGroup(
           groupID: groupInfo.value.groupID,
           userIDList: list,
           reason: 'Come on baby',
@@ -470,8 +482,8 @@ class GroupSetupLogic extends GetxController {
     );
     if (list is List<GroupMembersInfo>) {
       var removeUidList = list.map((e) => e.userID!).toList();
-      await LoadingView.singleton.wrap(
-        asyncFunction: () => OpenIM.iMManager.groupManager.kickGroupMember(
+      await LoadingView.singleton.start(
+        fn: () => OpenIM.iMManager.groupManager.kickGroupMember(
           groupID: groupInfo.value.groupID,
           userIDList: removeUidList,
           reason: 'Get out baby',
@@ -481,7 +493,8 @@ class GroupSetupLogic extends GetxController {
     }
   }
 
-  void viewMemberInfo(GroupMembersInfo membersInfo) => AppNavigator.startUserProfilePane(
+  void viewMemberInfo(GroupMembersInfo membersInfo) =>
+      AppNavigator.startUserProfilePane(
         userID: membersInfo.userID!,
         nickname: membersInfo.nickname,
         faceURL: membersInfo.faceURL,
@@ -493,16 +506,16 @@ class GroupSetupLogic extends GetxController {
     int week = 7 * day;
     int month = 1 * 30 * day;
     if (destructDuration % month == 0) {
-      return sprintf(StrRes.nMonth, [destructDuration ~/ month]);
+      return sprintf(StrLibrary.nMonth, [destructDuration ~/ month]);
     } else if (destructDuration % week == 0) {
-      return sprintf(StrRes.nWeek, [destructDuration ~/ week]);
+      return sprintf(StrLibrary.nWeek, [destructDuration ~/ week]);
     } else {
-      return sprintf(StrRes.nDay, [destructDuration ~/ day]);
+      return sprintf(StrLibrary.nDay, [destructDuration ~/ day]);
     }
   }
 
   void toggleDestructMessage() {
-    LoadingView.singleton.wrap(asyncFunction: () async {
+    LoadingView.singleton.start(fn: () async {
       await OpenIM.iMManager.conversationManager.setConversationIsMsgDestruct(
         conversationID: conversationID,
         isMsgDestruct: !isMsgDestruct,
@@ -512,14 +525,14 @@ class GroupSetupLogic extends GetxController {
 
   void setDestructMessageDuration() async {
     IMViews.showSinglePicker(
-      title: StrRes.periodicallyDeleteMessage,
-      description: StrRes.periodicallyDeleteMessageDescription,
+      title: StrLibrary.periodicallyDeleteMessage,
+      description: StrLibrary.periodicallyDeleteMessageDescription,
       pickerData: [
         [1, 2, 3, 4, 5, 6],
         [
-          sprintf(StrRes.nDay, ['']).trim(),
-          sprintf(StrRes.nWeek, ['']).trim(),
-          sprintf(StrRes.nMonth, ['']).trim(),
+          sprintf(StrLibrary.nDay, ['']).trim(),
+          sprintf(StrLibrary.nWeek, ['']).trim(),
+          sprintf(StrLibrary.nMonth, ['']).trim(),
         ]
       ],
       isArray: true,
@@ -542,7 +555,9 @@ class GroupSetupLogic extends GetxController {
   }
 
   void setConversationMsgDestructTime(int duration) {
-    LoadingView.singleton.wrap(
-        asyncFunction: () => OpenIM.iMManager.conversationManager.setConversationMsgDestructTime(conversationID: conversationID, duration: duration));
+    LoadingView.singleton.start(
+        fn: () => OpenIM.iMManager.conversationManager
+            .setConversationMsgDestructTime(
+                conversationID: conversationID, duration: duration));
   }
 }

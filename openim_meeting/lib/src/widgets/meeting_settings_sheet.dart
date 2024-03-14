@@ -118,7 +118,7 @@ class _MeetingSettingsSheetViewState extends State<MeetingSettingsSheetView> {
               Stack(
                 alignment: Alignment.center,
                 children: [
-                  StrRes.meetingSettings.toText
+                  StrLibrary.meetingSettings.toText
                     ..style = Styles.ts_0C1C33_17sp_medium,
                   Align(
                     alignment: Alignment.centerRight,
@@ -130,7 +130,7 @@ class _MeetingSettingsSheetViewState extends State<MeetingSettingsSheetView> {
                           vertical: 12.h,
                           horizontal: 16.w,
                         ),
-                        child: StrRes.determine.toText
+                        child: StrLibrary.determine.toText
                           ..style = Styles.ts_0089FF_17sp,
                       ),
                     ),
@@ -139,27 +139,27 @@ class _MeetingSettingsSheetViewState extends State<MeetingSettingsSheetView> {
               ),
               11.verticalSpace,
               _buildItemView(
-                label: StrRes.allowMembersOpenMic,
+                label: StrLibrary.allowMembersOpenMic,
                 value: _allowParticipantUnmute,
                 onChanged: _onAllowParticipantUnmute,
               ),
               _buildItemView(
-                label: StrRes.allowMembersOpenVideo,
+                label: StrLibrary.allowMembersOpenVideo,
                 value: _allowParticipantVideo,
                 onChanged: _onAllowParticipantVideo,
               ),
               _buildItemView(
-                label: StrRes.onlyHostShareScreen,
+                label: StrLibrary.onlyHostShareScreen,
                 value: _onlyHostCanShareScreen,
                 onChanged: _onOnlyHostCanShareScreen,
               ),
               _buildItemView(
-                label: StrRes.onlyHostInviteMember,
+                label: StrLibrary.onlyHostInviteMember,
                 value: _onlyHostCanInvite,
                 onChanged: _onOnlyHostCanInvite,
               ),
               _buildItemView(
-                label: StrRes.defaultMuteMembers,
+                label: StrLibrary.defaultMuteMembers,
                 value: _joinMeetingDefaultMute,
                 onChanged: _onJoinMeetingDefaultMute,
               ),

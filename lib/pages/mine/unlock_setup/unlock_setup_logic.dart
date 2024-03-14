@@ -70,7 +70,7 @@ class UnlockSetupLogic extends GetxController {
     screenLock(
       context: Get.context!,
       correctString: lockScreenPwd!,
-      title: StrRes.plsEnterPwd.toText..style = Styles.ts_FFFFFF_17sp,
+      title: StrLibrary.plsEnterPwd.toText..style = Styles.ts_FFFFFF_17sp,
       onUnlocked: () async {
         await DataSp.clearLockScreenPassword();
         await DataSp.closeBiometric();
@@ -86,10 +86,10 @@ class UnlockSetupLogic extends GetxController {
     screenLockCreate(
       context: Get.context!,
       inputController: controller,
-      title: StrRes.plsEnterNewPwd.toText..style = Styles.ts_FFFFFF_17sp,
-      confirmTitle: StrRes.plsConfirmNewPwd.toText
+      title: StrLibrary.plsEnterNewPwd.toText..style = Styles.ts_FFFFFF_17sp,
+      confirmTitle: StrLibrary.plsConfirmNewPwd.toText
         ..style = Styles.ts_FFFFFF_17sp,
-      cancelButton: StrRes.cancel.toText..style = Styles.ts_FFFFFF_17sp,
+      cancelButton: StrLibrary.cancel.toText..style = Styles.ts_FFFFFF_17sp,
       onConfirmed: (matchedText) async {
         lockScreenPwd = matchedText;
         await DataSp.putLockScreenPassword(matchedText);
@@ -101,7 +101,7 @@ class UnlockSetupLogic extends GetxController {
           // Release the confirmation state and return to the initial input state.
           controller.unsetConfirmed();
         },
-        child: StrRes.reset.toText..style = Styles.ts_8443F8_17sp,
+        child: StrLibrary.reset.toText..style = Styles.ts_8443F8_17sp,
       ),
     );
   }

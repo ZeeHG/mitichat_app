@@ -73,7 +73,7 @@ class PreviewChatHistoryPage extends StatelessWidget {
           deletedByFriend: viewType == CustomMessageType.deletedByFriend,
         );
         return CustomTypeInfo(view, false, false);
-      } 
+      }
       // else if (viewType == CustomMessageType.meeting) {
       //   // 会议
       //   final inviterUserID = data['inviterUserID'];
@@ -92,16 +92,16 @@ class PreviewChatHistoryPage extends StatelessWidget {
       //     id: id,
       //   );
       //   return CustomTypeInfo(view, false, true);
-      // } 
+      // }
       else if (viewType == CustomMessageType.removedFromGroup) {
         return CustomTypeInfo(
-          StrRes.removedFromGroupHint.toText..style = Styles.ts_999999_12sp,
+          StrLibrary.removedFromGroupHint.toText..style = Styles.ts_999999_12sp,
           false,
           false,
         );
       } else if (viewType == CustomMessageType.groupDisbanded) {
         return CustomTypeInfo(
-          StrRes.groupDisbanded.toText..style = Styles.ts_999999_12sp,
+          StrLibrary.groupDisbanded.toText..style = Styles.ts_999999_12sp,
           false,
           false,
         );

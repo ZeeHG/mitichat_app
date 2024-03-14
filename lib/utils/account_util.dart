@@ -192,7 +192,7 @@ class AccountUtil extends GetxController {
         throw Exception("登录im超时");
       }
     } catch (e, s) {
-      showToast(StrRes.fail);
+      showToast(StrLibrary.fail);
       myLogger.e({
         "message": "im登录失败",
         "error": {"curServerKey": curServerKey, "error": e},
@@ -286,7 +286,7 @@ class AccountUtil extends GetxController {
         throw Exception("登录im超时");
       }
     } catch (e, s) {
-      showToast(StrRes.fail);
+      showToast(StrLibrary.fail);
       myLogger.e({
         "message": "im登录失败",
         "error": {"curServerKey": curServerKey, "error": e},
@@ -359,7 +359,7 @@ class AccountUtil extends GetxController {
         ttsLogic.init(userID);
         pushLogic.login(userID);
       }
-      showToast(StrRes.switchSuccess);
+      showToast(StrLibrary.switchSuccess);
       return true;
     } catch (e, s) {
       myLogger.e({
@@ -399,7 +399,7 @@ class AccountUtil extends GetxController {
             "stack": s
           });
         }
-        showToast(StrRes.fail);
+        showToast(StrLibrary.fail);
         return false;
       }
       return false;
@@ -424,7 +424,7 @@ class AccountUtil extends GetxController {
           phoneNumber: phoneNumber,
           email: email,
           password: password);
-      showToast(StrRes.loginSuccess);
+      showToast(StrLibrary.loginSuccess);
       return true;
     } catch (e, s) {
       myLogger.e({
@@ -469,7 +469,7 @@ class AccountUtil extends GetxController {
           nickname: nickname,
           verificationCode: verificationCode,
           invitationCode: invitationCode);
-      showToast(StrRes.registerSuccess);
+      showToast(StrLibrary.registerSuccess);
       return true;
     } catch (e, s) {
       myLogger.e({
@@ -528,7 +528,7 @@ class AccountUtil extends GetxController {
           },
           "stack": s
         });
-        showToast(StrRes.accountErr);
+        showToast(StrLibrary.accountErr);
         return false;
       }
       return true;
@@ -538,9 +538,9 @@ class AccountUtil extends GetxController {
 
   Future<void> backMain(int originStatusChangeCount) async {
     if (statusChangeCount.value > originStatusChangeCount) {
-      LoadingView.singleton.wrap(
-          navBarHeight: 0,
-          asyncFunction: () async {
+      LoadingView.singleton.start(
+          topBarHeight: 0,
+          fn: () async {
             await backCurAccount();
             AppNavigator.startMain();
           });

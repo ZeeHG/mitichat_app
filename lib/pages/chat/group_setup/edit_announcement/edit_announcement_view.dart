@@ -17,9 +17,11 @@ class EditGroupAnnouncementPage extends StatelessWidget {
     return Obx(() => TouchCloseSoftKeyboard(
           child: Scaffold(
             appBar: TitleBar.back(
-              title: StrRes.groupAc,
+              title: StrLibrary.groupAc,
               right: logic.hasEditPermissions.value
-                  ? ((logic.onlyRead.value ? StrRes.edit : StrRes.publish)
+                  ? ((logic.onlyRead.value
+                          ? StrLibrary.edit
+                          : StrLibrary.publish)
                       .toText
                     ..style = Styles.ts_333333_17sp
                     ..onTap =
@@ -48,11 +50,13 @@ class EditGroupAnnouncementPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             (logic.updateMember.value.nickname ?? '').toText,
-                            '${StrRes.updateOn}${DateUtil.formatDateMs(
+                            '${StrLibrary.updateOn}${DateUtil.formatDateMs(
                               (logic.groupInfo.value.notificationUpdateTime ??
                                       0) *
                                   1000,
-                              format: appCommonLogic.isZh? DateFormats.zh_mo_d_h_m : DateFormats.mo_d_h_m,
+                              format: appCommonLogic.isZh
+                                  ? DateFormats.zh_mo_d_h_m
+                                  : DateFormats.mo_d_h_m,
                             )}'
                                 .toText
                               ..style = Styles.ts_999999_12sp,
@@ -72,7 +76,7 @@ class EditGroupAnnouncementPage extends StatelessWidget {
                       maxLength: 250,
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: StrRes.plsEnterGroupAc,
+                        hintText: StrLibrary.plsEnterGroupAc,
                         hintStyle: Styles.ts_999999_17sp,
                         isDense: true,
                       ),
@@ -87,7 +91,7 @@ class EditGroupAnnouncementPage extends StatelessWidget {
                         margin: EdgeInsets.only(right: 8.w),
                         color: Styles.c_E8EAEF,
                       ),
-                      StrRes.groupAcPermissionTips.toText
+                      StrLibrary.groupAcPermissionTips.toText
                         ..style = Styles.ts_999999_12sp,
                       Container(
                         width: 30.w,

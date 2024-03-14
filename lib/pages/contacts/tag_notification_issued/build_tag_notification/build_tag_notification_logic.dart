@@ -41,24 +41,24 @@ class BuildTagNotificationLogic extends GetxController {
   void sendTextNotification() async {
     final content = textEditingCtrl.text.trim();
     if (content.isEmpty) {
-      IMViews.showToast(StrRes.contentNotBlank);
+      IMViews.showToast(StrLibrary.contentNotBlank);
       return;
     }
     final map = buildApiParams();
-    await LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.sendTagNotification(
+    await LoadingView.singleton.start(
+      fn: () => Apis.sendTagNotification(
         textElem: TextElem(content: content),
         tagIDList: map['tagIDList'] ?? [],
         userIDList: map['userIDList'] ?? [],
         groupIDList: map['groupIDList'] ?? [],
       ),
     );
-    IMViews.showToast(StrRes.sendSuccessfully);
+    IMViews.showToast(StrLibrary.sendSuccessfully);
     Get.back(result: true);
   }
 
   sendSoundNotification(int sec, String path) async {
-    await LoadingView.singleton.wrap(asyncFunction: () async {
+    await LoadingView.singleton.start(fn: () async {
       final result = await OpenIM.iMManager.uploadFile(
         id: const Uuid().v4(),
         filePath: path,
@@ -83,7 +83,7 @@ class BuildTagNotificationLogic extends GetxController {
         );
       }
     });
-    IMViews.showToast(StrRes.sendSuccessfully);
+    IMViews.showToast(StrLibrary.sendSuccessfully);
     Get.back(result: true);
   }
 
@@ -116,6 +116,10 @@ class BuildTagNotificationLogic extends GetxController {
         tagIDList.add(info.tagID!);
       }
     }
-    return {"tagIDList": tagIDList, "userIDList": userIDList, "groupIDList": groupIDList};
+    return {
+      "tagIDList": tagIDList,
+      "userIDList": userIDList,
+      "groupIDList": groupIDList
+    };
   }
 }

@@ -126,8 +126,8 @@ abstract class MeetingViewState<T extends MeetingView> extends State<T> {
     if (result is Map) {
       final list = IMUtils.convertCheckedListToShare(result.values);
 
-      await LoadingView.singleton.wrap(
-          asyncFunction: () => Future.forEach(
+      await LoadingView.singleton.start(
+          fn: () => Future.forEach(
               list,
               (map) => MeetingClient().invite(
                     userID: map['userID'],
@@ -137,7 +137,7 @@ abstract class MeetingViewState<T extends MeetingView> extends State<T> {
                     startTime: startTime,
                     duration: duration,
                   )));
-      IMViews.showToast(StrRes.shareSuccessfully);
+      IMViews.showToast(StrLibrary.shareSuccessfully);
     }
   }
 
@@ -227,7 +227,8 @@ abstract class MeetingViewState<T extends MeetingView> extends State<T> {
                           ..width = 48.w
                           ..height = 48.h,
                         8.verticalSpace,
-                        StrRes.videoMeeting.toText..style = Styles.ts_FFFFFF_12sp,
+                        StrLibrary.videoMeeting.toText
+                          ..style = Styles.ts_FFFFFF_12sp,
                       ],
                     ),
                   ),

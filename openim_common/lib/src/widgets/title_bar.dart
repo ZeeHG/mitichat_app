@@ -20,8 +20,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       this.showUnderline = false,
       EdgeInsetsGeometry? padding,
       this.overBottomBg})
-      : 
-      super(key: key);
+      : super(key: key);
   final double? height;
   final Widget? left;
   final Widget? center;
@@ -146,7 +145,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
           child: Center(
             child: CustomTabBar(
                 width: 100.w,
-                labels: [StrRes.chat, StrRes.friend],
+                labels: [StrLibrary.chat, StrLibrary.friend],
                 counts: [0.obs, unhandledCount ?? 0.obs],
                 index: homeTabIndex.value,
                 onTabChanged: (i) => onSwitchTab(i),
@@ -165,27 +164,27 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
               popCtrl: popCtrl,
               menus: [
                 PopMenuInfo(
-                  text: StrRes.scan,
+                  text: StrLibrary.scan,
                   icon: ImageRes.appPopMenuScan,
                   onTap: onScan,
                 ),
                 PopMenuInfo(
-                  text: StrRes.addFriend,
+                  text: StrLibrary.addFriend,
                   icon: ImageRes.appPopMenuAddFriend,
                   onTap: onAddFriend,
                 ),
                 PopMenuInfo(
-                  text: StrRes.addGroup,
+                  text: StrLibrary.addGroup,
                   icon: ImageRes.appPopMenuAddGroup,
                   onTap: onAddGroup,
                 ),
                 PopMenuInfo(
-                  text: StrRes.createGroup,
+                  text: StrLibrary.createGroup,
                   icon: ImageRes.appPopMenuCreateGroup,
                   onTap: onCreateGroup,
                 ),
                 // PopMenuInfo(
-                //   text: StrRes.videoMeeting,
+                //   text: StrLibrary .videoMeeting,
                 //   icon: ImageRes.appPopMenuVideoMeeting,
                 //   onTap: onVideoMeeting,
                 // ),
@@ -244,7 +243,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
               popCtrl: popCtrl,
               menus: [
                 PopMenuInfo(
-                  text: StrRes.scan,
+                  text: StrLibrary.scan,
                   icon: ImageRes.appPopMenuScan,
                   onTap: onScan,
                 )
@@ -327,7 +326,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
         left = Expanded(
             // flex: 1,
             child: isMultiModel
-                ? (StrRes.cancel.toText
+                ? (StrLibrary.cancel.toText
                   ..style = Styles.ts_333333_17sp
                   ..onTap = onCloseMultiModel)
                 : Row(children: [
@@ -504,7 +503,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
             child: CustomTabBar(
                 width: 100.w,
                 counts: [0.obs, unhandledCount ?? 0.obs],
-                labels: [StrRes.chat, StrRes.friend],
+                labels: [StrLibrary.chat, StrLibrary.friend],
                 index: homeTabIndex.value,
                 onTabChanged: (i) => onSwitchTab(i),
                 showUnderline: false,
@@ -534,27 +533,27 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
               popCtrl: popCtrl,
               menus: [
                 PopMenuInfo(
-                  text: StrRes.scan,
+                  text: StrLibrary.scan,
                   icon: ImageRes.appPopMenuScan,
                   onTap: onScan,
                 ),
                 PopMenuInfo(
-                  text: StrRes.addFriend,
+                  text: StrLibrary.addFriend,
                   icon: ImageRes.appPopMenuAddFriend,
                   onTap: onAddFriend,
                 ),
                 PopMenuInfo(
-                  text: StrRes.addGroup,
+                  text: StrLibrary.addGroup,
                   icon: ImageRes.appPopMenuAddGroup,
                   onTap: onAddGroup,
                 ),
                 PopMenuInfo(
-                  text: StrRes.createGroup,
+                  text: StrLibrary.createGroup,
                   icon: ImageRes.appPopMenuCreateGroup,
                   onTap: onCreateGroup,
                 ),
                 // PopMenuInfo(
-                //   text: StrRes.videoMeeting,
+                //   text: StrLibrary .videoMeeting,
                 //   icon: ImageRes.appPopMenuVideoMeeting,
                 //   onTap: onVideoMeeting,
                 // ),
@@ -579,7 +578,8 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       : height = 44.h,
         backgroundColor = Styles.c_FFFFFF,
         center = null,
-        left = StrRes.workbench.toText..style = Styles.ts_333333_20sp_semibold,
+        left = StrLibrary.workbench.toText
+          ..style = Styles.ts_333333_20sp_semibold,
         right = null;
 
   TitleBar.search(
@@ -614,7 +614,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
         left = null,
         right = Padding(
           padding: EdgeInsets.only(left: 16.w),
-          child: StrRes.cancel.toText
+          child: StrLibrary.cancel.toText
             ..style = Styles.ts_9280B3_16sp
             ..onTap = (() => Get.back()),
         );

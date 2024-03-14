@@ -14,8 +14,8 @@ class ChangeBotInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: TitleBar.back(
-            title: StrRes.nicknameAndAvatar,
-            right: StrRes.save.toText..style = Styles.ts_8443F8_16sp
+            title: StrLibrary.nicknameAndAvatar,
+            right: StrLibrary.save.toText..style = Styles.ts_8443F8_16sp
             // ..onTap = logic.save,
             ),
         backgroundColor: Styles.c_F7F8FA,
@@ -35,7 +35,7 @@ class ChangeBotInfoPage extends StatelessWidget {
                         ..width = 88.w
                         ..height = 88.h,
                       20.verticalSpace,
-                      StrRes.changeAvatar.toText
+                      StrLibrary.changeAvatar.toText
                         ..onTap = logic.openPhotoSheet
                         ..style = Styles.ts_8443F8_16sp
                     ],

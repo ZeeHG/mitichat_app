@@ -28,7 +28,8 @@ class MeetingMembersSheetView extends StatefulWidget {
   final bool isHost;
 
   @override
-  State<MeetingMembersSheetView> createState() => _MeetingMembersSheetViewState();
+  State<MeetingMembersSheetView> createState() =>
+      _MeetingMembersSheetViewState();
 }
 
 class _MeetingMembersSheetViewState extends State<MeetingMembersSheetView> {
@@ -37,13 +38,16 @@ class _MeetingMembersSheetViewState extends State<MeetingMembersSheetView> {
   openim.MeetingInfo? _meetingInfo;
   final List<ParticipantTrack> _participantTracks = [];
 
-  List<String> get _disabledMicrophoneUserIDList => _meetingInfo?.disableMicrophoneUserIDList ?? [];
+  List<String> get _disabledMicrophoneUserIDList =>
+      _meetingInfo?.disableMicrophoneUserIDList ?? [];
 
   List<String> get _pinedUserIDList => _meetingInfo?.pinedUserIDList ?? [];
 
-  List<String> get _disabledVideoUserIDList => _meetingInfo?.disableVideoUserIDList ?? [];
+  List<String> get _disabledVideoUserIDList =>
+      _meetingInfo?.disableVideoUserIDList ?? [];
 
-  List<String> get _beWatchedUserIDList => _meetingInfo?.beWatchedUserIDList ?? [];
+  List<String> get _beWatchedUserIDList =>
+      _meetingInfo?.beWatchedUserIDList ?? [];
 
   bool get _onlyHostInviteUser => _meetingInfo?.onlyHostInviteUser == true;
 
@@ -97,17 +101,20 @@ class _MeetingMembersSheetViewState extends State<MeetingMembersSheetView> {
     });
   }
 
-  _invite() => widget.controller?.reverse().then((value) => widget.onInvite?.call());
+  _invite() =>
+      widget.controller?.reverse().then((value) => widget.onInvite?.call());
 
-  _muteAll() => widget.controller?.reverse().then((value) => _updateMeetingInfo({
-        "roomID": _meetingInfo!.roomID!,
-        "isMuteAllMicrophone": true,
-      }));
+  _muteAll() =>
+      widget.controller?.reverse().then((value) => _updateMeetingInfo({
+            "roomID": _meetingInfo!.roomID!,
+            "isMuteAllMicrophone": true,
+          }));
 
-  _unmuteAll() => widget.controller?.reverse().then((value) => _updateMeetingInfo({
-        "roomID": _meetingInfo!.roomID!,
-        "isMuteAllMicrophone": false,
-      }));
+  _unmuteAll() =>
+      widget.controller?.reverse().then((value) => _updateMeetingInfo({
+            "roomID": _meetingInfo!.roomID!,
+            "isMuteAllMicrophone": false,
+          }));
 
   _pinThisMember(String userID, bool pined) async {
     await _updateMeetingInfo(pined
@@ -144,18 +151,22 @@ class _MeetingMembersSheetViewState extends State<MeetingMembersSheetView> {
     });
   }
 
-  _updateMeetingInfo(Map args) =>
-      LoadingView.singleton.wrap(asyncFunction: () => openim.OpenIM.iMManager.signalingManager.signalingUpdateMeetingInfo(info: args));
+  _updateMeetingInfo(Map args) => LoadingView.singleton.start(
+      fn: () => openim.OpenIM.iMManager.signalingManager
+          .signalingUpdateMeetingInfo(info: args));
 
   /// String meetingID, String? streamType, String userID,
   ///       bool mute, bool muteAll
-  _onTapCamera(String userID, bool value) => _updateOpStream(_meetingInfo!.roomID!, 'video', userID, value, false);
+  _onTapCamera(String userID, bool value) =>
+      _updateOpStream(_meetingInfo!.roomID!, 'video', userID, value, false);
 
-  _onTapMic(String userID, bool value) => _updateOpStream(_meetingInfo!.roomID!, 'audio', userID, value, false);
+  _onTapMic(String userID, bool value) =>
+      _updateOpStream(_meetingInfo!.roomID!, 'audio', userID, value, false);
 
   _updateOpStream(roomID, streamType, userID, mute, muteAll) {
-    return LoadingView.singleton.wrap(
-        asyncFunction: () => openim.OpenIM.iMManager.signalingManager.signalingOperateStream(
+    return LoadingView.singleton.start(
+        fn: () =>
+            openim.OpenIM.iMManager.signalingManager.signalingOperateStream(
               roomID: roomID,
               streamType: streamType,
               userID: userID,
@@ -190,7 +201,8 @@ class _MeetingMembersSheetViewState extends State<MeetingMembersSheetView> {
                   Container(
                     height: 52.h,
                     alignment: Alignment.center,
-                    child: StrRes.members.toText..style = Styles.ts_0C1C33_17sp_medium,
+                    child: StrLibrary.members.toText
+                      ..style = Styles.ts_0C1C33_17sp_medium,
                   ),
                   Spacer(),
                   CupertinoButton(
@@ -204,7 +216,8 @@ class _MeetingMembersSheetViewState extends State<MeetingMembersSheetView> {
                   child: ListView.builder(
                 padding: EdgeInsets.only(top: 7.h),
                 itemCount: _participantTracks.length,
-                itemBuilder: (_, index) => _buildItemView(_participantTracks.elementAt(index).participant),
+                itemBuilder: (_, index) => _buildItemView(
+                    _participantTracks.elementAt(index).participant),
               )),
               if (widget.isHost || !_onlyHostInviteUser) _buildButton(),
               12.verticalSpace,
@@ -219,8 +232,10 @@ class _MeetingMembersSheetViewState extends State<MeetingMembersSheetView> {
     String? nickname;
     String? faceURL;
     String userID = participant.identity;
-    final disableMic = !participant.isMicrophoneEnabled() /*|| _meetingInfo!.isMuteAllMicrophone == true*/;
-    final disableVideo = !participant.isCameraEnabled() /*|| _meetingInfo!.isMuteAllVideo == true*/;
+    final disableMic = !participant
+        .isMicrophoneEnabled() /*|| _meetingInfo!.isMuteAllMicrophone == true*/;
+    final disableVideo = !participant
+        .isCameraEnabled() /*|| _meetingInfo!.isMuteAllVideo == true*/;
     final isPined = _pinedUserIDList.contains(userID);
     final isSeeHim = _beWatchedUserIDList.contains(userID);
     // final disableMic = _disableMicrophoneUserIDList.contains(userID);
@@ -269,7 +284,10 @@ class _MeetingMembersSheetViewState extends State<MeetingMembersSheetView> {
                       if (widget.isHost)
                         Padding(
                           padding: EdgeInsets.only(left: 16.w),
-                          child: (!disableMic ? ImageRes.meetingMicOnGray : ImageRes.meetingMicOffGray).toImage
+                          child: (!disableMic
+                                  ? ImageRes.meetingMicOnGray
+                                  : ImageRes.meetingMicOffGray)
+                              .toImage
                             ..width = 30.w
                             ..height = 30.h
                             ..onTap = () => _onTapMic(userID, !disableMic),
@@ -277,7 +295,10 @@ class _MeetingMembersSheetViewState extends State<MeetingMembersSheetView> {
                       if (widget.isHost)
                         Padding(
                           padding: EdgeInsets.only(left: 16.w),
-                          child: (!disableVideo ? ImageRes.meetingCameraOnGray : ImageRes.meetingCameraOffGray).toImage
+                          child: (!disableVideo
+                                  ? ImageRes.meetingCameraOnGray
+                                  : ImageRes.meetingCameraOffGray)
+                              .toImage
                             ..width = 30.w
                             ..height = 30.h
                             ..onTap = () => _onTapCamera(userID, !disableVideo),
@@ -358,7 +379,9 @@ class _MeetingMembersSheetViewState extends State<MeetingMembersSheetView> {
         child: Column(
           children: [
             popItemView(
-              text: isPined ? StrRes.unpinThisMember : StrRes.pinThisMember,
+              text: isPined
+                  ? StrLibrary.unpinThisMember
+                  : StrLibrary.pinThisMember,
               underline: true,
               // onTap: () => controller?.reverse().then((value) {}),
               onTap: () {
@@ -367,7 +390,8 @@ class _MeetingMembersSheetViewState extends State<MeetingMembersSheetView> {
               },
             ),
             popItemView(
-              text: isSeeHim ? StrRes.cancelAllSeeHim : StrRes.allSeeHim,
+              text:
+                  isSeeHim ? StrLibrary.cancelAllSeeHim : StrLibrary.allSeeHim,
               underline: true,
               // onTap: () => controller?.reverse().then((value) {}),
               onTap: () {
@@ -397,14 +421,16 @@ class _MeetingMembersSheetViewState extends State<MeetingMembersSheetView> {
         child: widget.isHost
             ? Row(
                 children: [
-                  _buildTextButton(text: StrRes.invite, onTap: _invite),
+                  _buildTextButton(text: StrLibrary.invite, onTap: _invite),
                   10.horizontalSpace,
-                  _buildTextButton(text: StrRes.muteAll, onTap: _muteAll),
+                  _buildTextButton(text: StrLibrary.muteAll, onTap: _muteAll),
                   10.horizontalSpace,
-                  _buildTextButton(text: StrRes.unmuteAll, onTap: _unmuteAll),
+                  _buildTextButton(
+                      text: StrLibrary.unmuteAll, onTap: _unmuteAll),
                 ],
               )
-            : _buildTextButton(text: StrRes.invite, onTap: _invite, expanded: false),
+            : _buildTextButton(
+                text: StrLibrary.invite, onTap: _invite, expanded: false),
       );
 
   Widget _buildTextButton({

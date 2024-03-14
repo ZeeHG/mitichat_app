@@ -50,12 +50,12 @@ class BeCalledView extends StatelessWidget {
                   if (null != inviterUserInfo)
                     sprintf(
                         callType == CallType.audio
-                            ? StrRes.whoInvitedVoiceCallHint
-                            : StrRes.whoInvitedVideoCallHint,
+                            ? StrLibrary.whoInvitedVoiceCallHint
+                            : StrLibrary.whoInvitedVideoCallHint,
                         [inviterUserInfo.nickname]).toText
                       ..style = Styles.ts_FFFFFF_17sp_medium,
                   if (null != memberInfoList && memberInfoList!.isNotEmpty)
-                    sprintf(StrRes.nPeopleCalling, [memberInfoList!.length])
+                    sprintf(StrLibrary.nPeopleCalling, [memberInfoList!.length])
                         .toText
                       ..style = Styles.ts_FFFFFF_14sp,
                 ],

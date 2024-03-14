@@ -511,14 +511,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
-  flutter_bugly:
-    dependency: "direct main"
-    description:
-      name: flutter_bugly
-      sha256: a2d13cb35bedb907cb020ea4862264dcc9044675a49a8313bb3ab2e61af79c77
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.4"
   flutter_cache_manager:
     dependency: "direct main"
     description:

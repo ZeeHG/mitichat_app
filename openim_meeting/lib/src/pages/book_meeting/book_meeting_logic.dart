@@ -42,7 +42,7 @@ class BookMeetingLogic extends GetxController {
         DateTime.fromMillisecondsSinceEpoch(_startTime * 1000),
         format: format,
       );
-      duration.value = '${_duration / 3600} ${StrRes.hours}';
+      duration.value = '${_duration / 3600} ${StrLibrary.hours}';
       focusNode.requestFocus();
     }
   }
@@ -85,10 +85,10 @@ class BookMeetingLogic extends GetxController {
       BottomSheetView(
         items: durationList
             .map((e) => SheetItem(
-                  label: '$e ${StrRes.hours}',
+                  label: '$e ${StrLibrary.hours}',
                   onTap: () {
                     _duration = (e * 60 * 60).toInt();
-                    duration.value = '$e ${StrRes.hours}';
+                    duration.value = '$e ${StrLibrary.hours}';
                     changedButtonStatus();
                   },
                 ))
@@ -111,9 +111,8 @@ class BookMeetingLogic extends GetxController {
   }
 
   bookMeeting() async {
-    final sc = await LoadingView.singleton.wrap(
-        asyncFunction: () =>
-            OpenIM.iMManager.signalingManager.signalingCreateMeeting(
+    final sc = await LoadingView.singleton.start(
+        fn: () => OpenIM.iMManager.signalingManager.signalingCreateMeeting(
               meetingName: meetingSubjectCtrl.text,
               startTime: _startTime,
               meetingDuration: _duration,
@@ -136,8 +135,8 @@ class BookMeetingLogic extends GetxController {
       ..endTime = (_startTime + _duration);
 
     try {
-      await LoadingView.singleton.wrap(
-          asyncFunction: () =>
+      await LoadingView.singleton.start(
+          fn: () =>
               OpenIM.iMManager.signalingManager.signalingUpdateMeetingInfo(
                 info: meetingInfo!.toJson(),
               ));

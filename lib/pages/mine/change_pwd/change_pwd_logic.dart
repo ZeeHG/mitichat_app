@@ -23,36 +23,36 @@ class ChangePwdLogic extends GetxController {
 
   void confirm() async {
     if (oldPwdCtrl.text.isEmpty) {
-      IMViews.showToast(StrRes.plsEnterOldPwd);
+      IMViews.showToast(StrLibrary.plsEnterOldPwd);
       return;
     }
     if (!IMUtils.isValidPassword(newPwdCtrl.text)) {
-      IMViews.showToast(StrRes.wrongPasswordFormat);
+      IMViews.showToast(StrLibrary.wrongPasswordFormat);
       return;
     }
     if (newPwdCtrl.text.isEmpty) {
-      IMViews.showToast(StrRes.plsEnterNewPwd);
+      IMViews.showToast(StrLibrary.plsEnterNewPwd);
       return;
     }
     if (againPwdCtrl.text.isEmpty) {
-      IMViews.showToast(StrRes.plsEnterConfirmPwd);
+      IMViews.showToast(StrLibrary.plsEnterConfirmPwd);
       return;
     }
     if (newPwdCtrl.text != againPwdCtrl.text) {
-      IMViews.showToast(StrRes.twicePwdNoSame);
+      IMViews.showToast(StrLibrary.twicePwdNoSame);
       return;
     }
 
-    final result = await LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.changePassword(
+    final result = await LoadingView.singleton.start(
+      fn: () => Apis.changePassword(
         userID: OpenIM.iMManager.userID,
         newPassword: newPwdCtrl.text,
         currentPassword: oldPwdCtrl.text,
       ),
     );
     if (result) {
-      IMViews.showToast(StrRes.changedSuccessfully);
-      await LoadingView.singleton.wrap(asyncFunction: () async {
+      IMViews.showToast(StrLibrary.changedSuccessfully);
+      await LoadingView.singleton.start(fn: () async {
         await OpenIM.iMManager.logout();
         await DataSp.removeLoginCertificate();
         pushLogic.logout();

@@ -42,7 +42,8 @@ class UpgradeManger {
     if (Platform.isAndroid) {
       final result = await Permissions.notification();
       if (!result) {
-        await IMViews.showToast(StrRes.upgradePermissionTips, duration: 2.seconds);
+        await IMViews.showToast(StrLibrary.upgradePermissionTips,
+            duration: 2.seconds);
         openAppSettings();
         return;
       }
@@ -70,7 +71,7 @@ class UpgradeManger {
             if (progress > lastProgress) {
               lastProgress = progress;
               notificationService.createNotification(
-                  100, progress, 0, StrRes.downloading);
+                  100, progress, 0, StrLibrary.downloading);
             }
             if (count == total) {
               if (appCommonLogic.isForeground.value) {
@@ -90,7 +91,7 @@ class UpgradeManger {
           },
         ).catchError((s, t) {
           notificationService.createNotification(
-              100, 0, 0, StrRes.downloadFail);
+              100, 0, 0, StrLibrary.downloadFail);
         });
       });
     } else {
@@ -104,8 +105,8 @@ class UpgradeManger {
     if (!Platform.isAndroid) return;
     CancelToken cancelToken = CancelToken();
     LoadingView.singleton
-        .wrap(
-            asyncFunction: () async {
+        .start(
+            fn: () async {
               await getAppInfo();
               return Apis.checkUpgradeV2(cancelToken: cancelToken);
             },

@@ -46,13 +46,13 @@ class ChatSetupLogic extends GetxController {
     int hour = 1 * 60 * 60;
     int fiveMinutes = 5 * 60;
     if (burnDuration == day) {
-      return StrRes.oneDay;
+      return StrLibrary.oneDay;
     } else if (burnDuration == hour) {
-      return StrRes.oneHour;
+      return StrLibrary.oneHour;
     } else if (burnDuration == fiveMinutes) {
-      return StrRes.fiveMinutes;
+      return StrLibrary.fiveMinutes;
     } else {
-      return StrRes.thirtySeconds;
+      return StrLibrary.thirtySeconds;
     }
   }
 
@@ -63,11 +63,11 @@ class ChatSetupLogic extends GetxController {
     int week = 7 * day;
     int month = 1 * 30 * day;
     if (destructDuration % month == 0) {
-      return sprintf(StrRes.nMonth, [destructDuration ~/ month]);
+      return sprintf(StrLibrary.nMonth, [destructDuration ~/ month]);
     } else if (destructDuration % week == 0) {
-      return sprintf(StrRes.nWeek, [destructDuration ~/ week]);
+      return sprintf(StrLibrary.nWeek, [destructDuration ~/ week]);
     } else {
-      return sprintf(StrRes.nDay, [destructDuration ~/ day]);
+      return sprintf(StrLibrary.nDay, [destructDuration ~/ day]);
     }
   }
 
@@ -110,8 +110,8 @@ class ChatSetupLogic extends GetxController {
   }
 
   void toggleTopContacts() async {
-    await LoadingView.singleton.wrap(
-      asyncFunction: () => OpenIM.iMManager.conversationManager.pinConversation(
+    await LoadingView.singleton.start(
+      fn: () => OpenIM.iMManager.conversationManager.pinConversation(
         conversationID: conversationID,
         isPinned: !isPinned,
       ),
@@ -120,8 +120,8 @@ class ChatSetupLogic extends GetxController {
 
   /// 消息免打扰 0：正常；1：不接受消息；2：接受在线消息不接受离线消息；
   void toggleNotDisturb() {
-    LoadingView.singleton.wrap(
-        asyncFunction: () =>
+    LoadingView.singleton.start(
+        fn: () =>
             OpenIM.iMManager.conversationManager.setConversationRecvMessageOpt(
               conversationID: conversationID,
               status: !isNotDisturb ? 2 : 0,
@@ -130,7 +130,7 @@ class ChatSetupLogic extends GetxController {
 
   /// 阅后即焚
   void toggleBurnAfterReading() {
-    LoadingView.singleton.wrap(asyncFunction: () async {
+    LoadingView.singleton.start(fn: () async {
       await OpenIM.iMManager.conversationManager.setConversationPrivateChat(
         conversationID: conversationID,
         isPrivate: !isBurnAfterReading,
@@ -150,13 +150,13 @@ class ChatSetupLogic extends GetxController {
 
   void setBurnAfterReadingDuration() async {
     IMViews.showSinglePicker(
-      title: StrRes.burnAfterReading,
-      description: StrRes.burnAfterReadingDescription,
+      title: StrLibrary.burnAfterReading,
+      description: StrLibrary.burnAfterReadingDescription,
       pickerData: [
-        StrRes.thirtySeconds,
-        StrRes.fiveMinutes,
-        StrRes.oneHour,
-        StrRes.oneDay,
+        StrLibrary.thirtySeconds,
+        StrLibrary.fiveMinutes,
+        StrLibrary.oneHour,
+        StrLibrary.oneDay,
       ],
       onConfirm: (indexList, valueList) {
         final index = indexList.firstOrNull;
@@ -175,41 +175,41 @@ class ChatSetupLogic extends GetxController {
     //   BottomSheetView(
     //     items: [
     //       SheetItem(
-    //         label: StrRes.thirtySeconds,
+    //         label: StrLibrary .thirtySeconds,
     //         result: 30,
     //       ),
     //       SheetItem(
-    //         label: StrRes.fiveMinutes,
+    //         label: StrLibrary .fiveMinutes,
     //         result: 5 * 60,
     //       ),
     //       SheetItem(
-    //         label: StrRes.oneHour,
+    //         label: StrLibrary .oneHour,
     //         result: 60 * 60,
     //       ),
     //       SheetItem(
-    //         label: StrRes.oneDay,
+    //         label: StrLibrary .oneDay,
     //         result: 24 * 60 * 60,
     //       ),
     //     ],
     //   ),
     // );
     // if (result is int) {
-    //   LoadingView.singleton.wrap(
-    //       asyncFunction: () => OpenIM.iMManager.conversationManager
+    //   LoadingView.singleton.start(
+    //       fn: () => OpenIM.iMManager.conversationManager
     //           .setConversationBurnDuration(
     //               conversationID: conversationID, burnDuration: result));
     // }
   }
 
   void setConversationBurnDuration(int duration) {
-    LoadingView.singleton.wrap(
-        asyncFunction: () => OpenIM.iMManager.conversationManager
+    LoadingView.singleton.start(
+        fn: () => OpenIM.iMManager.conversationManager
             .setConversationBurnDuration(
                 conversationID: conversationID, burnDuration: duration));
   }
 
   void toggleDestructMessage() {
-    LoadingView.singleton.wrap(asyncFunction: () async {
+    LoadingView.singleton.start(fn: () async {
       await OpenIM.iMManager.conversationManager.setConversationIsMsgDestruct(
         conversationID: conversationID,
         isMsgDestruct: !isMsgDestruct,
@@ -219,14 +219,14 @@ class ChatSetupLogic extends GetxController {
 
   void setDestructMessageDuration() async {
     IMViews.showSinglePicker(
-      title: StrRes.periodicallyDeleteMessage,
-      description: StrRes.periodicallyDeleteMessageDescription,
+      title: StrLibrary.periodicallyDeleteMessage,
+      description: StrLibrary.periodicallyDeleteMessageDescription,
       pickerData: [
         [1, 2, 3, 4, 5, 6],
         [
-          sprintf(StrRes.nDay, ['']).trim(),
-          sprintf(StrRes.nWeek, ['']).trim(),
-          sprintf(StrRes.nMonth, ['']).trim(),
+          sprintf(StrLibrary.nDay, ['']).trim(),
+          sprintf(StrLibrary.nWeek, ['']).trim(),
+          sprintf(StrLibrary.nMonth, ['']).trim(),
         ]
       ],
       isArray: true,
@@ -249,26 +249,26 @@ class ChatSetupLogic extends GetxController {
   }
 
   void setConversationMsgDestructTime(int duration) {
-    LoadingView.singleton.wrap(
-        asyncFunction: () => OpenIM.iMManager.conversationManager
+    LoadingView.singleton.start(
+        fn: () => OpenIM.iMManager.conversationManager
             .setConversationMsgDestructTime(
                 conversationID: conversationID, duration: duration));
   }
 
   void clearChatHistory() async {
     var confirm = await Get.dialog(CustomDialog(
-      title: StrRes.confirmClearChatHistory,
-      rightText: StrRes.clearAll,
+      title: StrLibrary.confirmClearChatHistory,
+      rightText: StrLibrary.clearAll,
     ));
     if (confirm == true) {
-      await LoadingView.singleton.wrap(
-        asyncFunction: () => OpenIM.iMManager.conversationManager
+      await LoadingView.singleton.start(
+        fn: () => OpenIM.iMManager.conversationManager
             .clearConversationAndDeleteAllMsg(
           conversationID: conversationID,
         ),
       );
       chatLogic.clearAllMessage();
-      IMViews.showToast(StrRes.clearSuccessfully);
+      IMViews.showToast(StrLibrary.clearSuccessfully);
     }
   }
 
@@ -301,8 +301,9 @@ class ChatSetupLogic extends GetxController {
       );
 
   void complaint() {
-    AppNavigator.startComplaint(
-        params: {"userID": conversationInfo.value.userID!, "complaintType": ComplaintType.user,
+    AppNavigator.startComplaint(params: {
+      "userID": conversationInfo.value.userID!,
+      "complaintType": ComplaintType.user,
     });
   }
 

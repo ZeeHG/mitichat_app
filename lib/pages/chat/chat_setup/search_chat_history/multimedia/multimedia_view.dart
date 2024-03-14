@@ -16,7 +16,7 @@ class ChatHistoryMultimediaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-        title: logic.isPicture ? StrRes.picture : StrRes.video,
+        title: logic.isPicture ? StrLibrary.picture : StrLibrary.video,
         showUnderline: true,
       ),
       backgroundColor: Styles.c_FFFFFF,
@@ -38,14 +38,18 @@ class ChatHistoryMultimediaPage extends StatelessWidget {
       itemCount: logic.groupMessage.length,
       shrinkWrap: true,
       itemBuilder: (_, index) {
-        var entry = logic.groupMessage.entries.toList().reversed.elementAt(index);
+        var entry =
+            logic.groupMessage.entries.toList().reversed.elementAt(index);
         return MultimediaItemWidget(
           list: entry.value,
           label: entry.key,
           isVideo: !logic.isPicture,
           onTap: (message) {
             final currentIndex = mediaMessages.indexOf(message);
-            IMUtils.previewMediaFile(context: Get.context!, currentIndex: currentIndex, mediaMessages: mediaMessages);
+            IMUtils.previewMediaFile(
+                context: Get.context!,
+                currentIndex: currentIndex,
+                mediaMessages: mediaMessages);
           },
           snapshotUrl: logic.getSnapshotUrl,
         );
@@ -96,7 +100,8 @@ class MultimediaItemWidget extends StatelessWidget {
         onTap: () => onTap?.call(message),
         child: Hero(
           tag: message.clientMsgID!,
-          placeholderBuilder: (BuildContext context, Size heroSize, Widget child) => child,
+          placeholderBuilder:
+              (BuildContext context, Size heroSize, Widget child) => child,
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(width: 1, color: Styles.c_E8EAEF),

@@ -18,62 +18,62 @@ class MinePage extends StatelessWidget {
         height: 1.sh - 56.h,
         color: Styles.c_F7F7F7,
         child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                Container(
-                  width: 1.sw,
-                  height: 298.h,
-                  decoration: BoxDecoration(
-                      // color: Styles.c_FFFFFF,
-                      image: DecorationImage(
-                    image: AssetImage(ImageRes.appHeaderBg,
-                        package: 'openim_common'),
-                    fit: BoxFit.cover,
-                  )),
-                ),
-                Obx(() => _buildMyInfoView()),
-              ],
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              transform: Matrix4.translationValues(0, -28.h, 0),
-              child: Column(
+          child: Column(
+            children: [
+              Stack(
                 children: [
-                  _buildItemView(
-                    icon: ImageRes.appMyInfo,
-                    label: StrRes.myInfo,
-                    onTap: logic.viewMyInfo,
-                    // isTopRadius: true,
+                  Container(
+                    width: 1.sw,
+                    height: 298.h,
+                    decoration: BoxDecoration(
+                        // color: Styles.c_FFFFFF,
+                        image: DecorationImage(
+                      image: AssetImage(ImageRes.appHeaderBg,
+                          package: 'openim_common'),
+                      fit: BoxFit.cover,
+                    )),
                   ),
-                  // _buildItemView(
-                  //   icon: ImageRes.appMyPoints,
-                  //   label: StrRes.myPoints,
-                  //   onTap: logic.myPoints,
-                  // ),
-                  _buildItemView(
-                    icon: ImageRes.appAccountSetup,
-                    label: StrRes.accountSetup,
-                    onTap: logic.accountSetup,
-                  ),
-                  _buildItemView(
-                    icon: ImageRes.appAboutUs,
-                    label: StrRes.aboutUs,
-                    onTap: logic.aboutUs,
-                  ),
-                  _buildItemView(
-                    icon: ImageRes.appLogout,
-                    label: StrRes.logout,
-                    onTap: logic.logout,
-                    // isBottomRadius: true,
-                  ),
+                  Obx(() => _buildMyInfoView()),
                 ],
               ),
-            ),
-          ],
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                transform: Matrix4.translationValues(0, -28.h, 0),
+                child: Column(
+                  children: [
+                    _buildItemView(
+                      icon: ImageRes.appMyInfo,
+                      label: StrLibrary.myInfo,
+                      onTap: logic.viewMyInfo,
+                      // isTopRadius: true,
+                    ),
+                    // _buildItemView(
+                    //   icon: ImageRes.appMyPoints,
+                    //   label: StrLibrary .myPoints,
+                    //   onTap: logic.myPoints,
+                    // ),
+                    _buildItemView(
+                      icon: ImageRes.appAccountSetup,
+                      label: StrLibrary.accountSetup,
+                      onTap: logic.accountSetup,
+                    ),
+                    _buildItemView(
+                      icon: ImageRes.appAboutUs,
+                      label: StrLibrary.aboutUs,
+                      onTap: logic.aboutUs,
+                    ),
+                    _buildItemView(
+                      icon: ImageRes.appLogout,
+                      label: StrLibrary.logout,
+                      onTap: logic.logout,
+                      // isBottomRadius: true,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
       ),
     );
   }
@@ -143,14 +143,13 @@ class MinePage extends StatelessWidget {
       GestureDetector(
           onTap: onTap,
           behavior: HitTestBehavior.translucent,
+          child: Container(
+            margin: EdgeInsets.only(bottom: 20.h),
+            clipBehavior: Clip.hardEdge,
+            decoration: BoxDecoration(
+                color: Styles.c_FFFFFF,
+                borderRadius: BorderRadius.all(Radius.circular(10.r))),
             child: Container(
-        margin: EdgeInsets.only(bottom: 20.h),
-        clipBehavior: Clip.hardEdge,
-        decoration: BoxDecoration(
-            color: Styles.c_FFFFFF,
-            borderRadius: BorderRadius.all(Radius.circular(10.r))
-        ),
-        child:  Container(
               height: 56.h,
               padding: EdgeInsets.symmetric(horizontal: 15.w),
               child: Row(
@@ -176,6 +175,5 @@ class MinePage extends StatelessWidget {
                 ],
               ),
             ),
-        )
-      );
+          ));
 }

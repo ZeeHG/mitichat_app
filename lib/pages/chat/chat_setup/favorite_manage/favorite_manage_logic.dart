@@ -20,7 +20,7 @@ class FavoriteManageLogic extends GetxController {
         switch (asset.type) {
           case AssetType.image:
             cacheLogic.addFavoriteFromPath(path, width, height);
-            IMViews.showToast(StrRes.addSuccessfully);
+            IMViews.showToast(StrLibrary.addSuccessfully);
             break;
           default:
             break;

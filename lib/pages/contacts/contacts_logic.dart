@@ -29,28 +29,28 @@ class ContactsLogic extends GetxController
   List<Map<String, dynamic>> get menus => [
         // {
         //   "key": "myFriend",
-        //   "text": StrRes.myFriend,
+        //   "text": StrLibrary .myFriend,
         //   "color": Styles.c_8544F8,
         //   "shadowColor": Color.fromRGBO(132, 67, 248, 0.5),
         //   "onTap": () => myFriend()
         // },
         {
           "key": "myGroup",
-          "text": StrRes.myGroup,
+          "text": StrLibrary.myGroup,
           "color": Styles.c_8544F8,
           "shadowColor": Color.fromRGBO(132, 67, 248, 0.5),
           "onTap": () => myGroup()
         },
         {
           "key": "newRecent",
-          "text": StrRes.recentRequests,
+          "text": StrLibrary.recentRequests,
           "color": Styles.c_00CBC5,
           "shadowColor": Color.fromRGBO(0, 203, 197, 0.5),
           "onTap": () => newRecent()
         },
         {
           "key": "aiFriendList",
-          "text": StrRes.aiFriends,
+          "text": StrLibrary.aiFriends,
           "color": Styles.c_FEA836,
           "shadowColor": Color.fromRGBO(254, 168, 54, 0.5),
           "onTap": () => aiFriendList()
@@ -226,7 +226,6 @@ class ContactsLogic extends GetxController
   addGroup() =>
       AppNavigator.startAddContactsBySearch(searchType: SearchType.group);
 
-
   // void workMoments() => WNavigator.startWorkMomentsList();
 
   @override
@@ -244,9 +243,7 @@ class ContactsLogic extends GetxController
       //       ? SelAction.whoCanWatch
       //       : (type == 1 ? SelAction.remindWhoToWatch : SelAction.meeting),
       AppNavigator.startSelectContacts(
-        action: type == 0
-            ? SelAction.whoCanWatch
-            : SelAction.remindWhoToWatch,
+        action: type == 0 ? SelAction.whoCanWatch : SelAction.remindWhoToWatch,
         defaultCheckedIDList: defaultCheckedIDList,
         checkedList: checkedList,
         excludeIDList: excludeIDList,

@@ -44,7 +44,8 @@ class _PreviewVideoPageState extends State<PreviewVideoPage> {
         await _cachedVideoControllerService.getVideo(widget.url);
     myLogger.i({"message": "_videoPlayerController创建成功"});
     await _videoPlayerController.initialize();
-    myLogger.i({"message": "_videoPlayerController初始化完成, 开始创建_chewieController"});
+    myLogger
+        .i({"message": "_videoPlayerController初始化完成, 开始创建_chewieController"});
     _createChewieController();
     setState(() {});
   }
@@ -59,8 +60,8 @@ class _PreviewVideoPageState extends State<PreviewVideoPage> {
       // hideControlsTimer: const Duration(seconds: 1),
       customControls: const CustomMaterialControls(),
       optionsTranslation: OptionsTranslation(
-        playbackSpeedButtonText: StrRes.playSpeed,
-        cancelButtonText: StrRes.cancel,
+        playbackSpeedButtonText: StrLibrary.playSpeed,
+        cancelButtonText: StrLibrary.cancel,
       ),
       showOptions: false,
       // showControls: true,

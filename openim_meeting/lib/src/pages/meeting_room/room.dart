@@ -91,7 +91,8 @@ class _MeetingRoomState extends MeetingViewState<MeetingRoom> {
       Logger.print('could not publish video: $error');
     }
     try {
-      await widget.room.localParticipant?.setMicrophoneEnabled(!joinDisabledMicrophone);
+      await widget.room.localParticipant
+          ?.setMicrophoneEnabled(!joinDisabledMicrophone);
     } catch (error) {
       Logger.print('could not publish audio: $error');
     }
@@ -114,7 +115,8 @@ class _MeetingRoomState extends MeetingViewState<MeetingRoom> {
     if (wasClickedUserID == userID) return;
     final track = participantTracks.firstWhereOrNull((e) =>
         e.participant.identity == userID &&
-        (e.screenShareTrack != null && !e.screenShareTrack!.muted || e.videoTrack != null && !e.videoTrack!.muted));
+        (e.screenShareTrack != null && !e.screenShareTrack!.muted ||
+            e.videoTrack != null && !e.videoTrack!.muted));
     wasClickedUserID = track?.participant.identity;
     if (null != wasClickedUserID) _sortParticipants();
   }
@@ -154,7 +156,8 @@ class _MeetingRoomState extends MeetingViewState<MeetingRoom> {
 
     participantTracks.sort((a, b) {
       // joinedAt
-      return a.participant.joinedAt.millisecondsSinceEpoch - b.participant.joinedAt.millisecondsSinceEpoch;
+      return a.participant.joinedAt.millisecondsSinceEpoch -
+          b.participant.joinedAt.millisecondsSinceEpoch;
     });
 
     participantsSubject.add(participantTracks);
@@ -167,11 +170,14 @@ class _MeetingRoomState extends MeetingViewState<MeetingRoom> {
   ParticipantTrack? get _firstParticipantTrack {
     ParticipantTrack? track;
     if (null != watchedUserID) {
-      track = participantTracks.firstWhere((e) => e.participant.identity == watchedUserID);
+      track = participantTracks
+          .firstWhere((e) => e.participant.identity == watchedUserID);
     } else if (null != wasClickedUserID) {
-      track = participantTracks.firstWhere((e) => e.participant.identity == wasClickedUserID);
+      track = participantTracks
+          .firstWhere((e) => e.participant.identity == wasClickedUserID);
     } else {
-      track = participantTracks.firstWhereOrNull((e) => e.screenShareTrack != null || e.videoTrack != null);
+      track = participantTracks.firstWhereOrNull(
+          (e) => e.screenShareTrack != null || e.videoTrack != null);
     }
     Logger.print('first watch track : ${track == null} '
         'videoTrack:${track?.videoTrack == null} '
@@ -214,7 +220,9 @@ class _MeetingRoomState extends MeetingViewState<MeetingRoom> {
     return count;
   }
 
-  int get pageCount => _fixPages((participantTracks.length % 4 == 0 ? participantTracks.length ~/ 4 : participantTracks.length ~/ 4 + 1) +
+  int get pageCount => _fixPages((participantTracks.length % 4 == 0
+          ? participantTracks.length ~/ 4
+          : participantTracks.length ~/ 4 + 1) +
       (null == _firstParticipantTrack ? 0 : 1));
 
   @override
@@ -224,54 +232,58 @@ class _MeetingRoomState extends MeetingViewState<MeetingRoom> {
               ? (_localParticipantTrack == null
                   ? const SizedBox()
                   : ParticipantWidget.widgetFor(_localParticipantTrack!,
-              isZoom:true,useScreenShareTrack: true, onTapSwitchCamera: () {
+                      isZoom: true,
+                      useScreenShareTrack: true, onTapSwitchCamera: () {
                       _localParticipantTrack!.toggleCamera();
                     }))
               : StatefulBuilder(
-                builder: (v,status){
-                  return  GestureDetector(
-                    child: NotificationListener(
-                      onNotification: (v){
-                        if(v is FirstPageZoomNotification){
-                          scrollPhysics=v.isZoom?const NeverScrollableScrollPhysics():null;
-                          status.call((){});
-                          return true;
-                        }
-                        return false;
-                      },
-                      child: PageView.builder(
-                        physics: scrollPhysics,
-                        itemBuilder: (context, index) {
-                          final existVideoTrack = null != _firstParticipantTrack;
-                          if (existVideoTrack && index == 0) {
-                            return GestureDetector(
-                              child: FirstPage(
-                                participantTrack: _firstParticipantTrack!,
-                              ),
-                              onTap: () {
-                                toggleFullScreen();
+                  builder: (v, status) {
+                    return GestureDetector(
+                      child: NotificationListener(
+                        onNotification: (v) {
+                          if (v is FirstPageZoomNotification) {
+                            scrollPhysics = v.isZoom
+                                ? const NeverScrollableScrollPhysics()
+                                : null;
+                            status.call(() {});
+                            return true;
+                          }
+                          return false;
+                        },
+                        child: PageView.builder(
+                          physics: scrollPhysics,
+                          itemBuilder: (context, index) {
+                            final existVideoTrack =
+                                null != _firstParticipantTrack;
+                            if (existVideoTrack && index == 0) {
+                              return GestureDetector(
+                                child: FirstPage(
+                                  participantTrack: _firstParticipantTrack!,
+                                ),
+                                onTap: () {
+                                  toggleFullScreen();
+                                },
+                              );
+                            }
+                            return OtherPage(
+                              participantTracks: participantTracks,
+                              pages: existVideoTrack ? index - 1 : index,
+                              onDoubleTap: (t) {
+                                setState(() {
+                                  customWatchedUser(t.participant.identity);
+                                  _pageController.jumpToPage(0);
+                                });
                               },
                             );
-                          }
-                          return OtherPage(
-                            participantTracks: participantTracks,
-                            pages: existVideoTrack ? index - 1 : index,
-                            onDoubleTap: (t) {
-                              setState(() {
-                                customWatchedUser(t.participant.identity);
-                                _pageController.jumpToPage(0);
-                              });
-                            },
-                          );
-                        },
-                        itemCount: pageCount,
-                        onPageChanged: _onPageChange,
-                        controller: _pageController,
+                          },
+                          itemCount: pageCount,
+                          onPageChanged: _onPageChange,
+                          controller: _pageController,
+                        ),
                       ),
-                    ),
-                  );
-                },
-              ),
+                    );
+                  },
+                ),
           if (widget.room.participants.isNotEmpty && pageCount > 1)
             Positioned(
               bottom: 8.h,
@@ -302,7 +314,7 @@ class _MeetingRoomState extends MeetingViewState<MeetingRoom> {
             OverlayWidget().dismiss();
             widget.onClose?.call();
           },
-          title: StrRes.meetingClosedHint,
+          title: StrLibrary.meetingClosedHint,
         ),
       );
 }
@@ -310,5 +322,5 @@ class _MeetingRoomState extends MeetingViewState<MeetingRoom> {
 class FirstPageZoomNotification extends Notification {
   bool isZoom;
 
-  FirstPageZoomNotification({this.isZoom=false});
+  FirstPageZoomNotification({this.isZoom = false});
 }

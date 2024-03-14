@@ -68,7 +68,9 @@ class WorkbenchPage extends StatelessWidget {
                           height: 42.h,
                         )
                       : const SizedBox(),
-                  if (null != info.progress && info.progress! > 0 && info.progress! < 100)
+                  if (null != info.progress &&
+                      info.progress! > 0 &&
+                      info.progress! < 100)
                     Container(
                       width: 42.h,
                       height: 42.h,
@@ -77,7 +79,8 @@ class WorkbenchPage extends StatelessWidget {
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(6.r),
                       ),
-                      child: '${info.progress}%'.toText..style = Styles.ts_FFFFFF_12sp,
+                      child: '${info.progress}%'.toText
+                        ..style = Styles.ts_FFFFFF_12sp,
                     )
                 ],
               ),
@@ -99,7 +102,7 @@ class WorkbenchPage extends StatelessWidget {
                   ..width = 120.w
                   ..height = 120.h,
                 22.verticalSpace,
-                StrRes.notFoundMinP.toText..style = Styles.ts_999999_16sp,
+                StrLibrary.notFoundMinP.toText..style = Styles.ts_999999_16sp,
               ],
             ),
           ),

@@ -38,7 +38,7 @@ class SelectContactsFromSearchFriendsPage extends StatelessWidget {
                   selectContactsLogic.checkedList.assignAll(originList);
                   Get.back();
                 },
-                child: StrRes.cancel.toText
+                child: StrLibrary.cancel.toText
                   ..style = Styles.ts_333333_16sp_medium,
               ),
             )),
@@ -47,7 +47,7 @@ class SelectContactsFromSearchFriendsPage extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: IntrinsicWidth(
                   child: Button(
-                      text: StrRes.confirm,
+                      text: StrLibrary.confirm,
                       textStyle: Styles.ts_FFFFFF_14sp,
                       disabledTextStyle: Styles.ts_FFFFFF_14sp,
                       height: 28.h,
@@ -134,7 +134,7 @@ class SelectContactsFromSearchFriendsPage extends StatelessWidget {
             //   ..height = 120.h,
             // 22.verticalSpace,
             44.verticalSpace,
-            StrRes.searchNotFound.toText..style = Styles.ts_999999_17sp,
+            StrLibrary.searchNotFound.toText..style = Styles.ts_999999_17sp,
           ],
         ),
       );

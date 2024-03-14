@@ -38,8 +38,8 @@ class PreviewSelectedVideoLogic extends GetxController {
       // showOptions: false,
       showControls: true,
       optionsTranslation: OptionsTranslation(
-        playbackSpeedButtonText: StrRes.playSpeed,
-        cancelButtonText: StrRes.cancel,
+        playbackSpeedButtonText: StrLibrary.playSpeed,
+        cancelButtonText: StrLibrary.cancel,
       ),
       additionalOptions: (context) => [],
     );

@@ -28,10 +28,21 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
               children: [
                 if (!logic.success.value) ...[
                   43.verticalSpace,
-                  (logic.isPhone && (imLogic.userInfo.value.phoneNumber?.isNotEmpty ?? false)? StrRes.changePhone : 
-                  logic.isPhone && (imLogic.userInfo.value.phoneNumber?.isEmpty ?? true)? StrRes.bindPhone : 
-                  !logic.isPhone && (imLogic.userInfo.value.email?.isNotEmpty ?? false)? StrRes.changeEmail : 
-                  StrRes.bindEmail)
+                  (logic.isPhone &&
+                              (imLogic.userInfo.value.phoneNumber?.isNotEmpty ??
+                                  false)
+                          ? StrLibrary.changePhone
+                          : logic.isPhone &&
+                                  (imLogic.userInfo.value.phoneNumber
+                                          ?.isEmpty ??
+                                      true)
+                              ? StrLibrary.bindPhone
+                              : !logic.isPhone &&
+                                      (imLogic.userInfo.value.email
+                                              ?.isNotEmpty ??
+                                          false)
+                                  ? StrLibrary.changeEmail
+                                  : StrLibrary.bindEmail)
                       .toText
                     ..style = Styles.ts_333333_20sp_medium,
                   26.verticalSpace,
@@ -47,7 +58,10 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                       children: [
                         Container(
                           width: 100.w,
-                          child: (logic.isPhone? StrRes.phoneNumber : StrRes.email).toText
+                          child: (logic.isPhone
+                                  ? StrLibrary.phoneNumber
+                                  : StrLibrary.email)
+                              .toText
                             ..style = Styles.ts_333333_16sp
                             ..maxLines = 1
                             ..overflow = TextOverflow.ellipsis,
@@ -78,7 +92,7 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                       children: [
                         Container(
                           width: 100.w,
-                          child: StrRes.verificationCode.toText
+                          child: StrLibrary.verificationCode.toText
                             ..style = Styles.ts_333333_16sp
                             ..maxLines = 1
                             ..overflow = TextOverflow.ellipsis,
@@ -86,8 +100,8 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                         10.horizontalSpace,
                         Expanded(
                             child: InputBox.verificationCode(
-                                label: StrRes.verificationCode,
-                                hintText: StrRes.verificationCode,
+                                label: StrLibrary.verificationCode,
+                                hintText: StrLibrary.verificationCode,
                                 controller: logic.verificationCodeCtrl,
                                 onSendVerificationCode:
                                     logic.getVerificationCode,
@@ -105,7 +119,7 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                       children: [
                         Container(
                           width: 100.w,
-                          child: StrRes.password.toText
+                          child: StrLibrary.password.toText
                             ..style = Styles.ts_333333_16sp
                             ..maxLines = 1
                             ..overflow = TextOverflow.ellipsis,
@@ -113,8 +127,8 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                         10.horizontalSpace,
                         Expanded(
                             child: InputBox.password(
-                                label: StrRes.password,
-                                hintText: StrRes.curPwd,
+                                label: StrLibrary.password,
+                                hintText: StrLibrary.curPwd,
                                 controller: logic.pwdCtrl,
                                 inputFormatters: [
                                   IMUtils.getPasswordFormatter()
@@ -126,7 +140,7 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                   49.verticalSpace,
                   Button(
                     width: 1.sw - 86.w,
-                    text: StrRes.confirm,
+                    text: StrLibrary.confirm,
                     onTap: logic.updateInfo,
                   )
                 ],
@@ -136,15 +150,15 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                     ..width = 60.w
                     ..height = 60.h,
                   25.verticalSpace,
-                  StrRes.success.toText
+                  StrLibrary.success.toText
                     ..style = Styles.ts_333333_20sp_medium,
                   10.verticalSpace,
-                  StrRes.changeSuccessTips.toText
+                  StrLibrary.changeSuccessTips.toText
                     ..style = Styles.ts_999999_16sp,
                   45.verticalSpace,
                   Button(
                     width: 1.sw - 86.w,
-                    text: StrRes.backLogin,
+                    text: StrLibrary.backLogin,
                     onTap: logic.goLogin,
                   )
                 ]

@@ -15,16 +15,18 @@ class MeetingLogic extends GetxController {
     super.onReady();
   }
 
-  Future<MeetingInfoList> _queryUnfinishedMeeting() => OpenIM.iMManager.signalingManager.signalingGetMeetings();
+  Future<MeetingInfoList> _queryUnfinishedMeeting() =>
+      OpenIM.iMManager.signalingManager.signalingGetMeetings();
 
   Future<List<UserInfo>> _queryMeetingHostUserInfo(MeetingInfoList info) async {
-    final users = await OpenIM.iMManager.userManager.getUsersInfo(userIDList: info.meetingInfoList!.map((e) => e.hostUserID!).toList());
+    final users = await OpenIM.iMManager.userManager.getUsersInfo(
+        userIDList: info.meetingInfoList!.map((e) => e.hostUserID!).toList());
 
     return users.map((e) => e.simpleUserInfo).toList();
   }
 
   void queryUnfinishedMeeting() async {
-    final list = await LoadingView.singleton.wrap(asyncFunction: () async {
+    final list = await LoadingView.singleton.start(fn: () async {
       final info = await _queryUnfinishedMeeting();
       if (info.meetingInfoList != null) {
         final userInfoList = await _queryMeetingHostUserInfo(info);
@@ -73,13 +75,14 @@ class MeetingLogic extends GetxController {
   String getTitle(MeetingInfo meetingInfo) {
     final nickname = nicknameMapping[meetingInfo.hostUserID];
     if (null != nickname) {
-      return sprintf(StrRes.meetingInitiatorIs, [nickname]);
+      return sprintf(StrLibrary.meetingInitiatorIs, [nickname]);
     }
     return meetingInfo.meetingName!;
   }
 
   String getMeetingOrganizer(MeetingInfo meetingInfo) {
-    return sprintf(StrRes.meetingOrganizerIs, [nicknameMapping[meetingInfo.hostUserID]]);
+    return sprintf(StrLibrary.meetingOrganizerIs,
+        [nicknameMapping[meetingInfo.hostUserID]]);
   }
 
   void joinMeeting() => MNavigator.startJoinMeeting();
@@ -98,10 +101,11 @@ class MeetingLogic extends GetxController {
         duration: 1 * 60 * 60,
       );
 
-  String get _meetingName => sprintf(StrRes.meetingInitiatorIs, [OpenIM.iMManager.userInfo.nickname]);
+  String get _meetingName => sprintf(
+      StrLibrary.meetingInitiatorIs, [OpenIM.iMManager.userInfo.nickname]);
 // void quickMeeting() => MeetingHelper.createMeeting(
 //       meetingName: sprintf(
-//           StrRes.meetingInitiatorIs, [OpenIM.iMManager.uInfo.nickname]),
+//           StrLibrary .meetingInitiatorIs, [OpenIM.iMManager.uInfo.nickname]),
 //       startTime: DateTime.now().millisecondsSinceEpoch ~/ 1000,
 //       duration: 1 * 60 * 60,
 //     );

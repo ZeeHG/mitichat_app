@@ -14,8 +14,8 @@ class SelectContactsFromTagLogic extends GetxController {
   }
 
   void queryTagGroup() async {
-    final result = await LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.getUserTags(),
+    final result = await LoadingView.singleton.start(
+      fn: () => Apis.getUserTags(),
     );
     operableList.assignAll(result.tags ?? []);
   }

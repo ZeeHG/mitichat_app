@@ -55,7 +55,7 @@ class _PopMenuState extends State<LikeCommentPopMenu> {
         children: [
           _buildItemView(
             widget.isLike ? Icons.thumb_up : Icons.thumb_up_alt_outlined,
-            StrRes.like,
+            StrLibrary.like,
             onTap: widget.onTapLike,
             color: widget.isLike ? Styles.c_8443F8 : Styles.c_FFFFFF,
           ),
@@ -66,7 +66,7 @@ class _PopMenuState extends State<LikeCommentPopMenu> {
           ),
           _buildItemView(
             Icons.chat,
-            StrRes.comment,
+            StrLibrary.comment,
             onTap: widget.onTapComment,
             color: Styles.c_FFFFFF,
           ),

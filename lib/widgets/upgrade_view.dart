@@ -81,7 +81,7 @@ class _UpgradeViewV2State extends State<UpgradeViewV2> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                StrRes.upgradeFind,
+                StrLibrary.upgradeFind,
                 style: TextStyle(
                   color: const Color(0xFF333333),
                   fontSize: 18.sp,
@@ -92,9 +92,9 @@ class _UpgradeViewV2State extends State<UpgradeViewV2> {
                 height: 10.h,
               ),
               Text(
-                sprintf(StrRes.upgradeVersion, [
-                   "${widget.upgradeInfo.buildVersion!}(${widget.upgradeInfo.buildVersionNo!})",
-                   "${widget.packageInfo.version}(${widget.packageInfo.buildNumber})"
+                sprintf(StrLibrary.upgradeVersion, [
+                  "${widget.upgradeInfo.buildVersion!}(${widget.upgradeInfo.buildVersionNo!})",
+                  "${widget.packageInfo.version}(${widget.packageInfo.buildNumber})"
                 ]),
                 style: TextStyle(
                   fontSize: 14.sp,
@@ -105,7 +105,7 @@ class _UpgradeViewV2State extends State<UpgradeViewV2> {
                 height: 10.h,
               ),
               Text(
-                StrRes.upgradeDescription,
+                StrLibrary.upgradeDescription,
                 style: TextStyle(
                   color: const Color(0xFF333333),
                   fontSize: 16.sp,
@@ -116,7 +116,10 @@ class _UpgradeViewV2State extends State<UpgradeViewV2> {
                 height: 4.h,
               ),
               Text(
-                (widget.upgradeInfo.buildUpdateDescription == null || widget.upgradeInfo.buildUpdateDescription!.isEmpty)? StrRes.upgradeDefaultDescription : widget.upgradeInfo.buildUpdateDescription!,
+                (widget.upgradeInfo.buildUpdateDescription == null ||
+                        widget.upgradeInfo.buildUpdateDescription!.isEmpty)
+                    ? StrLibrary.upgradeDefaultDescription
+                    : widget.upgradeInfo.buildUpdateDescription!,
                 style: TextStyle(
                   fontSize: 14.sp,
                   color: const Color(0xFF333333),
@@ -130,15 +133,15 @@ class _UpgradeViewV2State extends State<UpgradeViewV2> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     _buildButton(
-                      text: StrRes.upgradeIgnore,
+                      text: StrLibrary.upgradeIgnore,
                       onTap: widget.onIgnore ?? () => Get.back(),
                     ),
                     _buildButton(
-                      text: StrRes.upgradeLater,
+                      text: StrLibrary.upgradeLater,
                       onTap: widget.onLater ?? () => Get.back(),
                     ),
                     _buildButton(
-                      text: StrRes.upgradeNow,
+                      text: StrLibrary.upgradeNow,
                       onTap: _startDownload,
                     ),
                   ],
@@ -148,7 +151,7 @@ class _UpgradeViewV2State extends State<UpgradeViewV2> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     _buildButton(
-                      text: StrRes.upgradeNow,
+                      text: StrLibrary.upgradeNow,
                       onTap: _startDownload,
                     )
                   ],

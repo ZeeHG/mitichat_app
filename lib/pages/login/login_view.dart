@@ -54,8 +54,8 @@ class LoginPage extends StatelessWidget {
                               offstage: !logic.isPasswordLogin.value,
                               child: InputBox.password(
                                 autofocus: false,
-                                label: StrRes.password,
-                                hintText: StrRes.plsEnterPassword,
+                                label: StrLibrary.password,
+                                hintText: StrLibrary.plsEnterPassword,
                                 controller: logic.pwdCtrl,
                               ),
                             ),
@@ -63,8 +63,8 @@ class LoginPage extends StatelessWidget {
                               offstage: logic.isPasswordLogin.value,
                               child: InputBox.verificationCode(
                                 autofocus: false,
-                                label: StrRes.verificationCode,
-                                hintText: StrRes.plsEnterVerificationCode,
+                                label: StrLibrary.verificationCode,
+                                hintText: StrLibrary.plsEnterVerificationCode,
                                 controller: logic.verificationCodeCtrl,
                                 onSendVerificationCode:
                                     logic.getVerificationCode,
@@ -80,13 +80,13 @@ class LoginPage extends StatelessWidget {
                             // 10.verticalSpace,
                             // Row(
                             //   children: [
-                            //     StrRes.forgetPassword.toText
+                            //     StrLibrary .forgetPassword.toText
                             //       ..style = Styles.ts_8443F8_12sp
                             //       ..onTap = _showForgetPasswordBottomSheet,
                             //     const Spacer(),
                             //     // (logic.isPasswordLogin.value
-                            //     //         ? StrRes.verificationCodeLogin
-                            //     //         : StrRes.passwordLogin)
+                            //     //         ? StrLibrary .verificationCodeLogin
+                            //     //         : StrLibrary .passwordLogin)
                             //     //     .toText
                             //     //   ..style = Styles.ts_8443F8_12sp
                             //     //   ..onTap = logic.togglePasswordType,
@@ -103,7 +103,7 @@ class LoginPage extends StatelessWidget {
                                         text: TextSpan(
                                           children: [
                                             TextSpan(
-                                              text: StrRes.switchServer,
+                                              text: StrLibrary.switchServer,
                                               style: Styles.ts_8443F8_14sp,
                                               recognizer: TapGestureRecognizer()
                                                 ..onTap = logic.switchServer,
@@ -121,7 +121,7 @@ class LoginPage extends StatelessWidget {
                                         text: TextSpan(
                                           children: [
                                             TextSpan(
-                                              text: StrRes.forgetPassword,
+                                              text: StrLibrary.forgetPassword,
                                               style: Styles.ts_8443F8_14sp,
                                               recognizer: TapGestureRecognizer()
                                                 ..onTap =
@@ -135,7 +135,7 @@ class LoginPage extends StatelessWidget {
                             ),
                             30.verticalSpace,
                             Button(
-                              text: StrRes.login,
+                              text: StrLibrary.login,
                               enabled: logic.enabled.value,
                               onTap: () => logic.login(context),
                             ),
@@ -154,7 +154,7 @@ class LoginPage extends StatelessWidget {
                           Expanded(
                             child: Button(
                               text:
-                                  '${logic.loginType.value.exclusiveName} ${StrRes.login}',
+                                  '${logic.loginType.value.exclusiveName} ${StrLibrary.login}',
                               enabledColor: Styles.c_D9DCE3_opacity40,
                               textStyle: Styles.ts_8443F8_16sp,
                               onTap: logic.toggleLoginType,
@@ -175,11 +175,10 @@ class LoginPage extends StatelessWidget {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: StrRes.noAccount,
-                                      style: Styles.ts_333333_14sp
-                                    ),
+                                        text: StrLibrary.noAccount,
+                                        style: Styles.ts_333333_14sp),
                                     TextSpan(
-                                      text: StrRes.registerNow,
+                                      text: StrLibrary.registerNow,
                                       style: Styles.ts_8443F8_14sp,
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = logic.registerNow,
@@ -225,23 +224,23 @@ class LoginPage extends StatelessWidget {
                       child: RichText(
                           text: TextSpan(children: [
                         TextSpan(
-                            text: StrRes.privacyPolicyDescriptionP1,
+                            text: StrLibrary.privacyPolicyDescriptionP1,
                             style: Styles.ts_656565_12sp),
                         TextSpan(
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => AppNavigator.startTermsOfServer(),
-                            text: StrRes.privacyPolicyDescriptionP2,
+                            text: StrLibrary.privacyPolicyDescriptionP2,
                             style: Styles.ts_333333_12sp),
                         TextSpan(
-                            text: StrRes.privacyPolicyDescriptionP3,
+                            text: StrLibrary.privacyPolicyDescriptionP3,
                             style: Styles.ts_656565_12sp),
                         TextSpan(
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => AppNavigator.startPrivacyPolicy(),
-                            text: StrRes.privacyPolicyDescriptionP4,
+                            text: StrLibrary.privacyPolicyDescriptionP4,
                             style: Styles.ts_333333_12sp),
                         TextSpan(
-                            text: StrRes.privacyPolicyDescriptionP5,
+                            text: StrLibrary.privacyPolicyDescriptionP5,
                             style: Styles.ts_656565_12sp),
                       ])),
                     )
@@ -275,7 +274,7 @@ class LoginPage extends StatelessWidget {
                 logic.operateType = LoginType.email;
                 logic.registerNow();
               },
-              child: Text('${StrRes.email} ${StrRes.registerNow}'),
+              child: Text('${StrLibrary.email} ${StrLibrary.registerNow}'),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
@@ -283,14 +282,15 @@ class LoginPage extends StatelessWidget {
                 logic.operateType = LoginType.phone;
                 logic.registerNow();
               },
-              child: Text('${StrRes.phoneNumber} ${StrRes.registerNow}'),
+              child:
+                  Text('${StrLibrary.phoneNumber} ${StrLibrary.registerNow}'),
             ),
           ],
           cancelButton: CupertinoActionSheetAction(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text(StrRes.cancel),
+            child: Text(StrLibrary.cancel),
           ),
         );
       },
@@ -309,7 +309,7 @@ class LoginPage extends StatelessWidget {
                 logic.operateType = LoginType.email;
                 logic.forgetPassword();
               },
-              child: Text(sprintf(StrRes.through, [StrRes.email])),
+              child: Text(sprintf(StrLibrary.through, [StrLibrary.email])),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
@@ -317,14 +317,15 @@ class LoginPage extends StatelessWidget {
                 logic.operateType = LoginType.phone;
                 logic.forgetPassword();
               },
-              child: Text(sprintf(StrRes.through, [StrRes.phoneNumber])),
+              child:
+                  Text(sprintf(StrLibrary.through, [StrLibrary.phoneNumber])),
             ),
           ],
           cancelButton: CupertinoActionSheetAction(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text(StrRes.cancel),
+            child: Text(StrLibrary.cancel),
           ),
         );
       },

@@ -77,7 +77,7 @@ class TrainAiPage extends StatelessWidget {
                               style: Styles.ts_333333_16sp,
                               maxLength: logic.maxLength.value,
                               decoration: InputDecoration(
-                                hintText: StrRes.trainInputTips,
+                                hintText: StrLibrary.trainInputTips,
                                 helperStyle: Styles.ts_999999_16sp,
                                 counterText: '',
                                 counterStyle: Styles.ts_999999_12sp,
@@ -135,12 +135,12 @@ class TrainAiPage extends StatelessWidget {
                             horizontal: 15.w, vertical: 15.h),
                         child: Row(
                           children: [
-                            StrRes.knowledgebase.toText
+                            StrLibrary.knowledgebase.toText
                               ..style = Styles.ts_2C2C2C_16sp,
                             Spacer(),
                             (logic.selectedKnowledgebase.value
                                         ?.knowledgebaseName ??
-                                    StrRes.select)
+                                    StrLibrary.select)
                                 .toText
                               ..style = Styles.ts_999999_16sp,
                             ImageRes.appRightArrow.toImage
@@ -155,10 +155,10 @@ class TrainAiPage extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          StrRes.trainFileTips1.toText
+                          StrLibrary.trainFileTips1.toText
                             ..style = Styles.ts_999999_14sp,
                           3.verticalSpace,
-                          StrRes.trainFileTips2.toText
+                          StrLibrary.trainFileTips2.toText
                             ..style = Styles.ts_999999_14sp,
                         ],
                       ),
@@ -193,7 +193,7 @@ class TrainAiPage extends StatelessWidget {
                               )),
                     50.verticalSpace,
                     Button(
-                        text: StrRes.startTrain,
+                        text: StrLibrary.startTrain,
                         textStyle: Styles.ts_FFFFFF_16sp,
                         disabledTextStyle: Styles.ts_FFFFFF_16sp,
                         disabledColor: Styles.c_8443F8_opacity40,

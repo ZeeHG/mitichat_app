@@ -46,12 +46,12 @@ class AccountManageLogic extends GetxController {
 
   delLoginInfo(AccountLoginInfo info) async {
     final confirm = await Get.dialog(CustomDialog(
-      title: StrRes.confirmDelAccount,
+      title: StrLibrary.confirmDelAccount,
     ));
     if (confirm) {
-      LoadingView.singleton.wrap(
-          navBarHeight: 0,
-          asyncFunction: () async {
+      LoadingView.singleton.start(
+          topBarHeight: 0,
+          fn: () async {
             if (curLoginInfoKey.value == info.id) {
               await accountUtil.delAccount(info.id, finishLogout: true);
             } else {
@@ -65,9 +65,9 @@ class AccountManageLogic extends GetxController {
   cusBack() async {
     if (accountUtil.statusChangeCount.value > curStatusChangeCount) {
       // 最后一次操作切换了服务器
-      LoadingView.singleton.wrap(
-          navBarHeight: 0,
-          asyncFunction: () async {
+      LoadingView.singleton.start(
+          topBarHeight: 0,
+          fn: () async {
             await accountUtil.backCurAccount();
             AppNavigator.startMain();
           });
@@ -81,10 +81,10 @@ class AccountManageLogic extends GetxController {
 
   switchAccount(AccountLoginInfo loginInfo) async {
     if (loginInfo.id == curLoginInfoKey) return;
-    LoadingView.singleton.wrap(
-        navBarHeight: 0,
-        loadingTips: StrRes.loading,
-        asyncFunction: () async {
+    LoadingView.singleton.start(
+        topBarHeight: 0,
+        loadingTips: StrLibrary.loading,
+        fn: () async {
           await accountUtil.switchAccount(
               serverWithProtocol: loginInfo.server, userID: loginInfo.userID);
           setCurLoginInfoKey();
@@ -104,7 +104,7 @@ class AccountManageLogic extends GetxController {
         child: Column(
           children: [
             Text(
-              StrRes.addAccountServer,
+              StrLibrary.addAccountServer,
               textAlign: TextAlign.center,
               style: Styles.ts_333333_16sp_medium,
             ),
@@ -119,7 +119,7 @@ class AccountManageLogic extends GetxController {
               child: InputBox(
                 autofocus: false,
                 label: "",
-                hintText: StrRes.addAccountServerTips,
+                hintText: StrLibrary.addAccountServerTips,
                 hintStyle: Styles.ts_CCCCCC_14sp,
                 border: false,
                 controller: serverCtrl,
@@ -136,11 +136,11 @@ class AccountManageLogic extends GetxController {
       onTapRight: () async {
         // http://xx
         if (!Config.targetIsDomainOrIPWithProtocol(serverCtrl.text)) {
-          showToast(StrRes.serverFormatErr);
+          showToast(StrLibrary.serverFormatErr);
         } else {
-          LoadingView.singleton.wrap(
-              navBarHeight: 0,
-              asyncFunction: () async {
+          LoadingView.singleton.start(
+              topBarHeight: 0,
+              fn: () async {
                 try {
                   await accountUtil.checkServerValid(
                       serverWithProtocol: serverCtrl.text);
@@ -150,7 +150,7 @@ class AccountManageLogic extends GetxController {
                       isAddAccount: true, server: serverCtrl.text);
                   serverCtrl.text = "";
                 } catch (e) {
-                  showToast(StrRes.serverErr);
+                  showToast(StrLibrary.serverErr);
                 }
               });
         }

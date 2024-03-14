@@ -84,7 +84,7 @@ class _VerifyCodeSendButtonState extends State<VerifyCodeSendButton> {
 
   @override
   Widget build(BuildContext context) => _firstTime && !widget.auto
-      ? (StrRes.sendVerificationCode.toText
+      ? (StrLibrary.sendVerificationCode.toText
         ..style = Styles.ts_8443F8_12sp
         ..onTap = () {
           widget.onTapCallback().then((start) {
@@ -92,14 +92,15 @@ class _VerifyCodeSendButtonState extends State<VerifyCodeSendButton> {
           });
         })
       : (_isEnabled
-          ? (StrRes.resendVerificationCode.toText
+          ? (StrLibrary.resendVerificationCode.toText
             ..style = Styles.ts_8443F8_12sp
             ..onTap = () {
               widget.onTapCallback().then((start) {
                 if (start) _restart();
               });
             })
-          : (sprintf(StrRes.verificationCodeTimingReminder, [_seconds]).toText
+          : (sprintf(StrLibrary.verificationCodeTimingReminder, [_seconds])
+              .toText
             ..style = Styles.ts_999999_12sp));
 
   bool get _isEnabled => _seconds == 0;

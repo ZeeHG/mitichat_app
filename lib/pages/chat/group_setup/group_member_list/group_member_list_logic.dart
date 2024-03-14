@@ -91,7 +91,7 @@ class GroupMemberListLogic extends GetxController {
   }
 
   void _queryMyGroupMemberLevel() async {
-    LoadingView.singleton.wrap(asyncFunction: () async {
+    LoadingView.singleton.start(fn: () async {
       final list = await OpenIM.iMManager.groupManager.getGroupMembersInfo(
         groupID: groupInfo.groupID,
         userIDList: [OpenIM.iMManager.userID],
@@ -143,7 +143,8 @@ class GroupMemberListLogic extends GetxController {
 
   static _transferGroupRight(GroupMembersInfo membersInfo) async {
     var confirm = await Get.dialog(CustomDialog(
-      title: sprintf(StrRes.confirmTransferGroupToUser, [membersInfo.nickname]),
+      title: sprintf(
+          StrLibrary.confirmTransferGroupToUser, [membersInfo.nickname]),
     ));
     if (confirm == true) {
       Get.back(result: membersInfo);
@@ -167,10 +168,10 @@ class GroupMemberListLogic extends GetxController {
       barrierColor: Styles.c_191919_opacity50,
       BottomSheetView(
         items: [
-          SheetItem(label: StrRes.addMember, result: 0),
+          SheetItem(label: StrLibrary.addMember, result: 0),
           if (isOwnerOrAdmin)
             SheetItem(
-              label: StrRes.delMember,
+              label: StrLibrary.delMember,
               result: 1,
               textStyle: Styles.ts_FF4E4C_17sp,
             ),
@@ -193,7 +194,7 @@ class GroupMemberListLogic extends GetxController {
 
   static _buildEveryoneMemberInfo() => GroupMembersInfo(
         userID: OpenIM.iMManager.conversationManager.atAllTag,
-        nickname: StrRes.everyone,
+        nickname: StrLibrary.everyone,
       );
 
   void selectEveryone() {

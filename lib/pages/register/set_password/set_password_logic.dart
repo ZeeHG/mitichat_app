@@ -52,14 +52,14 @@ class SetPasswordLogic extends GetxController {
 
   bool _checkingInput() {
     if (nicknameCtrl.text.trim().isEmpty) {
-      IMViews.showToast(StrRes.plsEnterYourNickname);
+      IMViews.showToast(StrLibrary.plsEnterYourNickname);
       return false;
     }
     if (!IMUtils.isValidPassword(pwdCtrl.text)) {
-      IMViews.showToast(StrRes.wrongPasswordFormat);
+      IMViews.showToast(StrLibrary.wrongPasswordFormat);
       return false;
     } else if (pwdCtrl.text != pwdAgainCtrl.text) {
-      IMViews.showToast(StrRes.twicePwdNoSame);
+      IMViews.showToast(StrLibrary.twicePwdNoSame);
       return false;
     }
     return true;
@@ -86,7 +86,7 @@ class SetPasswordLogic extends GetxController {
   }
 
   void register() async {
-    await LoadingView.singleton.wrap(asyncFunction: () async {
+    await LoadingView.singleton.start(fn: () async {
       final data = await Apis.register(
         nickname: nicknameCtrl.text.trim(),
         areaCode: areaCode,

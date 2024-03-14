@@ -21,7 +21,7 @@ class PreviewSelectedAssetsPage extends StatelessWidget {
             leftTitle:
                 "${logic.reviseIndex + 1}/${assetsLogic.assetsList.length}",
             leftTitleStyle: Styles.ts_FFFFFF_17sp_semibold,
-            right: StrRes.delete.toText
+            right: StrLibrary.delete.toText
               ..style = Styles.ts_FFFFFF_17sp_semibold
               ..onTap = logic.delete,
           ),

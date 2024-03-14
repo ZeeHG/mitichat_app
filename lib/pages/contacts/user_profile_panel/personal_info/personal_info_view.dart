@@ -14,7 +14,7 @@ class PersonalInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-        title: StrRes.personalInfo,
+        title: StrLibrary.personalInfo,
       ),
       backgroundColor: Styles.c_F8F9FA,
       body: Obx(() => SingleChildScrollView(
@@ -24,25 +24,25 @@ class PersonalInfoPage extends StatelessWidget {
                 _buildCornerBgView(
                   children: [
                     _buildItemView(
-                      label: StrRes.avatar,
+                      label: StrLibrary.avatar,
                       isAvatar: true,
                       value: logic.nickname,
                       url: logic.faceURL,
                     ),
                     _buildItemView(
-                      label: StrRes.name,
+                      label: StrLibrary.name,
                       value: logic.nickname,
                     ),
                     _buildItemView(
-                      label: StrRes.gender,
-                      value: logic.isMale ? StrRes.man : StrRes.woman,
+                      label: StrLibrary.gender,
+                      value: logic.isMale ? StrLibrary.man : StrLibrary.woman,
                     ),
                     // _buildItemView(
-                    //   label: StrRes.englishName,
+                    //   label: StrLibrary .englishName,
                     //   value: logic.englishName,
                     // ),
                     _buildItemView(
-                      label: StrRes.birthDay,
+                      label: StrLibrary.birthDay,
                       value: logic.birth,
                     ),
                   ],
@@ -51,17 +51,17 @@ class PersonalInfoPage extends StatelessWidget {
                 _buildCornerBgView(
                   children: [
                     // _buildItemView(
-                    //   label: StrRes.tel,
+                    //   label: StrLibrary .tel,
                     //   value: logic.telephone,
                     //   onTap: logic.clickTel,
                     // ),
                     _buildItemView(
-                      label: StrRes.mobile,
+                      label: StrLibrary.mobile,
                       value: logic.phoneNumber,
                       onTap: logic.clickPhoneNumber,
                     ),
                     _buildItemView(
-                      label: StrRes.email,
+                      label: StrLibrary.email,
                       value: logic.email,
                       onTap: logic.clickEmail,
                     ),

@@ -13,11 +13,11 @@ class InvitePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.newFriend),
+      appBar: TitleBar.back(title: StrLibrary.newFriend),
       backgroundColor: Styles.c_F8F9FA,
       body: Obx(() => SingleChildScrollView(
-        child: Text(logic.aaa.toString()),
-      )),
+            child: Text(logic.aaa.toString()),
+          )),
     );
   }
 }

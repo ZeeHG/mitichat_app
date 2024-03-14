@@ -1,14 +1,12 @@
 import 'dart:ui';
-
 import 'package:get/get.dart';
-
 import 'lang/en_US.dart';
 import 'lang/zh_CN.dart';
 import 'lang/ja_JP.dart';
 import 'lang/ko_KR.dart';
 import 'lang/es_ES.dart';
 
-class TranslationService extends Translations {
+class TranslationCtrl extends Translations {
   static Locale? get locale => Get.deviceLocale;
   static const fallbackLocale = Locale('en', 'US');
 
@@ -22,8 +20,8 @@ class TranslationService extends Translations {
       };
 }
 
-class StrRes {
-  StrRes._();
+class StrLibrary {
+  StrLibrary._();
 
   static String get welcome => 'welcome'.tr;
 

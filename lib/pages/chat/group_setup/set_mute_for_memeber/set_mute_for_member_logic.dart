@@ -60,14 +60,14 @@ class SetMuteForGroupMemberLogic extends GetxController {
       var day = double.parse(controller.text);
       seconds = (day * 24 * 60 * 60).toInt();
     }
-    await LoadingView.singleton.wrap(asyncFunction: () async {
+    await LoadingView.singleton.start(fn: () async {
       await OpenIM.iMManager.groupManager.changeGroupMemberMute(
         groupID: groupID,
         userID: userID,
         seconds: seconds,
       );
     });
-    IMViews.showToast(StrRes.setSuccessfully);
+    IMViews.showToast(StrLibrary.setSuccessfully);
     Get.back();
   }
 }

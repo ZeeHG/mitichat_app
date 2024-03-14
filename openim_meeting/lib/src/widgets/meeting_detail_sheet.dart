@@ -76,7 +76,10 @@ class _MeetingDetailSheetViewState extends State<MeetingDetailSheetView> {
               children: [
                 14.verticalSpace,
                 Center(
-                  child: (widget.info.meetingName ?? sprintf(StrRes.meetingInitiatorIs, [widget.hostNickname])).toText
+                  child: (widget.info.meetingName ??
+                          sprintf(StrLibrary.meetingInitiatorIs,
+                              [widget.hostNickname]))
+                      .toText
                     ..style = Styles.ts_0C1C33_17sp_medium,
                 ),
                 19.verticalSpace,
@@ -85,7 +88,9 @@ class _MeetingDetailSheetViewState extends State<MeetingDetailSheetView> {
                   onTap: copy,
                   child: Row(
                     children: [
-                      sprintf(StrRes.meetingNoIs, [widget.info.roomID]).toText..style = Styles.ts_8E9AB0_17sp,
+                      sprintf(StrLibrary.meetingNoIs, [widget.info.roomID])
+                          .toText
+                        ..style = Styles.ts_8E9AB0_17sp,
                       ImageRes.mineCopy.toImage
                         ..width = 24.w
                         ..height = 24.h,
@@ -93,9 +98,11 @@ class _MeetingDetailSheetViewState extends State<MeetingDetailSheetView> {
                   ),
                 ),
                 16.verticalSpace,
-                sprintf(StrRes.meetingHostIs, [_hostUserInfo?.nickname ?? '']).toText..style = Styles.ts_8E9AB0_17sp,
+                sprintf(StrLibrary.meetingHostIs,
+                    [_hostUserInfo?.nickname ?? '']).toText
+                  ..style = Styles.ts_8E9AB0_17sp,
                 16.verticalSpace,
-                sprintf(StrRes.meetingStartTimeIs, [
+                sprintf(StrLibrary.meetingStartTimeIs, [
                   DateUtil.formatDateMs(
                     widget.info.startTime! * 1000,
                     format: IMUtils.getTimeFormat1(),
@@ -103,7 +110,10 @@ class _MeetingDetailSheetViewState extends State<MeetingDetailSheetView> {
                 ]).toText
                   ..style = Styles.ts_8E9AB0_17sp,
                 16.verticalSpace,
-                '${sprintf(StrRes.meetingDurationIs, [(widget.info.endTime! - widget.info.startTime!) / 60 / 60])}${StrRes.hour}'.toText
+                '${sprintf(StrLibrary.meetingDurationIs, [
+                      (widget.info.endTime! - widget.info.startTime!) / 60 / 60
+                    ])}${StrLibrary.hour}'
+                    .toText
                   ..style = Styles.ts_8E9AB0_17sp,
                 16.verticalSpace,
               ],
@@ -122,7 +132,8 @@ class _MeetingDetailSheetViewState extends State<MeetingDetailSheetView> {
                     color: Colors.black.withOpacity(0.5),
                     borderRadius: BorderRadius.circular(6.r),
                   ),
-                  child: StrRes.copySuccessfully.toText..style = Styles.ts_FFFFFF_14sp,
+                  child: StrLibrary.copySuccessfully.toText
+                    ..style = Styles.ts_FFFFFF_14sp,
                 ),
               ),
             )
@@ -160,7 +171,7 @@ class _MeetingDetailSheetViewState extends State<MeetingDetailSheetView> {
 //                 14.verticalSpace,
 //                 Center(
 //                   child: (info.meetingName ??
-//                           sprintf(StrRes.meetingInitiatorIs, [hostNickname]))
+//                           sprintf(StrLibrary .meetingInitiatorIs, [hostNickname]))
 //                       .toText
 //                     ..style = Styles.ts_0C1C33_17sp_medium,
 //                 ),
@@ -170,7 +181,7 @@ class _MeetingDetailSheetViewState extends State<MeetingDetailSheetView> {
 //                   onTap: () => IMUtils.copy(text: info.roomID!),
 //                   child: Row(
 //                     children: [
-//                       sprintf(StrRes.meetingNoIs, [info.roomID]).toText
+//                       sprintf(StrLibrary .meetingNoIs, [info.roomID]).toText
 //                         ..style = Styles.ts_8E9AB0_17sp,
 //                       ImageRes.mineCopy.toImage
 //                         ..width = 24.w
@@ -179,10 +190,10 @@ class _MeetingDetailSheetViewState extends State<MeetingDetailSheetView> {
 //                   ),
 //                 ),
 //                 16.verticalSpace,
-//                 sprintf(StrRes.meetingHostIs, [hostNickname]).toText
+//                 sprintf(StrLibrary .meetingHostIs, [hostNickname]).toText
 //                   ..style = Styles.ts_8E9AB0_17sp,
 //                 16.verticalSpace,
-//                 sprintf(StrRes.meetingStartTimeIs, [
+//                 sprintf(StrLibrary .meetingStartTimeIs, [
 //                   DateUtil.formatDateMs(
 //                     info.startTime! * 1000,
 //                     format: IMUtils.getTimeFormat1(),
@@ -190,9 +201,9 @@ class _MeetingDetailSheetViewState extends State<MeetingDetailSheetView> {
 //                 ]).toText
 //                   ..style = Styles.ts_8E9AB0_17sp,
 //                 16.verticalSpace,
-//                 '${sprintf(StrRes.meetingDurationIs, [
+//                 '${sprintf(StrLibrary .meetingDurationIs, [
 //                       (info.endTime! - info.startTime!) / 60 / 60
-//                     ])}${StrRes.hour}'
+//                     ])}${StrLibrary .hour}'
 //                     .toText
 //                   ..style = Styles.ts_8E9AB0_17sp,
 //                 16.verticalSpace,
@@ -211,7 +222,7 @@ class _MeetingDetailSheetViewState extends State<MeetingDetailSheetView> {
 //                     color: Colors.black.withOpacity(0.5),
 //                     borderRadius: BorderRadius.circular(6.r),
 //                   ),
-//                   child: StrRes.copySuccessfully.toText
+//                   child: StrLibrary .copySuccessfully.toText
 //                     ..style = Styles.ts_FFFFFF_14sp,
 //                 ),
 //               ),

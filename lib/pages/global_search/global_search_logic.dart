@@ -21,11 +21,11 @@ class GlobalSearchLogic extends CommonSearchLogic {
   final fileMessageList = <Message>[].obs;
   final index = 0.obs;
   final tabs = [
-    StrRes.globalSearchAll,
-    StrRes.globalSearchContacts,
-    StrRes.globalSearchGroup,
-    StrRes.globalSearchChatHistory,
-    StrRes.globalSearchChatFile,
+    StrLibrary.globalSearchAll,
+    StrLibrary.globalSearchContacts,
+    StrLibrary.globalSearchGroup,
+    StrLibrary.globalSearchChatHistory,
+    StrLibrary.globalSearchChatFile,
   ];
 
   int textMessagePageIndex = 1;
@@ -54,8 +54,8 @@ class GlobalSearchLogic extends CommonSearchLogic {
   search() async {
     curSearchText = searchCtrl.text.trim();
     final _curSearchText = curSearchText;
-    final result = await LoadingView.singleton.wrap(
-        asyncFunction: () => Future.wait([
+    final result = await LoadingView.singleton.start(
+        fn: () => Future.wait([
               searchFriend(),
               // searchDeptMember(),
               searchGroup(),

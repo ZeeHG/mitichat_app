@@ -17,7 +17,7 @@ class DeleteUserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           appBar: TitleBar.back(
-            title: !logic.success.value ? StrRes.deleteUser : "",
+            title: !logic.success.value ? StrLibrary.deleteUser : "",
             hideBack: logic.success.value,
           ),
           backgroundColor: Styles.c_FFFFFF,
@@ -34,16 +34,16 @@ class DeleteUserPage extends StatelessWidget {
                             ..width = 70.w
                             ..height = 70.h,
                           24.verticalSpace,
-                          StrRes.deleteUserTips1.toText
+                          StrLibrary.deleteUserTips1.toText
                             ..style = Styles.ts_333333_20sp_medium,
                           10.verticalSpace,
-                          StrRes.deleteUserTips2.toText
+                          StrLibrary.deleteUserTips2.toText
                             ..style = Styles.ts_999999_16sp,
                           10.verticalSpace,
-                          StrRes.deleteUserTips3.toText
+                          StrLibrary.deleteUserTips3.toText
                             ..style = Styles.ts_999999_16sp,
                           10.verticalSpace,
-                          StrRes.deleteUserTips4.toText
+                          StrLibrary.deleteUserTips4.toText
                             ..style = Styles.ts_999999_16sp,
                           25.verticalSpace,
                           Container(
@@ -55,7 +55,7 @@ class DeleteUserPage extends StatelessWidget {
                             ),
                             child: InputBox.password(
                               label: "",
-                              hintText: StrRes.plsEnterPassword,
+                              hintText: StrLibrary.plsEnterPassword,
                               border: false,
                               controller: logic.pwdCtrl,
                             ),
@@ -64,7 +64,7 @@ class DeleteUserPage extends StatelessWidget {
                           Button(
                             enabled: logic.enabled.value,
                             width: 1.sw - 72.w,
-                            text: StrRes.deleteUser,
+                            text: StrLibrary.deleteUser,
                             onTap: logic.showDeleteUserModal,
                           )
                         ]
@@ -74,16 +74,16 @@ class DeleteUserPage extends StatelessWidget {
                             ..width = 70.w
                             ..height = 70.h,
                           24.verticalSpace,
-                          StrRes.deleteUserSuccess.toText
+                          StrLibrary.deleteUserSuccess.toText
                             ..style = Styles.ts_333333_20sp_medium,
                           10.verticalSpace,
-                          StrRes.deleteUserSuccessTips.toText
+                          StrLibrary.deleteUserSuccessTips.toText
                             ..textAlign = TextAlign.center
                             ..style = Styles.ts_999999_16sp,
                           45.verticalSpace,
                           Button(
                             width: 1.sw - 72.w,
-                            text: StrRes.finishAndLogout,
+                            text: StrLibrary.finishAndLogout,
                             onTap: logic.logout,
                           )
                         ]),

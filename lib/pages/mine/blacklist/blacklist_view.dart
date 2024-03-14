@@ -14,7 +14,7 @@ class BlacklistPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.blacklist),
+      appBar: TitleBar.back(title: StrLibrary.blacklist),
       backgroundColor: Styles.c_F8F9FA,
       body: Obx(() => logic.blacklist.isEmpty
           ? _emptyListView
@@ -60,9 +60,10 @@ class BlacklistPage extends StatelessWidget {
                 ),
                 12.horizontalSpace,
                 Expanded(
-                  child: (info.nickname ?? '').toText..style = Styles.ts_333333_17sp,
+                  child: (info.nickname ?? '').toText
+                    ..style = Styles.ts_333333_17sp,
                 ),
-                StrRes.remove.toText..style = Styles.ts_8443F8_17sp,
+                StrLibrary.remove.toText..style = Styles.ts_8443F8_17sp,
               ],
             ),
           ),
@@ -79,7 +80,7 @@ class BlacklistPage extends StatelessWidget {
               ..width = 120.w
               ..height = 120.h,
             22.verticalSpace,
-            StrRes.blacklistEmpty.toText..style = Styles.ts_999999_16sp,
+            StrLibrary.blacklistEmpty.toText..style = Styles.ts_999999_16sp,
           ],
         ),
       );

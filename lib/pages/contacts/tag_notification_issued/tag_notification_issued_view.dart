@@ -20,8 +20,8 @@ class TagNotificationIssuedPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-        title: StrRes.issueNotice,
-        right: StrRes.newBuild.toText
+        title: StrLibrary.issueNotice,
+        right: StrLibrary.newBuild.toText
           ..style = Styles.ts_333333_16sp
           ..onTap = logic.newBuild,
       ),
@@ -57,7 +57,7 @@ class TagNotificationIssuedPage extends StatelessWidget {
               onPressed: (_) => logic.delete(ntf),
               flex: 1,
               backgroundColor: Styles.c_FF4E4C,
-              child: StrRes.delete.toText..style = Styles.ts_FFFFFF_16sp,
+              child: StrLibrary.delete.toText..style = Styles.ts_FFFFFF_16sp,
             ),
           ],
         ),
@@ -87,7 +87,7 @@ class TagNotificationIssuedPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          sprintf(StrRes.notificationReceiver,
+          sprintf(StrLibrary.notificationReceiver,
               [logic.getAcceptCount(ntf), logic.getAcceptObject(ntf)]).toText
             ..style = Styles.ts_999999_16sp
             ..maxLines = 2
@@ -123,7 +123,7 @@ class TagNotificationIssuedPage extends StatelessWidget {
                   ),
                 )),
           if (null == textElem && null == soundElem)
-            StrRes.unsupportedMessage.toText..style = Styles.ts_333333_16sp,
+            StrLibrary.unsupportedMessage.toText..style = Styles.ts_333333_16sp,
           16.verticalSpace,
           Align(
             alignment: Alignment.centerRight,
@@ -143,7 +143,7 @@ class TagNotificationIssuedPage extends StatelessWidget {
           //       color: Styles.c_8443F8,
           //       borderRadius: BorderRadius.circular(21.r),
           //     ),
-          //     child: StrRes.sendAnother.toText..style = Styles.ts_FFFFFF_16sp,
+          //     child: StrLibrary .sendAnother.toText..style = Styles.ts_FFFFFF_16sp,
           //   ),
           // ),
         ],
@@ -161,7 +161,7 @@ class TagNotificationIssuedPage extends StatelessWidget {
               ..width = 120.w
               ..height = 120.h,
             22.verticalSpace,
-            StrRes.emptyNotification.toText..style = Styles.ts_999999_16sp,
+            StrLibrary.emptyNotification.toText..style = Styles.ts_999999_16sp,
           ],
         ),
       );

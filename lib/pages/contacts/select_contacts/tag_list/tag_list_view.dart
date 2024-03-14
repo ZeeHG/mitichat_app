@@ -15,7 +15,7 @@ class SelectContactsFromTagPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.tagGroup),
+      appBar: TitleBar.back(title: StrLibrary.tagGroup),
       backgroundColor: Styles.c_F8F9FA,
       body: Column(
         children: [
@@ -36,7 +36,8 @@ class SelectContactsFromTagPage extends StatelessWidget {
                               child: ChatRadio(checked: logic.isSelectAll),
                             )),
                         10.horizontalSpace,
-                        StrRes.selectAll.toText..style = Styles.ts_333333_17sp,
+                        StrLibrary.selectAll.toText
+                          ..style = Styles.ts_333333_17sp,
                       ],
                     ),
                   ),

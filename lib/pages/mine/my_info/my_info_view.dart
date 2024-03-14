@@ -17,7 +17,7 @@ class MyInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-        title: StrRes.myInfo,
+        title: StrLibrary.myInfo,
       ),
       backgroundColor: Styles.c_F7F8FA,
       body: Obx(() => SingleChildScrollView(
@@ -27,27 +27,25 @@ class MyInfoPage extends StatelessWidget {
                 _buildCornerBgView(
                   children: [
                     _buildItemView(
-                      label: "${StrRes.avatar}",
-                      isAvatar: true,
-                      value: imLogic.userInfo.value.nickname,
-                      url: imLogic.userInfo.value.faceURL,
-                      onTap: logic.openPhotoSheet,
-                      showBorder: false
-                    ),
+                        label: "${StrLibrary.avatar}",
+                        isAvatar: true,
+                        value: imLogic.userInfo.value.nickname,
+                        url: imLogic.userInfo.value.faceURL,
+                        onTap: logic.openPhotoSheet,
+                        showBorder: false),
                   ],
                 ),
                 12.verticalSpace,
                 _buildCornerBgView(
                   children: [
                     _buildItemView(
-                      label: StrRes.mobile,
-                      value: imLogic.userInfo.value.phoneNumber,
-                      // onTap: logic.editMobile,
-                      showRightArrow: false,
-                      showBorder: false
-                    ),
+                        label: StrLibrary.mobile,
+                        value: imLogic.userInfo.value.phoneNumber,
+                        // onTap: logic.editMobile,
+                        showRightArrow: false,
+                        showBorder: false),
                     _buildItemView(
-                      label: StrRes.email,
+                      label: StrLibrary.email,
                       value: imLogic.userInfo.value.email,
                       // onTap: logic.editEmail,
                       showRightArrow: false,
@@ -58,20 +56,19 @@ class MyInfoPage extends StatelessWidget {
                 _buildCornerBgView(
                   children: [
                     _buildItemView(
-                      label: StrRes.name,
-                      value: imLogic.userInfo.value.nickname,
-                      onTap: logic.editMyName,
-                      showBorder: false
-                    ),
+                        label: StrLibrary.name,
+                        value: imLogic.userInfo.value.nickname,
+                        onTap: logic.editMyName,
+                        showBorder: false),
                     _buildItemView(
-                      label: StrRes.gender,
+                      label: StrLibrary.gender,
                       value: imLogic.userInfo.value.isMale
-                          ? StrRes.man
-                          : StrRes.woman,
+                          ? StrLibrary.man
+                          : StrLibrary.woman,
                       onTap: logic.selectGender,
                     ),
                     _buildItemView(
-                      label: StrRes.birthDay,
+                      label: StrLibrary.birthDay,
                       value: DateUtil.formatDateMs(
                         imLogic.userInfo.value.birth ?? 0,
                         format: IMUtils.getTimeFormat1(),

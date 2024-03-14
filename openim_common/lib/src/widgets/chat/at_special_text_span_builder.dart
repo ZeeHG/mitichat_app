@@ -76,12 +76,12 @@ class AtSpecialTextSpanBuilder extends SpecialTextSpanBuilder {
             }
           } else if (atAllReg.hasMatch(value)) {
             inlineSpan = SpecialTextSpan(
-              text: '@${StrRes.everyone} ',
+              text: '@${StrLibrary.everyone} ',
               actualText: value,
               start: m.start,
               style: atStyle,
             );
-            buffer.write('@${StrRes.everyone} ');
+            buffer.write('@${StrLibrary.everyone} ');
           }
           /*else if (emojiReg.hasMatch(value)) {
             inlineSpan = ImageSpan(

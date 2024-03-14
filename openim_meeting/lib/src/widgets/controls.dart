@@ -62,18 +62,26 @@ class _ControlsViewState extends State<ControlsView> {
 
   bool get _isHost => _meetingInfo?.hostUserID == _participant.identity;
 
-  bool get _disabledMicrophone => !_participant.isMicrophoneEnabled() && _meetingInfo?.participantCanUnmuteSelf == false && !_isHost;
+  bool get _disabledMicrophone =>
+      !_participant.isMicrophoneEnabled() &&
+      _meetingInfo?.participantCanUnmuteSelf == false &&
+      !_isHost;
 
-  bool get _disabledCamera => !_participant.isCameraEnabled() && _meetingInfo?.participantCanEnableVideo == false && !_isHost;
+  bool get _disabledCamera =>
+      !_participant.isCameraEnabled() &&
+      _meetingInfo?.participantCanEnableVideo == false &&
+      !_isHost;
 
-  bool get _disabledScreenShare => _meetingInfo?.onlyHostShareScreen == true && !_isHost;
+  bool get _disabledScreenShare =>
+      _meetingInfo?.onlyHostShareScreen == true && !_isHost;
 
   int get membersCount => widget.room.participants.length + 1;
 
   @override
   void initState() {
     _participant.addListener(_onChange);
-    _meetingInfoChangedSub = widget.meetingInfoChangedSubject.listen(_onChangedMeetingInfo);
+    _meetingInfoChangedSub =
+        widget.meetingInfoChangedSubject.listen(_onChangedMeetingInfo);
     widget.startTimerCompleter?.future.then((value) => _startCallingTimer());
     _enableSpeakerphone(true);
     super.initState();
@@ -163,19 +171,23 @@ class _ControlsViewState extends State<ControlsView> {
           bool hasPermissions = await FlutterBackground.hasPermissions;
           if (!isRetry) {
             final androidConfig = FlutterBackgroundAndroidConfig(
-              notificationTitle: StrRes.screenShare,
-              notificationText: StrRes.screenShareHint,
+              notificationTitle: StrLibrary.screenShare,
+              notificationText: StrLibrary.screenShareHint,
               notificationImportance: AndroidNotificationImportance.Default,
-              notificationIcon: const AndroidResource(name: 'ic_launcher', defType: 'mipmap'),
+              notificationIcon:
+                  const AndroidResource(name: 'ic_launcher', defType: 'mipmap'),
             );
-            hasPermissions = await FlutterBackground.initialize(androidConfig: androidConfig);
+            hasPermissions = await FlutterBackground.initialize(
+                androidConfig: androidConfig);
           }
-          if (hasPermissions && !FlutterBackground.isBackgroundExecutionEnabled) {
+          if (hasPermissions &&
+              !FlutterBackground.isBackgroundExecutionEnabled) {
             await FlutterBackground.enableBackgroundExecution();
           }
         } catch (e) {
           if (!isRetry) {
-            return await Future<void>.delayed(const Duration(seconds: 1), () => requestBackgroundPermission(true));
+            return await Future<void>.delayed(const Duration(seconds: 1),
+                () => requestBackgroundPermission(true));
           }
           print('could not publish video: $e');
         }
@@ -185,7 +197,10 @@ class _ControlsViewState extends State<ControlsView> {
     }
     if (lkPlatformIs(PlatformType.iOS)) {
       var track = await LocalVideoTrack.createScreenShareTrack(
-        const ScreenShareCaptureOptions(useiOSBroadcastExtension: true, maxFrameRate: 15.0, params: VideoParametersPresets.screenShareH720FPS15),
+        const ScreenShareCaptureOptions(
+            useiOSBroadcastExtension: true,
+            maxFrameRate: 15.0,
+            params: VideoParametersPresets.screenShareH720FPS15),
       );
       await _participant.publishVideoTrack(track);
 
@@ -294,8 +309,8 @@ class _ControlsViewState extends State<ControlsView> {
         controller: controller,
         isHost: _isHost,
         onDismiss: () async {
-          await LoadingView.singleton.wrap(
-              asyncFunction: () => OpenIM.iMManager.signalingManager.signalingCloseRoom(
+          await LoadingView.singleton.start(
+              fn: () => OpenIM.iMManager.signalingManager.signalingCloseRoom(
                     roomID: _meetingInfo!.roomID!,
                   ));
           widget.onClose?.call();
@@ -308,12 +323,13 @@ class _ControlsViewState extends State<ControlsView> {
   }
 
   _confirmSettings(Map map) {
-    LoadingView.singleton.wrap(asyncFunction: () async {
+    LoadingView.singleton.start(fn: () async {
       await OpenIM.iMManager.signalingManager.signalingUpdateMeetingInfo(
         info: map..putIfAbsent('roomID', () => _meetingInfo!.roomID!),
       );
       _meetingInfo!.participantCanUnmuteSelf = map['participantCanUnmuteSelf'];
-      _meetingInfo!.participantCanEnableVideo = map['participantCanEnableVideo'];
+      _meetingInfo!.participantCanEnableVideo =
+          map['participantCanEnableVideo'];
       _meetingInfo!.onlyHostInviteUser = map['onlyHostInviteUser'];
       _meetingInfo!.onlyHostShareScreen = map['onlyHostShareScreen'];
       _meetingInfo!.joinDisableMicrophone = map['joinDisableMicrophone'];

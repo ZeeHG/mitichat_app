@@ -38,7 +38,7 @@ class ChatHintTextView extends StatelessWidget {
                     ),
               children: [
                 TextSpan(
-                  text: sprintf(StrRes.createGroupNtf, ['']),
+                  text: sprintf(StrLibrary.createGroupNtf, ['']),
                   style: Styles.ts_999999_12sp,
                 ),
               ],
@@ -63,7 +63,7 @@ class ChatHintTextView extends StatelessWidget {
                     ),
               children: [
                 TextSpan(
-                  text: sprintf(StrRes.editGroupInfoNtf, ['']),
+                  text: sprintf(StrLibrary.editGroupInfoNtf, ['']),
                   style: Styles.ts_999999_12sp,
                 ),
               ],
@@ -88,7 +88,7 @@ class ChatHintTextView extends StatelessWidget {
                     ),
               children: [
                 TextSpan(
-                  text: sprintf(StrRes.quitGroupNtf, ['']),
+                  text: sprintf(StrLibrary.quitGroupNtf, ['']),
                   style: Styles.ts_999999_12sp,
                 ),
               ],
@@ -107,7 +107,8 @@ class ChatHintTextView extends StatelessWidget {
           //     .toList()
           //     .join('、');
 
-          aMap[ntf.opUser!.userID!] = IMUtils.getGroupMemberShowName(ntf.opUser!);
+          aMap[ntf.opUser!.userID!] =
+              IMUtils.getGroupMemberShowName(ntf.opUser!);
           infoMap[ntf.opUser!.userID!] = ntf.opUser!;
 
           for (var user in ntf.invitedUserList!) {
@@ -119,7 +120,7 @@ class ChatHintTextView extends StatelessWidget {
           final b = bMap.keys.join('、');
           String pattern = '(${[a, ...bMap.keys].join('|')})';
 
-          final text = sprintf(StrRes.invitedJoinGroupNtf, [a, b]);
+          final text = sprintf(StrLibrary.invitedJoinGroupNtf, [a, b]);
           final List<InlineSpan> children = <InlineSpan>[];
           text.splitMapJoin(
             RegExp(pattern),
@@ -165,7 +166,8 @@ class ChatHintTextView extends StatelessWidget {
           //     .toList()
           //     .join('、');
 
-          aMap[ntf.opUser!.userID!] = IMUtils.getGroupMemberShowName(ntf.opUser!);
+          aMap[ntf.opUser!.userID!] =
+              IMUtils.getGroupMemberShowName(ntf.opUser!);
           infoMap[ntf.opUser!.userID!] = ntf.opUser!;
 
           for (var user in ntf.kickedUserList!) {
@@ -177,7 +179,7 @@ class ChatHintTextView extends StatelessWidget {
           final b = bMap.keys.join('、');
           String pattern = '(${[a, ...bMap.keys].join('|')})';
 
-          final text = sprintf(StrRes.kickedGroupNtf, [b, a]);
+          final text = sprintf(StrLibrary.kickedGroupNtf, [b, a]);
           final List<InlineSpan> children = <InlineSpan>[];
           text.splitMapJoin(
             RegExp(pattern),
@@ -228,7 +230,7 @@ class ChatHintTextView extends StatelessWidget {
                     ),
               children: [
                 TextSpan(
-                  text: sprintf(StrRes.joinGroupNtf, ['']),
+                  text: sprintf(StrLibrary.joinGroupNtf, ['']),
                   style: Styles.ts_999999_12sp,
                 ),
               ],
@@ -253,7 +255,7 @@ class ChatHintTextView extends StatelessWidget {
                     ),
               children: [
                 TextSpan(
-                  text: sprintf(StrRes.dismissGroupNtf, ['']),
+                  text: sprintf(StrLibrary.dismissGroupNtf, ['']),
                   style: Styles.ts_999999_12sp,
                 ),
               ],
@@ -267,13 +269,14 @@ class ChatHintTextView extends StatelessWidget {
           // final b = IMUtils.getGroupMemberShowName(ntf.newGroupOwner!);
           final a = ntf.opUser!.userID;
           final b = ntf.newGroupOwner!.userID;
-          final text = sprintf(StrRes.transferredGroupNtf, [a, b]);
+          final text = sprintf(StrLibrary.transferredGroupNtf, [a, b]);
           final List<InlineSpan> children = <InlineSpan>[];
           text.splitMapJoin(
             RegExp('($a|$b)'),
             onMatch: (match) {
               final text = match[0]!;
-              final info = text == ntf.opUser!.userID ? ntf.opUser! : ntf.newGroupOwner!;
+              final info =
+                  text == ntf.opUser!.userID ? ntf.opUser! : ntf.newGroupOwner!;
               children.add(TextSpan(
                 text: IMUtils.getGroupMemberShowName(info),
                 style: Styles.ts_8443F8_12sp,
@@ -304,13 +307,14 @@ class ChatHintTextView extends StatelessWidget {
           final a = ntf.opUser!.userID;
           final b = ntf.mutedUser!.userID;
           final c = IMUtils.mutedTime(ntf.mutedSeconds!);
-          final text = sprintf(StrRes.muteMemberNtf, [b, a, c]);
+          final text = sprintf(StrLibrary.muteMemberNtf, [b, a, c]);
           final List<InlineSpan> children = <InlineSpan>[];
           text.splitMapJoin(
             RegExp('($a|$b)'),
             onMatch: (match) {
               final text = match[0]!;
-              final info = text == ntf.opUser!.userID ? ntf.opUser! : ntf.mutedUser!;
+              final info =
+                  text == ntf.opUser!.userID ? ntf.opUser! : ntf.mutedUser!;
               children.add(TextSpan(
                 text: IMUtils.getGroupMemberShowName(info),
                 style: Styles.ts_8443F8_12sp,
@@ -340,13 +344,14 @@ class ChatHintTextView extends StatelessWidget {
           final ntf = MuteMemberNotification.fromJson(map);
           final a = ntf.opUser!.userID;
           final b = ntf.mutedUser!.userID;
-          final text = sprintf(StrRes.muteCancelMemberNtf, [b, a]);
+          final text = sprintf(StrLibrary.muteCancelMemberNtf, [b, a]);
           final List<InlineSpan> children = <InlineSpan>[];
           text.splitMapJoin(
             RegExp('($a|$b)'),
             onMatch: (match) {
               final text = match[0]!;
-              final info = text == ntf.opUser!.userID ? ntf.opUser! : ntf.mutedUser!;
+              final info =
+                  text == ntf.opUser!.userID ? ntf.opUser! : ntf.mutedUser!;
               children.add(TextSpan(
                 text: IMUtils.getGroupMemberShowName(info),
                 style: Styles.ts_8443F8_12sp,
@@ -389,7 +394,7 @@ class ChatHintTextView extends StatelessWidget {
                     ),
               children: [
                 TextSpan(
-                  text: sprintf(StrRes.muteGroupNtf, ['']),
+                  text: sprintf(StrLibrary.muteGroupNtf, ['']),
                   style: Styles.ts_999999_12sp,
                 ),
               ],
@@ -414,7 +419,7 @@ class ChatHintTextView extends StatelessWidget {
                     ),
               children: [
                 TextSpan(
-                  text: sprintf(StrRes.muteCancelGroupNtf, ['']),
+                  text: sprintf(StrLibrary.muteCancelGroupNtf, ['']),
                   style: Styles.ts_999999_12sp,
                 ),
               ],
@@ -424,13 +429,18 @@ class ChatHintTextView extends StatelessWidget {
       case MessageType.friendApplicationApprovedNotification:
         {
           // 你们已成为好友
-          return StrRes.friendAddedNtf.toText..style = Styles.ts_999999_12sp;
+          return StrLibrary.friendAddedNtf.toText
+            ..style = Styles.ts_999999_12sp;
         }
       case MessageType.burnAfterReadingNotification:
         {
           final ntf = BurnAfterReadingNotification.fromJson(map);
           // 开启私聊/关闭私聊
-          return (ntf.isPrivate == true ? StrRes.openPrivateChatNtf : StrRes.closePrivateChatNtf).toText..style = Styles.ts_999999_12sp;
+          return (ntf.isPrivate == true
+                  ? StrLibrary.openPrivateChatNtf
+                  : StrLibrary.closePrivateChatNtf)
+              .toText
+            ..style = Styles.ts_999999_12sp;
         }
       case MessageType.groupMemberInfoChangedNotification:
         final ntf = GroupMemberInfoChangedNotification.fromJson(map);
@@ -449,7 +459,7 @@ class ChatHintTextView extends StatelessWidget {
                   ),
             children: [
               TextSpan(
-                text: sprintf(StrRes.memberInfoChangedNtf, ['']),
+                text: sprintf(StrLibrary.memberInfoChangedNtf, ['']),
                 style: Styles.ts_999999_12sp,
               ),
             ],
@@ -471,7 +481,7 @@ class ChatHintTextView extends StatelessWidget {
                   ),
             children: [
               TextSpan(
-                text: sprintf(StrRes.whoModifyGroupName, ['']),
+                text: sprintf(StrLibrary.whoModifyGroupName, ['']),
                 style: Styles.ts_999999_12sp,
               ),
             ],

@@ -34,27 +34,27 @@ class EditMyInfoLogic extends GetxController {
   _initAttr() {
     switch (editAttr) {
       case EditAttr.nickname:
-        title = StrRes.name;
+        title = StrLibrary.name;
         defaultValue = imLogic.userInfo.value.nickname;
         keyboardType = TextInputType.text;
         break;
       case EditAttr.englishName:
-        // title = StrRes.englishName;
+        // title = StrLibrary .englishName;
         // defaultValue = imLogic.userInfo.value.englishName;
         // keyboardType = TextInputType.text;
         break;
       case EditAttr.telephone:
-        // title = StrRes.tel;
+        // title = StrLibrary .tel;
         // defaultValue = imLogic.userInfo.value.telephone;
         // keyboardType = TextInputType.phone;
         break;
       case EditAttr.mobile:
-        title = StrRes.mobile;
+        title = StrLibrary.mobile;
         defaultValue = imLogic.userInfo.value.phoneNumber;
         keyboardType = TextInputType.phone;
         break;
       case EditAttr.email:
-        title = StrRes.email;
+        title = StrLibrary.email;
         defaultValue = imLogic.userInfo.value.email;
         keyboardType = TextInputType.emailAddress;
         break;
@@ -64,8 +64,8 @@ class EditMyInfoLogic extends GetxController {
   void save() async {
     final value = inputCtrl.text.trim();
     if (editAttr == EditAttr.nickname) {
-      await LoadingView.singleton.wrap(
-        asyncFunction: () => Apis.updateUserInfo(
+      await LoadingView.singleton.start(
+        fn: () => Apis.updateUserInfo(
           userID: OpenIM.iMManager.userID,
           nickname: value,
         ),
@@ -74,8 +74,8 @@ class EditMyInfoLogic extends GetxController {
         val?.nickname = value;
       });
     } else if (editAttr == EditAttr.mobile) {
-      await LoadingView.singleton.wrap(
-        asyncFunction: () => Apis.updateUserInfo(
+      await LoadingView.singleton.start(
+        fn: () => Apis.updateUserInfo(
           userID: OpenIM.iMManager.userID,
           phoneNumber: value,
         ),
@@ -84,8 +84,8 @@ class EditMyInfoLogic extends GetxController {
         val?.phoneNumber = value;
       });
     } else if (editAttr == EditAttr.email) {
-      await LoadingView.singleton.wrap(
-        asyncFunction: () => Apis.updateUserInfo(
+      await LoadingView.singleton.start(
+        fn: () => Apis.updateUserInfo(
           userID: OpenIM.iMManager.userID,
           email: value,
         ),

@@ -37,7 +37,7 @@ class MeetingDetailLogic extends GetxController {
 
   String get meetingDuration {
     final offset = meetingInfo.endTime! - meetingInfo.startTime!;
-    return '${offset ~/ 60}${StrRes.minute}';
+    return '${offset ~/ 60}${StrLibrary.minute}';
   }
 
   bool isStartedMeeting() {
@@ -65,8 +65,8 @@ class MeetingDetailLogic extends GetxController {
     final result = await bridge?.selectContacts(2);
     if (result is Map) {
       final list = IMUtils.convertCheckedListToShare(result.values);
-      await LoadingView.singleton.wrap(
-          asyncFunction: () => Future.forEach(
+      await LoadingView.singleton.start(
+          fn: () => Future.forEach(
                 list,
                 (map) => MeetingClient().invite(
                   userID: map['userID'],
@@ -86,9 +86,10 @@ class MeetingDetailLogic extends GetxController {
       barrierColor: Styles.c_191919_opacity50,
       BottomSheetView(
         items: [
-          SheetItem(label: StrRes.updateMeetingInfo, onTap: _modifyMeetingInfo),
           SheetItem(
-            label: StrRes.cancelMeeting,
+              label: StrLibrary.updateMeetingInfo, onTap: _modifyMeetingInfo),
+          SheetItem(
+            label: StrLibrary.cancelMeeting,
             textStyle: Styles.ts_FF381F_17sp,
             onTap: _cancelMeeting,
           ),
@@ -99,9 +100,8 @@ class MeetingDetailLogic extends GetxController {
 
   _cancelMeeting() async {
     try {
-      await LoadingView.singleton.wrap(
-          asyncFunction: () =>
-              OpenIM.iMManager.signalingManager.signalingCloseRoom(
+      await LoadingView.singleton.start(
+          fn: () => OpenIM.iMManager.signalingManager.signalingCloseRoom(
                 roomID: meetingInfo.roomID!,
               ));
       Get.back();

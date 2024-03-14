@@ -90,7 +90,7 @@ class MeetingClient implements MeetingBridge {
 
       subject ??= PublishSubject();
 
-      await LoadingView.singleton.wrap(asyncFunction: () async {
+      await LoadingView.singleton.start(fn: () async {
         late SignalingCertificate sc;
         if (isCreate) {
           sc = await OpenIM.iMManager.signalingManager.signalingCreateMeeting(
@@ -120,7 +120,8 @@ class MeetingClient implements MeetingBridge {
           roomOptions: const RoomOptions(
             dynacast: true,
             adaptiveStream: true,
-            defaultCameraCaptureOptions: CameraCaptureOptions(params: VideoParametersPresets.h720_169),
+            defaultCameraCaptureOptions:
+                CameraCaptureOptions(params: VideoParametersPresets.h720_169),
             defaultVideoPublishOptions: VideoPublishOptions(
                 simulcast: true,
                 videoCodec: 'VP8',
@@ -128,7 +129,8 @@ class MeetingClient implements MeetingBridge {
                   maxBitrate: 5 * 1000 * 1000,
                   maxFramerate: 15,
                 )),
-            defaultScreenShareCaptureOptions: ScreenShareCaptureOptions(useiOSBroadcastExtension: true, maxFrameRate: 15.0),
+            defaultScreenShareCaptureOptions: ScreenShareCaptureOptions(
+                useiOSBroadcastExtension: true, maxFrameRate: 15.0),
           ),
         );
 
@@ -150,9 +152,9 @@ class MeetingClient implements MeetingBridge {
       close();
       Logger.print("error:$error  stack:$trace");
       if (error.toString().contains('NotExist')) {
-        IMViews.showToast(StrRes.meetingIsOver);
+        IMViews.showToast(StrLibrary.meetingIsOver);
       } else {
-        IMViews.showToast(StrRes.networkError);
+        IMViews.showToast(StrLibrary.networkError);
       }
     }
   }
@@ -177,6 +179,7 @@ class MeetingClient implements MeetingBridge {
           start: startTime,
           duration: duration,
         ),
-        offlinePushInfo: Config.offlinePushInfo..title = StrRes.offlineMeetingMessage,
+        offlinePushInfo: Config.offlinePushInfo
+          ..title = StrLibrary.offlineMeetingMessage,
       );
 }

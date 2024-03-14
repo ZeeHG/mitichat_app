@@ -211,12 +211,12 @@ class SelectContactsLogic extends GetxController
     }
   }
 
-  String get checkedStrTips =>  checkedList.values.map(parseName).join('、');
+  String get checkedStrTips => checkedList.values.map(parseName).join('、');
 
-  List<String?> get checkedFaceUrls => checkedList.values.map(parseFaceURL).toList();
+  List<String?> get checkedFaceUrls =>
+      checkedList.values.map(parseFaceURL).toList();
 
-  List<String?> get checkedNames =>
-      checkedList.values.map(parseName).toList();
+  List<String?> get checkedNames => checkedList.values.map(parseName).toList();
 
   viewSelectedContactsList() => Get.bottomSheet(
         SelectedContactsListView(),
@@ -224,7 +224,8 @@ class SelectContactsLogic extends GetxController
       );
 
   selectFromMyFriend() async {
-    final result = await AppNavigator.startSelectContactsFromFriends(appBarTitle: StrRes.selectFriends);
+    final result = await AppNavigator.startSelectContactsFromFriends(
+        appBarTitle: StrLibrary.selectFriends);
     if (null != result) {
       Get.back(result: result);
     } else {
@@ -283,7 +284,7 @@ class SelectContactsLogic extends GetxController
   confirmSelectedItem(ISUserInfo info) async {
     if (action == SelAction.carte) {
       final sure = await Get.dialog(CustomDialog(
-        title: StrRes.sendCarteConfirmHint,
+        title: StrLibrary.sendCarteConfirmHint,
       ));
       if (sure == true) {
         Get.back(result: UserInfo.fromJson(info.toJson()));

@@ -15,7 +15,7 @@ class SetBackgroundImagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-        title: StrRes.setChatBackground,
+        title: StrLibrary.setChatBackground,
         right: ImageRes.moreBlack.toImage
           ..width = 24.w
           ..height = 24.h
@@ -41,7 +41,7 @@ class SetBackgroundImagePage extends StatelessWidget {
                             bubbleType: BubbleType.send,
                             alignment: null,
                             constraints: BoxConstraints(maxWidth: maxWidth),
-                            child: StrRes.setChatBackground.toText
+                            child: StrLibrary.setChatBackground.toText
                               ..style = Styles.ts_FFFFFF_16sp,
                           )
                         ],

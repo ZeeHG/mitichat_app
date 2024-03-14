@@ -16,8 +16,8 @@ class TagGroupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-        title: StrRes.tagGroup,
-        right: StrRes.add.toText
+        title: StrLibrary.tagGroup,
+        right: StrLibrary.add.toText
           ..style = Styles.ts_333333_17sp
           ..onTap = logic.createTagGroup,
       ),
@@ -51,13 +51,13 @@ class TagGroupPage extends StatelessWidget {
               onPressed: (_) => logic.edit(tagInfo),
               flex: 1,
               backgroundColor: Styles.c_8443F8,
-              child: StrRes.edit.toText..style = Styles.ts_FFFFFF_16sp,
+              child: StrLibrary.edit.toText..style = Styles.ts_FFFFFF_16sp,
             ),
             CustomSlidableAction(
               onPressed: (_) => logic.delete(tagInfo),
               flex: 1,
               backgroundColor: Styles.c_FF4E4C,
-              child: StrRes.delete.toText..style = Styles.ts_FFFFFF_16sp,
+              child: StrLibrary.delete.toText..style = Styles.ts_FFFFFF_16sp,
             ),
           ],
         ),
@@ -91,7 +91,7 @@ class TagGroupPage extends StatelessWidget {
               ..width = 120.w
               ..height = 120.h,
             22.verticalSpace,
-            StrRes.emptyTagGroup.toText..style = Styles.ts_999999_16sp,
+            StrLibrary.emptyTagGroup.toText..style = Styles.ts_999999_16sp,
           ],
         ),
       );

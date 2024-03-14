@@ -14,7 +14,7 @@ class TrainingBotPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: TitleBar.back(
-          title: StrRes.training,
+          title: StrLibrary.training,
         ),
         backgroundColor: Styles.c_F7F8FA,
         body: Stack(
@@ -24,14 +24,17 @@ class TrainingBotPage extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
                     child: Row(
-                    children: [
-                      ImageRes.appRefresh.toImage..width=16.w..height=16.h,
-                      10.horizontalSpace,
-                      StrRes.temp1.toText..style=Styles.ts_8443F8_12sp,
-                    ],
-                  ),
+                      children: [
+                        ImageRes.appRefresh.toImage
+                          ..width = 16.w
+                          ..height = 16.h,
+                        10.horizontalSpace,
+                        StrLibrary.temp1.toText..style = Styles.ts_8443F8_12sp,
+                      ],
+                    ),
                   ),
                   Container(
                     color: Styles.c_FFFFFF,
@@ -40,7 +43,8 @@ class TrainingBotPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        (StrRes.question + "：").toText..style=Styles.ts_303137_14sp_medium,
+                        (StrLibrary.question + "：").toText
+                          ..style = Styles.ts_303137_14sp_medium,
                         TextFormField(
                           maxLines: 7,
                           style: Styles.ts_303137_14sp_medium,
@@ -61,7 +65,8 @@ class TrainingBotPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        (StrRes.answer + "：").toText..style=Styles.ts_303137_14sp_medium,
+                        (StrLibrary.answer + "：").toText
+                          ..style = Styles.ts_303137_14sp_medium,
                         TextFormField(
                           maxLines: 7,
                           style: Styles.ts_303137_14sp_medium,
@@ -84,7 +89,7 @@ class TrainingBotPage extends StatelessWidget {
                   width: 1.sw,
                   alignment: Alignment.center,
                   child: Button(
-                    text: StrRes.startTrain,
+                    text: StrLibrary.startTrain,
                     textStyle: Styles.ts_FFFFFF_16sp,
                     radius: 21.r,
                     enabledColor: Styles.c_8443F8,

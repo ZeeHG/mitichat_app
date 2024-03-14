@@ -46,17 +46,17 @@ class PublishLogic extends GetxController {
   final originUrlCtrl = TextEditingController();
   final titleCtrl = TextEditingController();
   final title = "".obs;
-  Rx<Tag> activeTag = Rx(Tag(label: StrRes.life, value: ""));
+  Rx<Tag> activeTag = Rx(Tag(label: StrLibrary.life, value: ""));
   List<Tag> get tags => [
-        Tag(label: StrRes.life, value: "life"),
-        Tag(label: StrRes.aigc, value: "aigc"),
-        Tag(label: StrRes.web3, value: "web3"),
-        Tag(label: StrRes.news, value: "news"),
+        Tag(label: StrLibrary.life, value: "life"),
+        Tag(label: StrLibrary.aigc, value: "aigc"),
+        Tag(label: StrLibrary.web3, value: "web3"),
+        Tag(label: StrLibrary.news, value: "news"),
       ];
 
   void selectTag(int index) {
     if (activeTag.value.value == tags[index].value) {
-      activeTag.value = Tag(label: StrRes.life, value: "");
+      activeTag.value = Tag(label: StrLibrary.life, value: "");
     } else {
       activeTag.value = tags[index];
     }
@@ -131,13 +131,13 @@ class PublishLogic extends GetxController {
   void back() async {
     // if (canPublish) {
     //   var confirm = await Get.dialog(CustomDialog(
-    //     bigTitle: StrRes.tips,
-    //     title: StrRes.momentsDraftTips,
-    //     leftText: StrRes.noSaveAlias,
-    //     rightText: StrRes.saveAlias,
+    //     bigTitle: StrLibrary .tips,
+    //     title: StrLibrary .momentsDraftTips,
+    //     leftText: StrLibrary .noSaveAlias,
+    //     rightText: StrLibrary .saveAlias,
     //   ));
     //   if (confirm == true) {
-    //     IMViews.showToast(StrRes.saveSuccessfully);
+    //     IMViews.showToast(StrLibrary .saveSuccessfully);
     //     Get.back();
     //   } else {
     //     Get.back();
@@ -153,11 +153,11 @@ class PublishLogic extends GetxController {
         BottomSheetView(
           items: [
             SheetItem(
-              label: StrRes.selectAssetsFromCamera,
+              label: StrLibrary.selectAssetsFromCamera,
               onTap: _selectAssetsFromCamera,
             ),
             SheetItem(
-              label: StrRes.selectAssetsFromAlbum,
+              label: StrLibrary.selectAssetsFromAlbum,
               onTap: _selectAssetsFromAlbum,
             ),
           ],
@@ -189,20 +189,20 @@ class PublishLogic extends GetxController {
             if (!isSelected) {
               // 多个图片, 一个视频
               if (null != firstAssetType && entity.type != firstAssetType) {
-                showToast(StrRes.pleaseSelectFirstType);
+                showToast(StrLibrary.pleaseSelectFirstType);
                 return false;
               }
 
               if (null != firstAssetType && entity.type == AssetType.video) {
-                showToast(StrRes.onlySupportOneVideo);
+                showToast(StrLibrary.onlySupportOneVideo);
                 return false;
               }
 
               // 视频限制15s的时长
               if (entity.type == AssetType.video &&
                   entity.videoDuration > const Duration(seconds: 15)) {
-                IMViews.showToast(
-                    sprintf(StrRes.selectVideoLimit, [15]) + StrRes.seconds);
+                IMViews.showToast(sprintf(StrLibrary.selectVideoLimit, [15]) +
+                    StrLibrary.seconds);
                 return false;
               }
 
@@ -244,7 +244,7 @@ class PublishLogic extends GetxController {
           onlyEnableRecording: hasAssets && !isPicture,
           enableRecording: !hasAssets || !isPicture,
           onMinimumRecordDurationNotMet: () {
-            IMViews.showToast(StrRes.tapTooShort);
+            IMViews.showToast(StrLibrary.tapTooShort);
           },
         ),
       );
@@ -288,16 +288,16 @@ class PublishLogic extends GetxController {
 
   String get whoCanWatchLabel {
     if (permission.value == 3) {
-      return StrRes.partiallyInvisible;
+      return StrLibrary.partiallyInvisible;
     }
-    return StrRes.whoCanWatch;
+    return StrLibrary.whoCanWatch;
   }
 
   String get whoCanWatchValue {
     if (permission.value == 0) {
-      return StrRes.public;
+      return StrLibrary.public;
     } else if (permission.value == 1) {
-      return StrRes.private;
+      return StrLibrary.private;
     } else if (permission.value == 2) {
       return watchList.map((e) => parseName(e)).join('、');
     } else if (permission.value == 3) {
@@ -324,17 +324,17 @@ class PublishLogic extends GetxController {
   publish() async {
     // if (inputCtrl.text.trim().isEmpty) {
     //   focusNode.requestFocus();
-    //   IMViews.showToast(StrRes.plsEnterDescription);
+    //   IMViews.showToast(StrLibrary .plsEnterDescription);
     //   return;
     // }
     if (isPublishXhs.value &&
         originUrlCtrl.text.trim().isNotEmpty &&
         !RegExp(regexUrl).hasMatch(originUrlCtrl.text.trim())) {
-      showToast(StrRes.pleaseInputValidUrl);
+      showToast(StrLibrary.pleaseInputValidUrl);
       return;
     }
 
-    await LoadingView.singleton.wrap(asyncFunction: () async {
+    await LoadingView.singleton.start(fn: () async {
       final permissionUserList = <UserInfo>[];
       final permissionGroupList = <GroupInfo>[];
       final atUserList = <UserInfo>[];

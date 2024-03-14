@@ -16,13 +16,12 @@ class RecentRequestsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.newFriend),
+      appBar: TitleBar.back(title: StrLibrary.newFriend),
       backgroundColor: Styles.c_F8F9FA,
       body: Obx(() => ListView.builder(
             padding: EdgeInsets.only(top: 10.h),
             itemCount: logic.allList.length,
-            itemBuilder: (_, index) =>
-                _buildItemView(logic.allList[index]),
+            itemBuilder: (_, index) => _buildItemView(logic.allList[index]),
           )),
     );
   }
@@ -80,18 +79,19 @@ class RecentRequestsPage extends StatelessWidget {
               ..height = 20.h,
           if (info.isWaitingHandle && !isISendRequest)
             Button(
-              text: StrRes.lookOver,
+              text: StrLibrary.lookOver,
               textStyle: Styles.ts_FFFFFF_14sp,
               onTap: () => logic.acceptFriendApplication(info),
               height: 28.h,
               padding: EdgeInsets.symmetric(horizontal: 13.w),
             ),
           if (info.isWaitingHandle && isISendRequest)
-            StrRes.waitingForVerification.toText..style = Styles.ts_999999_14sp,
+            StrLibrary.waitingForVerification.toText
+              ..style = Styles.ts_999999_14sp,
           if (info.isRejected)
-            StrRes.rejected.toText..style = Styles.ts_999999_14sp,
+            StrLibrary.rejected.toText..style = Styles.ts_999999_14sp,
           if (info.isAgreed)
-            StrRes.approved.toText..style = Styles.ts_999999_14sp,
+            StrLibrary.approved.toText..style = Styles.ts_999999_14sp,
         ],
       ),
     );
@@ -132,7 +132,7 @@ class RecentRequestsPage extends StatelessWidget {
                       if (!logic.isInvite(info))
                         RichText(
                           text: TextSpan(
-                            text: StrRes.applyJoin,
+                            text: StrLibrary.applyJoin,
                             style: Styles.ts_999999_14sp,
                             children: [
                               WidgetSpan(child: 2.horizontalSpace),
@@ -151,7 +151,7 @@ class RecentRequestsPage extends StatelessWidget {
                             children: [
                               WidgetSpan(child: 2.horizontalSpace),
                               TextSpan(
-                                text: StrRes.invite,
+                                text: StrLibrary.invite,
                                 style: Styles.ts_999999_14sp,
                               ),
                               WidgetSpan(child: 2.horizontalSpace),
@@ -161,7 +161,7 @@ class RecentRequestsPage extends StatelessWidget {
                               ),
                               WidgetSpan(child: 2.horizontalSpace),
                               TextSpan(
-                                text: StrRes.joinIn,
+                                text: StrLibrary.joinIn,
                                 style: Styles.ts_999999_14sp,
                               ),
                               WidgetSpan(child: 2.horizontalSpace),
@@ -176,11 +176,11 @@ class RecentRequestsPage extends StatelessWidget {
                       if (null != IMUtils.emptyStrToNull(info.reqMsg))
                         Padding(
                           padding: EdgeInsets.only(top: 4.h),
-                          child:
-                              sprintf(StrRes.applyReason, [info.reqMsg!]).toText
-                                ..style = Styles.ts_999999_14sp
-                                ..maxLines = 1
-                                ..overflow = TextOverflow.ellipsis,
+                          child: sprintf(StrLibrary.applyReason, [info.reqMsg!])
+                              .toText
+                            ..style = Styles.ts_999999_14sp
+                            ..maxLines = 1
+                            ..overflow = TextOverflow.ellipsis,
                         ),
                     ],
                   ),
@@ -194,18 +194,19 @@ class RecentRequestsPage extends StatelessWidget {
               ..height = 20.h,
           if (info.handleResult == 0 && !isISendRequest)
             Button(
-              text: StrRes.lookOver,
+              text: StrLibrary.lookOver,
               textStyle: Styles.ts_FFFFFF_14sp,
               height: 28.h,
               padding: EdgeInsets.symmetric(horizontal: 13.w),
               onTap: () => logic.handle(info),
             ),
           if (info.handleResult == 0 && isISendRequest)
-            StrRes.waitingForVerification.toText..style = Styles.ts_999999_14sp,
+            StrLibrary.waitingForVerification.toText
+              ..style = Styles.ts_999999_14sp,
           if (info.handleResult == -1)
-            StrRes.rejected.toText..style = Styles.ts_999999_14sp,
+            StrLibrary.rejected.toText..style = Styles.ts_999999_14sp,
           if (info.handleResult == 1)
-            StrRes.approved.toText..style = Styles.ts_999999_14sp,
+            StrLibrary.approved.toText..style = Styles.ts_999999_14sp,
         ],
       ),
     );

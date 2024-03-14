@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
                   // BottomBarItem(
                   //   selectedImgRes: ImageRes.appHomeTab1Sel,
                   //   unselectedImgRes: ImageRes.appHomeTab1Nor,
-                  //   label: StrRes.discover,
+                  //   label: StrLibrary .discover,
                   //   imgWidth: 21.w,
                   //   imgHeight: 21.h,
                   //   onClick: logic.switchTab,
@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
                   BottomBarItem(
                     selectedImgRes: ImageRes.appHomeTab1Sel,
                     unselectedImgRes: ImageRes.appHomeTab1Nor,
-                    label: StrRes.chat,
+                    label: StrLibrary.chat,
                     imgWidth: 31.w,
                     imgHeight: 22.h,
                     onClick: (int index) => logic.switchTab(0),
@@ -69,7 +69,7 @@ class HomePage extends StatelessWidget {
                   BottomBarItem(
                     selectedImgRes: ImageRes.appHomeTab2Sel,
                     unselectedImgRes: ImageRes.appHomeTab2Nor,
-                    label: StrRes.discoverTab,
+                    label: StrLibrary.discoverTab,
                     imgWidth: 22.w,
                     imgHeight: 22.h,
                     onClick: (int index) {
@@ -81,7 +81,7 @@ class HomePage extends StatelessWidget {
                   BottomBarItem(
                     selectedImgRes: ImageRes.appHomeTab3Nor3,
                     unselectedImgRes: ImageRes.appHomeTab3Nor3,
-                    label: StrRes.workingCircle,
+                    label: StrLibrary.workingCircle,
                     imgWidth: 24.w,
                     imgHeight: 24.h,
                     onClick: logic.viewDiscover,
@@ -91,7 +91,7 @@ class HomePage extends StatelessWidget {
                   // BottomBarItem(
                   //   selectedImgRes: ImageRes.appHomeTab3Sel,
                   //   unselectedImgRes: ImageRes.appHomeTab3Nor,
-                  //   label: StrRes.chat,
+                  //   label: StrLibrary .chat,
                   //   imgWidth: 31.w,
                   //   imgHeight: 22.h,
                   //   onClick: logic.switchTab,
@@ -101,7 +101,7 @@ class HomePage extends StatelessWidget {
                   BottomBarItem(
                     selectedImgRes: ImageRes.appHomeTab4Sel3,
                     unselectedImgRes: ImageRes.appHomeTab4Nor3,
-                    label: StrRes.mine,
+                    label: StrLibrary.mine,
                     imgWidth: 22.w,
                     imgHeight: 22.h,
                     onClick: (int index) => logic.switchTab(3),

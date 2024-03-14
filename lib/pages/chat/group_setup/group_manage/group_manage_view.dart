@@ -15,14 +15,14 @@ class GroupManagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-        title: StrRes.groupManage,
+        title: StrLibrary.groupManage,
       ),
       backgroundColor: Styles.c_F8F9FA,
       body: Obx(() => Column(
             children: [
               10.verticalSpace,
               _buildItemView(
-                text: StrRes.muteAllMember,
+                text: StrLibrary.muteAllMember,
                 switchOn: logic.groupInfo.value.status == 3,
                 onChanged: (_) => logic.toggleGroupMute(),
                 showSwitchButton: true,
@@ -31,20 +31,20 @@ class GroupManagePage extends StatelessWidget {
               ),
               10.verticalSpace,
               _buildItemView(
-                text: StrRes.notAllowSeeMemberProfile,
+                text: StrLibrary.notAllowSeeMemberProfile,
                 switchOn: logic.allowLookProfiles,
                 onChanged: (_) => logic.toggleMemberProfiles(),
                 showSwitchButton: true,
                 isTopRadius: true,
               ),
               _buildItemView(
-                text: StrRes.notAllAddMemberToBeFriend,
+                text: StrLibrary.notAllAddMemberToBeFriend,
                 switchOn: logic.allowAddFriend,
                 onChanged: (_) => logic.toggleAddMemberToFriend(),
                 showSwitchButton: true,
               ),
               _buildItemView(
-                text: StrRes.joinGroupSet,
+                text: StrLibrary.joinGroupSet,
                 value: logic.joinGroupOption,
                 onTap: logic.modifyJoinGroupSet,
                 showRightArrow: true,
@@ -52,7 +52,7 @@ class GroupManagePage extends StatelessWidget {
               ),
               10.verticalSpace,
               _buildItemView(
-                text: StrRes.transferGroupOwnerRight,
+                text: StrLibrary.transferGroupOwnerRight,
                 onTap: logic.transferGroupOwnerRight,
                 showRightArrow: true,
                 isTopRadius: true,

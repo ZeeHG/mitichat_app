@@ -79,7 +79,7 @@ class ServerConfigLogic extends GetxController {
     imLogic.unInitOpenIM();
     HttpUtil.init();
     await imLogic.initOpenIM();
-    IMViews.showToast(StrRes.serverSettingTips);
+    IMViews.showToast(StrLibrary.serverSettingTips);
   }
 
   void toggleTab(i) {

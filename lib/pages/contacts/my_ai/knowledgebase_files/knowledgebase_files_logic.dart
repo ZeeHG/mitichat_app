@@ -23,9 +23,10 @@ class KnowledgebaseFilesLogic extends GetxController {
   Knowledgebase knowledgebase = Get.arguments['knowledgebase'];
 
   Future<void> getFiles() async {
-    LoadingView.singleton.wrap(asyncFunction: () async {
+    LoadingView.singleton.start(fn: () async {
       final list = List<String>.from((await Apis.getKnowledgeFiles(
-          knowledgebaseID: knowledgebase.knowledgebaseID))["files"] ?? []);
+              knowledgebaseID: knowledgebase.knowledgebaseID))["files"] ??
+          []);
       files.value = list;
     });
   }

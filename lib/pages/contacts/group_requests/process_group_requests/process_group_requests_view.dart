@@ -14,7 +14,7 @@ class ProcessGroupRequestsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.newGroup),
+      appBar: TitleBar.back(title: StrLibrary.newGroup),
       backgroundColor: Styles.c_F8F9FA,
       body: Container(
         color: Styles.c_FFFFFF,
@@ -42,7 +42,7 @@ class ProcessGroupRequestsPage extends StatelessWidget {
                     // if (!logic.isInvite)
                     RichText(
                       text: TextSpan(
-                        text: StrRes.applyJoin,
+                        text: StrLibrary.applyJoin,
                         style: Styles.ts_999999_14sp,
                         children: [
                           WidgetSpan(child: 2.horizontalSpace),
@@ -61,7 +61,7 @@ class ProcessGroupRequestsPage extends StatelessWidget {
                     //       children: [
                     //         WidgetSpan(child: 2.horizontalSpace),
                     //         TextSpan(
-                    //           text: StrRes.invite,
+                    //           text: StrLibrary .invite,
                     //           style: Styles.ts_999999_14sp,
                     //         ),
                     //         WidgetSpan(child: 2.horizontalSpace),
@@ -71,7 +71,7 @@ class ProcessGroupRequestsPage extends StatelessWidget {
                     //         ),
                     //         WidgetSpan(child: 2.horizontalSpace),
                     //         TextSpan(
-                    //           text: StrRes.joinIn,
+                    //           text: StrLibrary .joinIn,
                     //           style: Styles.ts_999999_14sp,
                     //         ),
                     //         WidgetSpan(child: 2.horizontalSpace),
@@ -113,7 +113,7 @@ class ProcessGroupRequestsPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                sprintf(StrRes.sourceFrom, [logic.sourceFrom]).toText
+                sprintf(StrLibrary.sourceFrom, [logic.sourceFrom]).toText
                   ..style = Styles.ts_999999_14sp
               ],
             ),
@@ -125,7 +125,7 @@ class ProcessGroupRequestsPage extends StatelessWidget {
                 Flexible(
                   child: Button(
                     onTap: logic.approve,
-                    text: StrRes.accept,
+                    text: StrLibrary.accept,
                     textStyle: Styles.ts_FFFFFF_17sp,
                   ),
                 ),
@@ -152,7 +152,7 @@ class ProcessGroupRequestsPage extends StatelessWidget {
             onTap: logic.reject,
             child: Container(
               alignment: Alignment.center,
-              child: StrRes.reject.toText..style = Styles.ts_333333_17sp,
+              child: StrLibrary.reject.toText..style = Styles.ts_333333_17sp,
             ),
           ),
         ),

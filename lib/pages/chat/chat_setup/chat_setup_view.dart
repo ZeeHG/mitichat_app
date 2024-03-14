@@ -13,7 +13,8 @@ class ChatSetupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.chatDetail, backgroundColor: Styles.transparent),
+      appBar: TitleBar.back(
+          title: StrLibrary.chatDetail, backgroundColor: Styles.transparent),
       backgroundColor: Styles.c_F7F8FA,
       body: SingleChildScrollView(
         child: Obx(() => Column(
@@ -21,7 +22,7 @@ class ChatSetupPage extends StatelessWidget {
                 _buildBaseInfoView(),
                 // _buildContentSearchView(),
                 _buildItemView(
-                  text: StrRes.chatSearch,
+                  text: StrLibrary.chatSearch,
                   showRightArrow: true,
                   isTopRadius: true,
                   isBottomRadius: true,
@@ -29,32 +30,32 @@ class ChatSetupPage extends StatelessWidget {
                 ),
                 15.verticalSpace,
                 _buildItemView(
-                    text: StrRes.messageNotDisturb,
+                    text: StrLibrary.messageNotDisturb,
                     switchOn: logic.isNotDisturb,
                     onChanged: (_) => logic.toggleNotDisturb(),
                     showSwitchButton: true,
                     isTopRadius: true),
                 _buildItemView(
-                    text: StrRes.topContacts,
+                    text: StrLibrary.topContacts,
                     switchOn: logic.isPinned,
                     onChanged: (_) => logic.toggleTopContacts(),
                     showSwitchButton: true,
                     showBorder: true),
                 // _buildItemView(
-                //   text: StrRes.remind,
+                //   text: StrLibrary .remind,
                 //   switchOn: false,
                 //   // onChanged: (_) => logic.toggleNotDisturb(),
                 //   showSwitchButton: true,
                 //   isBottomRadius: true,
                 // ),
                 _buildItemView(
-                    text: StrRes.chatEncryption,
+                    text: StrLibrary.chatEncryption,
                     switchOn: true,
                     // onChanged: (_) => showDeveloping(),
                     showSwitchButton: true,
                     showBorder: true),
                 _buildItemView(
-                    text: StrRes.burnAfterReading,
+                    text: StrLibrary.burnAfterReading,
                     switchOn: logic.isBurnAfterReading,
                     onChanged: (_) => logic.toggleBurnAfterReading(),
                     showSwitchButton: true,
@@ -62,14 +63,14 @@ class ChatSetupPage extends StatelessWidget {
                     showBorder: true),
                 if (logic.isBurnAfterReading)
                   _buildItemView(
-                      text: "  - " + StrRes.timeSet,
+                      text: "  - " + StrLibrary.timeSet,
                       value: logic.getBurnAfterReadingDurationStr,
                       onTap: logic.setBurnAfterReadingDuration,
                       showRightArrow: true,
                       isBottomRadius: true,
                       showBorder: true),
                 //   _buildItemView(
-                //   text: StrRes.autoTranslate,
+                //   text: StrLibrary .autoTranslate,
                 //   switchOn: logic.isAutoTranslate,
                 //   onChanged: (_) => logic.toggleAutoTranslate(),
                 //   showSwitchButton: true,
@@ -77,7 +78,7 @@ class ChatSetupPage extends StatelessWidget {
                 //   isBottomRadius: logic.isAutoTranslate ? false : true,
                 // ),
                 // _buildItemView(
-                //     text: StrRes.targetLang,
+                //     text: StrLibrary .targetLang,
                 //     value: logic.targetLangStr,
                 //     onTap: logic.setTargetLang,
                 //     showRightArrow: true,
@@ -85,7 +86,7 @@ class ChatSetupPage extends StatelessWidget {
                 //   ),
                 15.verticalSpace,
                 _buildItemView(
-                  text: StrRes.setChatBackground,
+                  text: StrLibrary.setChatBackground,
                   onTap: logic.setBackgroundImage,
                   showRightArrow: true,
                   isTopRadius: true,
@@ -93,7 +94,7 @@ class ChatSetupPage extends StatelessWidget {
                 ),
                 15.verticalSpace,
                 _buildItemView(
-                  text: StrRes.clearChatHistory,
+                  text: StrLibrary.clearChatHistory,
                   textStyle: Styles.ts_333333_16sp,
                   onTap: logic.clearChatHistory,
                   // showRightArrow: true,
@@ -102,7 +103,7 @@ class ChatSetupPage extends StatelessWidget {
                 ),
                 15.verticalSpace,
                 _buildItemView(
-                  text: StrRes.complaint,
+                  text: StrLibrary.complaint,
                   textStyle: Styles.ts_333333_16sp,
                   onTap: logic.complaint,
                   showRightArrow: true,
@@ -111,7 +112,7 @@ class ChatSetupPage extends StatelessWidget {
                 ),
                 // 10.verticalSpace,
                 // _buildItemView(
-                //   text: StrRes.complaint,
+                //   text: StrLibrary .complaint,
                 //   showRightArrow: true,
                 //   isTopRadius: true,
                 //   isBottomRadius: true,
@@ -120,7 +121,7 @@ class ChatSetupPage extends StatelessWidget {
 
                 // 10.verticalSpace,
                 // _buildItemView(
-                //   text: StrRes.periodicallyDeleteMessage,
+                //   text: StrLibrary .periodicallyDeleteMessage,
                 //   switchOn: logic.isMsgDestruct,
                 //   onChanged: (_) => logic.toggleDestructMessage(),
                 //   showSwitchButton: true,
@@ -129,7 +130,7 @@ class ChatSetupPage extends StatelessWidget {
                 // ),
                 // if (logic.isMsgDestruct)
                 //   _buildItemView(
-                //     text: StrRes.timeSet,
+                //     text: StrLibrary .timeSet,
                 //     value: logic.getDestructDurationStr,
                 //     onTap: logic.setDestructMessageDuration,
                 //     showRightArrow: true,
@@ -138,7 +139,7 @@ class ChatSetupPage extends StatelessWidget {
                 // 10.verticalSpace,
 
                 // _buildItemView(
-                //   text: StrRes.fontSize,
+                //   text: StrLibrary .fontSize,
                 //   onTap: logic.setFontSize,
                 //   showRightArrow: true,
                 //   isBottomRadius: true,
@@ -224,29 +225,29 @@ class ChatSetupPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          StrRes.chatContent.toText..style = Styles.ts_999999_14sp,
+          StrLibrary.chatContent.toText..style = Styles.ts_999999_14sp,
           12.verticalSpace,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               childItemView(
                 icon: ImageRes.chatSearch,
-                text: StrRes.search,
+                text: StrLibrary.search,
                 onTap: logic.searchChatHistory,
               ),
               childItemView(
                 icon: ImageRes.chatSearchPic,
-                text: StrRes.picture,
+                text: StrLibrary.picture,
                 onTap: logic.searchChatHistoryPicture,
               ),
               childItemView(
                 icon: ImageRes.chatSearchVideo,
-                text: StrRes.video,
+                text: StrLibrary.video,
                 onTap: logic.searchChatHistoryVideo,
               ),
               childItemView(
                 icon: ImageRes.chatSearchFile,
-                text: StrRes.file,
+                text: StrLibrary.file,
                 onTap: logic.searchChatHistoryFile,
               ),
             ],

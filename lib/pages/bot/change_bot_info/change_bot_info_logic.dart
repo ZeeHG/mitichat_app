@@ -9,7 +9,7 @@ class ChangeBotInfoLogic extends GetxController {
     IMViews.openPhotoSheet(
         onData: (path, url) async {
           if (url != null) {
-            LoadingView.singleton.wrap(asyncFunction: () => Future(() => 1));
+            LoadingView.singleton.start(fn: () => Future(() => 1));
           }
         },
         quality: 15);

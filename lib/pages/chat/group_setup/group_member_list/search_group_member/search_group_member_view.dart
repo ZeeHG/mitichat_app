@@ -80,9 +80,9 @@ class SearchGroupMemberPage extends StatelessWidget {
                 ),
               ),
               if (membersInfo.roleLevel == GroupRoleLevel.owner)
-                StrRes.groupOwner.toText..style = Styles.ts_999999_17sp,
+                StrLibrary.groupOwner.toText..style = Styles.ts_999999_17sp,
               if (membersInfo.roleLevel == GroupRoleLevel.admin)
-                StrRes.groupAdmin.toText..style = Styles.ts_999999_17sp,
+                StrLibrary.groupAdmin.toText..style = Styles.ts_999999_17sp,
             ],
           ),
         ),
@@ -99,7 +99,7 @@ class SearchGroupMemberPage extends StatelessWidget {
             //   ..height = 120.h,
             // 22.verticalSpace,
             44.verticalSpace,
-            StrRes.searchNotFound.toText..style = Styles.ts_999999_17sp,
+            StrLibrary.searchNotFound.toText..style = Styles.ts_999999_17sp,
           ],
         ),
       );

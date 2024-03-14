@@ -11,13 +11,14 @@ class SelectContactsFromFriendsLogic extends FriendListLogic {
 
   @override
   void onInit() {
-    appBarTitle = Get.arguments['appBarTitle'] ?? StrRes.myFriend;
+    appBarTitle = Get.arguments['appBarTitle'] ?? StrLibrary.myFriend;
     super.onInit();
   }
 
   @override
   searchFriend() async {
-    final result = await AppNavigator.startSelectContactsFromSearchFriends(appBarTitle: appBarTitle);
+    final result = await AppNavigator.startSelectContactsFromSearchFriends(
+        appBarTitle: appBarTitle);
     if (null != result) {
       Get.back(result: result);
     }

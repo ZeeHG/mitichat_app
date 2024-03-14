@@ -95,7 +95,8 @@ class _ControlsViewState extends State<ControlsView> {
     _roomDidUpdateSub = widget.roomDidUpdateStream.listen(_roomDidUpdate);
     // _queryUserInfo();
 
-    _deviceChangeSub = Hardware.instance.onDeviceChange.stream.listen(_loadDevices);
+    _deviceChangeSub =
+        Hardware.instance.onDeviceChange.stream.listen(_loadDevices);
     Hardware.instance.enumerateDevices().then(_loadDevices);
     super.initState();
   }
@@ -187,7 +188,8 @@ class _ControlsViewState extends State<ControlsView> {
   }
 
   Future<void> _enableVideo() async {
-    await _participant?.setCameraEnabled(true, cameraCaptureOptions: CameraCaptureOptions(cameraPosition: position));
+    await _participant?.setCameraEnabled(true,
+        cameraCaptureOptions: CameraCaptureOptions(cameraPosition: position));
   }
 
   Future<void> _disableSpeaker() async {
@@ -251,10 +253,15 @@ class _ControlsViewState extends State<ControlsView> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      (_participant!.isCameraEnabled() ? ImageRes.liveCameraOff : ImageRes.liveCameraOn).toImage
+                      (_participant!.isCameraEnabled()
+                              ? ImageRes.liveCameraOff
+                              : ImageRes.liveCameraOn)
+                          .toImage
                         ..width = 30.w
                         ..height = 30.h
-                        ..onTap = (_participant!.isCameraEnabled() ? _disableVideo : _enableVideo),
+                        ..onTap = (_participant!.isCameraEnabled()
+                            ? _disableVideo
+                            : _enableVideo),
                       16.horizontalSpace,
                       ImageRes.liveSwitchCamera.toImage
                         ..width = 30.w
@@ -289,13 +296,17 @@ class _ControlsViewState extends State<ControlsView> {
       );
 
   List<Widget> get _buttonGroup {
-    if (_callState == CallState.call || _callState == CallState.connecting && widget.initState == CallState.call) {
+    if (_callState == CallState.call ||
+        _callState == CallState.connecting &&
+            widget.initState == CallState.call) {
       return [
         LiveButton.microphone(on: _enabledMicrophone, onTap: _toggleAudio),
         LiveButton.cancel(onTap: widget.onCancel),
         LiveButton.speaker(on: _enabledSpeaker, onTap: _toggleSpeaker),
       ];
-    } else if (_callState == CallState.beCalled || _callState == CallState.connecting && widget.initState == CallState.beCalled) {
+    } else if (_callState == CallState.beCalled ||
+        _callState == CallState.connecting &&
+            widget.initState == CallState.beCalled) {
       return [
         LiveButton.reject(onTap: widget.onReject),
         LiveButton.pickUp(onTap: widget.onPickUp),
@@ -316,22 +327,28 @@ class _ControlsViewState extends State<ControlsView> {
 
   Widget get _videoCallingDurationView => Visibility(
         visible: isVideo && isCalling,
-        child: _callingDurationStr.toText..style = Styles.ts_FFFFFF_opacity70_17sp,
+        child: _callingDurationStr.toText
+          ..style = Styles.ts_FFFFFF_opacity70_17sp,
       );
 
   Widget get _userInfoView {
     String text;
     if (_callState == CallState.call) {
-      text = isVideo ? StrRes.waitingVideoCallHint : StrRes.waitingVoiceCallHint;
+      text = isVideo
+          ? StrLibrary.waitingVideoCallHint
+          : StrLibrary.waitingVoiceCallHint;
     } else if (_callState == CallState.beCalled) {
-      text = isVideo ? StrRes.invitedVideoCallHint : StrRes.invitedVoiceCallHint;
+      text = isVideo
+          ? StrLibrary.invitedVideoCallHint
+          : StrLibrary.invitedVoiceCallHint;
     } else if (_callState == CallState.connecting) {
-      text = StrRes.connecting;
+      text = StrLibrary.connecting;
     } else {
       text = isVideo ? '' : _callingDurationStr;
     }
 
-    String? nickname = IMUtils.emptyStrToNull(widget.userInfo!.remark) ?? widget.userInfo!.nickname;
+    String? nickname = IMUtils.emptyStrToNull(widget.userInfo!.remark) ??
+        widget.userInfo!.nickname;
     String? faceURL = widget.userInfo!.faceURL;
 
     return Visibility(
