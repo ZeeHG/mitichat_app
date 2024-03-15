@@ -10,7 +10,7 @@ import 'package:miti_live/miti_live.dart';
 import 'package:miti_circle/miti_circle.dart';
 import 'package:sprintf/sprintf.dart';
 
-import '../../../core/controller/app_controller.dart';
+import '../../../core/controller/app_ctrl.dart';
 import '../../../core/controller/im_controller.dart';
 import '../../conversation/conversation_logic.dart';
 
@@ -18,7 +18,7 @@ import 'dart:convert';
 import 'package:miti_circle/src/w_apis.dart';
 
 class UserProfilePanelLogic extends GetxController {
-  final appLogic = Get.find<AppController>();
+  final appCtrl = Get.find<AppCtrl>();
   final imLogic = Get.find<IMController>();
   final conversationLogic = Get.find<ConversationLogic>();
   late Rx<UserFullInfo> userInfo;
@@ -115,8 +115,8 @@ class UserProfilePanelLogic extends GetxController {
 
   /// 是否能给非好友发送消息
   bool get allowSendMsgNotFriend =>
-      null == appLogic.clientConfigMap['allowSendMsgNotFriend'] ||
-      appLogic.clientConfigMap['allowSendMsgNotFriend'] == '1';
+      null == appCtrl.clientConfigMap['allowSendMsgNotFriend'] ||
+      appCtrl.clientConfigMap['allowSendMsgNotFriend'] == '1';
 
   void _getUsersInfo() {
     LoadingView.singleton.start(fn: _requestUsersInfo);

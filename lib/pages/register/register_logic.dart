@@ -7,10 +7,10 @@ import 'package:miti/routes/app_navigator.dart';
 import 'package:miti/utils/account_util.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../../core/controller/app_controller.dart';
+import '../../core/controller/app_ctrl.dart';
 
 class RegisterLogic extends GetxController {
-  final appLogic = Get.find<AppController>();
+  final appCtrl = Get.find<AppCtrl>();
   final phoneCtrl = TextEditingController();
   final emailCtrl = TextEditingController();
   final invitationCodeCtrl = TextEditingController();
@@ -55,7 +55,7 @@ class RegisterLogic extends GetxController {
   void onInit() {
     LoadingView.singleton.start(
       fn: () async {
-        await appLogic.queryClientConfig();
+        await appCtrl.queryClientConfig();
       },
     );
     isAddAccount.value = Get.arguments?['isAddAccount'] ?? false;
@@ -128,8 +128,8 @@ class RegisterLogic extends GetxController {
   }
 
   bool get needInvitationCodeRegister =>
-      null != appLogic.clientConfigMap['needInvitationCodeRegister'] &&
-      appLogic.clientConfigMap['needInvitationCodeRegister'] != '0';
+      null != appCtrl.clientConfigMap['needInvitationCodeRegister'] &&
+      appCtrl.clientConfigMap['needInvitationCodeRegister'] != '0';
 
   void openCountryCodePicker() async {
     String? code = await IMViews.showCountryCodePicker();

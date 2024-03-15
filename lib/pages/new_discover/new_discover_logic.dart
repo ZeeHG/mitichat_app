@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:get/get.dart';
-import 'package:miti/core/controller/app_controller.dart';
+import 'package:miti/core/controller/app_ctrl.dart';
 import 'package:miti_common/miti_common.dart';
 
 import '../../routes/app_navigator.dart';
 
 class NewDiscoverLogic extends GetxController {
-  final appLogic = Get.find<AppController>();
+  final appCtrl = Get.find<AppCtrl>();
   final popCtrl = CustomPopupMenuController();
   final index = 1.obs;
 

@@ -9,7 +9,7 @@ import 'package:miti_common/miti_common.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:synchronized/synchronized.dart';
 
-import '../../../core/controller/app_controller.dart';
+import '../../../core/controller/app_ctrl.dart';
 import '../../../core/controller/im_controller.dart';
 import '../../../routes/app_navigator.dart';
 import '../../contacts/select_contacts/select_contacts_logic.dart';
@@ -23,7 +23,7 @@ class GroupSetupLogic extends GetxController {
 
   // final chatLogic = Get.find<ChatLogic>();
   final chatLogic = Get.find<ChatLogic>(tag: GetTags.chat);
-  final appLogic = Get.find<AppController>();
+  final appCtrl = Get.find<AppCtrl>();
   final conversationLogic = Get.find<ConversationLogic>();
   final memberList = <GroupMembersInfo>[].obs;
   late Rx<ConversationInfo> conversationInfo;

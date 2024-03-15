@@ -26,7 +26,7 @@ import 'package:video_compress/video_compress.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
-import '../../core/controller/app_controller.dart';
+import '../../core/controller/app_ctrl.dart';
 import '../../core/controller/im_controller.dart';
 import '../../core/im_callback.dart';
 import '../../routes/app_navigator.dart';
@@ -40,7 +40,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart'
 
 class ChatLogic extends GetxController {
   final imLogic = Get.find<IMController>();
-  final appLogic = Get.find<AppController>();
+  final appCtrl = Get.find<AppCtrl>();
   final conversationLogic = Get.find<ConversationLogic>();
   final cacheLogic = Get.find<CacheController>();
   final downloadLogic = Get.find<DownloadController>();

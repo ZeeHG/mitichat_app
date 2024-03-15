@@ -2,14 +2,14 @@ import 'dart:io';
 
 // import 'package:flutter_openim_unimp/flutter_openim_unimp.dart';
 import 'package:get/get.dart';
-import 'package:miti/core/controller/app_controller.dart';
+import 'package:miti/core/controller/app_ctrl.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class WorkbenchLogic extends GetxController {
   final refreshCtrl = RefreshController();
-  final appLogic = Get.find<AppController>();
+  final appCtrl = Get.find<AppCtrl>();
   final list = <Rx<UniMPInfo>>[].obs;
   final url = ''.obs;
 
@@ -18,10 +18,10 @@ class WorkbenchLogic extends GetxController {
     // refreshList();
     super.onReady();
 
-    final temp = appLogic.clientConfigMap['discoverPageURL'];
+    final temp = appCtrl.clientConfigMap['discoverPageURL'];
 
     if (temp == null) {
-      appLogic.queryClientConfig().then((value) {
+      appCtrl.queryClientConfig().then((value) {
         if (value['discoverPageURL'] == null) {
           url.value = 'https://www.openim.io';
         } else {

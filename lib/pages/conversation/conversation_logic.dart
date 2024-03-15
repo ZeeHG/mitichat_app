@@ -11,7 +11,7 @@ import 'package:miti_common/miti_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
-import '../../core/controller/app_controller.dart';
+import '../../core/controller/app_ctrl.dart';
 import '../../core/controller/im_controller.dart';
 import '../../core/im_callback.dart';
 import '../../routes/app_navigator.dart';
@@ -24,7 +24,7 @@ class ConversationLogic extends GetxController {
   final list = <ConversationInfo>[].obs;
   final imLogic = Get.find<IMController>();
   final homeLogic = Get.find<HomeLogic>();
-  final appLogic = Get.find<AppController>();
+  final appCtrl = Get.find<AppCtrl>();
   final refreshController = RefreshController();
   final tempDraftText = <String, String>{};
   final pageSize = 40;
@@ -99,7 +99,7 @@ class ConversationLogic extends GetxController {
         info.recvMsgOpt == 0 &&
         info.unreadCount > 0 &&
         info.latestMsg?.sendID != OpenIM.iMManager.userID) {
-      appLogic.promptSoundOrNotification(info.latestMsg!);
+      appCtrl.promptSoundOrNotification(info.latestMsg!);
     }
   }
 

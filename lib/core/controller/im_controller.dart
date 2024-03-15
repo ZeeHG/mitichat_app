@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:miti/core/controller/app_controller.dart';
+import 'package:miti/core/controller/app_ctrl.dart';
 import 'package:miti/utils/misc_util.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:miti_live/miti_live.dart';
@@ -155,8 +155,8 @@ class IMController extends GetxController with IMCallback, MitiLive {
         onInviteeRejected: inviteeRejected,
         onReceiveNewInvitation: (SignalingInfo info) {
           receiveNewInvitation(info);
-          final appLogic = Get.find<AppController>();
-          appLogic.promptLiveNotification(info);
+          final appCtrl = Get.find<AppCtrl>();
+          appCtrl.promptLiveNotification(info);
         },
         onInviteeAcceptedByOtherDevice: inviteeAcceptedByOtherDevice,
         onInviteeRejectedByOtherDevice: inviteeRejectedByOtherDevice,

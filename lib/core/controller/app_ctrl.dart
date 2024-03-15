@@ -20,7 +20,7 @@ import 'im_controller.dart';
 import 'push_controller.dart';
 
 // 下载0, 后台1, 消息message.seq
-class AppController extends SuperController {
+class AppCtrl extends SuperController {
   var isRunningBackground = false;
   var isAppBadgeSupported = false;
   var notificationSeq = 3000;

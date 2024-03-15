@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
-import 'package:miti/core/controller/app_controller.dart';
+import 'package:miti/core/controller/app_ctrl.dart';
 import 'package:miti/core/controller/im_controller.dart';
 import 'package:miti/core/controller/push_controller.dart';
 import 'package:miti/core/im_callback.dart';
@@ -22,7 +22,7 @@ import 'package:miti_common/miti_common.dart';
 class AccountUtil extends GetxController {
   final imLogic = Get.find<IMController>();
   final pushLogic = Get.find<PushController>();
-  final appLogic = Get.find<AppController>();
+  final appCtrl = Get.find<AppCtrl>();
   final statusChangeCount = 0.obs;
   final imTimeout = 30;
 
@@ -105,7 +105,7 @@ class AccountUtil extends GetxController {
       // FIXME 需要等到连接成功或者失败回调, 而不是函数执行完。否则无法登录im，只能登录chat。
       // FIXME initOpenIM不会出现超时, 只有login im后才会出现
       await imLogic.initOpenIM();
-      await appLogic.queryClientConfig();
+      await appCtrl.queryClientConfig();
     }
   }
 

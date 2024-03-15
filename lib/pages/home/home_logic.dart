@@ -11,7 +11,7 @@ import 'package:miti_circle/miti_circle.dart';
 import 'package:miti_circle/src/w_apis.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../core/controller/app_controller.dart';
+import '../../core/controller/app_ctrl.dart';
 import '../../core/controller/im_controller.dart';
 import '../../core/controller/push_controller.dart';
 import '../../core/im_callback.dart';
@@ -22,7 +22,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
   final pushLogic = Get.find<PushController>();
   final imLogic = Get.find<IMController>();
   final cacheLogic = Get.find<CacheController>();
-  final initLogic = Get.find<AppController>();
+  final appCtrl = Get.find<AppCtrl>();
   final index = 0.obs;
   final unreadMsgCount = 0.obs;
   final unreadMomentsCount = 0.obs;
@@ -68,7 +68,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
   _getUnreadMsgCount() {
     OpenIM.iMManager.conversationManager.getTotalUnreadMsgCount().then((count) {
       unreadMsgCount.value = int.tryParse(count) ?? 0;
-      initLogic.showBadge(unreadMsgCount.value);
+      appCtrl.showBadge(unreadMsgCount.value);
     });
   }
 

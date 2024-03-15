@@ -6,7 +6,7 @@ import 'package:miti_common/miti_common.dart';
 // import 'package:openim_meeting/openim_meeting.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'controller/app_controller.dart';
+import 'controller/app_ctrl.dart';
 
 enum IMSdkStatus {
   connectionFailed,
@@ -19,7 +19,7 @@ enum IMSdkStatus {
 }
 
 class IMCallback {
-  final initLogic = Get.find<AppController>();
+  final appCtrl = Get.find<AppCtrl>();
 
   /// 收到消息撤回
   Function(RevokedInfo info)? onRecvMessageRevoked;
@@ -153,12 +153,12 @@ class IMCallback {
   }
 
   void recvNewMessage(Message msg) {
-    initLogic.showNotification(msg);
+    appCtrl.showNotification(msg);
     onRecvNewMessage?.call(msg);
   }
 
   void recvOfflineMessage(Message msg) {
-    initLogic.showNotification(msg);
+    appCtrl.showNotification(msg);
     onRecvOfflineMessage?.call(msg);
   }
 
@@ -268,7 +268,7 @@ class IMCallback {
   }
 
   void totalUnreadMsgCountChanged(int count) {
-    initLogic.showBadge(count);
+    appCtrl.showBadge(count);
     unreadMsgCountEventSubject.addSafely(count);
   }
 

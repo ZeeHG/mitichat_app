@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-import '../../../core/controller/app_controller.dart';
+import '../../../core/controller/app_ctrl.dart';
 import '../../../core/controller/im_controller.dart';
 
 import 'dart:convert';
@@ -20,7 +20,7 @@ class AboutUsLogic extends GetxController {
   final version = "".obs;
   final buildNumber = "".obs;
   final appName = "App".obs;
-  final appLogic = Get.find<AppController>();
+  final appCtrl = Get.find<AppCtrl>();
   final imLogic = Get.find<IMController>();
   final uploadLogsProgress = (0.0).obs;
   final cid = "".obs;
@@ -37,7 +37,7 @@ class AboutUsLogic extends GetxController {
   }
 
   // void checkUpdate() {
-  //   appLogic.checkUpdate();
+  //   appCtrl.checkUpdate();
   // }
 
   void uploadLogs() async {
