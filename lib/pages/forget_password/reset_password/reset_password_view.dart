@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../../../widgets/register_page_bg.dart';
+import '../../../widgets/gradient__scroll_view.dart';
 import 'reset_password_logic.dart';
 
 class ResetPasswordPage extends StatelessWidget {
@@ -12,7 +12,7 @@ class ResetPasswordPage extends StatelessWidget {
   ResetPasswordPage({super.key});
 
   @override
-  Widget build(BuildContext context) => RegisterBgView(
+  Widget build(BuildContext context) => GradientScrollView(
         child: Obx(() => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

@@ -27,7 +27,7 @@ Future<void> requestBackgroundPermission(
     }
   } catch (e) {
     // The battery optimizations are not turned off.
-    myLogger.e(e);
+    myLogger.e({"message": "后台服务权限错误", "error": e});
     if (e is PlatformException && (e.message ?? "").contains("battery")) {
       return await Future<void>.delayed(
           const Duration(seconds: 3),

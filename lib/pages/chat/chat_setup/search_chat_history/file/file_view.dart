@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../../../widgets/file_download_progress.dart';
+import '../../../../../widgets/chat_file_download_progress_view.dart';
 import 'file_logic.dart';
 
 class ChatHistoryFilePage extends StatelessWidget {
@@ -44,7 +44,7 @@ class ChatHistoryFilePage extends StatelessWidget {
             children: [
               ChatFileIconView(
                 message: message,
-                downloadProgressView: FileDownloadProgressView(message),
+                downloadProgressView: ChatFileDownloadProgressView(message),
               ),
               // IMUtils.fileIcon(message.fileElem!.fileName!).toImage
               //   ..width = 38.w

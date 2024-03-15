@@ -9,12 +9,12 @@ class ChatFileView extends StatelessWidget {
     required this.message,
     required this.isISend,
     this.sendProgressStream,
-    this.fileDownloadProgressView,
+    this.ChatFileDownloadProgressView,
   }) : super(key: key);
   final Message message;
   final Stream<MsgStreamEv<int>>? sendProgressStream;
   final bool isISend;
-  final Widget? fileDownloadProgressView;
+  final Widget? ChatFileDownloadProgressView;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class ChatFileView extends StatelessWidget {
               ChatFileIconView(
                 message: message,
                 sendProgressStream: sendProgressStream,
-                downloadProgressView: fileDownloadProgressView,
+                downloadProgressView: ChatFileDownloadProgressView,
               ),
               // Stack(
               //   children: [
@@ -71,8 +71,8 @@ class ChatFileView extends StatelessWidget {
               //       stream: sendProgressStream,
               //       type: ProgressType.file,
               //     ),
-              //     if (null != fileDownloadProgressView)
-              //       fileDownloadProgressView!,
+              //     if (null != ChatFileDownloadProgressView)
+              //       ChatFileDownloadProgressView!,
               //   ],
               // ),
             ],

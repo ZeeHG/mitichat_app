@@ -5,7 +5,7 @@ import 'package:miti_common/miti_common.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:sprintf/sprintf.dart';
 
-import '../../../widgets/register_page_bg.dart';
+import '../../../widgets/gradient__scroll_view.dart';
 import 'verify_phone_logic.dart';
 
 class VerifyPhonePage extends StatelessWidget {
@@ -14,7 +14,7 @@ class VerifyPhonePage extends StatelessWidget {
   VerifyPhonePage({super.key});
 
   @override
-  Widget build(BuildContext context) => RegisterBgView(
+  Widget build(BuildContext context) => GradientScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

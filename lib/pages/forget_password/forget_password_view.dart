@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti/pages/login/login_logic.dart';
-import 'package:miti/widgets/register_page_bg.dart';
+import 'package:miti/widgets/gradient__scroll_view.dart';
 import 'package:miti_common/miti_common.dart';
 
 import 'forget_password_logic.dart';
@@ -13,7 +13,7 @@ class ForgetPasswordPage extends StatelessWidget {
   ForgetPasswordPage({super.key});
 
   @override
-  Widget build(BuildContext context) => RegisterBgView(
+  Widget build(BuildContext context) => GradientScrollView(
         child: Obx(() => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

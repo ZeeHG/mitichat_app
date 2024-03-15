@@ -8,28 +8,28 @@ import '../core/controller/app_controller.dart';
 class MitiView extends StatelessWidget {
   MitiView({super.key, required this.builder});
   final Widget Function(Locale? locale, TransitionBuilder builder) builder;
-  final appCommonLogic = Get.find<AppCommonLogic>();
+  final appCommonCtrl = Get.find<AppCommonLogic>();
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AppController>(
       init: AppController(),
-      builder: (appController) => FocusDetector(
+      builder: (appCtrl) => FocusDetector(
         onForegroundGained: () {
-          appController.runningBackground(false);
-          appCommonLogic.setForeground(true);
-          // appCommonLogic.tryUpdateAppFromCache();
+          appCtrl.runningBackground(false);
+          appCommonCtrl.setForeground(true);
+          // appCommonCtrl.tryUpdateAppFromCache();
         },
         onForegroundLost: () {
-          appController.runningBackground(true);
-          appCommonLogic.setForeground(false);
+          appCtrl.runningBackground(true);
+          appCommonCtrl.setForeground(false);
         },
         child: ScreenUtilInit(
           designSize: const Size(Config.uiW, Config.uiH),
           minTextAdapt: true,
           splitScreenMode: true,
           builder: (context, child) => builder(
-              appController.getCurLocale(context), transitionWidgetBuilder()),
+              appCtrl.getCurLocale(context), transitionWidgetBuilder()),
         ),
       ),
     );

@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:sprintf/sprintf.dart';
 
-class ScreenLockTitle extends StatelessWidget {
-  const ScreenLockTitle({
-    Key? key,
+class ScreenLockErrorView extends StatelessWidget {
+  const ScreenLockErrorView({
+    super.key,
     required this.stream,
-  }) : super(key: key);
+  });
 
   final Stream<String> stream;
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Text(StrLibrary.plsEnterPassword, style: Styles.ts_FFFFFF_17sp),
+      Text(StrLibrary.plsEnterPassword, style: Styles.ts_FFFFFF_16sp),
       StreamBuilder(
         builder: (context, AsyncSnapshot<String?> snapshot) {
           if (snapshot.hasData) {
             return Text(
               sprintf(StrLibrary.lockPwdErrorHint, [snapshot.data]),
-              style: Styles.ts_FF4E4C_17sp,
+              style: Styles.ts_FF4E4C_16sp,
             );
           }
-          return const SizedBox();
+          return Container();
         },
         stream: stream,
       ),

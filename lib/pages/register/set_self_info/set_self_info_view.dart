@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:miti/widgets/register_page_bg.dart';
+import 'package:miti/widgets/gradient__scroll_view.dart';
 import 'package:miti_common/miti_common.dart';
 
 import 'set_self_info_logic.dart';
@@ -12,7 +12,7 @@ class SetSelfInfoPage extends StatelessWidget {
   SetSelfInfoPage({super.key});
 
   @override
-  Widget build(BuildContext context) => RegisterBgView(
+  Widget build(BuildContext context) => GradientScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

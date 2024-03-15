@@ -134,7 +134,7 @@ class ChatItemView extends StatefulWidget {
     this.onReEit,
     this.closePopMenuSubject,
     this.onClickItemView,
-    this.fileDownloadProgressView,
+    this.ChatFileDownloadProgressView,
     this.showRead,
   }) : super(key: key);
   final ItemViewBuilder? mediaItemBuilder;
@@ -232,7 +232,7 @@ class ChatItemView extends StatefulWidget {
   final Subject<bool>? closePopMenuSubject;
 
   /// 文件下载精度
-  final Widget? fileDownloadProgressView;
+  final Widget? ChatFileDownloadProgressView;
 
   @override
   State<ChatItemView> createState() => _ChatItemViewState();
@@ -410,7 +410,7 @@ class _ChatItemViewState extends State<ChatItemView> {
         message: _message,
         isISend: _isISend,
         sendProgressStream: widget.sendProgressSubject,
-        fileDownloadProgressView: widget.fileDownloadProgressView,
+        ChatFileDownloadProgressView: widget.ChatFileDownloadProgressView,
       );
     } else if (_message.isLocationType) {
       final location = _message.locationElem;

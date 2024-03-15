@@ -7,7 +7,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:search_keyword_text/search_keyword_text.dart';
 import 'package:sprintf/sprintf.dart';
 
-import '../../widgets/file_download_progress.dart';
+import '../../widgets/chat_file_download_progress_view.dart';
 import 'global_search_logic.dart';
 
 class GlobalSearchPage extends StatelessWidget {
@@ -130,7 +130,7 @@ class GlobalSearchPage extends StatelessWidget {
                         ),
                         fileIcon: ChatFileIconView(
                           message: e,
-                          downloadProgressView: FileDownloadProgressView(e),
+                          downloadProgressView: ChatFileDownloadProgressView(e),
                         ),
                         // fileIcon: IMUtils.fileIcon(
                         //         e.fileElem?.fileName ?? '')
@@ -241,7 +241,7 @@ class GlobalSearchPage extends StatelessWidget {
                     ),
                     fileIcon: ChatFileIconView(
                       message: e,
-                      downloadProgressView: FileDownloadProgressView(e),
+                      downloadProgressView: ChatFileDownloadProgressView(e),
                     ),
                     content: e.senderNickname,
                     onTap: () => logic.viewFile(e),

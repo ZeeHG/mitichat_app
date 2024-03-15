@@ -5,7 +5,7 @@ import 'package:miti/pages/login/login_logic.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:sprintf/sprintf.dart';
 
-import '../../widgets/register_page_bg.dart';
+import '../../widgets/gradient__scroll_view.dart';
 import 'register_logic.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -14,7 +14,7 @@ class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});
 
   @override
-  Widget build(BuildContext context) => RegisterBgView(
+  Widget build(BuildContext context) => GradientScrollView(
           child: Obx(
         () => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +86,8 @@ class RegisterPage extends StatelessWidget {
               enabledColor: Styles.c_D9DCE3_opacity40,
               textStyle: Styles.ts_8443F8_16sp,
               onTap: logic.switchType,
-            )
+            ),
+            10.verticalSpace,
           ],
         ),
       ));

@@ -16,7 +16,7 @@ import '../../core/controller/im_controller.dart';
 import '../../core/controller/push_controller.dart';
 import '../../core/im_callback.dart';
 import '../../routes/app_navigator.dart';
-import '../../widgets/screen_lock_title.dart';
+import '../../widgets/screen_lock_error_view.dart';
 
 class HomeLogic extends SuperController with WorkingCircleBridge {
   final pushLogic = Get.find<PushController>();
@@ -181,7 +181,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
         context: Get.context!,
         correctString: _lockScreenPwd!,
         maxRetries: 3,
-        title: ScreenLockTitle(stream: _errorController.stream),
+        title: ScreenLockErrorView(stream: _errorController.stream),
         canCancel: false,
         customizedButtonChild: enabled ? const Icon(Icons.fingerprint) : null,
         customizedButtonTap: enabled ? () async => await _localAuth() : null,

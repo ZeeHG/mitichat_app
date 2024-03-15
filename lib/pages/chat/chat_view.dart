@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../../widgets/file_download_progress.dart';
+import '../../widgets/chat_file_download_progress_view.dart';
 import 'chat_logic.dart';
 
 class ChatPage extends StatelessWidget {
@@ -93,7 +93,7 @@ class ChatPage extends StatelessWidget {
           logic.copyTextMap[message.clientMsgID] = text;
         },
         customTypeBuilder: _buildCustomTypeItemView,
-        fileDownloadProgressView: FileDownloadProgressView(message),
+        ChatFileDownloadProgressView: ChatFileDownloadProgressView(message),
         patterns: <MatchPattern>[
           MatchPattern(
             type: PatternType.at,
