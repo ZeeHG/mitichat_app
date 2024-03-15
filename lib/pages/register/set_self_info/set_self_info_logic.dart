@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
 import '../../../core/controller/im_controller.dart';
-import '../../../core/controller/push_controller.dart';
+import '../../../core/controller/push_ctrl.dart';
 
 class SetSelfInfoLogic extends GetxController {
   final imLogic = Get.find<IMController>();
-  final pushLogic = Get.find<PushController>();
+  final pushCtrl = Get.find<PushCtrl>();
   final nicknameCtrl = TextEditingController();
   late String phoneNumber;
   late String areaCode;

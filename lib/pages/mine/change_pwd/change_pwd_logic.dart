@@ -3,11 +3,11 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../../../core/controller/push_controller.dart';
+import '../../../core/controller/push_ctrl.dart';
 import '../../../routes/app_navigator.dart';
 
 class ChangePwdLogic extends GetxController {
-  final pushLogic = Get.find<PushController>();
+  final pushCtrl = Get.find<PushCtrl>();
   final oldPwdCtrl = TextEditingController();
   final newPwdCtrl = TextEditingController();
   final againPwdCtrl = TextEditingController();
@@ -55,7 +55,7 @@ class ChangePwdLogic extends GetxController {
       await LoadingView.singleton.start(fn: () async {
         await OpenIM.iMManager.logout();
         await DataSp.removeLoginCertificate();
-        pushLogic.logout();
+        pushCtrl.logout();
       });
       AppNavigator.startLogin();
     }

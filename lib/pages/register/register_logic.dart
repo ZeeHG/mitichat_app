@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:miti/core/controller/im_controller.dart';
-import 'package:miti/core/controller/push_controller.dart';
+import 'package:miti/core/controller/push_ctrl.dart';
 import 'package:miti/pages/login/login_logic.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti/utils/account_util.dart';
@@ -23,7 +23,7 @@ class RegisterLogic extends GetxController {
   final pwdAgainCtrl = TextEditingController();
   final operateType = LoginType.phone.obs;
   final imLogic = Get.find<IMController>();
-  final pushLogic = Get.find<PushController>();
+  final pushCtrl = Get.find<PushCtrl>();
   final translateLogic = Get.find<TranslateLogic>();
   final ttsLogic = Get.find<TtsLogic>();
   final isAddAccount = false.obs;
@@ -256,7 +256,7 @@ class RegisterLogic extends GetxController {
           Logger.print('---------im login success-------');
           translateLogic.init(data.userID);
           ttsLogic.init(data.userID);
-          pushLogic.login(data.userID);
+          pushCtrl.login(data.userID);
           Logger.print('---------jpush login success----');
           AppNavigator.startMain();
         } else {

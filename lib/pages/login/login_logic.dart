@@ -9,7 +9,7 @@ import 'package:miti_common/miti_common.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../core/controller/im_controller.dart';
-import '../../core/controller/push_controller.dart';
+import '../../core/controller/push_ctrl.dart';
 import '../../routes/app_navigator.dart';
 
 enum LoginType {
@@ -57,7 +57,7 @@ extension LoginTypeExt on LoginType {
 
 class LoginLogic extends GetxController {
   final imLogic = Get.find<IMController>();
-  final pushLogic = Get.find<PushController>();
+  final pushCtrl = Get.find<PushCtrl>();
   final phoneCtrl = TextEditingController();
   final pwdCtrl = TextEditingController();
   final serverCtrl = TextEditingController();
@@ -311,7 +311,7 @@ class LoginLogic extends GetxController {
       Logger.print('im login success');
       translateLogic.init(data.userID);
       ttsLogic.init(data.userID);
-      pushLogic.login(data.userID);
+      pushCtrl.login(data.userID);
       Logger.print('push login success');
       return true;
     } catch (e, s) {

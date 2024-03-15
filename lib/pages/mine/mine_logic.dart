@@ -4,12 +4,12 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
 import '../../core/controller/im_controller.dart';
-import '../../core/controller/push_controller.dart';
+import '../../core/controller/push_ctrl.dart';
 import '../../routes/app_navigator.dart';
 
 class MineLogic extends GetxController {
   final imLogic = Get.find<IMController>();
-  final pushLogic = Get.find<PushController>();
+  final pushCtrl = Get.find<PushCtrl>();
   late StreamSubscription kickedOfflineSub;
 
   void viewMyQrcode() => AppNavigator.startMyQrcode();
@@ -33,7 +33,7 @@ class MineLogic extends GetxController {
         await LoadingView.singleton.start(fn: () async {
           await imLogic.logout();
           await DataSp.removeLoginCertificate();
-          pushLogic.logout();
+          pushCtrl.logout();
         });
         imLogic.reBuildSubject();
         AppNavigator.startLogin();
@@ -49,7 +49,7 @@ class MineLogic extends GetxController {
     PackageBridge.rtcBridge?.dismiss();
     Get.snackbar(StrLibrary.accountWarn, StrLibrary.accountException);
     await DataSp.removeLoginCertificate();
-    pushLogic.logout();
+    pushCtrl.logout();
     AppNavigator.startLogin();
   }
 

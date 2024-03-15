@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:getuiflut/getuiflut.dart';
 import 'package:miti_common/miti_common.dart';
 
-class PushController extends GetxController {
+class PushCtrl extends GetxController {
   String _platformVersion = 'Unknown';
   String _payloadInfo = 'Null';
   String _notificationState = "";

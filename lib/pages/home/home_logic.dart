@@ -13,13 +13,13 @@ import 'package:rxdart/rxdart.dart';
 
 import '../../core/controller/app_ctrl.dart';
 import '../../core/controller/im_controller.dart';
-import '../../core/controller/push_controller.dart';
+import '../../core/controller/push_ctrl.dart';
 import '../../core/im_callback.dart';
 import '../../routes/app_navigator.dart';
 import '../../widgets/screen_lock_error_view.dart';
 
 class HomeLogic extends SuperController with WorkingCircleBridge {
-  final pushLogic = Get.find<PushController>();
+  final pushCtrl = Get.find<PushCtrl>();
   final imLogic = Get.find<IMController>();
   final cacheLogic = Get.find<CacheController>();
   final appCtrl = Get.find<AppCtrl>();
@@ -197,7 +197,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
             await DataSp.removeLoginCertificate();
             await DataSp.clearLockScreenPassword();
             await DataSp.closeBiometric();
-            pushLogic.logout();
+            pushCtrl.logout();
           });
           AppNavigator.startLogin();
         },

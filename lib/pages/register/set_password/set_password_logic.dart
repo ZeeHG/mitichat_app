@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
 import '../../../core/controller/im_controller.dart';
-import '../../../core/controller/push_controller.dart';
+import '../../../core/controller/push_ctrl.dart';
 import '../../../routes/app_navigator.dart';
 
 class SetPasswordLogic extends GetxController {
   final imLogic = Get.find<IMController>();
-  final pushLogic = Get.find<PushController>();
+  final pushCtrl = Get.find<PushCtrl>();
   final nicknameCtrl = TextEditingController();
   final pwdCtrl = TextEditingController();
   final pwdAgainCtrl = TextEditingController();
@@ -123,7 +123,7 @@ class SetPasswordLogic extends GetxController {
       Logger.print('---------im login success-------');
       translateLogic.init(data.userID);
       ttsLogic.init(data.userID);
-      pushLogic.login(data.userID);
+      pushCtrl.login(data.userID);
       Logger.print('---------jpush login success----');
     });
     AppNavigator.startMain();

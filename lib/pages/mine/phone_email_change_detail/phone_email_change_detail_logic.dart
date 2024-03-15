@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:miti/core/controller/im_controller.dart';
-import 'package:miti/core/controller/push_controller.dart';
+import 'package:miti/core/controller/push_ctrl.dart';
 import 'package:miti/pages/mine/phone_email_change/phone_email_change_logic.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
@@ -9,7 +9,7 @@ import 'package:miti_common/miti_common.dart';
 class PhoneEmailChangeDetailLogic extends GetxController {
   late Rx<UserFullInfo> userInfo;
   final imLogic = Get.find<IMController>();
-  final pushLogic = Get.find<PushController>();
+  final pushCtrl = Get.find<PushCtrl>();
   final type = PhoneEmailChangeType.phone.obs;
   final phoneCtrl = TextEditingController();
   final emailCtrl = TextEditingController();
@@ -137,7 +137,7 @@ class PhoneEmailChangeDetailLogic extends GetxController {
       });
       await imLogic.logout();
       await DataSp.removeLoginCertificate();
-      pushLogic.logout();
+      pushCtrl.logout();
       success.value = true;
     }
   }

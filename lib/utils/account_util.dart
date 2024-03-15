@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:miti/core/controller/app_ctrl.dart';
 import 'package:miti/core/controller/im_controller.dart';
-import 'package:miti/core/controller/push_controller.dart';
+import 'package:miti/core/controller/push_ctrl.dart';
 import 'package:miti/core/im_callback.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
@@ -21,7 +21,7 @@ import 'package:miti_common/miti_common.dart';
 */
 class AccountUtil extends GetxController {
   final imLogic = Get.find<IMController>();
-  final pushLogic = Get.find<PushController>();
+  final pushCtrl = Get.find<PushCtrl>();
   final appCtrl = Get.find<AppCtrl>();
   final statusChangeCount = 0.obs;
   final imTimeout = 30;
@@ -59,7 +59,7 @@ class AccountUtil extends GetxController {
         }
         await DataSp.removeLoginCertificate();
         // OpenIM.iMManager.userID
-        pushLogic.logout();
+        pushCtrl.logout();
       }
     } catch (e, s) {
       myLogger.e({"message": "tryLogout失败", "error": e, "stack": s});
@@ -217,7 +217,7 @@ class AccountUtil extends GetxController {
     final ttsLogic = Get.find<TtsLogic>();
     translateLogic.init(data.userID);
     ttsLogic.init(data.userID);
-    pushLogic.login(data.userID);
+    pushCtrl.login(data.userID);
   }
 
   // 切换服务器后调用
@@ -310,7 +310,7 @@ class AccountUtil extends GetxController {
     final ttsLogic = Get.find<TtsLogic>();
     translateLogic.init(data.userID);
     ttsLogic.init(data.userID);
-    pushLogic.login(data.userID);
+    pushCtrl.login(data.userID);
   }
 
   Future<bool> switchAccount(
@@ -341,7 +341,7 @@ class AccountUtil extends GetxController {
             password: targetAccountLoginInfo.password,
             encryptPwdRequest: false);
       } else {
-        pushLogic.logout();
+        pushCtrl.logout();
         await switchServer(targetAccountLoginInfo.server, needLogout: false);
         // 用token登录
         await DataSp.putLoginCertificate(LoginCertificate.fromJson({
@@ -357,7 +357,7 @@ class AccountUtil extends GetxController {
         final ttsLogic = Get.find<TtsLogic>();
         translateLogic.init(userID);
         ttsLogic.init(userID);
-        pushLogic.login(userID);
+        pushCtrl.login(userID);
       }
       showToast(StrLibrary.switchSuccess);
       return true;

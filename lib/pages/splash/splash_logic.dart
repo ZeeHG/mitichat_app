@@ -4,13 +4,13 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
 import '../../core/controller/im_controller.dart';
-import '../../core/controller/push_controller.dart';
+import '../../core/controller/push_ctrl.dart';
 import '../../routes/app_navigator.dart';
 // import '../../utils/upgrade_manager.dart';
 
 class SplashLogic extends GetxController {
   final imLogic = Get.find<IMController>();
-  final pushLogic = Get.find<PushController>();
+  final pushCtrl = Get.find<PushCtrl>();
   final translateLogic = Get.find<TranslateLogic>();
   final ttsLogic = Get.find<TtsLogic>();
 
@@ -43,7 +43,7 @@ class SplashLogic extends GetxController {
       Logger.print('---------im login success-------');
       translateLogic.init(userID!);
       ttsLogic.init(userID!);
-      pushLogic.login(userID!);
+      pushCtrl.login(userID!);
       Logger.print('---------push login success----');
       AppNavigator.startSplashToMain(isAutoLogin: true);
     } catch (e, s) {

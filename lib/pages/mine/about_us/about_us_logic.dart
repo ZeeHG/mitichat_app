@@ -12,7 +12,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import '../../../core/controller/im_controller.dart';
-import '../../../core/controller/push_controller.dart';
+import '../../../core/controller/push_ctrl.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path_package;
 
@@ -24,7 +24,7 @@ class AboutUsLogic extends GetxController {
   final imLogic = Get.find<IMController>();
   final uploadLogsProgress = (0.0).obs;
   final cid = "".obs;
-  final pushLogic = Get.find<PushController>();
+  final pushCtrl = Get.find<PushCtrl>();
   final betaTestLogic = Get.find<BetaTestLogic>();
   final appCommonLogic = Get.find<AppCommonLogic>();
   final showDev = false.obs;
@@ -169,7 +169,7 @@ class AboutUsLogic extends GetxController {
   @override
   void onReady() async {
     getPackageInfo();
-    cid.value = await pushLogic.getClientId();
+    cid.value = await pushCtrl.getClientId();
     super.onReady();
   }
 

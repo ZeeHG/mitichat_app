@@ -17,7 +17,7 @@ import 'package:vibration/vibration.dart';
 
 // import '../../utils/upgrade_manager.dart';
 import 'im_controller.dart';
-import 'push_controller.dart';
+import 'push_ctrl.dart';
 
 // 下载0, 后台1, 消息message.seq
 class AppCtrl extends SuperController {
@@ -441,10 +441,10 @@ class AppCtrl extends SuperController {
 
       if (count == 0) {
         removeBadge();
-        PushController.resetBadge();
+        PushCtrl.resetBadge();
       } else {
         FlutterAppBadger.updateBadgeCount(count);
-        PushController.setBadge(count);
+        PushCtrl.setBadge(count);
       }
     }
   }
