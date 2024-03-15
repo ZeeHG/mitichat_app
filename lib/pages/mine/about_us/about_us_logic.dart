@@ -4,14 +4,14 @@ import 'package:miti_common/miti_common.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../core/controller/app_ctrl.dart';
-import '../../../core/controller/im_controller.dart';
+import '../../../core/controller/im_ctrl.dart';
 
 import 'dart:convert';
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
-import '../../../core/controller/im_controller.dart';
+import '../../../core/controller/im_ctrl.dart';
 import '../../../core/controller/push_ctrl.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path_package;
@@ -21,7 +21,7 @@ class AboutUsLogic extends GetxController {
   final buildNumber = "".obs;
   final appName = "App".obs;
   final appCtrl = Get.find<AppCtrl>();
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final uploadLogsProgress = (0.0).obs;
   final cid = "".obs;
   final pushCtrl = Get.find<PushCtrl>();
@@ -47,7 +47,7 @@ class AboutUsLogic extends GetxController {
           .uploadLogs()
           .then((value) => IMViews.showToast(StrLibrary.uploaded));
 
-      imLogic.onUploadProgress = (current, size) {
+      imCtrl.onUploadProgress = (current, size) {
         uploadLogsProgress.value = current / size;
       };
     } catch (e, s) {
@@ -57,8 +57,8 @@ class AboutUsLogic extends GetxController {
   }
 
   void startDev() {
-    // if (betaTestLogic.isDevUser(imLogic.userInfo.value.userID!) ||
-    //     betaTestLogic.isTestUser(imLogic.userInfo.value.userID!)) {
+    // if (betaTestLogic.isDevUser(imCtrl.userInfo.value.userID!) ||
+    //     betaTestLogic.isTestUser(imCtrl.userInfo.value.userID!)) {
     //   showDev.value = true;
     // }
     showDev.value = true;
@@ -71,7 +71,7 @@ class AboutUsLogic extends GetxController {
         fn: () => OpenIM.iMManager.uploadFile(
           id: const Uuid().v4(),
           filePath: Config.cachePath + dateStr,
-          fileName: (imLogic.userInfo.value.userID ?? "null") +
+          fileName: (imCtrl.userInfo.value.userID ?? "null") +
               "_im_" +
               dateStr +
               "_${appCommonLogic.deviceModel}_" +
@@ -103,7 +103,7 @@ class AboutUsLogic extends GetxController {
       var fn = () => OpenIM.iMManager.uploadFile(
             id: const Uuid().v4(),
             filePath: logInfo?["path"] ?? myLoggerPath,
-            fileName: (imLogic.userInfo.value.userID ?? "null") +
+            fileName: (imCtrl.userInfo.value.userID ?? "null") +
                 "_app_" +
                 (logInfo?["date"] ?? myLoggerDateStr) +
                 "_${appCommonLogic.deviceModel}_" +

@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:miti_live/miti_live.dart';
 
-import '../../../core/controller/im_controller.dart';
+import '../../../core/controller/im_ctrl.dart';
 
 class CallRecordsLogic extends GetxController {
   final cacheLogic = Get.find<CacheController>();
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   // final meetingInfoList = <MeetingInfo>[].obs;
   final nicknameMapping = <String, String>{}.obs;
   final index = 0.obs;
@@ -39,7 +39,7 @@ class CallRecordsLogic extends GetxController {
       return;
     }
     IMViews.openIMCallSheet(records.nickname, (index) {
-      imLogic.call(
+      imCtrl.call(
         callObj: CallObj.single,
         callType: index == 0 ? CallType.audio : CallType.video,
         inviteeUserIDList: [records.userID],

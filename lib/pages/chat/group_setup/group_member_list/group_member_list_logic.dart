@@ -9,7 +9,7 @@ import 'package:miti_common/miti_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sprintf/sprintf.dart';
 
-import '../../../../core/controller/im_controller.dart';
+import '../../../../core/controller/im_ctrl.dart';
 
 enum GroupMemberOpType {
   view,
@@ -20,7 +20,7 @@ enum GroupMemberOpType {
 }
 
 class GroupMemberListLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final controller = RefreshController();
   final memberList = <GroupMembersInfo>[].obs;
   final checkedList = <GroupMembersInfo>[].obs;
@@ -62,7 +62,7 @@ class GroupMemberListLogic extends GetxController {
   void onInit() {
     groupInfo = Get.arguments['groupInfo'];
     opType = Get.arguments['opType'];
-    mISub = imLogic.memberInfoChangedSubject.listen(_updateMemberLevel);
+    mISub = imCtrl.memberInfoChangedSubject.listen(_updateMemberLevel);
     super.onInit();
   }
 

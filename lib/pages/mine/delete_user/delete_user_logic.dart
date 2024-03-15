@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:miti/core/controller/im_controller.dart';
+import 'package:miti/core/controller/im_ctrl.dart';
 import 'package:miti/core/controller/push_ctrl.dart';
 import 'package:miti/pages/mine/mine_logic.dart';
 import 'package:miti/routes/app_navigator.dart';
@@ -8,7 +8,7 @@ import 'package:miti_common/miti_common.dart';
 
 class DeleteUserLogic extends GetxController {
   final success = false.obs;
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final pushCtrl = Get.find<PushCtrl>();
   final mineLogic = Get.find<MineLogic>();
   final pwdCtrl = TextEditingController();
@@ -38,7 +38,7 @@ class DeleteUserLogic extends GetxController {
 
   logout() async {
     // 自动踢出
-    // await imLogic.logout();
+    // await imCtrl.logout();
     await DataSp.removeLoginCertificate();
     pushCtrl.logout();
     AppNavigator.startLogin();

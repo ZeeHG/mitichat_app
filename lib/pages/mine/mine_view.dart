@@ -87,8 +87,8 @@ class MinePage extends StatelessWidget {
           child: Row(
             children: [
               AvatarView(
-                  url: logic.imLogic.userInfo.value.faceURL,
-                  text: logic.imLogic.userInfo.value.nickname,
+                  url: logic.imCtrl.userInfo.value.faceURL,
+                  text: logic.imCtrl.userInfo.value.nickname,
                   width: 58.w,
                   height: 58.h,
                   textStyle: Styles.ts_FFFFFF_14sp,
@@ -98,7 +98,7 @@ class MinePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  (logic.imLogic.userInfo.value.nickname ?? '').toText
+                  (logic.imCtrl.userInfo.value.nickname ?? '').toText
                     ..style = Styles.ts_4B3230_18sp,
                   11.verticalSpace,
                   GestureDetector(
@@ -107,7 +107,7 @@ class MinePage extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        (logic.imLogic.userInfo.value.userID ?? '').toText
+                        (logic.imCtrl.userInfo.value.userID ?? '').toText
                           ..style = Styles.ts_B3AAAA_14sp
                       ],
                     ),

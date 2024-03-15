@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../../core/controller/im_controller.dart';
+import '../../core/controller/im_ctrl.dart';
 import '../../core/controller/push_ctrl.dart';
 import '../../routes/app_navigator.dart';
 
 class MineLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final pushCtrl = Get.find<PushCtrl>();
   late StreamSubscription kickedOfflineSub;
 
@@ -17,7 +17,7 @@ class MineLogic extends GetxController {
   void viewMyInfo() => AppNavigator.startMyInfo();
 
   void copyID() {
-    IMUtils.copy(text: imLogic.userInfo.value.userID!);
+    IMUtils.copy(text: imCtrl.userInfo.value.userID!);
   }
 
   void accountSetup() => AppNavigator.startAccountSetup();
@@ -31,11 +31,11 @@ class MineLogic extends GetxController {
     if (confirm == true) {
       try {
         await LoadingView.singleton.start(fn: () async {
-          await imLogic.logout();
+          await imCtrl.logout();
           await DataSp.removeLoginCertificate();
           pushCtrl.logout();
         });
-        imLogic.reBuildSubject();
+        imCtrl.reBuildSubject();
         AppNavigator.startLogin();
       } catch (e) {
         IMViews.showToast('e:$e');
@@ -54,7 +54,7 @@ class MineLogic extends GetxController {
   }
 
   kickedOfflineSubInit() {
-    kickedOfflineSub = imLogic.onKickedOfflineSubject.listen((value) {
+    kickedOfflineSub = imCtrl.onKickedOfflineSubject.listen((value) {
       kickedOffline();
     });
   }

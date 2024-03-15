@@ -37,15 +37,15 @@ class MyQrcodePage extends StatelessWidget {
                       AvatarView(
                         width: 42.w,
                         height: 42.h,
-                        url: logic.imLogic.userInfo.value.faceURL,
-                        text: logic.imLogic.userInfo.value.nickname,
+                        url: logic.imCtrl.userInfo.value.faceURL,
+                        text: logic.imCtrl.userInfo.value.nickname,
                         textStyle: Styles.ts_FFFFFF_14sp,
                         borderRadius: BorderRadius.all(Radius.circular(6.w)),
                       ),
                       SizedBox(
                         width: 12.w,
                       ),
-                      Text(logic.imLogic.userInfo.value.nickname ?? "",
+                      Text(logic.imCtrl.userInfo.value.nickname ?? "",
                           style: Styles.ts_4B3230_18sp)
                     ]),
                   ),

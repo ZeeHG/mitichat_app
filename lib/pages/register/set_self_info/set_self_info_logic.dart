@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../../../core/controller/im_controller.dart';
+import '../../../core/controller/im_ctrl.dart';
 import '../../../core/controller/push_ctrl.dart';
 
 class SetSelfInfoLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final pushCtrl = Get.find<PushCtrl>();
   final nicknameCtrl = TextEditingController();
   late String phoneNumber;

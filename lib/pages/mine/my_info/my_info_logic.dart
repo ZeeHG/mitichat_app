@@ -6,16 +6,16 @@ import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
-import '../../../core/controller/im_controller.dart';
+import '../../../core/controller/im_ctrl.dart';
 
 class MyInfoLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
 
   // final userInfo = UserFullInfo.fromJson(OpenIM.iMManager.uInfo.toJson()).obs;
 
   @override
   void onInit() {
-    // imLogic.selfInfoUpdatedSubject.listen(_onChangedSefInfo);
+    // imCtrl.selfInfoUpdatedSubject.listen(_onChangedSefInfo);
     super.onInit();
   }
 
@@ -45,7 +45,7 @@ class MyInfoLogic extends GetxController {
             LoadingView.singleton.start(
               fn: () => Apis.updateUserInfo(
                       userID: OpenIM.iMManager.userID, faceURL: url)
-                  .then((value) => imLogic.userInfo.update((val) {
+                  .then((value) => imCtrl.userInfo.update((val) {
                         val?.faceURL = url;
                       })),
             );
@@ -61,8 +61,8 @@ class MyInfoLogic extends GetxController {
       Get.context!,
       locale: isZh ? LocaleType.zh : LocaleType.en,
       maxTime: DateTime.now(),
-      currentTime: DateTime.fromMillisecondsSinceEpoch(
-          imLogic.userInfo.value.birth ?? 0),
+      currentTime:
+          DateTime.fromMillisecondsSinceEpoch(imCtrl.userInfo.value.birth ?? 0),
       theme: DatePickerTheme(
         cancelStyle: Styles.ts_333333_17sp,
         doneStyle: Styles.ts_8443F8_17sp,
@@ -96,7 +96,7 @@ class MyInfoLogic extends GetxController {
     LoadingView.singleton.start(
       fn: () =>
           Apis.updateUserInfo(userID: OpenIM.iMManager.userID, gender: gender)
-              .then((value) => imLogic.userInfo.update((val) {
+              .then((value) => imCtrl.userInfo.update((val) {
                     val?.gender = gender;
                   })),
     );
@@ -107,7 +107,7 @@ class MyInfoLogic extends GetxController {
       fn: () => Apis.updateUserInfo(
         userID: OpenIM.iMManager.userID,
         birth: birthday * 1000,
-      ).then((value) => imLogic.userInfo.update((val) {
+      ).then((value) => imCtrl.userInfo.update((val) {
             val?.birth = birthday * 1000;
           })),
     );
@@ -131,7 +131,7 @@ class MyInfoLogic extends GetxController {
         fn: () => Apis.queryMyFullInfo(cancelToken: cancelToken),
         cancelToken: cancelToken);
     if (null != info) {
-      imLogic.userInfo.update((val) {
+      imCtrl.userInfo.update((val) {
         val?.nickname = info.nickname;
         val?.faceURL = info.faceURL;
         val?.gender = info.gender;

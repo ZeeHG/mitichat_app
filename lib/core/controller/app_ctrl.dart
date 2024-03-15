@@ -16,7 +16,7 @@ import 'package:sound_mode/utils/ringer_mode_statuses.dart';
 import 'package:vibration/vibration.dart';
 
 // import '../../utils/upgrade_manager.dart';
-import 'im_controller.dart';
+import 'im_ctrl.dart';
 import 'push_ctrl.dart';
 
 // 下载0, 后台1, 消息message.seq
@@ -79,7 +79,7 @@ class AppCtrl extends SuperController {
 
     if (isRunningBackground && !run) {}
     isRunningBackground = run;
-    Get.find<IMController>().backgroundSubject.sink.add(run);
+    Get.find<IMCtrl>().backgroundSubject.sink.add(run);
     if (!run) {
       _cancelAllNotifications();
     } else {
@@ -512,9 +512,9 @@ class AppCtrl extends SuperController {
 
   /// 全局免打扰
   bool _isGlobalNotDisturb() {
-    bool isRegistered = Get.isRegistered<IMController>();
+    bool isRegistered = Get.isRegistered<IMCtrl>();
     if (isRegistered) {
-      var logic = Get.find<IMController>();
+      var logic = Get.find<IMCtrl>();
       return logic.userInfo.value.globalRecvMsgOpt == 2;
     }
     return false;
@@ -544,11 +544,11 @@ class AppCtrl extends SuperController {
     if (shouldMuted) {
       return;
     }
-    bool isRegistered = Get.isRegistered<IMController>();
+    bool isRegistered = Get.isRegistered<IMCtrl>();
     bool isAllowVibration = true;
     bool isAllowBeep = true;
     if (isRegistered) {
-      var logic = Get.find<IMController>();
+      var logic = Get.find<IMCtrl>();
       isAllowVibration = logic.userInfo.value.allowVibration == 1;
       isAllowBeep = logic.userInfo.value.allowBeep == 1;
     }

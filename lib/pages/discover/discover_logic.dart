@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/controller/im_controller.dart';
+import '../../core/controller/im_ctrl.dart';
 
 class DiscoverLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final ScrollController scrollController = ScrollController();
   final RxDouble scrollHeight = 0.0.obs;
 

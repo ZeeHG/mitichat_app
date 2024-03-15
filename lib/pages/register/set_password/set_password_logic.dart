@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../../../core/controller/im_controller.dart';
+import '../../../core/controller/im_ctrl.dart';
 import '../../../core/controller/push_ctrl.dart';
 import '../../../routes/app_navigator.dart';
 
 class SetPasswordLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final pushCtrl = Get.find<PushCtrl>();
   final nicknameCtrl = TextEditingController();
   final pwdCtrl = TextEditingController();
@@ -109,7 +109,7 @@ class SetPasswordLogic extends GetxController {
       await DataSp.putLoginCertificate(data);
       // await DataSp.putMainLoginAccount(account);
       DataSp.putLoginType(email != null ? 1 : 0);
-      await imLogic.login(data.userID, data.imToken);
+      await imCtrl.login(data.userID, data.imToken);
       await setAccountLoginInfo(
           userID: data.userID,
           imToken: data.imToken,
@@ -118,8 +118,8 @@ class SetPasswordLogic extends GetxController {
           phoneNumber: phoneNumber,
           areaCode: areaCode,
           password: IMUtils.generateMD5(pwdCtrl.text)!,
-          faceURL: imLogic.userInfo.value.faceURL,
-          nickname: imLogic.userInfo.value.nickname);
+          faceURL: imCtrl.userInfo.value.faceURL,
+          nickname: imCtrl.userInfo.value.nickname);
       Logger.print('---------im login success-------');
       translateLogic.init(data.userID);
       ttsLogic.init(data.userID);

@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 import 'dart:ui';
-import '../../../core/controller/im_controller.dart';
+import '../../../core/controller/im_ctrl.dart';
 
 class AccountSetupLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final curLanguage = "".obs;
 
   @override
@@ -28,13 +28,13 @@ class AccountSetupLogic extends GetxController {
   }
 
   /// 全局免打扰 0：正常；1：不接受消息；2：接受在线消息不接受离线消息；
-  bool get isGlobalNotDisturb => imLogic.userInfo.value.globalRecvMsgOpt == 2;
+  bool get isGlobalNotDisturb => imCtrl.userInfo.value.globalRecvMsgOpt == 2;
 
-  bool get isAllowAddFriend => imLogic.userInfo.value.allowAddFriend == 1;
+  bool get isAllowAddFriend => imCtrl.userInfo.value.allowAddFriend == 1;
 
-  bool get isAllowBeep => imLogic.userInfo.value.allowBeep == 1;
+  bool get isAllowBeep => imCtrl.userInfo.value.allowBeep == 1;
 
-  bool get isAllowVibration => imLogic.userInfo.value.allowVibration == 1;
+  bool get isAllowVibration => imCtrl.userInfo.value.allowVibration == 1;
 
   void _queryMyFullInfo() async {
     final data = await LoadingView.singleton.start(
@@ -42,7 +42,7 @@ class AccountSetupLogic extends GetxController {
     );
     if (data is UserFullInfo) {
       final userInfo = UserFullInfo.fromJson(data.toJson());
-      imLogic.userInfo.update((val) {
+      imCtrl.userInfo.update((val) {
         val?.allowAddFriend = userInfo.allowAddFriend;
         val?.allowBeep = userInfo.allowBeep;
         val?.allowVibration = userInfo.allowVibration;
@@ -55,7 +55,7 @@ class AccountSetupLogic extends GetxController {
     await LoadingView.singleton.start(
         fn: () => OpenIM.iMManager.conversationManager
             .setGlobalRecvMessageOpt(status: status));
-    imLogic.userInfo.update((val) {
+    imCtrl.userInfo.update((val) {
       val?.globalRecvMsgOpt = status;
     });
   }
@@ -69,7 +69,7 @@ class AccountSetupLogic extends GetxController {
         userID: OpenIM.iMManager.userID,
       ),
     );
-    imLogic.userInfo.update((val) {
+    imCtrl.userInfo.update((val) {
       val?.allowBeep = allowBeep;
     });
   }
@@ -83,7 +83,7 @@ class AccountSetupLogic extends GetxController {
         userID: OpenIM.iMManager.userID,
       ),
     );
-    imLogic.userInfo.update((val) {
+    imCtrl.userInfo.update((val) {
       val?.allowVibration = allowVibration;
     });
   }
@@ -97,7 +97,7 @@ class AccountSetupLogic extends GetxController {
         userID: OpenIM.iMManager.userID,
       ),
     );
-    imLogic.userInfo.update((val) {
+    imCtrl.userInfo.update((val) {
       val?.allowAddFriend = allowAddFriend;
     });
   }

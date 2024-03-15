@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../../../core/controller/im_controller.dart';
+import '../../../core/controller/im_ctrl.dart';
 import '../../home/home_logic.dart';
 
 class GroupRequestsLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final homeLogic = Get.find<HomeLogic>();
   final list = <GroupApplicationInfo>[].obs;
   final groupList = <String, GroupInfo>{}.obs;
@@ -23,7 +23,7 @@ class GroupRequestsLogic extends GetxController {
 
   @override
   void onInit() {
-    // imLogic.groupApplicationChangedSubject.listen((info) {});
+    // imCtrl.groupApplicationChangedSubject.listen((info) {});
     super.onInit();
   }
 

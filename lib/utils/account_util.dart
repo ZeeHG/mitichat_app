@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:miti/core/controller/app_ctrl.dart';
-import 'package:miti/core/controller/im_controller.dart';
+import 'package:miti/core/controller/im_ctrl.dart';
 import 'package:miti/core/controller/push_ctrl.dart';
 import 'package:miti/core/im_callback.dart';
 import 'package:miti/routes/app_navigator.dart';
@@ -20,7 +20,7 @@ import 'package:miti_common/miti_common.dart';
     7. 恢复踢出监听(修改返回按钮回到home, 刷新当前页面如果有特殊数据, 重置页面历史回到home, 重新监听)
 */
 class AccountUtil extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final pushCtrl = Get.find<PushCtrl>();
   final appCtrl = Get.find<AppCtrl>();
   final statusChangeCount = 0.obs;
@@ -52,10 +52,10 @@ class AccountUtil extends GetxController {
   Future<void> tryLogout({bool needLogoutIm = true}) async {
     try {
       if (DataSp.getCurAccountLoginInfoKey().isNotEmpty) {
-        if (needLogoutIm && imLogic.isLogined()) {
+        if (needLogoutIm && imCtrl.isLogined()) {
           myLogger.e({"message": "tryLogout开始"});
-          await imLogic.logout();
-          imLogic.reBuildSubject();
+          await imCtrl.logout();
+          imCtrl.reBuildSubject();
         }
         await DataSp.removeLoginCertificate();
         // OpenIM.iMManager.userID
@@ -97,14 +97,14 @@ class AccountUtil extends GetxController {
         "data": {"needReload": needReload, "server": serverWithProtocol}
       });
       // FIXME 一直没有返回
-      // await imLogic.unInitOpenIM();
-      imLogic.unInitOpenIM();
+      // await imCtrl.unInitOpenIM();
+      imCtrl.unInitOpenIM();
       await setServerConf(serverWithProtocol);
       HttpUtil.init();
       statusChangeCount.value++;
       // FIXME 需要等到连接成功或者失败回调, 而不是函数执行完。否则无法登录im，只能登录chat。
       // FIXME initOpenIM不会出现超时, 只有login im后才会出现
-      await imLogic.initOpenIM();
+      await imCtrl.initOpenIM();
       await appCtrl.queryClientConfig();
     }
   }
@@ -162,11 +162,11 @@ class AccountUtil extends GetxController {
     // };
     await DataSp.putLoginCertificate(data);
     try {
-      await imLogic.login(data.userID, data.imToken);
+      await imCtrl.login(data.userID, data.imToken);
       // 超时没有结果或者不是success
       final completer = Completer();
       StreamSubscription? sub;
-      sub = imLogic.imSdkStatusSubject.listen((value) {
+      sub = imCtrl.imSdkStatusSubject.listen((value) {
         // [IMSdkStatus.connectionSucceeded, IMSdkStatus.syncEnded].contains(value)
         if (![
           IMSdkStatus.connecting,
@@ -187,8 +187,8 @@ class AccountUtil extends GetxController {
       });
       final imOK = await completer.future;
       if (!imOK) {
-        myLogger.e(
-            {"message": "登录im超时, ${imLogic.imSdkStatusSubject.valueOrNull}"});
+        myLogger
+            .e({"message": "登录im超时, ${imCtrl.imSdkStatusSubject.valueOrNull}"});
         throw Exception("登录im超时");
       }
     } catch (e, s) {
@@ -211,8 +211,8 @@ class AccountUtil extends GetxController {
         areaCode: areaCode,
         password:
             encryptPwdRequest ? IMUtils.generateMD5(password ?? "")! : password,
-        faceURL: imLogic.userInfo.value.faceURL,
-        nickname: imLogic.userInfo.value.nickname);
+        faceURL: imCtrl.userInfo.value.faceURL,
+        nickname: imCtrl.userInfo.value.nickname);
     final translateLogic = Get.find<TranslateLogic>();
     final ttsLogic = Get.find<TtsLogic>();
     translateLogic.init(data.userID);
@@ -256,11 +256,11 @@ class AccountUtil extends GetxController {
     // };
     await DataSp.putLoginCertificate(data);
     try {
-      await imLogic.login(data.userID, data.imToken);
+      await imCtrl.login(data.userID, data.imToken);
       // imTimeout没有结果或者不是success
       final completer = Completer();
       StreamSubscription? sub;
-      sub = imLogic.imSdkStatusSubject.listen((value) {
+      sub = imCtrl.imSdkStatusSubject.listen((value) {
         // [IMSdkStatus.connectionSucceeded, IMSdkStatus.syncEnded].contains(value)
         if (![
           IMSdkStatus.connecting,
@@ -281,8 +281,8 @@ class AccountUtil extends GetxController {
       });
       final imOK = await completer.future;
       if (!imOK) {
-        myLogger.e(
-            {"message": "登录im超时, ${imLogic.imSdkStatusSubject.valueOrNull}"});
+        myLogger
+            .e({"message": "登录im超时, ${imCtrl.imSdkStatusSubject.valueOrNull}"});
         throw Exception("登录im超时");
       }
     } catch (e, s) {
@@ -304,8 +304,8 @@ class AccountUtil extends GetxController {
         phoneNumber: phoneNumber,
         areaCode: areaCode,
         password: IMUtils.generateMD5(password ?? "")!,
-        faceURL: imLogic.userInfo.value.faceURL,
-        nickname: imLogic.userInfo.value.nickname);
+        faceURL: imCtrl.userInfo.value.faceURL,
+        nickname: imCtrl.userInfo.value.nickname);
     final translateLogic = Get.find<TranslateLogic>();
     final ttsLogic = Get.find<TtsLogic>();
     translateLogic.init(data.userID);
@@ -350,7 +350,7 @@ class AccountUtil extends GetxController {
           "chatToken": targetAccountLoginInfo.chatToken
         }));
         // FIXME im没有退出, 直接用token登录, 导致OpenIM.iMManager.xx还是旧的用户, 出现bug
-        await imLogic.login(userID, targetAccountLoginInfo.imToken);
+        await imCtrl.login(userID, targetAccountLoginInfo.imToken);
         await DataSp.putCurAccountLoginInfoKey(targetAccountLoginInfo.id);
         await DataSp.putCurServerKey(serverWithProtocol);
         final translateLogic = Get.find<TranslateLogic>();

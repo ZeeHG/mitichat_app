@@ -4,10 +4,10 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../../core/controller/im_controller.dart';
+import '../../../../core/controller/im_ctrl.dart';
 
 class GroupReadListLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   late StreamSubscription recvGroupReadReceiptSubject;
   late String conversationID;
   late String clientMsgID;
@@ -27,9 +27,11 @@ class GroupReadListLogic extends GetxController {
     clientMsgID = Get.arguments['clientMsgID'];
     queryHasReadMembersList();
     queryUnreadMemberList();
-    recvGroupReadReceiptSubject = imLogic.recvGroupReadReceiptSubject.listen((GroupMessageReceipt receipt) {
+    recvGroupReadReceiptSubject = imCtrl.recvGroupReadReceiptSubject
+        .listen((GroupMessageReceipt receipt) {
       if (receipt.conversationID == conversationID) {
-        final msg = receipt.groupMessageReadInfo.firstWhereOrNull((element) => element.clientMsgID == clientMsgID);
+        final msg = receipt.groupMessageReadInfo
+            .firstWhereOrNull((element) => element.clientMsgID == clientMsgID);
         if (msg != null) {
           queryHasReadMembersList();
           queryUnreadMemberList();
@@ -47,12 +49,15 @@ class GroupReadListLogic extends GetxController {
   }
 
   void queryHasReadMembersList() async {
-    final list = await OpenIM.iMManager.messageManager.getGroupMessageReaderList(conversationID, clientMsgID, count: count);
+    final list = await OpenIM.iMManager.messageManager
+        .getGroupMessageReaderList(conversationID, clientMsgID, count: count);
     hasReadMemberList.assignAll(list);
   }
 
   void queryUnreadMemberList() async {
-    final list = await OpenIM.iMManager.messageManager.getGroupMessageReaderList(conversationID, clientMsgID, filter: 1, count: count);
+    final list = await OpenIM.iMManager.messageManager
+        .getGroupMessageReaderList(conversationID, clientMsgID,
+            filter: 1, count: count);
 
     unreadMemberList.assignAll(list);
     if (list.length == count) {

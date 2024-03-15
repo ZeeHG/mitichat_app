@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../../core/controller/im_controller.dart';
+import '../../core/controller/im_ctrl.dart';
 import '../../core/controller/push_ctrl.dart';
 import '../../routes/app_navigator.dart';
 // import '../../utils/upgrade_manager.dart';
 
 class SplashLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final pushCtrl = Get.find<PushCtrl>();
   final translateLogic = Get.find<TranslateLogic>();
   final ttsLogic = Get.find<TtsLogic>();
@@ -22,7 +22,7 @@ class SplashLogic extends GetxController {
 
   @override
   void onInit() {
-    initializedSub = imLogic.initializedSubject.listen((value) async {
+    initializedSub = imCtrl.initializedSubject.listen((value) async {
       Logger.print('---------------------initialized---------------------');
       myLogger.i({"message": "imSdk初始化完成", "data": value});
       await Future.delayed(const Duration(seconds: 2));
@@ -39,7 +39,7 @@ class SplashLogic extends GetxController {
   _login() async {
     try {
       Logger.print('---------login---------- userID: $userID, token: $token');
-      await imLogic.login(userID!, token!);
+      await imCtrl.login(userID!, token!);
       Logger.print('---------im login success-------');
       translateLogic.init(userID!);
       ttsLogic.init(userID!);

@@ -10,7 +10,7 @@ import 'package:sprintf/sprintf.dart';
 import 'package:synchronized/synchronized.dart';
 
 import '../../../core/controller/app_ctrl.dart';
-import '../../../core/controller/im_controller.dart';
+import '../../../core/controller/im_ctrl.dart';
 import '../../../routes/app_navigator.dart';
 import '../../contacts/select_contacts/select_contacts_logic.dart';
 import '../../conversation/conversation_logic.dart';
@@ -19,7 +19,7 @@ import '../chat_setup/search_chat_history/multimedia/multimedia_logic.dart';
 import 'group_member_list/group_member_list_logic.dart';
 
 class GroupSetupLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
 
   // final chatLogic = Get.find<ChatLogic>();
   final chatLogic = Get.find<ChatLogic>(tag: GetTags.chat);
@@ -46,7 +46,7 @@ class GroupSetupLogic extends GetxController {
     groupInfo = Rx(_defaultGroupInfo);
     myGroupMembersInfo = Rx(_defaultMemberInfo);
 
-    _ccSub = imLogic.conversationChangedSubject.listen((newList) {
+    _ccSub = imCtrl.conversationChangedSubject.listen((newList) {
       for (var newValue in newList) {
         if (newValue.conversationID == conversationInfo.value.conversationID) {
           conversationInfo.update((val) {
@@ -61,26 +61,26 @@ class GroupSetupLogic extends GetxController {
       }
     });
 
-    _guSub = imLogic.groupInfoUpdatedSubject.listen((value) {
+    _guSub = imCtrl.groupInfoUpdatedSubject.listen((value) {
       if (value.groupID == groupInfo.value.groupID) {
         _updateGroupInfo(value);
       }
     });
 
-    _jasSub = imLogic.joinedGroupAddedSubject.listen((value) {
+    _jasSub = imCtrl.joinedGroupAddedSubject.listen((value) {
       if (value.groupID == groupInfo.value.groupID) {
         isJoinedGroup.value = true;
         _queryAllInfo();
       }
     });
 
-    _jdsSub = imLogic.joinedGroupDeletedSubject.listen((value) {
+    _jdsSub = imCtrl.joinedGroupDeletedSubject.listen((value) {
       if (value.groupID == groupInfo.value.groupID) {
         isJoinedGroup.value = false;
       }
     });
 
-    _mISub = imLogic.memberInfoChangedSubject.listen((e) {
+    _mISub = imCtrl.memberInfoChangedSubject.listen((e) {
       if (e.groupID == groupInfo.value.groupID &&
           e.userID == myGroupMembersInfo.value.userID) {
         myGroupMembersInfo.update((val) {
@@ -99,7 +99,7 @@ class GroupSetupLogic extends GetxController {
         }
       }
     });
-    _mASub = imLogic.memberAddedSubject.listen((e) async {
+    _mASub = imCtrl.memberAddedSubject.listen((e) async {
       if (e.groupID == groupInfo.value.groupID) {
         if (e.userID == OpenIM.iMManager.userID) {
           isJoinedGroup.value = true;
@@ -109,7 +109,7 @@ class GroupSetupLogic extends GetxController {
         }
       }
     });
-    _mDSub = imLogic.memberDeletedSubject.listen((e) {
+    _mDSub = imCtrl.memberDeletedSubject.listen((e) {
       if (e.groupID == groupInfo.value.groupID) {
         if (e.userID == OpenIM.iMManager.userID) {
           isJoinedGroup.value = false;

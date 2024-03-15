@@ -27,7 +27,7 @@ import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
 import '../../core/controller/app_ctrl.dart';
-import '../../core/controller/im_controller.dart';
+import '../../core/controller/im_ctrl.dart';
 import '../../core/im_callback.dart';
 import '../../routes/app_navigator.dart';
 import '../contacts/select_contacts/select_contacts_logic.dart';
@@ -39,7 +39,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart'
     as cacheManager;
 
 class ChatLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final appCtrl = Get.find<AppCtrl>();
   final conversationLogic = Get.find<ConversationLogic>();
   final cacheLogic = Get.find<CacheController>();
@@ -242,7 +242,7 @@ class ChatLogic extends GetxController {
     // 获取在线状态
     // _startQueryOnlineStatus();
     // 新增消息监听
-    imLogic.onRecvNewMessage = (Message message) {
+    imCtrl.onRecvNewMessage = (Message message) {
       // 如果是当前窗口的消息
       if (isCurrentChat(message)) {
         // 对方正在输入消息
@@ -302,7 +302,7 @@ class ChatLogic extends GetxController {
     };
 
     // 已被撤回消息监听（新版本）
-    imLogic.onRecvMessageRevoked = (RevokedInfo info) {
+    imCtrl.onRecvMessageRevoked = (RevokedInfo info) {
       var message = messageList
           .firstWhereOrNull((e) => e.clientMsgID == info.clientMsgID);
       message?.notificationElem = NotificationElem(detail: jsonEncode(info));
@@ -316,7 +316,7 @@ class ChatLogic extends GetxController {
       }
     };
     // 消息已读回执监听
-    imLogic.onRecvC2CReadReceipt = (List<ReadReceiptInfo> list) {
+    imCtrl.onRecvC2CReadReceipt = (List<ReadReceiptInfo> list) {
       try {
         for (var readInfo in list) {
           if (readInfo.userID == userID) {
@@ -332,7 +332,7 @@ class ChatLogic extends GetxController {
       } catch (e) {}
     };
     // 消息已读回执监听
-    imLogic.onRecvGroupReadReceipt = (GroupMessageReceipt receipt) {
+    imCtrl.onRecvGroupReadReceipt = (GroupMessageReceipt receipt) {
       if (receipt.conversationID == conversationInfo.value.conversationID) {
         for (var element in receipt.groupMessageReadInfo) {
           // enum all message
@@ -349,20 +349,20 @@ class ChatLogic extends GetxController {
       }
     };
     // 消息发送进度
-    imLogic.onMsgSendProgress = (String msgId, int progress) {
+    imCtrl.onMsgSendProgress = (String msgId, int progress) {
       sendProgressSub.addSafely(
         MsgStreamEv<int>(id: msgId, value: progress),
       );
     };
 
-    joinedGroupAddedSub = imLogic.joinedGroupAddedSubject.listen((event) {
+    joinedGroupAddedSub = imCtrl.joinedGroupAddedSubject.listen((event) {
       if (event.groupID == groupID) {
         isInGroup.value = true;
         _queryGroupInfo();
       }
     });
 
-    joinedGroupDeletedSub = imLogic.joinedGroupDeletedSubject.listen((event) {
+    joinedGroupDeletedSub = imCtrl.joinedGroupDeletedSubject.listen((event) {
       if (event.groupID == groupID) {
         isInGroup.value = false;
         inputCtrl.clear();
@@ -370,14 +370,14 @@ class ChatLogic extends GetxController {
     });
 
     // 有新成员进入
-    memberAddSub = imLogic.memberAddedSubject.listen((info) {
+    memberAddSub = imCtrl.memberAddedSubject.listen((info) {
       var groupId = info.groupID;
       if (groupId == groupID) {
         _putMemberInfo([info]);
       }
     });
 
-    memberDelSub = imLogic.memberDeletedSubject.listen((info) {
+    memberDelSub = imCtrl.memberDeletedSubject.listen((info) {
       if (info.groupID == groupID && info.userID == OpenIM.iMManager.userID) {
         isInGroup.value = false;
         inputCtrl.clear();
@@ -385,7 +385,7 @@ class ChatLogic extends GetxController {
     });
 
     // 成员信息改变
-    memberInfoChangedSub = imLogic.memberInfoChangedSubject.listen((info) {
+    memberInfoChangedSub = imCtrl.memberInfoChangedSubject.listen((info) {
       if (info.groupID == groupID) {
         if (info.userID == OpenIM.iMManager.userID) {
           muteEndTime.value = info.muteEndTime ?? 0;
@@ -411,7 +411,7 @@ class ChatLogic extends GetxController {
     });
 
     // 群信息变化
-    groupInfoUpdatedSub = imLogic.groupInfoUpdatedSubject.listen((value) {
+    groupInfoUpdatedSub = imCtrl.groupInfoUpdatedSubject.listen((value) {
       if (groupID == value.groupID) {
         nickname.value = value.groupName ?? '';
         faceUrl.value = value.faceURL ?? '';
@@ -422,7 +422,7 @@ class ChatLogic extends GetxController {
     });
 
     // 好友信息变化
-    friendInfoChangedSub = imLogic.friendInfoChangedSubject.listen((value) {
+    friendInfoChangedSub = imCtrl.friendInfoChangedSubject.listen((value) {
       if (userID == value.userID) {
         nickname.value = value.getShowName();
         faceUrl.value = value.faceURL ?? '';
@@ -450,7 +450,7 @@ class ChatLogic extends GetxController {
     });
 
     // 通话消息处理
-    imLogic.onSignalingMessage = (value) {
+    imCtrl.onSignalingMessage = (value) {
       if (value.isSingleChat && value.userID == userID ||
           value.isGroupChat && value.groupID == groupID) {
         messageList.add(value.message);
@@ -458,19 +458,19 @@ class ChatLogic extends GetxController {
       }
     };
 
-    imLogic.roomParticipantConnectedSubject.listen((value) {
+    imCtrl.roomParticipantConnectedSubject.listen((value) {
       if (value.groupID == groupID) {
         roomCallingInfo = value;
         participants.assignAll(value.participant ?? []);
       }
     });
-    imLogic.roomParticipantDisconnectedSubject.listen((value) {
+    imCtrl.roomParticipantDisconnectedSubject.listen((value) {
       if (value.groupID == groupID) {
         roomCallingInfo = value;
         participants.assignAll(value.participant ?? []);
       }
     });
-    // signalingMessageSub = imLogic.signalingMessageSubject.listen((value) {
+    // signalingMessageSub = imCtrl.signalingMessageSubject.listen((value) {
     //   print('====value.userID:${value.userID}===uid: $uid == gid:$gid');
     //   if (value.isSingleChat && value.userID == uid ||
     //       value.isGroupChat && value.groupID == gid) {
@@ -479,7 +479,7 @@ class ChatLogic extends GetxController {
     //   }
     // });
 
-    // imLogic.conversationChangedSubject.listen((newList) {
+    // imCtrl.conversationChangedSubject.listen((newList) {
     //   for (var newValue in newList) {
     //     if (newValue.conversationID == info?.conversationID) {
     //       burnAfterReading.value = newValue.isPrivateChat!;
@@ -488,7 +488,7 @@ class ChatLogic extends GetxController {
     //   }
     // });
 
-    ccSub = imLogic.conversationChangedSubject.listen((newList) {
+    ccSub = imCtrl.conversationChangedSubject.listen((newList) {
       for (var newValue in newList) {
         if (newValue.conversationID == conversationID) {
           conversationInfo.update((val) {
@@ -1225,7 +1225,7 @@ class ChatLogic extends GetxController {
           return;
         }
         var type = map['data']['type'];
-        imLogic.call(
+        imCtrl.call(
           callObj: CallObj.single,
           callType: type == "audio" ? CallType.audio : CallType.video,
           inviteeUserIDList: [if (isSingleChat) userID!],
@@ -1924,7 +1924,7 @@ class ChatLogic extends GetxController {
           );
           if (list is List<GroupMembersInfo>) {
             final uidList = list.map((e) => e.userID!).toList();
-            imLogic.call(
+            imCtrl.call(
               callObj: CallObj.group,
               callType: index == 0 ? CallType.audio : CallType.video,
               groupID: groupID,
@@ -1935,7 +1935,7 @@ class ChatLogic extends GetxController {
       });
     } else {
       IMViews.openIMCallSheet(nickname.value, (index) {
-        imLogic.call(
+        imCtrl.call(
           callObj: CallObj.single,
           callType: index == 0 ? CallType.audio : CallType.video,
           inviteeUserIDList: [if (isSingleChat) userID!],
@@ -2100,7 +2100,7 @@ class ChatLogic extends GetxController {
             value.firstWhereOrNull((element) => element.userID == userID);
         _configUserStatusChanged(status);
       });
-      userStatusChangedSub = imLogic.userStatusChangedSubject.listen((value) {
+      userStatusChangedSub = imCtrl.userStatusChangedSubject.listen((value) {
         if (value.userID == userID) {
           _configUserStatusChanged(value);
         }
@@ -2645,7 +2645,7 @@ class ChatLogic extends GetxController {
       ),
     );
     final info = roomCallingInfo.invitation!;
-    imLogic.call(
+    imCtrl.call(
       callObj: CallObj.group,
       callType: info.mediaType == 'audio' ? CallType.audio : CallType.video,
       groupID: info.groupID,
@@ -2666,7 +2666,7 @@ class ChatLogic extends GetxController {
   }
 
   String get markText {
-    String? phoneNumber = imLogic.userInfo.value.phoneNumber;
+    String? phoneNumber = imCtrl.userInfo.value.phoneNumber;
     if (phoneNumber != null) {
       int start = phoneNumber.length > 4 ? phoneNumber.length - 4 : 0;
       final sub = phoneNumber.substring(start);
@@ -2690,7 +2690,7 @@ class ChatLogic extends GetxController {
       AppNavigator.startSendVerificationApplication(userID: userID);
 
   void _setSdkSyncDataListener() {
-    connectionSub = imLogic.imSdkStatusSubject.listen((value) {
+    connectionSub = imCtrl.imSdkStatusSubject.listen((value) {
       syncStatus.value = value;
       // -1 链接失败 0 链接中 1 链接成功 2 同步开始 3 同步结束 4 同步错误
       if (value == IMSdkStatus.syncStart) {

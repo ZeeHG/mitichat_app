@@ -9,18 +9,17 @@ import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 // import 'package:miti_circle/miti_circle.dart';
 
-import '../../core/controller/im_controller.dart';
+import '../../core/controller/im_ctrl.dart';
 import '../home/home_logic.dart';
 import 'add_by_search/add_by_search_logic.dart';
 import 'select_contacts/select_contacts_logic.dart';
 
 class ContactsLogic extends GetxController
     implements ViewUserProfileBridge, SelectContactsBridge, ScanBridge {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final homeLogic = Get.find<HomeLogic>();
   final friendList = <ISUserInfo>[].obs;
   final userIDList = <String>[];
-  final imLoic = Get.find<IMController>();
   final popCtrl = CustomPopupMenuController();
   late StreamSubscription delSub;
   late StreamSubscription addSub;
@@ -72,34 +71,34 @@ class ContactsLogic extends GetxController
 
   @override
   void onInit() {
-    // imLogic.friendApplicationSubject.listen((value) {
+    // imCtrl.friendApplicationSubject.listen((value) {
     //
     // });
     // 收到新的好友申请
-    // imLogic.onFriendApplicationListAdded = (u) {
+    // imCtrl.onFriendApplicationListAdded = (u) {
     //   getFriendApplicationList();
     // };
     // 删除好友申请记录
-    // imLogic.onFriendApplicationListDeleted = (u) {
+    // imCtrl.onFriendApplicationListDeleted = (u) {
     //   getFriendApplicationList();
     // };
     /// 我的申请被拒绝了
-    // imLogic.onFriendApplicationListRejected = (u) {
+    // imCtrl.onFriendApplicationListRejected = (u) {
     //   getFriendApplicationList();
     // };
     // 我的申请被接受了
-    // imLogic.onFriendApplicationListAccepted = (u) {
+    // imCtrl.onFriendApplicationListAccepted = (u) {
     //   getFriendApplicationList();
     // };
     initPackageBridge();
 
-    delSub = imLoic.friendDelSubject.listen(_delFriend);
-    addSub = imLoic.friendAddSubject.listen(_addFriend);
-    infoChangedSub = imLoic.friendInfoChangedSubject.listen(_friendInfoChanged);
-    imLoic.onBlacklistAdd = _delFriend;
-    imLoic.onBlacklistDeleted = _addFriend;
+    delSub = imCtrl.friendDelSubject.listen(_delFriend);
+    addSub = imCtrl.friendAddSubject.listen(_addFriend);
+    infoChangedSub = imCtrl.friendInfoChangedSubject.listen(_friendInfoChanged);
+    imCtrl.onBlacklistAdd = _delFriend;
+    imCtrl.onBlacklistDeleted = _addFriend;
 
-    // imLogic.momentsSubject.listen((value) {
+    // imCtrl.momentsSubject.listen((value) {
     //   onRecvNewMessageForWorkingCircle?.call(value);
     // });
     super.onInit();

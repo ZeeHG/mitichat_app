@@ -4,7 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 
-import '../../../core/controller/im_controller.dart';
+import '../../../core/controller/im_ctrl.dart';
 import '../../../routes/app_navigator.dart';
 import '../../conversation/conversation_logic.dart';
 
@@ -12,7 +12,7 @@ enum JoinGroupMethod { search, qrcode, invite }
 
 class GroupProfilePanelLogic extends GetxController {
   final conversationLogic = Get.find<ConversationLogic>();
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final isJoined = false.obs;
   final members = <GroupMembersInfo>[].obs;
   late Rx<GroupInfo> groupInfo;
@@ -26,9 +26,9 @@ class GroupProfilePanelLogic extends GetxController {
   void onInit() {
     groupInfo = Rx(GroupInfo(groupID: Get.arguments['groupID']));
     joinGroupMethod = Get.arguments['joinGroupMethod'];
-    sub = imLogic.groupApplicationChangedSubject.listen(_onChanged);
-    joinedGroupAddedSub = imLogic.joinedGroupAddedSubject.listen(_onChanged);
-    memberAddedSub = imLogic.memberAddedSubject.listen(_onChanged);
+    sub = imCtrl.groupApplicationChangedSubject.listen(_onChanged);
+    joinedGroupAddedSub = imCtrl.joinedGroupAddedSubject.listen(_onChanged);
+    memberAddedSub = imCtrl.memberAddedSubject.listen(_onChanged);
     _checkGroup();
     _getGroupInfo();
     _getMembers();

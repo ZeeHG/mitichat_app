@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:miti/core/controller/im_controller.dart';
+import 'package:miti/core/controller/im_ctrl.dart';
 import 'package:miti/pages/mine/phone_email_change/phone_email_change_logic.dart';
 import 'package:miti_common/miti_common.dart';
 
@@ -10,7 +10,7 @@ import 'account_and_security_logic.dart';
 
 class AccountAndSecurityPage extends StatelessWidget {
   final logic = Get.find<AccountAndSecurityLogic>();
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
 
   AccountAndSecurityPage({super.key});
 
@@ -32,8 +32,8 @@ class AccountAndSecurityPage extends StatelessWidget {
                   valueWidget: AvatarView(
                     width: 38.w,
                     height: 38.h,
-                    text: imLogic.userInfo.value.nickname,
-                    url: imLogic.userInfo.value.faceURL,
+                    text: imCtrl.userInfo.value.nickname,
+                    url: imCtrl.userInfo.value.faceURL,
                   ),
                 ),
                 _buildItemView(
@@ -41,14 +41,14 @@ class AccountAndSecurityPage extends StatelessWidget {
                   showRightArrow: true,
                   onTap: () =>
                       logic.phoneEmailChange(type: PhoneEmailChangeType.phone),
-                  value: imLogic.userInfo.value.phoneNumber,
+                  value: imCtrl.userInfo.value.phoneNumber,
                 ),
                 _buildItemView(
                   label: StrLibrary.email,
                   showRightArrow: true,
                   onTap: () =>
                       logic.phoneEmailChange(type: PhoneEmailChangeType.email),
-                  value: imLogic.userInfo.value.email,
+                  value: imCtrl.userInfo.value.email,
                 ),
                 _buildItemView(
                   label: StrLibrary.changePassword,

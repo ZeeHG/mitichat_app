@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 import 'discover_logic.dart';
-import 'package:miti/core/controller/im_controller.dart';
+import 'package:miti/core/controller/im_ctrl.dart';
 
 class DiscoverPage extends StatelessWidget {
   final logic = Get.find<DiscoverLogic>();
-  final im = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
 
   DiscoverPage({super.key});
 
@@ -54,14 +54,14 @@ class DiscoverPage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    Text(im.userInfo.value.nickname!),
+                                    Text(imCtrl.userInfo.value.nickname!),
                                     Text(logic.scrollHeight.toString()),
                                     12.horizontalSpace,
                                     AvatarView(
                                       width: 60.w,
                                       height: 60.h,
-                                      text: im.userInfo.value.nickname,
-                                      url: im.userInfo.value.faceURL,
+                                      text: imCtrl.userInfo.value.nickname,
+                                      url: imCtrl.userInfo.value.faceURL,
                                     )
                                   ],
                                 ),
@@ -107,7 +107,7 @@ class DiscoverPage extends StatelessWidget {
               width: 48.w,
               height: 48.h,
               text: moment.nickname,
-              url: im.userInfo.value.faceURL,
+              url: imCtrl.userInfo.value.faceURL,
             ),
             12.horizontalSpace,
             Expanded(

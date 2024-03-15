@@ -7,14 +7,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../core/controller/im_controller.dart';
+import '../../../core/controller/im_ctrl.dart';
 
 class OANotificationLogic extends GetxController {
   late ConversationInfo info;
   var messageList = <Message>[].obs;
   final pageSize = 40;
   final refreshController = RefreshController(initialRefresh: false);
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   int? lastMinSeq;
   bool _isFirstLoad = false;
 
@@ -22,7 +22,7 @@ class OANotificationLogic extends GetxController {
   void onInit() {
     info = Get.arguments;
     // 新增消息监听
-    imLogic.onRecvNewMessage = (Message message) {
+    imCtrl.onRecvNewMessage = (Message message) {
       if (message.contentType == MessageType.oaNotification) {
         if (!messageList.contains(message)) messageList.add(message);
       }
@@ -41,7 +41,8 @@ class OANotificationLogic extends GetxController {
   /// 1
   /// 0
   void loadNotification() async {
-    final result = await OpenIM.iMManager.messageManager.getAdvancedHistoryMessageList(
+    final result =
+        await OpenIM.iMManager.messageManager.getAdvancedHistoryMessageList(
       conversationID: info.conversationID,
       count: 200,
       startMsg: _isFirstLoad ? null : messageList.firstOrNull,
@@ -66,7 +67,8 @@ class OANotificationLogic extends GetxController {
     }
   }
 
-  OANotification parse(Message message) => OANotification.fromJson(json.decode(message.notificationElem!.detail!));
+  OANotification parse(Message message) =>
+      OANotification.fromJson(json.decode(message.notificationElem!.detail!));
 
   Size calSize(OANotification oa, double w, double h) {
     final width = 50.w;

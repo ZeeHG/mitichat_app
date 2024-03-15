@@ -8,7 +8,7 @@ import 'package:miti/utils/account_util.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-import '../../core/controller/im_controller.dart';
+import '../../core/controller/im_ctrl.dart';
 import '../../core/controller/push_ctrl.dart';
 import '../../routes/app_navigator.dart';
 
@@ -56,7 +56,7 @@ extension LoginTypeExt on LoginType {
 }
 
 class LoginLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final pushCtrl = Get.find<PushCtrl>();
   final phoneCtrl = TextEditingController();
   final pwdCtrl = TextEditingController();
@@ -297,7 +297,7 @@ class LoginLogic extends GetxController {
       await DataSp.putLoginCertificate(data);
       await DataSp.putMainLoginAccount(account);
       Logger.print('login : ${data.userID}, token: ${data.imToken}');
-      await imLogic.login(data.userID, data.imToken);
+      await imCtrl.login(data.userID, data.imToken);
       await setAccountLoginInfo(
           userID: data.userID,
           imToken: data.imToken,
@@ -306,8 +306,8 @@ class LoginLogic extends GetxController {
           phoneNumber: phone,
           areaCode: areaCode.value,
           password: IMUtils.generateMD5(password ?? "")!,
-          faceURL: imLogic.userInfo.value.faceURL,
-          nickname: imLogic.userInfo.value.nickname);
+          faceURL: imCtrl.userInfo.value.faceURL,
+          nickname: imCtrl.userInfo.value.nickname);
       Logger.print('im login success');
       translateLogic.init(data.userID);
       ttsLogic.init(data.userID);

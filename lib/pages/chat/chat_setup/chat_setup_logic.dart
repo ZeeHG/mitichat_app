@@ -8,7 +8,7 @@ import 'package:miti_common/miti_common.dart';
 import 'package:sprintf/sprintf.dart';
 
 import '../../../core/controller/app_ctrl.dart';
-import '../../../core/controller/im_controller.dart';
+import '../../../core/controller/im_ctrl.dart';
 import '../../../routes/app_navigator.dart';
 import '../chat_logic.dart';
 
@@ -16,7 +16,7 @@ class ChatSetupLogic extends GetxController {
   // final chatLogic = Get.find<ChatLogic>();
   final chatLogic = Get.find<ChatLogic>(tag: GetTags.chat);
   final appCtrl = Get.find<AppCtrl>();
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final translateLogic = Get.find<TranslateLogic>();
   late Rx<ConversationInfo> conversationInfo;
   late StreamSubscription ccSub;
@@ -81,7 +81,7 @@ class ChatSetupLogic extends GetxController {
   @override
   void onInit() {
     conversationInfo = Rx(Get.arguments['conversationInfo']);
-    ccSub = imLogic.conversationChangedSubject.listen((newList) {
+    ccSub = imCtrl.conversationChangedSubject.listen((newList) {
       for (var newValue in newList) {
         if (newValue.conversationID == conversationID) {
           conversationInfo.update((val) {
@@ -98,7 +98,7 @@ class ChatSetupLogic extends GetxController {
       }
     });
     // 好友信息变化
-    fcSub = imLogic.friendInfoChangedSubject.listen((value) {
+    fcSub = imCtrl.friendInfoChangedSubject.listen((value) {
       if (conversationInfo.value.userID == value.userID) {
         conversationInfo.update((val) {
           val?.showName = value.getShowName();

@@ -4,7 +4,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
-import 'package:miti/core/controller/im_controller.dart';
+import 'package:miti/core/controller/im_ctrl.dart';
 import 'package:miti/pages/home/home_logic.dart';
 import 'package:miti/utils/ai_util.dart';
 import 'package:miti_common/miti_common.dart';
@@ -17,7 +17,7 @@ import 'conversation_logic.dart';
 
 class ConversationPage extends StatelessWidget {
   final logic = Get.find<ConversationLogic>();
-  final im = Get.find<IMController>();
+  final im = Get.find<IMCtrl>();
   final homeLogic = Get.find<HomeLogic>();
   Function(dynamic) switchHomeTab;
   RxInt homeTabIndex;

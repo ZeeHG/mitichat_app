@@ -3,7 +3,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../../../core/controller/im_controller.dart';
+import '../../../core/controller/im_ctrl.dart';
 
 enum EditAttr {
   nickname,
@@ -14,7 +14,7 @@ enum EditAttr {
 }
 
 class EditMyInfoLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   late TextEditingController inputCtrl;
   late EditAttr editAttr;
   late int maxLength;
@@ -35,27 +35,27 @@ class EditMyInfoLogic extends GetxController {
     switch (editAttr) {
       case EditAttr.nickname:
         title = StrLibrary.name;
-        defaultValue = imLogic.userInfo.value.nickname;
+        defaultValue = imCtrl.userInfo.value.nickname;
         keyboardType = TextInputType.text;
         break;
       case EditAttr.englishName:
         // title = StrLibrary .englishName;
-        // defaultValue = imLogic.userInfo.value.englishName;
+        // defaultValue = imCtrl.userInfo.value.englishName;
         // keyboardType = TextInputType.text;
         break;
       case EditAttr.telephone:
         // title = StrLibrary .tel;
-        // defaultValue = imLogic.userInfo.value.telephone;
+        // defaultValue = imCtrl.userInfo.value.telephone;
         // keyboardType = TextInputType.phone;
         break;
       case EditAttr.mobile:
         title = StrLibrary.mobile;
-        defaultValue = imLogic.userInfo.value.phoneNumber;
+        defaultValue = imCtrl.userInfo.value.phoneNumber;
         keyboardType = TextInputType.phone;
         break;
       case EditAttr.email:
         title = StrLibrary.email;
-        defaultValue = imLogic.userInfo.value.email;
+        defaultValue = imCtrl.userInfo.value.email;
         keyboardType = TextInputType.emailAddress;
         break;
     }
@@ -70,7 +70,7 @@ class EditMyInfoLogic extends GetxController {
           nickname: value,
         ),
       );
-      imLogic.userInfo.update((val) {
+      imCtrl.userInfo.update((val) {
         val?.nickname = value;
       });
     } else if (editAttr == EditAttr.mobile) {
@@ -80,7 +80,7 @@ class EditMyInfoLogic extends GetxController {
           phoneNumber: value,
         ),
       );
-      imLogic.userInfo.update((val) {
+      imCtrl.userInfo.update((val) {
         val?.phoneNumber = value;
       });
     } else if (editAttr == EditAttr.email) {
@@ -90,7 +90,7 @@ class EditMyInfoLogic extends GetxController {
           email: value,
         ),
       );
-      imLogic.userInfo.update((val) {
+      imCtrl.userInfo.update((val) {
         val?.email = value;
       });
     }

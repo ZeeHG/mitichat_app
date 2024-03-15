@@ -11,7 +11,7 @@ import '../im_callback.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
 
-class IMController extends GetxController with IMCallback, MitiLive {
+class IMCtrl extends GetxController with IMCallback, MitiLive {
   late Rx<UserFullInfo> userInfo;
   late String atAllTag;
 

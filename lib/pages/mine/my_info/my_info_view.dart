@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../../../core/controller/im_controller.dart';
+import '../../../core/controller/im_ctrl.dart';
 import 'my_info_logic.dart';
 
 class MyInfoPage extends StatelessWidget {
   final logic = Get.find<MyInfoLogic>();
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
 
   MyInfoPage({super.key});
 
@@ -29,8 +29,8 @@ class MyInfoPage extends StatelessWidget {
                     _buildItemView(
                         label: "${StrLibrary.avatar}",
                         isAvatar: true,
-                        value: imLogic.userInfo.value.nickname,
-                        url: imLogic.userInfo.value.faceURL,
+                        value: imCtrl.userInfo.value.nickname,
+                        url: imCtrl.userInfo.value.faceURL,
                         onTap: logic.openPhotoSheet,
                         showBorder: false),
                   ],
@@ -40,13 +40,13 @@ class MyInfoPage extends StatelessWidget {
                   children: [
                     _buildItemView(
                         label: StrLibrary.mobile,
-                        value: imLogic.userInfo.value.phoneNumber,
+                        value: imCtrl.userInfo.value.phoneNumber,
                         // onTap: logic.editMobile,
                         showRightArrow: false,
                         showBorder: false),
                     _buildItemView(
                       label: StrLibrary.email,
-                      value: imLogic.userInfo.value.email,
+                      value: imCtrl.userInfo.value.email,
                       // onTap: logic.editEmail,
                       showRightArrow: false,
                     ),
@@ -57,12 +57,12 @@ class MyInfoPage extends StatelessWidget {
                   children: [
                     _buildItemView(
                         label: StrLibrary.name,
-                        value: imLogic.userInfo.value.nickname,
+                        value: imCtrl.userInfo.value.nickname,
                         onTap: logic.editMyName,
                         showBorder: false),
                     _buildItemView(
                       label: StrLibrary.gender,
-                      value: imLogic.userInfo.value.isMale
+                      value: imCtrl.userInfo.value.isMale
                           ? StrLibrary.man
                           : StrLibrary.woman,
                       onTap: logic.selectGender,
@@ -70,7 +70,7 @@ class MyInfoPage extends StatelessWidget {
                     _buildItemView(
                       label: StrLibrary.birthDay,
                       value: DateUtil.formatDateMs(
-                        imLogic.userInfo.value.birth ?? 0,
+                        imCtrl.userInfo.value.birth ?? 0,
                         format: IMUtils.getTimeFormat1(),
                       ),
                       onTap: logic.openDatePicker,

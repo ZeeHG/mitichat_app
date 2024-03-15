@@ -8,12 +8,12 @@ import 'package:miti_common/miti_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sprintf/sprintf.dart';
 
-import '../../../../../core/controller/im_controller.dart';
+import '../../../../../core/controller/im_ctrl.dart';
 import '../../../../../routes/app_navigator.dart';
 import '../group_member_list_logic.dart';
 
 class SearchGroupMemberLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final controller = RefreshController();
   final focusNode = FocusNode();
   final searchCtrl = TextEditingController();
@@ -28,7 +28,7 @@ class SearchGroupMemberLogic extends GetxController {
     groupInfo = Get.arguments['groupInfo'];
     opType = Get.arguments['opType'];
     searchCtrl.addListener(_clearInput);
-    mISub = imLogic.memberInfoChangedSubject.listen((e) {
+    mISub = imCtrl.memberInfoChangedSubject.listen((e) {
       if (e.groupID == groupInfo.groupID) {
         final member =
             memberList.firstWhereOrNull((el) => el.userID == e.userID);

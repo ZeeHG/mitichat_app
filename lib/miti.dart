@@ -7,7 +7,7 @@ import 'package:miti/utils/account_util.dart';
 import 'package:miti/utils/ai_util.dart';
 import 'package:miti/utils/conversation_util.dart';
 import 'package:miti_common/miti_common.dart';
-import 'core/controller/im_controller.dart';
+import 'core/controller/im_ctrl.dart';
 import 'core/controller/push_ctrl.dart';
 import 'routes/app_pages.dart';
 import 'widgets/miti_view.dart';
@@ -73,7 +73,7 @@ class Miti extends StatelessWidget {
 class AppBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put<IMController>(IMController());
+    Get.put<IMCtrl>(IMCtrl());
     Get.put<PushCtrl>(PushCtrl());
     Get.put<CacheController>(CacheController());
     Get.put<DownloadController>(DownloadController());

@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../../../core/controller/im_controller.dart';
+import '../../../core/controller/im_ctrl.dart';
 import '../../home/home_logic.dart';
 
 class RecentRequestsLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final homeLogic = Get.find<HomeLogic>();
   final friendApplicationList = <FriendApplicationInfo>[].obs;
   late StreamSubscription faSub;
@@ -21,7 +21,7 @@ class RecentRequestsLogic extends GetxController {
 
   @override
   void onInit() {
-    faSub = imLogic.friendApplicationChangedSubject.listen((value) {
+    faSub = imCtrl.friendApplicationChangedSubject.listen((value) {
       getFriendRequestsList();
     });
     super.onInit();

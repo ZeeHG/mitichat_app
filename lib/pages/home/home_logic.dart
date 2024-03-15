@@ -12,7 +12,7 @@ import 'package:miti_circle/src/w_apis.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../core/controller/app_ctrl.dart';
-import '../../core/controller/im_controller.dart';
+import '../../core/controller/im_ctrl.dart';
 import '../../core/controller/push_ctrl.dart';
 import '../../core/im_callback.dart';
 import '../../routes/app_navigator.dart';
@@ -20,7 +20,7 @@ import '../../widgets/screen_lock_error_view.dart';
 
 class HomeLogic extends SuperController with WorkingCircleBridge {
   final pushCtrl = Get.find<PushCtrl>();
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final cacheLogic = Get.find<CacheController>();
   final appCtrl = Get.find<AppCtrl>();
   final index = 0.obs;
@@ -119,17 +119,17 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
 
     PackageBridge.workingCircleBridge = this;
 
-    imLogic.unreadMsgCountEventSubject.listen((value) {
+    imCtrl.unreadMsgCountEventSubject.listen((value) {
       unreadMsgCount.value = value;
     });
-    imLogic.momentsSubject.listen((value) {
+    imCtrl.momentsSubject.listen((value) {
       onRecvNewMessageForWorkingCircle?.call(value);
       _getUnreadMomentsCount();
     });
-    imLogic.friendApplicationChangedSubject.listen((value) {
+    imCtrl.friendApplicationChangedSubject.listen((value) {
       getUnhandledFriendApplicationCount();
     });
-    imLogic.groupApplicationChangedSubject.listen((value) {
+    imCtrl.groupApplicationChangedSubject.listen((value) {
       getUnhandledGroupApplicationCount();
     });
     super.onInit();
@@ -193,7 +193,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
         onMaxRetries: (_) async {
           Get.back();
           await LoadingView.singleton.start(fn: () async {
-            await imLogic.logout();
+            await imCtrl.logout();
             await DataSp.removeLoginCertificate();
             await DataSp.clearLockScreenPassword();
             await DataSp.closeBiometric();
@@ -228,11 +228,11 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
   @override
   void onResumed() {
     // TODO: implement onResumed
-    if (imLogic.imSdkStatusSubject.valueOrNull ==
+    if (imCtrl.imSdkStatusSubject.valueOrNull ==
         IMSdkStatus.connectionSucceeded) {
       _getRTCInvitationStart();
     } else {
-      imLogic.imSdkStatusSubject.listen((value) {
+      imCtrl.imSdkStatusSubject.listen((value) {
         if (value == IMSdkStatus.connectionSucceeded) {
           _getRTCInvitationStart();
         }
@@ -245,7 +245,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
         .getSignalingInvitationInfoStartApp();
     if (null != signalingInfo.invitation) {
       // 调用视频界面
-      imLogic.receiveNewInvitation(signalingInfo);
+      imCtrl.receiveNewInvitation(signalingInfo);
     }
   }
 

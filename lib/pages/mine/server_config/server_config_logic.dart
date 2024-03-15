@@ -1,7 +1,7 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:miti/core/controller/im_controller.dart';
+import 'package:miti/core/controller/im_ctrl.dart';
 import 'package:miti_common/miti_common.dart';
 
 class ServerConfigLogic extends GetxController {
@@ -12,7 +12,7 @@ class ServerConfigLogic extends GetxController {
   var imApiCtrl = TextEditingController();
   var imWsCtrl = TextEditingController();
   var isIP = true.obs;
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
 
   void switchServer(bool isIp) {
     isIP.value = isIp;
@@ -76,9 +76,9 @@ class ServerConfigLogic extends GetxController {
       'apiUrl': imApiCtrl.text,
       'wsUrl': imWsCtrl.text,
     });
-    imLogic.unInitOpenIM();
+    imCtrl.unInitOpenIM();
     HttpUtil.init();
-    await imLogic.initOpenIM();
+    await imCtrl.initOpenIM();
     IMViews.showToast(StrLibrary.serverSettingTips);
   }
 

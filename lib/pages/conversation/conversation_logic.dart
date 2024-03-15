@@ -12,7 +12,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 import '../../core/controller/app_ctrl.dart';
-import '../../core/controller/im_controller.dart';
+import '../../core/controller/im_ctrl.dart';
 import '../../core/im_callback.dart';
 import '../../routes/app_navigator.dart';
 import '../contacts/add_by_search/add_by_search_logic.dart';
@@ -22,7 +22,7 @@ class ConversationLogic extends GetxController {
   final popCtrl = CustomPopupMenuController();
   final serverPopCtrl = CustomPopupMenuController();
   final list = <ConversationInfo>[].obs;
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final homeLogic = Get.find<HomeLogic>();
   final appCtrl = Get.find<AppCtrl>();
   final refreshController = RefreshController();
@@ -64,8 +64,8 @@ class ConversationLogic extends GetxController {
   @override
   void onInit() {
     scrollController = AutoScrollController(axis: Axis.vertical);
-    imLogic.conversationAddedSubject.listen(onChanged);
-    imLogic.conversationChangedSubject.listen(onChanged);
+    imCtrl.conversationAddedSubject.listen(onChanged);
+    imCtrl.conversationChangedSubject.listen(onChanged);
     homeLogic.onScrollToUnreadMessage = scrollTo;
 
     ever(list, (_) {
@@ -95,7 +95,7 @@ class ConversationLogic extends GetxController {
 
   /// 提示音
   void promptSoundOrNotification(ConversationInfo info) {
-    if (imLogic.userInfo.value.globalRecvMsgOpt == 0 &&
+    if (imCtrl.userInfo.value.globalRecvMsgOpt == 0 &&
         info.recvMsgOpt == 0 &&
         info.unreadCount > 0 &&
         info.latestMsg?.sendID != OpenIM.iMManager.userID) {

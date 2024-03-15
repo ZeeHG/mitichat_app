@@ -11,7 +11,7 @@ import 'package:miti_circle/miti_circle.dart';
 import 'package:sprintf/sprintf.dart';
 
 import '../../../core/controller/app_ctrl.dart';
-import '../../../core/controller/im_controller.dart';
+import '../../../core/controller/im_ctrl.dart';
 import '../../conversation/conversation_logic.dart';
 
 import 'dart:convert';
@@ -19,7 +19,7 @@ import 'package:miti_circle/src/w_apis.dart';
 
 class UserProfilePanelLogic extends GetxController {
   final appCtrl = Get.find<AppCtrl>();
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final conversationLogic = Get.find<ConversationLogic>();
   late Rx<UserFullInfo> userInfo;
   GroupMembersInfo? groupMembersInfo;
@@ -62,14 +62,14 @@ class UserProfilePanelLogic extends GetxController {
     groupID = Get.arguments['groupID'];
     offAllWhenDelFriend = Get.arguments['offAllWhenDelFriend'];
 
-    _friendAddedSub = imLogic.friendAddSubject.listen((user) {
+    _friendAddedSub = imCtrl.friendAddSubject.listen((user) {
       if (user.userID == userInfo.value.userID) {
         userInfo.update((val) {
           val?.isFriendship = true;
         });
       }
     });
-    _friendInfoChangedSub = imLogic.friendInfoChangedSubject.listen((user) {
+    _friendInfoChangedSub = imCtrl.friendInfoChangedSubject.listen((user) {
       if (user.userID == userInfo.value.userID) {
         userInfo.update((val) {
           val?.nickname = user.nickname;
@@ -81,7 +81,7 @@ class UserProfilePanelLogic extends GetxController {
       }
     });
     // 禁言时间被改变，或群成员资料改变
-    _memberInfoChangedSub = imLogic.memberInfoChangedSubject.listen((value) {
+    _memberInfoChangedSub = imCtrl.memberInfoChangedSubject.listen((value) {
       if (value.userID == userInfo.value.userID) {
         if (null != value.muteEndTime) {
           _calMuteTime(value.muteEndTime!);
@@ -294,7 +294,7 @@ class UserProfilePanelLogic extends GetxController {
     hasAdminPermission.value = hasPermission;
     // 更新其他界面群成员权限
     if (null != groupMembersInfo) {
-      imLogic.memberInfoChangedSubject.add(groupMembersInfo!);
+      imCtrl.memberInfoChangedSubject.add(groupMembersInfo!);
     }
     IMViews.showToast(StrLibrary.setSuccessfully);
   }
@@ -309,7 +309,7 @@ class UserProfilePanelLogic extends GetxController {
 
   void toCall() {
     IMViews.openIMCallSheet(userInfo.value.showName, (index) {
-      imLogic.call(
+      imCtrl.call(
         callObj: CallObj.single,
         callType: index == 0 ? CallType.audio : CallType.video,
         inviteeUserIDList: [userInfo.value.userID!],

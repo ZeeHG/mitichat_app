@@ -6,10 +6,10 @@ import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../../../core/controller/im_controller.dart';
+import '../../../core/controller/im_ctrl.dart';
 
 class FriendListLogic extends GetxController {
-  final imLoic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final friendList = <ISUserInfo>[].obs;
   final userIDList = <String>[];
   late StreamSubscription delSub;
@@ -18,11 +18,11 @@ class FriendListLogic extends GetxController {
 
   @override
   void onInit() {
-    delSub = imLoic.friendDelSubject.listen(_delFriend);
-    addSub = imLoic.friendAddSubject.listen(_addFriend);
-    infoChangedSub = imLoic.friendInfoChangedSubject.listen(_friendInfoChanged);
-    imLoic.onBlacklistAdd = _delFriend;
-    imLoic.onBlacklistDeleted = _addFriend;
+    delSub = imCtrl.friendDelSubject.listen(_delFriend);
+    addSub = imCtrl.friendAddSubject.listen(_addFriend);
+    infoChangedSub = imCtrl.friendInfoChangedSubject.listen(_friendInfoChanged);
+    imCtrl.onBlacklistAdd = _delFriend;
+    imCtrl.onBlacklistDeleted = _addFriend;
     super.onInit();
   }
 
