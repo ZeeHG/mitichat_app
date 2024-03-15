@@ -9,8 +9,8 @@ import 'package:miti_common/miti_common.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:synchronized/synchronized.dart';
 
-import '../../../core/controller/app_ctrl.dart';
-import '../../../core/controller/im_ctrl.dart';
+import '../../../core/ctrl/app_ctrl.dart';
+import '../../../core/ctrl/im_ctrl.dart';
 import '../../../routes/app_navigator.dart';
 import '../../contacts/select_contacts/select_contacts_logic.dart';
 import '../../conversation/conversation_logic.dart';

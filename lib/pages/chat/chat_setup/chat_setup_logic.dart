@@ -7,8 +7,8 @@ import 'package:miti/pages/chat/chat_setup/search_chat_history/multimedia/multim
 import 'package:miti_common/miti_common.dart';
 import 'package:sprintf/sprintf.dart';
 
-import '../../../core/controller/app_ctrl.dart';
-import '../../../core/controller/im_ctrl.dart';
+import '../../../core/ctrl/app_ctrl.dart';
+import '../../../core/ctrl/im_ctrl.dart';
 import '../../../routes/app_navigator.dart';
 import '../chat_logic.dart';
 

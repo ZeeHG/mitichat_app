@@ -26,8 +26,8 @@ import 'package:video_compress/video_compress.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
-import '../../core/controller/app_ctrl.dart';
-import '../../core/controller/im_ctrl.dart';
+import '../../core/ctrl/app_ctrl.dart';
+import '../../core/ctrl/im_ctrl.dart';
 import '../../core/im_callback.dart';
 import '../../routes/app_navigator.dart';
 import '../contacts/select_contacts/select_contacts_logic.dart';

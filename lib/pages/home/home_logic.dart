@@ -11,9 +11,9 @@ import 'package:miti_circle/miti_circle.dart';
 import 'package:miti_circle/src/w_apis.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../core/controller/app_ctrl.dart';
-import '../../core/controller/im_ctrl.dart';
-import '../../core/controller/push_ctrl.dart';
+import '../../core/ctrl/app_ctrl.dart';
+import '../../core/ctrl/im_ctrl.dart';
+import '../../core/ctrl/push_ctrl.dart';
 import '../../core/im_callback.dart';
 import '../../routes/app_navigator.dart';
 import '../../widgets/screen_lock_error_view.dart';

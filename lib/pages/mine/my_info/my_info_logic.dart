@@ -6,7 +6,7 @@ import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
-import '../../../core/controller/im_ctrl.dart';
+import '../../../core/ctrl/im_ctrl.dart';
 
 class MyInfoLogic extends GetxController {
   final imCtrl = Get.find<IMCtrl>();

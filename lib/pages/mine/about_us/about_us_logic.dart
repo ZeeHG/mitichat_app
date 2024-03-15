@@ -3,16 +3,16 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-import '../../../core/controller/app_ctrl.dart';
-import '../../../core/controller/im_ctrl.dart';
+import '../../../core/ctrl/app_ctrl.dart';
+import '../../../core/ctrl/im_ctrl.dart';
 
 import 'dart:convert';
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
-import '../../../core/controller/im_ctrl.dart';
-import '../../../core/controller/push_ctrl.dart';
+import '../../../core/ctrl/im_ctrl.dart';
+import '../../../core/ctrl/push_ctrl.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path_package;
 

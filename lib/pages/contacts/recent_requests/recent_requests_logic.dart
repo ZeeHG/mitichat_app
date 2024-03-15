@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../../../core/controller/im_ctrl.dart';
+import '../../../core/ctrl/im_ctrl.dart';
 import '../../home/home_logic.dart';
 
 class RecentRequestsLogic extends GetxController {

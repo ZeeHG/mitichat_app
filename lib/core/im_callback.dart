@@ -6,7 +6,7 @@ import 'package:miti_common/miti_common.dart';
 // import 'package:openim_meeting/openim_meeting.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'controller/app_ctrl.dart';
+import 'ctrl/app_ctrl.dart';
 
 enum IMSdkStatus {
   connectionFailed,

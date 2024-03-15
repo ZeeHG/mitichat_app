@@ -4,7 +4,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../../core/controller/im_ctrl.dart';
+import '../../../../core/ctrl/im_ctrl.dart';
 
 class GroupReadListLogic extends GetxController {
   final imCtrl = Get.find<IMCtrl>();

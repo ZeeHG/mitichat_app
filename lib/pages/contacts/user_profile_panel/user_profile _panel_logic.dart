@@ -10,8 +10,8 @@ import 'package:miti_live/miti_live.dart';
 import 'package:miti_circle/miti_circle.dart';
 import 'package:sprintf/sprintf.dart';
 
-import '../../../core/controller/app_ctrl.dart';
-import '../../../core/controller/im_ctrl.dart';
+import '../../../core/ctrl/app_ctrl.dart';
+import '../../../core/ctrl/im_ctrl.dart';
 import '../../conversation/conversation_logic.dart';
 
 import 'dart:convert';

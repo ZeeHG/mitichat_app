@@ -3,7 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
-import '../core/controller/app_ctrl.dart';
+import '../core/ctrl/app_ctrl.dart';
 
 class MitiView extends StatelessWidget {
   MitiView({super.key, required this.builder});

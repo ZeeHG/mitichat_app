@@ -8,7 +8,7 @@ import 'package:miti_common/miti_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sprintf/sprintf.dart';
 
-import '../../../../../core/controller/im_ctrl.dart';
+import '../../../../../core/ctrl/im_ctrl.dart';
 import '../../../../../routes/app_navigator.dart';
 import '../group_member_list_logic.dart';
 

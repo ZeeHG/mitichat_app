@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../../../core/controller/im_ctrl.dart';
+import '../../../core/ctrl/im_ctrl.dart';
 import 'my_info_logic.dart';
 
 class MyInfoPage extends StatelessWidget {

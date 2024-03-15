@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 import 'discover_logic.dart';
-import 'package:miti/core/controller/im_ctrl.dart';
+import 'package:miti/core/ctrl/im_ctrl.dart';
 
 class DiscoverPage extends StatelessWidget {
   final logic = Get.find<DiscoverLogic>();

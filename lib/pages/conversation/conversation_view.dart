@@ -4,7 +4,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
-import 'package:miti/core/controller/im_ctrl.dart';
+import 'package:miti/core/ctrl/im_ctrl.dart';
 import 'package:miti/pages/home/home_logic.dart';
 import 'package:miti/utils/ai_util.dart';
 import 'package:miti_common/miti_common.dart';

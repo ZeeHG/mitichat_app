@@ -8,8 +8,8 @@ import 'package:miti/utils/account_util.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-import '../../core/controller/im_ctrl.dart';
-import '../../core/controller/push_ctrl.dart';
+import '../../core/ctrl/im_ctrl.dart';
+import '../../core/ctrl/push_ctrl.dart';
 import '../../routes/app_navigator.dart';
 
 enum LoginType {

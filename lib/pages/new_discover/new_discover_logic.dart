@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:get/get.dart';
-import 'package:miti/core/controller/app_ctrl.dart';
+import 'package:miti/core/ctrl/app_ctrl.dart';
 import 'package:miti_common/miti_common.dart';
 
 import '../../routes/app_navigator.dart';

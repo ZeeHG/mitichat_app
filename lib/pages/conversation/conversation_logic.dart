@@ -11,8 +11,8 @@ import 'package:miti_common/miti_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
-import '../../core/controller/app_ctrl.dart';
-import '../../core/controller/im_ctrl.dart';
+import '../../core/ctrl/app_ctrl.dart';
+import '../../core/ctrl/im_ctrl.dart';
 import '../../core/im_callback.dart';
 import '../../routes/app_navigator.dart';
 import '../contacts/add_by_search/add_by_search_logic.dart';

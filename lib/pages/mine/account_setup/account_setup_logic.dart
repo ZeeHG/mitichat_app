@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 import 'dart:ui';
-import '../../../core/controller/im_ctrl.dart';
+import '../../../core/ctrl/im_ctrl.dart';
 
 class AccountSetupLogic extends GetxController {
   final imCtrl = Get.find<IMCtrl>();

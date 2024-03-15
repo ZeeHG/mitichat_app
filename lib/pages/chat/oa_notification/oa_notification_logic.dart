@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../core/controller/im_ctrl.dart';
+import '../../../core/ctrl/im_ctrl.dart';
 
 class OANotificationLogic extends GetxController {
   late ConversationInfo info;

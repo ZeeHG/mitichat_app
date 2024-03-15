@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:miti/core/controller/im_ctrl.dart';
-import 'package:miti/core/controller/push_ctrl.dart';
+import 'package:miti/core/ctrl/im_ctrl.dart';
+import 'package:miti/core/ctrl/push_ctrl.dart';
 import 'package:miti/pages/mine/mine_logic.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';

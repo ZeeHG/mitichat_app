@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/controller/im_ctrl.dart';
+import '../../core/ctrl/im_ctrl.dart';
 
 class DiscoverLogic extends GetxController {
   final imCtrl = Get.find<IMCtrl>();
