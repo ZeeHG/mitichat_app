@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
@@ -17,8 +18,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: TouchCloseSoftKeyboard(
-        isGradientBg: false,
+      child: KeyboardDismissOnTap(
         child: Stack(
           children: [
             SingleChildScrollView(

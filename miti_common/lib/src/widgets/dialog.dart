@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
@@ -32,7 +33,7 @@ class CustomDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TouchCloseSoftKeyboard(
+    return KeyboardDismissOnTap(
       child: Material(
         color: Colors.transparent,
         child: Center(
@@ -273,7 +274,7 @@ class SuccessDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TouchCloseSoftKeyboard(
+    return KeyboardDismissOnTap(
         child: Scaffold(
             backgroundColor: Colors.transparent,
             body: Center(

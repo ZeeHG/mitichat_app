@@ -12,7 +12,7 @@ class BookMeetingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TouchCloseSoftKeyboard(
+    return KeyboardDismissOnTap(
       child: Scaffold(
         appBar: TitleBar.back(
           title: logic.meetingInfo != null

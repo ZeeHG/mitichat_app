@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:miti_common/miti_common.dart';
 
@@ -298,6 +301,7 @@ class ChatListView extends StatefulWidget {
 class _ChatListViewState extends State<ChatListView> {
   bool _scrollToBottomLoadMore = true;
   bool _scrollToTopLoadMore = true;
+  late StreamSubscription<bool> keyboardSubscription;
 
   bool get _isBottom =>
       widget.controller!.offset >= widget.controller!.position.maxScrollExtent;
@@ -306,6 +310,7 @@ class _ChatListViewState extends State<ChatListView> {
 
   @override
   void dispose() {
+    keyboardSubscription.cancel();
     widget.controller?.removeListener(_scrollListener);
     super.dispose();
   }
@@ -313,7 +318,14 @@ class _ChatListViewState extends State<ChatListView> {
   @override
   void initState() {
     /// 默认加载
+    final keyboardVisibilityController = KeyboardVisibilityController();
     _onScrollToBottomLoadMore();
+    keyboardSubscription =
+        keyboardVisibilityController.onChange.listen((bool visible) {
+      if (!visible) {
+        widget.onTouch?.call();
+      }
+    });
     widget.controller?.addListener(_scrollListener);
     super.initState();
   }
@@ -358,8 +370,7 @@ class _ChatListViewState extends State<ChatListView> {
 
   @override
   Widget build(BuildContext context) {
-    return TouchCloseSoftKeyboard(
-      onTouch: widget.onTouch,
+    return KeyboardDismissOnTap(
       child: Align(
         alignment: Alignment.topCenter,
         child: ListView.builder(

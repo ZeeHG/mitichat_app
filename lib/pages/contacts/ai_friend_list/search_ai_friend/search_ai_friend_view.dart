@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
@@ -13,7 +14,7 @@ class SearchAiFriendPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TouchCloseSoftKeyboard(
+    return KeyboardDismissOnTap(
       child: Scaffold(
         appBar: TitleBar.search(
           focusNode: logic.focusNode,

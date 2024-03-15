@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,7 @@ class BuildTagNotificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChatVoiceRecordLayout(
       onCompleted: logic.sendSoundNotification,
-      builder: (bar) => TouchCloseSoftKeyboard(
+      builder: (bar) => KeyboardDismissOnTap(
         child: Scaffold(
           appBar: TitleBar.back(
             title: StrLibrary.issueNotice,

@@ -12,7 +12,7 @@ class JoinMeetingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TouchCloseSoftKeyboard(
+    return KeyboardDismissOnTap(
       child: Scaffold(
         appBar: TitleBar.back(title: StrLibrary.joinMeeting),
         backgroundColor: Styles.c_F8F9FA,
