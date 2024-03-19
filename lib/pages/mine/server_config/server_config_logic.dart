@@ -76,9 +76,9 @@ class ServerConfigLogic extends GetxController {
       'apiUrl': imApiCtrl.text,
       'wsUrl': imWsCtrl.text,
     });
-    imCtrl.unInitOpenIM();
+    imCtrl.disposeIMSdk();
     HttpUtil.init();
-    await imCtrl.initOpenIM();
+    await imCtrl.initIMSdk();
     IMViews.showToast(StrLibrary.serverSettingTips);
   }
 

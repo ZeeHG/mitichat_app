@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_openim_sdk/flutter_openim_sdk.dart' as openim;
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart' as imSdk;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:livekit_client/livekit_client.dart';
 import 'package:miti_common/miti_common.dart';
@@ -22,7 +22,7 @@ class MeetingMembersSheetView extends StatefulWidget {
     this.isHost = false,
   }) : super(key: key);
   final BehaviorSubject<List<ParticipantTrack>> participantsSubject;
-  final BehaviorSubject<openim.MeetingInfo> meetingInfoChangedSubject;
+  final BehaviorSubject<imSdk.MeetingInfo> meetingInfoChangedSubject;
   final AnimationController? controller;
   final Function()? onInvite;
   final bool isHost;
@@ -35,7 +35,7 @@ class MeetingMembersSheetView extends StatefulWidget {
 class _MeetingMembersSheetViewState extends State<MeetingMembersSheetView> {
   late StreamSubscription _pSub;
   late StreamSubscription _iSub;
-  openim.MeetingInfo? _meetingInfo;
+  imSdk.MeetingInfo? _meetingInfo;
   final List<ParticipantTrack> _participantTracks = [];
 
   List<String> get _disabledMicrophoneUserIDList =>
@@ -152,7 +152,7 @@ class _MeetingMembersSheetViewState extends State<MeetingMembersSheetView> {
   }
 
   _updateMeetingInfo(Map args) => LoadingView.singleton.start(
-      fn: () => openim.OpenIM.iMManager.signalingManager
+      fn: () => imSdk.OpenIM.iMManager.signalingManager
           .signalingUpdateMeetingInfo(info: args));
 
   /// String meetingID, String? streamType, String userID,
@@ -166,7 +166,7 @@ class _MeetingMembersSheetViewState extends State<MeetingMembersSheetView> {
   _updateOpStream(roomID, streamType, userID, mute, muteAll) {
     return LoadingView.singleton.start(
         fn: () =>
-            openim.OpenIM.iMManager.signalingManager.signalingOperateStream(
+            imSdk.OpenIM.iMManager.signalingManager.signalingOperateStream(
               roomID: roomID,
               streamType: streamType,
               userID: userID,

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_openim_sdk/flutter_openim_sdk.dart' as openim;
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart' as imSdk;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:livekit_client/livekit_client.dart';
@@ -189,13 +189,13 @@ abstract class _ParticipantWidgetState<T extends ParticipantWidget>
   // Widgets to show above the info bar
   List<Widget> extraWidgets(bool isScreenShare) => [];
 
-  openim.UserInfo? userInfo;
+  imSdk.UserInfo? userInfo;
 
   void _parseMetadata() {
     try {
       if (widget.participant.metadata == null) return;
       var data = json.decode(widget.participant.metadata!);
-      userInfo = openim.UserInfo.fromJson(data['userInfo']);
+      userInfo = imSdk.UserInfo.fromJson(data['userInfo']);
     } catch (error, stack) {
       Logger.print('$error $stack');
     }

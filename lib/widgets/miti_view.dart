@@ -16,12 +16,12 @@ class MitiView extends StatelessWidget {
       init: AppCtrl(),
       builder: (appCtrl) => FocusDetector(
         onForegroundGained: () {
-          appCtrl.runningBackground(false);
+          appCtrl.handleBackground(false);
           appCommonCtrl.setForeground(true);
           // appCommonCtrl.tryUpdateAppFromCache();
         },
         onForegroundLost: () {
-          appCtrl.runningBackground(true);
+          appCtrl.handleBackground(true);
           appCommonCtrl.setForeground(false);
         },
         child: ScreenUtilInit(

@@ -6,13 +6,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_miti_live_alert/flutter_miti_live_alert.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:just_audio/just_audio.dart';
+// import 'package:just_audio/just_audio.dart';
 import 'package:miti_common/miti_common.dart';
-import 'package:permission_handler/permission_handler.dart';
+// import 'package:permission_handler/permission_handler.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vibration/vibration.dart';
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
 import '../miti_live.dart';
 
@@ -60,7 +61,7 @@ mixin MitiLive {
     signalingSubject.add(CallEvent(CallState.beHangup, info));
   }
 
-  final backgroundSubject = PublishSubject<bool>();
+  final switchBackgroundSub = PublishSubject<bool>();
   final insertSignalingMessageSubject = PublishSubject<CallEvent>();
 
   Function(SignalingMessageEvent)? onSignalingMessage;
@@ -76,23 +77,22 @@ mixin MitiLive {
   /// true:点击了系统桌面的接受按钮，恢复拨号界面后自动接听
   bool _autoPickup = false;
 
-  final _ring = 'assets/audio/live_ring.wav';
-  final _audioPlayer = AudioPlayer(
-    // Handle audio_session events ourselves for the purpose of this demo.
-    handleInterruptions: false,
-    // androidApplyAudioAttributes: false,
-    // handleAudioSessionActivation: false,
-  );
+  // final _ring = 'assets/audio/live_ring.wav';
+  // final _audioPlayer = AudioPlayer(
+  //   // Handle audio_session events ourselves for the purpose of this demo.
+  //   handleInterruptions: false,
+  //   // androidApplyAudioAttributes: false,
+  //   // handleAudioSessionActivation: false,
+  // );
 
   bool get isBusy => MitiLiveClient().isBusy;
 
   onCloseLive() {
     signalingSubject.close();
-    backgroundSubject.close();
     insertSignalingMessageSubject.close();
     roomParticipantDisconnectedSubject.close();
     roomParticipantConnectedSubject.close();
-    _stopSound();
+    _stopBeepAndVibrate();
     FlutterMitiLiveAlert.closeLiveAlert();
   }
 
@@ -100,7 +100,7 @@ mixin MitiLive {
     _signalingListener();
     _insertSignalingMessageListener();
     // 后台通话
-    backgroundSubject.listen((background) {
+    switchBackgroundSub.listen((background) {
       _isRunningBackground = background;
       // 从后台切换到前台，如果还在被call，则拉起通话页面
       if (!_isRunningBackground) {
@@ -207,11 +207,11 @@ mixin MitiLive {
             );
           } else if (event.state == CallState.beRejected) {
             // 被拒绝
-            _stopSound();
+            _stopBeepAndVibrate();
             insertSignalingMessageSubject.add(event);
           } else if (event.state == CallState.beHangup) {
             // 被挂断
-            _stopSound();
+            _stopBeepAndVibrate();
             // 通过挂断方法插入通话时长消息
             // insertSignalingMessageSubject.add(event);
           } else if (event.state == CallState.beCanceled) {
@@ -219,18 +219,18 @@ mixin MitiLive {
             if (_isRunningBackground) {
               FlutterMitiLiveAlert.closeLiveAlert();
             }
-            _stopSound();
+            _stopBeepAndVibrate();
             insertSignalingMessageSubject.add(event);
           } else if (event.state == CallState.beAccepted) {
             // 被接听
-            _stopSound();
+            _stopBeepAndVibrate();
           } else if (event.state == CallState.otherReject ||
               event.state == CallState.otherAccepted) {
             // 被其他设备接听
-            _stopSound();
+            _stopBeepAndVibrate();
           } else if (event.state == CallState.timeout) {
             // 超时无响应
-            _stopSound();
+            _stopBeepAndVibrate();
             insertSignalingMessageSubject.add(event);
             final sessionType = event.data.invitation!.sessionType;
 
@@ -305,11 +305,11 @@ mixin MitiLive {
       },
       onBusyLine: onBusyLine,
       onStartCalling: () {
-        _stopSound();
+        _stopBeepAndVibrate();
       },
       onError: (e, s) => onError(e, s, extMessage: "开始拨打通话错误, call"),
       onRoomDisconnected: () => onRoomDisconnected(signal),
-      onClose: _stopSound,
+      onClose: _stopBeepAndVibrate,
     );
   }
 
@@ -322,7 +322,7 @@ mixin MitiLive {
     });
     Logger.print('onError=====> $error $stack');
     MitiLiveClient().close();
-    _stopSound();
+    _stopBeepAndVibrate();
     if (error is PlatformException) {
       myLogger.e({
         "message": "通话错误详情",
@@ -395,7 +395,7 @@ mixin MitiLive {
   Future<SignalingCertificate> onTapPickup(SignalingInfo signaling) {
     _beCalledEvent = null; // ios bug
     _autoPickup = false;
-    _stopSound();
+    _stopBeepAndVibrate();
     return OpenIM.iMManager.signalingManager
         .signalingAccept(info: signaling)
         .catchError(
@@ -404,14 +404,14 @@ mixin MitiLive {
 
   /// 拒绝
   onTapReject(SignalingInfo signaling) async {
-    _stopSound();
+    _stopBeepAndVibrate();
     insertSignalingMessageSubject.add(CallEvent(CallState.reject, signaling));
     return OpenIM.iMManager.signalingManager.signalingReject(info: signaling);
   }
 
   /// 取消
   onTapCancel(SignalingInfo signaling) async {
-    _stopSound();
+    _stopBeepAndVibrate();
     insertSignalingMessageSubject.add(CallEvent(CallState.cancel, signaling));
     OpenIM.iMManager.signalingManager.signalingCancel(info: signaling);
     return true;
@@ -431,7 +431,7 @@ mixin MitiLive {
         info: signaling..userID = OpenIM.iMManager.userID,
       );
     }
-    _stopSound();
+    _stopBeepAndVibrate();
     insertSignalingMessageSubject.add(CallEvent(
       CallState.hangup,
       signaling,
@@ -441,7 +441,7 @@ mixin MitiLive {
 
   /// 用户繁忙
   onBusyLine() {
-    _stopSound();
+    _stopBeepAndVibrate();
     IMViews.showToast('用户正忙，请稍后再试！');
   }
 
@@ -544,11 +544,12 @@ mixin MitiLive {
 
   /// 播放提示音
   void _playSound({bool vibrate = false}) async {
-    if (!_audioPlayer.playerState.playing) {
-      _audioPlayer.setAsset(_ring, package: 'miti_common');
-      _audioPlayer.setLoopMode(LoopMode.one);
-      _audioPlayer.setVolume(1.0);
-      _audioPlayer.play();
+    // if (!_audioPlayer.playerState.playing) {
+      // _audioPlayer.setAsset(_ring, package: 'miti_common');
+      // _audioPlayer.setLoopMode(LoopMode.one);
+      // _audioPlayer.setVolume(1.0);
+      // _audioPlayer.play();
+      FlutterRingtonePlayer().play(fromAsset: "packages/miti_common/assets/audio/live_ring_loop.wav");
 
       if (vibrate) {
         try {
@@ -562,18 +563,19 @@ mixin MitiLive {
           myLogger.e({"设备不支持震动"});
         }
       }
-    }
+    // }
   }
 
   /// 关闭提示音
-  void _stopSound() async {
-    if (_audioPlayer.playerState.playing) {
-      _audioPlayer.stop();
-    }
+  void _stopBeepAndVibrate() async {
+    // if (_audioPlayer.playerState.playing) {
+    //   _audioPlayer.stop();
+    // }
     try {
+      FlutterRingtonePlayer().stop();
       Vibration.cancel();
     } catch (e) {
-      myLogger.e({"震动关闭失败"});
+      myLogger.e({"message": "震动关闭失败或者铃声关闭失败", "error": e});
     }
   }
 

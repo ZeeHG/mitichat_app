@@ -62,8 +62,8 @@ class Config {
   );
 
   /// 二维码：scheme
-  static const friendScheme = "io.openim.app/addFriend/";
-  static const groupScheme = "io.openim.app/joinGroup/";
+  static const friendScheme = "miti.chat/addFriend/";
+  static const groupScheme = "miti.chat/joinGroup/";
 
   /// ip
   /// web.rentsoft.cn

@@ -120,6 +120,7 @@ dependencies:
   card_swiper: ^3.0.1
   flutter_background: ^1.2.0
   flutter_keyboard_visibility: ^6.0.0
+  flutter_ringtone_player: ^4.0.0+2
 
   #  flutter_openim_unimp:
   #    git:

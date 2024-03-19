@@ -13,6 +13,7 @@ import 'dart:io';
 
 class IMCtrl extends GetxController with IMCallback, MitiLive {
   late Rx<UserFullInfo> userInfo;
+  // 默认 AtAllTag
   late String atAllTag;
 
   @override
@@ -28,10 +29,10 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
     super.onInit();
     onInitLive();
     // Initialize SDK
-    WidgetsBinding.instance.addPostFrameCallback((_) => initOpenIM());
+    WidgetsBinding.instance.addPostFrameCallback((_) => initIMSdk());
   }
 
-  Future<void> unInitOpenIM() async {
+  Future<void> disposeIMSdk() async {
     await OpenIM.iMManager.unInitSDK();
   }
 
@@ -39,7 +40,7 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
     return OpenIM.iMManager.isLogined;
   }
 
-  Future<void> initOpenIM() async {
+  Future<void> initIMSdk() async {
     final initialized = await OpenIM.iMManager.initSDK(
       platformID: IMUtils.getPlatform(),
       apiAddr: Config.imApiUrl,
@@ -76,16 +77,13 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
             userInfo.update((val) {
               val?.nickname = u.nickname;
               val?.faceURL = u.faceURL;
-              // val?.gender = u.gender;
-              // val?.birth = u.birth;
-              // val?.email = u.email;
               val?.remark = u.remark;
               val?.ex = u.ex;
               val?.globalRecvMsgOpt = u.globalRecvMsgOpt;
             });
-            // _queryMyFullInfo();
+            queryMyFullInfo();
           },
-          onUserStatusChanged: userStausChanged))
+          onUserStatusChanged: userStatusChanged))
       // Add message listener (remove when not in use)
       ..messageManager.setAdvancedMsgListener(OnAdvancedMsgListener(
           onRecvC2CReadReceipt: recvC2CMessageReadReceipt,
@@ -171,18 +169,17 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
 
   Future login(String userID, String token) async {
     try {
-      var user = await OpenIM.iMManager.login(
+      final user = await OpenIM.iMManager.login(
         userID: userID,
         token: token,
         defaultValue: () async => UserInfo(userID: userID),
       );
       userInfo = UserFullInfo.fromJson(user.toJson()).obs;
-      _queryMyFullInfo();
-      _queryAtAllTag();
+      queryMyFullInfo();
+      _queryConversationAtAllTag();
     } catch (e, s) {
-      Logger.print('e: $e  s:$s');
       myLogger.e({"message": "im登录错误", "error": e, "stack": s});
-      await _handleLoginRepeatError(e);
+      await _handleRepeatLoginError(e);
       // rethrow;
       return Future.error(e, s);
     }
@@ -194,13 +191,13 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
   }
 
   /// @所有人ID
-  void _queryAtAllTag() async {
+  void _queryConversationAtAllTag() async {
     atAllTag = OpenIM.iMManager.conversationManager.atAllTag;
-    // atAllTag = await OpenIM.iMManager.conversationManager.getAtAllTag();
   }
 
-  void _queryMyFullInfo() async {
-    final data = await Apis.queryMyFullInfo();
+  // im+server整合信息
+  Future<void> queryMyFullInfo() async {
+    final data = await Apis.queryMyFullInfo();  
     if (data is UserFullInfo) {
       userInfo.update((val) {
         val?.allowAddFriend = data.allowAddFriend;
@@ -216,10 +213,10 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
     }
   }
 
-  _handleLoginRepeatError(e) async {
+  _handleRepeatLoginError(e) async {
     if (e is PlatformException && e.code == "13002") {
       myLogger
-          .e({"message": "_handleLoginRepeatError, ${json.encode(e)}, 退出登录"});
+          .e({"message": "_handleRepeatLoginError, ${json.encode(e)}, 退出登录"});
       await logout();
       await DataSp.removeLoginCertificate();
     }

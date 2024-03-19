@@ -99,7 +99,7 @@ class ConversationLogic extends GetxController {
         info.recvMsgOpt == 0 &&
         info.unreadCount > 0 &&
         info.latestMsg?.sendID != OpenIM.iMManager.userID) {
-      appCtrl.promptSoundOrNotification(info.latestMsg!);
+      appCtrl.promptNotification(info.latestMsg!);
     }
   }
 

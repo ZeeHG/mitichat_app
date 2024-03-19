@@ -18,10 +18,10 @@ class WorkbenchLogic extends GetxController {
     // refreshList();
     super.onReady();
 
-    final temp = appCtrl.clientConfigMap['discoverPageURL'];
+    final temp = appCtrl.clientConfig['discoverPageURL'];
 
     if (temp == null) {
-      appCtrl.queryClientConfig().then((value) {
+      appCtrl.getClientConfig().then((value) {
         if (value['discoverPageURL'] == null) {
           url.value = 'https://www.openim.io';
         } else {

@@ -7,14 +7,13 @@ import 'package:getuiflut/getuiflut.dart';
 import 'package:miti_common/miti_common.dart';
 
 class PushCtrl extends GetxController {
-  String _platformVersion = 'Unknown';
-  String _payloadInfo = 'Null';
-  String _notificationState = "";
+  // String _payloadInfo = 'Null';
+  // String _notificationState = "";
   String _getClientId = "";
-  String _getDeviceToken = "";
-  String _onReceivePayload = "";
-  String _onReceiveNotificationResponse = "";
-  String _onAppLinkPayLoad = "";
+  // String _getDeviceToken = "";
+  // String _onReceivePayload = "";
+  // String _onReceiveNotificationResponse = "";
+  // String _onAppLinkPayLoad = "";
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> _init() async {
@@ -40,32 +39,32 @@ class PushCtrl extends GetxController {
         });
       },
       onReceiveMessageData: (Map<String, dynamic> msg) async {
-        _payloadInfo = msg['payload'];
+        // _payloadInfo = msg['payload'];
         myLogger.i({"message": "getui onReceiveMessageData", "data": msg});
       },
       onNotificationMessageArrived: (Map<String, dynamic> msg) async {
-        _notificationState = 'Arrived';
+        // _notificationState = 'Arrived';
         myLogger
             .i({"message": "getui onNotificationMessageArrived", "data": msg});
       },
       onNotificationMessageClicked: (Map<String, dynamic> msg) async {
-        _notificationState = 'Clicked';
+        // _notificationState = 'Clicked';
         myLogger
             .i({"message": "getui onNotificationMessageClicked", "data": msg});
       },
       // 注册 DeviceToken 回调
       onRegisterDeviceToken: (String message) async {
-        _getDeviceToken = "$message";
+        // _getDeviceToken = "$message";
         myLogger.i({"message": "getui onRegisterDeviceToken", "data": message});
       },
       // SDK收到透传消息回调
       onReceivePayload: (Map<String, dynamic> message) async {
-        _onReceivePayload = "$message";
+        // _onReceivePayload = "$message";
         myLogger.i({"message": "getui onReceivePayload", "data": message});
       },
       // 点击通知回调
       onReceiveNotificationResponse: (Map<String, dynamic> message) async {
-        _onReceiveNotificationResponse = "$message";
+        // _onReceiveNotificationResponse = "$message";
         myLogger.i({
           "message": "getui onReceiveNotificationResponse",
           "data": message
@@ -73,7 +72,7 @@ class PushCtrl extends GetxController {
       },
       // APPLink中携带的透传payload信息
       onAppLinkPayload: (String message) async {
-        _onAppLinkPayLoad = "$message";
+        // _onAppLinkPayLoad = "$message";
         myLogger.i({"message": "getui onAppLinkPayload", "data": message});
       },
       // 通知服务开启\关闭回调

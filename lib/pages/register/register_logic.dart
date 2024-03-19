@@ -55,7 +55,7 @@ class RegisterLogic extends GetxController {
   void onInit() {
     LoadingView.singleton.start(
       fn: () async {
-        await appCtrl.queryClientConfig();
+        await appCtrl.getClientConfig();
       },
     );
     isAddAccount.value = Get.arguments?['isAddAccount'] ?? false;
@@ -128,8 +128,8 @@ class RegisterLogic extends GetxController {
   }
 
   bool get needInvitationCodeRegister =>
-      null != appCtrl.clientConfigMap['needInvitationCodeRegister'] &&
-      appCtrl.clientConfigMap['needInvitationCodeRegister'] != '0';
+      null != appCtrl.clientConfig['needInvitationCodeRegister'] &&
+      appCtrl.clientConfig['needInvitationCodeRegister'] != '0';
 
   void openCountryCodePicker() async {
     String? code = await IMViews.showCountryCodePicker();

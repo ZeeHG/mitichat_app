@@ -68,7 +68,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
   _getUnreadMsgCount() {
     OpenIM.iMManager.conversationManager.getTotalUnreadMsgCount().then((count) {
       unreadMsgCount.value = int.tryParse(count) ?? 0;
-      appCtrl.showBadge(unreadMsgCount.value);
+      // appCtrl.showBadge(unreadMsgCount.value);
     });
   }
 

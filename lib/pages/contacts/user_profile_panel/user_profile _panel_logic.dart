@@ -115,8 +115,8 @@ class UserProfilePanelLogic extends GetxController {
 
   /// 是否能给非好友发送消息
   bool get allowSendMsgNotFriend =>
-      null == appCtrl.clientConfigMap['allowSendMsgNotFriend'] ||
-      appCtrl.clientConfigMap['allowSendMsgNotFriend'] == '1';
+      null == appCtrl.clientConfig['allowSendMsgNotFriend'] ||
+      appCtrl.clientConfig['allowSendMsgNotFriend'] == '1';
 
   void _getUsersInfo() {
     LoadingView.singleton.start(fn: _requestUsersInfo);

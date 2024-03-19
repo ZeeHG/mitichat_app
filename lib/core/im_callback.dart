@@ -45,10 +45,10 @@ class IMCallback {
   /// 已从黑名单移除
   Function(BlacklistInfo u)? onBlacklistDeleted;
 
-  var recvGroupReadReceiptSubject = BehaviorSubject<GroupMessageReceipt>();
-
   /// upload logs
   Function(int current, int size)? onUploadProgress;
+
+  var recvGroupReadReceiptSubject = BehaviorSubject<GroupMessageReceipt>();
 
   /// 新增会话
   var conversationAddedSubject = BehaviorSubject<List<ConversationInfo>>();
@@ -131,7 +131,7 @@ class IMCallback {
     selfInfoUpdatedSubject.addSafely(u);
   }
 
-  void userStausChanged(UserStatusInfo u) {
+  void userStatusChanged(UserStatusInfo u) {
     userStatusChangedSubject.addSafely(u);
   }
 
@@ -268,7 +268,7 @@ class IMCallback {
   }
 
   void totalUnreadMsgCountChanged(int count) {
-    appCtrl.showBadge(count);
+    // appCtrl.showBadge(count);
     unreadMsgCountEventSubject.addSafely(count);
   }
 

@@ -97,15 +97,15 @@ class AccountUtil extends GetxController {
         "data": {"needReload": needReload, "server": serverWithProtocol}
       });
       // FIXME 一直没有返回
-      // await imCtrl.unInitOpenIM();
-      imCtrl.unInitOpenIM();
+      // await imCtrl.disposeIMSdk();
+      imCtrl.disposeIMSdk();
       await setServerConf(serverWithProtocol);
       HttpUtil.init();
       statusChangeCount.value++;
       // FIXME 需要等到连接成功或者失败回调, 而不是函数执行完。否则无法登录im，只能登录chat。
       // FIXME initOpenIM不会出现超时, 只有login im后才会出现
-      await imCtrl.initOpenIM();
-      await appCtrl.queryClientConfig();
+      await imCtrl.initIMSdk();
+      await appCtrl.getClientConfig();
     }
   }
 
