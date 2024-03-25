@@ -38,8 +38,8 @@ class PreviewSelectedPicturePage extends StatelessWidget {
                   return GestureConfig(
                     inPageView: true,
                     initialScale: 1.0,
-                    maxScale: 5.0,
-                    animationMaxScale: 6.0,
+                    maxScale: 20,
+                    animationMaxScale: 21,
                     initialAlignment: InitialAlignment.center,
                   );
                 },

@@ -215,7 +215,7 @@ abstract class _ParticipantWidgetState<T extends ParticipantWidget>
             activeVideoTrack != null && !activeVideoTrack!.muted
                 ? widget.isZoom
                     ? GestureZoomBox(
-                        maxScale: 5.0,
+                        maxScale: 20,
                         doubleTapScale: 2.0,
                         duration: const Duration(milliseconds: 200),
                         onScaleListener: (v) {

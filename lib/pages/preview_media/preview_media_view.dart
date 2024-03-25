@@ -4,13 +4,14 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
-import 'preview_selected_assets_logic.dart';
+import 'preview_media_logic.dart';
 
-class PreviewSelectedAssetsPage extends StatelessWidget {
-  final logic = Get.find<PreviewSelectedAssetsLogic>();
-  final assetsLogic = Get.arguments['assetsLogic'];
+class PreviewMediaPage extends StatelessWidget {
+  final logic =Get.find<PreviewMediaLogic>();
+  final mediaLogic = Get.arguments['mediaLogic'];
+  bool showDel = Get.arguments['showDel'] ?? false;
 
-  PreviewSelectedAssetsPage({super.key});
+  PreviewMediaPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +20,18 @@ class PreviewSelectedAssetsPage extends StatelessWidget {
             backgroundColor: Styles.c_000000,
             backIconColor: Styles.c_FFFFFF,
             leftTitle:
-                "${logic.reviseIndex + 1}/${assetsLogic.assetsList.length}",
-            leftTitleStyle: Styles.ts_FFFFFF_17sp_semibold,
-            right: StrLibrary.delete.toText
-              ..style = Styles.ts_FFFFFF_17sp_semibold
-              ..onTap = logic.delete,
+                "${logic.reviseIndex + 1}/${mediaLogic.assetsList.length}",
+            leftTitleStyle: Styles.ts_FFFFFF_16sp,
+            right: showDel
+                ? (StrLibrary.delete.toText
+                  ..style = Styles.ts_FFFFFF_16sp
+                  ..onTap = logic.delete)
+                : null,
           ),
           backgroundColor: Styles.c_000000,
           body: ExtendedImageGesturePageView.builder(
             itemBuilder: (BuildContext context, int index) {
-              var entity = assetsLogic.assetsList.elementAt(index);
+              var entity = mediaLogic.assetsList.elementAt(index);
               return ExtendedImage(
                 image: AssetEntityImageProvider(entity),
                 fit: BoxFit.contain,
@@ -37,20 +40,19 @@ class PreviewSelectedAssetsPage extends StatelessWidget {
                   return GestureConfig(
                     inPageView: true,
                     initialScale: 1.0,
-                    maxScale: 5.0,
-                    animationMaxScale: 6.0,
+                    maxScale: 20,
+                    animationMaxScale: 21,
                     initialAlignment: InitialAlignment.center,
                   );
                 },
               );
             },
-            itemCount: assetsLogic.assetsList.length,
+            itemCount: mediaLogic.assetsList.length,
             onPageChanged: (int index) {
               logic.currentIndex.value = index;
             },
             controller: ExtendedPageController(
               initialPage: logic.currentIndex.value,
-              // pageSpacing: 50,
             ),
           ),
         ));

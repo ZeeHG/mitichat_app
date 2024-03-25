@@ -413,7 +413,6 @@ class AppNavigator {
         arguments: {'isAddAccount': isAddAccount, "server": server},
       );
 
-
   static startForgetPassword(
           {bool isAddAccount = false, String server = Config.host}) =>
       Get.toNamed(
@@ -474,13 +473,15 @@ class AppNavigator {
         arguments: {"params": params},
       );
 
-  static startPreviewSelectedAssetsPage({
-    required dynamic assetsLogic,
+  static startPreviewMediaPage({
+    required dynamic mediaLogic,
     required int currentIndex,
+    bool? showDel,
   }) =>
       Get.toNamed(
-        AppRoutes.previewSelectedAssets,
-        arguments: {"assetsLogic": assetsLogic, "currentIndex": currentIndex},
+        AppRoutes.previewMedia,
+        arguments: {"mediaLogic": mediaLogic, "currentIndex": currentIndex, "showDel": showDel
+        },
       );
 
   static startTermsOfServer() => Get.toNamed(AppRoutes.termsOfServer);

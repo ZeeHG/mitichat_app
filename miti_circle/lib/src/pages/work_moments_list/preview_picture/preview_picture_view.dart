@@ -75,7 +75,7 @@ class _PreviewPicturePageState extends State<PreviewPicturePage> {
                 inPageView: true,
                 initialScale: 1.0,
                 maxScale: 12.0,
-                animationMaxScale: 13.0,
+                animationMaxScale: 21,
                 initialAlignment: InitialAlignment.center,
               );
             },
@@ -179,8 +179,8 @@ class _PreviewPicturePageState extends State<PreviewPicturePage> {
 //               return GestureConfig(
 //                 inPageView: true,
 //                 initialScale: 1.0,
-//                 maxScale: 5.0,
-//                 animationMaxScale: 6.0,
+//                 maxScale: 20,
+//                 animationMaxScale: 21,
 //                 initialAlignment: InitialAlignment.center,
 //               );
 //             },

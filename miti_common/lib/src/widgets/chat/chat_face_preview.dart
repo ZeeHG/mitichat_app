@@ -33,8 +33,8 @@ class ChatFacePreview extends StatelessWidget {
             //you must set inPageView true if you want to use ExtendedImageGesturePageView
             inPageView: true,
             initialScale: 1.0,
-            maxScale: 5.0,
-            animationMaxScale: 6.0,
+            maxScale: 20,
+            animationMaxScale: 21,
             initialAlignment: InitialAlignment.center,
           );
         },

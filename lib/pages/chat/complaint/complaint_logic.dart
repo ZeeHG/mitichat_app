@@ -40,9 +40,8 @@ class ComplaintLogic extends GetxController {
     status.value = value;
   }
 
-  previewSelectedPicture(int index) =>
-      AppNavigator.startPreviewSelectedAssetsPage(
-          assetsLogic: this, currentIndex: index);
+  previewSelectedPicture(int index) => AppNavigator.startPreviewMediaPage(
+      mediaLogic: this, currentIndex: index, showDel: true);
 
   bool showAddAssetsBtn(index) =>
       (assetsList.length < maxAssetsCount) &&

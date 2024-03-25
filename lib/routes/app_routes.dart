@@ -50,9 +50,11 @@ abstract class AppRoutes {
   static const searchGroup = '/search_group';
   static const selectContacts = '/select_contacts';
   static const selectContactsFromFriends = '/select_contacts_from_friends';
-  static const selectContactsFromSearchFriends = '/select_contacts_from_search_friends';
+  static const selectContactsFromSearchFriends =
+      '/select_contacts_from_search_friends';
   static const selectContactsFromGroup = '/select_contacts_from_group';
-  static const selectContactsFromSearchGroup = '/select_contacts_from_search_group';
+  static const selectContactsFromSearchGroup =
+      '/select_contacts_from_search_group';
   static const selectContactsFromSearch = '/select_contacts_from_search';
   static const createGroup = '/create_group';
   static const globalSearch = '/global_search';
@@ -78,7 +80,7 @@ abstract class AppRoutes {
   static const phoneEmailChangeDetail = '/phone_email_change_detail';
   static const deleteUser = '/delete_user';
   static const complaint = '/complaint';
-  static const previewSelectedAssets = '/preview_selected_assets';
+  static const previewMedia = '/preview_medias';
   static const termsOfServer = '/terms_of_server';
   static const privacyPolicy = '/privacy_policy';
   static const friendPermissions = '/friend_permissions';

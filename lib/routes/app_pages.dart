@@ -37,8 +37,8 @@ import 'package:miti/pages/mine/phone_email_change/phone_email_change_binding.da
 import 'package:miti/pages/mine/phone_email_change/phone_email_change_view.dart';
 import 'package:miti/pages/mine/phone_email_change_detail/phone_email_change_detail_binding.dart';
 import 'package:miti/pages/mine/phone_email_change_detail/phone_email_change_detail_view.dart';
-import 'package:miti/pages/preview_selected_assets/preview_selected_assets_binding.dart';
-import 'package:miti/pages/preview_selected_assets/preview_selected_assets_view.dart';
+import 'package:miti/pages/preview_media/preview_media_binding.dart';
+import 'package:miti/pages/preview_media/preview_media_view.dart';
 import 'package:miti/pages/privacy_policy/privacy_policy_binding.dart';
 import 'package:miti/pages/privacy_policy/privacy_policy_view.dart';
 import 'package:miti/pages/terms_of_server/terms_of_server_binding.dart';
@@ -597,9 +597,9 @@ class AppPages {
       binding: ComplaintBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.previewSelectedAssets,
-      page: () => PreviewSelectedAssetsPage(),
-      binding: PreviewSelectedAssetsBinding(),
+      name: AppRoutes.previewMedia,
+      page: () => PreviewMediaPage(),
+      binding: PreviewMediaBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.termsOfServer,
