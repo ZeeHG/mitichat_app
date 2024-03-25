@@ -199,62 +199,6 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
           ],
         );
 
-  TitleBar.newDiscover(
-      {super.key,
-      Function()? onScan,
-      Function()? onTapLeft,
-      CustomPopupMenuController? popCtrl,
-      this.backgroundImage,
-      this.center,
-      bool showBottom = true,
-      MediaQueryData? mq})
-      : backgroundColor = Styles.c_FFFFFF,
-        backIconColor = null,
-        showUnderline = false,
-        height = showBottom ? 105.h : 50.h,
-        overBottomBg = IgnorePointer(
-            ignoring: true,
-            child: Container(
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                image:
-                    AssetImage(ImageRes.appHeaderBg3, package: 'miti_common'),
-                fit: BoxFit.cover,
-                alignment: FractionalOffset.topCenter,
-              )),
-            )),
-        bottom = showBottom
-            ? Positioned(
-                top: (mq?.padding.top ?? 30.h) + 55.h,
-                child: FakeSearchBox(
-                  borderRadius: 18.r,
-                ),
-              )
-            : null,
-        left = Container(
-            child: ImageRes.appChat2.toImage
-              ..width = 22.w
-              ..height = 22.h
-              ..onTap = onTapLeft),
-        right = Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            PopButton(
-              popCtrl: popCtrl,
-              menus: [
-                PopMenuInfo(
-                  text: StrLibrary.scan,
-                  icon: ImageRes.appPopMenuScan,
-                  onTap: onScan,
-                )
-              ],
-              child: ImageRes.appAddBlack.toImage
-                ..width = 22.w
-                ..height = 22.h /*..onTap = onClickAddBtn*/,
-            ),
-          ],
-        );
-
   TitleBar.chat(
       {super.key,
       String? title,

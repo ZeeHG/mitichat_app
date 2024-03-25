@@ -33,11 +33,8 @@ class HomePage extends StatelessWidget {
                     switchHomeTab: logic.switchTab, homeTabIndex: logic.index),
                 ContactsPage(
                     switchHomeTab: logic.switchTab, homeTabIndex: logic.index),
-                // WorkbenchPage(),
-                // SizedBox(),
                 XhsPage(),
                 MinePage(),
-                // NewDiscoverPage(),
               ],
             ),
             bottomNavigationBar: SafeArea(

@@ -13,8 +13,6 @@ class HomeBinding extends Bindings {
     Get.lazyPut(() => ConversationLogic(), fenix: true);
     Get.lazyPut(() => ContactsLogic(), fenix: true);
     Get.lazyPut(() => MineLogic(), fenix: true);
-    // Get.lazyPut(() => NewDiscoverLogic());
-    // Get.lazyPut(() => WorkbenchLogic());
     Get.lazyPut(() => XhsLogic(), fenix: true);
   }
 }
