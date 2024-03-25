@@ -568,19 +568,19 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
           ],
         );
 
-  TitleBar.workbench(
-      {super.key,
-      this.showUnderline = false,
-      this.bottom,
-      this.overBottomBg,
-      this.backIconColor,
-      this.backgroundImage})
-      : height = 44.h,
-        backgroundColor = Styles.c_FFFFFF,
-        center = null,
-        left = StrLibrary.workbench.toText
-          ..style = Styles.ts_333333_20sp_semibold,
-        right = null;
+  // TitleBar.workbench(
+  //     {super.key,
+  //     this.showUnderline = false,
+  //     this.bottom,
+  //     this.overBottomBg,
+  //     this.backIconColor,
+  //     this.backgroundImage})
+  //     : height = 44.h,
+  //       backgroundColor = Styles.c_FFFFFF,
+  //       center = null,
+  //       left = StrLibrary.workbench.toText
+  //         ..style = Styles.ts_333333_20sp_semibold,
+  //       right = null;
 
   TitleBar.search(
       {super.key,

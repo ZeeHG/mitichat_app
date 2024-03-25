@@ -44,38 +44,38 @@ class PersonalInfoLogic extends GetxController {
   }
 
   String? get nickname =>
-      IMUtils.emptyStrToNull(userProfilesLogic.userInfo.value.nickname) ??
-      IMUtils.emptyStrToNull(userFullInfo.value.nickname);
+      MitiUtils.emptyStrToNull(userProfilesLogic.userInfo.value.nickname) ??
+      MitiUtils.emptyStrToNull(userFullInfo.value.nickname);
 
   String? get faceURL =>
-      IMUtils.emptyStrToNull(userProfilesLogic.userInfo.value.faceURL) ??
-      IMUtils.emptyStrToNull(userFullInfo.value.faceURL);
+      MitiUtils.emptyStrToNull(userProfilesLogic.userInfo.value.faceURL) ??
+      MitiUtils.emptyStrToNull(userFullInfo.value.faceURL);
 
   bool get isMale =>
       (userProfilesLogic.userInfo.value.gender ?? userFullInfo.value.gender) ==
       1;
 
   String? get englishName =>
-      IMUtils.emptyStrToNull(userFullInfo.value.englishName) ?? '-';
+      MitiUtils.emptyStrToNull(userFullInfo.value.englishName) ?? '-';
 
   int? get _birth =>
       userProfilesLogic.userInfo.value.birth ?? userFullInfo.value.birth;
 
   String? get birth => _birth == null
       ? '-'
-      : DateUtil.formatDateMs(_birth!, format: IMUtils.getTimeFormat1());
+      : DateUtil.formatDateMs(_birth!, format: MitiUtils.getTimeFormat1());
 
   String? get telephone =>
-      IMUtils.emptyStrToNull(userFullInfo.value.telephone) ?? '-';
+      MitiUtils.emptyStrToNull(userFullInfo.value.telephone) ?? '-';
 
   String? get phoneNumber =>
-      IMUtils.emptyStrToNull(userProfilesLogic.userInfo.value.phoneNumber) ??
-      IMUtils.emptyStrToNull(userFullInfo.value.phoneNumber) ??
+      MitiUtils.emptyStrToNull(userProfilesLogic.userInfo.value.phoneNumber) ??
+      MitiUtils.emptyStrToNull(userFullInfo.value.phoneNumber) ??
       '-';
 
   String? get email =>
-      IMUtils.emptyStrToNull(userProfilesLogic.userInfo.value.email) ??
-      IMUtils.emptyStrToNull(userFullInfo.value.email) ??
+      MitiUtils.emptyStrToNull(userProfilesLogic.userInfo.value.email) ??
+      MitiUtils.emptyStrToNull(userFullInfo.value.email) ??
       '-';
 
   clickPhoneNumber() => _callSystemPhone(userFullInfo.value.phoneNumber);
@@ -85,7 +85,7 @@ class PersonalInfoLogic extends GetxController {
   clickEmail() => _callSystemEmail(userFullInfo.value.email);
 
   _callSystemPhone(String? phone) async {
-    final value = IMUtils.emptyStrToNull(phone);
+    final value = MitiUtils.emptyStrToNull(phone);
     if (null != value) {
       final uri = Uri.parse('tel:$value');
       try {
@@ -95,7 +95,7 @@ class PersonalInfoLogic extends GetxController {
   }
 
   _callSystemEmail(String? email) {
-    final value = IMUtils.emptyStrToNull(email);
+    final value = MitiUtils.emptyStrToNull(email);
     if (null != value) {
       final uri = Uri.parse('mailto:$value');
       try {

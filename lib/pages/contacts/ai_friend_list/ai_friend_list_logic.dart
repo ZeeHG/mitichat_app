@@ -77,7 +77,7 @@ class AiFriendListLogic extends GetxController {
               return user;
             }).toList())
         .then((list) => list.where((e) => aiUtil.isAi(e.userID)).toList())
-        .then((list) => IMUtils.convertToAZList(list));
+        .then((list) => MitiUtils.convertToAZList(list));
     onUserIDList(userIDList);
     friendList.assignAll(list.cast<ISUserInfo>());
   }
@@ -116,7 +116,7 @@ class AiFriendListLogic extends GetxController {
 
   void _addUser(Map<String, dynamic> json) {
     final info = ISUserInfo.fromJson(json);
-    friendList.add(IMUtils.setAzPinyinAndTag(info) as ISUserInfo);
+    friendList.add(MitiUtils.setAzPinyinAndTag(info) as ISUserInfo);
 
     // A-Z sort.
     SuspensionUtil.sortListBySuspensionTag(friendList);

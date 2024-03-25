@@ -222,23 +222,22 @@ class AppCtrl extends SuperController {
     if (!onBackground) {
       beepAndVibrate();
     } else {
-      const androidSpecifics =
-          AndroidNotificationDetails('push', 'push',
-              channelDescription: 'message push',
-              importance: Importance.max,
-              priority: Priority.max,
-              playSound: true,
-              enableVibration: true,
-              // 启动后通知要很久才消失
-              // fullScreenIntent: true,
-              silent: false,
-              // 无效
-              channelShowBadge: false,
-              category: AndroidNotificationCategory.message,
-              visibility: NotificationVisibility.public,
-              // 无效
-              number: 0,
-              ticker: 'one message');
+      const androidSpecifics = AndroidNotificationDetails('push', 'push',
+          channelDescription: 'message push',
+          importance: Importance.max,
+          priority: Priority.max,
+          playSound: true,
+          enableVibration: true,
+          // 启动后通知要很久才消失
+          // fullScreenIntent: true,
+          silent: false,
+          // 无效
+          channelShowBadge: false,
+          category: AndroidNotificationCategory.message,
+          visibility: NotificationVisibility.public,
+          // 无效
+          number: 0,
+          ticker: 'one message');
       const NotificationDetails platformSpecifics =
           NotificationDetails(android: androidSpecifics);
 
@@ -250,7 +249,7 @@ class AppCtrl extends SuperController {
         if (message.isTextType) {
           text = message.textElem!.content!;
         } else if (message.isAtTextType) {
-          text = IMUtils.replaceMessageAtMapping(message, {});
+          text = MitiUtils.replaceMessageAtMapping(message, {});
         } else if (message.isQuoteType) {
           text = message.quoteElem?.text ?? text;
         } else if (message.isPictureType) {
@@ -270,8 +269,8 @@ class AppCtrl extends SuperController {
         } else if (message.contentType! >= 1000) {
           // 尝试解析通知类型
           noticeTypeMsgGroupName =
-              IMUtils.parseNtfMap(message)?["group"]?["groupName"];
-          String? str = IMUtils.parseNtf(message, isConversation: true);
+              MitiUtils.parseNtfMap(message)?["group"]?["groupName"];
+          String? str = MitiUtils.parseNtf(message, isConversation: true);
           if (null == str) {
             text = StrLibrary.defaultNotificationTitle;
             myLogger.e({
@@ -332,11 +331,8 @@ class AppCtrl extends SuperController {
             "message": "收到意外通知类型的消息, 消息类型(sessionType: ${message.sessionType})",
             "data": message.toJson(),
           });
-          await notificationPlugin.show(
-              notificationSeq,
-              StrLibrary.defaultNotificationTitle2,
-              text,
-              platformSpecifics,
+          await notificationPlugin.show(notificationSeq,
+              StrLibrary.defaultNotificationTitle2, text, platformSpecifics,
               payload: json.encode(message.toJson()));
         }
       } catch (e, s) {

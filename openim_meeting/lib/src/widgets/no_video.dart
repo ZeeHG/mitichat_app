@@ -39,7 +39,7 @@ class NoVideoAvatarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => null != faceURL &&
-              IMUtils.isUrlValid(faceURL!) ||
+              MitiUtils.isUrlValid(faceURL!) ||
           null != nickname
       ? /*ImageUtil.networkImage(
               url: faceURL!,

@@ -229,7 +229,7 @@ class UserProfilePanelLogic extends GetxController {
 
   /// 禁言时长
   _calMuteTime(int time) {
-    var date = DateUtil.formatDateMs(time, format: IMUtils.getTimeFormat2());
+    var date = DateUtil.formatDateMs(time, format: MitiUtils.getTimeFormat2());
     var now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     var diff = time - now;
     if (diff > 0) {
@@ -256,15 +256,15 @@ class UserProfilePanelLogic extends GetxController {
     if (isGroupMemberPage) {
       if (isFriendship) {
         // if (userInfo.value.nickname != groupUserNickname.value) {
-        //   return '${groupUserNickname.value}(${IMUtils.emptyStrToNull(userInfo.value.remark) ?? userInfo.value.nickname})';
+        //   return '${groupUserNickname.value}(${MitiUtils.emptyStrToNull(userInfo.value.remark) ?? userInfo.value.nickname})';
         // } else {
         //   if (userInfo.value.remark != null &&
         //       userInfo.value.remark!.isNotEmpty) {
-        //     return '${groupUserNickname.value}(${IMUtils.emptyStrToNull(userInfo.value.remark)})';
+        //     return '${groupUserNickname.value}(${MitiUtils.emptyStrToNull(userInfo.value.remark)})';
         //   }
         // }
-        if (null != IMUtils.emptyStrToNull(userInfo.value.remark)) {
-          return '${groupUserNickname.value}(${IMUtils.emptyStrToNull(userInfo.value.remark)})';
+        if (null != MitiUtils.emptyStrToNull(userInfo.value.remark)) {
+          return '${groupUserNickname.value}(${MitiUtils.emptyStrToNull(userInfo.value.remark)})';
         }
       }
       if (groupUserNickname.value.isEmpty) {
@@ -324,7 +324,7 @@ class UserProfilePanelLogic extends GetxController {
       );
 
   void copyID() {
-    IMUtils.copy(text: userInfo.value.userID!);
+    MitiUtils.copy(text: userInfo.value.userID!);
   }
 
   void addFriend() => AppNavigator.startSendVerificationApplication(

@@ -66,6 +66,6 @@ class ChatHistoryFileLogic extends GetxController {
   }
 
   void viewFile(Message message) {
-    IMUtils.previewFile(message);
+    MitiUtils.previewFile(message);
   }
 }

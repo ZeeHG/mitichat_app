@@ -124,7 +124,7 @@ class _ControlsViewState extends State<ControlsView> {
     _callingTimer ??= Timer.periodic(const Duration(seconds: 1), (timer) {
       if (!mounted) return;
       setState(() {
-        _callingDurationStr = IMUtils.seconds2HMS(++_callingDuration);
+        _callingDurationStr = MitiUtils.seconds2HMS(++_callingDuration);
         widget.onCallingDuration?.call(_callingDuration);
       });
     });
@@ -347,7 +347,7 @@ class _ControlsViewState extends State<ControlsView> {
       text = isVideo ? '' : _callingDurationStr;
     }
 
-    String? nickname = IMUtils.emptyStrToNull(widget.userInfo!.remark) ??
+    String? nickname = MitiUtils.emptyStrToNull(widget.userInfo!.remark) ??
         widget.userInfo!.nickname;
     String? faceURL = widget.userInfo!.faceURL;
 

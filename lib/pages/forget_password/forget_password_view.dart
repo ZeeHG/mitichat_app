@@ -21,7 +21,6 @@ class ForgetPasswordPage extends StatelessWidget {
                   ..style = Styles.ts_8443F8_22sp_semibold,
                 29.verticalSpace,
                 InputBox.account(
-                  label: logic.loginController.operateType.name,
                   hintText: logic.loginController.operateType.hintText,
                   code: logic.areaCode.value,
                   onAreaCode:
@@ -32,7 +31,6 @@ class ForgetPasswordPage extends StatelessWidget {
                 ),
                 16.verticalSpace,
                 InputBox.verificationCode(
-                  label: StrLibrary.verificationCode,
                   hintText: StrLibrary.plsEnterVerificationCode,
                   controller: logic.verificationCodeCtrl,
                   onSendVerificationCode: logic.getVerificationCode,

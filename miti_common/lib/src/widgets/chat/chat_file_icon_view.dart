@@ -21,7 +21,7 @@ class ChatFileIconView extends StatelessWidget {
     final isISend = message.sendID == OpenIM.iMManager.userID;
     return Stack(
       children: [
-        IMUtils.fileIcon(fileName).toImage
+        MitiUtils.fileIcon(fileName).toImage
           ..width = 38.w
           ..height = 44.h,
         ChatProgressView(

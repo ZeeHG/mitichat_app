@@ -330,7 +330,7 @@ class _ChatItemViewState extends State<ChatItemView> {
                 ? text
                 : _message.isTextType
                     ? _message.textElem!.content!
-                    : IMUtils.replaceMessageAtMapping(_message, {}),
+                    : MitiUtils.replaceMessageAtMapping(_message, {}),
             config: config.copy(configs: [
               PConfig(
                 textStyle:
@@ -375,7 +375,7 @@ class _ChatItemViewState extends State<ChatItemView> {
       isBubbleBg = true;
       child = ChatText(
         text: _message.atTextElem!.text!,
-        allAtMap: IMUtils.getAtMapping(_message, widget.allAtMap),
+        allAtMap: MitiUtils.getAtMapping(_message, widget.allAtMap),
         patterns: widget.patterns,
         textScaleFactor: widget.textScaleFactor,
         onVisibleTrulyText: widget.onVisibleTrulyText,
@@ -423,7 +423,7 @@ class _ChatItemViewState extends State<ChatItemView> {
       isBubbleBg = true;
       child = ChatText(
         text: _message.quoteElem?.text ?? '',
-        allAtMap: IMUtils.getAtMapping(_message, widget.allAtMap),
+        allAtMap: MitiUtils.getAtMapping(_message, widget.allAtMap),
         patterns: widget.patterns,
         onVisibleTrulyText: widget.onVisibleTrulyText,
         isISend: _isISend,
@@ -474,7 +474,7 @@ class _ChatItemViewState extends State<ChatItemView> {
         );
       }
       // final content = _message.noticeContent;
-      // final isNotice = IMUtils.isNotNullEmptyStr(content);
+      // final isNotice = MitiUtils.isNotNullEmptyStr(content);
       // child = widget.notificationTypeBuilder?.call(context, _message);
       // if (null == child) {
       //   if (isNotice) {
@@ -505,7 +505,7 @@ class _ChatItemViewState extends State<ChatItemView> {
       showLeftNickname: widget.showLeftNickname,
       showRightNickname: widget.showRightNickname,
       timelineStr: widget.timelineStr,
-      timeStr: IMUtils.getChatTimeline(_message.sendTime!, 'HH:mm:ss'),
+      timeStr: MitiUtils.getChatTimeline(_message.sendTime!, 'HH:mm:ss'),
       hasRead: _message.isRead!,
       isSending: _message.status == MessageStatus.sending,
       isSendFailed: _message.status == MessageStatus.failed,
@@ -545,7 +545,7 @@ class _ChatItemViewState extends State<ChatItemView> {
         ? ChatQuoteView(
             quoteMsg: quoteMsg,
             onTap: widget.onTapQuoteMessage,
-            allAtMap: IMUtils.getAtMapping(quoteMsg, widget.allAtMap),
+            allAtMap: MitiUtils.getAtMapping(quoteMsg, widget.allAtMap),
           )
         : null;
   }
@@ -558,7 +558,7 @@ class _ChatItemViewState extends State<ChatItemView> {
           icon: ImageRes.menuCopy,
           text: StrLibrary.menuCopy,
           enabled: true,
-          onTap: () => IMUtils.copy(text: text),
+          onTap: () => MitiUtils.copy(text: text),
         ),
         MenuInfo(
           icon: ImageRes.appMenuUnTranslate,
@@ -628,7 +628,7 @@ class _ChatItemViewState extends State<ChatItemView> {
           icon: ImageRes.menuCopy,
           text: StrLibrary.menuCopy,
           enabled: true,
-          onTap: () => IMUtils.copy(text: text),
+          onTap: () => MitiUtils.copy(text: text),
         ),
         MenuInfo(
           icon: ImageRes.appMenuUnTts,

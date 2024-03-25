@@ -28,10 +28,10 @@ class MeetingDetailLogic extends GetxController {
   String get meetingEndTime => DateUtil.formatDateMs(endTime, format: 'HH:mm');
 
   String get meetingStartDate =>
-      DateUtil.formatDateMs(startTime, format: IMUtils.getTimeFormat1());
+      DateUtil.formatDateMs(startTime, format: MitiUtils.getTimeFormat1());
 
   String get meetingEndDate =>
-      DateUtil.formatDateMs(endTime, format: IMUtils.getTimeFormat1());
+      DateUtil.formatDateMs(endTime, format: MitiUtils.getTimeFormat1());
 
   String get meetingNo => meetingInfo.roomID ?? '';
 
@@ -47,7 +47,7 @@ class MeetingDetailLogic extends GetxController {
   }
 
   void copy() {
-    IMUtils.copy(text: meetingInfo.roomID!);
+    MitiUtils.copy(text: meetingInfo.roomID!);
   }
 
   enterMeeting() =>
@@ -64,7 +64,7 @@ class MeetingDetailLogic extends GetxController {
     Logger.print('metaData duration : $duration');
     final result = await bridge?.selectContacts(2);
     if (result is Map) {
-      final list = IMUtils.convertCheckedListToShare(result.values);
+      final list = MitiUtils.convertCheckedListToShare(result.values);
       await LoadingView.singleton.start(
           fn: () => Future.forEach(
                 list,

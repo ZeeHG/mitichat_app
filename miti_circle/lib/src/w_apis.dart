@@ -55,7 +55,7 @@ class WApis {
         allMetas.add(m[originalKey]!);
       }
       final result = await Future.wait(allMetas.map((e) {
-        final suffix = IMUtils.getSuffix(e);
+        final suffix = MitiUtils.getSuffix(e);
         return OpenIM.iMManager.uploadFile(
           id: const Uuid().v4(),
           filePath: e,

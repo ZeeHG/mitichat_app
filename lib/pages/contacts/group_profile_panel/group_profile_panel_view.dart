@@ -83,7 +83,7 @@ class GroupProfilePanelPage extends StatelessWidget {
                       6.horizontalSpace,
                       DateUtil.formatDateMs(
                         (logic.groupInfo.value.createTime ?? 0),
-                        format: IMUtils.getTimeFormat1(),
+                        format: MitiUtils.getTimeFormat1(),
                       ).toText
                         ..style = Styles.ts_999999_14sp,
                     ],

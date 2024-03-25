@@ -46,7 +46,7 @@ class ChatHistoryMultimediaPage extends StatelessWidget {
           isVideo: !logic.isPicture,
           onTap: (message) {
             final currentIndex = mediaMessages.indexOf(message);
-            IMUtils.previewMediaFile(
+            MitiUtils.previewMediaFile(
                 context: Get.context!,
                 currentIndex: currentIndex,
                 mediaMessages: mediaMessages);

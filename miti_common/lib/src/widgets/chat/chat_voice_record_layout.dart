@@ -124,7 +124,7 @@ class _ChatVoiceRecordLayoutState extends State<ChatVoiceRecordLayout> {
                         ),
                         child: Column(
                           children: [
-                            IMUtils.seconds2HMS(sec).toText
+                            MitiUtils.seconds2HMS(sec).toText
                               ..style = Styles.ts_FFFFFF_12sp,
                             Expanded(child: _lottieAnimWidget),
                             (_isCancelSend

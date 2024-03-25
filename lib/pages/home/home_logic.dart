@@ -81,7 +81,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
     var haveReadList = DataSp.getHaveReadUnHandleFriendApplication();
     haveReadList ??= <String>[];
     for (var info in list) {
-      var id = IMUtils.buildFriendApplicationID(info);
+      var id = MitiUtils.buildFriendApplicationID(info);
       if (!haveReadList.contains(id)) {
         if (info.handleResult == 0) i++;
       }
@@ -98,7 +98,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
     var haveReadList = DataSp.getHaveReadUnHandleGroupApplication();
     haveReadList ??= <String>[];
     for (var info in list) {
-      var id = IMUtils.buildGroupApplicationID(info);
+      var id = MitiUtils.buildGroupApplicationID(info);
       if (!haveReadList.contains(id)) {
         if (info.handleResult == 0) i++;
       }
@@ -159,7 +159,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
   }
 
   _localAuth() async {
-    final didAuthenticate = await IMUtils.checkingBiometric(auth);
+    final didAuthenticate = await MitiUtils.checkingBiometric(auth);
     if (didAuthenticate) {
       Get.back();
     }

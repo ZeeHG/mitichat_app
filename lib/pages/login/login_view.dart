@@ -36,7 +36,6 @@ class LoginPage extends StatelessWidget {
                           children: [
                             InputBox.account(
                               autofocus: false,
-                              label: logic.loginType.value.name,
                               hintText: logic.loginType.value.hintText,
                               code: logic.areaCode.value,
                               onAreaCode:
@@ -54,7 +53,6 @@ class LoginPage extends StatelessWidget {
                               offstage: !logic.isPasswordLogin.value,
                               child: InputBox.password(
                                 autofocus: false,
-                                label: StrLibrary.password,
                                 hintText: StrLibrary.plsEnterPassword,
                                 controller: logic.pwdCtrl,
                               ),
@@ -63,7 +61,6 @@ class LoginPage extends StatelessWidget {
                               offstage: logic.isPasswordLogin.value,
                               child: InputBox.verificationCode(
                                 autofocus: false,
-                                label: StrLibrary.verificationCode,
                                 hintText: StrLibrary.plsEnterVerificationCode,
                                 controller: logic.verificationCodeCtrl,
                                 onSendVerificationCode:
@@ -73,7 +70,6 @@ class LoginPage extends StatelessWidget {
                             17.verticalSpace,
                             InputBox(
                               readOnly: true,
-                              label: "",
                               controller: logic.onlyReadServerCtrl,
                               showClearBtn: false,
                             ),

@@ -169,7 +169,7 @@ class WorkMomentsItem extends StatelessWidget {
         padding: EdgeInsets.only(top: 9.h),
         child: sprintf(StrLibrary.mentioned, [
           moments.atUsers!
-              .map((e) => IMUtils.getShowName(e.userID, e.nickname))
+              .map((e) => MitiUtils.getShowName(e.userID, e.nickname))
               .join('、')
         ]).toText
           ..style = Styles.ts_999999_12sp,
@@ -222,7 +222,7 @@ class WorkMomentsItem extends StatelessWidget {
               children: [
                 ...likeUsers
                     .map((e) => TextSpan(
-                          text: IMUtils.getShowName(e.userID, e.nickname),
+                          text: MitiUtils.getShowName(e.userID, e.nickname),
                           style: Styles.ts_9280B3_14sp_medium,
                           recognizer: TapGestureRecognizer()
                             ..onTap = () => bridge?.viewUserProfile(
@@ -255,7 +255,7 @@ class WorkMomentsItem extends StatelessWidget {
                 child: RichText(
                   textAlign: TextAlign.left,
                   text: TextSpan(
-                    text: IMUtils.getShowName(e.userID, e.nickname),
+                    text: MitiUtils.getShowName(e.userID, e.nickname),
                     style: Styles.ts_9280B3_14sp_medium,
                     recognizer: TapGestureRecognizer()
                       ..onTap = () => bridge?.viewUserProfile(
@@ -271,7 +271,7 @@ class WorkMomentsItem extends StatelessWidget {
                           style: Styles.ts_333333_14sp,
                           children: [
                             TextSpan(
-                              text: IMUtils.getShowName(
+                              text: MitiUtils.getShowName(
                                 e.replyUserID,
                                 e.replyNickname,
                               ),
@@ -350,7 +350,7 @@ class WorkMomentsItem extends StatelessWidget {
     if (metas.length == 1) {
       final isPicture = type == 0;
       final meta = metas.elementAt(0);
-      final url = IMUtils.emptyStrToNull(meta.thumb) ?? meta.original;
+      final url = MitiUtils.emptyStrToNull(meta.thumb) ?? meta.original;
       return Padding(
           padding: EdgeInsets.only(top: 12.h),
           child: ClipRRect(
@@ -361,7 +361,7 @@ class WorkMomentsItem extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () => previewPicture?.call(0, metas),
                       child: ImageUtil.networkImage(
-                          url: IMUtils.isGif(url!)
+                          url: MitiUtils.isGif(url!)
                               ? meta.original!
                               : url.thumbnailAbsoluteString,
                           fit: BoxFit.cover),
@@ -399,7 +399,7 @@ class WorkMomentsItem extends StatelessWidget {
         itemBuilder: (_, index) {
           final isPicture = type == 0;
           final meta = metas.elementAt(index);
-          final url = IMUtils.emptyStrToNull(meta.thumb) ?? meta.original;
+          final url = MitiUtils.emptyStrToNull(meta.thumb) ?? meta.original;
           if (isPicture) {
             return ClipRRect(
                 borderRadius: BorderRadius.circular(6.r),
@@ -408,7 +408,7 @@ class WorkMomentsItem extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () => previewPicture?.call(index, metas),
                     child: ImageUtil.networkImage(
-                        url: IMUtils.isGif(url!)
+                        url: MitiUtils.isGif(url!)
                             ? meta.original!
                             : url.thumbnailAbsoluteString,
                         fit: BoxFit.cover),

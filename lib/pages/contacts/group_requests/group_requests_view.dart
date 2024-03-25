@@ -101,7 +101,7 @@ class GroupRequestsPage extends StatelessWidget {
                           ),
                         ),
                       // 4.verticalSpace,
-                      if (null != IMUtils.emptyStrToNull(info.reqMsg))
+                      if (null != MitiUtils.emptyStrToNull(info.reqMsg))
                         Padding(
                           padding: EdgeInsets.only(top: 4.h),
                           child: sprintf(StrLibrary.applyReason, [info.reqMsg!])

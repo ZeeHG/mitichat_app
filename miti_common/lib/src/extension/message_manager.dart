@@ -122,7 +122,7 @@ extension MessageExt on Message {
       try {
         final map = json.decode(notificationElem!.detail!);
         final ntf = GroupNotification.fromJson(map);
-        return IMUtils.isNotNullEmptyStr(ntf.group?.notification);
+        return MitiUtils.isNotNullEmptyStr(ntf.group?.notification);
       } catch (e, s) {
         Logger.print('$e $s');
       }

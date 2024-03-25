@@ -57,7 +57,7 @@ class _ChatQuoteContentView extends StatelessWidget {
           final url1 = picture.snapshotPicture?.url;
           final url2 = picture.sourcePicture?.url;
           final url = url1 ?? url2;
-          if (IMUtils.isUrlValid(url)) {
+          if (MitiUtils.isUrlValid(url)) {
             child = ImageUtil.networkImage(
               url: url!,
               width: 32.w,
@@ -95,9 +95,9 @@ class _ChatQuoteContentView extends StatelessWidget {
         final file = message.fileElem;
         if (null != file) {
           final name = file.fileName ?? '';
-          final size = IMUtils.formatBytes(file.fileSize ?? 0);
+          final size = MitiUtils.formatBytes(file.fileSize ?? 0);
           content = '$name($size)';
-          child = IMUtils.fileIcon(name).toImage
+          child = MitiUtils.fileIcon(name).toImage
             ..width = 26.w
             ..height = 30.h;
         }

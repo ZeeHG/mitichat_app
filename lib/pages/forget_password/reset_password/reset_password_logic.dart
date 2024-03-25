@@ -38,7 +38,7 @@ class ResetPasswordLogic extends GetxController {
   }
 
   bool _checkingInput() {
-    if (!IMUtils.isValidPassword(pwdCtrl.text)) {
+    if (!MitiUtils.isValidPassword(pwdCtrl.text)) {
       IMViews.showToast(StrLibrary.wrongPasswordFormat);
       return false;
     } else if (pwdCtrl.text != pwdAgainCtrl.text) {

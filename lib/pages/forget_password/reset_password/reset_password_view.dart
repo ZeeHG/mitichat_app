@@ -20,18 +20,16 @@ class ResetPasswordPage extends StatelessWidget {
                   ..style = Styles.ts_8443F8_22sp_semibold,
                 29.verticalSpace,
                 InputBox.password(
-                  label: StrLibrary.password,
                   hintText: StrLibrary.plsEnterPassword,
                   controller: logic.pwdCtrl,
                   formatHintText: StrLibrary.loginPwdFormat,
-                  inputFormatters: [IMUtils.getPasswordFormatter()],
+                  inputFormatters: [MitiUtils.getPasswordFormatter()],
                 ),
                 17.verticalSpace,
                 InputBox.password(
-                  label: StrLibrary.confirmPassword,
                   hintText: StrLibrary.plsConfirmPasswordAgain,
                   controller: logic.pwdAgainCtrl,
-                  inputFormatters: [IMUtils.getPasswordFormatter()],
+                  inputFormatters: [MitiUtils.getPasswordFormatter()],
                 ),
                 129.verticalSpace,
                 Button(

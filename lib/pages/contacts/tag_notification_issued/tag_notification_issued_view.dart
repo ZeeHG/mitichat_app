@@ -130,8 +130,8 @@ class TagNotificationIssuedPage extends StatelessWidget {
             child: DateUtil.formatDateMs(
               ntf.sendTime ?? 0,
               format: dt.isThisYear
-                  ? IMUtils.getTimeFormat3()
-                  : IMUtils.getTimeFormat2(),
+                  ? MitiUtils.getTimeFormat3()
+                  : MitiUtils.getTimeFormat2(),
             ).toText
               ..style = Styles.ts_999999_14sp,
           ),

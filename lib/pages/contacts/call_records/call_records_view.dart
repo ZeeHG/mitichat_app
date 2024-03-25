@@ -80,7 +80,7 @@ class CallRecordsPage extends StatelessWidget {
                         ..style = (records.success
                             ? Styles.ts_333333_17sp
                             : Styles.ts_FF4E4C_17sp),
-                      '[${records.type == 'video' ? StrLibrary.callVideo : StrLibrary.callVoice}]${IMUtils.getChatTimeline(records.date)}'
+                      '[${records.type == 'video' ? StrLibrary.callVideo : StrLibrary.callVoice}]${MitiUtils.getChatTimeline(records.date)}'
                           .toText
                         ..style = (records.success
                             ? Styles.ts_333333_14sp
@@ -89,7 +89,7 @@ class CallRecordsPage extends StatelessWidget {
                   ),
                 ),
                 (records.success
-                        ? IMUtils.seconds2HMS(records.duration)
+                        ? MitiUtils.seconds2HMS(records.duration)
                         : (records.incomingCall
                             ? StrLibrary.incomingCall
                             : StrLibrary.outgoingCall))

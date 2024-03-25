@@ -45,7 +45,6 @@ class ChangeBotInfoPage extends StatelessWidget {
                 Container(
                   color: Styles.c_FFFFFF,
                   child: InputBox(
-                    label: "",
                     controller: logic.name,
                     border: false,
                     textStyle: Styles.ts_333333_14sp,

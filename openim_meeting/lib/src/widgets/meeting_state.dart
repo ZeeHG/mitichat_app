@@ -124,7 +124,7 @@ abstract class MeetingViewState<T extends MeetingView> extends State<T> {
     // Logger.print('metaData duration : $duration');
     final result = await PackageBridge.selectContactsBridge?.selectContacts(2);
     if (result is Map) {
-      final list = IMUtils.convertCheckedListToShare(result.values);
+      final list = MitiUtils.convertCheckedListToShare(result.values);
 
       await LoadingView.singleton.start(
           fn: () => Future.forEach(

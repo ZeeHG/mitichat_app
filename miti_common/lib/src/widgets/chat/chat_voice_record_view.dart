@@ -38,7 +38,7 @@ class _ChatRecordVoiceViewState extends State<ChatRecordVoiceView> {
     (() async {
       _startTimestamp = 0;
       if (await _audioRecorder.hasPermission()) {
-        _path = '${await IMUtils.createTempDir(dir: _dir)}/${_now()}$_ext';
+        _path = '${await MitiUtils.createTempDir(dir: _dir)}/${_now()}$_ext';
         await _audioRecorder.start(RecordConfig(), path: _path);
         _startTimestamp = _now();
         _timer?.cancel();

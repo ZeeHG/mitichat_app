@@ -90,7 +90,7 @@ class RecentRequestsLogic extends GetxController {
     var haveReadList = DataSp.getHaveReadUnHandleFriendApplication();
     haveReadList ??= <String>[];
     for (var e in list[0]) {
-      var id = IMUtils.buildFriendApplicationID(e);
+      var id = MitiUtils.buildFriendApplicationID(e);
       if (!haveReadList.contains(id)) {
         haveReadList.add(id);
       }
@@ -143,7 +143,7 @@ class RecentRequestsLogic extends GetxController {
       var haveReadList = DataSp.getHaveReadUnHandleGroupApplication();
       haveReadList ??= <String>[];
       for (var a in list[0]) {
-        var id = IMUtils.buildGroupApplicationID(a);
+        var id = MitiUtils.buildGroupApplicationID(a);
         if (!haveReadList.contains(id)) {
           haveReadList.add(id);
         }

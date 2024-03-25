@@ -59,7 +59,7 @@ class _ChatVideoViewState extends State<ChatVideoView> {
   }
 
   Future<bool> _checkingPath() async {
-    var valid = IMUtils.isNotNullEmptyStr(_snapshotPath);
+    var valid = MitiUtils.isNotNullEmptyStr(_snapshotPath);
     if (!valid) {
       return false;
     }
@@ -87,7 +87,7 @@ class _ChatVideoViewState extends State<ChatVideoView> {
         width: _trulyWidth,
         fit: BoxFit.fitWidth,
       );
-    } else if (IMUtils.isNotNullEmptyStr(_snapshotUrl)) {
+    } else if (MitiUtils.isNotNullEmptyStr(_snapshotUrl)) {
       _child = ImageUtil.networkImage(
         url: _snapshotUrl!,
         width: _trulyWidth,
@@ -126,9 +126,9 @@ class _ChatVideoViewState extends State<ChatVideoView> {
                 Positioned(
                   bottom: 2.h,
                   right: 3.w,
-                  child:
-                      IMUtils.seconds2HMS(_message.videoElem!.duration!).toText
-                        ..style = Styles.ts_FFFFFF_12sp,
+                  child: MitiUtils.seconds2HMS(_message.videoElem!.duration!)
+                      .toText
+                    ..style = Styles.ts_FFFFFF_12sp,
                 ),
             ],
           ),

@@ -128,10 +128,10 @@ class SearchChatHistoryLogic extends GetxController {
   }
 
   String calContent(Message message) {
-    String content = IMUtils.parseMsg(message, replaceIdToNickname: true);
+    String content = MitiUtils.parseMsg(message, replaceIdToNickname: true);
     // 左右间距+头像跟名称的间距+头像dax
     var usedWidth = 16.w * 2 + 10.w + 44.w;
-    return IMUtils.calContent(
+    return MitiUtils.calContent(
       content: content,
       key: searchKey.value,
       style: Styles.ts_333333_17sp,

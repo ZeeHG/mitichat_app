@@ -80,7 +80,7 @@ class _ChatPictureViewState extends State<ChatPictureView> {
   }
 
   Future<bool> _checkingPath() async {
-    var valid = IMUtils.isNotNullEmptyStr(_sourcePath);
+    var valid = MitiUtils.isNotNullEmptyStr(_sourcePath);
     if (!valid) {
       return false;
     }
@@ -103,9 +103,9 @@ class _ChatPictureViewState extends State<ChatPictureView> {
     if (widget.isISend &&
         (isValidPath == true || isValidPath == null && await _checkingPath())) {
       _child = _buildPathPicture(path: _sourcePath!);
-    } else if (IMUtils.isNotNullEmptyStr(_snapshotUrl)) {
+    } else if (MitiUtils.isNotNullEmptyStr(_snapshotUrl)) {
       _child = _buildUrlPicture(url: _snapshotUrl!);
-    } else if (IMUtils.isNotNullEmptyStr(_sourceUrl)) {
+    } else if (MitiUtils.isNotNullEmptyStr(_sourceUrl)) {
       _child = _buildUrlPicture(url: _sourceUrl!);
     }
     if (null != _child) {

@@ -197,13 +197,13 @@ class ConversationLogic extends GetxController {
 
       if (null == info.latestMsg) return "";
 
-      final text = IMUtils.parseNtf(info.latestMsg!, isConversation: true);
+      final text = MitiUtils.parseNtf(info.latestMsg!, isConversation: true);
       if (text != null) return text;
       if (info.isSingleChat ||
           info.latestMsg!.sendID == OpenIM.iMManager.userID)
-        return IMUtils.parseMsg(info.latestMsg!, isConversation: true);
+        return MitiUtils.parseMsg(info.latestMsg!, isConversation: true);
 
-      return "${info.latestMsg!.senderNickname}: ${IMUtils.parseMsg(info.latestMsg!, isConversation: true)} ";
+      return "${info.latestMsg!.senderNickname}: ${MitiUtils.parseMsg(info.latestMsg!, isConversation: true)} ";
     } catch (e, s) {
       Logger.print('------e:$e s:$s');
     }
@@ -255,7 +255,7 @@ class ConversationLogic extends GetxController {
 
   /// 时间
   String getTime(ConversationInfo info) {
-    return IMUtils.getChatTimeline(info.latestMsgSendTime!);
+    return MitiUtils.getChatTimeline(info.latestMsgSendTime!);
   }
 
   /// 未读数

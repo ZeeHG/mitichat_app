@@ -77,7 +77,7 @@ class NewMessagePage extends StatelessWidget {
       nickname = comment!.nickname;
       content = comment.content;
       replyNickname =
-          IMUtils.getShowName(comment.replyUserID, comment.replyNickname);
+          MitiUtils.getShowName(comment.replyUserID, comment.replyNickname);
       faceURL = comment.faceURL;
     }
     return Container(

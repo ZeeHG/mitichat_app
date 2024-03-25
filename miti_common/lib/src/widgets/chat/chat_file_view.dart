@@ -47,7 +47,8 @@ class ChatFileView extends StatelessWidget {
                     //   ..style = Styles.ts_333333_16sp
                     //   ..maxLines = 1
                     //   ..overflow = TextOverflow.ellipsis,
-                    IMUtils.formatBytes(message.fileElem?.fileSize ?? 0).toText
+                    MitiUtils.formatBytes(message.fileElem?.fileSize ?? 0)
+                        .toText
                       ..style = Styles.ts_999999_14sp,
                   ],
                 ),
@@ -60,7 +61,7 @@ class ChatFileView extends StatelessWidget {
               ),
               // Stack(
               //   children: [
-              //     IMUtils.fileIcon(fileName).toImage
+              //     MitiUtils.fileIcon(fileName).toImage
               //       ..width = 38.w
               //       ..height = 44.h,
               //     ChatProgressView(

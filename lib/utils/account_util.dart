@@ -209,8 +209,9 @@ class AccountUtil extends GetxController {
         email: email,
         phoneNumber: phoneNumber,
         areaCode: areaCode,
-        password:
-            encryptPwdRequest ? IMUtils.generateMD5(password ?? "")! : password,
+        password: encryptPwdRequest
+            ? MitiUtils.generateMD5(password ?? "")!
+            : password,
         faceURL: imCtrl.userInfo.value.faceURL,
         nickname: imCtrl.userInfo.value.nickname);
     final translateLogic = Get.find<TranslateLogic>();
@@ -303,7 +304,7 @@ class AccountUtil extends GetxController {
         email: email,
         phoneNumber: phoneNumber,
         areaCode: areaCode,
-        password: IMUtils.generateMD5(password ?? "")!,
+        password: MitiUtils.generateMD5(password ?? "")!,
         faceURL: imCtrl.userInfo.value.faceURL,
         nickname: imCtrl.userInfo.value.nickname);
     final translateLogic = Get.find<TranslateLogic>();

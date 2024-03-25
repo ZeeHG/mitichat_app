@@ -69,7 +69,7 @@ class _ChatInputBoxState
 
   // late AnimationController _controller;
   // late Animation<double> _animation;
-  bool get _showQuoteView => IMUtils.isNotNullEmptyStr(widget.quoteContent);
+  bool get _showQuoteView => MitiUtils.isNotNullEmptyStr(widget.quoteContent);
 
   /// 不可使用时的透明度，如禁言开启
   double get _opacity => (widget.enabled ? 1 : .4);

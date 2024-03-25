@@ -57,7 +57,7 @@ class FriendRequestsPage extends StatelessWidget {
                   ..maxLines = 1
                   ..overflow = TextOverflow.ellipsis,
                 4.verticalSpace,
-                if (IMUtils.isNotNullEmptyStr(reason))
+                if (MitiUtils.isNotNullEmptyStr(reason))
                   (reason ?? '').toText
                     ..style = Styles.ts_999999_14sp
                     ..maxLines = 1

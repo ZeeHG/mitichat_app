@@ -71,7 +71,7 @@ class MyInfoPage extends StatelessWidget {
                       label: StrLibrary.birthDay,
                       value: DateUtil.formatDateMs(
                         imCtrl.userInfo.value.birth ?? 0,
-                        format: IMUtils.getTimeFormat1(),
+                        format: MitiUtils.getTimeFormat1(),
                       ),
                       onTap: logic.openDatePicker,
                     ),
@@ -135,7 +135,7 @@ class MyInfoPage extends StatelessWidget {
               else
                 Expanded(
                     flex: 3,
-                    child: (IMUtils.emptyStrToNull(value) ?? '').toText
+                    child: (MitiUtils.emptyStrToNull(value) ?? '').toText
                       ..style = Styles.ts_999999_14sp
                       ..maxLines = 1
                       ..overflow = TextOverflow.ellipsis

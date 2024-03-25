@@ -90,7 +90,7 @@ class ChatMeetingView extends StatelessWidget {
             StrLibrary.meetingStartTimeIs,
             DateUtil.formatDateMs(
               start * 1000,
-              format: IMUtils.getTimeFormat2(),
+              format: MitiUtils.getTimeFormat2(),
             ),
           ),
           2.verticalSpace,

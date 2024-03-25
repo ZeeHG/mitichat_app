@@ -27,7 +27,7 @@ class ChatHintTextView extends StatelessWidget {
           return RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              text: IMUtils.getGroupMemberShowName(ntf.opUser!),
+              text: MitiUtils.getGroupMemberShowName(ntf.opUser!),
               style: Styles.ts_8443F8_12sp,
               recognizer: TapGestureRecognizer()
                 ..onTap = () => bridge?.viewUserProfile(
@@ -52,7 +52,7 @@ class ChatHintTextView extends StatelessWidget {
           return RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              text: IMUtils.getGroupMemberShowName(ntf.opUser!),
+              text: MitiUtils.getGroupMemberShowName(ntf.opUser!),
               style: Styles.ts_8443F8_12sp,
               recognizer: TapGestureRecognizer()
                 ..onTap = () => bridge?.viewUserProfile(
@@ -77,7 +77,7 @@ class ChatHintTextView extends StatelessWidget {
           return RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              text: IMUtils.getGroupMemberShowName(ntf.quitUser!),
+              text: MitiUtils.getGroupMemberShowName(ntf.quitUser!),
               style: Styles.ts_8443F8_12sp,
               recognizer: TapGestureRecognizer()
                 ..onTap = () => bridge?.viewUserProfile(
@@ -101,18 +101,18 @@ class ChatHintTextView extends StatelessWidget {
           final bMap = <String, String>{};
           final infoMap = <String, GroupMembersInfo>{};
           final ntf = InvitedJoinGroupNotification.fromJson(map);
-          // final a = IMUtils.getGroupMemberShowName(ntf.opUser!);
+          // final a = MitiUtils.getGroupMemberShowName(ntf.opUser!);
           // final b = ntf.invitedUserList
-          //     ?.map((e) => IMUtils.getGroupMemberShowName(e))
+          //     ?.map((e) => MitiUtils.getGroupMemberShowName(e))
           //     .toList()
           //     .join('、');
 
           aMap[ntf.opUser!.userID!] =
-              IMUtils.getGroupMemberShowName(ntf.opUser!);
+              MitiUtils.getGroupMemberShowName(ntf.opUser!);
           infoMap[ntf.opUser!.userID!] = ntf.opUser!;
 
           for (var user in ntf.invitedUserList!) {
-            bMap[user.userID!] = IMUtils.getGroupMemberShowName(user);
+            bMap[user.userID!] = MitiUtils.getGroupMemberShowName(user);
             infoMap[user.userID!] = user;
           }
 
@@ -159,19 +159,19 @@ class ChatHintTextView extends StatelessWidget {
           final bMap = <String, String>{};
           final infoMap = <String, GroupMembersInfo>{};
           final ntf = KickedGroupMemeberNotification.fromJson(map);
-          // final a = IMUtils.getGroupMemberShowName(ntf.opUser!);
+          // final a = MitiUtils.getGroupMemberShowName(ntf.opUser!);
           // final a = ntf.opUser!.userID;
           // final b = ntf.kickedUserList
-          //     ?.map((e) => IMUtils.getGroupMemberShowName(e))
+          //     ?.map((e) => MitiUtils.getGroupMemberShowName(e))
           //     .toList()
           //     .join('、');
 
           aMap[ntf.opUser!.userID!] =
-              IMUtils.getGroupMemberShowName(ntf.opUser!);
+              MitiUtils.getGroupMemberShowName(ntf.opUser!);
           infoMap[ntf.opUser!.userID!] = ntf.opUser!;
 
           for (var user in ntf.kickedUserList!) {
-            bMap[user.userID!] = IMUtils.getGroupMemberShowName(user);
+            bMap[user.userID!] = MitiUtils.getGroupMemberShowName(user);
             infoMap[user.userID!] = user;
           }
 
@@ -219,7 +219,7 @@ class ChatHintTextView extends StatelessWidget {
           return RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              text: IMUtils.getGroupMemberShowName(ntf.entrantUser!),
+              text: MitiUtils.getGroupMemberShowName(ntf.entrantUser!),
               style: Styles.ts_8443F8_12sp,
               recognizer: TapGestureRecognizer()
                 ..onTap = () => bridge?.viewUserProfile(
@@ -244,7 +244,7 @@ class ChatHintTextView extends StatelessWidget {
           return RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              text: IMUtils.getGroupMemberShowName(ntf.opUser!),
+              text: MitiUtils.getGroupMemberShowName(ntf.opUser!),
               style: Styles.ts_8443F8_12sp,
               recognizer: TapGestureRecognizer()
                 ..onTap = () => bridge?.viewUserProfile(
@@ -265,8 +265,8 @@ class ChatHintTextView extends StatelessWidget {
       case MessageType.groupOwnerTransferredNotification:
         {
           final ntf = GroupRightsTransferNoticication.fromJson(map);
-          // final a = IMUtils.getGroupMemberShowName(ntf.opUser!);
-          // final b = IMUtils.getGroupMemberShowName(ntf.newGroupOwner!);
+          // final a = MitiUtils.getGroupMemberShowName(ntf.opUser!);
+          // final b = MitiUtils.getGroupMemberShowName(ntf.newGroupOwner!);
           final a = ntf.opUser!.userID;
           final b = ntf.newGroupOwner!.userID;
           final text = sprintf(StrLibrary.transferredGroupNtf, [a, b]);
@@ -278,7 +278,7 @@ class ChatHintTextView extends StatelessWidget {
               final info =
                   text == ntf.opUser!.userID ? ntf.opUser! : ntf.newGroupOwner!;
               children.add(TextSpan(
-                text: IMUtils.getGroupMemberShowName(info),
+                text: MitiUtils.getGroupMemberShowName(info),
                 style: Styles.ts_8443F8_12sp,
                 recognizer: TapGestureRecognizer()
                   ..onTap = () => bridge?.viewUserProfile(
@@ -306,7 +306,7 @@ class ChatHintTextView extends StatelessWidget {
           final ntf = MuteMemberNotification.fromJson(map);
           final a = ntf.opUser!.userID;
           final b = ntf.mutedUser!.userID;
-          final c = IMUtils.mutedTime(ntf.mutedSeconds!);
+          final c = MitiUtils.mutedTime(ntf.mutedSeconds!);
           final text = sprintf(StrLibrary.muteMemberNtf, [b, a, c]);
           final List<InlineSpan> children = <InlineSpan>[];
           text.splitMapJoin(
@@ -316,7 +316,7 @@ class ChatHintTextView extends StatelessWidget {
               final info =
                   text == ntf.opUser!.userID ? ntf.opUser! : ntf.mutedUser!;
               children.add(TextSpan(
-                text: IMUtils.getGroupMemberShowName(info),
+                text: MitiUtils.getGroupMemberShowName(info),
                 style: Styles.ts_8443F8_12sp,
                 recognizer: TapGestureRecognizer()
                   ..onTap = () => bridge?.viewUserProfile(
@@ -353,7 +353,7 @@ class ChatHintTextView extends StatelessWidget {
               final info =
                   text == ntf.opUser!.userID ? ntf.opUser! : ntf.mutedUser!;
               children.add(TextSpan(
-                text: IMUtils.getGroupMemberShowName(info),
+                text: MitiUtils.getGroupMemberShowName(info),
                 style: Styles.ts_8443F8_12sp,
                 recognizer: TapGestureRecognizer()
                   ..onTap = () => bridge?.viewUserProfile(
@@ -383,7 +383,7 @@ class ChatHintTextView extends StatelessWidget {
           return RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              text: IMUtils.getGroupMemberShowName(ntf.opUser!),
+              text: MitiUtils.getGroupMemberShowName(ntf.opUser!),
               style: Styles.ts_8443F8_12sp,
               recognizer: TapGestureRecognizer()
                 ..onTap = () => bridge?.viewUserProfile(
@@ -408,7 +408,7 @@ class ChatHintTextView extends StatelessWidget {
           return RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              text: IMUtils.getGroupMemberShowName(ntf.opUser!),
+              text: MitiUtils.getGroupMemberShowName(ntf.opUser!),
               style: Styles.ts_8443F8_12sp,
               recognizer: TapGestureRecognizer()
                 ..onTap = () => bridge?.viewUserProfile(
@@ -448,7 +448,7 @@ class ChatHintTextView extends StatelessWidget {
         return RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
-            text: IMUtils.getGroupMemberShowName(ntf.opUser!),
+            text: MitiUtils.getGroupMemberShowName(ntf.opUser!),
             style: Styles.ts_8443F8_12sp,
             recognizer: TapGestureRecognizer()
               ..onTap = () => bridge?.viewUserProfile(
@@ -470,7 +470,7 @@ class ChatHintTextView extends StatelessWidget {
         return RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
-            text: IMUtils.getGroupMemberShowName(ntf.opUser!),
+            text: MitiUtils.getGroupMemberShowName(ntf.opUser!),
             style: Styles.ts_8443F8_12sp,
             recognizer: TapGestureRecognizer()
               ..onTap = () => bridge?.viewUserProfile(

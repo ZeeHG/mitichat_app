@@ -186,14 +186,8 @@ import '../pages/mine/unlock_setup/unlock_setup_binding.dart';
 import '../pages/mine/unlock_setup/unlock_setup_view.dart';
 import '../pages/register/register_binding.dart';
 import '../pages/register/register_view.dart';
-import '../pages/register/set_password/set_password_binding.dart';
-import '../pages/register/set_password/set_password_view.dart';
-import '../pages/register/set_self_info/set_self_info_binding.dart';
-import '../pages/register/set_self_info/set_self_info_view.dart';
-import '../pages/register/verify_phone/verify_phone_binding.dart';
-import '../pages/register/verify_phone/verify_phone_view.dart';
-import '../pages/splash/splash_binding.dart';
-import '../pages/splash/splash_view.dart';
+import '../pages/app_splash/app_splash_binding.dart';
+import '../pages/app_splash/app_splash_view.dart';
 import '../pages/discover/discover_binding.dart';
 import '../pages/discover/discover_view.dart';
 import '../pages/chat/oa_notification/oa_notification_binding.dart';
@@ -223,8 +217,8 @@ class AppPages {
   static final routes = <GetPage>[
     _pageBuilder(
       name: AppRoutes.splash,
-      page: () => SplashPage(),
-      binding: SplashBinding(),
+      page: () => AppSplashPage(),
+      binding: AppSplashBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.login,
@@ -506,21 +500,6 @@ class AppPages {
       name: AppRoutes.register,
       page: () => RegisterPage(),
       binding: RegisterBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.verifyPhone,
-      page: () => VerifyPhonePage(),
-      binding: VerifyPhoneBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.setPassword,
-      page: () => SetPasswordPage(),
-      binding: SetPasswordBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.setSelfInfo,
-      page: () => SetSelfInfoPage(),
-      binding: SetSelfInfoBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.forgetPassword,

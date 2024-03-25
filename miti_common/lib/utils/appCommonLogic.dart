@@ -54,7 +54,7 @@ class AppCommonLogic extends GetxController {
         PackageInfo packageInfo = await PackageInfo.fromPlatform();
         final cacheVersion = double.parse(appCacheInfo["version"] ?? '0');
         final curVersion = double.parse(packageInfo!.buildNumber ?? '0');
-        final file = await IMUtils.getFile(path: appCacheInfo["path"]);
+        final file = await MitiUtils.getFile(path: appCacheInfo["path"]);
 
         myLogger.i(
             {"message": "回到前台更新app, apk版本=$cacheVersion, app版本=$curVersion"});

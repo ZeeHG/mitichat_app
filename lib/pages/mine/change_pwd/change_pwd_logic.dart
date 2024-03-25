@@ -26,7 +26,7 @@ class ChangePwdLogic extends GetxController {
       IMViews.showToast(StrLibrary.plsEnterOldPwd);
       return;
     }
-    if (!IMUtils.isValidPassword(newPwdCtrl.text)) {
+    if (!MitiUtils.isValidPassword(newPwdCtrl.text)) {
       IMViews.showToast(StrLibrary.wrongPasswordFormat);
       return;
     }

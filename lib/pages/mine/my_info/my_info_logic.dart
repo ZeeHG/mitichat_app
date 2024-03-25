@@ -142,5 +142,5 @@ class MyInfoLogic extends GetxController {
     }
   }
 
-  static _trimNullStr(String? value) => IMUtils.emptyStrToNull(value);
+  static _trimNullStr(String? value) => MitiUtils.emptyStrToNull(value);
 }

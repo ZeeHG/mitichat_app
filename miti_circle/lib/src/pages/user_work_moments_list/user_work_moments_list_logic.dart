@@ -132,7 +132,7 @@ class UserWorkMomentsListLogic extends GetxController {
   String? getTimelines(WorkMoments moments) {
     int ms = (moments.createTime ?? 0);
     int now = DateTime.now().millisecondsSinceEpoch;
-    final day = IMUtils.getWorkMomentsTimeline(ms);
+    final day = MitiUtils.getWorkMomentsTimeline(ms);
     final days = dayTimelines.values;
     if (!days.contains(day)) {
       dayTimelines[moments] = day;

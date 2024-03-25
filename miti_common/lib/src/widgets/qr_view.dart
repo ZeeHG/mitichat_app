@@ -219,7 +219,7 @@ class _QrcodeViewState extends State<QrcodeView> with TickerProviderStateMixin {
         var groupID = result.substring(Config.groupScheme.length);
         PackageBridge.scanBridge?.scanOutGroupID(groupID);
         // AppNavigator.startSearchAddGroupFromScan(info: GroupInfo(groupID: gid));
-      } else if (IMUtils.isUrlValid(result)) {
+      } else if (MitiUtils.isUrlValid(result)) {
         final uri = Uri.parse(Uri.encodeFull(result));
         if (!await launchUrl(uri)) {
           // throw Exception('Could not launch $uri');

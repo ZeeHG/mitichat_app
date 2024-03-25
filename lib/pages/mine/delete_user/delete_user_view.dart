@@ -54,7 +54,6 @@ class DeleteUserPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(23.r),
                             ),
                             child: InputBox.password(
-                              label: "",
                               hintText: StrLibrary.plsEnterPassword,
                               border: false,
                               controller: logic.pwdCtrl,

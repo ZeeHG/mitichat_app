@@ -149,7 +149,7 @@ class ForwardHintDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final list = IMUtils.convertCheckedListToForwardObj(checkedList);
+    final list = MitiUtils.convertCheckedListToForwardObj(checkedList);
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(

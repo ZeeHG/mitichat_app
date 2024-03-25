@@ -198,7 +198,7 @@ class IMViews {
     CroppedFile? cropFile;
     String? url;
     if (crop && !path.endsWith('.gif')) {
-      cropFile = await IMUtils.uCrop(path);
+      cropFile = await MitiUtils.uCrop(path);
       if (cropFile == null) {
         // 放弃选择
         // return {'path': cropFile?.path ?? path, 'url': url};
@@ -211,7 +211,7 @@ class IMViews {
       if (null != cropFile) {
         Logger.print('-----------crop path: ${cropFile.path}');
         result = await LoadingView.singleton.start(fn: () async {
-          final image = await IMUtils.compressImageAndGetFile(
+          final image = await MitiUtils.compressImageAndGetFile(
               File(cropFile!.path),
               quality: quality);
 
@@ -224,7 +224,7 @@ class IMViews {
       } else {
         Logger.print('-----------source path: $path');
         result = await LoadingView.singleton.start(fn: () async {
-          final image = await IMUtils.compressImageAndGetFile(File(path),
+          final image = await MitiUtils.compressImageAndGetFile(File(path),
               quality: quality);
 
           return OpenIM.iMManager.uploadFile(
@@ -297,7 +297,7 @@ class IMViews {
     }
 
     // if (DateUtil.yearIsEqualByMs(ms, locTimeMs)) {
-    //   final date = IMUtils.formatDateMs(ms, format: 'MM月dd');
+    //   final date = MitiUtils.formatDateMs(ms, format: 'MM月dd');
     //   final one = date.split('月')[0];
     //   final two = date.split('月')[1];
     //   return TextSpan(
@@ -311,7 +311,7 @@ class IMViews {
     //     ],
     //   );
     // }
-    final date = IMUtils.formatDateMs(ms, format: 'MM月dd');
+    final date = MitiUtils.formatDateMs(ms, format: 'MM月dd');
     final one = date.split('月')[0];
     final two = date.split('月')[1];
     return TextSpan(

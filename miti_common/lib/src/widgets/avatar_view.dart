@@ -57,7 +57,7 @@ class AvatarView extends StatelessWidget {
     return null;
   }
 
-  bool get isUrlValid => IMUtils.isUrlValid(url);
+  bool get isUrlValid => MitiUtils.isUrlValid(url);
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,7 @@ class AvatarView extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
       onTap: onTap ??
           ((enabledPreview && isUrlValid)
-              ? () => IMUtils.previewUrlPicture([MediaSource(url!, url!)])
+              ? () => MitiUtils.previewUrlPicture([MediaSource(url!, url!)])
               : null),
       onLongPress: onLongPress,
       child: builder?.call() ??

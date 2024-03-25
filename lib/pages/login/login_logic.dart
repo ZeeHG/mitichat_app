@@ -163,8 +163,8 @@ class LoginLogic extends GetxController {
             if (!checkForm()) {
               return false;
             }
-            final password = IMUtils.emptyStrToNull(pwdCtrl.text);
-            final code = IMUtils.emptyStrToNull(verificationCodeCtrl.text);
+            final password = MitiUtils.emptyStrToNull(pwdCtrl.text);
+            final code = MitiUtils.emptyStrToNull(verificationCodeCtrl.text);
             final isOk = await accountUtil.loginAccount(
                 switchBack: false,
                 serverWithProtocol: server.value,
@@ -209,7 +209,6 @@ class LoginLogic extends GetxController {
               ),
               child: InputBox(
                 autofocus: false,
-                label: "",
                 hintText: StrLibrary.addAccountServerTips,
                 hintStyle: Styles.ts_CCCCCC_14sp,
                 border: false,
@@ -256,7 +255,7 @@ class LoginLogic extends GetxController {
 
   bool checkForm() {
     if (phone?.isNotEmpty == true &&
-        !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
+        !MitiUtils.isMobile(areaCode.value, phoneCtrl.text)) {
       IMViews.showToast(StrLibrary.plsEnterRightPhone);
       return false;
     }
@@ -280,8 +279,8 @@ class LoginLogic extends GetxController {
         return false;
       }
 
-      final password = IMUtils.emptyStrToNull(pwdCtrl.text);
-      final code = IMUtils.emptyStrToNull(verificationCodeCtrl.text);
+      final password = MitiUtils.emptyStrToNull(pwdCtrl.text);
+      final code = MitiUtils.emptyStrToNull(verificationCodeCtrl.text);
       final data = await Apis.login(
         areaCode: areaCode.value,
         phoneNumber: phone,
@@ -305,7 +304,7 @@ class LoginLogic extends GetxController {
           email: email,
           phoneNumber: phone,
           areaCode: areaCode.value,
-          password: IMUtils.generateMD5(password ?? "")!,
+          password: MitiUtils.generateMD5(password ?? "")!,
           faceURL: imCtrl.userInfo.value.faceURL,
           nickname: imCtrl.userInfo.value.nickname);
       Logger.print('im login success');
@@ -337,7 +336,7 @@ class LoginLogic extends GetxController {
 
   Future<bool> getVerificationCode() async {
     if (phone?.isNotEmpty == true &&
-        !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
+        !MitiUtils.isMobile(areaCode.value, phoneCtrl.text)) {
       IMViews.showToast(StrLibrary.plsEnterRightPhone);
       return false;
     }

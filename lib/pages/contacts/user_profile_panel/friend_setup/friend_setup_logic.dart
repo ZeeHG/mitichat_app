@@ -111,8 +111,8 @@ class FriendSetupLogic extends GetxController {
       final customEx = result['customEx'];
       final checkedList = result['checkedList'];
       for (var info in checkedList) {
-        final userID = IMUtils.convertCheckedToUserID(info);
-        final groupID = IMUtils.convertCheckedToGroupID(info);
+        final userID = MitiUtils.convertCheckedToUserID(info);
+        final groupID = MitiUtils.convertCheckedToGroupID(info);
         // 名片消息
         OpenIM.iMManager.messageManager.sendMessage(
           message: await OpenIM.iMManager.messageManager.createCardMessage(

@@ -243,7 +243,7 @@ class _ControlsViewState extends State<ControlsView> {
               visible: !widget.enableFullScreen,
               child: MeetingAppBar(
                 title: _meetingInfo?.meetingName,
-                time: IMUtils.seconds2HMS(_duration),
+                time: MitiUtils.seconds2HMS(_duration),
                 openSpeakerphone: _openSpeakerphone,
                 onMinimize: widget.onMinimize,
                 onEndMeeting: _openCloseMeetingSheet,

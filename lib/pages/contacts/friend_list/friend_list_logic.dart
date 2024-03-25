@@ -51,7 +51,7 @@ class FriendListLogic extends GetxController {
                   : ISUserInfo.fromJson(fullUser.publicInfo!.toJson());
               return user;
             }).toList())
-        .then((list) => IMUtils.convertToAZList(list));
+        .then((list) => MitiUtils.convertToAZList(list));
 
     onUserIDList(userIDList);
     friendList.assignAll(list.cast<ISUserInfo>());
@@ -90,7 +90,7 @@ class FriendListLogic extends GetxController {
 
   void _addUser(Map<String, dynamic> json) {
     final info = ISUserInfo.fromJson(json);
-    friendList.add(IMUtils.setAzPinyinAndTag(info) as ISUserInfo);
+    friendList.add(MitiUtils.setAzPinyinAndTag(info) as ISUserInfo);
 
     // A-Z sort.
     SuspensionUtil.sortListBySuspensionTag(friendList);

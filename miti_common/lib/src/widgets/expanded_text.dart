@@ -30,7 +30,7 @@ class _ExpandedTextState extends State<ExpandedText> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (_, cons) {
-      final tp = IMUtils.getTextPainter(
+      final tp = MitiUtils.getTextPainter(
         widget.text,
         _textStyle,
         maxLines: widget.maxLines,

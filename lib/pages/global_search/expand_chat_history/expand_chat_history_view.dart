@@ -116,7 +116,7 @@ class ExpandChatHistoryPage extends StatelessWidget {
                               ..maxLines = 1
                               ..overflow = TextOverflow.ellipsis)),
                         if (message.sendTime != null)
-                          IMUtils.getChatTimeline(message.sendTime!).toText
+                          MitiUtils.getChatTimeline(message.sendTime!).toText
                             ..style = Styles.ts_999999_14sp,
                       ],
                     ),

@@ -19,16 +19,15 @@ class RegisterPage extends StatelessWidget {
         () => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            (logic.phoneRegister
+            (logic.isPhoneRegister
                     ? StrLibrary.phoneRegister
                     : StrLibrary.emailRegister)
                 .toText
               ..style = Styles.ts_333333_24sp_medium,
             21.verticalSpace,
             InputBox.invitationCode(
-              label: StrLibrary.invitationCode,
               hintText: sprintf(StrLibrary.plsEnterInvitationCode, [
-                logic.needInvitationCodeRegister
+                logic.needInvitationCode
                     ? '(${StrLibrary.required})'
                     : '(${StrLibrary.optional})'
               ]),
@@ -36,38 +35,33 @@ class RegisterPage extends StatelessWidget {
             ),
             16.verticalSpace,
             InputBox(
-              label: StrLibrary.nickname,
               hintText: StrLibrary.plsEnterYourNickname,
               controller: logic.nicknameCtrl,
             ),
             16.verticalSpace,
             InputBox.password(
-              label: StrLibrary.password,
               hintText: StrLibrary.plsEnterPassword,
               controller: logic.pwdCtrl,
               formatHintText: StrLibrary.loginPwdFormat,
-              inputFormatters: [IMUtils.getPasswordFormatter()],
+              inputFormatters: [MitiUtils.getPasswordFormatter()],
             ),
             16.verticalSpace,
             InputBox.password(
-              label: StrLibrary.confirmPassword,
               hintText: StrLibrary.plsConfirmPasswordAgain,
               controller: logic.pwdAgainCtrl,
-              inputFormatters: [IMUtils.getPasswordFormatter()],
+              inputFormatters: [MitiUtils.getPasswordFormatter()],
             ),
             16.verticalSpace,
             InputBox.account(
-              label: logic.operateType.value.name,
               hintText: logic.operateType.value.hintText,
               code: logic.areaCode.value,
               onAreaCode:
-                  logic.phoneRegister ? logic.openCountryCodePicker : null,
+                  logic.isPhoneRegister ? logic.openCountryPicker : null,
               controller:
-                  logic.phoneRegister ? logic.phoneCtrl : logic.emailCtrl,
+                  logic.isPhoneRegister ? logic.phoneCtrl : logic.emailCtrl,
             ),
             16.verticalSpace,
             InputBox.verificationCode(
-              label: StrLibrary.verificationCode,
               hintText: StrLibrary.plsEnterVerificationCode,
               controller: logic.verificationCodeCtrl,
               onSendVerificationCode: logic.getVerificationCode,
@@ -80,7 +74,7 @@ class RegisterPage extends StatelessWidget {
             ),
             10.verticalSpace,
             Button(
-              text: logic.phoneRegister
+              text: logic.isPhoneRegister
                   ? StrLibrary.useEmailRegister
                   : StrLibrary.usePhoneRegister,
               enabledColor: Styles.c_D9DCE3_opacity40,

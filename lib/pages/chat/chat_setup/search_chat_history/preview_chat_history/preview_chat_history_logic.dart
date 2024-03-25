@@ -50,7 +50,7 @@ class PreviewChatHistoryLogic extends GetxController {
 
     final hasMore = list.length == 20;
     controller.insertAllToTop(list);
-    IMUtils.calChatTimeInterval(controller.list);
+    MitiUtils.calChatTimeInterval(controller.list);
     controller.topLoadCompleted(hasMore);
     return hasMore;
   }
@@ -69,7 +69,7 @@ class PreviewChatHistoryLogic extends GetxController {
     final hasMore = list.length == 20;
 
     controller.insertAllToBottom(list);
-    IMUtils.calChatTimeInterval(controller.list);
+    MitiUtils.calChatTimeInterval(controller.list);
     controller.bottomLoadCompleted(hasMore);
     return hasMore;
   }
@@ -91,7 +91,7 @@ class PreviewChatHistoryLogic extends GetxController {
       return;
     }
     if (msg.contentType == MessageType.voice) {}
-    IMUtils.parseClickEvent(msg, messageList: messageList);
+    MitiUtils.parseClickEvent(msg, messageList: messageList);
   }
 
   /// 点击引用消息
@@ -104,7 +104,7 @@ class PreviewChatHistoryLogic extends GetxController {
   }
 
   void copy(Message message) {
-    IMUtils.copy(
+    MitiUtils.copy(
         text: copyTextMap[message.clientMsgID] ?? message.textElem!.content!);
   }
 
@@ -117,7 +117,7 @@ class PreviewChatHistoryLogic extends GetxController {
 
   String? getShowTime(Message message) {
     if (message.exMap['showTime'] == true) {
-      return IMUtils.getChatTimeline(message.sendTime!);
+      return MitiUtils.getChatTimeline(message.sendTime!);
     }
     return null;
   }

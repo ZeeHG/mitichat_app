@@ -274,7 +274,7 @@ mixin MitiLive {
         timeout: 30,
         mediaType: mediaType,
         sessionType: sessionType,
-        platformID: IMUtils.getPlatform(),
+        platformID: MitiUtils.getPlatform(),
         groupID: groupID,
       ),
     );
@@ -545,24 +545,25 @@ mixin MitiLive {
   /// 播放提示音
   void _playSound({bool vibrate = false}) async {
     // if (!_audioPlayer.playerState.playing) {
-      // _audioPlayer.setAsset(_ring, package: 'miti_common');
-      // _audioPlayer.setLoopMode(LoopMode.one);
-      // _audioPlayer.setVolume(1.0);
-      // _audioPlayer.play();
-      FlutterRingtonePlayer().play(fromAsset: "packages/miti_common/assets/audio/live_ring_loop.wav");
+    // _audioPlayer.setAsset(_ring, package: 'miti_common');
+    // _audioPlayer.setLoopMode(LoopMode.one);
+    // _audioPlayer.setVolume(1.0);
+    // _audioPlayer.play();
+    FlutterRingtonePlayer().play(
+        fromAsset: "packages/miti_common/assets/audio/live_ring_loop.wav");
 
-      if (vibrate) {
-        try {
-          int n = 30;
-          List<int> pattern = [
-            0,
-            ...List.generate(n * 2, (index) => index % 2 == 0 ? 1000 : 500)
-          ];
-          Vibration.vibrate(pattern: pattern);
-        } catch (e) {
-          myLogger.e({"设备不支持震动"});
-        }
+    if (vibrate) {
+      try {
+        int n = 30;
+        List<int> pattern = [
+          0,
+          ...List.generate(n * 2, (index) => index % 2 == 0 ? 1000 : 500)
+        ];
+        Vibration.vibrate(pattern: pattern);
+      } catch (e) {
+        myLogger.e({"设备不支持震动"});
       }
+    }
     // }
   }
 

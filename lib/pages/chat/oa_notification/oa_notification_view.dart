@@ -47,7 +47,7 @@ class OANotificationPage extends StatelessWidget {
             height: 15.h,
           ),
           Text(
-            IMUtils.getChatTimeline(message.sendTime!),
+            MitiUtils.getChatTimeline(message.sendTime!),
             style: Styles.ts_999999_10sp,
           ),
           Row(

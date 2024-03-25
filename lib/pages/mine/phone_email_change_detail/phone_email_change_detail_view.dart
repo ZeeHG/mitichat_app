@@ -68,7 +68,6 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                         10.horizontalSpace,
                         Expanded(
                             child: InputBox.account(
-                                label: logic.type.value.name,
                                 hintText: logic.type.value.hintText,
                                 code: logic.areaCode.value,
                                 onAreaCode: logic.isPhone
@@ -99,7 +98,6 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                         10.horizontalSpace,
                         Expanded(
                             child: InputBox.verificationCode(
-                                label: StrLibrary.verificationCode,
                                 hintText: StrLibrary.verificationCode,
                                 controller: logic.verificationCodeCtrl,
                                 onSendVerificationCode:
@@ -126,11 +124,10 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                         10.horizontalSpace,
                         Expanded(
                             child: InputBox.password(
-                                label: StrLibrary.password,
                                 hintText: StrLibrary.curPwd,
                                 controller: logic.pwdCtrl,
                                 inputFormatters: [
-                                  IMUtils.getPasswordFormatter()
+                                  MitiUtils.getPasswordFormatter()
                                 ],
                                 border: false))
                       ],

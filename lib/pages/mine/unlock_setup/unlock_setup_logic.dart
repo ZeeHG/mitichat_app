@@ -46,7 +46,7 @@ class UnlockSetupLogic extends GetxController {
       await DataSp.closeBiometric();
       biometricsEnabled.value = false;
     } else {
-      final didAuthenticate = await IMUtils.checkingBiometric(auth);
+      final didAuthenticate = await MitiUtils.checkingBiometric(auth);
       if (didAuthenticate) {
         await DataSp.openBiometric();
         biometricsEnabled.value = true;

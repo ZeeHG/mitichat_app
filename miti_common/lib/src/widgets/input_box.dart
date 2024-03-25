@@ -17,7 +17,7 @@ enum InputBoxType {
 class InputBox extends StatefulWidget {
   const InputBox.phone(
       {super.key,
-      required this.label,
+      // // this.label,,
       required this.code,
       this.onAreaCode,
       this.controller,
@@ -45,7 +45,7 @@ class InputBox extends StatefulWidget {
 
   InputBox.account(
       {super.key,
-      required this.label,
+      // this.label,
       required this.code,
       this.onAreaCode,
       this.controller,
@@ -73,7 +73,7 @@ class InputBox extends StatefulWidget {
 
   const InputBox.password(
       {super.key,
-      required this.label,
+      // this.label,,
       this.controller,
       this.focusNode,
       this.labelStyle,
@@ -101,7 +101,7 @@ class InputBox extends StatefulWidget {
 
   const InputBox.verificationCode(
       {super.key,
-      required this.label,
+      // this.label,,
       this.onSendVerificationCode,
       this.controller,
       this.focusNode,
@@ -129,7 +129,7 @@ class InputBox extends StatefulWidget {
 
   const InputBox.invitationCode(
       {super.key,
-      required this.label,
+      // this.label,,
       this.controller,
       this.focusNode,
       this.labelStyle,
@@ -157,7 +157,7 @@ class InputBox extends StatefulWidget {
 
   const InputBox(
       {Key? key,
-      required this.label,
+      // this.label,,
       this.controller,
       this.focusNode,
       this.labelStyle,
@@ -189,7 +189,7 @@ class InputBox extends StatefulWidget {
   final TextStyle? codeStyle;
   final TextStyle? formatHintStyle;
   final String code;
-  final String label;
+  // final String? label;
   final String? hintText;
   final String? formatHintText;
   final Color? arrowColor;

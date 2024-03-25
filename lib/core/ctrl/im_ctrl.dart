@@ -42,7 +42,7 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
 
   Future<void> initIMSdk() async {
     final initialized = await OpenIM.iMManager.initSDK(
-      platformID: IMUtils.getPlatform(),
+      platformID: MitiUtils.getPlatform(),
       apiAddr: Config.imApiUrl,
       wsAddr: Config.imWsUrl,
       dataDir: Config.cachePath,
@@ -197,7 +197,7 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
 
   // im+server整合信息
   Future<void> queryMyFullInfo() async {
-    final data = await Apis.queryMyFullInfo();  
+    final data = await Apis.queryMyFullInfo();
     if (data is UserFullInfo) {
       userInfo.update((val) {
         val?.allowAddFriend = data.allowAddFriend;

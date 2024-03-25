@@ -87,7 +87,7 @@ class ProcessGroupRequestsPage extends StatelessWidget {
               ],
             ),
             12.verticalSpace,
-            if (IMUtils.isNotNullEmptyStr(logic.applicationInfo.reqMsg))
+            if (MitiUtils.isNotNullEmptyStr(logic.applicationInfo.reqMsg))
               Container(
                 height: 80.h,
                 width: 343.w,

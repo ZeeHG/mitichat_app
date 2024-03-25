@@ -59,7 +59,7 @@ class FriendRequestsLogic extends GetxController {
     var haveReadList = DataSp.getHaveReadUnHandleFriendApplication();
     haveReadList ??= <String>[];
     for (var e in list[0]) {
-      var id = IMUtils.buildFriendApplicationID(e);
+      var id = MitiUtils.buildFriendApplicationID(e);
       if (!haveReadList.contains(id)) {
         haveReadList.add(id);
       }

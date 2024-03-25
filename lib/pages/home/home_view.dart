@@ -9,8 +9,6 @@ import 'package:miti_common/miti_common.dart';
 import '../contacts/contacts_view.dart';
 import '../conversation/conversation_view.dart';
 import '../mine/mine_view.dart';
-import '../new_discover/new_discover_view.dart';
-import '../workbench/workbench_view.dart';
 import 'home_logic.dart';
 
 class HomePage extends StatelessWidget {

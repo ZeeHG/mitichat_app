@@ -65,7 +65,7 @@ class RecentRequestsPage extends StatelessWidget {
                   ..maxLines = 1
                   ..overflow = TextOverflow.ellipsis,
                 4.verticalSpace,
-                if (IMUtils.isNotNullEmptyStr(reason))
+                if (MitiUtils.isNotNullEmptyStr(reason))
                   (reason ?? '').toText
                     ..style = Styles.ts_999999_14sp
                     ..maxLines = 1
@@ -173,7 +173,7 @@ class RecentRequestsPage extends StatelessWidget {
                           ),
                         ),
                       // 4.verticalSpace,
-                      if (null != IMUtils.emptyStrToNull(info.reqMsg))
+                      if (null != MitiUtils.emptyStrToNull(info.reqMsg))
                         Padding(
                           padding: EdgeInsets.only(top: 4.h),
                           child: sprintf(StrLibrary.applyReason, [info.reqMsg!])

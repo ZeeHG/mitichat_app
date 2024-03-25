@@ -105,7 +105,7 @@ class _MeetingDetailSheetViewState extends State<MeetingDetailSheetView> {
                 sprintf(StrLibrary.meetingStartTimeIs, [
                   DateUtil.formatDateMs(
                     widget.info.startTime! * 1000,
-                    format: IMUtils.getTimeFormat1(),
+                    format: MitiUtils.getTimeFormat1(),
                   )
                 ]).toText
                   ..style = Styles.ts_8E9AB0_17sp,
@@ -178,7 +178,7 @@ class _MeetingDetailSheetViewState extends State<MeetingDetailSheetView> {
 //                 19.verticalSpace,
 //                 GestureDetector(
 //                   behavior: HitTestBehavior.translucent,
-//                   onTap: () => IMUtils.copy(text: info.roomID!),
+//                   onTap: () => MitiUtils.copy(text: info.roomID!),
 //                   child: Row(
 //                     children: [
 //                       sprintf(StrLibrary .meetingNoIs, [info.roomID]).toText
@@ -196,7 +196,7 @@ class _MeetingDetailSheetViewState extends State<MeetingDetailSheetView> {
 //                 sprintf(StrLibrary .meetingStartTimeIs, [
 //                   DateUtil.formatDateMs(
 //                     info.startTime! * 1000,
-//                     format: IMUtils.getTimeFormat1(),
+//                     format: MitiUtils.getTimeFormat1(),
 //                   )
 //                 ]).toText
 //                   ..style = Styles.ts_8E9AB0_17sp,

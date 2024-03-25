@@ -16,7 +16,7 @@ class RegisterLogic extends GetxController {
   final invitationCodeCtrl = TextEditingController();
   final areaCode = "+1".obs;
   final enabled = false.obs;
-  final loginController = Get.find<LoginLogic>();
+  final loginCtrl = Get.find<LoginLogic>();
   final verificationCodeCtrl = TextEditingController();
   final nicknameCtrl = TextEditingController();
   final pwdCtrl = TextEditingController();
@@ -30,14 +30,15 @@ class RegisterLogic extends GetxController {
   final accountUtil = Get.find<AccountUtil>();
   final server = Config.hostWithProtocol.obs;
 
-  bool get phoneRegister => operateType.value == LoginType.phone;
-  String? get email => !phoneRegister ? emailCtrl.text.trim() : null;
-  String? get phone => phoneRegister ? phoneCtrl.text.trim() : null;
-  String? get areaCodeValue => phoneRegister ? areaCode.value : null;
+  bool get isPhoneRegister => operateType.value == LoginType.phone;
+  String? get email => !isPhoneRegister ? emailCtrl.text.trim() : null;
+  String? get phone => isPhoneRegister ? phoneCtrl.text.trim() : null;
+  String? get areaCodeValue => isPhoneRegister ? areaCode.value : null;
   String get verificationCode => verificationCodeCtrl.text.trim();
   String get nickname => nicknameCtrl.text.trim();
   String get password => pwdCtrl.text.trim();
-  String? get invitationCode => IMUtils.emptyStrToNull(invitationCodeCtrl.text);
+  String? get invitationCode =>
+      MitiUtils.emptyStrToNull(invitationCodeCtrl.text);
 
   @override
   void onClose() {
@@ -82,26 +83,24 @@ class RegisterLogic extends GetxController {
   }
 
   _onChanged() {
-    final accountValid = phoneRegister
+    final accountValid = isPhoneRegister
         ? phoneCtrl.text.trim().isNotEmpty
         : emailCtrl.text.trim().isNotEmpty;
-    final invitationCodeValid = needInvitationCodeRegister
-        ? invitationCodeCtrl.text.trim().isNotEmpty
-        : true;
     enabled.value = accountValid &&
-        invitationCodeValid &&
+        checkInvitationCodeValid() &&
         verificationCodeCtrl.text.trim().isNotEmpty &&
         nicknameCtrl.text.trim().isNotEmpty &&
         pwdCtrl.text.trim().isNotEmpty &&
         pwdAgainCtrl.text.trim().isNotEmpty;
   }
 
-  bool _checkingInput() {
-    if (phoneRegister && !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
+  bool checkInput() {
+    if (isPhoneRegister &&
+        !MitiUtils.isMobile(areaCode.value, phoneCtrl.text)) {
       IMViews.showToast(StrLibrary.plsEnterRightPhone);
       return false;
     }
-    if (!phoneRegister && !IMUtils.isEmail(emailCtrl.text)) {
+    if (!isPhoneRegister && !MitiUtils.isEmail(emailCtrl.text)) {
       IMViews.showToast(StrLibrary.plsEnterRightEmail);
       return false;
     }
@@ -113,30 +112,31 @@ class RegisterLogic extends GetxController {
       IMViews.showToast(StrLibrary.plsEnterYourNickname);
       return false;
     }
-    if (!IMUtils.isValidPassword(pwdCtrl.text)) {
+    if (!MitiUtils.isValidPassword(pwdCtrl.text)) {
       IMViews.showToast(StrLibrary.wrongPasswordFormat);
       return false;
     } else if (pwdCtrl.text != pwdAgainCtrl.text) {
       IMViews.showToast(StrLibrary.twicePwdNoSame);
       return false;
     }
-    if (needInvitationCodeRegister && invitationCodeCtrl.text.trim().isEmpty) {
+    if (checkInvitationCodeValid()) {
       IMViews.showToast(StrLibrary.plsEnterInvitationCode2);
       return false;
     }
     return true;
   }
 
-  bool get needInvitationCodeRegister =>
-      null != appCtrl.clientConfig['needInvitationCodeRegister'] &&
-      appCtrl.clientConfig['needInvitationCodeRegister'] != '0';
+  bool get needInvitationCode =>
+      null != appCtrl.clientConfig['needInvitationCode'] &&
+      appCtrl.clientConfig['needInvitationCode'] != '0';
 
-  void openCountryCodePicker() async {
+  bool checkInvitationCodeValid() => needInvitationCode ? invitationCodeCtrl.text.trim().isNotEmpty : true;
+
+  void openCountryPicker() async {
     String? code = await IMViews.showCountryCodePicker();
     if (null != code) areaCode.value = code;
   }
 
-  /// [usedFor] 1：注册，2：重置密码
   Future<bool> requestVerificationCode() => Apis.requestVerificationCode(
         areaCode: areaCodeValue,
         phoneNumber: phone,
@@ -146,17 +146,17 @@ class RegisterLogic extends GetxController {
       );
 
   Future<bool> getVerificationCode() async {
-    if (needInvitationCodeRegister && invitationCodeCtrl.text.trim().isEmpty) {
+    if (checkInvitationCodeValid()) {
       IMViews.showToast(StrLibrary.plsEnterInvitationCode2);
       return false;
     }
-    if (phoneRegister) {
+    if (isPhoneRegister) {
       if (phone?.isEmpty == true) {
         IMViews.showToast(StrLibrary.plsEnterPhoneNumber);
         return false;
       }
       if (phone?.isNotEmpty == true &&
-          !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
+          !MitiUtils.isMobile(areaCode.value, phoneCtrl.text)) {
         IMViews.showToast(StrLibrary.plsEnterRightPhone);
         return false;
       }
@@ -183,41 +183,15 @@ class RegisterLogic extends GetxController {
     pwdCtrl.text = "";
     pwdAgainCtrl.text = "";
     invitationCodeCtrl.text = "";
-    if (phoneRegister) {
+    if (isPhoneRegister) {
       operateType.value = LoginType.email;
     } else {
       operateType.value = LoginType.phone;
     }
   }
 
-  void next() async {
-    if (loginController.operateType == LoginType.phone &&
-        !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-      IMViews.showToast(StrLibrary.plsEnterRightPhone);
-      return;
-    }
-
-    if (loginController.operateType == LoginType.email &&
-        !phoneCtrl.text.isEmail) {
-      IMViews.showToast(StrLibrary.plsEnterRightEmail);
-      return;
-    }
-    final success = await LoadingView.singleton.start(
-      fn: () => requestVerificationCode(),
-    );
-    if (success) {
-      AppNavigator.startVerifyPhone(
-        areaCode: areaCode.value,
-        phoneNumber: phone,
-        email: email,
-        usedFor: 1,
-        invitationCode: invitationCode,
-      );
-    }
-  }
-
   void register() async {
-    if (_checkingInput()) {
+    if (checkInput()) {
       await LoadingView.singleton.start(fn: () async {
         if (!isAddAccount.value) {
           final data = await Apis.register(
@@ -229,19 +203,13 @@ class RegisterLogic extends GetxController {
             verificationCode: verificationCode,
             invitationCode: invitationCode,
           );
-          if (null == IMUtils.emptyStrToNull(data.imToken) ||
-              null == IMUtils.emptyStrToNull(data.chatToken)) {
+          if (null == MitiUtils.emptyStrToNull(data.imToken) ||
+              null == MitiUtils.emptyStrToNull(data.chatToken)) {
             AppNavigator.startLogin();
             return;
           }
-          final account = {
-            "areaCode": areaCodeValue,
-            "phoneNumber": phone,
-            'email': email
-          };
           await DataSp.putLoginCertificate(data);
-          // await DataSp.putMainLoginAccount(account);
-          DataSp.putLoginType(email != null ? 1 : 0);
+          DataSp.putLoginType(!isPhoneRegister ? 1 : 0);
           await imCtrl.login(data.userID, data.imToken);
           await setAccountLoginInfo(
               userID: data.userID,
@@ -250,14 +218,12 @@ class RegisterLogic extends GetxController {
               email: email,
               phoneNumber: phone,
               areaCode: areaCodeValue,
-              password: IMUtils.generateMD5(pwdCtrl.text)!,
+              password: MitiUtils.generateMD5(pwdCtrl.text)!,
               faceURL: imCtrl.userInfo.value.faceURL,
               nickname: imCtrl.userInfo.value.nickname);
-          Logger.print('---------im login success-------');
           translateLogic.init(data.userID);
           ttsLogic.init(data.userID);
           pushCtrl.login(data.userID);
-          Logger.print('---------jpush login success----');
           AppNavigator.startMain();
         } else {
           final isOk = await accountUtil.registerAccount(

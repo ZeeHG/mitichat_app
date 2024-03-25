@@ -72,8 +72,8 @@ class MediaSource {
   MediaSource(this.url, this.thumbnail);
 }
 
-class IMUtils {
-  IMUtils._();
+class MitiUtils {
+  MitiUtils._();
 
   static Future<CroppedFile?> uCrop(String path) {
     return ImageCropper().cropImage(
@@ -106,7 +106,7 @@ class IMUtils {
   }
 
   static bool isGif(String url) {
-    return IMUtils.getSuffix(url).contains("gif");
+    return MitiUtils.getSuffix(url).contains("gif");
   }
 
   static void copy({required String text}) {
@@ -178,7 +178,7 @@ class IMUtils {
   }
 
   static bool isMobile(String areaCode, String mobile) =>
-      (areaCode == '+86' || areaCode == '86') ? isChinaMobile(mobile) : true;
+      (['+86', '86'].contains(areaCode)) ? isChinaMobile(mobile) : true;
 
   /// 获取视频缩略图
   static Future<File> getVideoThumbnail(File file) async {

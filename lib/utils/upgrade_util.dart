@@ -48,11 +48,11 @@
 //         return;
 //       }
 //       Permissions.storage(() async {
-//         var path = await IMUtils.createTempFile(
+//         var path = await MitiUtils.createTempFile(
 //           dir: 'apk',
 //           name: '${packageInfo!.appName}_${upgradeInfoV2!.buildVersionNo}.apk',
 //         );
-//         final file = await IMUtils.getFile(path: path);
+//         final file = await MitiUtils.getFile(path: path);
 //         if (file != null &&
 //             await file.length() == int.parse(upgradeInfoV2!.buildFileSize!)) {
 //           myLogger.i({"message": "从已下载的apk安装"});

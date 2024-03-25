@@ -66,11 +66,11 @@ class PhoneEmailChangeDetailLogic extends GetxController {
   }
 
   bool _checkingInput() {
-    if (isPhone && !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
+    if (isPhone && !MitiUtils.isMobile(areaCode.value, phoneCtrl.text)) {
       IMViews.showToast(StrLibrary.plsEnterRightPhone);
       return false;
     }
-    if (!isPhone && !IMUtils.isEmail(emailCtrl.text)) {
+    if (!isPhone && !MitiUtils.isEmail(emailCtrl.text)) {
       IMViews.showToast(StrLibrary.plsEnterRightEmail);
       return false;
     }
@@ -93,7 +93,7 @@ class PhoneEmailChangeDetailLogic extends GetxController {
         return false;
       }
       if (phone?.isNotEmpty == true &&
-          !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
+          !MitiUtils.isMobile(areaCode.value, phoneCtrl.text)) {
         IMViews.showToast(StrLibrary.plsEnterRightPhone);
         return false;
       }

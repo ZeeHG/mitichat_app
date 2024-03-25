@@ -100,8 +100,9 @@ class GlobalSearchPage extends StatelessWidget {
                 final content = count > 1
                     ? sprintf(StrLibrary.relatedChatHistory, [count])
                     : logic.calContent(message!);
-                final time =
-                    null == sendTime ? null : IMUtils.getChatTimeline(sendTime);
+                final time = null == sendTime
+                    ? null
+                    : MitiUtils.getChatTimeline(sendTime);
                 return _buildItemView(
                   nickname: showName,
                   faceURL: faceURL,
@@ -123,7 +124,7 @@ class GlobalSearchPage extends StatelessWidget {
               children: logic
                   .subList(logic.fileMessageList)
                   .map((e) => _buildItemView(
-                        nickname: IMUtils.calContent(
+                        nickname: MitiUtils.calContent(
                           content: e.fileElem?.fileName ?? '',
                           key: logic.searchKey,
                           style: Styles.ts_333333_16sp,
@@ -133,7 +134,7 @@ class GlobalSearchPage extends StatelessWidget {
                           message: e,
                           downloadProgressView: ChatFileDownloadProgressView(e),
                         ),
-                        // fileIcon: IMUtils.fileIcon(
+                        // fileIcon: MitiUtils.fileIcon(
                         //         e.fileElem?.fileName ?? '')
                         //     .toImage
                         //   ..width = 38.w
@@ -204,7 +205,7 @@ class GlobalSearchPage extends StatelessWidget {
                       : logic.calContent(message!);
                   final time = null == sendTime
                       ? null
-                      : IMUtils.getChatTimeline(sendTime);
+                      : MitiUtils.getChatTimeline(sendTime);
                   return _buildItemView(
                     nickname: showName,
                     faceURL: faceURL,
@@ -234,7 +235,7 @@ class GlobalSearchPage extends StatelessWidget {
                 itemBuilder: (_, index) {
                   final e = logic.fileMessageList.elementAt(index);
                   return _buildItemView(
-                    nickname: IMUtils.calContent(
+                    nickname: MitiUtils.calContent(
                       content: e.fileElem?.fileName ?? '',
                       key: logic.searchKey,
                       style: Styles.ts_333333_16sp,

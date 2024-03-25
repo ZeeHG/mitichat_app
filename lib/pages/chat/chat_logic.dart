@@ -548,7 +548,7 @@ class ChatLogic extends GetxController {
 
   /// 发送文字内容，包含普通内容，引用回复内容，@内容
   void sendTextMsg() async {
-    var content = IMUtils.safeTrim(inputCtrl.text);
+    var content = MitiUtils.safeTrim(inputCtrl.text);
     if (content.isEmpty) return;
     Message message;
     if (curMsgAtUser.isNotEmpty) {
@@ -581,7 +581,7 @@ class ChatLogic extends GetxController {
 
   /// 发送图片
   void sendPicture({required String path}) async {
-    final file = await IMUtils.compressImageAndGetFile(File(path));
+    final file = await MitiUtils.compressImageAndGetFile(File(path));
 
     var message =
         await OpenIM.iMManager.messageManager.createImageMessageFromFullPath(
@@ -673,7 +673,7 @@ class ChatLogic extends GetxController {
     var summaryList = <String>[];
     String title;
     for (var msg in multiSelList) {
-      summaryList.add(IMUtils.createSummary(msg));
+      summaryList.add(MitiUtils.createSummary(msg));
       if (summaryList.length >= 2) break;
     }
     if (isGroupChat) {
@@ -736,8 +736,8 @@ class ChatLogic extends GetxController {
     bool addToUI = true,
   }) {
     log('send : ${json.encode(message)}');
-    userId = IMUtils.emptyStrToNull(userId);
-    groupId = IMUtils.emptyStrToNull(groupId);
+    userId = MitiUtils.emptyStrToNull(userId);
+    groupId = MitiUtils.emptyStrToNull(groupId);
     if (null == userId && null == groupId ||
         userId == userID && userId != null ||
         groupId == groupID && groupId != null) {
@@ -756,7 +756,7 @@ class ChatLogic extends GetxController {
     if (message.isTextType) {
       text = message.textElem!.content!;
     } else if (message.isAtTextType) {
-      text = IMUtils.replaceMessageAtMapping(message, {});
+      text = MitiUtils.replaceMessageAtMapping(message, {});
     } else if (message.isQuoteType) {
       text = message.quoteElem?.text ?? text;
     } else if (message.isPictureType) {
@@ -891,7 +891,7 @@ class ChatLogic extends GetxController {
     } else {
       quoteMsg = message;
       var name = quoteMsg!.senderNickname;
-      quoteContent.value = "$name：${IMUtils.parseMsg(quoteMsg!)}";
+      quoteContent.value = "$name：${MitiUtils.parseMsg(quoteMsg!)}";
       focusNode.requestFocus();
     }
   }
@@ -945,8 +945,8 @@ class ChatLogic extends GetxController {
   //     final customEx = result['customEx'];
   //     final checkedList = result['checkedList'];
   //     for (var info in checkedList) {
-  //       final userID = IMUtils.convertCheckedToUserID(info);
-  //       final groupID = IMUtils.convertCheckedToGroupID(info);
+  //       final userID = MitiUtils.convertCheckedToUserID(info);
+  //       final groupID = MitiUtils.convertCheckedToGroupID(info);
   //       if (customEx is String && customEx.isNotEmpty) {
   //         sendForwardRemarkMsg(customEx, userId: userID, groupId: groupID);
   //       }
@@ -960,15 +960,15 @@ class ChatLogic extends GetxController {
     final result = await AppNavigator.startSelectContacts(
       action: SelAction.forward,
       ex: null != message
-          ? IMUtils.parseMsg(message)
+          ? MitiUtils.parseMsg(message)
           : sprintf(StrLibrary.mergeForwardHint, [multiSelList.length]),
     );
     if (null != result) {
       final customEx = result['customEx'];
       final checkedList = result['checkedList'];
       for (var info in checkedList) {
-        final userID = IMUtils.convertCheckedToUserID(info);
-        final groupID = IMUtils.convertCheckedToGroupID(info);
+        final userID = MitiUtils.convertCheckedToUserID(info);
+        final groupID = MitiUtils.convertCheckedToGroupID(info);
         if (customEx is String && customEx.isNotEmpty) {
           sendForwardRemarkMsg(customEx, userId: userID, groupId: groupID);
         }
@@ -987,7 +987,7 @@ class ChatLogic extends GetxController {
     if (visible &&
         message.contentType! < 1000 &&
         message.contentType! != MessageType.voice) {
-      var data = IMUtils.parseCustomMessage(message);
+      var data = MitiUtils.parseCustomMessage(message);
       if (null != data && data['viewType'] == CustomMessageType.call) {
         return;
       }
@@ -1136,7 +1136,7 @@ class ChatLogic extends GetxController {
 
     if (result != null) {
       for (var file in result.files) {
-        // String? mimeType = IMUtils.getMediaType(file.name);
+        // String? mimeType = MitiUtils.getMediaType(file.name);
         String? mimeType = lookupMimeType(file.name);
         if (mimeType != null) {
           if (mimeType.contains('image/')) {
@@ -1194,11 +1194,11 @@ class ChatLogic extends GetxController {
         case AssetType.video:
           File? file;
           await LoadingView.singleton.start(fn: () async {
-            var thumbnailFile = await IMUtils.getVideoThumbnail(File(path));
-            final file = await IMUtils.compressVideoAndGetFile(File(path));
+            var thumbnailFile = await MitiUtils.getVideoThumbnail(File(path));
+            final file = await MitiUtils.compressVideoAndGetFile(File(path));
             sendVideo(
               videoPath: file!.path,
-              mimeType: asset.mimeType ?? IMUtils.getMediaType(path) ?? '',
+              mimeType: asset.mimeType ?? MitiUtils.getMediaType(path) ?? '',
               duration: asset.duration,
               // duration: mediaInfo.duration?.toInt() ?? 0,
               thumbnailPath: thumbnailFile.path,
@@ -1214,7 +1214,6 @@ class ChatLogic extends GetxController {
 
   /// 处理消息点击事件
   void parseClickEvent(Message msg) async {
-    log('parseClickEvent:${jsonEncode(msg)}');
     if (msg.contentType == MessageType.custom) {
       var data = msg.customElem!.data;
       var map = json.decode(data!);
@@ -1263,7 +1262,7 @@ class ChatLogic extends GetxController {
       return;
     }
 
-    IMUtils.parseClickEvent(
+    MitiUtils.parseClickEvent(
       msg,
       messageList: messageList,
       onViewUserInfo: viewUserInfo,
@@ -1433,18 +1432,18 @@ class ChatLogic extends GetxController {
       content = copyTextMap[message.clientMsgID] ?? message.textElem?.content;
     }
     if (null != content) {
-      IMUtils.copy(text: content);
+      MitiUtils.copy(text: content);
     } else {
       myLogger.e({"message": "复制message内容, 默认方式解析content失败, 使用自定义解析"});
       if (message.isTextType) {
         content = message.textElem!.content!;
       } else if (message.isAtTextType) {
-        content = IMUtils.replaceMessageAtMapping(message, {});
+        content = MitiUtils.replaceMessageAtMapping(message, {});
       } else if (message.isQuoteType) {
         content = message.quoteElem?.text;
       }
       if (null != content) {
-        IMUtils.copy(text: content);
+        MitiUtils.copy(text: content);
       } else {
         IMViews.showToast(StrLibrary.copyFail);
       }
@@ -1531,7 +1530,7 @@ class ChatLogic extends GetxController {
     if (message.isTextType) {
       origin = message.textElem!.content;
     } else if (message.isAtTextType) {
-      origin = IMUtils.replaceMessageAtMapping(message, {});
+      origin = MitiUtils.replaceMessageAtMapping(message, {});
     } else if (message.isQuoteType) {
       origin = message.quoteElem?.text;
     }
@@ -1650,7 +1649,7 @@ class ChatLogic extends GetxController {
   }
 
   Message indexOfMessage(int index, {bool calculate = true}) =>
-      IMUtils.calChatTimeInterval(
+      MitiUtils.calChatTimeInterval(
         messageListV2,
         calculate: calculate,
       ).reversed.elementAt(index);
@@ -1690,7 +1689,7 @@ class ChatLogic extends GetxController {
 
   String? getShowTime(Message message) {
     if (message.exMap['showTime'] == true && !message.isWaitingAiReplayType) {
-      return IMUtils.getChatTimeline(message.sendTime!);
+      return MitiUtils.getChatTimeline(message.sendTime!);
     }
     return null;
   }
@@ -2848,8 +2847,8 @@ class ChatLogic extends GetxController {
       final customEx = result['customEx'];
       final checkedList = result['checkedList'];
       for (var info in checkedList) {
-        final userID = IMUtils.convertCheckedToUserID(info);
-        final groupID = IMUtils.convertCheckedToGroupID(info);
+        final userID = MitiUtils.convertCheckedToUserID(info);
+        final groupID = MitiUtils.convertCheckedToGroupID(info);
         if (customEx is String && customEx.isNotEmpty) {
           // 推荐备注消息
           _sendMessage(

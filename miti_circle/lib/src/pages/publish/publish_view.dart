@@ -158,7 +158,6 @@ class PublishPage extends StatelessWidget {
                         ),
                         child: Center(
                           child: InputBox(
-                            label: "",
                             border: false,
                             hintText: StrLibrary.pleaseInputTitle,
                             controller: logic.titleCtrl,
@@ -185,7 +184,6 @@ class PublishPage extends StatelessWidget {
                           ),
                           child: Center(
                             child: InputBox(
-                              label: "",
                               border: false,
                               hintText: StrLibrary.pleaseInputOriginUrl,
                               controller: logic.originUrlCtrl,
@@ -205,7 +203,6 @@ class PublishPage extends StatelessWidget {
                           ),
                           child: Center(
                             child: InputBox(
-                              label: "",
                               border: false,
                               hintText: StrLibrary.pleaseInputAuthor,
                               controller: logic.authorCtrl,

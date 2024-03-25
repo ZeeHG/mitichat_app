@@ -138,7 +138,7 @@ class HttpUtil {
     // final mf = await MultipartFile.fromFile(path, filename: fileName);
     String? compressPath;
     if (compress) {
-      File? compressFile = await IMUtils.compressImageAndGetFile(File(path));
+      File? compressFile = await MitiUtils.compressImageAndGetFile(File(path));
       compressPath = compressFile?.path;
       Logger.print('compressPath: $compressPath');
     }
@@ -182,7 +182,8 @@ class HttpUtil {
     Function(int count, int total)? onProgress,
   }) async {
     final name = url.substring(url.lastIndexOf('/') + 1);
-    final cachePath = await IMUtils.createTempFile(dir: 'picture', name: name);
+    final cachePath =
+        await MitiUtils.createTempFile(dir: 'picture', name: name);
     var intervalDo = IntervalDo();
 
     return download(
@@ -237,7 +238,7 @@ class HttpUtil {
     Function(int count, int total)? onProgress,
   }) async {
     final name = url.substring(url.lastIndexOf('/') + 1);
-    final cachePath = await IMUtils.createTempFile(dir: 'video', name: name);
+    final cachePath = await MitiUtils.createTempFile(dir: 'video', name: name);
     return download(
       url,
       cachePath: cachePath,

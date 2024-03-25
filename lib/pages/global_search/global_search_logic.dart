@@ -133,8 +133,8 @@ class GlobalSearchLogic extends CommonSearchLogic {
   List<T> subList<T>(List<T> list) =>
       list.sublist(0, list.length > 2 ? 2 : list.length).toList();
 
-  String calContent(Message message) => IMUtils.calContent(
-        content: IMUtils.parseMsg(message, replaceIdToNickname: true),
+  String calContent(Message message) => MitiUtils.calContent(
+        content: MitiUtils.parseMsg(message, replaceIdToNickname: true),
         key: searchKey,
         style: Styles.ts_999999_14sp,
         usedWidth: 80.w + 26.w,
@@ -146,7 +146,7 @@ class GlobalSearchLogic extends CommonSearchLogic {
         faceURL: info.faceURL,
       );
 
-  void viewFile(Message message) => IMUtils.previewFile(message);
+  void viewFile(Message message) => MitiUtils.previewFile(message);
 
   void viewGroup(GroupInfo groupInfo) {
     conversationLogic.toChat(

@@ -39,7 +39,7 @@ class ChatHistoryMultimediaLogic extends GetxController {
         var item = result.searchResultItems!.first;
         messageList.assignAll(item.messageList!);
         groupMessage.assignAll(
-            IMUtils.groupingMessage(item.messageList!.reversed.toList()));
+            MitiUtils.groupingMessage(item.messageList!.reversed.toList()));
       }
     } finally {
       refreshController.refreshCompleted();
@@ -58,7 +58,7 @@ class ChatHistoryMultimediaLogic extends GetxController {
         var item = result.searchResultItems!.first;
         messageList.addAll(item.messageList!);
         groupMessage.addAll(
-            IMUtils.groupingMessage(item.messageList!.reversed.toList()));
+            MitiUtils.groupingMessage(item.messageList!.reversed.toList()));
       }
     } finally {
       if (messageList.length < pageIndex * pageSize) {
@@ -81,9 +81,9 @@ class ChatHistoryMultimediaLogic extends GetxController {
 
   void viewMultimedia(Message message) {
     if (isPicture) {
-      IMUtils.previewPicture(message, allList: messageList);
+      MitiUtils.previewPicture(message, allList: messageList);
     } else {
-      IMUtils.previewVideo(message);
+      MitiUtils.previewVideo(message);
     }
   }
 

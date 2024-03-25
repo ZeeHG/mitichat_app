@@ -132,7 +132,7 @@ class ChatPage extends StatelessWidget {
         final mediaMessages = logic.mediaMessages;
         final cellIndex = mediaMessages.indexOf(message);
         logic.stopVoice();
-        IMUtils.previewMediaFile(
+        MitiUtils.previewMediaFile(
             context: context,
             currentIndex: cellIndex,
             mediaMessages: mediaMessages,
@@ -180,7 +180,7 @@ class ChatPage extends StatelessWidget {
   }
 
   CustomTypeInfo? _buildCustomTypeItemView(_, Message message) {
-    final data = IMUtils.parseCustomMessage(message);
+    final data = MitiUtils.parseCustomMessage(message);
     final isISend = message.sendID == OpenIM.iMManager.userID;
     if (null != data) {
       final viewType = data['viewType'];

@@ -345,7 +345,7 @@ class AppNavigator {
       Get.toNamed(AppRoutes.selectContacts, arguments: {
         'action': action,
         'defaultCheckedIDList': defaultCheckedIDList,
-        'checkedList': IMUtils.convertCheckedListToMap(checkedList),
+        'checkedList': MitiUtils.convertCheckedListToMap(checkedList),
         'excludeIDList': excludeIDList,
         'openSelectedSheet': openSelectedSheet,
         'groupID': groupID,
@@ -380,7 +380,7 @@ class AppNavigator {
         defaultCheckedIDList: defaultCheckedList.map((e) => e.userID!).toList(),
         appBarTitle: appBarTitle,
         selectFromFriend: selectFromFriend);
-    final list = IMUtils.convertSelectContactsResultToUserInfo(result);
+    final list = MitiUtils.convertSelectContactsResultToUserInfo(result);
     if (list is List<UserInfo>) {
       return Get.toNamed(
         AppRoutes.createGroup,
@@ -413,55 +413,6 @@ class AppNavigator {
         arguments: {'isAddAccount': isAddAccount, "server": server},
       );
 
-  static void startVerifyPhone({
-    String? phoneNumber,
-    String? email,
-    required String areaCode,
-    required int usedFor,
-    String? invitationCode,
-  }) =>
-      Get.toNamed(AppRoutes.verifyPhone, arguments: {
-        'phoneNumber': phoneNumber,
-        'email': email,
-        'areaCode': areaCode,
-        'usedFor': usedFor,
-        'invitationCode': invitationCode
-      });
-
-  /// [usedFor] 1：注册，2：重置密码
-  static void startSetPassword({
-    String? phoneNumber,
-    String? email,
-    required String areaCode,
-    required int usedFor,
-    required String verificationCode,
-    String? invitationCode,
-  }) =>
-      Get.toNamed(AppRoutes.setPassword, arguments: {
-        'phoneNumber': phoneNumber,
-        'email': email,
-        'areaCode': areaCode,
-        'usedFor': usedFor,
-        'verificationCode': verificationCode,
-        'invitationCode': invitationCode
-      });
-
-  static void startSetSelfInfo({
-    required String phoneNumber,
-    required String areaCode,
-    required password,
-    required int usedFor,
-    required String verificationCode,
-    String? invitationCode,
-  }) =>
-      Get.toNamed(AppRoutes.setSelfInfo, arguments: {
-        'phoneNumber': phoneNumber,
-        'areaCode': areaCode,
-        'password': password,
-        'usedFor': usedFor,
-        'verificationCode': verificationCode,
-        'invitationCode': invitationCode
-      });
 
   static startForgetPassword(
           {bool isAddAccount = false, String server = Config.host}) =>

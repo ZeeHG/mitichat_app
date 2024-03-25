@@ -64,7 +64,8 @@ class SearchChatHistoryPage extends StatelessWidget {
                           (message.senderNickname ?? '').toText
                             ..style = Styles.ts_999999_14sp,
                           const Spacer(),
-                          IMUtils.getChatTimeline(message.sendTime ?? 0).toText
+                          MitiUtils.getChatTimeline(message.sendTime ?? 0)
+                              .toText
                             ..style = Styles.ts_999999_14sp,
                         ],
                       ),

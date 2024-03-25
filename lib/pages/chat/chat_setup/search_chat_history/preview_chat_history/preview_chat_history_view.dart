@@ -57,7 +57,7 @@ class PreviewChatHistoryPage extends StatelessWidget {
       );
 
   CustomTypeInfo? _buildCustomTypeItemView(_, Message message) {
-    final data = IMUtils.parseCustomMessage(message);
+    final data = MitiUtils.parseCustomMessage(message);
     if (null != data) {
       final viewType = data['viewType'];
       if (viewType == CustomMessageType.call) {

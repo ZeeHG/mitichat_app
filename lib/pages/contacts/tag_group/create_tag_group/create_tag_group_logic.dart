@@ -42,7 +42,7 @@ class CreateTagGroupLogic extends GetxController {
       checkedList: memberList.value,
     );
     if (null != result) {
-      final list = IMUtils.convertSelectContactsResultToUserInfo(result);
+      final list = MitiUtils.convertSelectContactsResultToUserInfo(result);
       memberList.assignAll(list ?? []);
       _onChanged();
     }

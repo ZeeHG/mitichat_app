@@ -51,8 +51,8 @@ class ExpandChatHistoryLogic extends GetxController {
 
   String get searchKey => searchCtrl.text.trim();
 
-  String calContent(Message message) => IMUtils.calContent(
-        content: IMUtils.parseMsg(message, replaceIdToNickname: true),
+  String calContent(Message message) => MitiUtils.calContent(
+        content: MitiUtils.parseMsg(message, replaceIdToNickname: true),
         key: searchKey,
         style: Styles.ts_999999_14sp,
         usedWidth: 80.w + 26.w,

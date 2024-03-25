@@ -59,9 +59,6 @@ abstract class AppRoutes {
   static const expandChatHistory = '/expand_chat_history';
   static const callRecords = '/call_records';
   static const register = '/register';
-  static const verifyPhone = '/verify_phone';
-  static const setPassword = '/set_password';
-  static const setSelfInfo = '/set_self_info';
   static const forgetPassword = '/forget_password';
   static const resetPassword = '/reset_password';
   static const tagGroup = '/tag_group';

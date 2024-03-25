@@ -94,10 +94,9 @@ class ChangePwdPage extends StatelessWidget {
             label.toText..style = Styles.ts_333333_16sp,
             Expanded(
               child: InputBox.password(
-                label: "",
                 border: false,
                 controller: controller,
-                inputFormatters: [IMUtils.getPasswordFormatter()],
+                inputFormatters: [MitiUtils.getPasswordFormatter()],
               ),
             ),
           ],

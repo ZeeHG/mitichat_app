@@ -46,7 +46,7 @@ class SmallWindowView extends StatelessWidget {
                   children: [
                     if (null != userInfo)
                       AvatarView(
-                        text: IMUtils.emptyStrToNull(userInfo!.remark) ??
+                        text: MitiUtils.emptyStrToNull(userInfo!.remark) ??
                             userInfo!.nickname,
                         url: userInfo!.faceURL,
                       ),
@@ -150,7 +150,7 @@ class SmallWindowView extends StatelessWidget {
 //                   children: [
 //                     if (null != widget.userInfo)
 //                       AvatarView(
-//                         text: IMUtils.emptyStrToNull(widget.userInfo!.remark) ??
+//                         text: MitiUtils.emptyStrToNull(widget.userInfo!.remark) ??
 //                             widget.userInfo!.nickname,
 //                         url: widget.userInfo!.faceURL,
 //                       ),
@@ -221,7 +221,7 @@ class SmallWindowView extends StatelessWidget {
 //                     mainAxisAlignment: MainAxisAlignment.center,
 //                     children: [
 //                       AvatarView(
-//                         text: IMUtils.emptyStrToNull(userInfo.remark) ??
+//                         text: MitiUtils.emptyStrToNull(userInfo.remark) ??
 //                             userInfo.nickname,
 //                         url: userInfo.faceURL,
 //                       ),

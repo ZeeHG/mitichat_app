@@ -111,7 +111,7 @@ class _ChatVideoPlayerViewState extends State<ChatVideoPlayerView>
 
     if (file == null) {
       bool existFile = false;
-      if (IMUtils.isNotNullEmptyStr(_path) &&
+      if (MitiUtils.isNotNullEmptyStr(_path) &&
           (await Permissions.checkStorageV2([Permission.videos]))) {
         file = File(_path!);
         existFile = await file.exists();

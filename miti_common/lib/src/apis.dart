@@ -31,9 +31,9 @@ class Apis {
         'phoneNumber': phoneNumber,
         'email': email,
         'password': null != password
-            ? (encryptPwdRequest ? IMUtils.generateMD5(password) : password)
+            ? (encryptPwdRequest ? MitiUtils.generateMD5(password) : password)
             : null,
-        'platform': IMUtils.getPlatform(),
+        'platform': MitiUtils.getPlatform(),
         'verifyCode': verificationCode,
         // 'operationID': operationID,
       });
@@ -62,7 +62,7 @@ class Apis {
       var data = await HttpUtil.post(Urls.register, data: {
         'deviceID': DataSp.getDeviceID(),
         'verifyCode': verificationCode,
-        'platform': IMUtils.getPlatform(),
+        'platform': MitiUtils.getPlatform(),
         // 'operationID': operationID,
         'invitationCode': invitationCode,
         'autoLogin': true,
@@ -75,7 +75,7 @@ class Apis {
           "areaCode": areaCode,
           'phoneNumber': phoneNumber,
           'password':
-              encryptPwdRequest ? IMUtils.generateMD5(password) : password,
+              encryptPwdRequest ? MitiUtils.generateMD5(password) : password,
         },
       });
       return LoginCertificate.fromJson(data!);
@@ -99,9 +99,9 @@ class Apis {
         "areaCode": areaCode,
         'phoneNumber': phoneNumber,
         'email': email,
-        'password': IMUtils.generateMD5(password),
+        'password': MitiUtils.generateMD5(password),
         'verifyCode': verificationCode,
-        'platform': IMUtils.getPlatform(),
+        'platform': MitiUtils.getPlatform(),
         // 'operationID': operationID,
       },
       options: chatTokenOptions,
@@ -119,9 +119,9 @@ class Apis {
         Urls.changePwd,
         data: {
           "userID": userID,
-          'currentPassword': IMUtils.generateMD5(currentPassword),
-          'newPassword': IMUtils.generateMD5(newPassword),
-          'platform': IMUtils.getPlatform(),
+          'currentPassword': MitiUtils.generateMD5(currentPassword),
+          'newPassword': MitiUtils.generateMD5(newPassword),
+          'platform': MitiUtils.getPlatform(),
           // 'operationID': operationID,
         },
         options: chatTokenOptions,
@@ -174,7 +174,7 @@ class Apis {
       Urls.updateUserInfo,
       data: {
         ...param,
-        'platform': IMUtils.getPlatform(),
+        'platform': MitiUtils.getPlatform(),
         // 'operationID': operationID,
       },
       options: chatTokenOptions,
@@ -211,7 +211,7 @@ class Apis {
         data: {
           'pagination': {'pageNumber': pageNumber, 'showNumber': showNumber},
           'userIDs': userIDList,
-          'platform': IMUtils.getPlatform(),
+          'platform': MitiUtils.getPlatform(),
           // 'operationID': operationID,
         },
         options: chatTokenOptions,
@@ -482,7 +482,7 @@ class Apis {
         'tagIDs': tagIDList,
         'userIDs': userIDList,
         'groupIDs': groupIDList,
-        'senderPlatformID': IMUtils.getPlatform(),
+        'senderPlatformID': MitiUtils.getPlatform(),
         'content': json.encode({
           'data': json.encode({
             "customType": CustomMessageType.tag,
@@ -554,7 +554,7 @@ class Apis {
       Urls.translate,
       data: {
         ...param,
-        'platform': IMUtils.getPlatform(),
+        'platform': MitiUtils.getPlatform(),
         'operationID': HttpUtil.operationID,
       },
       options: chatTokenOptions,
@@ -575,7 +575,7 @@ class Apis {
       Urls.findTranslate,
       data: {
         ...param,
-        'platform': IMUtils.getPlatform(),
+        'platform': MitiUtils.getPlatform(),
         'operationID': HttpUtil.operationID,
       },
       options: chatTokenOptions,
@@ -596,7 +596,7 @@ class Apis {
       Urls.getTranslateConfig,
       data: {
         ...param,
-        'platform': IMUtils.getPlatform(),
+        'platform': MitiUtils.getPlatform(),
         'operationID': HttpUtil.operationID,
       },
       options: chatTokenOptions,
@@ -617,7 +617,7 @@ class Apis {
       Urls.setTranslateConfig,
       data: {
         ...param,
-        'platform': IMUtils.getPlatform(),
+        'platform': MitiUtils.getPlatform(),
         'operationID': HttpUtil.operationID,
       },
       options: chatTokenOptions,
@@ -642,8 +642,8 @@ class Apis {
         data: {
           'email': email,
           'verifyCode': verificationCode,
-          'password': IMUtils.generateMD5(password),
-          'platform': IMUtils.getPlatform(),
+          'password': MitiUtils.generateMD5(password),
+          'platform': MitiUtils.getPlatform(),
           'operationID': HttpUtil.operationID,
         },
         options: chatTokenOptions,
@@ -669,8 +669,8 @@ class Apis {
           'phoneNumber': phoneNumber,
           'areaCode': areaCode,
           'verifyCode': verificationCode,
-          'password': IMUtils.generateMD5(password),
-          'platform': IMUtils.getPlatform(),
+          'password': MitiUtils.generateMD5(password),
+          'platform': MitiUtils.getPlatform(),
           'operationID': HttpUtil.operationID,
         },
         options: chatTokenOptions,
@@ -692,7 +692,7 @@ class Apis {
       Urls.tts,
       data: {
         ...param,
-        'platform': IMUtils.getPlatform(),
+        'platform': MitiUtils.getPlatform(),
         'operationID': HttpUtil.operationID,
       },
       options: chatTokenOptions,
@@ -704,8 +704,8 @@ class Apis {
     return HttpUtil.post(
       Urls.deleteUser,
       data: {
-        'password': IMUtils.generateMD5(password),
-        'platform': IMUtils.getPlatform(),
+        'password': MitiUtils.generateMD5(password),
+        'platform': MitiUtils.getPlatform(),
         'operationID': HttpUtil.operationID,
       },
       options: chatTokenOptions,
@@ -723,7 +723,7 @@ class Apis {
     if (null != assets && assets.length > 0) {
       result = await Future.wait(assets.map((e) async {
         final file = await e.file;
-        final suffix = IMUtils.getSuffix(file!.path);
+        final suffix = MitiUtils.getSuffix(file!.path);
         return OpenIM.iMManager.uploadFile(
           id: const Uuid().v4(),
           filePath: file!.path,
@@ -748,7 +748,7 @@ class Apis {
       Urls.complain,
       data: {
         ...param,
-        'platform': IMUtils.getPlatform(),
+        'platform': MitiUtils.getPlatform(),
         'operationID': HttpUtil.operationID,
       },
       options: chatTokenOptions,
@@ -766,7 +766,7 @@ class Apis {
     if (null != assets && assets.length > 0) {
       result = await Future.wait(assets.map((e) async {
         final file = await e.file;
-        final suffix = IMUtils.getSuffix(file!.path);
+        final suffix = MitiUtils.getSuffix(file!.path);
         return OpenIM.iMManager.uploadFile(
           id: const Uuid().v4(),
           filePath: file!.path,
@@ -791,7 +791,7 @@ class Apis {
       Urls.complainXhs,
       data: {
         ...param,
-        'platform': IMUtils.getPlatform(),
+        'platform': MitiUtils.getPlatform(),
         'operationID': HttpUtil.operationID,
       },
       options: chatTokenOptions,
@@ -806,7 +806,7 @@ class Apis {
       Urls.blockMoment,
       data: {
         ...param,
-        'platform': IMUtils.getPlatform(),
+        'platform': MitiUtils.getPlatform(),
         'operationID': HttpUtil.operationID,
       },
       options: chatTokenOptions,
@@ -820,7 +820,7 @@ class Apis {
       Urls.getBlockMoment,
       data: {
         ...param,
-        'platform': IMUtils.getPlatform(),
+        'platform': MitiUtils.getPlatform(),
         'operationID': HttpUtil.operationID,
       },
       options: chatTokenOptions,

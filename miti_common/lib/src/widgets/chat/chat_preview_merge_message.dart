@@ -26,11 +26,11 @@ class ChatPreviewMergeMsgView extends StatelessWidget {
 
   Widget _buildItemView(int index) {
     var message = messageList.elementAt(index);
-    final content = IMUtils.parseMsg(message, replaceIdToNickname: true);
+    final content = MitiUtils.parseMsg(message, replaceIdToNickname: true);
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTap: () => IMUtils.parseClickEvent(
+      onTap: () => MitiUtils.parseClickEvent(
         message,
         messageList: [message],
         onViewUserInfo: (userInfo) {
@@ -73,7 +73,7 @@ class ChatPreviewMergeMsgView extends StatelessWidget {
                           child: (message.senderNickname ?? '').toText
                             ..style = Styles.ts_999999_12sp,
                         ),
-                        IMUtils.getChatTimeline(message.sendTime!).toText
+                        MitiUtils.getChatTimeline(message.sendTime!).toText
                           ..style = Styles.ts_999999_12sp,
                       ],
                     ),

@@ -362,18 +362,18 @@ class PublishLogic extends GetxController {
         var file = await element.file;
         // var original = await element.originFile;
         // 图片需要压缩
-        final mime = IMUtils.getMediaType(file!.path);
+        final mime = MitiUtils.getMediaType(file!.path);
         if (element.type == AssetType.image) {
-          // final mime = IMUtils.getMediaType(file!.path);
+          // final mime = MitiUtils.getMediaType(file!.path);
           if (mime == 'image/gif') {
             metas.add({'thumb': file.path, 'original': file.path});
           } else {
-            file = await IMUtils.compressImageAndGetFile(file);
+            file = await MitiUtils.compressImageAndGetFile(file);
             metas.add({'thumb': file!.path, 'original': file.path});
           }
         } else {
-          // file = await IMUtils.compressVideoAndGetFile(file!);
-          final thumbPic = await IMUtils.getVideoThumbnail(file!);
+          // file = await MitiUtils.compressVideoAndGetFile(file!);
+          final thumbPic = await MitiUtils.getVideoThumbnail(file!);
           metas.add({'thumb': thumbPic.path, 'original': file.path});
         }
       });

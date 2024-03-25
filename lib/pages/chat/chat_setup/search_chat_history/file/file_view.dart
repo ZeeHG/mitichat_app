@@ -46,7 +46,7 @@ class ChatHistoryFilePage extends StatelessWidget {
                 message: message,
                 downloadProgressView: ChatFileDownloadProgressView(message),
               ),
-              // IMUtils.fileIcon(message.fileElem!.fileName!).toImage
+              // MitiUtils.fileIcon(message.fileElem!.fileName!).toImage
               //   ..width = 38.w
               //   ..height = 44.h,
               12.horizontalSpace,
@@ -64,7 +64,8 @@ class ChatHistoryFilePage extends StatelessWidget {
                     //   ..maxLines = 1,
                     Row(
                       children: [
-                        IMUtils.formatBytes(message.fileElem!.fileSize!).toText
+                        MitiUtils.formatBytes(message.fileElem!.fileSize!)
+                            .toText
                           ..style = Styles.ts_999999_14sp,
                         10.horizontalSpace,
                         Expanded(
@@ -73,7 +74,7 @@ class ChatHistoryFilePage extends StatelessWidget {
                               ..maxLines = 1
                               ..overflow = TextOverflow.ellipsis),
                         10.horizontalSpace,
-                        IMUtils.getChatTimeline(message.sendTime!).toText
+                        MitiUtils.getChatTimeline(message.sendTime!).toText
                           ..style = Styles.ts_999999_14sp,
                       ],
                     ),

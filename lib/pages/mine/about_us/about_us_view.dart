@@ -155,7 +155,7 @@ class AboutUsPage extends StatelessWidget {
                             GestureDetector(
                               behavior: HitTestBehavior.translucent,
                               onTap: () {
-                                IMUtils.copy(
+                                MitiUtils.copy(
                                     text: logic.cid.value == ""
                                         ? "cid"
                                         : logic.cid.value);

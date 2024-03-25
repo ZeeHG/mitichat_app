@@ -53,7 +53,7 @@ class UserProfilePanelPage extends StatelessWidget {
                           _buildItemView(
                             label: StrLibrary.setMute,
                             value:
-                                IMUtils.emptyStrToNull(logic.mutedTime.value),
+                                MitiUtils.emptyStrToNull(logic.mutedTime.value),
                             onTap: logic.setMute,
                             showRightArrow: true,
                           ),

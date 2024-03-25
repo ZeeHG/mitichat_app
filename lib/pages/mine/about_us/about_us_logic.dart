@@ -82,7 +82,7 @@ class AboutUsLogic extends GetxController {
       IMViews.showToast(StrLibrary.uploaded);
       if (result is String) {
         String url = jsonDecode(result)['url'];
-        IMUtils.copy(text: !url.isEmpty ? url : "log url is not empty");
+        MitiUtils.copy(text: !url.isEmpty ? url : "log url is not empty");
       } else {
         IMViews.showToast(StrLibrary.copyFail);
       }
@@ -121,7 +121,7 @@ class AboutUsLogic extends GetxController {
       if (toast) IMViews.showToast(StrLibrary.uploaded);
       if (result is String) {
         String url = jsonDecode(result)['url'];
-        if (copy) IMUtils.copy(text: !url.isEmpty ? url : "url is not empty");
+        if (copy) MitiUtils.copy(text: !url.isEmpty ? url : "url is not empty");
         return url;
       } else {
         if (toast) IMViews.showToast(StrLibrary.copyFail);
@@ -162,7 +162,7 @@ class AboutUsLogic extends GetxController {
               .toList()));
     } finally {
       // IMViews.showToast(StrLibrary .uploaded);
-      IMUtils.copy(text: result.join(", "));
+      MitiUtils.copy(text: result.join(", "));
     }
   }
 

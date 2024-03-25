@@ -16,7 +16,7 @@ class DownloadController extends GetxController {
   }
 
   _initDir() async {
-    savedDir ??= await IMUtils.getDownloadFileDir();
+    savedDir ??= await MitiUtils.getDownloadFileDir();
   }
 
   DownloadTask? getTask(String url) {

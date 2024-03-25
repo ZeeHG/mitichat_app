@@ -118,7 +118,6 @@ class AccountManageLogic extends GetxController {
               ),
               child: InputBox(
                 autofocus: false,
-                label: "",
                 hintText: StrLibrary.addAccountServerTips,
                 hintStyle: Styles.ts_CCCCCC_14sp,
                 border: false,

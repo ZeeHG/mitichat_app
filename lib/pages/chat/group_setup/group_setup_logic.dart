@@ -385,7 +385,7 @@ class GroupSetupLogic extends GetxController {
   }
 
   void copyGroupID() {
-    IMUtils.copy(text: groupInfo.value.groupID);
+    MitiUtils.copy(text: groupInfo.value.groupID);
   }
 
   int length() {
@@ -462,7 +462,7 @@ class GroupSetupLogic extends GetxController {
         groupID: groupInfo.value.groupID,
         selectFromFriend: true);
 
-    final list = IMUtils.convertSelectContactsResultToUserID(result);
+    final list = MitiUtils.convertSelectContactsResultToUserID(result);
     if (list is List<String>) {
       await LoadingView.singleton.start(
         fn: () => OpenIM.iMManager.groupManager.inviteUserToGroup(

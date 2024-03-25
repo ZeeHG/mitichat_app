@@ -67,7 +67,7 @@ class GroupRequestsLogic extends GetxController {
       var haveReadList = DataSp.getHaveReadUnHandleGroupApplication();
       haveReadList ??= <String>[];
       for (var a in list[0]) {
-        var id = IMUtils.buildGroupApplicationID(a);
+        var id = MitiUtils.buildGroupApplicationID(a);
         if (!haveReadList.contains(id)) {
           haveReadList.add(id);
         }

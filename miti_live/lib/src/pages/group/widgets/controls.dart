@@ -123,7 +123,7 @@ class _ControlsViewState extends State<ControlsView> {
     _callingTimer ??= Timer.periodic(const Duration(seconds: 1), (timer) {
       if (!mounted) return;
       setState(() {
-        _callingDurationStr = IMUtils.seconds2HMS(++_callingDuration);
+        _callingDurationStr = MitiUtils.seconds2HMS(++_callingDuration);
         widget.onCallingDuration?.call(_callingDuration);
       });
     });
