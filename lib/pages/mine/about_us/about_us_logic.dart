@@ -2,16 +2,11 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
 import '../../../core/ctrl/app_ctrl.dart';
 import '../../../core/ctrl/im_ctrl.dart';
-
 import 'dart:convert';
 import 'dart:io';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
-import '../../../core/ctrl/im_ctrl.dart';
 import '../../../core/ctrl/push_ctrl.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path_package;
@@ -27,7 +22,7 @@ class AboutUsLogic extends GetxController {
   final pushCtrl = Get.find<PushCtrl>();
   final betaTestLogic = Get.find<BetaTestLogic>();
   final appCommonLogic = Get.find<AppCommonLogic>();
-  final showDev = false.obs;
+  final debugMode = false.obs;
 
   void getPackageInfo() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -35,10 +30,6 @@ class AboutUsLogic extends GetxController {
     appName.value = packageInfo.appName;
     buildNumber.value = packageInfo.buildNumber;
   }
-
-  // void checkUpdate() {
-  //   appCtrl.checkUpdate();
-  // }
 
   void uploadLogs() async {
     try {
@@ -56,12 +47,8 @@ class AboutUsLogic extends GetxController {
     }
   }
 
-  void startDev() {
-    // if (betaTestLogic.isDevUser(imCtrl.userInfo.value.userID!) ||
-    //     betaTestLogic.isTestUser(imCtrl.userInfo.value.userID!)) {
-    //   showDev.value = true;
-    // }
-    showDev.value = true;
+  void showDebug() {
+    debugMode.value = true;
   }
 
   void uploadLogsByDate([String? date]) async {
@@ -71,12 +58,8 @@ class AboutUsLogic extends GetxController {
         fn: () => OpenIM.iMManager.uploadFile(
           id: const Uuid().v4(),
           filePath: Config.cachePath + dateStr,
-          fileName: (imCtrl.userInfo.value.userID ?? "null") +
-              "_im_" +
-              dateStr +
-              "_${appCommonLogic.deviceModel}_" +
-              DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now()) +
-              ".log",
+          fileName:
+              "${imCtrl.userInfo.value.userID ?? "null"}_im_${dateStr}_${appCommonLogic.deviceModel}_${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}.log",
         ),
       );
       IMViews.showToast(StrLibrary.uploaded);
@@ -100,15 +83,11 @@ class AboutUsLogic extends GetxController {
       bool toast = true,
       bool copy = true}) async {
     try {
-      var fn = () => OpenIM.iMManager.uploadFile(
+      fn() => OpenIM.iMManager.uploadFile(
             id: const Uuid().v4(),
             filePath: logInfo?["path"] ?? myLoggerPath,
-            fileName: (imCtrl.userInfo.value.userID ?? "null") +
-                "_app_" +
-                (logInfo?["date"] ?? myLoggerDateStr) +
-                "_${appCommonLogic.deviceModel}_" +
-                DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now()) +
-                ".log",
+            fileName:
+                "${imCtrl.userInfo.value.userID ?? "null"}_app_${logInfo?["date"] ?? myLoggerDateStr}_${appCommonLogic.deviceModel}_${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}.log",
           );
       var result;
       if (null != logInfo) {
@@ -121,7 +100,8 @@ class AboutUsLogic extends GetxController {
       if (toast) IMViews.showToast(StrLibrary.uploaded);
       if (result is String) {
         String url = jsonDecode(result)['url'];
-        if (copy) MitiUtils.copy(text: !url.isEmpty ? url : "url is not empty");
+        if (copy)
+          MitiUtils.copy(text: url.isNotEmpty ? url : "url is not empty");
         return url;
       } else {
         if (toast) IMViews.showToast(StrLibrary.copyFail);
@@ -131,12 +111,13 @@ class AboutUsLogic extends GetxController {
       myLogger.e({
         "message": "uploadAppLogs, 上传APP日志(按日期)出错",
         "error": {
-          "date": "${logInfo?["date"] ?? myLoggerDateStr}",
+          "date": logInfo?["date"] ?? myLoggerDateStr,
           "error": e,
           "stack": s
         }
       });
     }
+    return null;
   }
 
   // 2000-01-01.log, 上传最新的日志不要同时修改日志, md5有可能会校验不正确
@@ -175,7 +156,6 @@ class AboutUsLogic extends GetxController {
 
   @override
   void onClose() {
-    // TODO: implement onClose
     super.onClose();
   }
 }

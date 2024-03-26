@@ -1,11 +1,8 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
-
 import 'account_manage_logic.dart';
 
 class AccountManagePage extends StatelessWidget {
@@ -36,7 +33,7 @@ class AccountManagePage extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 12.w),
                     color: Styles.c_FFFFFF,
-                    child: Container(
+                    child: SizedBox(
                       height: 54.h,
                       child: Row(children: [
                         10.horizontalSpace,
@@ -58,66 +55,64 @@ class AccountManagePage extends StatelessWidget {
 
   Widget _buildCusPopMenuInfo(
           {required AccountLoginInfo info, showBorder = true}) =>
-      Container(
-        child: Slidable(
-          endActionPane: ActionPane(
-            motion: const ScrollMotion(),
-            extentRatio: 0.3,
-            children: [
-              CustomSlidableAction(
-                onPressed: (_) => logic.delLoginInfo(info),
-                flex: 1,
-                backgroundColor: Styles.c_FF4E4C,
-                child: StrLibrary.delete.toText..style = Styles.ts_FFFFFF_16sp,
-              ),
-            ],
-          ),
-          child: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () => logic.switchAccount(info),
+      Slidable(
+        endActionPane: ActionPane(
+          motion: const ScrollMotion(),
+          extentRatio: 0.3,
+          children: [
+            CustomSlidableAction(
+              onPressed: (_) => logic.delLoginInfo(info),
+              flex: 1,
+              backgroundColor: Styles.c_FF4E4C,
+              child: StrLibrary.delete.toText..style = Styles.ts_FFFFFF_16sp,
+            ),
+          ],
+        ),
+        child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () => logic.switchAccount(info),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            color: Styles.c_FFFFFF,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
-              color: Styles.c_FFFFFF,
-              child: Container(
-                height: 62.h,
-                decoration: BoxDecoration(
-                  border: showBorder
-                      ? BorderDirectional(
-                          bottom:
-                              BorderSide(color: Styles.c_F1F2F6, width: 1.h),
-                        )
-                      : null,
-                ),
-                child: Row(
-                  children: [
-                    AvatarView(
-                      width: 40.w,
-                      height: 40.h,
-                      text: info.nickname,
-                      url: info.faceURL,
-                    ),
-                    8.horizontalSpace,
-                    Expanded(
-                        child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        info.nickname.toText
-                          ..style = Styles.ts_333333_16sp
-                          ..maxLines = 1
-                          ..overflow = TextOverflow.ellipsis,
-                        info.server.toText
-                          ..style = Styles.ts_999999_14sp
-                          ..maxLines = 1
-                          ..overflow = TextOverflow.ellipsis,
-                      ],
-                    )),
-                    if (logic.curLoginInfoKey == info.id)
-                      ImageRes.appChecked2.toImage
-                        ..width = 18.w
-                        ..height = 18.h
-                  ],
-                ),
+              height: 62.h,
+              decoration: BoxDecoration(
+                border: showBorder
+                    ? BorderDirectional(
+                        bottom:
+                            BorderSide(color: Styles.c_F1F2F6, width: 1.h),
+                      )
+                    : null,
+              ),
+              child: Row(
+                children: [
+                  AvatarView(
+                    width: 40.w,
+                    height: 40.h,
+                    text: info.nickname,
+                    url: info.faceURL,
+                  ),
+                  8.horizontalSpace,
+                  Expanded(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      info.nickname.toText
+                        ..style = Styles.ts_333333_16sp
+                        ..maxLines = 1
+                        ..overflow = TextOverflow.ellipsis,
+                      info.server.toText
+                        ..style = Styles.ts_999999_14sp
+                        ..maxLines = 1
+                        ..overflow = TextOverflow.ellipsis,
+                    ],
+                  )),
+                  if (logic.curLoginInfoKey.value == info.id)
+                    ImageRes.appChecked2.toImage
+                      ..width = 18.w
+                      ..height = 18.h
+                ],
               ),
             ),
           ),

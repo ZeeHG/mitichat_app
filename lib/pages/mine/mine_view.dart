@@ -15,7 +15,7 @@ class MinePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Styles.c_FFFFFF,
       body: Container(
-        height: 1.sh - 56.h,
+        height: 1.sh,
         color: Styles.c_F7F7F7,
         child: SingleChildScrollView(
           child: Column(
@@ -25,15 +25,14 @@ class MinePage extends StatelessWidget {
                   Container(
                     width: 1.sw,
                     height: 298.h,
-                    decoration: BoxDecoration(
-                        // color: Styles.c_FFFFFF,
+                    decoration: const BoxDecoration(
                         image: DecorationImage(
                       image: AssetImage(ImageRes.appHeaderBg,
                           package: 'miti_common'),
                       fit: BoxFit.cover,
                     )),
                   ),
-                  Obx(() => _buildMyInfoView()),
+                  Obx(() => _buildMyInfo()),
                 ],
               ),
               Container(
@@ -41,32 +40,30 @@ class MinePage extends StatelessWidget {
                 transform: Matrix4.translationValues(0, -28.h, 0),
                 child: Column(
                   children: [
-                    _buildItemView(
+                    _buildItem(
                       icon: ImageRes.appMyInfo,
                       label: StrLibrary.myInfo,
                       onTap: logic.viewMyInfo,
-                      // isTopRadius: true,
                     ),
-                    // _buildItemView(
+                    // _buildItem(
                     //   icon: ImageRes.appMyPoints,
                     //   label: StrLibrary .myPoints,
                     //   onTap: logic.myPoints,
                     // ),
-                    _buildItemView(
+                    _buildItem(
                       icon: ImageRes.appAccountSetup,
                       label: StrLibrary.accountSetup,
                       onTap: logic.accountSetup,
                     ),
-                    _buildItemView(
+                    _buildItem(
                       icon: ImageRes.appAboutUs,
                       label: StrLibrary.aboutUs,
                       onTap: logic.aboutUs,
                     ),
-                    _buildItemView(
+                    _buildItem(
                       icon: ImageRes.appLogout,
                       label: StrLibrary.logout,
                       onTap: logic.logout,
-                      // isBottomRadius: true,
                     ),
                   ],
                 ),
@@ -78,7 +75,7 @@ class MinePage extends StatelessWidget {
     );
   }
 
-  Widget _buildMyInfoView() => Container(
+  Widget _buildMyInfo() => Container(
         height: 58.h,
         margin: EdgeInsets.only(left: 30.w, right: 30.w, top: 114.h),
         child: GestureDetector(
@@ -91,8 +88,7 @@ class MinePage extends StatelessWidget {
                   text: logic.imCtrl.userInfo.value.nickname,
                   width: 58.w,
                   height: 58.h,
-                  textStyle: Styles.ts_FFFFFF_14sp,
-                  isCircle: true),
+                  textStyle: Styles.ts_FFFFFF_16sp),
               16.horizontalSpace,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,11 +129,9 @@ class MinePage extends StatelessWidget {
         ),
       );
 
-  Widget _buildItemView({
+  Widget _buildItem({
     required String icon,
     required String label,
-    // bool isTopRadius = false,
-    // bool isBottomRadius = false,
     Function()? onTap,
   }) =>
       GestureDetector(
@@ -159,7 +153,7 @@ class MinePage extends StatelessWidget {
                     ..height = 26.h,
                   12.horizontalSpace,
                   Expanded(
-                    child: Container(
+                    child: SizedBox(
                       height: 56.h,
                       child: Row(
                         children: [

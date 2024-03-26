@@ -54,9 +54,6 @@ class Permissions {
         onGranted?.call();
       }
     } else {
-      // if (await Permission.storage.request().isGranted) {
-      //   onGranted?.call();
-      // }
       await batchRequestAndCheckPermissions([Permission.storage],
           onAgree: onGranted);
     }
@@ -310,21 +307,8 @@ class Permissions {
   static Future<bool> checkStorageV2(List<Permission>? permissions) async {
     if (await overAndroid13()) {
       if (null == permissions) return true;
-      // PermissionStatus status;
-      // for (final permission in permissions) {
-      //   status = await permission.status;
-      //   if (![
-      //     PermissionStatus.granted,
-      //     PermissionStatus.provisional,
-      //     PermissionStatus.limited
-      //   ].contains(status)) {
-      //     return false;
-      //   }
-      // }
-      // return true;
       return batchCheckPermissions(permissions);
     } else {
-      // return await Permission.storage.isGranted;
       return await batchCheckPermissions([Permission.storage]);
     }
   }

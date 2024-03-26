@@ -10,7 +10,7 @@ import '../../routes/app_navigator.dart';
 class MineLogic extends GetxController {
   final imCtrl = Get.find<IMCtrl>();
   final pushCtrl = Get.find<PushCtrl>();
-  late StreamSubscription kickedOfflineSub;
+  late StreamSubscription kickedSub;
 
   void viewMyQrcode() => AppNavigator.startMyQrcode();
 
@@ -27,7 +27,7 @@ class MineLogic extends GetxController {
   void aboutUs() => AppNavigator.startAboutUs();
 
   void logout() async {
-    var confirm = await Get.dialog(CustomDialog(title: StrLibrary.logoutHint));
+    final confirm = await Get.dialog(CustomDialog(title: StrLibrary.logoutHint));
     if (confirm == true) {
       try {
         await LoadingView.singleton.start(fn: () async {
@@ -37,37 +37,37 @@ class MineLogic extends GetxController {
         });
         imCtrl.reBuildSubject();
         AppNavigator.startLogin();
-      } catch (e) {
-        IMViews.showToast('e:$e');
+      } catch (e, s) {
+        showToast('$e');
+        myLogger.e({"message": "退出登录异常", "error": e, "stack": s});
       }
     }
   }
 
   void kickedOffline() async {
-    myLogger.e({"message": "mine_logic监听到用户kickedOffline, 退出登录"});
-    // PackageBridge.meetingBridge?.dismiss();
+    myLogger.e({"message": "mine监听到用户kickedOffline, 退出登录"});
     PackageBridge.rtcBridge?.dismiss();
+    pushCtrl.logout();
     Get.snackbar(StrLibrary.accountWarn, StrLibrary.accountException);
     await DataSp.removeLoginCertificate();
-    pushCtrl.logout();
     AppNavigator.startLogin();
   }
 
-  kickedOfflineSubInit() {
-    kickedOfflineSub = imCtrl.onKickedOfflineSubject.listen((value) {
+  kickedSubInit() {
+    kickedSub = imCtrl.onKickedOfflineSubject.listen((value) {
       kickedOffline();
     });
   }
 
   @override
   void onInit() {
-    kickedOfflineSubInit();
+    kickedSubInit();
     super.onInit();
   }
 
   @override
   void onClose() {
-    kickedOfflineSub.cancel();
+    kickedSub.cancel();
     super.onClose();
   }
 }

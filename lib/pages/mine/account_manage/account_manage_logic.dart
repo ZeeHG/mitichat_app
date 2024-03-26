@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,16 +20,6 @@ class AccountManageLogic extends GetxController {
     curStatusChangeCount = accountUtil.statusChangeCount.value;
     originStatusChangeCount = accountUtil.statusChangeCount.value;
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 
   setLoginInfoList() {
@@ -80,7 +69,7 @@ class AccountManageLogic extends GetxController {
   }
 
   switchAccount(AccountLoginInfo loginInfo) async {
-    if (loginInfo.id == curLoginInfoKey) return;
+    if (loginInfo.id == curLoginInfoKey.value) return;
     LoadingView.singleton.start(
         topBarHeight: 0,
         loadingTips: StrLibrary.loading,
@@ -93,7 +82,7 @@ class AccountManageLogic extends GetxController {
   }
 
   goLogin() async {
-    final confirm = await Get.dialog(CustomDialog(
+    await Get.dialog(CustomDialog(
       // bigTitle: "",
       body: Container(
         padding: EdgeInsets.only(

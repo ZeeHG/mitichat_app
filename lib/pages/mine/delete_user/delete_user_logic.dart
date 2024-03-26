@@ -24,14 +24,14 @@ class DeleteUserLogic extends GetxController {
       onTapRight: () => Get.back(result: false),
     ));
     if (confirm) {
-      mineLogic.kickedOfflineSub.cancel();
+      mineLogic.kickedSub.cancel();
       try {
         await LoadingView.singleton.start(
           fn: () => Apis.deleteUser(password: pwdCtrl.text.trim()),
         );
         success.value = true;
       } catch (e) {
-        mineLogic.kickedOfflineSubInit();
+        mineLogic.kickedSubInit();
       }
     }
   }
