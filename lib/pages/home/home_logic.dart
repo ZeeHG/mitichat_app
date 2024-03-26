@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:miti/pages/contacts/contacts_logic.dart';
 import 'package:miti/pages/xhs/xhs_logic.dart';
+import 'package:miti/utils/account_util.dart';
 import 'package:miti/utils/ai_util.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:miti_circle/miti_circle.dart';
@@ -36,6 +37,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
   final _errorController = PublishSubject<String>();
   final aiUtil = Get.find<AiUtil>();
   final xhsLogic = Get.find<XhsLogic>();
+  final accountUtil = Get.find<AccountUtil>();
 
   Function()? onScrollToUnreadMessage;
 
@@ -193,11 +195,9 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
         onMaxRetries: (_) async {
           Get.back();
           await LoadingView.singleton.start(fn: () async {
-            await imCtrl.logout();
-            await DataSp.removeLoginCertificate();
+            await accountUtil.tryLogout();
             await DataSp.clearLockScreenPassword();
             await DataSp.closeBiometric();
-            pushCtrl.logout();
           });
           AppNavigator.startLogin();
         },

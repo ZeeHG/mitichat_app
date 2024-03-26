@@ -234,7 +234,7 @@ class ImageRes {
   static const appAboutUs = "$_dir/app_mine_about_us.png";
   static const appLogout = "$_dir/app_mine_logout.png";
   static const appMyInfo = "$_dir/app_mine_my_info.png";
-  static const appAccountSetup = "$_dir/app_mine_account_setup.png";
+  static const appAccountSetting = "$_dir/app_mine_account_setup.png";
   static const appHeaderBg = "$_dir/app_header_bg.png";
   static const appHeaderBg2 = "$_dir/app_header_bg2.png";
   static const appHeaderBg3 = "$_dir/app_header_bg3.png";

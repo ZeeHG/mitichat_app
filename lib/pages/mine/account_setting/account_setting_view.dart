@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
-import 'account_setup_logic.dart';
+import 'account_setting_logic.dart';
 
-class AccountSetupPage extends StatelessWidget {
-  final logic = Get.find<AccountSetupLogic>();
+class AccountSettingPage extends StatelessWidget {
+  final logic = Get.find<AccountSettingLogic>();
 
-  AccountSetupPage({super.key});
+  AccountSettingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -114,8 +114,8 @@ class AccountSetupPage extends StatelessWidget {
                   children: [
                     label.toText..style = textStyle ?? Styles.ts_333333_16sp,
                     const Spacer(),
-                    if(null != value)
-                    value.toText..style = Styles.ts_333333_14sp,
+                    if (null != value)
+                      value.toText..style = Styles.ts_333333_14sp,
                     if (showSwitchButton)
                       CupertinoSwitch(
                         value: switchOn,

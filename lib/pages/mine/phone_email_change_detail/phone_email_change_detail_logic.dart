@@ -4,6 +4,7 @@ import 'package:miti/core/ctrl/im_ctrl.dart';
 import 'package:miti/core/ctrl/push_ctrl.dart';
 import 'package:miti/pages/mine/phone_email_change/phone_email_change_logic.dart';
 import 'package:miti/routes/app_navigator.dart';
+import 'package:miti/utils/account_util.dart';
 import 'package:miti_common/miti_common.dart';
 
 class PhoneEmailChangeDetailLogic extends GetxController {
@@ -18,6 +19,7 @@ class PhoneEmailChangeDetailLogic extends GetxController {
   final areaCode = "+1".obs;
   final enabled = false.obs;
   final success = false.obs;
+  final accountUtil = Get.find<AccountUtil>();
 
   get isPhone => type == PhoneEmailChangeType.phone;
   String? get email => !isPhone ? emailCtrl.text.trim() : null;
@@ -135,9 +137,7 @@ class PhoneEmailChangeDetailLogic extends GetxController {
                 verificationCode: verificationCode,
               );
       });
-      await imCtrl.logout();
-      await DataSp.removeLoginCertificate();
-      pushCtrl.logout();
+      accountUtil.tryLogout();
       success.value = true;
     }
   }

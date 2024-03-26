@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
+import 'package:miti/utils/account_util.dart';
 import 'package:miti_common/miti_common.dart';
-
 import '../../../core/ctrl/push_ctrl.dart';
 import '../../../routes/app_navigator.dart';
 
@@ -12,6 +12,7 @@ class ChangePwdLogic extends GetxController {
   final newPwdCtrl = TextEditingController();
   final againPwdCtrl = TextEditingController();
   final enabled = true.obs();
+  final accountUtil = Get.find<AccountUtil>();
 
   @override
   void onClose() {
@@ -22,16 +23,16 @@ class ChangePwdLogic extends GetxController {
   }
 
   void confirm() async {
-    if (oldPwdCtrl.text.isEmpty) {
-      IMViews.showToast(StrLibrary.plsEnterOldPwd);
+    if (newPwdCtrl.text.isEmpty) {
+      IMViews.showToast(StrLibrary.plsEnterNewPwd);
       return;
     }
     if (!MitiUtils.isValidPassword(newPwdCtrl.text)) {
       IMViews.showToast(StrLibrary.wrongPasswordFormat);
       return;
     }
-    if (newPwdCtrl.text.isEmpty) {
-      IMViews.showToast(StrLibrary.plsEnterNewPwd);
+    if (oldPwdCtrl.text.isEmpty) {
+      IMViews.showToast(StrLibrary.plsEnterOldPwd);
       return;
     }
     if (againPwdCtrl.text.isEmpty) {
@@ -53,9 +54,7 @@ class ChangePwdLogic extends GetxController {
     if (result) {
       IMViews.showToast(StrLibrary.changedSuccessfully);
       await LoadingView.singleton.start(fn: () async {
-        await OpenIM.iMManager.logout();
-        await DataSp.removeLoginCertificate();
-        pushCtrl.logout();
+        await accountUtil.tryLogout();
       });
       AppNavigator.startLogin();
     }

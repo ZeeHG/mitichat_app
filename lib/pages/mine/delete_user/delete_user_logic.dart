@@ -4,6 +4,7 @@ import 'package:miti/core/ctrl/im_ctrl.dart';
 import 'package:miti/core/ctrl/push_ctrl.dart';
 import 'package:miti/pages/mine/mine_logic.dart';
 import 'package:miti/routes/app_navigator.dart';
+import 'package:miti/utils/account_util.dart';
 import 'package:miti_common/miti_common.dart';
 
 class DeleteUserLogic extends GetxController {
@@ -13,6 +14,7 @@ class DeleteUserLogic extends GetxController {
   final mineLogic = Get.find<MineLogic>();
   final pwdCtrl = TextEditingController();
   final enabled = false.obs;
+  final accountUtil = Get.find<AccountUtil>();
 
   showDeleteUserModal() async {
     final confirm = await Get.dialog(CustomDialog(
@@ -38,9 +40,7 @@ class DeleteUserLogic extends GetxController {
 
   logout() async {
     // 自动踢出
-    // await imCtrl.logout();
-    await DataSp.removeLoginCertificate();
-    pushCtrl.logout();
+    await accountUtil.tryLogout();
     AppNavigator.startLogin();
   }
 

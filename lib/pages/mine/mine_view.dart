@@ -51,7 +51,7 @@ class MinePage extends StatelessWidget {
                     //   onTap: logic.myPoints,
                     // ),
                     _buildItem(
-                      icon: ImageRes.appAccountSetup,
+                      icon: ImageRes.appAccountSetting,
                       label: StrLibrary.accountSetup,
                       onTap: logic.accountSetup,
                     ),

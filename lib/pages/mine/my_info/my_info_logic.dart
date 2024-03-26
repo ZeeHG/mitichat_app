@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:miti/pages/mine/edit_my_info/edit_my_info_logic.dart';
+import 'package:miti/pages/mine/edit_my_profile/edit_my_profile_logic.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
@@ -21,22 +21,7 @@ class MyInfoLogic extends GetxController {
 
   _onChangedSefInfo(UserInfo userInfo) {}
 
-  void editMyName() => AppNavigator.startEditMyInfo();
-
-  void editEnglishName() => AppNavigator.startEditMyInfo(
-        attr: EditAttr.englishName,
-      );
-
-  void editTel() => AppNavigator.startEditMyInfo(
-        attr: EditAttr.telephone,
-      );
-
-  void editMobile() => AppNavigator.startEditMyInfo(
-        attr: EditAttr.mobile,
-      );
-
-  void editEmail() =>
-      AppNavigator.startEditMyInfo(attr: EditAttr.email, maxLength: 64);
+  void editMyName() => AppNavigator.startEditMyProfile();
 
   void openPhotoSheet() {
     IMViews.openPhotoSheet(

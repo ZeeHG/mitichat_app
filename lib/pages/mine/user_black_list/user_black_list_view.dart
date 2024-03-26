@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-import 'blacklist_logic.dart';
+import 'user_black_list_logic.dart';
 
-class BlacklistPage extends StatelessWidget {
-  final logic = Get.find<BlacklistLogic>();
+class UserBlacklistPage extends StatelessWidget {
+  final logic = Get.find<UserBlacklistLogic>();
 
-  BlacklistPage({super.key});
+  UserBlacklistPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class BlacklistPage extends StatelessWidget {
               : null,
         ),
         child: InkWell(
-          onTap: () => logic.remove(info),
+          onTap: () => logic.removeUser(info),
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Row(
@@ -61,9 +61,9 @@ class BlacklistPage extends StatelessWidget {
                 12.horizontalSpace,
                 Expanded(
                   child: (info.nickname ?? '').toText
-                    ..style = Styles.ts_333333_17sp,
+                    ..style = Styles.ts_333333_16sp,
                 ),
-                StrLibrary.remove.toText..style = Styles.ts_8443F8_17sp,
+                StrLibrary.remove.toText..style = Styles.ts_8443F8_16sp,
               ],
             ),
           ),

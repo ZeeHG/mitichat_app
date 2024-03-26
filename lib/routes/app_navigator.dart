@@ -11,7 +11,7 @@ import '../pages/chat/group_setup/group_member_list/group_member_list_logic.dart
 import '../pages/contacts/add_by_search/add_by_search_logic.dart';
 import '../pages/contacts/group_profile_panel/group_profile_panel_logic.dart';
 import '../pages/contacts/select_contacts/select_contacts_logic.dart';
-import '../pages/mine/edit_my_info/edit_my_info_logic.dart';
+import '../pages/mine/edit_my_profile/edit_my_profile_logic.dart';
 import 'app_pages.dart';
 
 class AppNavigator {
@@ -183,15 +183,16 @@ class AppNavigator {
 
   static startMyInfo() => Get.toNamed(AppRoutes.myInfo);
 
-  static startEditMyInfo({EditAttr attr = EditAttr.nickname, int? maxLength}) =>
+  static startEditMyProfile(
+          {EditAttr attr = EditAttr.nickname, int? maxLength}) =>
       Get.toNamed(AppRoutes.editMyInfo,
           arguments: {'editAttr': attr, 'maxLength': maxLength});
 
-  static startAccountSetup() => Get.toNamed(AppRoutes.accountSetup);
+  static startAccountSetting() => Get.toNamed(AppRoutes.accountSetup);
 
   static startBlacklist() => Get.toNamed(AppRoutes.blacklist);
 
-  static startLanguageSetup() => Get.toNamed(AppRoutes.languageSetup);
+  static startLanguageSetting() => Get.toNamed(AppRoutes.languageSetup);
 
   static startUnlockSetup() => Get.toNamed(AppRoutes.unlockSetup);
 
@@ -480,7 +481,10 @@ class AppNavigator {
   }) =>
       Get.toNamed(
         AppRoutes.previewMedia,
-        arguments: {"mediaLogic": mediaLogic, "currentIndex": currentIndex, "showDel": showDel
+        arguments: {
+          "mediaLogic": mediaLogic,
+          "currentIndex": currentIndex,
+          "showDel": showDel
         },
       );
 

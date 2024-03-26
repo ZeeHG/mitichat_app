@@ -17,7 +17,7 @@ class ChangePwdPage extends StatelessWidget {
       child: Scaffold(
         appBar: TitleBar.back(
             title: StrLibrary.changePassword,
-            right: Container(
+            right: SizedBox(
               width: 56.w,
               height: 28.h,
               child: Button(
@@ -26,11 +26,7 @@ class ChangePwdPage extends StatelessWidget {
                 onTap: logic.confirm,
                 textStyle: Styles.ts_FFFFFF_16sp,
               ),
-            )
-            // StrLibrary .determine.toText
-            //   ..style = Styles.ts_333333_16sp
-            //   ..onTap = logic.confirm,
-            ),
+            )),
         backgroundColor: Styles.c_F7F8FA,
         body: SingleChildScrollView(
           child: Column(

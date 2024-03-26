@@ -5,7 +5,7 @@ import 'package:miti_common/miti_common.dart';
 import 'dart:ui';
 import '../../../core/ctrl/im_ctrl.dart';
 
-class AccountSetupLogic extends GetxController {
+class AccountSettingLogic extends GetxController {
   final imCtrl = Get.find<IMCtrl>();
   final curLanguage = "".obs;
 
@@ -80,29 +80,33 @@ class AccountSetupLogic extends GetxController {
   }
 
   Future<void> updateUserInfo(String key, int value) async {
-    switch (key) {
-      case 'allowAddFriend':
-        await Apis.updateUserInfo(
-            allowAddFriend: value, userID: OpenIM.iMManager.userID);
-        imCtrl.userInfo.update((val) {
-          val?.allowAddFriend = value;
-        });
-        break;
-      case 'allowVibration':
-        await Apis.updateUserInfo(
-            allowVibration: value, userID: OpenIM.iMManager.userID);
-        imCtrl.userInfo.update((val) {
-          val?.allowVibration = value;
-        });
-        break;
-      case 'allowBeep':
-        await Apis.updateUserInfo(
-            allowBeep: value, userID: OpenIM.iMManager.userID);
-        imCtrl.userInfo.update((val) {
-          val?.allowBeep = value;
-        });
-        break;
-    }
+    LoadingView.singleton.start(
+      fn: () async {
+        switch (key) {
+          case 'allowAddFriend':
+            await Apis.updateUserInfo(
+                allowAddFriend: value, userID: OpenIM.iMManager.userID);
+            imCtrl.userInfo.update((val) {
+              val?.allowAddFriend = value;
+            });
+            break;
+          case 'allowVibration':
+            await Apis.updateUserInfo(
+                allowVibration: value, userID: OpenIM.iMManager.userID);
+            imCtrl.userInfo.update((val) {
+              val?.allowVibration = value;
+            });
+            break;
+          case 'allowBeep':
+            await Apis.updateUserInfo(
+                allowBeep: value, userID: OpenIM.iMManager.userID);
+            imCtrl.userInfo.update((val) {
+              val?.allowBeep = value;
+            });
+            break;
+        }
+      },
+    );
   }
 
   void clearChatHistory() async {
@@ -147,7 +151,7 @@ class AccountSetupLogic extends GetxController {
   void blacklist() => AppNavigator.startBlacklist();
 
   void languageSetting() async {
-    await AppNavigator.startLanguageSetup();
+    await AppNavigator.startLanguageSetting();
     getLanguageName();
   }
 

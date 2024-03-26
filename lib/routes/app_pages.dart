@@ -168,16 +168,16 @@ import '../pages/login/login_binding.dart';
 import '../pages/login/login_view.dart';
 import '../pages/mine/about_us/about_us_binding.dart';
 import '../pages/mine/about_us/about_us_view.dart';
-import '../pages/mine/account_setup/account_setup_binding.dart';
-import '../pages/mine/account_setup/account_setup_view.dart';
-import '../pages/mine/blacklist/blacklist_binding.dart';
-import '../pages/mine/blacklist/blacklist_view.dart';
+import '../pages/mine/account_setting/account_setting_binding.dart';
+import '../pages/mine/account_setting/account_setting_view.dart';
+import '../pages/mine/user_black_list/user_black_list_binding.dart';
+import '../pages/mine/user_black_list/user_black_list_view.dart';
 import '../pages/mine/change_pwd/change_pwd_binding.dart';
 import '../pages/mine/change_pwd/change_pwd_view.dart';
-import '../pages/mine/edit_my_info/edit_my_info_binding.dart';
-import '../pages/mine/edit_my_info/edit_my_info_view.dart';
-import '../pages/mine/language_setup/language_setup_binding.dart';
-import '../pages/mine/language_setup/language_setup_view.dart';
+import '../pages/mine/edit_my_profile/edit_my_profile_binding.dart';
+import '../pages/mine/edit_my_profile/edit_my_profile_view.dart';
+import '../pages/mine/language_setting/language_setting_binding.dart';
+import '../pages/mine/language_setting/language_setting_view.dart';
 import '../pages/mine/my_info/my_info_binding.dart';
 import '../pages/mine/my_info/my_info_view.dart';
 import '../pages/mine/my_qrcode/my_qrcode_binding.dart';
@@ -303,23 +303,23 @@ class AppPages {
     ),
     _pageBuilder(
       name: AppRoutes.editMyInfo,
-      page: () => EditMyInfoPage(),
-      binding: EditMyInfoBinding(),
+      page: () => EditMyProfilePage(),
+      binding: EditMyProfileBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.accountSetup,
-      page: () => AccountSetupPage(),
-      binding: AccountSetupBinding(),
+      page: () => AccountSettingPage(),
+      binding: AccountSettingBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.blacklist,
-      page: () => BlacklistPage(),
-      binding: BlacklistBinding(),
+      page: () => UserBlacklistPage(),
+      binding: UserBlacklistBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.languageSetup,
-      page: () => LanguageSetupPage(),
-      binding: LanguageSetupBinding(),
+      page: () => LanguageSettingPage(),
+      binding: LanguageSettingBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.unlockSetup,

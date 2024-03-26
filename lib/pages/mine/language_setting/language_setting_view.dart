@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-import 'language_setup_logic.dart';
+import 'language_setting_logic.dart';
 
-class LanguageSetupPage extends StatelessWidget {
-  final logic = Get.find<LanguageSetupLogic>();
+class LanguageSettingPage extends StatelessWidget {
+  final logic = Get.find<LanguageSettingLogic>();
 
-  LanguageSetupPage({super.key});
+  LanguageSettingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,6 @@ class LanguageSetupPage extends StatelessWidget {
               //   label: StrLibrary .followSystem,
               //   isChecked: logic.isFollowSystem.value,
               //   onTap: () => logic.switchLanguage(0),
-              //   isTopRadius: true,
               //   showBorder: false
               // ),
               Container(
@@ -87,42 +86,39 @@ class LanguageSetupPage extends StatelessWidget {
   Widget _buildItemView({
     required String label,
     bool isChecked = false,
-    bool isTopRadius = false,
     bool isBottomRadius = false,
     bool showBorder = true,
     Function()? onTap,
   }) =>
-      Container(
-        child: Ink(
-          height: 52.h,
-          decoration: BoxDecoration(
-            color: Styles.c_FFFFFF,
-          ),
-          child: InkWell(
-            onTap: onTap,
-            child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.w),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      top: BorderSide(
-                        color: Styles.c_F1F2F6,
-                        width: showBorder ? 1.h : 0,
-                      ),
+      Ink(
+        height: 52.h,
+        decoration: BoxDecoration(
+          color: Styles.c_FFFFFF,
+        ),
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.w),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(
+                      color: Styles.c_F1F2F6,
+                      width: showBorder ? 1.h : 0,
                     ),
                   ),
-                  child: Row(
-                    children: [
-                      label.toText..style = Styles.ts_333333_16sp,
-                      const Spacer(),
-                      if (isChecked)
-                        ImageRes.checked.toImage
-                          ..width = 20.w
-                          ..height = 15.h,
-                    ],
-                  ),
-                )),
-          ),
+                ),
+                child: Row(
+                  children: [
+                    label.toText..style = Styles.ts_333333_16sp,
+                    const Spacer(),
+                    if (isChecked)
+                      ImageRes.checked.toImage
+                        ..width = 20.w
+                        ..height = 15.h,
+                  ],
+                ),
+              )),
         ),
       );
 }

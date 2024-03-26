@@ -1,10 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-class LanguageSetupLogic extends GetxController {
+class LanguageSettingLogic extends GetxController {
   final onOff = {
     "isFollowSystem": false.obs,
     "isChinese": false.obs,
@@ -16,18 +14,18 @@ class LanguageSetupLogic extends GetxController {
 
   @override
   void onInit() {
-    _initLanguageSetting();
+    _initLang();
     super.onInit();
   }
 
   void setLang(String key) {
-    onOff.values.forEach((element) {
+    for (final element in onOff.values) {
       element.value = false;
-    });
+    }
     onOff[key]!.value = true;
   }
 
-  void _initLanguageSetting() {
+  void _initLang() {
     Locale systemLocal = WidgetsBinding.instance.platformDispatcher.locale;
     var language = DataSp.getLanguage();
     var index = (language != null && language != 0)
