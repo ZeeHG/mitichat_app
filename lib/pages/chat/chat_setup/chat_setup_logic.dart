@@ -268,7 +268,7 @@ class ChatSetupLogic extends GetxController {
         ),
       );
       chatLogic.clearAllMessage();
-      IMViews.showToast(StrLibrary.clearSuccessfully);
+      showToast(StrLibrary.clearSuccessfully);
     }
   }
 

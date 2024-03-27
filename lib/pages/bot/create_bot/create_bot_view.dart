@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -64,7 +63,7 @@ class CreateBotPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   label.toText..style = Styles.ts_333333_14sp,
-                  Spacer(),
+                  const Spacer(),
                   if (null != rightWeight) rightWeight,
                   if (showRightArrow)
                     ImageRes.appRightArrow.toImage

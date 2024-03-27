@@ -5,12 +5,12 @@ import 'package:miti/pages/login/login_logic.dart';
 import 'package:miti/widgets/gradient__scroll_view.dart';
 import 'package:miti_common/miti_common.dart';
 
-import 'forget_password_logic.dart';
+import 'forget_pwd_logic.dart';
 
-class ForgetPasswordPage extends StatelessWidget {
-  final logic = Get.find<ForgetPasswordLogic>();
+class ForgetPwdPage extends StatelessWidget {
+  final logic = Get.find<ForgetPwdLogic>();
 
-  ForgetPasswordPage({super.key});
+  ForgetPwdPage({super.key});
 
   @override
   Widget build(BuildContext context) => GradientScrollView(
@@ -27,7 +27,7 @@ class ForgetPasswordPage extends StatelessWidget {
                       logic.loginController.operateType == LoginType.phone
                           ? logic.openCountryCodePicker
                           : null,
-                  controller: logic.phoneCtrl,
+                  controller: logic.phoneEmailCtrl,
                 ),
                 16.verticalSpace,
                 InputBox.verificationCode(

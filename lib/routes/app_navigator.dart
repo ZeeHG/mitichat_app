@@ -414,7 +414,7 @@ class AppNavigator {
         arguments: {'isAddAccount': isAddAccount, "server": server},
       );
 
-  static startForgetPassword(
+  static startForgetPwd(
           {bool isAddAccount = false, String server = Config.host}) =>
       Get.toNamed(
         AppRoutes.forgetPassword,
@@ -422,7 +422,7 @@ class AppNavigator {
       );
 
   /// [usedFor] 1：注册，2：重置密码 3：登录
-  static void startResetPassword({
+  static void startResetPwd({
     String? phoneNumber,
     String? email,
     required String areaCode,
@@ -492,7 +492,7 @@ class AppNavigator {
 
   static startPrivacyPolicy() => Get.toNamed(AppRoutes.privacyPolicy);
 
-  static startFriendPermissions({required String userID}) =>
+  static startFriendPermission({required String userID}) =>
       Get.toNamed(AppRoutes.friendPermissions, arguments: {"userID": userID});
 
   static startRecentRequests() => Get.toNamed(AppRoutes.recentRequests);

@@ -42,7 +42,7 @@ class LoginPage extends StatelessWidget {
                                   logic.loginType.value == LoginType.phone
                                       ? logic.openCountryCodePicker
                                       : null,
-                              controller: logic.phoneCtrl,
+                              controller: logic.phoneEmailCtrl,
                               keyBoardType:
                                   logic.loginType.value == LoginType.phone
                                       ? TextInputType.phone

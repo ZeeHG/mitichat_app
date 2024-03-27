@@ -93,8 +93,8 @@ class HttpUtil {
         return resp.data;
       } else {
         if (showErrorToast) {
-          IMViews.showToast(resp.errDlt);
-          // IMViews.showToast(ApiError.getMsg(resp.errCode));
+          showToast(resp.errDlt);
+          // showToast(ApiError.getMsg(resp.errCode));
         }
 
         return Future.error(resp.errMsg);
@@ -102,7 +102,7 @@ class HttpUtil {
     } catch (error) {
       if (error is DioException) {
         final errorMsg = '接口：$path  信息：${error.message}';
-        // if (showErrorToast) IMViews.showToast(errorMsg);
+        // if (showErrorToast) showToast(errorMsg);
         // 手动请求取消不提示
         bool isCancel = error.type == DioExceptionType.cancel;
         if (isCancel) {
@@ -119,12 +119,12 @@ class HttpUtil {
             }
           });
         } else {
-          IMViews.showToast(errorMsg);
+          showToast(errorMsg);
         }
         return Future.error(errorMsg);
       }
       final errorMsg = '接口：$path  信息：${error.toString()}';
-      if (showErrorToast) IMViews.showToast(errorMsg);
+      if (showErrorToast) showToast(errorMsg);
       return Future.error(error);
     }
   }
@@ -195,7 +195,7 @@ class HttpUtil {
           intervalDo.drop(
               fun: () async {
                 await ImageGallerySaver.saveFile(cachePath);
-                IMViews.showToast("${StrLibrary.saveSuccessfully}",
+                showToast("${StrLibrary.saveSuccessfully}",
                     duration: const Duration(milliseconds: 3000));
               },
               milliseconds: 1500);
@@ -208,7 +208,7 @@ class HttpUtil {
               final filePath = result['filePath'].split('//').last;
               tips = '${StrLibrary.saveSuccessfully}';
             }
-            IMViews.showToast(tips);
+            showToast(tips);
           }
         }
       },
@@ -227,7 +227,7 @@ class HttpUtil {
           final filePath = result['filePath'].split('//').last;
           tips = '${StrLibrary.saveSuccessfully}';
         }
-        IMViews.showToast(tips);
+        showToast(tips);
       }
     }
   }
@@ -252,7 +252,7 @@ class HttpUtil {
               final filePath = result['filePath'].split('//').last;
               tips = '${StrLibrary.saveSuccessfully}';
             }
-            IMViews.showToast(tips);
+            showToast(tips);
           }
         }
       },
@@ -267,7 +267,7 @@ class HttpUtil {
         final filePath = result['filePath'].split('//').last;
         tips = '${StrLibrary.saveSuccessfully}';
       }
-      IMViews.showToast(tips);
+      showToast(tips);
     }
   }
 }

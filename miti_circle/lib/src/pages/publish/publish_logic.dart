@@ -137,7 +137,7 @@ class PublishLogic extends GetxController {
     //     rightText: StrLibrary .saveAlias,
     //   ));
     //   if (confirm == true) {
-    //     IMViews.showToast(StrLibrary .saveSuccessfully);
+    //     showToast(StrLibrary .saveSuccessfully);
     //     Get.back();
     //   } else {
     //     Get.back();
@@ -201,7 +201,7 @@ class PublishLogic extends GetxController {
               // 视频限制15s的时长
               if (entity.type == AssetType.video &&
                   entity.videoDuration > const Duration(seconds: 15)) {
-                IMViews.showToast(sprintf(StrLibrary.selectVideoLimit, [15]) +
+                showToast(sprintf(StrLibrary.selectVideoLimit, [15]) +
                     StrLibrary.seconds);
                 return false;
               }
@@ -244,7 +244,7 @@ class PublishLogic extends GetxController {
           onlyEnableRecording: hasAssets && !isPicture,
           enableRecording: !hasAssets || !isPicture,
           onMinimumRecordDurationNotMet: () {
-            IMViews.showToast(StrLibrary.tapTooShort);
+            showToast(StrLibrary.tapTooShort);
           },
         ),
       );
@@ -324,7 +324,7 @@ class PublishLogic extends GetxController {
   publish() async {
     // if (inputCtrl.text.trim().isEmpty) {
     //   focusNode.requestFocus();
-    //   IMViews.showToast(StrLibrary .plsEnterDescription);
+    //   showToast(StrLibrary .plsEnterDescription);
     //   return;
     // }
     if (isPublishXhs.value &&

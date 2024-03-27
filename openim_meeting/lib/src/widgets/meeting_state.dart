@@ -137,7 +137,7 @@ abstract class MeetingViewState<T extends MeetingView> extends State<T> {
                     startTime: startTime,
                     duration: duration,
                   )));
-      IMViews.showToast(StrLibrary.shareSuccessfully);
+      showToast(StrLibrary.shareSuccessfully);
     }
   }
 

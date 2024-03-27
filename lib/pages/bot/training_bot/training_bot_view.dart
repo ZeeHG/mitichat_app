@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -19,7 +18,7 @@ class TrainingBotPage extends StatelessWidget {
         backgroundColor: Styles.c_F7F8FA,
         body: Stack(
           children: [
-            Container(
+            SizedBox(
               height: 1.sh,
               child: Column(
                 children: [
@@ -43,7 +42,7 @@ class TrainingBotPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        (StrLibrary.question + "：").toText
+                        ("${StrLibrary.question}：").toText
                           ..style = Styles.ts_303137_14sp_medium,
                         TextFormField(
                           maxLines: 7,
@@ -65,7 +64,7 @@ class TrainingBotPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        (StrLibrary.answer + "：").toText
+                        ("${StrLibrary.answer}：").toText
                           ..style = Styles.ts_303137_14sp_medium,
                         TextFormField(
                           maxLines: 7,

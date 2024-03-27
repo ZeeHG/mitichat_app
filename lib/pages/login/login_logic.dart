@@ -4,8 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti/utils/account_util.dart';
 import 'package:miti_common/miti_common.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-
 import '../../core/ctrl/im_ctrl.dart';
 import '../../core/ctrl/push_ctrl.dart';
 import '../../routes/app_navigator.dart';
@@ -56,7 +54,7 @@ extension LoginTypeExt on LoginType {
 class LoginLogic extends GetxController {
   final imCtrl = Get.find<IMCtrl>();
   final pushCtrl = Get.find<PushCtrl>();
-  final phoneCtrl = TextEditingController();
+  final phoneEmailCtrl = TextEditingController();
   final pwdCtrl = TextEditingController();
   final serverCtrl = TextEditingController();
   final onlyReadServerCtrl = TextEditingController();
@@ -68,9 +66,9 @@ class LoginLogic extends GetxController {
   final versionInfo = ''.obs;
   final loginType = LoginType.phone.obs;
   String? get email =>
-      loginType.value == LoginType.email ? phoneCtrl.text.trim() : null;
+      loginType.value == LoginType.email ? phoneEmailCtrl.text.trim() : null;
   String? get phone =>
-      loginType.value == LoginType.phone ? phoneCtrl.text.trim() : null;
+      loginType.value == LoginType.phone ? phoneEmailCtrl.text.trim() : null;
   LoginType operateType = LoginType.phone;
   final agree = false.obs;
   final translateLogic = Get.find<TranslateLogic>();
@@ -80,23 +78,17 @@ class LoginLogic extends GetxController {
   final server = Config.hostWithProtocol.obs;
   int curStatusChangeCount = 0;
 
-  _initData() async {
+  _init() async {
+    isAddAccount.value = Get.arguments?['isAddAccount'] ?? false;
+    server.value = Get.arguments?['server'] ?? server.value;
+    curStatusChangeCount = accountUtil.statusChangeCount.value;
+
     onlyReadServerCtrl.text = DataSp.getCurServerKey().isNotEmpty
         ? DataSp.getCurServerKey()
         : Config.hostWithProtocol;
     var map = DataSp.getMainLoginAccount();
     if (map is Map) {
-      // String? email = map["email"];
-      // String? phoneNumber = map["phoneNumber"];
       String? areaCode = map["areaCode"];
-      // if (email != null && email.isNotEmpty && !isAddAccount.value) {
-      //   phoneCtrl.text = email;
-      // }
-      // if (phoneNumber != null &&
-      //     phoneNumber.isNotEmpty &&
-      //     !isAddAccount.value) {
-      //   phoneCtrl.text = phoneNumber;
-      // }
       if (areaCode != null && areaCode.isNotEmpty) {
         this.areaCode.value = areaCode;
       }
@@ -108,7 +100,7 @@ class LoginLogic extends GetxController {
 
   @override
   void onClose() {
-    phoneCtrl.dispose();
+    phoneEmailCtrl.dispose();
     pwdCtrl.dispose();
     verificationCodeCtrl.dispose();
     super.onClose();
@@ -116,26 +108,19 @@ class LoginLogic extends GetxController {
 
   @override
   void onInit() async {
-    isAddAccount.value = Get.arguments?['isAddAccount'] ?? false;
-    server.value = Get.arguments?['server'] ?? server.value;
-    curStatusChangeCount = accountUtil.statusChangeCount.value;
-    _initData();
-    phoneCtrl.addListener(_onChanged);
-    pwdCtrl.addListener(_onChanged);
-    verificationCodeCtrl.addListener(_onChanged);
-    // if (!isAddAccount.value) {
-    //   LoadingView.singleton.start(
-    //       topBarHeight: 0, fn: () => accountUtil.reloadServerConf());
-    // }
+    _init();
+    phoneEmailCtrl.addListener(handleFormChange);
+    pwdCtrl.addListener(handleFormChange);
+    verificationCodeCtrl.addListener(handleFormChange);
     super.onInit();
   }
 
-  _onChanged() {
+  handleFormChange() {
     enabled.value = (isPasswordLogin.value &&
-            phoneCtrl.text.trim().isNotEmpty &&
+            phoneEmailCtrl.text.trim().isNotEmpty &&
             pwdCtrl.text.trim().isNotEmpty ||
         !isPasswordLogin.value &&
-            phoneCtrl.text.trim().isNotEmpty &&
+            phoneEmailCtrl.text.trim().isNotEmpty &&
             verificationCodeCtrl.text.trim().isNotEmpty);
   }
 
@@ -145,33 +130,32 @@ class LoginLogic extends GetxController {
     LoadingView.singleton.start(
         topBarHeight: 0,
         fn: () async {
+          if (!checkForm()) {
+            return;
+          }
           if (!isAddAccount.value) {
-            var suc = await _login();
-            if (suc) {
-              Get.find<CacheController>().resetCache();
-              AppNavigator.startMain();
-            }
+            await loginAccount();
           } else {
-            if (!checkForm()) {
-              return false;
-            }
-            final password = MitiUtils.emptyStrToNull(pwdCtrl.text);
-            final code = MitiUtils.emptyStrToNull(verificationCodeCtrl.text);
-            final isOk = await accountUtil.loginAccount(
-                switchBack: false,
-                serverWithProtocol: server.value,
-                areaCode: areaCode.value,
-                phoneNumber: phone,
-                email: email,
-                password: password,
-                verificationCode: isPasswordLogin.value ? null : code);
-            if (isOk) AppNavigator.startMain();
+            await addAndLoginAccount();
           }
         });
   }
 
+  Future<void> addAndLoginAccount() async {
+    final password = MitiUtils.emptyStrToNull(pwdCtrl.text);
+    final code = MitiUtils.emptyStrToNull(verificationCodeCtrl.text);
+    final isOk = await accountUtil.loginAccount(
+        switchBack: false,
+        serverWithProtocol: server.value,
+        areaCode: areaCode.value,
+        phoneNumber: phone,
+        email: email,
+        password: password,
+        verificationCode: isPasswordLogin.value ? null : code);
+    if (isOk) AppNavigator.startMain();
+  }
+
   cusBack() async {
-    // await accountUtil.backMain(curStatusChangeCount);
     Get.back();
   }
 
@@ -247,30 +231,26 @@ class LoginLogic extends GetxController {
 
   bool checkForm() {
     if (phone?.isNotEmpty == true &&
-        !MitiUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-      IMViews.showToast(StrLibrary.plsEnterRightPhone);
+        !MitiUtils.isMobile(areaCode.value, phoneEmailCtrl.text)) {
+      showToast(StrLibrary.plsEnterRightPhone);
       return false;
     }
 
-    if (email?.isNotEmpty == true && !phoneCtrl.text.isEmail) {
-      IMViews.showToast(StrLibrary.plsEnterRightEmail);
+    if (email?.isNotEmpty == true && !phoneEmailCtrl.text.isEmail) {
+      showToast(StrLibrary.plsEnterRightEmail);
       return false;
     }
 
     if (!agree.value) {
-      IMViews.showToast(StrLibrary.plsAgree);
+      showToast(StrLibrary.plsAgree);
       return false;
     }
 
     return true;
   }
 
-  Future<bool> _login() async {
+  Future<bool> loginAccount() async {
     try {
-      if (!checkForm()) {
-        return false;
-      }
-
       final password = MitiUtils.emptyStrToNull(pwdCtrl.text);
       final code = MitiUtils.emptyStrToNull(verificationCodeCtrl.text);
       final data = await Apis.login(
@@ -282,12 +262,14 @@ class LoginLogic extends GetxController {
       );
       final account = {
         "areaCode": areaCode.value,
-        "phoneNumber": phoneCtrl.text,
-        'email': email
+        "phoneNumber": phone,
+        'email': email,
+        "server": onlyReadServerCtrl.text
       };
       await DataSp.putLoginCertificate(data);
       await DataSp.putMainLoginAccount(account);
       await imCtrl.login(data.userID, data.imToken);
+      Get.find<CacheController>().resetCache();
       await setAccountLoginInfo(
           userID: data.userID,
           imToken: data.imToken,
@@ -301,6 +283,7 @@ class LoginLogic extends GetxController {
       translateLogic.init(data.userID);
       ttsLogic.init(data.userID);
       pushCtrl.login(data.userID);
+      AppNavigator.startMain();
       return true;
     } catch (e, s) {
       myLogger.e({"message": "登录失败", "error": e, "stack": s});
@@ -308,43 +291,36 @@ class LoginLogic extends GetxController {
     return false;
   }
 
-  void togglePasswordType() {
-    isPasswordLogin.value = !isPasswordLogin.value;
-  }
+  // void togglePasswordType() {
+  //   isPasswordLogin.value = !isPasswordLogin.value;
+  // }
 
   void toggleLoginType() {
-    if (loginType.value == LoginType.phone) {
-      loginType.value = LoginType.email;
-    } else {
-      loginType.value = LoginType.phone;
-    }
-
-    phoneCtrl.text = '';
+    loginType.value =
+        loginType.value == LoginType.phone ? LoginType.email : LoginType.phone;
+    phoneEmailCtrl.text = '';
   }
 
   Future<bool> getVerificationCode() async {
     if (phone?.isNotEmpty == true &&
-        !MitiUtils.isMobile(areaCode.value, phoneCtrl.text)) {
+        !MitiUtils.isMobile(areaCode.value, phoneEmailCtrl.text)) {
       showToast(StrLibrary.plsEnterRightPhone);
       return false;
     }
 
-    if (email?.isNotEmpty == true && !phoneCtrl.text.isEmail) {
-      IMViews.showToast(StrLibrary.plsEnterRightEmail);
+    if (email?.isNotEmpty == true && !phoneEmailCtrl.text.isEmail) {
+      showToast(StrLibrary.plsEnterRightEmail);
       return false;
     }
 
-    return sendVerificationCode();
+    return await LoadingView.singleton.start(
+        fn: () => Apis.requestVerificationCode(
+              areaCode: areaCode.value,
+              phoneNumber: phone,
+              email: email,
+              usedFor: 3,
+            ));
   }
-
-  /// [usedFor] 1：注册，2：重置密码 3：登录
-  Future<bool> sendVerificationCode() => LoadingView.singleton.start(
-      fn: () => Apis.requestVerificationCode(
-            areaCode: areaCode.value,
-            phoneNumber: phone,
-            email: email,
-            usedFor: 3,
-          ));
 
   void openCountryCodePicker() async {
     String? code = await IMViews.showCountryCodePicker();
@@ -354,11 +330,11 @@ class LoginLogic extends GetxController {
   void registerNow() => AppNavigator.startRegister(
       isAddAccount: isAddAccount.value, server: server.value);
 
-  void forgetPassword() => AppNavigator.startForgetPassword(
+  void forgetPassword() => AppNavigator.startForgetPwd(
       isAddAccount: isAddAccount.value, server: server.value);
 
   void changeAgree(bool? bool) {
     agree.value = bool!;
-    _onChanged();
+    handleFormChange();
   }
 }

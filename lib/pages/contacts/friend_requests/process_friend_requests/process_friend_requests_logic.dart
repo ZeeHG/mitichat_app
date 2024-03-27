@@ -18,7 +18,7 @@ class ProcessFriendRequestsLogic extends GetxController {
             fn: () => OpenIM.iMManager.friendshipManager
                 .acceptFriendApplication(userID: applicationInfo.fromUserID!))
         .then(_addSuccessfully)
-        .catchError((_) => IMViews.showToast(StrLibrary.addFailed));
+        .catchError((_) => showToast(StrLibrary.addFailed));
   }
 
   /// 拒绝好友申请
@@ -28,17 +28,17 @@ class ProcessFriendRequestsLogic extends GetxController {
             fn: () => OpenIM.iMManager.friendshipManager
                 .refuseFriendApplication(userID: applicationInfo.fromUserID!))
         .then(_rejectSuccessfully)
-        .catchError((_) => IMViews.showToast(StrLibrary.rejectFailed));
+        .catchError((_) => showToast(StrLibrary.rejectFailed));
   }
 
   _addSuccessfully(_) {
-    IMViews.showToast(StrLibrary.addSuccessfully);
+    showToast(StrLibrary.addSuccessfully);
     Get.back(result: 1);
     return _;
   }
 
   _rejectSuccessfully(_) {
-    IMViews.showToast(StrLibrary.rejectSuccessfully);
+    showToast(StrLibrary.rejectSuccessfully);
     Get.back(result: -1);
     return _;
   }

@@ -4,10 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-import 'friend_permissions_logic.dart';
+import 'friend_permission_logic.dart';
 
-class FriendPermissionsPage extends StatelessWidget {
-  final logic = Get.put(FriendPermissionsLogic());
+class FriendPermissionPage extends StatelessWidget {
+  final logic = Get.put(FriendPermissionLogic());
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
@@ -16,7 +16,7 @@ class FriendPermissionsPage extends StatelessWidget {
         ),
         backgroundColor: Styles.c_F7F8FA,
         body: SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
                 width: 1.sw,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +29,7 @@ class FriendPermissionsPage extends StatelessWidget {
                     ),
                     _buildItemView(
                       text: StrLibrary.moments,
-                      switchOn: logic.momentsStatus.value,
+                      switchOn: logic.seeMomentPermission.value,
                       onChanged: (_) => logic.changeMoments(),
                       showSwitchButton: true,
                     ),

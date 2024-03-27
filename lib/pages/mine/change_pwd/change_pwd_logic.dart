@@ -24,23 +24,23 @@ class ChangePwdLogic extends GetxController {
 
   void confirm() async {
     if (newPwdCtrl.text.isEmpty) {
-      IMViews.showToast(StrLibrary.plsEnterNewPwd);
+      showToast(StrLibrary.plsEnterNewPwd);
       return;
     }
     if (!MitiUtils.isValidPassword(newPwdCtrl.text)) {
-      IMViews.showToast(StrLibrary.wrongPasswordFormat);
+      showToast(StrLibrary.wrongPasswordFormat);
       return;
     }
     if (oldPwdCtrl.text.isEmpty) {
-      IMViews.showToast(StrLibrary.plsEnterOldPwd);
+      showToast(StrLibrary.plsEnterOldPwd);
       return;
     }
     if (againPwdCtrl.text.isEmpty) {
-      IMViews.showToast(StrLibrary.plsEnterConfirmPwd);
+      showToast(StrLibrary.plsEnterConfirmPwd);
       return;
     }
     if (newPwdCtrl.text != againPwdCtrl.text) {
-      IMViews.showToast(StrLibrary.twicePwdNoSame);
+      showToast(StrLibrary.twicePwdNoSame);
       return;
     }
 
@@ -52,7 +52,7 @@ class ChangePwdLogic extends GetxController {
       ),
     );
     if (result) {
-      IMViews.showToast(StrLibrary.changedSuccessfully);
+      showToast(StrLibrary.changedSuccessfully);
       await LoadingView.singleton.start(fn: () async {
         await accountUtil.tryLogout();
       });

@@ -103,7 +103,7 @@ class AboutUsPage extends StatelessWidget {
                                       .map((item) => item.toString())
                                       .toList()
                                       .join(",");
-                                  IMViews.showToast(str);
+                                  showToast(str);
                                 }),
                             buildItem(
                                 label: "媒体权限+存储(13-)",
@@ -127,7 +127,7 @@ class AboutUsPage extends StatelessWidget {
                                       .map((item) => item.toString())
                                       .toList()
                                       .join(",");
-                                  IMViews.showToast(str);
+                                  showToast(str);
                                 }),
                             buildItem(
                                 label: "打开相册",

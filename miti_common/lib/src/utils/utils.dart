@@ -111,7 +111,7 @@ class MitiUtils {
 
   static void copy({required String text}) {
     Clipboard.setData(ClipboardData(text: text));
-    IMViews.showToast(StrLibrary.copySuccessfully);
+    showToast(StrLibrary.copySuccessfully);
   }
 
   static List<ISuspensionBean> convertToAZList(List<ISuspensionBean> list) {
@@ -1431,11 +1431,11 @@ class MitiUtils {
   static openFileByOtherApp(String path) async {
     OpenResult result = await OpenFilex.open(path);
     if (result.type == ResultType.noAppToOpen) {
-      IMViews.showToast("没有可支持的应用");
+      showToast("没有可支持的应用");
     } else if (result.type == ResultType.permissionDenied) {
-      IMViews.showToast("无权限访问");
+      showToast("无权限访问");
     } else if (result.type == ResultType.fileNotFound) {
-      IMViews.showToast("文件已失效");
+      showToast("文件已失效");
     }
   }
 

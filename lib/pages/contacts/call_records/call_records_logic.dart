@@ -35,7 +35,7 @@ class CallRecordsLogic extends GetxController {
 
   void call(CallRecords records) {
     if (rtcIsBusy) {
-      IMViews.showToast(StrLibrary.callingBusy);
+      showToast(StrLibrary.callingBusy);
       return;
     }
     IMViews.openIMCallSheet(records.nickname, (index) {

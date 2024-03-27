@@ -296,7 +296,7 @@ class UserProfilePanelLogic extends GetxController {
     if (null != groupMembersInfo) {
       imCtrl.memberInfoChangedSubject.add(groupMembersInfo!);
     }
-    IMViews.showToast(StrLibrary.setSuccessfully);
+    showToast(StrLibrary.setSuccessfully);
   }
 
   void toChat() {

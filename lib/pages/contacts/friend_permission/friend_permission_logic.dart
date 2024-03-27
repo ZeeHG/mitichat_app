@@ -1,33 +1,31 @@
-import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-class FriendPermissionsLogic extends GetxController {
-  final momentsStatus = false.obs;
+class FriendPermissionLogic extends GetxController {
+  final seeMomentPermission = false.obs;
   final userID = "".obs;
 
   changeMoments() async {
     await LoadingView.singleton.start(
       fn: () => Apis.blockMoment(
-          userID: userID.value, operation: momentsStatus.value ? 1 : 0),
+          userID: userID.value, operation: seeMomentPermission.value ? 1 : 0),
     );
-    momentsStatus.value = !momentsStatus.value;
+    seeMomentPermission.value = !seeMomentPermission.value;
   }
 
   @override
-  void onReady() {
+  void onInit() {
     userID.value = Get.arguments["userID"];
-    _queryBlockMoment();
-    super.onReady();
+    queryMomentPermission();
+    super.onInit();
   }
 
-  _queryBlockMoment() async {
+  queryMomentPermission() async {
     final result = await LoadingView.singleton.start(
       fn: () => Apis.getBlockMoment(
         userID: userID.value,
       ),
     );
-    momentsStatus.value = result["blocked"] == 1 ? false : true;
+    seeMomentPermission.value = result["blocked"] == 1 ? false : true;
   }
 }

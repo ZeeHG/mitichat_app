@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:miti/pages/xhs/xhs_logic.dart';
-
 import '../contacts/contacts_logic.dart';
 import '../conversation/conversation_logic.dart';
 import '../mine/mine_logic.dart';

@@ -46,7 +46,7 @@ class _ChatVoiceRecordLayoutState extends State<ChatVoiceRecordLayout> {
     } else {
       if (sec == 0) {
         File(path).delete();
-        IMViews.showToast(StrLibrary.talkTooShort);
+        showToast(StrLibrary.talkTooShort);
       } else {
         widget.onCompleted?.call(sec, path);
       }

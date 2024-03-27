@@ -272,7 +272,7 @@ class Apis {
         'invitationCode': invitationCode
       },
     ).then((value) {
-      IMViews.showToast(StrLibrary.sentSuccessfully);
+      showToast(StrLibrary.sentSuccessfully);
       return true;
     }).catchError((e, s) {
       Logger.print('e:$e s:$s');

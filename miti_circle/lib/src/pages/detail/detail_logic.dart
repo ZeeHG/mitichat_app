@@ -39,7 +39,7 @@ class WorkMomentsDetailLogic extends GetxController {
       workMomentID: workMomentID,
     );
     if (detail.workMomentID == null || detail.workMomentID!.isEmpty) {
-      IMViews.showToast('记录可能已经被删除了');
+      showToast('记录可能已经被删除了');
       Get.back();
       return;
     }

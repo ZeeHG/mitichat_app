@@ -47,7 +47,7 @@ class TagNotificationDetailLogic extends GetxController {
         groupIDList: notification.groups?.map((e) => e.groupID).toList() ?? [],
       );
     });
-    IMViews.showToast(StrLibrary.sendSuccessfully);
+    showToast(StrLibrary.sendSuccessfully);
     Get.back(result: true);
   }
 

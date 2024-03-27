@@ -41,7 +41,7 @@ class BuildTagNotificationLogic extends GetxController {
   void sendTextNotification() async {
     final content = textEditingCtrl.text.trim();
     if (content.isEmpty) {
-      IMViews.showToast(StrLibrary.contentNotBlank);
+      showToast(StrLibrary.contentNotBlank);
       return;
     }
     final map = buildApiParams();
@@ -53,7 +53,7 @@ class BuildTagNotificationLogic extends GetxController {
         groupIDList: map['groupIDList'] ?? [],
       ),
     );
-    IMViews.showToast(StrLibrary.sendSuccessfully);
+    showToast(StrLibrary.sendSuccessfully);
     Get.back(result: true);
   }
 
@@ -83,7 +83,7 @@ class BuildTagNotificationLogic extends GetxController {
         );
       }
     });
-    IMViews.showToast(StrLibrary.sendSuccessfully);
+    showToast(StrLibrary.sendSuccessfully);
     Get.back(result: true);
   }
 

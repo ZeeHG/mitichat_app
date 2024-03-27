@@ -61,13 +61,13 @@ class ProcessGroupRequestsLogic extends GetxController {
                 ))
         .then((value) => Get.back(result: -1))
         .catchError(_parse)
-        .catchError((_) => IMViews.showToast(StrLibrary.rejectFailed));
+        .catchError((_) => showToast(StrLibrary.rejectFailed));
   }
 
   _parse(e) {
     if (e is PlatformException) {
       if (e.code == '${SDKErrorCode.groupApplicationHasBeenProcessed}') {
-        IMViews.showToast(StrLibrary.groupRequestHandled);
+        showToast(StrLibrary.groupRequestHandled);
         return;
       }
     }

@@ -58,6 +58,7 @@ class AccountUtil extends GetxController {
           imCtrl.reBuildSubject();
         }
         await DataSp.removeLoginCertificate();
+        // Get.find<CacheController>().resetCache();
         // OpenIM.iMManager.userID
         pushCtrl.logout();
       }
@@ -73,7 +74,7 @@ class AccountUtil extends GetxController {
     await DataSp.putServerConfig({
       'serverIP': uri.host,
       'authUrl': Config.targetIsIPWithProtocol(serverWithProtocol)
-          ? "${serverWithProtocol}:10008"
+          ? "$serverWithProtocol:10008"
           : "${serverWithProtocol}/chat",
       'apiUrl': Config.targetIsIPWithProtocol(serverWithProtocol)
           ? "${serverWithProtocol}:10002"

@@ -77,7 +77,7 @@ class MeetingDetailLogic extends GetxController {
                   duration: duration,
                 ),
               ));
-      IMViews.showToast('分享成功');
+      showToast('分享成功');
     }
   }
 
@@ -108,9 +108,9 @@ class MeetingDetailLogic extends GetxController {
     } catch (e, s) {
       Logger.print('error: $e,  stack: $s');
       if (e.toString().contains('NotExist')) {
-        IMViews.showToast("会议已经结束！");
+        showToast("会议已经结束！");
       } else {
-        IMViews.showToast("网络异常请稍后再试！");
+        showToast("网络异常请稍后再试！");
       }
     }
   }

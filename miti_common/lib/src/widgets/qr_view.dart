@@ -223,17 +223,17 @@ class _QrcodeViewState extends State<QrcodeView> with TickerProviderStateMixin {
         final uri = Uri.parse(Uri.encodeFull(result));
         if (!await launchUrl(uri)) {
           // throw Exception('Could not launch $uri');
-          IMViews.showToast('无法识别!');
+          showToast('无法识别!');
           // controller?.resumeCamera();
           controller.start();
         }
       } else {
         Get.back(result: result);
-        IMViews.showToast('扫码结果：$result');
+        showToast('扫码结果：$result');
       }
     } else {
       Get.back();
-      IMViews.showToast('无法识别');
+      showToast('无法识别');
     }
   }
 }

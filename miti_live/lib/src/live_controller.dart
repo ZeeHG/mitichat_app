@@ -333,11 +333,11 @@ mixin MitiLive {
         }
       });
       if (int.parse(error.code) == SDKErrorCode.hasBeenBlocked) {
-        IMViews.showToast(StrLibrary.callFail);
+        showToast(StrLibrary.callFail);
         return;
       }
     }
-    IMViews.showToast(StrLibrary.networkError);
+    showToast(StrLibrary.networkError);
   }
 
   onRoomDisconnected(SignalingInfo signalingInfo) {
@@ -442,7 +442,7 @@ mixin MitiLive {
   /// 用户繁忙
   onBusyLine() {
     _stopBeepAndVibrate();
-    IMViews.showToast('用户正忙，请稍后再试！');
+    showToast('用户正忙，请稍后再试！');
   }
 
   onJoin() {}

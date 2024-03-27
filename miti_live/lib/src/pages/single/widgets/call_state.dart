@@ -130,7 +130,7 @@ abstract class SignalState<T extends SignalView> extends State<T> {
         return;
       }
       widget.onClose?.call();
-      IMViews.showToast(sprintf(StrLibrary.otherCallHandle, [
+      showToast(sprintf(StrLibrary.otherCallHandle, [
         event.state == CallState.otherReject
             ? StrLibrary.rejectCall
             : StrLibrary.accept

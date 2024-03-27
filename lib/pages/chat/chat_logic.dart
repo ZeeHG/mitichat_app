@@ -1089,7 +1089,7 @@ class ChatLogic extends GetxController {
             AssetPickerConfig(selectPredicate: (_, entity, isSelected) {
       // 视频限制5分钟的时长
       if (entity.videoDuration > const Duration(seconds: 5 * 60)) {
-        IMViews.showToast(
+        showToast(
             sprintf(StrLibrary.selectVideoLimit, [5]) + StrLibrary.minute);
         return false;
       }
@@ -1118,7 +1118,7 @@ class ChatLogic extends GetxController {
         resolutionPreset: ResolutionPreset.medium,
         maximumRecordingDuration: 60.seconds,
         onMinimumRecordDurationNotMet: () {
-          IMViews.showToast(StrLibrary.tapTooShort);
+          showToast(StrLibrary.tapTooShort);
         },
       ),
     );
@@ -1220,7 +1220,7 @@ class ChatLogic extends GetxController {
       var customType = map['customType'];
       if (CustomMessageType.call == customType && !isInBlacklist.value) {
         if (rtcIsBusy) {
-          IMViews.showToast(StrLibrary.callingBusy);
+          showToast(StrLibrary.callingBusy);
           return;
         }
         var type = map['data']['type'];
@@ -1232,7 +1232,7 @@ class ChatLogic extends GetxController {
       }
       // else if (CustomMessageType.meeting == customType) {
       //   if (rtcIsBusy) {
-      //     IMViews.showToast(StrLibrary .callingBusy);
+      //     showToast(StrLibrary .callingBusy);
       //     return;
       //   }
       //   var data = msg.customElem!.data;
@@ -1445,7 +1445,7 @@ class ChatLogic extends GetxController {
       if (null != content) {
         MitiUtils.copy(text: content);
       } else {
-        IMViews.showToast(StrLibrary.copyFail);
+        showToast(StrLibrary.copyFail);
       }
     }
   }
@@ -1564,7 +1564,7 @@ class ChatLogic extends GetxController {
           "messageCopyTextMap": copyTextMap[message.clientMsgID]
         }
       });
-      IMViews.showToast(StrLibrary.noWorking);
+      showToast(StrLibrary.noWorking);
     }
   }
 
@@ -1597,7 +1597,7 @@ class ChatLogic extends GetxController {
         "message": "文本转语音message, 获取不到音频",
         "error": {"message": json.encode(message)}
       });
-      IMViews.showToast(StrLibrary.noWorking);
+      showToast(StrLibrary.noWorking);
     }
   }
 
@@ -1841,7 +1841,7 @@ class ChatLogic extends GetxController {
       var width = message.pictureElem?.sourcePicture?.width;
       var height = message.pictureElem?.sourcePicture?.height;
       cacheLogic.addFavoriteFromUrl(url, width, height);
-      IMViews.showToast(StrLibrary.addSuccessfully);
+      showToast(StrLibrary.addSuccessfully);
     } else if (message.contentType == MessageType.customFace) {
       var index = message.faceElem?.index;
       var data = message.faceElem?.data;
@@ -1852,7 +1852,7 @@ class ChatLogic extends GetxController {
         var width = map['width'];
         var height = map['height'];
         cacheLogic.addFavoriteFromUrl(url, width, height);
-        IMViews.showToast(StrLibrary.addSuccessfully);
+        showToast(StrLibrary.addSuccessfully);
       }
     }
   }
@@ -1879,14 +1879,14 @@ class ChatLogic extends GetxController {
   changeFontSize(double factor) async {
     await DataSp.putChatFontSizeFactor(factor);
     scaleFactor.value = factor;
-    IMViews.showToast(StrLibrary.setSuccessfully);
+    showToast(StrLibrary.setSuccessfully);
   }
 
   /// 修改聊天背景
   changeBackground(String path) async {
     await DataSp.putChatBackground(otherId, path);
     background.value = path;
-    IMViews.showToast(StrLibrary.setSuccessfully);
+    showToast(StrLibrary.setSuccessfully);
   }
 
   String get otherId => isSingleChat ? userID! : groupID!;
@@ -1895,13 +1895,13 @@ class ChatLogic extends GetxController {
   clearBackground() async {
     await DataSp.clearChatBackground(otherId);
     background.value = '';
-    IMViews.showToast(StrLibrary.setSuccessfully);
+    showToast(StrLibrary.setSuccessfully);
   }
 
   /// 拨视频或音频
   void call() async {
     if (rtcIsBusy) {
-      IMViews.showToast(StrLibrary.callingBusy);
+      showToast(StrLibrary.callingBusy);
       return;
     }
     if (isGroupChat) {
@@ -2469,10 +2469,10 @@ class ChatLogic extends GetxController {
         formatQuoteMessage(message.clientMsgID!);
         messageList.refresh();
       } catch (e) {
-        IMViews.showToast(e.toString());
+        showToast(e.toString());
       }
     } else {
-      IMViews.showToast('你没有撤回消息的权限!');
+      showToast('你没有撤回消息的权限!');
     }
   }
 
@@ -2635,7 +2635,7 @@ class ChatLogic extends GetxController {
 
   void joinGroupCalling() async {
     if (rtcIsBusy) {
-      IMViews.showToast(StrLibrary.callingBusy);
+      showToast(StrLibrary.callingBusy);
       return;
     }
     final certificate = await LoadingView.singleton.start(

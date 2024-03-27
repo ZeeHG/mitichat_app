@@ -15,8 +15,8 @@ import 'package:miti/pages/contacts/my_ai/train_ai/train_ai_binding.dart';
 import 'package:miti/pages/contacts/my_ai/train_ai/train_ai_view.dart';
 import 'package:miti/pages/contacts/recent_requests/recent_requests_binding.dart';
 import 'package:miti/pages/contacts/recent_requests/recent_requests_view.dart';
-import 'package:miti/pages/friend_permissions/friend_permissions_binding.dart';
-import 'package:miti/pages/friend_permissions/friend_permissions_view.dart';
+import 'package:miti/pages/contacts/friend_permission/friend_permission_binding.dart';
+import 'package:miti/pages/contacts/friend_permission/friend_permission_view.dart';
 import 'package:miti/pages/mine/account_and_security/account_and_security_binding.dart';
 import 'package:miti/pages/mine/account_and_security/account_and_security_view.dart';
 import 'package:miti/pages/mine/account_manage/account_manage_binding.dart';
@@ -154,10 +154,10 @@ import '../pages/contacts/user_profile_panel/set_remark/set_remark_binding.dart'
 import '../pages/contacts/user_profile_panel/set_remark/set_remark_view.dart';
 import '../pages/contacts/user_profile_panel/user_profile _panel_binding.dart';
 import '../pages/contacts/user_profile_panel/user_profile _panel_view.dart';
-import '../pages/forget_password/forget_password_binding.dart';
-import '../pages/forget_password/forget_password_view.dart';
-import '../pages/forget_password/reset_password/reset_password_binding.dart';
-import '../pages/forget_password/reset_password/reset_password_view.dart';
+import '../pages/login/forget_pwd/forget_pwd_binding.dart';
+import '../pages/login/forget_pwd/forget_pwd_view.dart';
+import '../pages/login/reset_pwd/reset_pwd_binding.dart';
+import '../pages/login/reset_pwd/reset_pwd_view.dart';
 import '../pages/global_search/expand_chat_history/expand_chat_history_binding.dart';
 import '../pages/global_search/expand_chat_history/expand_chat_history_view.dart';
 import '../pages/global_search/global_search_binding.dart';
@@ -503,13 +503,13 @@ class AppPages {
     ),
     _pageBuilder(
       name: AppRoutes.forgetPassword,
-      page: () => ForgetPasswordPage(),
-      binding: ForgetPasswordBinding(),
+      page: () => ForgetPwdPage(),
+      binding: ForgetPwdBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.resetPassword,
-      page: () => ResetPasswordPage(),
-      binding: ResetPasswordBinding(),
+      page: () => ResetPwdPage(),
+      binding: ResetPwdBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.tagGroup,
@@ -613,8 +613,8 @@ class AppPages {
     ),
     _pageBuilder(
       name: AppRoutes.friendPermissions,
-      page: () => FriendPermissionsPage(),
-      binding: FriendPermissionsBinding(),
+      page: () => FriendPermissionPage(),
+      binding: FriendPermissionBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.recentRequests,

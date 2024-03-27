@@ -74,7 +74,7 @@
 //               },
 //             ).catchError((_) {
 //               uniMPInfo.value.progress = 0;
-//               IMViews.showToast(StrLibrary.downloadFail);
+//               showToast(StrLibrary.downloadFail);
 //             });
 //           }
 //         }

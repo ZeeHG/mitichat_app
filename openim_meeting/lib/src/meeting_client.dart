@@ -152,9 +152,9 @@ class MeetingClient implements MeetingBridge {
       close();
       Logger.print("error:$error  stack:$trace");
       if (error.toString().contains('NotExist')) {
-        IMViews.showToast(StrLibrary.meetingIsOver);
+        showToast(StrLibrary.meetingIsOver);
       } else {
-        IMViews.showToast(StrLibrary.networkError);
+        showToast(StrLibrary.networkError);
       }
     }
   }

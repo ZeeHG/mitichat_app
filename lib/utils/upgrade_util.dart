@@ -42,7 +42,7 @@
 //     if (Platform.isAndroid) {
 //       final result = await Permissions.notification();
 //       if (!result) {
-//         await IMViews.showToast(StrLibrary.upgradePermissionTips,
+//         await showToast(StrLibrary.upgradePermissionTips,
 //             duration: 2.seconds);
 //         openAppSettings();
 //         return;
@@ -114,7 +114,7 @@
 //         .then((value) {
 //       upgradeInfoV2 = value;
 //       if (!canUpdate) {
-//         IMViews.showToast('已是最新版本');
+//         showToast('已是最新版本');
 //         return;
 //       }
 //       Get.dialog(

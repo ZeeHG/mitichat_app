@@ -140,14 +140,14 @@ class BookMeetingLogic extends GetxController {
               OpenIM.iMManager.signalingManager.signalingUpdateMeetingInfo(
                 info: meetingInfo!.toJson(),
               ));
-      IMViews.showToast("修改成功！");
+      showToast("修改成功！");
       Get.back();
     } catch (e, s) {
       Logger.print('error: $e,  stack: $s');
       if (e.toString().contains('NotExist')) {
-        IMViews.showToast("会议已经结束！");
+        showToast("会议已经结束！");
       } else {
-        IMViews.showToast("网络异常请稍后再试！");
+        showToast("网络异常请稍后再试！");
       }
     }
   }

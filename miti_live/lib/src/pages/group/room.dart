@@ -67,7 +67,7 @@ class _GroupRoomViewState extends SignalState<GroupRoomView> {
     final token = certificate.token!;
     final busyLineUsers = certificate.busyLineUserIDList ?? [];
     if (busyLineUsers.isNotEmpty) {
-      IMViews.showToast(StrLibrary.busyVideoCallHint);
+      showToast(StrLibrary.busyVideoCallHint);
     }
     // Try to connect to a room
     // This will throw an Exception if it fails for any reason.

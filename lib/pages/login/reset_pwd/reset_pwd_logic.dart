@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 
-class ResetPasswordLogic extends GetxController {
+class ResetPwdLogic extends GetxController {
   final pwdCtrl = TextEditingController();
   final pwdAgainCtrl = TextEditingController();
   final enabled = false.obs;
@@ -27,40 +27,38 @@ class ResetPasswordLogic extends GetxController {
     email = Get.arguments['email'];
     areaCode = Get.arguments['areaCode'];
     verificationCode = Get.arguments['verificationCode'];
-    pwdCtrl.addListener(_onChanged);
-    pwdAgainCtrl.addListener(_onChanged);
+    pwdCtrl.addListener(handleFormChange);
+    pwdAgainCtrl.addListener(handleFormChange);
     super.onInit();
   }
 
-  _onChanged() {
+  handleFormChange() {
     enabled.value =
         pwdCtrl.text.trim().isNotEmpty && pwdAgainCtrl.text.trim().isNotEmpty;
   }
 
-  bool _checkingInput() {
+  bool checkForm() {
     if (!MitiUtils.isValidPassword(pwdCtrl.text)) {
-      IMViews.showToast(StrLibrary.wrongPasswordFormat);
+      showToast(StrLibrary.wrongPasswordFormat);
       return false;
     } else if (pwdCtrl.text != pwdAgainCtrl.text) {
-      IMViews.showToast(StrLibrary.twicePwdNoSame);
+      showToast(StrLibrary.twicePwdNoSame);
       return false;
     }
     return true;
   }
 
-  resetPassword() => LoadingView.singleton.start(
-      fn: () => Apis.resetPassword(
-            areaCode: areaCode,
-            phoneNumber: phoneNumber,
-            email: email,
-            password: pwdCtrl.text,
-            verificationCode: verificationCode,
-          ));
-
   confirmTheChanges() async {
-    if (_checkingInput()) {
-      await resetPassword();
-      IMViews.showToast(StrLibrary.changedSuccessfully);
+    if (checkForm()) {
+      await LoadingView.singleton.start(
+          fn: () => Apis.resetPassword(
+                areaCode: areaCode,
+                phoneNumber: phoneNumber,
+                email: email,
+                password: pwdCtrl.text,
+                verificationCode: verificationCode,
+              ));
+      showToast(StrLibrary.changedSuccessfully);
       AppNavigator.startBackLogin();
     }
   }

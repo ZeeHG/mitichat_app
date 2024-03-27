@@ -41,15 +41,15 @@ class SendVerificationApplicationLogic extends GetxController {
         ),
       );
       Get.back();
-      IMViews.showToast(StrLibrary.sendSuccessfully);
+      showToast(StrLibrary.sendSuccessfully);
     } catch (_) {
       if (_ is PlatformException) {
         if (_.code == '${SDKErrorCode.refuseToAddFriends}') {
-          IMViews.showToast(StrLibrary.canNotAddFriends);
+          showToast(StrLibrary.canNotAddFriends);
           return;
         }
       }
-      IMViews.showToast(StrLibrary.sendFailed);
+      showToast(StrLibrary.sendFailed);
     }
   }
 
@@ -63,8 +63,8 @@ class SendVerificationApplicationLogic extends GetxController {
             joinSource: joinGroupMethod == JoinGroupMethod.qrcode ? 4 : 3,
           ),
         )
-        .then((value) => IMViews.showToast(StrLibrary.sendSuccessfully))
+        .then((value) => showToast(StrLibrary.sendSuccessfully))
         .then((value) => Get.back())
-        .catchError((e) => IMViews.showToast(StrLibrary.sendFailed));
+        .catchError((e) => showToast(StrLibrary.sendFailed));
   }
 }

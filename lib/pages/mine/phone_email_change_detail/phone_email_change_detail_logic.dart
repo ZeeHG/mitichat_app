@@ -69,15 +69,15 @@ class PhoneEmailChangeDetailLogic extends GetxController {
 
   bool _checkingInput() {
     if (isPhone && !MitiUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-      IMViews.showToast(StrLibrary.plsEnterRightPhone);
+      showToast(StrLibrary.plsEnterRightPhone);
       return false;
     }
     if (!isPhone && !MitiUtils.isEmail(emailCtrl.text)) {
-      IMViews.showToast(StrLibrary.plsEnterRightEmail);
+      showToast(StrLibrary.plsEnterRightEmail);
       return false;
     }
     if (verificationCodeCtrl.text.trim().isEmpty) {
-      IMViews.showToast(StrLibrary.plsEnterVerificationCode);
+      showToast(StrLibrary.plsEnterVerificationCode);
       return false;
     }
     return true;
@@ -91,21 +91,21 @@ class PhoneEmailChangeDetailLogic extends GetxController {
   Future<bool> getVerificationCode() async {
     if (isPhone) {
       if (phone?.isEmpty == true) {
-        IMViews.showToast(StrLibrary.plsEnterPhoneNumber);
+        showToast(StrLibrary.plsEnterPhoneNumber);
         return false;
       }
       if (phone?.isNotEmpty == true &&
           !MitiUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-        IMViews.showToast(StrLibrary.plsEnterRightPhone);
+        showToast(StrLibrary.plsEnterRightPhone);
         return false;
       }
     } else {
       if (email?.isEmpty == true) {
-        IMViews.showToast(StrLibrary.plsEnterEmail);
+        showToast(StrLibrary.plsEnterEmail);
         return false;
       }
       if (email?.isNotEmpty == true && !email!.isEmail) {
-        IMViews.showToast(StrLibrary.plsEnterRightEmail);
+        showToast(StrLibrary.plsEnterRightEmail);
         return false;
       }
     }

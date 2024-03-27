@@ -36,13 +36,13 @@ class AboutUsLogic extends GetxController {
       uploadLogsProgress.value = 0.01;
       OpenIM.iMManager
           .uploadLogs()
-          .then((value) => IMViews.showToast(StrLibrary.uploaded));
+          .then((value) => showToast(StrLibrary.uploaded));
 
       imCtrl.onUploadProgress = (current, size) {
         uploadLogsProgress.value = current / size;
       };
     } catch (e, s) {
-      IMViews.showToast(StrLibrary.uploadFail);
+      showToast(StrLibrary.uploadFail);
       myLogger.e({"message": "uploadLogs, 上传IM日志出错", "error": e, "stack": s});
     }
   }
@@ -62,15 +62,15 @@ class AboutUsLogic extends GetxController {
               "${imCtrl.userInfo.value.userID ?? "null"}_im_${dateStr}_${appCommonLogic.deviceModel}_${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}.log",
         ),
       );
-      IMViews.showToast(StrLibrary.uploaded);
+      showToast(StrLibrary.uploaded);
       if (result is String) {
         String url = jsonDecode(result)['url'];
         MitiUtils.copy(text: !url.isEmpty ? url : "log url is not empty");
       } else {
-        IMViews.showToast(StrLibrary.copyFail);
+        showToast(StrLibrary.copyFail);
       }
     } catch (e, s) {
-      IMViews.showToast(StrLibrary.uploadFail);
+      showToast(StrLibrary.uploadFail);
       myLogger.e({
         "message": "uploadLogsByDate, 上传IM日志(按日期)出错",
         "error": {"date": "${date ?? myLoggerDateStr}", "error": e, "stack": s}
@@ -97,17 +97,17 @@ class AboutUsLogic extends GetxController {
           fn: fn,
         );
       }
-      if (toast) IMViews.showToast(StrLibrary.uploaded);
+      if (toast) showToast(StrLibrary.uploaded);
       if (result is String) {
         String url = jsonDecode(result)['url'];
         if (copy)
           MitiUtils.copy(text: url.isNotEmpty ? url : "url is not empty");
         return url;
       } else {
-        if (toast) IMViews.showToast(StrLibrary.copyFail);
+        if (toast) showToast(StrLibrary.copyFail);
       }
     } catch (e, s) {
-      if (toast) IMViews.showToast(StrLibrary.uploadFail);
+      if (toast) showToast(StrLibrary.uploadFail);
       myLogger.e({
         "message": "uploadAppLogs, 上传APP日志(按日期)出错",
         "error": {
@@ -142,7 +142,7 @@ class AboutUsLogic extends GetxController {
                   logInfo: logInfo, toast: false, copy: false))
               .toList()));
     } finally {
-      // IMViews.showToast(StrLibrary .uploaded);
+      // showToast(StrLibrary .uploaded);
       MitiUtils.copy(text: result.join(", "));
     }
   }

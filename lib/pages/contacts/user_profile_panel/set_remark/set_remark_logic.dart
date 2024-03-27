@@ -18,10 +18,10 @@ class SetFriendRemarkLogic extends GetxController {
           remark: inputCtrl.text.trim(),
         ),
       );
-      IMViews.showToast(StrLibrary.saveSuccessfully);
+      showToast(StrLibrary.saveSuccessfully);
       Get.back(result: inputCtrl.text.trim());
     } catch (_) {
-      IMViews.showToast(StrLibrary.saveFailed);
+      showToast(StrLibrary.saveFailed);
     }
   }
 

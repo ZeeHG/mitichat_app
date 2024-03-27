@@ -13,7 +13,7 @@ class ChatFileDownloadProgressView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final url = message.fileElem?.sourceUrl;
-    return Obx(() => Container(
+    return Obx(() => SizedBox(
           width: 38.w,
           height: 44.h,
           child: !(message.isFileType && null != ctrl.downloadTaskList[url])

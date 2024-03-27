@@ -97,30 +97,30 @@ class RegisterLogic extends GetxController {
   bool checkInput() {
     if (isPhoneRegister &&
         !MitiUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-      IMViews.showToast(StrLibrary.plsEnterRightPhone);
+      showToast(StrLibrary.plsEnterRightPhone);
       return false;
     }
     if (!isPhoneRegister && !MitiUtils.isEmail(emailCtrl.text)) {
-      IMViews.showToast(StrLibrary.plsEnterRightEmail);
+      showToast(StrLibrary.plsEnterRightEmail);
       return false;
     }
     if (verificationCodeCtrl.text.trim().isEmpty) {
-      IMViews.showToast(StrLibrary.plsEnterVerificationCode);
+      showToast(StrLibrary.plsEnterVerificationCode);
       return false;
     }
     if (nicknameCtrl.text.trim().isEmpty) {
-      IMViews.showToast(StrLibrary.plsEnterYourNickname);
+      showToast(StrLibrary.plsEnterYourNickname);
       return false;
     }
     if (!MitiUtils.isValidPassword(pwdCtrl.text)) {
-      IMViews.showToast(StrLibrary.wrongPasswordFormat);
+      showToast(StrLibrary.wrongPasswordFormat);
       return false;
     } else if (pwdCtrl.text != pwdAgainCtrl.text) {
-      IMViews.showToast(StrLibrary.twicePwdNoSame);
+      showToast(StrLibrary.twicePwdNoSame);
       return false;
     }
     if (checkInvitationCodeValid()) {
-      IMViews.showToast(StrLibrary.plsEnterInvitationCode2);
+      showToast(StrLibrary.plsEnterInvitationCode2);
       return false;
     }
     return true;
@@ -130,7 +130,8 @@ class RegisterLogic extends GetxController {
       null != appCtrl.clientConfig['needInvitationCode'] &&
       appCtrl.clientConfig['needInvitationCode'] != '0';
 
-  bool checkInvitationCodeValid() => needInvitationCode ? invitationCodeCtrl.text.trim().isNotEmpty : true;
+  bool checkInvitationCodeValid() =>
+      needInvitationCode ? invitationCodeCtrl.text.trim().isNotEmpty : true;
 
   void openCountryPicker() async {
     String? code = await IMViews.showCountryCodePicker();
@@ -147,26 +148,26 @@ class RegisterLogic extends GetxController {
 
   Future<bool> getVerificationCode() async {
     if (checkInvitationCodeValid()) {
-      IMViews.showToast(StrLibrary.plsEnterInvitationCode2);
+      showToast(StrLibrary.plsEnterInvitationCode2);
       return false;
     }
     if (isPhoneRegister) {
       if (phone?.isEmpty == true) {
-        IMViews.showToast(StrLibrary.plsEnterPhoneNumber);
+        showToast(StrLibrary.plsEnterPhoneNumber);
         return false;
       }
       if (phone?.isNotEmpty == true &&
           !MitiUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-        IMViews.showToast(StrLibrary.plsEnterRightPhone);
+        showToast(StrLibrary.plsEnterRightPhone);
         return false;
       }
     } else {
       if (email?.isEmpty == true) {
-        IMViews.showToast(StrLibrary.plsEnterEmail);
+        showToast(StrLibrary.plsEnterEmail);
         return false;
       }
       if (email?.isNotEmpty == true && !email!.isEmail) {
-        IMViews.showToast(StrLibrary.plsEnterRightEmail);
+        showToast(StrLibrary.plsEnterRightEmail);
         return false;
       }
     }

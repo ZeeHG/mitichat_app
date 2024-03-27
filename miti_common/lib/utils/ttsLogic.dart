@@ -66,6 +66,6 @@ class TtsLogic extends GetxController {
   clearAllTtsMsgCache() {
     msgTts.value = {};
     setMsgTts({});
-    IMViews.showToast(StrLibrary.success);
+    showToast(StrLibrary.success);
   }
 }

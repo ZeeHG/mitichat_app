@@ -73,7 +73,7 @@ class UserProfilePanelPage extends StatelessWidget {
                           _buildItemView(
                             label: StrLibrary.friendPermissions,
                             showRightArrow: true,
-                            onTap: () => AppNavigator.startFriendPermissions(
+                            onTap: () => AppNavigator.startFriendPermission(
                                 userID: logic.userInfo.value.userID!),
                           ),
                         ],

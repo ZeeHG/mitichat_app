@@ -4,12 +4,12 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
 import '../../../widgets/gradient__scroll_view.dart';
-import 'reset_password_logic.dart';
+import 'reset_pwd_logic.dart';
 
-class ResetPasswordPage extends StatelessWidget {
-  final logic = Get.find<ResetPasswordLogic>();
+class ResetPwdPage extends StatelessWidget {
+  final logic = Get.find<ResetPwdLogic>();
 
-  ResetPasswordPage({super.key});
+  ResetPwdPage({super.key});
 
   @override
   Widget build(BuildContext context) => GradientScrollView(
@@ -25,7 +25,7 @@ class ResetPasswordPage extends StatelessWidget {
                   formatHintText: StrLibrary.loginPwdFormat,
                   inputFormatters: [MitiUtils.getPasswordFormatter()],
                 ),
-                17.verticalSpace,
+                16.verticalSpace,
                 InputBox.password(
                   hintText: StrLibrary.plsConfirmPasswordAgain,
                   controller: logic.pwdAgainCtrl,

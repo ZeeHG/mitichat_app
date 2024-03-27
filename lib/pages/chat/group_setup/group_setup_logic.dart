@@ -452,7 +452,7 @@ class GroupSetupLogic extends GetxController {
         conversationID: conversationID,
       );
       chatLogic.clearAllMessage();
-      IMViews.showToast(StrLibrary.clearSuccessfully);
+      showToast(StrLibrary.clearSuccessfully);
     }
   }
 

@@ -375,7 +375,7 @@ class TranslateLogic extends GetxController {
   clearAllTranslateMsgCache() {
     msgTranslate.value = {};
     setMsgTranslate({});
-    IMViews.showToast(StrLibrary.success);
+    showToast(StrLibrary.success);
   }
 
   clearAllTranslateConfig() {
@@ -391,12 +391,12 @@ class TranslateLogic extends GetxController {
                 conversation: conversation, data: {}, mode: "cover");
           }).toList(), cleanUp: (value) {
         if (value == null) {
-          IMViews.showToast(StrLibrary.someFail);
+          showToast(StrLibrary.someFail);
         }
       });
       langConfig.value = {};
       setLangConfig({});
-      IMViews.showToast(StrLibrary.allSuccess);
+      showToast(StrLibrary.allSuccess);
     });
   }
 }

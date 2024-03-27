@@ -49,7 +49,7 @@ class EditGroupNameLogic extends GetxController {
         );
       }
     });
-    IMViews.showToast(StrLibrary.setSuccessfully);
+    showToast(StrLibrary.setSuccessfully);
     Get.back();
   }
 }
