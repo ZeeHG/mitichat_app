@@ -103,7 +103,7 @@ class LoginLogic extends GetxController {
     }
 
     loginType.value =
-        (await DataSp.getLoginType()) == 0 ? LoginType.phone : LoginType.email;
+        DataSp.getLoginType() == 0 ? LoginType.phone : LoginType.email;
   }
 
   @override
@@ -130,12 +130,6 @@ class LoginLogic extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-    getPackageInfo();
-  }
-
   _onChanged() {
     enabled.value = (isPasswordLogin.value &&
             phoneCtrl.text.trim().isNotEmpty &&
@@ -146,7 +140,7 @@ class LoginLogic extends GetxController {
   }
 
   login(BuildContext context) {
-    FocusScope.of(context).requestFocus(new FocusNode());
+    FocusScope.of(context).requestFocus(FocusNode());
     DataSp.putLoginType(loginType.value.rawValue);
     LoadingView.singleton.start(
         topBarHeight: 0,
@@ -293,7 +287,6 @@ class LoginLogic extends GetxController {
       };
       await DataSp.putLoginCertificate(data);
       await DataSp.putMainLoginAccount(account);
-      Logger.print('login : ${data.userID}, token: ${data.imToken}');
       await imCtrl.login(data.userID, data.imToken);
       await setAccountLoginInfo(
           userID: data.userID,
@@ -305,14 +298,11 @@ class LoginLogic extends GetxController {
           password: MitiUtils.generateMD5(password ?? "")!,
           faceURL: imCtrl.userInfo.value.faceURL,
           nickname: imCtrl.userInfo.value.nickname);
-      Logger.print('im login success');
       translateLogic.init(data.userID);
       ttsLogic.init(data.userID);
       pushCtrl.login(data.userID);
-      Logger.print('push login success');
       return true;
     } catch (e, s) {
-      Logger.print('login e: $e $s');
       myLogger.e({"message": "登录失败", "error": e, "stack": s});
     }
     return false;
@@ -335,7 +325,7 @@ class LoginLogic extends GetxController {
   Future<bool> getVerificationCode() async {
     if (phone?.isNotEmpty == true &&
         !MitiUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-      IMViews.showToast(StrLibrary.plsEnterRightPhone);
+      showToast(StrLibrary.plsEnterRightPhone);
       return false;
     }
 
@@ -366,15 +356,6 @@ class LoginLogic extends GetxController {
 
   void forgetPassword() => AppNavigator.startForgetPassword(
       isAddAccount: isAddAccount.value, server: server.value);
-
-  void getPackageInfo() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    final version = packageInfo.version;
-    final appName = packageInfo.appName;
-    final buildNumber = packageInfo.buildNumber;
-
-    versionInfo.value = '$appName $version+$buildNumber SDK: ${OpenIM.version}';
-  }
 
   void changeAgree(bool? bool) {
     agree.value = bool!;

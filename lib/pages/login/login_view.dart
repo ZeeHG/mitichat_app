@@ -48,7 +48,7 @@ class LoginPage extends StatelessWidget {
                                       ? TextInputType.phone
                                       : TextInputType.text,
                             ),
-                            17.verticalSpace,
+                            16.verticalSpace,
                             Offstage(
                               offstage: !logic.isPasswordLogin.value,
                               child: InputBox.password(
@@ -67,7 +67,7 @@ class LoginPage extends StatelessWidget {
                                     logic.getVerificationCode,
                               ),
                             ),
-                            17.verticalSpace,
+                            16.verticalSpace,
                             InputBox(
                               readOnly: true,
                               controller: logic.onlyReadServerCtrl,
@@ -78,7 +78,7 @@ class LoginPage extends StatelessWidget {
                             //   children: [
                             //     StrLibrary .forgetPassword.toText
                             //       ..style = Styles.ts_8443F8_12sp
-                            //       ..onTap = _showForgetPasswordBottomSheet,
+                            //       ..onTap = _showForgetPwdBottomSheet,
                             //     const Spacer(),
                             //     // (logic.isPasswordLogin.value
                             //     //         ? StrLibrary .verificationCodeLogin
@@ -121,7 +121,7 @@ class LoginPage extends StatelessWidget {
                                               style: Styles.ts_8443F8_14sp,
                                               recognizer: TapGestureRecognizer()
                                                 ..onTap =
-                                                    _showForgetPasswordBottomSheet,
+                                                    _showForgetPwdBottomSheet,
                                             )
                                           ],
                                         ),
@@ -206,11 +206,7 @@ class LoginPage extends StatelessWidget {
                             visualDensity: VisualDensity.compact,
                             // activeColor: Styles.c_8443F8,
                             fillColor: MaterialStateProperty.resolveWith(
-                                (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.selected))
-                                return Styles.c_8443F8;
-                              return null;
-                            }),
+                                (Set<MaterialState> states) => states.contains(MaterialState.selected)? Styles.c_8443F8: null),
                             value: logic.agree.value,
                             onChanged: logic.changeAgree,
                           )),
@@ -258,42 +254,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  void _showRegisterBottomSheet() {
-    showCupertinoModalPopup(
-      context: Get.context!,
-      builder: (BuildContext context) {
-        return CupertinoActionSheet(
-          actions: [
-            CupertinoActionSheetAction(
-              onPressed: () {
-                Navigator.pop(context);
-                logic.operateType = LoginType.email;
-                logic.registerNow();
-              },
-              child: Text('${StrLibrary.email} ${StrLibrary.registerNow}'),
-            ),
-            CupertinoActionSheetAction(
-              onPressed: () {
-                Navigator.pop(context);
-                logic.operateType = LoginType.phone;
-                logic.registerNow();
-              },
-              child:
-                  Text('${StrLibrary.phoneNumber} ${StrLibrary.registerNow}'),
-            ),
-          ],
-          cancelButton: CupertinoActionSheetAction(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text(StrLibrary.cancel),
-          ),
-        );
-      },
-    );
-  }
-
-  void _showForgetPasswordBottomSheet() {
+  void _showForgetPwdBottomSheet() {
     showCupertinoModalPopup(
       context: Get.context!,
       builder: (BuildContext context) {
@@ -305,7 +266,7 @@ class LoginPage extends StatelessWidget {
                 logic.operateType = LoginType.email;
                 logic.forgetPassword();
               },
-              child: Text(sprintf(StrLibrary.through, [StrLibrary.email])),
+              child: sprintf(StrLibrary.through, [StrLibrary.email]).toText,
             ),
             CupertinoActionSheetAction(
               onPressed: () {
@@ -314,14 +275,14 @@ class LoginPage extends StatelessWidget {
                 logic.forgetPassword();
               },
               child:
-                  Text(sprintf(StrLibrary.through, [StrLibrary.phoneNumber])),
+                  sprintf(StrLibrary.through, [StrLibrary.phoneNumber]).toText,
             ),
           ],
           cancelButton: CupertinoActionSheetAction(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text(StrLibrary.cancel),
+            child: StrLibrary.cancel.toText,
           ),
         );
       },
