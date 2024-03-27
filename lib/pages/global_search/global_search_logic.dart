@@ -44,7 +44,7 @@ class GlobalSearchLogic extends CommonSearchLogic {
     fileMessageList.clear();
   }
 
-  bool get isSearchNotResult =>
+  bool get isNotResult =>
       searchKey.isNotEmpty &&
       contactsList.isEmpty &&
       groupList.isEmpty &&
@@ -52,6 +52,7 @@ class GlobalSearchLogic extends CommonSearchLogic {
       fileMessageList.isEmpty;
 
   search() async {
+    searchKey.value =searchCtrl.text.trim();
     curSearchText = searchCtrl.text.trim();
     final _curSearchText = curSearchText;
     final result = await LoadingView.singleton.start(
@@ -135,7 +136,7 @@ class GlobalSearchLogic extends CommonSearchLogic {
 
   String calContent(Message message) => MitiUtils.calContent(
         content: MitiUtils.parseMsg(message, replaceIdToNickname: true),
-        key: searchKey,
+        key: searchKey.value,
         style: Styles.ts_999999_14sp,
         usedWidth: 80.w + 26.w,
       );
@@ -161,7 +162,7 @@ class GlobalSearchLogic extends CommonSearchLogic {
     if (item.messageCount! > 1) {
       AppNavigator.startExpandChatHistory(
         searchResultItems: item,
-        defaultSearchKey: searchKey,
+        defaultSearchKey: searchKey.value,
       );
     } else {
       AppNavigator.startPreviewChatHistory(
@@ -179,6 +180,7 @@ class GlobalSearchLogic extends CommonSearchLogic {
 abstract class CommonSearchLogic extends GetxController {
   final searchCtrl = TextEditingController();
   final focusNode = FocusNode();
+  final searchKey = "".obs;
 
   void clearList();
 
@@ -201,8 +203,6 @@ abstract class CommonSearchLogic extends GetxController {
     }
   }
 
-  String get searchKey => searchCtrl.text.trim();
-
   Future<List<FriendInfo>> searchFriend() =>
       Apis.searchFriendInfo(searchCtrl.text.trim()).then(
           (list) => list.map((e) => FriendInfo.fromJson(e.toJson())).toList());
@@ -222,7 +222,7 @@ abstract class CommonSearchLogic extends GetxController {
     int count = 20,
   }) =>
       OpenIM.iMManager.messageManager.searchLocalMessages(
-        keywordList: [searchKey],
+        keywordList: [searchKey.value],
         messageTypeList: [MessageType.text, MessageType.atText],
         pageIndex: pageIndex,
         count: count,
@@ -233,7 +233,7 @@ abstract class CommonSearchLogic extends GetxController {
     int count = 20,
   }) =>
       OpenIM.iMManager.messageManager.searchLocalMessages(
-        keywordList: [searchKey],
+        keywordList: [searchKey.value],
         messageTypeList: [MessageType.file],
         pageIndex: pageIndex,
         count: count,

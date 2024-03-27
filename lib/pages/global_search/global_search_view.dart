@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +6,6 @@ import 'package:miti_common/miti_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:search_keyword_text/search_keyword_text.dart';
 import 'package:sprintf/sprintf.dart';
-
 import '../../widgets/chat_file_download_progress_view.dart';
 import 'global_search_logic.dart';
 
@@ -28,24 +26,24 @@ class GlobalSearchPage extends StatelessWidget {
           onChanged: (_) => logic.search(),
         ),
         backgroundColor: Styles.c_F8F9FA,
-        // body: Obx(() => logic.isSearchNotResult ? _emptyListView : SizedBox()),
         body: Obx(() => Column(
               children: [
                 _buildTabBar(),
-                logic.isSearchNotResult
-                    ? _emptyListView
-                    : Flexible(
-                        child: IndexedStack(
-                          index: logic.index.value,
-                          children: [
-                            _buildAllListView(),
-                            _buildContactsListView(),
-                            _buildGroupListView(),
-                            _buildChatHistoryListView(),
-                            _buildFileListView(),
-                          ],
+                if (logic.searchKey.isNotEmpty)
+                  logic.isNotResult
+                      ? _emptyView
+                      : Flexible(
+                          child: IndexedStack(
+                            index: logic.index.value,
+                            children: [
+                              _buildAllListView(),
+                              _contactsView(),
+                              _buildGroupListView(),
+                              _buildChatHistoryListView(),
+                              _buildFileListView(),
+                            ],
+                          ),
                         ),
-                      ),
               ],
             )),
       ),
@@ -126,7 +124,7 @@ class GlobalSearchPage extends StatelessWidget {
                   .map((e) => _buildItemView(
                         nickname: MitiUtils.calContent(
                           content: e.fileElem?.fileName ?? '',
-                          key: logic.searchKey,
+                          key: logic.searchKey.value,
                           style: Styles.ts_333333_16sp,
                           usedWidth: 44.w + 80.w + 26.w,
                         ),
@@ -151,106 +149,101 @@ class GlobalSearchPage extends StatelessWidget {
         ],
       );
 
-  Widget _buildContactsListView() =>
-      logic.searchKey.isNotEmpty && logic.contactsList.isEmpty
-          ? _emptyListView
-          : ListView(
-              padding: EdgeInsets.only(top: 10.h),
-              children: logic.contactsList
-                  .map((e) => _buildItemView(
-                        nickname: e.nickname,
-                        faceURL: e.faceURL,
-                        onTap: () => logic.viewUserProfile(e),
-                      ))
-                  .toList(),
+  Widget _contactsView() => logic.contactsList.isEmpty
+      ? _emptyView
+      : ListView(
+          padding: EdgeInsets.only(top: 10.h),
+          children: List.generate(logic.contactsList.length, (i) {
+            final item = logic.contactsList[i];
+            return _buildItemView(
+              nickname: item.nickname,
+              faceURL: item.faceURL,
+              onTap: () => logic.viewUserProfile(item),
             );
+          }));
 
-  Widget _buildGroupListView() =>
-      logic.searchKey.isNotEmpty && logic.groupList.isEmpty
-          ? _emptyListView
-          : ListView(
-              padding: EdgeInsets.only(top: 10.h),
-              children: logic.groupList
-                  .map((e) => _buildItemView(
-                        nickname: e.groupName,
-                        faceURL: e.faceURL,
-                        isGroup: true,
-                        onTap: () => logic.viewGroup(e),
-                      ))
-                  .toList(),
-            );
+  Widget _buildGroupListView() => logic.groupList.isEmpty
+      ? _emptyView
+      : ListView(
+          padding: EdgeInsets.only(top: 10.h),
+          children: logic.groupList
+              .map((e) => _buildItemView(
+                    nickname: e.groupName,
+                    faceURL: e.faceURL,
+                    isGroup: true,
+                    onTap: () => logic.viewGroup(e),
+                  ))
+              .toList(),
+        );
 
-  Widget _buildChatHistoryListView() =>
-      logic.searchKey.isNotEmpty && logic.textSearchResultItems.isEmpty
-          ? _emptyListView
-          : SmartRefresher(
-              key: const ValueKey(0),
-              controller: logic.textMessageRefreshCtrl,
-              enablePullDown: false,
-              enablePullUp: true,
-              footer: IMViews.buildFooter(),
-              onLoading: logic.loadTextMessage,
-              child: ListView.builder(
-                padding: EdgeInsets.only(top: 10.h),
-                itemCount: logic.textSearchResultItems.length,
-                itemBuilder: (_, index) {
-                  final e = logic.textSearchResultItems.elementAt(index);
-                  final message = e.messageList?.firstOrNull;
-                  final showName = e.showName;
-                  final faceURL = e.faceURL;
-                  final sendTime = message?.sendTime;
-                  final count = e.messageCount ?? 0;
-                  final content = count > 1
-                      ? sprintf(StrLibrary.relatedChatHistory, [count])
-                      : logic.calContent(message!);
-                  final time = null == sendTime
-                      ? null
-                      : MitiUtils.getChatTimeline(sendTime);
-                  return _buildItemView(
-                    nickname: showName,
-                    faceURL: faceURL,
-                    time: time,
-                    content: content,
-                    isChatText: true,
-                    isGroup: message?.isSingleChat == false,
-                    onTap: () => logic.viewMessage(e),
-                  );
-                },
-              ),
-            );
+  Widget _buildChatHistoryListView() => logic.textSearchResultItems.isEmpty
+      ? _emptyView
+      : SmartRefresher(
+          key: const ValueKey(0),
+          controller: logic.textMessageRefreshCtrl,
+          enablePullDown: false,
+          enablePullUp: true,
+          footer: IMViews.buildFooter(),
+          onLoading: logic.loadTextMessage,
+          child: ListView.builder(
+            padding: EdgeInsets.only(top: 10.h),
+            itemCount: logic.textSearchResultItems.length,
+            itemBuilder: (_, index) {
+              final e = logic.textSearchResultItems.elementAt(index);
+              final message = e.messageList?.firstOrNull;
+              final showName = e.showName;
+              final faceURL = e.faceURL;
+              final sendTime = message?.sendTime;
+              final count = e.messageCount ?? 0;
+              final content = count > 1
+                  ? sprintf(StrLibrary.relatedChatHistory, [count])
+                  : logic.calContent(message!);
+              final time =
+                  null == sendTime ? null : MitiUtils.getChatTimeline(sendTime);
+              return _buildItemView(
+                nickname: showName,
+                faceURL: faceURL,
+                time: time,
+                content: content,
+                isChatText: true,
+                isGroup: message?.isSingleChat == false,
+                onTap: () => logic.viewMessage(e),
+              );
+            },
+          ),
+        );
 
-  Widget _buildFileListView() =>
-      logic.searchKey.isNotEmpty && logic.fileMessageList.isEmpty
-          ? _emptyListView
-          : SmartRefresher(
-              key: const ValueKey(1),
-              controller: logic.fileMessageRefreshCtrl,
-              enablePullDown: false,
-              enablePullUp: true,
-              footer: IMViews.buildFooter(),
-              onLoading: logic.loadFileMessage,
-              child: ListView.builder(
-                padding: EdgeInsets.only(top: 10.h),
-                itemCount: logic.fileMessageList.length,
-                itemBuilder: (_, index) {
-                  final e = logic.fileMessageList.elementAt(index);
-                  return _buildItemView(
-                    nickname: MitiUtils.calContent(
-                      content: e.fileElem?.fileName ?? '',
-                      key: logic.searchKey,
-                      style: Styles.ts_333333_16sp,
-                      usedWidth: 44.w + 80.w + 26.w,
-                    ),
-                    fileIcon: ChatFileIconView(
-                      message: e,
-                      downloadProgressView: ChatFileDownloadProgressView(e),
-                    ),
-                    content: e.senderNickname,
-                    onTap: () => logic.viewFile(e),
-                  );
-                },
-              ),
-            );
+  Widget _buildFileListView() => logic.fileMessageList.isEmpty
+      ? _emptyView
+      : SmartRefresher(
+          key: const ValueKey(1),
+          controller: logic.fileMessageRefreshCtrl,
+          enablePullDown: false,
+          enablePullUp: true,
+          footer: IMViews.buildFooter(),
+          onLoading: logic.loadFileMessage,
+          child: ListView.builder(
+            padding: EdgeInsets.only(top: 10.h),
+            itemCount: logic.fileMessageList.length,
+            itemBuilder: (_, index) {
+              final e = logic.fileMessageList.elementAt(index);
+              return _buildItemView(
+                nickname: MitiUtils.calContent(
+                  content: e.fileElem?.fileName ?? '',
+                  key: logic.searchKey.value,
+                  style: Styles.ts_333333_16sp,
+                  usedWidth: 44.w + 80.w + 26.w,
+                ),
+                fileIcon: ChatFileIconView(
+                  message: e,
+                  downloadProgressView: ChatFileDownloadProgressView(e),
+                ),
+                content: e.senderNickname,
+                onTap: () => logic.viewFile(e),
+              );
+            },
+          ),
+        );
 
   Widget _buildCommonContainer({
     required String title,
@@ -345,7 +338,7 @@ class GlobalSearchPage extends StatelessWidget {
                                   ..overflow = TextOverflow.ellipsis)
                                 : SearchKeywordText(
                                     text: nickname ?? fileName ?? '',
-                                    keyText: logic.searchKey,
+                                    keyText: logic.searchKey.value,
                                     style: Styles.ts_333333_16sp,
                                     keyStyle: Styles.ts_9280B3_16sp,
                                     maxLines: 1,
@@ -358,7 +351,7 @@ class GlobalSearchPage extends StatelessWidget {
                     if (null != content)
                       SearchKeywordText(
                         text: content,
-                        keyText: logic.searchKey,
+                        keyText: logic.searchKey.value,
                         style: Styles.ts_999999_14sp,
                         keyStyle: Styles.ts_9280B3_14sp,
                         maxLines: 1,
@@ -423,19 +416,11 @@ class GlobalSearchPage extends StatelessWidget {
     );
   }
 
-  Widget get _emptyListView => SizedBox(
+  Widget get _emptyView => Container(
         width: 1.sw,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // 157.verticalSpace,
-            // ImageRes.blacklistEmpty.toImage
-            //   ..width = 120.w
-            //   ..height = 120.h,
-            // 22.verticalSpace,
-            44.verticalSpace,
-            StrLibrary.searchNotFound.toText..style = Styles.ts_999999_16sp,
-          ],
-        ),
+        margin: EdgeInsets.only(top: 30.h),
+        child: StrLibrary.searchNotFound.toText
+          ..style = Styles.ts_999999_16sp
+          ..textAlign = TextAlign.center,
       );
 }

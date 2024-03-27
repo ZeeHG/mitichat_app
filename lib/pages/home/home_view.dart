@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:miti/pages/xhs/xhs_logic.dart';
 import 'package:miti/pages/xhs/xhs_view.dart';
 import 'package:miti_common/miti_common.dart';
-
 import '../contacts/contacts_view.dart';
 import '../conversation/conversation_view.dart';
 import '../mine/mine_view.dart';
