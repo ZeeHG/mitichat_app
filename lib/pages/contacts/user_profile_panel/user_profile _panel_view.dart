@@ -124,7 +124,6 @@ class UserProfilePanelPage extends StatelessWidget {
               text: logic.userInfo.value.nickname,
               width: 52.w,
               height: 52.h,
-              textStyle: Styles.ts_FFFFFF_14sp,
               enabledPreview: true,
             ),
             12.horizontalSpace,

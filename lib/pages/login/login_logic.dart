@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:miti/pages/mine/server_config/server_config_binding.dart';
-import 'package:miti/pages/mine/server_config/server_config_view.dart';
 import 'package:miti/utils/account_util.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -362,11 +360,6 @@ class LoginLogic extends GetxController {
     String? code = await IMViews.showCountryCodePicker();
     if (null != code) areaCode.value = code;
   }
-
-  void configService() => Get.to(
-        () => ServerConfigPage(),
-        binding: ServerConfigBinding(),
-      );
 
   void registerNow() => AppNavigator.startRegister(
       isAddAccount: isAddAccount.value, server: server.value);

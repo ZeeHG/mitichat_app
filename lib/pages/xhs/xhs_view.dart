@@ -235,8 +235,6 @@ class XhsPage extends StatelessWidget {
                                                     url: xhsMoment.faceURL,
                                                     text: xhsMoment.nickname
                                                         ?.toString(),
-                                                    textStyle:
-                                                        Styles.ts_FFFFFF_11sp,
                                                     width: 20.w,
                                                     height: 20.h,
                                                   ),

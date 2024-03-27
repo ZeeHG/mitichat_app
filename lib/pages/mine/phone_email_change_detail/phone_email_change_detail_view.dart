@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti/core/ctrl/im_ctrl.dart';
 import 'package:miti/pages/mine/phone_email_change/phone_email_change_logic.dart';
 import 'package:miti_common/miti_common.dart';
-import 'package:sprintf/sprintf.dart';
-
 import 'phone_email_change_detail_logic.dart';
 
 class PhoneEmailChangeDetailPage extends StatelessWidget {
@@ -55,7 +52,7 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                                 width: 1.h, color: Styles.c_F1F2F6))),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 100.w,
                           child: (logic.isPhone
                                   ? StrLibrary.phoneNumber
@@ -88,7 +85,7 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                     )),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 100.w,
                           child: StrLibrary.verificationCode.toText
                             ..style = Styles.ts_333333_16sp
@@ -114,7 +111,7 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                     )),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 100.w,
                           child: StrLibrary.password.toText
                             ..style = Styles.ts_333333_16sp

@@ -178,7 +178,6 @@ class ChatItemContainer extends StatelessWidget {
           AvatarView(
             width: 42.w,
             height: 42.h,
-            textStyle: Styles.ts_FFFFFF_14sp_medium,
             url: leftFaceUrl,
             text: leftNickname,
             onTap: onTapLeftAvatar,
@@ -300,7 +299,6 @@ class ChatItemContainer extends StatelessWidget {
           AvatarView(
             width: 42.w,
             height: 42.h,
-            textStyle: Styles.ts_FFFFFF_14sp_medium,
             url: rightFaceUrl,
             text: rightNickname,
             onTap: onTapRightAvatar,

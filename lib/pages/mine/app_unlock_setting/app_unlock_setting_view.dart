@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
-import 'unlock_setup_logic.dart';
+import 'app_unlock_setting_logic.dart';
 
-class UnlockSetupPage extends StatelessWidget {
-  final logic = Get.find<UnlockSetupLogic>();
+class AppUnlockSettingPage extends StatelessWidget {
+  final logic = Get.find<AppUnlockSettingLogic>();
 
-  UnlockSetupPage({super.key});
+  AppUnlockSettingPage({super.key});
 
   @override
   Widget build(BuildContext context) {

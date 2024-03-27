@@ -87,8 +87,7 @@ class MinePage extends StatelessWidget {
                   url: logic.imCtrl.userInfo.value.faceURL,
                   text: logic.imCtrl.userInfo.value.nickname,
                   width: 58.w,
-                  height: 58.h,
-                  textStyle: Styles.ts_FFFFFF_16sp),
+                  height: 58.h),
               16.horizontalSpace,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

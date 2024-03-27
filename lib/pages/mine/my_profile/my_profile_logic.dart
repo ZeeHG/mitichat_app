@@ -1,25 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:miti/pages/mine/edit_my_profile/edit_my_profile_logic.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
 import '../../../core/ctrl/im_ctrl.dart';
 
-class MyInfoLogic extends GetxController {
+class MyProfileLogic extends GetxController {
   final imCtrl = Get.find<IMCtrl>();
 
-  // final userInfo = UserFullInfo.fromJson(OpenIM.iMManager.uInfo.toJson()).obs;
-
   @override
-  void onInit() {
-    // imCtrl.selfInfoUpdatedSubject.listen(_onChangedSefInfo);
-    super.onInit();
+  void onReady() {
+    queryMyFullIno();
+    super.onReady();
   }
-
-  _onChangedSefInfo(UserInfo userInfo) {}
 
   void editMyName() => AppNavigator.startEditMyProfile();
 
@@ -36,7 +31,7 @@ class MyInfoLogic extends GetxController {
             );
           }
         },
-        quality: 15);
+        quality: 90);
   }
 
   void openDatePicker() {
@@ -49,12 +44,12 @@ class MyInfoLogic extends GetxController {
       currentTime:
           DateTime.fromMillisecondsSinceEpoch(imCtrl.userInfo.value.birth ?? 0),
       theme: DatePickerTheme(
-        cancelStyle: Styles.ts_333333_17sp,
-        doneStyle: Styles.ts_8443F8_17sp,
-        itemStyle: Styles.ts_333333_17sp,
+        cancelStyle: Styles.ts_333333_16sp,
+        doneStyle: Styles.ts_8443F8_16sp,
+        itemStyle: Styles.ts_333333_16sp,
       ),
       onConfirm: (dateTime) {
-        _updateBirthday(dateTime.millisecondsSinceEpoch ~/ 1000);
+        updateInfo("birth" , dateTime.millisecondsSinceEpoch ~/ 1000 * 1000);
       },
     );
   }
@@ -66,51 +61,45 @@ class MyInfoLogic extends GetxController {
         items: [
           SheetItem(
             label: StrLibrary.man,
-            onTap: () => _updateGender(1),
+            onTap: () => updateInfo("gender" , 1),
           ),
           SheetItem(
             label: StrLibrary.woman,
-            onTap: () => _updateGender(2),
+            onTap: () => updateInfo("gender" , 2),
           ),
         ],
       ),
     );
   }
 
-  void _updateGender(int gender) {
-    LoadingView.singleton.start(
-      fn: () =>
-          Apis.updateUserInfo(userID: OpenIM.iMManager.userID, gender: gender)
-              .then((value) => imCtrl.userInfo.update((val) {
-                    val?.gender = gender;
-                  })),
-    );
+  void updateInfo(String key, dynamic value) {
+    LoadingView.singleton.start(fn: () async {
+      final userID = OpenIM.iMManager.userID;
+      switch (key) {
+        case "birth":
+          await Apis.updateUserInfo(
+            userID: userID,
+            birth: value,
+          );
+          imCtrl.userInfo.update((val) {
+            val?.birth = value;
+          });
+          break;
+        case "gender":
+          await Apis.updateUserInfo(
+            userID: userID,
+            gender: value,
+          );
+          imCtrl.userInfo.update((val) {
+            val?.gender = value;
+          });
+          break;
+        default:
+      }
+    });
   }
 
-  void _updateBirthday(int birthday) {
-    LoadingView.singleton.start(
-      fn: () => Apis.updateUserInfo(
-        userID: OpenIM.iMManager.userID,
-        birth: birthday * 1000,
-      ).then((value) => imCtrl.userInfo.update((val) {
-            val?.birth = birthday * 1000;
-          })),
-    );
-  }
-
-  @override
-  void onReady() {
-    _queryMyFullIno();
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    // TODO: implement onClose
-    super.onClose();
-  }
-
-  void _queryMyFullIno() async {
+  void queryMyFullIno() async {
     CancelToken cancelToken = CancelToken();
     final info = await LoadingView.singleton.start(
         fn: () => Apis.queryMyFullInfo(cancelToken: cancelToken),
@@ -126,6 +115,4 @@ class MyInfoLogic extends GetxController {
       });
     }
   }
-
-  static _trimNullStr(String? value) => MitiUtils.emptyStrToNull(value);
 }

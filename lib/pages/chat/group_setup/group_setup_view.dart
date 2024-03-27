@@ -231,7 +231,6 @@ class GroupSetupPage extends StatelessWidget {
                     height: 42.h,
                     url: logic.groupInfo.value.faceURL,
                     text: logic.groupInfo.value.groupName,
-                    textStyle: Styles.ts_FFFFFF_14sp,
                     isGroup: true,
                     onTap:
                         logic.isOwnerOrAdmin ? logic.modifyGroupAvatar : null,
@@ -324,7 +323,6 @@ class GroupSetupPage extends StatelessWidget {
                               height: 42.h,
                               url: info.faceURL,
                               text: info.nickname,
-                              textStyle: Styles.ts_FFFFFF_14sp,
                               onTap: () => logic.viewMemberInfo(info),
                             ),
                             if (logic.groupInfo.value.ownerUserID ==

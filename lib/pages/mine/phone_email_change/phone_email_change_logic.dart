@@ -60,5 +60,6 @@ class PhoneEmailChangeLogic extends GetxController {
   @override
   void onInit() {
     type = Get.arguments['type'];
+    super.onInit();
   }
 }

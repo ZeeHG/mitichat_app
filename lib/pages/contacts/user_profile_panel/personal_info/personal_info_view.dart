@@ -112,7 +112,6 @@ class PersonalInfoPage extends StatelessWidget {
                   height: 32.h,
                   url: url,
                   text: value,
-                  textStyle: Styles.ts_FFFFFF_10sp,
                 ),
             ],
           ),

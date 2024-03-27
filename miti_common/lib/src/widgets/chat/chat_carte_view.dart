@@ -33,7 +33,6 @@ class ChatCarteView extends StatelessWidget {
                       height: 44.h,
                       url: cardElem.faceURL,
                       text: cardElem.nickname,
-                      textStyle: Styles.ts_FFFFFF_14sp_medium,
                     ),
                     10.horizontalSpace,
                     Expanded(

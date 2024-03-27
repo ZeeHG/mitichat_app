@@ -194,7 +194,6 @@ class ConversationPage extends StatelessWidget {
                             text: logic.getShowName(info),
                             url: info.faceURL,
                             isGroup: logic.isGroupChat(info),
-                            textStyle: Styles.ts_FFFFFF_14sp_medium,
                           ),
                           // if (logic.isNotDisturb(info) &&
                           //     logic.getUnreadCount(info) > 0)

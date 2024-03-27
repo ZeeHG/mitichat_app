@@ -125,7 +125,6 @@ class CreateGroupPage extends StatelessWidget {
                         height: 48.h,
                         url: info.faceURL,
                         text: info.nickname,
-                        textStyle: Styles.ts_FFFFFF_14sp,
                       ),
                       2.verticalSpace,
                       (info.nickname ?? '').toText

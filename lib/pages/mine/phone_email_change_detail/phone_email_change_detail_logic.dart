@@ -21,7 +21,7 @@ class PhoneEmailChangeDetailLogic extends GetxController {
   final success = false.obs;
   final accountUtil = Get.find<AccountUtil>();
 
-  get isPhone => type == PhoneEmailChangeType.phone;
+  get isPhone => type.value == PhoneEmailChangeType.phone;
   String? get email => !isPhone ? emailCtrl.text.trim() : null;
   String? get phone => isPhone ? phoneCtrl.text.trim() : null;
   String? get areaCodeValue => isPhone ? areaCode.value : null;
@@ -124,7 +124,7 @@ class PhoneEmailChangeDetailLogic extends GetxController {
   void updateInfo() async {
     if (_checkingInput()) {
       await LoadingView.singleton.start(fn: () async {
-        final data = !isPhone
+        !isPhone
             ? await Apis.updateEmail(
                 email: email,
                 password: pwdCtrl.text,

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:miti_common/miti_common.dart';
 
-class UnlockSetupLogic extends GetxController {
+class AppUnlockSettingLogic extends GetxController {
   final passwordEnabled = false.obs;
   final faceRecognitionEnabled = false.obs;
   final fingerprintEnabled = false.obs;
@@ -70,7 +70,7 @@ class UnlockSetupLogic extends GetxController {
     screenLock(
       context: Get.context!,
       correctString: lockScreenPwd!,
-      title: StrLibrary.plsEnterPwd.toText..style = Styles.ts_FFFFFF_17sp,
+      title: StrLibrary.plsEnterPwd.toText..style = Styles.ts_FFFFFF_16sp,
       onUnlocked: () async {
         await DataSp.clearLockScreenPassword();
         await DataSp.closeBiometric();
@@ -86,10 +86,10 @@ class UnlockSetupLogic extends GetxController {
     screenLockCreate(
       context: Get.context!,
       inputController: controller,
-      title: StrLibrary.plsEnterNewPwd.toText..style = Styles.ts_FFFFFF_17sp,
+      title: StrLibrary.plsEnterNewPwd.toText..style = Styles.ts_FFFFFF_16sp,
       confirmTitle: StrLibrary.plsConfirmNewPwd.toText
-        ..style = Styles.ts_FFFFFF_17sp,
-      cancelButton: StrLibrary.cancel.toText..style = Styles.ts_FFFFFF_17sp,
+        ..style = Styles.ts_FFFFFF_16sp,
+      cancelButton: StrLibrary.cancel.toText..style = Styles.ts_FFFFFF_16sp,
       onConfirmed: (matchedText) async {
         lockScreenPwd = matchedText;
         await DataSp.putLockScreenPassword(matchedText);
@@ -101,7 +101,7 @@ class UnlockSetupLogic extends GetxController {
           // Release the confirmation state and return to the initial input state.
           controller.unsetConfirmed();
         },
-        child: StrLibrary.reset.toText..style = Styles.ts_8443F8_17sp,
+        child: StrLibrary.reset.toText..style = Styles.ts_8443F8_16sp,
       ),
     );
   }

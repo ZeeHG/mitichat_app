@@ -56,7 +56,6 @@ class GroupMemberListPage extends StatelessWidget {
                           width: 44.w,
                           height: 44.h,
                           text: '@',
-                          textStyle: Styles.ts_FFFFFF_21sp,
                         ),
                         10.horizontalSpace,
                         StrLibrary.everyone.toText

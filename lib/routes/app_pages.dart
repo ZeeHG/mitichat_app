@@ -178,12 +178,12 @@ import '../pages/mine/edit_my_profile/edit_my_profile_binding.dart';
 import '../pages/mine/edit_my_profile/edit_my_profile_view.dart';
 import '../pages/mine/language_setting/language_setting_binding.dart';
 import '../pages/mine/language_setting/language_setting_view.dart';
-import '../pages/mine/my_info/my_info_binding.dart';
-import '../pages/mine/my_info/my_info_view.dart';
+import '../pages/mine/my_profile/my_profile_binding.dart';
+import '../pages/mine/my_profile/my_profile_view.dart';
 import '../pages/mine/my_qrcode/my_qrcode_binding.dart';
 import '../pages/mine/my_qrcode/my_qrcode_view.dart';
-import '../pages/mine/unlock_setup/unlock_setup_binding.dart';
-import '../pages/mine/unlock_setup/unlock_setup_view.dart';
+import '../pages/mine/app_unlock_setting/app_unlock_setting_binding.dart';
+import '../pages/mine/app_unlock_setting/app_unlock_setting_view.dart';
 import '../pages/register/register_binding.dart';
 import '../pages/register/register_view.dart';
 import '../pages/app_splash/app_splash_binding.dart';
@@ -298,8 +298,8 @@ class AppPages {
     ),
     _pageBuilder(
       name: AppRoutes.myInfo,
-      page: () => MyInfoPage(),
-      binding: MyInfoBinding(),
+      page: () => MyProfilePage(),
+      binding: MyProfileBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.editMyInfo,
@@ -323,8 +323,8 @@ class AppPages {
     ),
     _pageBuilder(
       name: AppRoutes.unlockSetup,
-      page: () => UnlockSetupPage(),
-      binding: UnlockSetupBinding(),
+      page: () => AppUnlockSettingPage(),
+      binding: AppUnlockSettingBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.changePassword,

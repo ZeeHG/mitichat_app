@@ -194,7 +194,7 @@ class AppNavigator {
 
   static startLanguageSetting() => Get.toNamed(AppRoutes.languageSetup);
 
-  static startUnlockSetup() => Get.toNamed(AppRoutes.unlockSetup);
+  static startAppUnlockSetting() => Get.toNamed(AppRoutes.unlockSetup);
 
   static startChangePassword() => Get.toNamed(AppRoutes.changePassword);
 

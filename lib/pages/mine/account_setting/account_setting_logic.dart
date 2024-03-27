@@ -155,7 +155,7 @@ class AccountSettingLogic extends GetxController {
     getLanguageName();
   }
 
-  void unlockSetup() => AppNavigator.startUnlockSetup();
+  void unlockSetup() => AppNavigator.startAppUnlockSetting();
 
   void goAccountAndSecurity() => AppNavigator.startAccountAndSecurity();
 }

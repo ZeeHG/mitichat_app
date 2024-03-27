@@ -5,13 +5,13 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
 import '../../../core/ctrl/im_ctrl.dart';
-import 'my_info_logic.dart';
+import 'my_profile_logic.dart';
 
-class MyInfoPage extends StatelessWidget {
-  final logic = Get.find<MyInfoLogic>();
+class MyProfilePage extends StatelessWidget {
+  final logic = Get.find<MyProfileLogic>();
   final imCtrl = Get.find<IMCtrl>();
 
-  MyInfoPage({super.key});
+  MyProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +24,10 @@ class MyInfoPage extends StatelessWidget {
             child: Column(
               children: [
                 12.verticalSpace,
-                _buildCornerBgView(
+                buildItemGroup(
                   children: [
-                    _buildItemView(
-                        label: "${StrLibrary.avatar}",
+                    buildItem(
+                        label: StrLibrary.avatar,
                         isAvatar: true,
                         value: imCtrl.userInfo.value.nickname,
                         url: imCtrl.userInfo.value.faceURL,
@@ -36,38 +36,36 @@ class MyInfoPage extends StatelessWidget {
                   ],
                 ),
                 12.verticalSpace,
-                _buildCornerBgView(
+                buildItemGroup(
                   children: [
-                    _buildItemView(
+                    buildItem(
                         label: StrLibrary.mobile,
                         value: imCtrl.userInfo.value.phoneNumber,
-                        // onTap: logic.editMobile,
                         showRightArrow: false,
                         showBorder: false),
-                    _buildItemView(
+                    buildItem(
                       label: StrLibrary.email,
                       value: imCtrl.userInfo.value.email,
-                      // onTap: logic.editEmail,
                       showRightArrow: false,
                     ),
                   ],
                 ),
                 12.verticalSpace,
-                _buildCornerBgView(
+                buildItemGroup(
                   children: [
-                    _buildItemView(
+                    buildItem(
                         label: StrLibrary.name,
                         value: imCtrl.userInfo.value.nickname,
                         onTap: logic.editMyName,
                         showBorder: false),
-                    _buildItemView(
+                    buildItem(
                       label: StrLibrary.gender,
                       value: imCtrl.userInfo.value.isMale
                           ? StrLibrary.man
                           : StrLibrary.woman,
                       onTap: logic.selectGender,
                     ),
-                    _buildItemView(
+                    buildItem(
                       label: StrLibrary.birthDay,
                       value: DateUtil.formatDateMs(
                         imCtrl.userInfo.value.birth ?? 0,
@@ -83,21 +81,13 @@ class MyInfoPage extends StatelessWidget {
     );
   }
 
-  Widget _buildCornerBgView({required List<Widget> children}) => Container(
+  Widget buildItemGroup({required List<Widget> children}) => Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w),
-        decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
-          // borderRadius: BorderRadius.only(
-          //   topLeft: Radius.circular(6.r),
-          //   topRight: Radius.circular(6.r),
-          //   bottomLeft: Radius.circular(6.r),
-          //   bottomRight: Radius.circular(6.r),
-          // ),
-        ),
+        color: Styles.c_FFFFFF,
         child: Column(children: children),
       );
 
-  Widget _buildItemView({
+  Widget buildItem({
     required String label,
     String? value,
     String? url,
@@ -129,7 +119,6 @@ class MyInfoPage extends StatelessWidget {
                   height: 38.h,
                   url: url,
                   text: value,
-                  textStyle: Styles.ts_FFFFFF_12sp,
                   isCircle: true,
                 )
               else

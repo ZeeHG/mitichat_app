@@ -19,7 +19,7 @@ class MyQrcodePage extends StatelessWidget {
           title: StrLibrary.qrcode,
         ),
         backgroundColor: Styles.c_FFFFFF,
-        body: Container(
+        body: SizedBox(
           // alignment: Alignment.topCenter,
           width: 1.sw,
           child: Column(
@@ -31,7 +31,7 @@ class MyQrcodePage extends StatelessWidget {
                   SizedBox(
                     height: 121.h,
                   ),
-                  Container(
+                  SizedBox(
                     width: 213.w,
                     child: Row(children: [
                       AvatarView(
@@ -39,8 +39,7 @@ class MyQrcodePage extends StatelessWidget {
                         height: 42.h,
                         url: logic.imCtrl.userInfo.value.faceURL,
                         text: logic.imCtrl.userInfo.value.nickname,
-                        textStyle: Styles.ts_FFFFFF_14sp,
-                        borderRadius: BorderRadius.all(Radius.circular(6.w)),
+                        borderRadius: BorderRadius.all(Radius.circular(6.r)),
                       ),
                       SizedBox(
                         width: 12.w,
@@ -53,10 +52,10 @@ class MyQrcodePage extends StatelessWidget {
                     height: 30.h,
                   ),
                   QrImageView(
-                    data: logic.buildQRContent(),
+                    data: logic.qrcodeData,
                     size: 213.w,
                     backgroundColor: Styles.c_FFFFFF,
-                    padding: EdgeInsets.all(6),
+                    padding: EdgeInsets.all(6.r),
                   ),
                 ],
               ),

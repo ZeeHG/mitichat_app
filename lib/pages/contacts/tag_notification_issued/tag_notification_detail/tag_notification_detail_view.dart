@@ -148,7 +148,6 @@ class TagNotificationDetailPage extends StatelessWidget {
               height: 16.h,
               width: 16.w,
               isGroup: isGroup,
-              textStyle: Styles.ts_FFFFFF_10sp,
             ),
           7.horizontalSpace,
           ConstrainedBox(

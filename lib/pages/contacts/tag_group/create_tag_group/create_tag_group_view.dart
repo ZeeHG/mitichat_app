@@ -139,7 +139,6 @@ class CreateTagGroupPage extends StatelessWidget {
                 url: userInfo.faceURL,
                 height: 16.h,
                 width: 16.w,
-                textStyle: Styles.ts_FFFFFF_10sp,
               ),
               7.horizontalSpace,
               ConstrainedBox(
