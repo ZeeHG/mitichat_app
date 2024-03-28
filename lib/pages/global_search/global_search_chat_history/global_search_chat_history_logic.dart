@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +8,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../routes/app_navigator.dart';
 
-class ExpandChatHistoryLogic extends GetxController {
+class GlobalSearchChatHistoryLogic extends GetxController {
   final logic = Get.find<ConversationLogic>();
   final refreshCtrl = RefreshController();
   final searchCtrl = TextEditingController();

@@ -58,7 +58,7 @@ abstract class AppRoutes {
   static const selectContactsFromSearch = '/select_contacts_from_search';
   static const createGroup = '/create_group';
   static const globalSearch = '/global_search';
-  static const expandChatHistory = '/expand_chat_history';
+  static const GloablSearchChatHistory = '/global_search_chat_history';
   static const callRecords = '/call_records';
   static const register = '/register';
   static const forgetPassword = '/forget_password';

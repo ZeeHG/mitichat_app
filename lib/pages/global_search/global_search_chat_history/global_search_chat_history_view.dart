@@ -7,12 +7,12 @@ import 'package:miti_common/miti_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:search_keyword_text/search_keyword_text.dart';
 
-import 'expand_chat_history_logic.dart';
+import 'global_search_chat_history_logic.dart';
 
-class ExpandChatHistoryPage extends StatelessWidget {
-  final logic = Get.find<ExpandChatHistoryLogic>();
+class GlobalSearchChatHistoryPage extends StatelessWidget {
+  final logic = Get.find<GlobalSearchChatHistoryLogic>();
 
-  ExpandChatHistoryPage({super.key});
+  GlobalSearchChatHistoryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class ExpandChatHistoryPage extends StatelessWidget {
                     Expanded(
                       child:
                           (logic.searchResultItems.value.showName ?? '').toText
-                            ..style = Styles.ts_333333_17sp,
+                            ..style = Styles.ts_333333_16sp,
                     ),
                     ImageRes.appRightArrow.toImage
                       ..width = 24.w
@@ -112,7 +112,7 @@ class ExpandChatHistoryPage extends StatelessWidget {
                       children: [
                         Expanded(
                             child: ((message.senderNickname ?? '').toText
-                              ..style = Styles.ts_333333_17sp
+                              ..style = Styles.ts_333333_16sp
                               ..maxLines = 1
                               ..overflow = TextOverflow.ellipsis)),
                         if (message.sendTime != null)

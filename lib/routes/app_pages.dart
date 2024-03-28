@@ -158,8 +158,8 @@ import '../pages/login/forget_pwd/forget_pwd_binding.dart';
 import '../pages/login/forget_pwd/forget_pwd_view.dart';
 import '../pages/login/reset_pwd/reset_pwd_binding.dart';
 import '../pages/login/reset_pwd/reset_pwd_view.dart';
-import '../pages/global_search/expand_chat_history/expand_chat_history_binding.dart';
-import '../pages/global_search/expand_chat_history/expand_chat_history_view.dart';
+import '../pages/global_search/global_search_chat_history/global_search_chat_history_binding.dart';
+import '../pages/global_search/global_search_chat_history/global_search_chat_history_view.dart';
 import '../pages/global_search/global_search_binding.dart';
 import '../pages/global_search/global_search_view.dart';
 import '../pages/home/home_binding.dart';
@@ -487,9 +487,9 @@ class AppPages {
       binding: GlobalSearchBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.expandChatHistory,
-      page: () => ExpandChatHistoryPage(),
-      binding: ExpandChatHistoryBinding(),
+      name: AppRoutes.GloablSearchChatHistory,
+      page: () => GlobalSearchChatHistoryPage(),
+      binding: GlobalSearchChatHistoryBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.callRecords,

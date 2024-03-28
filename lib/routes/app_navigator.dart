@@ -396,11 +396,11 @@ class AppNavigator {
 
   static startGlobalSearch() => Get.toNamed(AppRoutes.globalSearch);
 
-  static startExpandChatHistory({
+  static startGlobalSearchChatHistory({
     required SearchResultItems searchResultItems,
     required String defaultSearchKey,
   }) =>
-      Get.toNamed(AppRoutes.expandChatHistory, arguments: {
+      Get.toNamed(AppRoutes.GloablSearchChatHistory, arguments: {
         'searchResultItems': searchResultItems,
         'defaultSearchKey': defaultSearchKey,
       });

@@ -28,19 +28,19 @@ class GlobalSearchPage extends StatelessWidget {
         backgroundColor: Styles.c_F8F9FA,
         body: Obx(() => Column(
               children: [
-                _buildTabBar(),
+                _tabBar(),
                 if (logic.searchKey.isNotEmpty)
-                  logic.isNotResult
+                  logic.isAllEmpty
                       ? _emptyView
                       : Flexible(
                           child: IndexedStack(
                             index: logic.index.value,
                             children: [
-                              _buildAllListView(),
+                              _allView(),
                               _contactsView(),
-                              _buildGroupListView(),
-                              _buildChatHistoryListView(),
-                              _buildFileListView(),
+                              _groupView(),
+                              _chatHistoryView(),
+                              _fileView(),
                             ],
                           ),
                         ),
@@ -50,46 +50,46 @@ class GlobalSearchPage extends StatelessWidget {
     );
   }
 
-  Widget _buildAllListView() => ListView(
+  Widget _allView() => ListView(
         padding: EdgeInsets.only(top: 10.h),
         children: [
           if (logic.contactsList.isNotEmpty)
-            _buildCommonContainer(
+            _categoryContainer(
               title: StrLibrary.globalSearchContacts,
               children: logic
                   .subList(logic.contactsList)
-                  .map((e) => _buildItemView(
+                  .map((e) => itemView(
                         nickname: e.nickname,
                         faceURL: e.faceURL,
                         onTap: () => logic.viewUserProfile(e),
                       ))
                   .toList(),
-              seeMoreStr: logic.contactsList.length > 2
+              seeMoreStr: logic.contactsList.length > 3
                   ? StrLibrary.seeMoreRelatedContacts
                   : null,
               onSeeMore: () => logic.switchTab(1),
             ),
           if (logic.groupList.isNotEmpty)
-            _buildCommonContainer(
+            _categoryContainer(
               title: StrLibrary.globalSearchGroup,
               children: logic
                   .subList(logic.groupList)
-                  .map((e) => _buildItemView(
+                  .map((e) => itemView(
                         nickname: e.groupName,
                         faceURL: e.faceURL,
                         isGroup: true,
                         onTap: () => logic.viewGroup(e),
                       ))
                   .toList(),
-              seeMoreStr: logic.groupList.length > 2
+              seeMoreStr: logic.groupList.length > 3
                   ? StrLibrary.seeMoreRelatedGroup
                   : null,
               onSeeMore: () => logic.switchTab(2),
             ),
-          if (logic.textSearchResultItems.isNotEmpty)
-            _buildCommonContainer(
+          if (logic.textMessageList.isNotEmpty)
+            _categoryContainer(
               title: StrLibrary.globalSearchChatHistory,
-              children: logic.subList(logic.textSearchResultItems).map((e) {
+              children: logic.subList(logic.textMessageList).map((e) {
                 final message = e.messageList?.firstOrNull;
                 final showName = e.showName;
                 final faceURL = e.faceURL;
@@ -101,7 +101,7 @@ class GlobalSearchPage extends StatelessWidget {
                 final time = null == sendTime
                     ? null
                     : MitiUtils.getChatTimeline(sendTime);
-                return _buildItemView(
+                return itemView(
                   nickname: showName,
                   faceURL: faceURL,
                   time: time,
@@ -111,17 +111,17 @@ class GlobalSearchPage extends StatelessWidget {
                   onTap: () => logic.viewMessage(e),
                 );
               }).toList(),
-              seeMoreStr: logic.textSearchResultItems.length > 2
+              seeMoreStr: logic.textMessageList.length > 3
                   ? StrLibrary.seeMoreRelatedChatHistory
                   : null,
               onSeeMore: () => logic.switchTab(3),
             ),
           if (logic.fileMessageList.isNotEmpty)
-            _buildCommonContainer(
+            _categoryContainer(
               title: StrLibrary.globalSearchChatFile,
               children: logic
                   .subList(logic.fileMessageList)
-                  .map((e) => _buildItemView(
+                  .map((e) => itemView(
                         nickname: MitiUtils.calContent(
                           content: e.fileElem?.fileName ?? '',
                           key: logic.searchKey.value,
@@ -132,16 +132,11 @@ class GlobalSearchPage extends StatelessWidget {
                           message: e,
                           downloadProgressView: ChatFileDownloadProgressView(e),
                         ),
-                        // fileIcon: MitiUtils.fileIcon(
-                        //         e.fileElem?.fileName ?? '')
-                        //     .toImage
-                        //   ..width = 38.w
-                        //   ..height = 44.h,
                         content: e.senderNickname,
                         onTap: () => logic.viewFile(e),
                       ))
                   .toList(),
-              seeMoreStr: logic.fileMessageList.length > 2
+              seeMoreStr: logic.fileMessageList.length > 3
                   ? StrLibrary.seeMoreRelatedFile
                   : null,
               onSeeMore: () => logic.switchTab(4),
@@ -155,28 +150,29 @@ class GlobalSearchPage extends StatelessWidget {
           padding: EdgeInsets.only(top: 10.h),
           children: List.generate(logic.contactsList.length, (i) {
             final item = logic.contactsList[i];
-            return _buildItemView(
+            return itemView(
               nickname: item.nickname,
               faceURL: item.faceURL,
               onTap: () => logic.viewUserProfile(item),
             );
           }));
 
-  Widget _buildGroupListView() => logic.groupList.isEmpty
+  Widget _groupView() => logic.groupList.isEmpty
       ? _emptyView
       : ListView(
           padding: EdgeInsets.only(top: 10.h),
-          children: logic.groupList
-              .map((e) => _buildItemView(
-                    nickname: e.groupName,
-                    faceURL: e.faceURL,
-                    isGroup: true,
-                    onTap: () => logic.viewGroup(e),
-                  ))
-              .toList(),
+          children: List.generate(logic.groupList.length, (i) {
+            final item = logic.groupList[i];
+            return itemView(
+              nickname: item.groupName,
+              faceURL: item.faceURL,
+              isGroup: true,
+              onTap: () => logic.viewGroup(item),
+            );
+          }),
         );
 
-  Widget _buildChatHistoryListView() => logic.textSearchResultItems.isEmpty
+  Widget _chatHistoryView() => logic.textMessageList.isEmpty
       ? _emptyView
       : SmartRefresher(
           key: const ValueKey(0),
@@ -185,35 +181,32 @@ class GlobalSearchPage extends StatelessWidget {
           enablePullUp: true,
           footer: IMViews.buildFooter(),
           onLoading: logic.loadTextMessage,
-          child: ListView.builder(
+          child: ListView(
             padding: EdgeInsets.only(top: 10.h),
-            itemCount: logic.textSearchResultItems.length,
-            itemBuilder: (_, index) {
-              final e = logic.textSearchResultItems.elementAt(index);
+            children:
+                List.generate(logic.textMessageList.length, (index) {
+              final e = logic.textMessageList[index];
               final message = e.messageList?.firstOrNull;
-              final showName = e.showName;
-              final faceURL = e.faceURL;
               final sendTime = message?.sendTime;
               final count = e.messageCount ?? 0;
-              final content = count > 1
-                  ? sprintf(StrLibrary.relatedChatHistory, [count])
-                  : logic.calContent(message!);
-              final time =
-                  null == sendTime ? null : MitiUtils.getChatTimeline(sendTime);
-              return _buildItemView(
-                nickname: showName,
-                faceURL: faceURL,
-                time: time,
-                content: content,
+              return itemView(
+                nickname: e.showName,
+                faceURL: e.faceURL,
+                time: null == sendTime
+                    ? null
+                    : MitiUtils.getChatTimeline(sendTime),
+                content: count > 1
+                    ? sprintf(StrLibrary.relatedChatHistory, [count])
+                    : logic.calContent(message!),
                 isChatText: true,
                 isGroup: message?.isSingleChat == false,
                 onTap: () => logic.viewMessage(e),
               );
-            },
+            }),
           ),
         );
 
-  Widget _buildFileListView() => logic.fileMessageList.isEmpty
+  Widget _fileView() => logic.fileMessageList.isEmpty
       ? _emptyView
       : SmartRefresher(
           key: const ValueKey(1),
@@ -222,12 +215,11 @@ class GlobalSearchPage extends StatelessWidget {
           enablePullUp: true,
           footer: IMViews.buildFooter(),
           onLoading: logic.loadFileMessage,
-          child: ListView.builder(
+          child: ListView(
             padding: EdgeInsets.only(top: 10.h),
-            itemCount: logic.fileMessageList.length,
-            itemBuilder: (_, index) {
-              final e = logic.fileMessageList.elementAt(index);
-              return _buildItemView(
+            children: List.generate(logic.fileMessageList.length, (index) {
+              final e = logic.fileMessageList[index];
+              return itemView(
                 nickname: MitiUtils.calContent(
                   content: e.fileElem?.fileName ?? '',
                   key: logic.searchKey.value,
@@ -241,11 +233,11 @@ class GlobalSearchPage extends StatelessWidget {
                 content: e.senderNickname,
                 onTap: () => logic.viewFile(e),
               );
-            },
+            }),
           ),
         );
 
-  Widget _buildCommonContainer({
+  Widget _categoryContainer({
     required String title,
     List<Widget> children = const [],
     String? seeMoreStr,
@@ -295,7 +287,7 @@ class GlobalSearchPage extends StatelessWidget {
         ),
       );
 
-  Widget _buildItemView({
+  Widget itemView({
     Widget? fileIcon,
     String? nickname,
     String? fileName,
@@ -365,8 +357,8 @@ class GlobalSearchPage extends StatelessWidget {
         ),
       );
 
-  Widget _buildTabBar() {
-    Widget buildTabItem({
+  Widget _tabBar() {
+    Widget tabItem({
       required String label,
       required int index,
       bool isChecked = false,
@@ -406,10 +398,10 @@ class GlobalSearchPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: List.generate(
           logic.tabs.length,
-          (index) => buildTabItem(
-            index: index,
-            label: logic.tabs.elementAt(index),
-            isChecked: logic.index.value == index,
+          (i) => tabItem(
+            index: i,
+            label: logic.tabs[i],
+            isChecked: logic.index.value == i,
           ),
         ),
       ),
