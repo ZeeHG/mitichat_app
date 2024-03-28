@@ -188,8 +188,6 @@ import '../pages/register/register_binding.dart';
 import '../pages/register/register_view.dart';
 import '../pages/app_splash/app_splash_binding.dart';
 import '../pages/app_splash/app_splash_view.dart';
-import '../pages/discover/discover_binding.dart';
-import '../pages/discover/discover_view.dart';
 import '../pages/chat/oa_notification/oa_notification_binding.dart';
 import '../pages/chat/oa_notification/oa_notification_view.dart';
 
@@ -545,11 +543,6 @@ class AppPages {
       name: AppRoutes.oaNotificationList,
       page: () => OANotificationPage(),
       binding: OANotificationBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.discover,
-      page: () => DiscoverPage(),
-      binding: DiscoverBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.bot,

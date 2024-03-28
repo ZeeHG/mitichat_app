@@ -41,7 +41,7 @@ class ConversationPage extends StatelessWidget {
           onSwitchTab: switchHomeTab,
           homeTabIndex: homeTabIndex,
           mq: mq,
-          unhandledCount: homeLogic.unhandledCount,
+          unhandledCount: homeLogic.unhandledFriendAndGroupCount,
           left: PopButton(
             popCtrl: logic.serverPopCtrl,
             cusMenus: List.generate(

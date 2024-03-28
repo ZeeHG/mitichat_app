@@ -1,16 +1,15 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:miti_common/miti_common.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar({
-    Key? key,
-    this.index = 0,
+    super.key,
+    this.activeIndex = 0,
     required this.items,
-  }) : super(key: key);
-  final int index;
+  });
+  final int activeIndex;
   final List<BottomBarItem> items;
 
   @override
@@ -18,84 +17,42 @@ class BottomBar extends StatelessWidget {
     return Container(
       height: 56.h,
       decoration: BoxDecoration(
-        color: index == 1 ? Styles.c_F7F7F7 : Styles.c_FFFFFF,
+        color: activeIndex == 1 ? Styles.c_F7F7F7 : Styles.c_FFFFFF,
       ),
       child: Row(
         children: List.generate(
             items.length,
             (index) => _buildItemView(
-                  i: index,
-                  item: items.elementAt(index),
-                )).toList(),
+                  // i: index,
+                  item: items[index],
+                )),
       ),
     );
   }
 
-  Widget _buildItemView({required int i, required BottomBarItem item}) =>
+  Widget _buildItemView({required BottomBarItem item}) =>
       Expanded(
         child: XGestureDetector(
-          onDoubleTap: (_) => item.onDoubleClick?.call(i),
-          onPointerDown: (_) => item.onClick?.call(i),
+          onDoubleTap: (_) => item.onDoubleClick?.call(item.itemIndex),
+          onPointerDown: (_) => item.onClick?.call(item.itemIndex),
           behavior: HitTestBehavior.translucent,
-          child: Container(
-            // color: Styles.c_000000,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    IntrinsicWidth(
-                        child: Container(
-                      // 最大图片的高度
-                      height: 24.h,
-                      alignment: Alignment.bottomCenter,
-                      child: ((i == 0 && (index == 0 || index == 1)) ||
-                              (i == 1 && index == 2) ||
-                              (i == 3 && index == 3)
-                          ? item.selectedImgRes.toImage
-                          : item.unselectedImgRes.toImage)
-                        ..width = item.imgWidth
-                        ..height = item.imgHeight,
-                    )),
-                    Positioned(
-                      top: 0,
-                      right: 0,
-                      child: Transform.translate(
-                        offset: const Offset(2, -2),
-                        child: UnreadCountView(count: item.count ?? 0),
-                      ),
-                    ),
-                  ],
-                ),
-                4.verticalSpace,
-                item.label.toText
-                  ..style = (i == 0 && (index == 0 || index == 1)) ||
-                          (i == 1 && index == 2) ||
-                          (i == 3 && index == 3)
-                      ? (item.selectedStyle ?? Styles.ts_8443F8_11sp)
-                      : (item.unselectedStyle ?? Styles.ts_B3B3B3_11sp),
-              ],
-            ),
-          ),
-        ),
-        /*child: InkWell(
-          onTap: () {
-            if (item.onClick != null) item.onClick!(i);
-          },
-          onDoubleTap: () => item.onDoubleClick?.call(i),
-          // behavior: HitTestBehavior.translucent,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Stack(
                 alignment: Alignment.center,
                 children: [
-                  (i == index
-                      ? item.selectedImgRes.toImage
-                      : item.unselectedImgRes.toImage)
-                    ..width = item.imgWidth
-                    ..height = item.imgHeight,
+                  IntrinsicWidth(
+                      child: Container(
+                    // 最大图片的高度
+                    height: 24.h,
+                    alignment: Alignment.bottomCenter,
+                    child: (item.itemIndex == activeIndex
+                        ? item.selectedImgRes.toImage
+                        : item.unselectedImgRes.toImage)
+                      ..width = item.imgWidth
+                      ..height = item.imgHeight,
+                  )),
                   Positioned(
                     top: 0,
                     right: 0,
@@ -108,12 +65,12 @@ class BottomBar extends StatelessWidget {
               ),
               4.verticalSpace,
               item.label.toText
-                ..style = i == index
-                    ? (item.selectedStyle ?? Styles.ts_8443F8_10sp_semibold)
-                    : (item.unselectedStyle ?? Styles.ts_999999_10sp_semibold),
+                ..style = item.itemIndex == activeIndex
+                    ? (item.selectedStyle ?? Styles.ts_8443F8_11sp)
+                    : (item.unselectedStyle ?? Styles.ts_B3B3B3_11sp),
             ],
           ),
-        ),*/
+        ),
       );
 }
 
@@ -129,11 +86,13 @@ class BottomBarItem {
   final Function(int index)? onDoubleClick;
   final Stream<int>? steam;
   final int? count;
+  final int itemIndex;
 
   BottomBarItem(
       {required this.selectedImgRes,
       required this.unselectedImgRes,
       required this.label,
+      required this.itemIndex,
       this.selectedStyle,
       this.unselectedStyle,
       required this.imgWidth,

@@ -32,7 +32,7 @@ class ContactsPage extends StatelessWidget {
           onClickSearch: logic.searchContacts,
           onSwitchTab: switchHomeTab,
           homeTabIndex: homeTabIndex,
-          unhandledCount: homeLogic.unhandledCount,
+          unhandledCount: homeLogic.unhandledFriendAndGroupCount,
           mq: mq),
       backgroundColor: Styles.c_F7F8FA,
       body: Obx(
@@ -117,7 +117,8 @@ class ContactsPage extends StatelessWidget {
                                     onTap: logic.menus[index]["onTap"],
                                     badge:
                                         logic.menus[index]["key"] == "newRecent"
-                                            ? homeLogic.unhandledCount.value
+                                            ? homeLogic.unhandledFriendAndGroupCount
+                                                .value
                                             : null),
                                 8.horizontalSpace
                               ],

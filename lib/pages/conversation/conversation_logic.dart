@@ -66,7 +66,7 @@ class ConversationLogic extends GetxController {
     scrollController = AutoScrollController(axis: Axis.vertical);
     imCtrl.conversationAddedSubject.listen(onChanged);
     imCtrl.conversationChangedSubject.listen(onChanged);
-    homeLogic.onScrollToUnreadMessage = scrollTo;
+    homeLogic.onscrollToUnreadConversation = scrollTo;
 
     ever(list, (_) {
       EasyDebounce.debounce('translate', Duration(milliseconds: 500), () {
