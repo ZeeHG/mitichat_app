@@ -28,10 +28,9 @@ class HomePage extends StatelessWidget {
             body: IndexedStack(
               index: logic.index.value,
               children: [
-                ConversationPage(
-                    switchHomeTab: logic.switchTab, homeTabIndex: logic.index),
+                ConversationPage(),
                 // ContactsPage(
-                //     switchHomeTab: logic.switchTab, homeTabIndex: logic.index),
+                //     switchHomeTab: logic.switchTab, tabIndex: logic.index),
                 XhsPage(),
                 MinePage(),
               ],

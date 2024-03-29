@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti/utils/account_util.dart';
-import 'package:miti/utils/ai_util.dart';
 import 'package:miti_common/miti_common.dart';
 // import 'package:openim_meeting/openim_meeting.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -30,9 +29,8 @@ class ConversationLogic extends GetxController {
   final pageSize = 40;
   final translateLogic = Get.find<TranslateLogic>();
   final accountUtil = Get.find<AccountUtil>();
-
+  final tabIndex = 0.obs;
   final imStatus = IMSdkStatus.connectionSucceeded.obs;
-
   late AutoScrollController scrollController;
   int scrollIndex = -1;
 
@@ -46,6 +44,10 @@ class ConversationLogic extends GetxController {
               serverWithProtocol: loginInfo.server, userID: loginInfo.userID);
           AppNavigator.startMain();
         });
+  }
+
+  switchTab(index) {
+    tabIndex.value = index;
   }
 
   List<AccountLoginInfo> get loginInfoList {
@@ -66,20 +68,26 @@ class ConversationLogic extends GetxController {
     scrollController = AutoScrollController(axis: Axis.vertical);
     imCtrl.conversationAddedSubject.listen(onChanged);
     imCtrl.conversationChangedSubject.listen(onChanged);
-    homeLogic.onscrollToUnreadConversation = scrollTo;
+    homeLogic.onscrollToUnreadConversation = scrollToUnreadConversation;
 
     ever(list, (_) {
-      EasyDebounce.debounce('translate', Duration(milliseconds: 500), () {
-        list.forEach((item) {
+      EasyDebounce.debounce('translate', const Duration(milliseconds: 500), () {
+        for (var item in list) {
           translateLogic.updateLangConfigLocal(
               conversation: item,
               data: (null != item.ex && item.ex!.isNotEmpty)
                   ? json.decode(item.ex!)["langConfig"] ?? {}
                   : {});
-        });
+        }
       });
     });
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    loadConversationList(true);
   }
 
   /// 会话列表通过回调更新
@@ -89,8 +97,7 @@ class ConversationLogic extends GetxController {
       list.remove(newValue);
     }
     list.insertAll(0, newList);
-    print("___________________________________________________${list[0]}");
-    _sortConversationList();
+    sortConversation();
   }
 
   /// 提示音
@@ -103,20 +110,7 @@ class ConversationLogic extends GetxController {
     }
   }
 
-  @override
-  void onReady() {
-    onRefresh();
-    super.onReady();
-  }
-
-  String getConversationID(ConversationInfo info) {
-    return info.conversationID;
-  }
-
-  /// 标记会话已读
-  void markMessageHasRead(ConversationInfo info) {
-    _markMessageHasRead(conversationID: info.conversationID);
-  }
+  String getConversationID(ConversationInfo info) => info.conversationID;
 
   /// 置顶会话
   void pinConversation(ConversationInfo info) async {
@@ -178,7 +172,7 @@ class ConversationLogic extends GetxController {
         }
       }
     } catch (e, s) {
-      Logger.print('e: $e  s: $s');
+      myLogger.e({"message": "getPrefixTag", "error": e, "stack": s});
     }
 
     return prefix;
@@ -199,13 +193,13 @@ class ConversationLogic extends GetxController {
 
       final text = MitiUtils.parseNtf(info.latestMsg!, isConversation: true);
       if (text != null) return text;
+      final msgText = MitiUtils.parseMsg(info.latestMsg!, isConversation: true);
       if (info.isSingleChat ||
-          info.latestMsg!.sendID == OpenIM.iMManager.userID)
-        return MitiUtils.parseMsg(info.latestMsg!, isConversation: true);
+          info.latestMsg!.sendID == OpenIM.iMManager.userID) return msgText;
 
-      return "${info.latestMsg!.senderNickname}: ${MitiUtils.parseMsg(info.latestMsg!, isConversation: true)} ";
+      return "${info.latestMsg!.senderNickname}: $msgText";
     } catch (e, s) {
-      Logger.print('------e:$e s:$s');
+      myLogger.e({"message": "getContent", "error": e, "stack": s});
     }
     return '[${StrLibrary.unsupportedMessage}]';
   }
@@ -237,13 +231,9 @@ class ConversationLogic extends GetxController {
   }
 
   /// 头像
-  String? getAvatar(ConversationInfo info) {
-    return info.faceURL;
-  }
+  String? getAvatar(ConversationInfo info) => info.faceURL;
 
-  bool isGroupChat(ConversationInfo info) {
-    return info.isGroupChat;
-  }
+  bool isGroupChat(ConversationInfo info) => info.isGroupChat;
 
   /// 显示名
   String getShowName(ConversationInfo info) {
@@ -254,29 +244,20 @@ class ConversationLogic extends GetxController {
   }
 
   /// 时间
-  String getTime(ConversationInfo info) {
-    return MitiUtils.getChatTimeline(info.latestMsgSendTime!);
-  }
+  String getTime(ConversationInfo info) =>
+      MitiUtils.getChatTimeline(info.latestMsgSendTime!);
 
   /// 未读数
-  int getUnreadCount(ConversationInfo info) {
-    return info.unreadCount ?? 0;
-  }
+  int getUnreadCount(ConversationInfo info) => info.unreadCount;
 
-  bool existUnreadMsg(ConversationInfo info) {
-    return getUnreadCount(info) > 0;
-  }
+  bool existUnreadMsg(ConversationInfo info) => getUnreadCount(info) > 0;
 
   /// 判断置顶
-  bool isPinned(ConversationInfo info) {
-    return info.isPinned!;
-  }
+  bool isPinned(ConversationInfo info) => info.isPinned!;
 
-  bool isNotDisturb(ConversationInfo info) {
-    return info.recvMsgOpt != 0;
-  }
+  bool isNotDisturb(ConversationInfo info) => info.recvMsgOpt != 0;
 
-  bool isUserGroup(int index) => list.elementAt(index).isGroupChat;
+  bool isUserGroup(int index) => list[index].isGroupChat;
 
   /// 草稿
   /// 聊天页调用，不通过onWillPop事件返回，因为该事件会拦截ios的左滑返回上一页。
@@ -288,16 +269,14 @@ class ConversationLogic extends GetxController {
   }
 
   /// 清空未读消息数
-  void _markMessageHasRead({
-    String? conversationID,
-  }) {
+  void markMessageHasRead(ConversationInfo info) {
     OpenIM.iMManager.conversationManager.markConversationMessageAsRead(
-      conversationID: conversationID!,
+      conversationID: info.conversationID,
     );
   }
 
   /// 设置草稿
-  void _setupDraftText({
+  void setDraftText({
     required String conversationID,
     required String oldDraftText,
     required String newDraftText,
@@ -307,7 +286,6 @@ class ConversationLogic extends GetxController {
     }
 
     /// 保存草稿
-    Logger.print('draftText:$newDraftText');
     OpenIM.iMManager.conversationManager.setConversationDraft(
       conversationID: conversationID,
       draftText: newDraftText,
@@ -331,34 +309,30 @@ class ConversationLogic extends GetxController {
     }
   }
 
-  bool get isFailedSdkStatus =>
-      imStatus.value == IMSdkStatus.connectionFailed ||
-      imStatus.value == IMSdkStatus.syncFailed;
+  bool get isFailedSdkStatus => [
+        IMSdkStatus.connectionFailed,
+        IMSdkStatus.syncFailed
+      ].contains(imStatus.value);
 
   /// 自定义会话列表排序规则
-  void _sortConversationList() =>
+  void sortConversation() =>
       OpenIM.iMManager.conversationManager.simpleSort(list);
 
-  void onRefresh() async {
+  void loadConversationList([bool refresh = false]) async {
     late List<ConversationInfo> list;
     try {
-      list = await _request(0);
-      this.list.assignAll(list);
+      if (refresh) {
+        list = await getConversationList(0);
+        this.list.assignAll(list);
+      } else {
+        list = await getConversationList(this.list.length);
+        this.list.addAll(list);
+      }
       if (list.isEmpty || list.length < pageSize) {
         refreshController.loadNoData();
       } else {
         refreshController.loadComplete();
       }
-    } finally {
-      refreshController.refreshCompleted();
-    }
-  }
-
-  void onLoading() async {
-    late List<ConversationInfo> list;
-    try {
-      list = await _request(this.list.length);
-      this.list.addAll(list);
     } finally {
       if (list.isEmpty || list.length < pageSize) {
         refreshController.loadNoData();
@@ -368,7 +342,7 @@ class ConversationLogic extends GetxController {
     }
   }
 
-  _request(int offset) =>
+  getConversationList(int offset) =>
       OpenIM.iMManager.conversationManager.getConversationListSplit(
         offset: offset,
         count: pageSize,
@@ -390,39 +364,36 @@ class ConversationLogic extends GetxController {
     return firstVisibleItemIndex;
   }
 
-  void scrollTo() {
+  void scrollToUnreadConversation() {
     if (list.isEmpty) return;
-    // int first = scrollListenerWithItemCount();
-    // int min = visibilityIndex.minOrNull ?? 0;
-    // int start = max(first, min);
     int start = scrollListenerWithItemCount();
-    if (start < scrollIndex) {
-      start = scrollIndex;
-    }
-    if (scrollIndex == start) {
-      start++;
-    }
+    start = start < scrollIndex
+        ? scrollIndex
+        : scrollIndex == start
+            ? start + 1
+            : start;
     if (scrollController.offset >= scrollController.position.maxScrollExtent) {
       start = 0;
     }
-
     if (start > list.length - 1) return;
     final unreadItem =
-        list.sublist(start).firstWhereOrNull((e) => e.unreadCount! > 0);
-    if (null == unreadItem) {
+        list.sublist(start).firstWhereOrNull((e) => e.unreadCount > 0);
+    if (null != unreadItem) {
+      final index = list.indexOf(unreadItem);
+      if (start != index) {
+        scrollController.scrollToIndex(
+          scrollIndex = index,
+          preferPosition: AutoScrollPosition.begin,
+        );
+      }
+    } else {
       if (start > 0) {
         scrollController.scrollToIndex(
           scrollIndex = 0,
           preferPosition: AutoScrollPosition.begin,
         );
       }
-      return;
     }
-    final index = list.indexOf(unreadItem);
-    scrollController.scrollToIndex(
-      scrollIndex = index,
-      preferPosition: AutoScrollPosition.begin,
-    );
   }
 
   static Future<ConversationInfo> _createConversation({
@@ -441,7 +412,7 @@ class ConversationLogic extends GetxController {
       // 系统通知
       await AppNavigator.startOANtfList(info: info);
       // 标记已读
-      _markMessageHasRead(conversationID: info.conversationID);
+      markMessageHasRead(info);
       return true;
     }
     return false;
@@ -463,9 +434,6 @@ class ConversationLogic extends GetxController {
       sourceID: userID ?? groupID!,
       sessionType: userID == null ? sessionType! : ConversationType.single,
     );
-
-    // 标记已读
-    // _markMessageHasRead(conversationID: conversationInfo.conversationID);
 
     // 如果是系统通知
     if (await _jumpOANtf(conversationInfo)) return;
@@ -489,17 +457,14 @@ class ConversationLogic extends GetxController {
     var newDraftText = tempDraftText[conversationInfo.conversationID];
 
     // 标记已读
-    _markMessageHasRead(conversationID: conversationInfo.conversationID);
+    markMessageHasRead(conversationInfo);
 
     // 记录草稿
-    _setupDraftText(
+    setDraftText(
       conversationID: conversationInfo.conversationID,
       oldDraftText: conversationInfo.draftText ?? '',
       newDraftText: newDraftText!,
     );
-
-    // 回到会话列表
-    // homeLogic.switchTab(0);
 
     bool equal(e) => e.conversationID == conversationInfo?.conversationID;
     // 删除所有@标识/公告标识
@@ -524,7 +489,7 @@ class ConversationLogic extends GetxController {
 
   // void videoMeeting() => MNavigator.startMeeting();
 
-  void viewCallRecords() => AppNavigator.startCallRecords();
+  // void viewCallRecords() => AppNavigator.startCallRecords();
 
   void globalSearch() => AppNavigator.startGlobalSearch();
 

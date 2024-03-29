@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:miti/pages/conversation/conversation_logic.dart';
 import 'package:miti/pages/home/home_logic.dart';
 import 'package:miti_common/miti_common.dart';
 
@@ -10,12 +9,8 @@ import 'contacts_logic.dart';
 
 class ContactsPage extends StatelessWidget {
   final logic = Get.find<ContactsLogic>();
-  Function(dynamic) switchHomeTab;
-  RxInt homeTabIndex;
+  final conversationLogic = Get.find<ConversationLogic>();
   final homeLogic = Get.find<HomeLogic>();
-
-  ContactsPage(
-      {super.key, required this.switchHomeTab, required this.homeTabIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -23,72 +18,20 @@ class ContactsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: TitleBar.contacts(
-          // onClickAddContacts: logic.addContacts,
           popCtrl: logic.popCtrl,
           onScan: logic.scan,
           onAddFriend: logic.addFriend,
           onAddGroup: logic.addGroup,
           onCreateGroup: logic.createGroup,
           onClickSearch: logic.searchContacts,
-          onSwitchTab: switchHomeTab,
-          homeTabIndex: homeTabIndex,
+          onSwitchTab: conversationLogic.switchTab,
+          tabIndex: conversationLogic.tabIndex,
           unhandledCount: homeLogic.unhandledFriendAndGroupCount,
           mq: mq),
       backgroundColor: Styles.c_F7F8FA,
       body: Obx(
         () => Stack(
           children: [
-            // SingleChildScrollView(
-            //   child: Column(
-            //     children: [
-            //       _buildItemView(
-            //         assetsName: ImageRes.appNewFriend,
-            //         label: StrLibrary .newFriend,
-            //         count: logic.friendApplicationCount,
-            //         onTap: logic.newFriend,
-            //       ),
-            //       _buildItemView(
-            //         assetsName: ImageRes.appNewGroup,
-            //         label: StrLibrary .newGroupRequest,
-            //         count: logic.groupApplicationCount,
-            //         onTap: logic.newGroup,
-            //       ),
-            //       Container(
-            //         decoration: BoxDecoration(color: Styles.c_F7F7F7),
-            //         height: 6.h,
-            //       ),
-            //       _buildItemView(
-            //         assetsName: ImageRes.appMyFriend,
-            //         label: StrLibrary .myFriend,
-            //         onTap: logic.myFriend,
-            //       ),
-            //       _buildItemView(
-            //         assetsName: ImageRes.appMyGroup,
-            //         label: StrLibrary .myGroup,
-            //         onTap: logic.myGroup,
-            //       ),
-            //       // _buildItemView(
-            //       //   assetsName: ImageRes.appTagGroup,
-            //       //   label: StrLibrary .tagGroup,
-            //       //   onTap: logic.tagGroup,
-            //       // ),
-            //       // _buildItemView(
-            //       //   assetsName: ImageRes.appIssueNotice,
-            //       //   label: StrLibrary .issueNotice,
-            //       //   onTap: logic.notificationIssued,
-            //       // ),
-            //       // Container(
-            //       //   decoration: BoxDecoration(color: Styles.c_F7F7F7),
-            //       //   height: 6.h,
-            //       // ),
-            //       // _buildItemView(
-            //       //   assetsName: ImageRes.appBot,
-            //       //   label: StrLibrary .createBot,
-            //       //   onTap: logic.createBot,
-            //       // ),
-            //     ],
-            //   ),
-            // ),
             Container(
               margin: EdgeInsets.only(top: 65.h),
               child: WrapAzListView<ISUserInfo>(
