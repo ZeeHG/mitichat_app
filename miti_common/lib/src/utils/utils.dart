@@ -939,12 +939,12 @@ class MitiUtils {
               break;
           }
           break;
-        case MessageType.oaNotification:
-          // OA通知
-          String detail = message.notificationElem!.detail!;
-          var oa = OANotification.fromJson(json.decode(detail));
-          content = oa.text!;
-          break;
+        // case MessageType.oaNotification:
+        //   // OA通知
+        //   String detail = message.notificationElem!.detail!;
+        //   var oa = OANotification.fromJson(json.decode(detail));
+        //   content = oa.text!;
+        //   break;
         default:
           content = '[${StrLibrary.unsupportedMessage}]';
           break;

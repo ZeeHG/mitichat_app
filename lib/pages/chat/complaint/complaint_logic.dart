@@ -79,8 +79,8 @@ class ComplaintLogic extends GetxController {
         await Apis.complainXhs(
           workMomentID: params["workMomentID"] ?? "",
           content: content.value,
-          reason: reasonList.value,
-          assets: assetsList.value,
+          reason: reasonList,
+          assets: assetsList,
         );
       });
     } else {
@@ -89,7 +89,7 @@ class ComplaintLogic extends GetxController {
           userID: params["userID"] ?? "",
           content: content.value,
           type: type.value,
-          assets: assetsList.value,
+          assets: assetsList,
         );
       });
     }

@@ -407,16 +407,16 @@ class ConversationLogic extends GetxController {
               ));
 
   /// 打开系统通知页面
-  Future<bool> _jumpOANtf(ConversationInfo info) async {
-    if (info.conversationType == ConversationType.notification) {
-      // 系统通知
-      await AppNavigator.startOANtfList(info: info);
-      // 标记已读
-      markMessageHasRead(info);
-      return true;
-    }
-    return false;
-  }
+  // Future<bool> _jumpOANtf(ConversationInfo info) async {
+  //   if (info.conversationType == ConversationType.notification) {
+  //     // 系统通知
+  //     await AppNavigator.startOANtfList(info: info);
+  //     // 标记已读
+  //     markMessageHasRead(info);
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   /// 进入聊天页面
   void toChat({
@@ -436,7 +436,9 @@ class ConversationLogic extends GetxController {
     );
 
     // 如果是系统通知
-    if (await _jumpOANtf(conversationInfo)) return;
+    // if (await _jumpOANtf(conversationInfo)) return;
+
+    if (conversationInfo.conversationType == ConversationType.notification) return;
 
     // 保存旧草稿
     updateDartText(

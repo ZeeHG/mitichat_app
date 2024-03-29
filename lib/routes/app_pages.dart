@@ -539,11 +539,11 @@ class AppPages {
       page: () => TagNotificationDetailPage(),
       binding: TagNotificationDetailBinding(),
     ),
-    _pageBuilder(
-      name: AppRoutes.oaNotificationList,
-      page: () => OANotificationPage(),
-      binding: OANotificationBinding(),
-    ),
+    // _pageBuilder(
+    //   name: AppRoutes.oaNotificationList,
+    //   page: () => OANotificationPage(),
+    //   binding: OANotificationBinding(),
+    // ),
     _pageBuilder(
       name: AppRoutes.bot,
       page: () => BotPage(),

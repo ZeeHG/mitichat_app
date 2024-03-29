@@ -51,9 +51,9 @@ class AppNavigator {
     Get.until((route) => Get.currentRoute == AppRoutes.home);
   }
 
-  static startOANtfList({required ConversationInfo info}) {
-    return Get.toNamed(AppRoutes.oaNotificationList, arguments: info);
-  }
+  // static startOANtfList({required ConversationInfo info}) {
+  //   return Get.toNamed(AppRoutes.oaNotificationList, arguments: info);
+  // }
 
   /// 聊天页
   static Future<T?>? startChat<T>({
