@@ -370,7 +370,6 @@ class MitiUtils {
         final directory = await getExternalStorageDirectory();
         externalStorageDirPath = directory?.path;
       } catch (err, st) {
-        Logger.print('failed to get downloads path: $err, $st');
         myLogger.e({"message": "获取下载目录异常", "error": err, "stack": st});
         final directory = await getExternalStorageDirectory();
         externalStorageDirPath = directory?.path;
@@ -776,8 +775,7 @@ class MitiUtils {
         }
       }
     } catch (e, s) {
-      Logger.print('Exception details:\n $e');
-      Logger.print('Stack trace:\n $s');
+      myLogger.e({"error": e, "stack": s});
     }
     return text;
   }
@@ -950,8 +948,7 @@ class MitiUtils {
           break;
       }
     } catch (e, s) {
-      Logger.print('Exception details:\n $e');
-      Logger.print('Stack trace:\n $s');
+      myLogger.e({"error": e, "stack": s});
     }
     content = content?.replaceAll("\n", " ");
     return content ?? '[${StrLibrary.unsupportedMessage}]';
@@ -1026,8 +1023,7 @@ class MitiUtils {
           }
       }
     } catch (e, s) {
-      Logger.print('Exception details:\n $e');
-      Logger.print('Stack trace:\n $s');
+      myLogger.e({"error": e, "stack": s});
     }
     return null;
   }
@@ -1182,7 +1178,6 @@ class MitiUtils {
       final fileSize = fileElem.fileSize;
       final dir = await getDownloadFileDir();
       final cachePath = '$dir/${message.clientMsgID}_$fileName';
-      Logger.print('cachePath:$cachePath');
       // 原路径
       final isExitSourcePath = await isExitFile(sourcePath);
       // 自己下载保存路径
@@ -1198,8 +1193,6 @@ class MitiUtils {
       final isAvailableFileSize = isExitSourcePath || isExitCachePath
           ? (await File(availablePath!).length() == fileSize)
           : false;
-      Logger.print(
-          'previewFile isAvailableFileSize: $isAvailableFileSize   isExitNetwork: $isExitNetwork');
       if (isAvailableFileSize) {
         String? mimeType = lookupMimeType(fileName ?? '');
         if (null != mimeType && mimeType.contains('video')) {
@@ -1442,7 +1435,6 @@ class MitiUtils {
   static void previewLocation(Message message) {
     var location = message.locationElem;
     Map detail = json.decode(location!.description!);
-    Logger.print('previewLocation ${location.latitude}  ${location.longitude}');
     Get.to(
       () => MapView(
         latitude: location.latitude!,
@@ -1809,7 +1801,6 @@ class MitiUtils {
       String? matchText = match.group(0);
       start ??= match.start;
       end = match.end;
-      Logger.print("Matched: $matchText  start: $start  end: $end");
     }
     if (null != start && null != end) {
       final startStr = text.substring(0, start).trimLeft();

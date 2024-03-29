@@ -320,7 +320,6 @@ mixin MitiLive {
       "error": error,
       stack: stack
     });
-    Logger.print('onError=====> $error $stack');
     MitiLiveClient().close();
     _stopBeepAndVibrate();
     if (error is PlatformException) {
@@ -486,12 +485,6 @@ mixin MitiLive {
       var inviterUserID = invitation.inviterUserID;
       var inviteeUserID = invitation.inviteeUserIDList!.first;
       var groupID = invitation.groupID;
-      Logger.print('----------state:${state.name}');
-      Logger.print('----------mediaType:$mediaType');
-      Logger.print('----------inviterUserID:$inviterUserID');
-      Logger.print('----------inviteeUserIDList:$inviteeUserID');
-      Logger.print('----------groupID:$groupID');
-      Logger.print('----------duration:$duration');
       _recordCall(state: state, signaling: signalingInfo, duration: duration);
       var message = await OpenIM.iMManager.messageManager.createCallMessage(
         state: state.name,

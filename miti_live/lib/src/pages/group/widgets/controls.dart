@@ -225,7 +225,6 @@ class _ControlsViewState extends State<ControlsView> {
     //     position = newPosition;
     //   });
     // } catch (error, stack) {
-    //   Logger.print('could not restart track: $error $stack');
     //   return;
     // }
   }

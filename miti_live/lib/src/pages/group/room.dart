@@ -101,9 +101,9 @@ class _GroupRoomViewState extends SignalState<GroupRoomView> {
       WidgetsBindingCompatible.instance?.addPostFrameCallback((_) {
         _publish();
       });
-    } catch (error, stackTrace) {
-      widget.onError?.call(error, stackTrace);
-      Logger.print('Could not connect $error  $stackTrace');
+    } catch (e, s) {
+      widget.onError?.call(e, s);
+      myLogger.e({"error": e, "stack": s});
     }
   }
 
@@ -124,8 +124,8 @@ class _GroupRoomViewState extends SignalState<GroupRoomView> {
       String decoded = 'Failed to decode';
       try {
         decoded = utf8.decode(event.data);
-      } catch (_) {
-        Logger.print('Failed to decode: $_');
+      } catch (e,s) {
+        myLogger.e({"error": e, "stack": s});
       }
     });
 
@@ -133,13 +133,13 @@ class _GroupRoomViewState extends SignalState<GroupRoomView> {
     // video will fail when running in ios simulator
     try {
       await _room?.localParticipant?.setCameraEnabled(isVideoCall);
-    } catch (error, stackTrace) {
-      Logger.print('could not publish video: $error $stackTrace');
+    } catch (e, s) {
+      myLogger.e({"error": e, "stack": s});
     }
     try {
       await _room?.localParticipant?.setMicrophoneEnabled(enabledMicrophone);
-    } catch (error, stackTrace) {
-      Logger.print('could not publish audio: $error $stackTrace');
+    } catch (e, s) {
+      myLogger.e({"error": e, "stack": s});
     }
     callStateSubject.add(CallState.calling);
   }

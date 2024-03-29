@@ -471,7 +471,6 @@ class ChatLogic extends GetxController {
       }
     });
     // signalingMessageSub = imCtrl.signalingMessageSubject.listen((value) {
-    //   print('====value.userID:${value.userID}===uid: $uid == gid:$gid');
     //   if (value.isSingleChat && value.userID == uid ||
     //       value.isGroupChat && value.groupID == gid) {
     //     messageList.add(value.message);
@@ -747,7 +746,6 @@ class ChatLogic extends GetxController {
         scrollBottom();
       }
     }
-    Logger.print('uid:$userID userId:$userId gid:$groupID groupId:$groupId');
     _reset(message);
     // 借用当前聊天窗口，给其他用户或群发送信息，如合并转发，分享名片。
     bool useOuterValue = null != userId || null != groupId;
@@ -803,7 +801,6 @@ class ChatLogic extends GetxController {
 
   ///  消息发送成功
   void _sendSucceeded(Message oldMsg, Message newMsg) {
-    Logger.print('message send success----');
     setConversationConfig(waitingST: newMsg.sendTime);
     // message.status = MessageStatus.succeeded;
     oldMsg.update(newMsg);
@@ -815,7 +812,6 @@ class ChatLogic extends GetxController {
 
   ///  消息发送失败
   void _senFailed(Message message, String? groupId, error, stack) async {
-    Logger.print('message send failed e :$error  $stack');
     setConversationConfig(waitingST: -1);
     message.status = MessageStatus.failed;
     sendStatusSub.addSafely(MsgStreamEv<bool>(
@@ -997,9 +993,7 @@ class ChatLogic extends GetxController {
 
   /// 标记消息为已读
   _markMessageAsRead(Message message) async {
-    Logger.print('mark as read：${message.clientMsgID!} ${message.isRead}');
     if (!message.isRead! && message.sendID != OpenIM.iMManager.userID) {
-      Logger.print('mark as read：${message.clientMsgID!} ${message.isRead}');
       // 多端同步问题
       try {
         if (isGroupChat) {
@@ -1077,7 +1071,6 @@ class ChatLogic extends GetxController {
       popGesture: true,
     );
     if (null != location) {
-      Logger.print(location);
       sendLocation(location: location);
     }
   }
@@ -1158,7 +1151,7 @@ class ChatLogic extends GetxController {
               );
               continue;
             } catch (e, s) {
-              Logger.print('e :$e  s:$s');
+              myLogger.e({"error": e, "stack": s});
             }
           }
         }
@@ -1184,9 +1177,7 @@ class ChatLogic extends GetxController {
 
   void _handleAssets(AssetEntity? asset) async {
     if (null != asset) {
-      Logger.print('--------assets type-----${asset.type}');
       var path = (await asset.file)!.path;
-      Logger.print('--------assets path-----$path');
       switch (asset.type) {
         case AssetType.image:
           sendPicture(path: path);
@@ -1307,7 +1298,7 @@ class ChatLogic extends GetxController {
       var end = inputCtrl.text.substring(cursor);
       var at = '@$uid ';
       inputCtrl.text = '$start$at$end';
-      Logger.print('start:$start end:$end  at:$at  content:${inputCtrl.text}');
+
       inputCtrl.selection = TextSelection.collapsed(offset: '$start$at'.length);
       // inputCtrl.selection = TextSelection.fromPosition(TextPosition(
       //   offset: '$start$at'.length,
@@ -1348,7 +1339,6 @@ class ChatLogic extends GetxController {
   }
 
   void clickLinkText(url, type) async {
-    Logger.print('--------link  type:$type-------url: $url---');
     if (type == PatternType.at) {
       clickAtText(url);
       return;
@@ -1362,12 +1352,10 @@ class ChatLogic extends GetxController {
   /// 读取草稿
   void _readDraftText() {
     var draftText = Get.arguments['draftText'];
-    Logger.print('readDraftText:$draftText');
     if (null != draftText && "" != draftText) {
       var map = json.decode(draftText!);
       String text = map['text'];
       Map<String, dynamic> atMap = map['at'];
-      Logger.print('text:$text  atMap:$atMap');
       atMap.forEach((key, value) {
         if (!curMsgAtUser.contains(key)) curMsgAtUser.add(key);
         atUserNameMappingMap.putIfAbsent(key, () => value);
@@ -1418,7 +1406,6 @@ class ChatLogic extends GetxController {
   void focusNodeChanged(bool hasFocus) {
     sendTypingMsg(focus: hasFocus);
     if (hasFocus) {
-      Logger.print('focus:$hasFocus');
       scrollBottom();
     }
   }

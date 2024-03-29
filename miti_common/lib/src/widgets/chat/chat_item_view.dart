@@ -268,13 +268,9 @@ class _ChatItemViewState extends State<ChatItemView> {
   @override
   void initState() {
     final keyboardVisibilityCtrl = KeyboardVisibilityController();
-    // Query
-    // Logger.print(
-    //     'Keyboard visibility direct query: ${keyboardVisibilityCtrl.isVisible}');
 
     // Subscribe
     _keyboardSubs = keyboardVisibilityCtrl.onChange.listen((bool visible) {
-      // Logger.print('Keyboard visibility update. Is visible: $visible');
       _popupCtrl.hideMenu();
       _popupTranslateMenuCtrl.hideMenu();
     });

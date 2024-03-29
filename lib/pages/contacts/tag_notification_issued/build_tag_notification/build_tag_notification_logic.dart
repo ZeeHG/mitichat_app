@@ -67,7 +67,6 @@ class BuildTagNotificationLogic extends GetxController {
       String? url;
       if (result is String) {
         url = jsonDecode(result)['url'];
-        Logger.print('url:$url');
       }
       if (null != url) {
         final map = buildApiParams();

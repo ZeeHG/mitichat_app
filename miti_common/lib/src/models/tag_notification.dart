@@ -55,7 +55,7 @@ class TagNotification {
           return TagNotificationContent.fromJson(json['data']);
         }
       } catch (e, s) {
-        Logger.print('$e  $s');
+        myLogger.e({"error": e, "stack": s});
       }
     }
     return null;

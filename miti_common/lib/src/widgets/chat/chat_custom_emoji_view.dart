@@ -125,7 +125,7 @@ class ChatCustomEmojiView extends StatelessWidget {
         return null != heroTag ? Hero(tag: heroTag!, child: child) : child;
       }
     } catch (e, s) {
-      Logger.print('e:$e  s:$s');
+      myLogger.e({"error": e, "stack": s});
     }
     // 位置表情
     return Container();

@@ -139,7 +139,7 @@ class _ChatQuoteContentView extends StatelessWidget {
         content = StrLibrary.quoteContentBeRevoked;
       } else if (message.isNotificationType) {}
     } catch (e, s) {
-      Logger.print('$e   $s');
+      myLogger.e({"error": e, "stack": s});
     }
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),

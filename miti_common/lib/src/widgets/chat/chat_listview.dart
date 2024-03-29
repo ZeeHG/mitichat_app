@@ -332,10 +332,8 @@ class _ChatListViewState extends State<ChatListView> {
 
   _scrollListener() {
     if (_isBottom) {
-      Logger.print('-------------ChatListView scroll to bottom');
       _onScrollToBottomLoadMore();
     } else if (_isTop) {
-      Logger.print('-------------ChatListView scroll to top');
       _onScrollToTopLoadMore();
     }
   }

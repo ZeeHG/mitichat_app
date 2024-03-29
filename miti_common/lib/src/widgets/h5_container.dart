@@ -35,7 +35,6 @@ class _H5ContainerState extends State<H5Container> {
   @override
   void initState() {
     super.initState();
-    Logger.print('H5Container: ${widget.url}');
     pullToRefreshController = PullToRefreshController(
       options: PullToRefreshOptions(
         color: Styles.c_8443F8,
@@ -58,7 +57,6 @@ class _H5ContainerState extends State<H5Container> {
 
   @override
   Widget build(BuildContext context) {
-    Logger.print('H5Container: ${widget.url}');
     return Scaffold(
       appBar: widget.title != null ? TitleBar.back(title: widget.title) : null,
       body: Stack(

@@ -128,23 +128,23 @@ class PushCtrl extends GetxController {
 
   ///////////SDK Public Function//////////
 
-  void activityCreate() {
-    Getuiflut().onActivityCreate();
-  }
+  // void activityCreate() {
+  //   Getuiflut().onActivityCreate();
+  // }
 
   Future<String> getClientId() async {
     return _getClientId;
   }
 
   /// 仅android 停止SDK服务
-  void stopPush() {
-    Getuiflut().turnOffPush();
-  }
+  // void stopPush() {
+  //   Getuiflut().turnOffPush();
+  // }
 
   /// 开启SDK服务
-  void startPush() {
-    Getuiflut().turnOnPush();
-  }
+  // void startPush() {
+  //   Getuiflut().turnOnPush();
+  // }
 
   ///
   /// 绑定别名功能:后台可以根据别名进行推送
@@ -153,7 +153,6 @@ class PushCtrl extends GetxController {
   void login(String uid) {
     if (!Platform.isIOS) return;
     Getuiflut().bindAlias(uid, _getClientId);
-    print("==========, login, cid: ${_getClientId}");
   }
 
   void logout() {
@@ -163,42 +162,42 @@ class PushCtrl extends GetxController {
   }
 
   /// 给用户打标签 , 后台可以根据标签进行推送
-  void setTag() {
-    List test = List.filled(1, 'abc');
-    Getuiflut().setTag(test);
-  }
+  // void setTag() {
+  //   List test = List.filled(1, 'abc');
+  //   Getuiflut().setTag(test);
+  // }
 
   ////////////ios Public Function////////////
 
   /// 仅ios 同步服务端角标
-  static void setBadge(int badge) {
-    Getuiflut().setBadge(badge);
-  }
+  // static void setBadge(int badge) {
+  //   Getuiflut().setBadge(badge);
+  // }
 
   /// 仅ios 同步App本地角标
-  void setLocalBadge() {
-    Getuiflut().setLocalBadge(0);
-  }
+  // void setLocalBadge() {
+  //   Getuiflut().setLocalBadge(0);
+  // }
 
   /// 仅ios 复位服务端角标
-  static void resetBadge() {
-    Getuiflut().resetBadge();
-  }
+  // static void resetBadge() {
+  //   Getuiflut().resetBadge();
+  // }
 
   /// 仅ios
-  void setPushMode() {
-    Getuiflut().setPushMode(0);
-  }
+  // void setPushMode() {
+  //   Getuiflut().setPushMode(0);
+  // }
 
   /// 获取冷启动Apns参数
-  Future<void> getLaunchNotification() async {
-    Map info;
-    try {
-      info = await Getuiflut.getLaunchNotification;
-    } catch (e) {
-      Logger.print(e.toString());
-    }
-  }
+  // Future<void> getLaunchNotification() async {
+  //   Map info;
+  //   try {
+  //     info = await Getuiflut.getLaunchNotification;
+  //   } catch (e, s) {
+  //     myLogger.e({"error": e, "stack": s});
+  //   }
+  // }
 
   @override
   void onInit() {

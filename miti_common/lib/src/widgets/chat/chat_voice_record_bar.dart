@@ -97,8 +97,6 @@ class _ChatVoiceRecordBarState extends State<ChatVoiceRecordBar> {
       onLongPressMoveUpdate: (details) {
         widget.onLongPressMoveUpdate(details);
         // Offset local = details.localPosition;
-        // print('global:$global');
-        // print('local:$local');
         Offset global = details.globalPosition;
         setState(() {
           _canCancel = global.dy < (1.sh - kInputBoxMinHeight - _offset);

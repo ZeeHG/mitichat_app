@@ -39,7 +39,7 @@ class Apis {
       });
       return LoginCertificate.fromJson(data!);
     } catch (e, s) {
-      Logger.print('e:$e s:$s');
+      myLogger.e({"error": e, "stack": s});
       return Future.error(e);
     }
   }
@@ -80,7 +80,7 @@ class Apis {
       });
       return LoginCertificate.fromJson(data!);
     } catch (e, s) {
-      Logger.print('e:$e s:$s');
+      myLogger.e({"error": e, "stack": s});
       return Future.error(e);
     }
   }
@@ -128,7 +128,7 @@ class Apis {
       );
       return true;
     } catch (e, s) {
-      Logger.print('e:$e s:$s');
+      myLogger.e({"error": e, "stack": s});
       return false;
     }
   }
@@ -275,7 +275,7 @@ class Apis {
       showToast(StrLibrary.sentSuccessfully);
       return true;
     }).catchError((e, s) {
-      Logger.print('e:$e s:$s');
+      myLogger.e({"error": e, "stack": s});
       return false;
     });
   }
@@ -650,7 +650,7 @@ class Apis {
       );
       return data;
     } catch (e, s) {
-      Logger.print('e:$e s:$s');
+      myLogger.e({"error": e, "stack": s});
       return Future.error(e);
     }
   }
@@ -677,7 +677,7 @@ class Apis {
       );
       return data;
     } catch (e, s) {
-      Logger.print('e:$e s:$s');
+      myLogger.e({"error": e, "stack": s});
       return Future.error(e);
     }
   }

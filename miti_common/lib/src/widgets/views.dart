@@ -209,7 +209,6 @@ class IMViews {
       String putID = const Uuid().v4();
       dynamic result;
       if (null != cropFile) {
-        Logger.print('-----------crop path: ${cropFile.path}');
         result = await LoadingView.singleton.start(fn: () async {
           final image = await MitiUtils.compressImageAndGetFile(
               File(cropFile!.path),
@@ -222,7 +221,6 @@ class IMViews {
           );
         });
       } else {
-        Logger.print('-----------source path: $path');
         result = await LoadingView.singleton.start(fn: () async {
           final image = await MitiUtils.compressImageAndGetFile(File(path),
               quality: quality);
@@ -236,7 +234,6 @@ class IMViews {
       }
       if (result is String) {
         url = jsonDecode(result)['url'];
-        Logger.print('url:$url');
       }
     }
     return {'path': cropFile?.path ?? path, 'url': url};

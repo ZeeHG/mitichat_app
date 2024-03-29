@@ -115,7 +115,6 @@ class Config {
     var server = DataSp.getServerConfig();
     if (null != server) {
       ip = server['serverIP'];
-      Logger.print('缓存serverIP: $ip');
     }
     return ip ?? host;
   }
@@ -129,7 +128,6 @@ class Config {
   //   var server = DataSp.getServerConfig();
   //   if (null != server) {
   //     url = server['chatTokenUrl'];
-  //     Logger.print('缓存chatTokenUrl: $url');
   //   }
   //   return url ??
   //       (_isIP ? "http://$host:10009" : "https://$host/admin_api");
@@ -144,7 +142,6 @@ class Config {
     var server = DataSp.getServerConfig();
     if (null != server) {
       url = server['authUrl'];
-      Logger.print('缓存authUrl: $url');
     }
     // to b
     // return url ??
@@ -162,7 +159,6 @@ class Config {
     var server = DataSp.getServerConfig();
     if (null != server) {
       url = server['apiUrl'];
-      Logger.print('缓存apiUrl: $url');
     }
     return url ?? (_isIP ? 'http://$host:10002' : "https://$host/api");
   }
@@ -176,7 +172,6 @@ class Config {
     var server = DataSp.getServerConfig();
     if (null != server) {
       url = server['wsUrl'];
-      Logger.print('缓存wsUrl: $url');
     }
     return url ?? (_isIP ? "ws://$host:10001" : "wss://$host/msg_gateway");
   }
@@ -187,7 +182,6 @@ class Config {
     var server = DataSp.getServerConfig();
     if (null != server) {
       storage = server['objectStorage'];
-      Logger.print('缓存objectStorage: $storage');
     }
     return storage ?? 'minio';
   }

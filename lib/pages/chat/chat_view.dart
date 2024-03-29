@@ -149,7 +149,6 @@ class ChatPage extends StatelessWidget {
                 logic.forward(message);
               }
             }).then((value) {
-          print('PhotoBrowser closed');
           logic.playOnce = false;
         });
       },

@@ -124,7 +124,7 @@ extension MessageExt on Message {
         final ntf = GroupNotification.fromJson(map);
         return MitiUtils.isNotNullEmptyStr(ntf.group?.notification);
       } catch (e, s) {
-        Logger.print('$e $s');
+        myLogger.e({"error": e, "stack": s});
       }
     }
     return false;
@@ -140,7 +140,7 @@ extension MessageExt on Message {
         final ntf = GroupNotification.fromJson(map);
         return ntf.group?.notification;
       } catch (e, s) {
-        Logger.print('$e $s');
+        myLogger.e({"error": e, "stack": s});
       }
     }
     return null;
@@ -154,7 +154,7 @@ extension MessageExt on Message {
         var customType = map['customType'];
         return CustomMessageType.call == customType;
       } catch (e, s) {
-        Logger.print('$e $s');
+        myLogger.e({"error": e, "stack": s});
       }
     }
     return false;
@@ -168,7 +168,7 @@ extension MessageExt on Message {
         var customType = map['customType'];
         return CustomMessageType.waitingAiReplay == customType;
       } catch (e, s) {
-        Logger.print('$e $s');
+        myLogger.e({"error": e, "stack": s});
       }
     }
     return false;
@@ -182,7 +182,7 @@ extension MessageExt on Message {
   //       var customType = map['customType'];
   //       return CustomMessageType.meeting == customType;
   //     } catch (e, s) {
-  //       Logger.print('$e $s');
+  //       myLogger.e({"error": e, "stack": s});
   //     }
   //   }
   //   return false;
@@ -196,7 +196,7 @@ extension MessageExt on Message {
         var customType = map['customType'];
         return CustomMessageType.deletedByFriend == customType;
       } catch (e, s) {
-        Logger.print('$e $s');
+        myLogger.e({"error": e, "stack": s});
       }
     }
     return false;
@@ -210,7 +210,7 @@ extension MessageExt on Message {
         var customType = map['customType'];
         return CustomMessageType.blockedByFriend == customType;
       } catch (e, s) {
-        Logger.print('$e $s');
+        myLogger.e({"error": e, "stack": s});
       }
     }
     return false;
@@ -224,7 +224,7 @@ extension MessageExt on Message {
         var customType = map['customType'];
         return CustomMessageType.emoji == customType;
       } catch (e, s) {
-        Logger.print('$e $s');
+        myLogger.e({"error": e, "stack": s});
       }
     }
     return false;
@@ -238,7 +238,7 @@ extension MessageExt on Message {
         var customType = map['customType'];
         return CustomMessageType.tag == customType;
       } catch (e, s) {
-        Logger.print('$e $s');
+        myLogger.e({"error": e, "stack": s});
       }
     }
     return false;
@@ -257,7 +257,7 @@ extension MessageExt on Message {
           }
         }
       } catch (e, s) {
-        Logger.print('$e $s');
+        myLogger.e({"error": e, "stack": s});
       }
     }
     return null;

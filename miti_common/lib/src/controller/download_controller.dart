@@ -63,8 +63,6 @@ class DownloadController extends GetxController {
 
   void clickFileMessage(String url, String path) async {
     var task = getTask(url);
-    Logger.print(
-        'clickFileMessage 当前状态： ${task?.status.value}  进度：${task?.progress.value} 完成：${task?.status.value.isCompleted}  $url  $path');
     if (task != null && !task.status.value.isCompleted) {
       // downloadManager.cancelDownload(url);
       switch (task.status.value) {

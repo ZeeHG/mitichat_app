@@ -128,8 +128,8 @@ abstract class _ParticipantWidgetState<T extends ParticipantWidget>
       groupMemberInfo =
           imSdk.GroupMembersInfo.fromJson(data['groupMemberInfo']);
       userInfo = imSdk.UserInfo.fromJson(data['userInfo']);
-    } catch (error, stack) {
-      Logger.print('$error $stack');
+    } catch (e, s) {
+      myLogger.e({"error": e, "stack": s});
     }
   }
 

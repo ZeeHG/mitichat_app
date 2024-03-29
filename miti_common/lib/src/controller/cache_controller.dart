@@ -36,9 +36,7 @@ class CacheController extends GetxController {
     );
     if (result is String) {
       final url = jsonDecode(result)['url'];
-      Logger.print('url:$url');
       var emoji = EmojiInfo(url: url, width: width, height: height);
-      Logger.print('addFavoriteFromPath :$url');
       favoriteList.insert(0, emoji);
       favoriteBox?.put(userID, favoriteList);
     }

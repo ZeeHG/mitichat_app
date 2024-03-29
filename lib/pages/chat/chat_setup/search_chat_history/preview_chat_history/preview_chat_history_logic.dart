@@ -196,7 +196,6 @@ mixin ListViewDataCtrl {
     } else {
       if (newMessageStartPosition == -1) {
         newMessageStartPosition = messageList.length - 1;
-        Logger.print('newMessageStartPosition: $newMessageStartPosition');
       }
       newMessageCount.value += count;
     }

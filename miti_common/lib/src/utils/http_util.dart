@@ -140,7 +140,6 @@ class HttpUtil {
     if (compress) {
       File? compressFile = await MitiUtils.compressImageAndGetFile(File(path));
       compressPath = compressFile?.path;
-      Logger.print('compressPath: $compressPath');
     }
     final bytes = await File(compressPath ?? path).readAsBytes();
     final mf = MultipartFile.fromBytes(bytes, filename: fileName);

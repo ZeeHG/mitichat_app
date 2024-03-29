@@ -178,10 +178,8 @@ class _ChatWebViewMapState extends State<ChatWebViewMap> {
               shouldOverrideUrlLoading: (controller, navigationAction) async {
                 var uri = navigationAction.request.url!;
                 var uriStr = uri.toString();
-                Logger.print('click: $uriStr');
                 if (uriStr.startsWith(widget.mapBackUrl)) {
                   try {
-                    Logger.print('${uri.queryParameters}');
                     var result = <String, String>{};
                     result.addAll(uri.queryParameters);
                     var lat = result['latng'];
@@ -190,13 +188,12 @@ class _ChatWebViewMapState extends State<ChatWebViewMap> {
                     result['latitude'] = list[0];
                     result['longitude'] = list[1];
                     result['url'] = sprintf(thumbnailUrl, [lat, lat]);
-                    Logger.print('${result['url']}');
                     // log('--url:${_result['url']}');
                     latitude = double.tryParse(result['latitude']!);
                     longitude = double.tryParse(result['longitude']!);
                     description = jsonEncode(result);
-                  } catch (e) {
-                    Logger.print('e:$e');
+                  } catch (e, s) {
+                    myLogger.e({"error": e, "stack": s});
                   }
                   return NavigationActionPolicy.CANCEL;
                 } else if (uriStr
@@ -226,7 +223,6 @@ class _ChatWebViewMapState extends State<ChatWebViewMap> {
                 this.url = url.toString();
               },
               onConsoleMessage: (controller, consoleMessage) {
-                Logger.print('$consoleMessage');
               },
             ),
             progress < 1.0
