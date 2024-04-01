@@ -109,17 +109,19 @@ class SelectContactsLogic extends GetxController
       action == SelAction.whoCanWatch || action == SelAction.remindWhoToWatch;
 
   /// 隐藏标签组
-  bool get hiddenTagGroup =>
-      action == SelAction.forward ||
-      action == SelAction.carte ||
-      action == SelAction.crateGroup ||
-      action == SelAction.addMember ||
-      action == SelAction.recommend ||
-      action == SelAction.createTag ||
-      action == SelAction.whoCanWatch ||
-      action == SelAction.remindWhoToWatch
-      // || action == SelAction.meeting
-      ;
+  // bool get hiddenTagGroup =>
+  //     action == SelAction.forward ||
+  //     action == SelAction.carte ||
+  //     action == SelAction.crateGroup ||
+  //     action == SelAction.addMember ||
+  //     action == SelAction.recommend ||
+  //     action == SelAction.createTag ||
+  //     action == SelAction.whoCanWatch ||
+  //     action == SelAction.remindWhoToWatch
+  //     // || action == SelAction.meeting
+  //     ;
+
+  bool get hiddenTagGroup => true;
 
   /// 最近会话
   _queryConversationList() async {
@@ -256,12 +258,12 @@ class SelectContactsLogic extends GetxController
     }
   }
 
-  selectTagGroup() async {
-    final result = await await AppNavigator.startSelectContactsFromTag();
-    if (null != result) {
-      Get.back(result: result);
-    }
-  }
+  // selectTagGroup() async {
+  //   final result = await await AppNavigator.startSelectContactsFromTag();
+  //   if (null != result) {
+  //     Get.back(result: result);
+  //   }
+  // }
 
   confirmSelectedList() async {
     if (action == SelAction.forward || action == SelAction.recommend) {

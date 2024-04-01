@@ -35,25 +35,25 @@ class SelectContactsPage extends StatelessWidget {
                     SliverFixedExtentList(
                       delegate: SliverChildListDelegate(
                         [
-                          _buildCategoryItemView(
+                          _categoryItemView(
                             label: StrLibrary.myFriend,
                             onTap: logic.selectFromMyFriend,
                           ),
                           if (!logic.hiddenGroup)
-                            _buildCategoryItemView(
+                            _categoryItemView(
                               label: StrLibrary.myGroup,
                               onTap: logic.selectFromMyGroup,
                             ),
                           // if (!logic.hiddenOrganization)
-                          //   _buildCategoryItemView(
+                          //   _categoryItemView(
                           //     label: StrLibrary .organizationStructure,
                           //     onTap: logic.selectFromOrganization,
                           //   ),
-                          if (!logic.hiddenTagGroup)
-                            _buildCategoryItemView(
-                              label: StrLibrary.tagGroup,
-                              onTap: logic.selectTagGroup,
-                            ),
+                          // if (!logic.hiddenTagGroup)
+                          //   _categoryItemView(
+                          //     label: StrLibrary.tagGroup,
+                          //     onTap: logic.selectTagGroup,
+                          //   ),
                         ],
                       ),
                       itemExtent: 54.h,
@@ -61,7 +61,7 @@ class SelectContactsPage extends StatelessWidget {
                     if (logic.conversationList.isNotEmpty)
                       SliverToBoxAdapter(
                         child: Container(
-                          height: 29.h,
+                          height: 30.h,
                           alignment: Alignment.centerLeft,
                           margin: EdgeInsets.symmetric(horizontal: 12.w),
                           child: StrLibrary.recentConversations.toText
@@ -71,7 +71,7 @@ class SelectContactsPage extends StatelessWidget {
                     SliverFixedExtentList(
                       delegate: SliverChildBuilderDelegate(
                         childCount: logic.conversationList.length,
-                        (_, index) => _buildRecentConversationsItemView(
+                        (_, index) => _recentConversationsItemView(
                           logic.conversationList.elementAt(index),
                         ),
                       ),
@@ -86,61 +86,59 @@ class SelectContactsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoryItemView({
+  Widget _categoryItemView({
     required String label,
     Function()? onTap,
   }) =>
-      Ink(
-        height: 54.h,
-        color: Styles.c_FFFFFF,
-        child: InkWell(
-          onTap: onTap,
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Row(
-              children: [
-                label.toText..style = Styles.ts_333333_16sp,
-                const Spacer(),
-                ImageRes.appRightArrow.toImage
-                  ..width = 20.w
-                  ..height = 20.h,
-              ],
-            ),
+      GestureDetector(
+        onTap: onTap,
+        behavior: HitTestBehavior.translucent,
+        child: Container(
+          height: 54.h,
+          color: Styles.c_FFFFFF,
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: Row(
+            children: [
+              label.toText..style = Styles.ts_333333_16sp,
+              const Spacer(),
+              ImageRes.appRightArrow.toImage
+                ..width = 20.w
+                ..height = 20.h,
+            ],
           ),
         ),
       );
 
-  Widget _buildRecentConversationsItemView(ConversationInfo info) {
-    Widget buildChild() => Ink(
-          height: 54.h,
-          color: Styles.c_FFFFFF,
-          child: InkWell(
-            onTap: logic.onTap(info),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
-              child: Row(
-                children: [
-                  if (logic.isMultiModel)
-                    Padding(
-                      padding: EdgeInsets.only(right: 10.w),
-                      child: ChatRadio(
-                        checked: logic.isChecked(info),
-                      ),
+  Widget _recentConversationsItemView(ConversationInfo info) {
+    Widget buildChild() => GestureDetector(
+          onTap: logic.onTap(info),
+          behavior: HitTestBehavior.translucent,
+          child: Container(
+            height: 54.h,
+            color: Styles.c_FFFFFF,
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: Row(
+              children: [
+                if (logic.isMultiModel)
+                  Padding(
+                    padding: EdgeInsets.only(right: 10.w),
+                    child: ChatRadio(
+                      checked: logic.isChecked(info),
                     ),
-                  AvatarView(
-                    url: info.faceURL,
-                    text: info.showName,
-                    isGroup: !info.isSingleChat,
                   ),
-                  10.horizontalSpace,
-                  Flexible(
-                    child: (info.showName ?? '').toText
-                      ..style = Styles.ts_333333_16sp
-                      ..maxLines = 1
-                      ..overflow = TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
+                AvatarView(
+                  url: info.faceURL,
+                  text: info.showName,
+                  isGroup: !info.isSingleChat,
+                ),
+                10.horizontalSpace,
+                Flexible(
+                  child: (info.showName ?? '').toText
+                    ..style = Styles.ts_333333_16sp
+                    ..maxLines = 1
+                    ..overflow = TextOverflow.ellipsis,
+                ),
+              ],
             ),
           ),
         );
@@ -149,7 +147,7 @@ class SelectContactsPage extends StatelessWidget {
 }
 
 class CheckedConfirmView extends StatelessWidget {
-  CheckedConfirmView({Key? key}) : super(key: key);
+  CheckedConfirmView({super.key});
   final logic = Get.find<SelectContactsLogic>();
 
   @override
@@ -161,7 +159,7 @@ class CheckedConfirmView extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             offset: Offset(0, -1.h),
-            blurRadius: 4.r,
+            blurRadius: 6.r,
             spreadRadius: 1.r,
             color: Styles.c_000000_opacity4,
           ),
@@ -182,13 +180,13 @@ class CheckedConfirmView extends StatelessWidget {
                       ImageRes.appUpArrow.toImage
                         ..width = 10.w
                         ..height = 6.h,
-                      if (logic.checkedList.isNotEmpty) 17.horizontalSpace,
+                      if (logic.checkedList.isNotEmpty) 16.horizontalSpace,
                       Expanded(
                         // child: logic.checkedStrTips.toText
                         //   ..style = Styles.ts_999999_14sp
                         //   ..maxLines = 1
                         //   ..overflow = TextOverflow.ellipsis,
-                        child: Container(
+                        child: SizedBox(
                           height: 36.h,
                           child: ListView.builder(
                               scrollDirection: Axis.horizontal,
@@ -225,7 +223,7 @@ class CheckedConfirmView extends StatelessWidget {
 }
 
 class SelectedContactsListView extends StatelessWidget {
-  SelectedContactsListView({Key? key}) : super(key: key);
+  SelectedContactsListView({super.key});
   final logic = Get.find<SelectContactsLogic>();
 
   @override
@@ -271,7 +269,7 @@ class SelectedContactsListView extends StatelessWidget {
                 child: ListView.builder(
                   itemCount: logic.checkedList.length,
                   shrinkWrap: true,
-                  itemBuilder: (_, index) => _buildItemView(index),
+                  itemBuilder: (_, index) => _itemView(index),
                 ),
               ),
             ],
@@ -279,18 +277,18 @@ class SelectedContactsListView extends StatelessWidget {
     );
   }
 
-  Widget _buildItemView(int index) {
+  Widget _itemView(int index) {
     final info = logic.checkedList.values.elementAt(index);
     String? name;
     String? faceURL;
     bool isGroup = false;
     name = SelectContactsLogic.parseName(info);
     faceURL = SelectContactsLogic.parseFaceURL(info);
-    if (info is ConversationInfo) {
-      isGroup = !info.isSingleChat;
-    } else if (info is GroupInfo) {
-      isGroup = true;
-    }
+    isGroup = (info is ConversationInfo)
+        ? !info.isSingleChat
+        : (info is GroupInfo)
+            ? true
+            : false;
     return Container(
       height: 64.h,
       padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -314,7 +312,7 @@ class SelectedContactsListView extends StatelessWidget {
             behavior: HitTestBehavior.translucent,
             onTap: () => logic.removeItem(info),
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 13.w, vertical: 4.h),
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2.r),
                 border: Border.all(

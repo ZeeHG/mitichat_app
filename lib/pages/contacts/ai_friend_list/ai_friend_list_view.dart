@@ -38,7 +38,7 @@ class AiFriendListPage extends StatelessWidget {
                       logic.menus.length,
                       (index) => Row(
                             children: [
-                              _buildMenuItemView(
+                              _menuItem(
                                   text: logic.menus[index]["text"],
                                   color: logic.menus[index]["color"],
                                   shadowColor: logic.menus[index]
@@ -51,10 +51,10 @@ class AiFriendListPage extends StatelessWidget {
           ),
           Flexible(
             child: Obx(
-              () => WrapAzListView<ISUserInfo>(
+              () => AzList<ISUserInfo>(
                   data: logic.friendList,
                   itemCount: logic.friendList.length,
-                  itemBuilder: (_, data, index) => _buildItemView(data),
+                  itemBuilder: (_, data, index) => _item(data),
                   firstTagPaddingColor: Styles.c_FFFFFF),
             ),
           ),
@@ -63,7 +63,7 @@ class AiFriendListPage extends StatelessWidget {
     );
   }
 
-  Widget _buildItemView(ISUserInfo info) => Ink(
+  Widget _item(ISUserInfo info) => Ink(
         height: 60.h,
         color: Styles.c_FFFFFF,
         child: InkWell(
@@ -84,7 +84,7 @@ class AiFriendListPage extends StatelessWidget {
         ),
       );
 
-  Widget _buildMenuItemView({
+  Widget _menuItem({
     double? width,
     double? height,
     Color? color,

@@ -29,36 +29,32 @@ class CreateGroupLogic extends GetxController {
 
   String get groupName {
     String name = nameCtrl.text.trim();
-    if (name.isEmpty) {
-      int limit = min(allList.length, 3);
-      name = allList.sublist(0, limit).map((e) => e.nickname).join('、');
+    if (name.isNotEmpty) {
+      return name;
     }
+    int limit = min(allList.length, 3);
+    name = allList.sublist(0, limit).map((e) => e.nickname).join('、');
     return name;
   }
 
   completeCreation() async {
     if (allList.length > 2) {
       // convertMemberRole(UserInfo u) => GroupMemberRole(userID: u.userID);
-      var info = await LoadingView.singleton.start(
-        fn: () => OpenIM.iMManager.groupManager.createGroup(
-          groupInfo: GroupInfo(
-            groupID: '',
-            groupName: groupName,
-            faceURL: faceURL.value,
-            groupType: GroupType.work,
-          ),
-          memberUserIDs: allList
-              .where((e) => e.userID != OpenIM.iMManager.userID)
-              .map((e) => e.userID!)
-              .toList(),
-        ),
-      );
-      conversationLogic.toChat(
-        offUntilHome: true,
-        groupID: info.groupID,
-        nickname: groupName,
-        faceURL: faceURL.value,
-        sessionType: info.sessionType,
+      await LoadingView.singleton.start(
+        fn: () async {
+          await OpenIM.iMManager.groupManager.createGroup(
+            groupInfo: GroupInfo(
+              groupID: '',
+              groupName: groupName,
+              faceURL: faceURL.value,
+              groupType: GroupType.work,
+            ),
+            memberUserIDs: allList
+                .where((e) => e.userID != OpenIM.iMManager.userID)
+                .map((e) => e.userID!)
+                .toList(),
+          );
+        },
       );
     } else {
       conversationLogic.toChat(
@@ -89,8 +85,7 @@ class CreateGroupLogic extends GetxController {
   }) {
     if (allList.length > 8) {
       if (index < 8) {
-        var info = allList.elementAt(index);
-        return builder(info);
+        return builder(allList[index]);
       } else if (index == 8) {
         return addButton();
       } else {
@@ -98,8 +93,7 @@ class CreateGroupLogic extends GetxController {
       }
     } else {
       if (index < allList.length) {
-        var info = allList.elementAt(index);
-        return builder(info);
+        return builder(allList[index]);
       } else if (index == allList.length) {
         return addButton();
       } else {

@@ -14,7 +14,7 @@ import '../../core/ctrl/app_ctrl.dart';
 import '../../core/ctrl/im_ctrl.dart';
 import '../../core/im_callback.dart';
 import '../../routes/app_navigator.dart';
-import '../contacts/add_by_search/add_by_search_logic.dart';
+import '../contacts/search_add_contacts/search_add_contacts_logic.dart';
 import '../home/home_logic.dart';
 
 class ConversationLogic extends GetxController {
@@ -438,7 +438,8 @@ class ConversationLogic extends GetxController {
     // 如果是系统通知
     // if (await _jumpOANtf(conversationInfo)) return;
 
-    if (conversationInfo.conversationType == ConversationType.notification) return;
+    if (conversationInfo.conversationType == ConversationType.notification)
+      return;
 
     // 保存旧草稿
     updateDartText(
@@ -481,13 +482,13 @@ class ConversationLogic extends GetxController {
   scan() => AppNavigator.startScan();
 
   addFriend() =>
-      AppNavigator.startAddContactsBySearch(searchType: SearchType.user);
+      AppNavigator.startSearchAddContacts(searchType: SearchType.user);
 
   createGroup() => AppNavigator.startCreateGroup(
       defaultCheckedList: [OpenIM.iMManager.userInfo]);
 
   addGroup() =>
-      AppNavigator.startAddContactsBySearch(searchType: SearchType.group);
+      AppNavigator.startSearchAddContacts(searchType: SearchType.group);
 
   // void videoMeeting() => MNavigator.startMeeting();
 

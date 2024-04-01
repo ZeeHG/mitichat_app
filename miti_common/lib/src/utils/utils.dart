@@ -166,8 +166,13 @@ class MitiUtils {
     }
   }
 
-  static String? emptyStrToNull(String? str) =>
-      (null != str && str.trim().isEmpty) ? null : str;
+  static String? emptyStrToNull(String? str, [String? str2]) {
+    if(null != str && str.trim().isEmpty){
+      return null != str2 && str2.trim().isEmpty? null : str2;
+    }else{
+      return str;
+    }
+  }
 
   static bool isNotNullEmptyStr(String? str) => null != str && "" != str.trim();
 

@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:miti_common/miti_common.dart';
 
-class WrapAzListView<T extends ISuspensionBean> extends StatelessWidget {
-  const WrapAzListView(
-      {Key? key,
+class AzList<T extends ISuspensionBean> extends StatelessWidget {
+  const AzList(
+      {super.key,
       // this.itemScrollController,
       required this.data,
       required this.itemCount,
       required this.itemBuilder,
-      this.firstTagPaddingColor})
-      : super(key: key);
+      this.firstTagPaddingColor});
 
   /// Controller for jumping or scrolling to an item.
   // final ItemScrollController? itemScrollController;
@@ -36,7 +35,7 @@ class WrapAzListView<T extends ISuspensionBean> extends StatelessWidget {
         if ('↑' == model.getSuspensionTag()) {
           return Container();
         }
-        return _buildTagView(
+        return _tag(
             model.getSuspensionTag(), index == 0 ? firstTagPaddingColor : null);
       },
       susItemHeight: 0,
@@ -49,8 +48,8 @@ class WrapAzListView<T extends ISuspensionBean> extends StatelessWidget {
           shape: BoxShape.circle,
           color: Styles.c_8443F8,
         ),
-        indexHintWidth: 96,
-        indexHintHeight: 97,
+        indexHintWidth: 95,
+        indexHintHeight: 95,
         indexHintDecoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(ImageRes.indexBarBg, package: 'miti_common'),
@@ -58,13 +57,13 @@ class WrapAzListView<T extends ISuspensionBean> extends StatelessWidget {
           ),
         ),
         indexHintAlignment: Alignment.centerRight,
-        indexHintTextStyle: Styles.ts_333333_20sp_semibold,
+        indexHintTextStyle: Styles.ts_333333_18sp_semibold,
         indexHintOffset: const Offset(-30, 0),
       ),
     );
   }
 
-  Widget _buildTagView(String tag, Color? color) => Container(
+  Widget _tag(String tag, Color? color) => Container(
         color: color ?? Styles.c_F7F8FA,
         padding: EdgeInsets.only(top: 10.h),
         child: Column(

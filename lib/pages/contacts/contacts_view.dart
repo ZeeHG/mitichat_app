@@ -12,6 +12,8 @@ class ContactsPage extends StatelessWidget {
   final conversationLogic = Get.find<ConversationLogic>();
   final homeLogic = Get.find<HomeLogic>();
 
+  ContactsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
@@ -34,10 +36,10 @@ class ContactsPage extends StatelessWidget {
           children: [
             Container(
               margin: EdgeInsets.only(top: 65.h),
-              child: WrapAzListView<ISUserInfo>(
+              child: AzList<ISUserInfo>(
                 data: logic.friendList,
                 itemCount: logic.friendList.length,
-                itemBuilder: (_, data, index) => _buildFriendItemView(data),
+                itemBuilder: (_, data, index) => _friendItem(data),
               ),
             ),
             Container(
@@ -52,7 +54,7 @@ class ContactsPage extends StatelessWidget {
                         logic.menus.length,
                         (index) => Row(
                               children: [
-                                _buildMenuItemView(
+                                _menuItem(
                                     text: logic.menus[index]["text"],
                                     color: logic.menus[index]["color"],
                                     shadowColor: logic.menus[index]
@@ -60,7 +62,8 @@ class ContactsPage extends StatelessWidget {
                                     onTap: logic.menus[index]["onTap"],
                                     badge:
                                         logic.menus[index]["key"] == "newRecent"
-                                            ? homeLogic.unhandledFriendAndGroupCount
+                                            ? homeLogic
+                                                .unhandledFriendAndGroupCount
                                                 .value
                                             : null),
                                 8.horizontalSpace
@@ -86,48 +89,7 @@ class ContactsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildItemView({
-    String? assetsName,
-    required String label,
-    Widget? icon,
-    int count = 0,
-    bool showRightArrow = true,
-    double? height,
-    Function()? onTap,
-  }) =>
-      Ink(
-        color: Styles.c_FFFFFF,
-        child: InkWell(
-          onTap: onTap,
-          child: Container(
-            height: height ?? 60.h,
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
-            child: Row(
-              children: [
-                if (null != assetsName)
-                  ClipOval(
-                    child: assetsName.toImage
-                      ..fit = BoxFit.cover
-                      ..width = 40.w
-                      ..height = 40.h,
-                  ),
-                if (null != icon) icon,
-                12.horizontalSpace,
-                label.toText..style = Styles.ts_332221_16sp,
-                const Spacer(),
-                if (count > 0) UnreadCountView(count: count),
-                4.horizontalSpace,
-                if (showRightArrow)
-                  ImageRes.appRightArrow.toImage
-                    ..width = 20.w
-                    ..height = 20.h,
-              ],
-            ),
-          ),
-        ),
-      );
-
-  Widget _buildMenuItemView({
+  Widget _menuItem({
     double? width,
     double? height,
     Color? color,
@@ -177,30 +139,13 @@ class ContactsPage extends StatelessWidget {
         ));
   }
 
-// /// 我加入的部门
-// List<Widget> _buildMyDeptView() => logic.myDeptList
-//     .map((dept) => _buildItemView(
-//           height: 48.h,
-//           icon: SizedBox(
-//             width: 42.w,
-//             height: 42.h,
-//             child: Center(
-//               child: ImageRes.tree.toImage
-//                 ..width = 18.w
-//                 ..height = 18.h,
-//             ),
-//           ),
-//           label: dept.department?.name ?? '',
-//           onTap: () => logic.enterMyDepartment(dept.department),
-//         ))
-//     .toList();
-
-  Widget _buildFriendItemView(ISUserInfo info) {
-    Widget buildChild() => Ink(
-          height: 54.h,
-          color: Styles.c_FFFFFF,
-          child: InkWell(
-            onTap: () => logic.viewFriendInfo(info),
+  Widget _friendItem(ISUserInfo info) {
+    Widget buildChild() => GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () => logic.viewFriendInfo(info),
+          child: Container(
+            height: 54.h,
+            color: Styles.c_FFFFFF,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12.w),
               child: Row(

@@ -10,22 +10,17 @@ import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 class TrainAiLogic extends GetxController {
   @override
   void onInit() {
+    super.onInit();
     inputCtrl.addListener(() {
       text.value = inputCtrl.text;
     });
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
     getBotKnowledgebases();
-    super.onReady();
   }
 
   @override
   void onClose() {
-    inputCtrl.dispose();
     super.onClose();
+    inputCtrl.dispose();
   }
 
   final arguments = Get.arguments;
@@ -44,7 +39,7 @@ class TrainAiLogic extends GetxController {
   String get count => "${text.value.length}/${maxLength.value}";
 
   bool get canTain =>
-      (text.value.length > 0 || files.value.length > 0) &&
+      (text.value.isNotEmpty || files.isNotEmpty) &&
       (null != selectedKnowledgebase.value);
 
   bool get canSeeFiles => null != selectedKnowledgebase.value;
@@ -68,7 +63,7 @@ class TrainAiLogic extends GetxController {
               }))
           .toList()
           .cast<Knowledgebase>();
-      if (knowledgebaseList.length == 0) {
+      if (knowledgebaseList.isEmpty) {
         showToast(StrLibrary.pleaseUpgradeAiOrOpenKnowledgebase);
       }
     });
@@ -79,13 +74,12 @@ class TrainAiLogic extends GetxController {
       await Apis.addKnowledge(
           knowledgebaseID: selectedKnowledgebase.value!.knowledgebaseID,
           text: text.value,
-          filePathList: files.value);
+          filePathList: files);
       inputCtrl.text = '';
       text.value = '';
       files.value = [];
     });
-    // await Apis.getMyAiTask();
-    final confirm = await Get.dialog(SuccessDialog(
+    await Get.dialog(SuccessDialog(
       text: StrLibrary.trainSuccessTips,
       onTapConfirm: () => Get.back(),
     ));
@@ -111,7 +105,7 @@ class TrainAiLogic extends GetxController {
   }
 
   void selectKnowledgebase() async {
-    if (knowledgebaseList.length == 0) return;
+    if (knowledgebaseList.isEmpty) return;
     IMViews.showSinglePicker(
       title: StrLibrary.selectKnowledgebase,
       description: "",

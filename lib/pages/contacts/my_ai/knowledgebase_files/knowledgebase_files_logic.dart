@@ -6,18 +6,9 @@ class KnowledgebaseFilesLogic extends GetxController {
   @override
   void onInit() {
     super.onInit();
-  }
-
-  @override
-  void onReady() {
     getFiles();
-    super.onReady();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   final files = <String>[].obs;
   Knowledgebase knowledgebase = Get.arguments['knowledgebase'];

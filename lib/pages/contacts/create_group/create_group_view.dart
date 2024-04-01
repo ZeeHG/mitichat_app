@@ -24,15 +24,12 @@ class CreateGroupPage extends StatelessWidget {
             height: 1.sh - 44.h - 10.h - 34.h,
             child: Column(
               children: [
-                _buildGroupBaseInfoView(),
-                _buildGroupMemberView(),
+                _groupBaseInfo(),
+                _groupMember(),
                 const Spacer(),
                 Container(
                   color: Styles.c_FFFFFF,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 16.w,
-                    vertical: 12.h,
-                  ),
+                  padding: EdgeInsets.all(12.w),
                   child: Button(
                     text: StrLibrary.completeCreation,
                     onTap: logic.completeCreation,
@@ -46,8 +43,8 @@ class CreateGroupPage extends StatelessWidget {
     );
   }
 
-  Widget _buildGroupBaseInfoView() => Container(
-        margin: EdgeInsets.fromLTRB(12.w, 8.h, 12.w, 12.h),
+  Widget _groupBaseInfo() => Container(
+        margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
         decoration: BoxDecoration(
           color: Styles.c_FFFFFF,
@@ -67,15 +64,14 @@ class CreateGroupPage extends StatelessWidget {
                     ..width = 48.w
                     ..height = 48.h
                     ..onTap = logic.selectAvatar,
-                12.horizontalSpace,
+                10.horizontalSpace,
                 Flexible(
                   child: TextField(
-                    style: Styles.ts_333333_17sp,
-                    autofocus: true,
+                    style: Styles.ts_333333_16sp,
                     controller: logic.nameCtrl,
-                    inputFormatters: [LengthLimitingTextInputFormatter(16)],
+                    inputFormatters: [LengthLimitingTextInputFormatter(20)],
                     decoration: InputDecoration(
-                      hintStyle: Styles.ts_999999_17sp,
+                      hintStyle: Styles.ts_999999_16sp,
                       hintText: StrLibrary.plsEnterGroupNameHint,
                       border: InputBorder.none,
                     ),
@@ -85,22 +81,22 @@ class CreateGroupPage extends StatelessWidget {
             )),
       );
 
-  Widget _buildGroupMemberView() => Obx(() => Container(
+  Widget _groupMember() => Obx(() => Container(
         decoration: BoxDecoration(
           color: Styles.c_FFFFFF,
           borderRadius: BorderRadius.circular(6.r),
         ),
-        margin: EdgeInsets.symmetric(horizontal: 10.w),
+        margin: EdgeInsets.symmetric(horizontal: 12.w),
         child: Column(
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
               child: Row(
                 children: [
-                  StrLibrary.groupMember.toText..style = Styles.ts_999999_17sp,
+                  StrLibrary.groupMember.toText..style = Styles.ts_999999_16sp,
                   const Spacer(),
                   sprintf(StrLibrary.nPerson, [logic.allList.length]).toText
-                    ..style = Styles.ts_999999_17sp,
+                    ..style = Styles.ts_999999_16sp,
                 ],
               ),
             ),

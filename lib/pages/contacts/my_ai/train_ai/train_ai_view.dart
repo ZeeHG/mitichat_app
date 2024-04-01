@@ -4,7 +4,6 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'train_ai_logic.dart';
 
 class TrainAiPage extends StatelessWidget {
@@ -32,7 +31,7 @@ class TrainAiPage extends StatelessWidget {
                   height: 36.h,
                 ),
                 9.horizontalSpace,
-                (logic.showName.value ?? "").toText
+                logic.showName.value.toText
                   ..style = Styles.ts_333333_18sp_medium
                   ..maxLines = 1
                   ..overflow = TextOverflow.ellipsis
@@ -50,7 +49,7 @@ class TrainAiPage extends StatelessWidget {
                             ..onTap = logic.startKnowledgeFiles,
                         ],
                       ))
-                  : SizedBox(),
+                  : const SizedBox(),
             ),
             backgroundColor: Styles.c_F7F8FA,
             body: SingleChildScrollView(
@@ -71,7 +70,6 @@ class TrainAiPage extends StatelessWidget {
                             child: TextField(
                               controller: logic.inputCtrl,
                               keyboardType: TextInputType.multiline,
-                              autofocus: false,
                               minLines: null,
                               maxLines: null,
                               expands: true,
@@ -138,7 +136,7 @@ class TrainAiPage extends StatelessWidget {
                           children: [
                             StrLibrary.knowledgebase.toText
                               ..style = Styles.ts_2C2C2C_16sp,
-                            Spacer(),
+                            const Spacer(),
                             (logic.selectedKnowledgebase.value
                                         ?.knowledgebaseName ??
                                     StrLibrary.select)
@@ -152,7 +150,7 @@ class TrainAiPage extends StatelessWidget {
                       ),
                     ),
                     11.verticalSpace,
-                    if (logic.fileNames.length < 1)
+                    if (logic.fileNames.isEmpty)
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -163,7 +161,7 @@ class TrainAiPage extends StatelessWidget {
                             ..style = Styles.ts_999999_14sp,
                         ],
                       ),
-                    if (logic.fileNames.length >= 1)
+                    if (logic.fileNames.isNotEmpty)
                       ...List.generate(
                           logic.fileNames.length,
                           (index) => Container(

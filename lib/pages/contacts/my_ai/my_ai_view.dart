@@ -28,7 +28,7 @@ class MyAiPage extends StatelessWidget {
           ),
           Flexible(
             child: Obx(
-              () => WrapAzListView<ISUserInfo>(
+              () => AzList<ISUserInfo>(
                   data: logic.friendList,
                   itemCount: logic.friendList.length,
                   itemBuilder: (_, data, index) => _buildItemView(data),

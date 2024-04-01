@@ -14,15 +14,15 @@ class SearchMyAiLogic extends GetxController {
 
   @override
   void onInit() {
-    searchCtrl.addListener(_clearInput);
     super.onInit();
+    searchCtrl.addListener(_clearInput);
   }
 
   @override
   void onClose() {
+    super.onClose();
     focusNode.dispose();
     searchCtrl.dispose();
-    super.onClose();
   }
 
   bool get isSearchNotResult =>

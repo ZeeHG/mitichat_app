@@ -78,11 +78,8 @@ class AiFriendListLogic extends GetxController {
             }).toList())
         .then((list) => list.where((e) => aiUtil.isAi(e.userID)).toList())
         .then((list) => MitiUtils.convertToAZList(list));
-    onUserIDList(userIDList);
     friendList.assignAll(list.cast<ISUserInfo>());
   }
-
-  void onUserIDList(List<String> userIDList) {}
 
   bool _filterBlacklist(e) {
     final user = FullUserInfo.fromJson(e);

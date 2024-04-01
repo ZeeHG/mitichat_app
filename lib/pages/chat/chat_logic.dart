@@ -2673,7 +2673,7 @@ class ChatLogic extends GetxController {
   }
 
   void sendFriendVerification() =>
-      AppNavigator.startSendVerificationApplication(userID: userID);
+      AppNavigator.startSendApplication(userID: userID);
 
   void _setSdkSyncDataListener() {
     connectionSub = imCtrl.imSdkStatusSubject.listen((value) {

@@ -1,7 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:ui';
-
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
@@ -74,11 +71,8 @@ class MyAiLogic extends GetxController {
         .then((list) =>
             list.where((e) => myAiUserIDList.contains(e.userID)).toList())
         .then((list) => MitiUtils.convertToAZList(list));
-    onUserIDList(userIDList);
     friendList.assignAll(list.cast<ISUserInfo>());
   }
-
-  void onUserIDList(List<String> userIDList) {}
 
   bool _filterBlacklist(e) {
     final user = FullUserInfo.fromJson(e);

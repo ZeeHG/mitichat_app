@@ -8,8 +8,8 @@ import 'package:miti_common/miti_common.dart';
 import '../pages/chat/chat_setup/search_chat_history/multimedia/multimedia_logic.dart';
 import '../pages/chat/group_setup/edit_name/edit_name_logic.dart';
 import '../pages/chat/group_setup/group_member_list/group_member_list_logic.dart';
-import '../pages/contacts/add_by_search/add_by_search_logic.dart';
-import '../pages/contacts/group_profile_panel/group_profile_panel_logic.dart';
+import '../pages/contacts/search_add_contacts/search_add_contacts_logic.dart';
+import '../pages/contacts/group_profile/group_profile_logic.dart';
 import '../pages/contacts/select_contacts/select_contacts_logic.dart';
 import '../pages/mine/edit_my_profile/edit_my_profile_logic.dart';
 import 'app_pages.dart';
@@ -87,7 +87,7 @@ class AppNavigator {
 
   static startFavoriteMange() => Get.toNamed(AppRoutes.favoriteManage);
 
-  static startAddContactsMethod() => Get.toNamed(AppRoutes.addContactsMethod);
+  // static startAddContactsMethod() => Get.toNamed(AppRoutes.addContactsMethod);
 
   static startScan() => Permissions.camera(() => Get.to(
         () => const QrcodeView(),
@@ -95,7 +95,7 @@ class AppNavigator {
         popGesture: true,
       ));
 
-  static startAddContactsBySearch(
+  static startSearchAddContacts(
           {required SearchType searchType, String? appBarTitle}) =>
       Get.toNamed(
         AppRoutes.addContactsBySearch,
@@ -136,17 +136,17 @@ class AppNavigator {
         'userID': userID,
       });
 
-  static startFriendSetup({
+  static startFriendSetting({
     required String userID,
   }) =>
-      Get.toNamed(AppRoutes.friendSetup, arguments: {
+      Get.toNamed(AppRoutes.friendSetting, arguments: {
         'userID': userID,
       });
 
-  static startSetFriendRemark() =>
+  static startSetRemark() =>
       Get.toNamed(AppRoutes.setFriendRemark, arguments: {});
 
-  static startSendVerificationApplication({
+  static startSendApplication({
     String? userID,
     String? groupID,
     JoinGroupMethod? joinGroupMethod,
@@ -157,7 +157,7 @@ class AppNavigator {
         'groupID': groupID,
       });
 
-  static startGroupProfilePanel({
+  static startGroupProfile({
     required String groupID,
     required JoinGroupMethod joinGroupMethod,
     bool offAndToNamed = false,
@@ -301,18 +301,18 @@ class AppNavigator {
 
   static startGroupQrcode() => Get.toNamed(AppRoutes.groupQrcode);
 
-  static startFriendRequests() => Get.toNamed(AppRoutes.friendRequests);
+  // static startFriendRequests() => Get.toNamed(AppRoutes.friendRequests);
 
-  static startProcessFriendRequests({
+  static startHandleFriendRequests({
     required FriendApplicationInfo applicationInfo,
   }) =>
       Get.toNamed(AppRoutes.processFriendRequests, arguments: {
         'applicationInfo': applicationInfo,
       });
 
-  static startGroupRequests() => Get.toNamed(AppRoutes.groupRequests);
+  // static startGroupRequests() => Get.toNamed(AppRoutes.groupRequests);
 
-  static startProcessGroupRequests({
+  static startHandleGroupRequests({
     required GroupApplicationInfo applicationInfo,
   }) =>
       Get.toNamed(AppRoutes.processGroupRequests, arguments: {
@@ -492,10 +492,10 @@ class AppNavigator {
 
   static startPrivacyPolicy() => Get.toNamed(AppRoutes.privacyPolicy);
 
-  static startFriendPermission({required String userID}) =>
+  static startFriendPermissionSetting({required String userID}) =>
       Get.toNamed(AppRoutes.friendPermissions, arguments: {"userID": userID});
 
-  static startRecentRequests() => Get.toNamed(AppRoutes.recentRequests);
+  static startRequestRecords() => Get.toNamed(AppRoutes.recentRequests);
 
   static startAccountManage() => Get.toNamed(AppRoutes.accountManage);
 

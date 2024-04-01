@@ -38,46 +38,45 @@ class SelectContactsFromSearchPage extends StatelessWidget {
   }
 
   Widget _buildItemView(dynamic info) {
-    Widget buildChild() => Ink(
-          height: 64.h,
-          color: Styles.c_FFFFFF,
-          child: InkWell(
-            onTap: selectContactsLogic.onTap(info),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Row(
-                children: [
-                  if (selectContactsLogic.isMultiModel)
-                    Padding(
-                      padding: EdgeInsets.only(right: 10.w),
-                      child: ChatRadio(
-                        checked: selectContactsLogic.isChecked(info),
-                        enabled: !selectContactsLogic.isDefaultChecked(info),
+    Widget buildChild() => GestureDetector(
+          onTap: selectContactsLogic.onTap(info),
+          behavior: HitTestBehavior.translucent,
+          child: Container(
+            height: 64.h,
+            color: Styles.c_FFFFFF,
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Row(
+              children: [
+                if (selectContactsLogic.isMultiModel)
+                  Padding(
+                    padding: EdgeInsets.only(right: 10.w),
+                    child: ChatRadio(
+                      checked: selectContactsLogic.isChecked(info),
+                      enabled: !selectContactsLogic.isDefaultChecked(info),
+                    ),
+                  ),
+                AvatarView(
+                  url: logic.parseFaceURL(info),
+                  text: logic.parseNickname(info),
+                  isGroup: info is GroupInfo,
+                ),
+                10.horizontalSpace,
+                // info.getShowName().toText..style = Styles.ts_333333_17sp,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SearchKeywordText(
+                        text: logic.parseNickname(info) ?? '',
+                        keyText: logic.searchCtrl.text.trim(),
+                        style: Styles.ts_333333_17sp,
+                        keyStyle: Styles.ts_8443F8_17sp,
                       ),
-                    ),
-                  AvatarView(
-                    url: logic.parseFaceURL(info),
-                    text: logic.parseNickname(info),
-                    isGroup: info is GroupInfo,
+                    ],
                   ),
-                  10.horizontalSpace,
-                  // info.getShowName().toText..style = Styles.ts_333333_17sp,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SearchKeywordText(
-                          text: logic.parseNickname(info) ?? '',
-                          keyText: logic.searchCtrl.text.trim(),
-                          style: Styles.ts_333333_17sp,
-                          keyStyle: Styles.ts_8443F8_17sp,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );
