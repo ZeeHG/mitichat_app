@@ -1,4 +1,4 @@
-import 'package:miti_common/utils/logger.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';

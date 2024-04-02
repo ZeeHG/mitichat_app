@@ -1,12 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
-import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
-import 'package:miti_circle/src/w_urls.dart';
+import 'package:miti_circle/src/circle_urls.dart';
 import 'package:uuid/uuid.dart';
 
-class WApis {
+class CircleApis {
   /// 发布工作圈动态
   /// [type] 0 picture  1 video
   static Future publishMoments(
@@ -75,7 +74,7 @@ class WApis {
     }
 
     return HttpUtil.post(
-      WUrls.createMoments,
+      CircleUrls.createMoments,
       options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{
         "content": {
@@ -102,7 +101,7 @@ class WApis {
     required String workMomentID,
   }) {
     return HttpUtil.post(
-      WUrls.deleteMoments,
+      CircleUrls.deleteMoments,
       options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{'workMomentID': workMomentID},
     );
@@ -114,7 +113,7 @@ class WApis {
     int momentType = 1,
   }) async {
     final result = await HttpUtil.post(
-      WUrls.getMomentsDetail,
+      CircleUrls.getMomentsDetail,
       options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{
         'workMomentID': workMomentID,
@@ -131,7 +130,7 @@ class WApis {
       int momentType = 1,
       String category = ""}) {
     return HttpUtil.post(
-      WUrls.getMomentsList,
+      CircleUrls.getMomentsList,
       options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{
         "pagination": {"pageNumber": pageNumber, "showNumber": showNumber},
@@ -149,7 +148,7 @@ class WApis {
     String category = "",
   }) {
     return HttpUtil.post(
-      WUrls.getUserMomentsList,
+      CircleUrls.getUserMomentsList,
       options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{
         "userID": userID,
@@ -166,7 +165,7 @@ class WApis {
     required bool like,
   }) {
     return HttpUtil.post(
-      WUrls.likeMoments,
+      CircleUrls.likeMoments,
       options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{'workMomentID': workMomentID, "like": like},
     );
@@ -179,7 +178,7 @@ class WApis {
     required String text,
   }) {
     return HttpUtil.post(
-      WUrls.commentMoments,
+      CircleUrls.commentMoments,
       options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{
         'workMomentID': workMomentID,
@@ -195,7 +194,7 @@ class WApis {
     required String commentID,
   }) {
     return HttpUtil.post(
-      WUrls.deleteComment,
+      CircleUrls.deleteComment,
       options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{
         'workMomentID': workMomentID,
@@ -211,7 +210,7 @@ class WApis {
     int momentType = 1,
   }) async {
     final result = await HttpUtil.post(
-      WUrls.getInteractiveLogs,
+      CircleUrls.getInteractiveLogs,
       options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{
         "pagination": {"pageNumber": pageNumber, "showNumber": showNumber},
@@ -229,7 +228,7 @@ class WApis {
     int momentType = 1,
   }) =>
       HttpUtil.post(
-        WUrls.clearUnreadCount,
+        CircleUrls.clearUnreadCount,
         options: ClientApis.chatTokenOptions,
         data: <String, dynamic>{"type": type, 'momentType': momentType},
       );
@@ -238,7 +237,7 @@ class WApis {
     int momentType = 1,
   }) async {
     final result = await HttpUtil.post(
-      WUrls.getUnreadCount,
+      CircleUrls.getUnreadCount,
       data: {'momentType': momentType},
       options: ClientApis.chatTokenOptions,
     );

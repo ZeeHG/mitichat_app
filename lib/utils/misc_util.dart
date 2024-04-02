@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_background/flutter_background.dart';
-import 'package:miti_common/utils/logger.dart';
+import 'package:miti_common/miti_common.dart';
 
 Future<void> requestBackgroundPermission(
     {bool isRetry = false,

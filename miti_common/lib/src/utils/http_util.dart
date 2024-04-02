@@ -38,7 +38,7 @@ class HttpUtil {
         return handler.next(response); // continue
         // 如果你想终止请求并触发一个错误,你可以 reject 一个`DioError`对象,如`handler.reject(error)`，
         // 这样请求将被中止并触发异常，上层catchError会被调用。
-      }, onError: (DioError e, handler) {
+      }, onError: (e, handler) {
         // Do something with response error
         return handler.next(e); //continue
         // 如果你想完成请求并返回一些自定义数据，可以resolve 一个`Response`,如`handler.resolve(response)`。

@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:app_installer/app_installer.dart';
 import 'package:get/get.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rxdart/rxdart.dart';
-import '../miti_common.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
 class AppCommonLogic extends GetxController {

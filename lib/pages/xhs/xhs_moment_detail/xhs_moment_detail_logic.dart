@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
@@ -7,7 +5,6 @@ import 'package:miti/pages/xhs/xhs_logic.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:miti_circle/miti_circle.dart';
-import 'package:miti_circle/src/w_apis.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class XhsMomentDetailLogic extends GetxController {
@@ -68,7 +65,8 @@ class XhsMomentDetailLogic extends GetxController {
     }
     await LoadingView.singleton.start(
       fn: () async {
-        await WApis.likeMoments(workMomentID: workMomentID, like: !iIsLiked);
+        await CircleApis.likeMoments(
+            workMomentID: workMomentID, like: !iIsLiked);
         await _updateData();
       },
     );
@@ -90,7 +88,7 @@ class XhsMomentDetailLogic extends GetxController {
   }
 
   _updateData() async {
-    final detail = await WApis.getMomentsDetail(
+    final detail = await CircleApis.getMomentsDetail(
         workMomentID: xhsMomentList[0].workMomentID!, momentType: 2);
     final index = xhsMomentList.indexOf(detail);
     xhsMomentList.replaceRange(index, index + 1, [detail]);
@@ -107,7 +105,7 @@ class XhsMomentDetailLogic extends GetxController {
             workMomentID: xhsMomentList[0].workMomentID)
       ]);
       await LoadingView.singleton.start(fn: () async {
-        await WApis.commentMoments(
+        await CircleApis.commentMoments(
           workMomentID: xhsMomentList[0].workMomentID!,
           text: text,
           replyUserID: replyUserID,
@@ -163,7 +161,7 @@ class XhsMomentDetailLogic extends GetxController {
   delComment(Comments comments) async {
     LoadingView.singleton.start(
       fn: () async {
-        await WApis.deleteComment(
+        await CircleApis.deleteComment(
           workMomentID: xhsMomentList[0].workMomentID!,
           commentID: comments.commentID!,
         );

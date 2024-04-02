@@ -8,12 +8,12 @@ import 'package:miti_common/miti_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sprintf/sprintf.dart';
 
-import 'new_message_logic.dart';
+import 'circle_message_logic.dart';
 
-class NewMessagePage extends StatelessWidget {
-  final logic = Get.find<NewMessageLogic>();
+class CircleMessagePage extends StatelessWidget {
+  final logic = Get.find<CircleMessageLogic>();
 
-  NewMessagePage({super.key});
+  CircleMessagePage({super.key});
 
   @override
   Widget build(BuildContext context) {

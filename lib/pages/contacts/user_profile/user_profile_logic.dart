@@ -333,7 +333,7 @@ class UserProfileLogic extends GetxController {
         userID: userInfo.value.userID!,
       );
 
-  void viewDynamics() => WNavigator.startUserWorkMomentsList(
+  void viewDynamics() => CircleNavigator.startUserWorkMomentsList(
         userID: userInfo.value.userID!,
         nickname: userInfo.value.showName,
         faceURL: userInfo.value.faceURL,
@@ -341,7 +341,7 @@ class UserProfileLogic extends GetxController {
 
   _queryWorkingCircleList() async {
     final userID = userInfo.value.userID!;
-    final result = await WApis.getUserMomentsList(
+    final result = await CircleApis.getUserMomentsList(
       userID: userID,
       pageNumber: 1,
       showNumber: 10,

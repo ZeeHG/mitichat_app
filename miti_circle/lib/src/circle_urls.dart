@@ -1,6 +1,6 @@
 import 'package:miti_common/miti_common.dart';
 
-class WUrls {
+class CircleUrls {
   static String get path => "office/work_moment";
   static String get createMoments => "${Config.appAuthUrl}/$path/add";
   static String get deleteMoments => "${Config.appAuthUrl}/$path/del";

@@ -209,7 +209,7 @@ class ContactsLogic extends GetxController
   addGroup() =>
       AppNavigator.startSearchAddContacts(searchType: SearchType.group);
 
-  // void workMoments() => WNavigator.startWorkMomentsList();
+  // void workMoments() => CircleNavigator.startWorkMomentsList();
 
   @override
   Future<T?>? selectContacts<T>(

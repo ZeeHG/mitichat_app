@@ -3,9 +3,9 @@ import 'package:miti_common/miti_common.dart';
 
 import 'detail_logic.dart';
 
-class WorkMomentsDetailBinding extends Bindings {
+class MomentsDetailBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => WorkMomentsDetailLogic(), tag: GetTags.momentsDetail);
+    Get.lazyPut(() => MomentsDetailLogic(), tag: GetTags.momentsDetail);
   }
 }

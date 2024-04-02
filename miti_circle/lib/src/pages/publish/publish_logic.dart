@@ -7,7 +7,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:miti_circle/miti_circle.dart';
-import 'package:miti_circle/src/w_apis.dart';
+import 'package:miti_circle/src/circle_apis.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
@@ -257,8 +257,8 @@ class PublishLogic extends GetxController {
   }
 
   previewSelectedPicture(int index) => isPicture
-      ? WNavigator.startPreviewSelectedPicture(currentIndex: index)
-      : WNavigator.startPreviewSelectedVideo();
+      ? CircleNavigator.startPreviewSelectedPicture(currentIndex: index)
+      : CircleNavigator.startPreviewSelectedVideo();
 
   deleteAssets(int index) {
     assetsList.removeAt(index);
@@ -266,7 +266,7 @@ class PublishLogic extends GetxController {
 
   /// 0/1/2/3, 公开/私密/部分可见/不给谁看
   whoCanWatch() async {
-    final result = await WNavigator.startWhoCanWatch(
+    final result = await CircleNavigator.startWhoCanWatch(
       permission: permission.value,
       checkedList: watchList.value,
     );
@@ -376,7 +376,7 @@ class PublishLogic extends GetxController {
           metas.add({'thumb': thumbPic.path, 'original': file.path});
         }
       });
-      await WApis.publishMoments(
+      await CircleApis.publishMoments(
           text: inputCtrl.text.trim(),
           type: isPicture ? 0 : 1,
           permissionUserList: !isPublishXhs.value ? permissionUserList : [],

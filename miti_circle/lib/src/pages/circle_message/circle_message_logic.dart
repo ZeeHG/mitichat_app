@@ -1,25 +1,22 @@
-import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:miti_circle/miti_circle.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:sprintf/sprintf.dart';
 
-import '../../w_apis.dart';
-
-class NewMessageLogic extends GetxController {
+class CircleMessageLogic extends GetxController {
   final refreshCtrl = RefreshController();
   final list = <WorkMoments>[].obs;
   int pageNo = 1;
   int pageSize = 20;
 
   @override
-  void onReady() {
+  void onInit() {
     refreshNewMessage();
-    super.onReady();
+    super.onInit();
   }
 
-  Future<List<WorkMoments>> _request(int pageNo) => WApis.getInteractiveLogs(
+  Future<List<WorkMoments>> _request(int pageNo) =>
+      CircleApis.getInteractiveLogs(
         pageNumber: pageNo,
         showNumber: pageSize,
       );
@@ -30,32 +27,30 @@ class NewMessageLogic extends GetxController {
     var list = await _request(pageNo = 1);
     this.list.assignAll(list);
     refreshCtrl.refreshCompleted();
-    if (list.length < pageSize) {
-      refreshCtrl.loadNoData();
-    } else {
-      refreshCtrl.loadComplete();
-    }
+    list.length < pageSize
+        ? refreshCtrl.loadNoData()
+        : refreshCtrl.loadComplete();
   }
 
   void loadNewMessage() async {
     var list = await _request(++pageNo);
     this.list.addAll(list);
-    if (list.length < pageSize) {
-      refreshCtrl.loadNoData();
-    } else {
-      refreshCtrl.loadComplete();
-    }
+    list.length < pageSize
+        ? refreshCtrl.loadNoData()
+        : refreshCtrl.loadComplete();
   }
 
   void clearNewMessage() async {
     await LoadingView.singleton.start(
-      fn: () => WApis.clearUnreadCount(type: 3),
+      fn: () async {
+        CircleApis.clearUnreadCount(type: 3);
+        list.clear();
+      },
     );
-    list.clear();
   }
 
   void viewDetail(WorkMoments info) async {
-    final isDel = await WNavigator.startWorkMomentsDetail(
+    final isDel = await CircleNavigator.startMomentsDetail(
       workMomentID: info.workMomentID!,
     );
     if (isDel == true) {

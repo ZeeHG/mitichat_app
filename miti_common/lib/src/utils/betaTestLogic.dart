@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import '../miti_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 class BetaTestLogic extends GetxController {
   BetaTestLogic() {}

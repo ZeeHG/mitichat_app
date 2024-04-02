@@ -1,6 +1,6 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import '../miti_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 class TtsLogic extends GetxController {
   String userID = "";

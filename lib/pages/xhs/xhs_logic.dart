@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:miti_circle/miti_circle.dart';
-import 'package:miti_circle/src/w_apis.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // import '../publish/publish_logic.dart';
@@ -231,7 +230,7 @@ class XhsLogic extends GetxController {
     faceURL =
         Get.arguments['faceURL'] ?? OpenIM.iMManager.userInfo.faceURL ?? "";
     // wcBridge?.onRecvNewMessageForWorkingCircle = _recvNewMessage;
-    WApis.getUnreadCount(momentType: 2)
+    CircleApis.getUnreadCount(momentType: 2)
         .then((value) => newMessageCount.value = value);
     // opEventSub = wcBridge?.opEventSub.listen(_opEventListener);
     scrollController.addListener(_scrollListener);
@@ -299,12 +298,12 @@ class XhsLogic extends GetxController {
   }
 
   Future<FriendMomentsList> _request(int pageNo) => userID == null
-      ? WApis.getMomentsList(
+      ? CircleApis.getMomentsList(
           pageNumber: pageNo,
           showNumber: pageSize,
           momentType: 2,
           category: activeCategory.value.value)
-      : WApis.getUserMomentsList(
+      : CircleApis.getUserMomentsList(
           userID: userID!,
           pageNumber: pageNo,
           showNumber: pageSize,
@@ -366,7 +365,7 @@ class XhsLogic extends GetxController {
     }
     await LoadingView.singleton.start(
       fn: () async {
-        await WApis.likeMoments(
+        await CircleApis.likeMoments(
             workMomentID: workMomentID, like: !iIsLiked(moments));
         await _updateData(workMomentID);
       },
@@ -378,7 +377,7 @@ class XhsLogic extends GetxController {
     final text = inputCtrl.text.trim();
     if (text.isNotEmpty && null != commentWorkMomentsID) {
       await LoadingView.singleton.start(fn: () async {
-        await WApis.commentMoments(
+        await CircleApis.commentMoments(
           workMomentID: commentWorkMomentsID!,
           text: text,
           replyUserID: replyUserID,
@@ -420,7 +419,7 @@ class XhsLogic extends GetxController {
   delComment(WorkMoments moments, Comments comments) async {
     LoadingView.singleton.start(
       fn: () async {
-        await WApis.deleteComment(
+        await CircleApis.deleteComment(
           workMomentID: moments.workMomentID!,
           commentID: comments.commentID!,
         );
@@ -436,16 +435,16 @@ class XhsLogic extends GetxController {
     if (!confirm) return;
     await LoadingView.singleton.start(
       fn: () async {
-        await WApis.deleteMoments(workMomentID: moments.workMomentID!);
+        await CircleApis.deleteMoments(workMomentID: moments.workMomentID!);
       },
     );
     workMoments.remove(moments);
-    newMessageCount.value = await WApis.getUnreadCount(momentType: 2);
+    newMessageCount.value = await CircleApis.getUnreadCount(momentType: 2);
   }
 
   _updateData(String workMomentID) async {
-    final detail =
-        await WApis.getMomentsDetail(workMomentID: workMomentID, momentType: 2);
+    final detail = await CircleApis.getMomentsDetail(
+        workMomentID: workMomentID, momentType: 2);
     final index = workMoments.indexOf(detail);
     workMoments.replaceRange(index, index + 1, [detail]);
   }
@@ -468,7 +467,7 @@ class XhsLogic extends GetxController {
     inputCtrl.clear();
   }
 
-  // publish(int type) => WNavigator.startPublishWorkMoments(
+  // publish(int type) => CircleNavigator.startPublishWorkMoments(
   //       type: type == 0 ? PublishType.picture : PublishType.video,
   //     );
 
@@ -498,14 +497,14 @@ class XhsLogic extends GetxController {
   /// 0：公开 1: 仅自己可见 2：部分可见 3：不给谁看
   previewWhoCanWatchList(WorkMoments moments) {
     if (moments.permission == 2 || moments.permission == 3) {
-      WNavigator.startVisibleUsersList(workMoments: moments);
+      CircleNavigator.startVisibleUsersList(workMoments: moments);
     }
   }
 
   seeNewMessage() async {
-    WApis.clearUnreadCount(type: 1, momentType: 2);
+    CircleApis.clearUnreadCount(type: 1, momentType: 2);
     newMessageCount.value = 0;
-    await WNavigator.startLikeOrCommentMessage();
+    await CircleNavigator.startLikeOrCommentMessage();
   }
 
   viewUserProfile(WorkMoments moments) => _viewProfilePanel(
@@ -539,7 +538,7 @@ class XhsLogic extends GetxController {
         workMoments.refresh();
       }
     }
-    newMessageCount.value = await WApis.getUnreadCount(momentType: 2);
+    newMessageCount.value = await CircleApis.getUnreadCount(momentType: 2);
   }
 
 // @override

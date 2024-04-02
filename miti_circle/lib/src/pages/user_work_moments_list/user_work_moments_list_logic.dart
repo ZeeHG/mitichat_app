@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
 import '../../../miti_circle.dart';
-import '../../w_apis.dart';
+import '../../circle_apis.dart';
 import '../publish/publish_logic.dart';
 import '../work_moments_list/work_moments_list_logic.dart';
 
@@ -34,14 +34,14 @@ class UserWorkMomentsListLogic extends GetxController {
   bool get isMyself => userID == OpenIM.iMManager.userID || userID == null;
 
   seeNewMessage() async {
-    WApis.clearUnreadCount(type: 1);
-    await WNavigator.startLikeOrCommentMessage();
+    CircleApis.clearUnreadCount(type: 1);
+    await CircleNavigator.startLikeOrCommentMessage();
   }
 
-  // publish(int type) => WNavigator.startPublishWorkMoments(
+  // publish(int type) => CircleNavigator.startPublishWorkMoments(
   //       type: type == 0 ? PublishType.picture : PublishType.video,
   //     );
-  publish() => WNavigator.startPublishWorkMoments(
+  publish() => CircleNavigator.startPublishWorkMoments(
         type: PublishType.picture,
       );
 
@@ -98,7 +98,8 @@ class UserWorkMomentsListLogic extends GetxController {
     }
   }
 
-  Future<FriendMomentsList> _request(int pageNo) => WApis.getUserMomentsList(
+  Future<FriendMomentsList> _request(int pageNo) =>
+      CircleApis.getUserMomentsList(
         userID: userID!,
         pageNumber: pageNo,
         showNumber: pageSize,
@@ -160,7 +161,7 @@ class UserWorkMomentsListLogic extends GetxController {
   }
 
   void viewDetail(WorkMoments info) async {
-    final isDel = await WNavigator.startWorkMomentsDetail(
+    final isDel = await CircleNavigator.startMomentsDetail(
       workMomentID: info.workMomentID!,
     );
     if (isDel == true) {

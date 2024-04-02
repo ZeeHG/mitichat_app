@@ -7,8 +7,8 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_picker/picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:rxdart/rxdart.dart';
-import '../miti_common.dart';
 // import 'package:flutter_langdetect/flutter_langdetect.dart' as langdetect;
 
 class TranslateLogic extends GetxController {

@@ -687,7 +687,7 @@ class AppPages {
       binding: XhsMomentDetailBinding(),
     ),
     // ...OPages.pages, // 组织架构
-    ...WPages.pages, // 工作圈
+    ...CirclePages.pages, // 工作圈
     // ...MPages.pages, //
   ];
 }

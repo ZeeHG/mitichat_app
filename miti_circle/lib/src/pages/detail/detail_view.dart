@@ -6,10 +6,10 @@ import 'package:miti_circle/src/widgets/work_moments_item.dart';
 
 import 'detail_logic.dart';
 
-class WorkMomentsDetailPage extends StatelessWidget {
-  final logic = Get.find<WorkMomentsDetailLogic>(tag: GetTags.momentsDetail);
+class MomentsDetailPage extends StatelessWidget {
+  final logic = Get.find<MomentsDetailLogic>(tag: GetTags.momentsDetail);
 
-  WorkMomentsDetailPage({super.key});
+  MomentsDetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -87,11 +87,11 @@ class WorkMomentsDetailPage extends StatelessWidget {
                   autofocus: true,
                   minLines: 1,
                   maxLines: 4,
-                  style: StylesLibrary.ts_333333_17sp,
+                  style: StylesLibrary.ts_333333_16sp,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: logic.commentHintText.value,
-                    hintStyle: StylesLibrary.ts_999999_17sp,
+                    hintStyle: StylesLibrary.ts_999999_16sp,
                     contentPadding: EdgeInsets.symmetric(
                       horizontal: 10.w,
                       vertical: 6.h,

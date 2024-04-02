@@ -9,13 +9,8 @@ class VisibleUsersListLogic extends GetxController {
   @override
   void onInit() {
     workMoments = Get.arguments['workMoments'];
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
     _queryUserInfo();
-    super.onReady();
+    super.onInit();
   }
 
   String get title => workMoments.permission == 2
@@ -31,5 +26,4 @@ class VisibleUsersListLogic extends GetxController {
     listUserInfo.addAll(list.map((e) => e.simpleUserInfo));
   }
 
-  void viewUserInfo() {}
 }

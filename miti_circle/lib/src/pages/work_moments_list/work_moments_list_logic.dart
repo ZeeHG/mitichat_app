@@ -5,7 +5,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:miti_circle/miti_circle.dart';
-import 'package:miti_circle/src/w_apis.dart';
+import 'package:miti_circle/src/circle_apis.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../publish/publish_logic.dart';
@@ -193,7 +193,7 @@ class WorkMomentsListLogic extends GetxController {
     faceURL =
         Get.arguments['faceURL'] ?? OpenIM.iMManager.userInfo.faceURL ?? "";
     wcBridge?.onRecvNewMessageForWorkingCircle = _recvNewMessage;
-    WApis.getUnreadCount().then((value) => newMessageCount.value = value);
+    CircleApis.getUnreadCount().then((value) => newMessageCount.value = value);
     opEventSub = wcBridge?.opEventSub.listen(_opEventListener);
     scrollController.addListener(_scrollListener);
     super.onInit();
@@ -229,8 +229,8 @@ class WorkMomentsListLogic extends GetxController {
   }
 
   Future<FriendMomentsList> _request(int pageNo) => userID == null
-      ? WApis.getMomentsList(pageNumber: pageNo, showNumber: pageSize)
-      : WApis.getUserMomentsList(
+      ? CircleApis.getMomentsList(pageNumber: pageNo, showNumber: pageSize)
+      : CircleApis.getUserMomentsList(
           userID: userID!,
           pageNumber: pageNo,
           showNumber: pageSize,
@@ -279,7 +279,7 @@ class WorkMomentsListLogic extends GetxController {
     final workMomentID = moments.workMomentID!;
     await LoadingView.singleton.start(
       fn: () async {
-        await WApis.likeMoments(
+        await CircleApis.likeMoments(
             workMomentID: workMomentID, like: !iIsLiked(moments));
         await _updateData(workMomentID);
       },
@@ -291,7 +291,7 @@ class WorkMomentsListLogic extends GetxController {
     final text = inputCtrl.text.trim();
     if (text.isNotEmpty && null != commentWorkMomentsID) {
       await LoadingView.singleton.start(fn: () async {
-        await WApis.commentMoments(
+        await CircleApis.commentMoments(
           workMomentID: commentWorkMomentsID!,
           text: text,
           replyUserID: replyUserID,
@@ -333,7 +333,7 @@ class WorkMomentsListLogic extends GetxController {
   delComment(WorkMoments moments, Comments comments) async {
     LoadingView.singleton.start(
       fn: () async {
-        await WApis.deleteComment(
+        await CircleApis.deleteComment(
           workMomentID: moments.workMomentID!,
           commentID: comments.commentID!,
         );
@@ -349,15 +349,15 @@ class WorkMomentsListLogic extends GetxController {
     if (!confirm) return;
     await LoadingView.singleton.start(
       fn: () async {
-        await WApis.deleteMoments(workMomentID: moments.workMomentID!);
+        await CircleApis.deleteMoments(workMomentID: moments.workMomentID!);
       },
     );
     workMoments.remove(moments);
-    newMessageCount.value = await WApis.getUnreadCount();
+    newMessageCount.value = await CircleApis.getUnreadCount();
   }
 
   _updateData(String workMomentID) async {
-    final detail = await WApis.getMomentsDetail(
+    final detail = await CircleApis.getMomentsDetail(
       workMomentID: workMomentID,
     );
     final index = workMoments.indexOf(detail);
@@ -382,10 +382,10 @@ class WorkMomentsListLogic extends GetxController {
     inputCtrl.clear();
   }
 
-  // publish(int type) => WNavigator.startPublishWorkMoments(
+  // publish(int type) => CircleNavigator.startPublishWorkMoments(
   //       type: type == 0 ? PublishType.picture : PublishType.video,
   //     );
-  publish() => WNavigator.startPublishWorkMoments(
+  publish() => CircleNavigator.startPublishWorkMoments(
         type: PublishType.picture,
       );
 
@@ -415,14 +415,14 @@ class WorkMomentsListLogic extends GetxController {
   /// 0：公开 1: 仅自己可见 2：部分可见 3：不给谁看
   previewWhoCanWatchList(WorkMoments moments) {
     if (moments.permission == 2 || moments.permission == 3) {
-      WNavigator.startVisibleUsersList(workMoments: moments);
+      CircleNavigator.startVisibleUsersList(workMoments: moments);
     }
   }
 
   seeNewMessage() async {
-    WApis.clearUnreadCount(type: 1);
+    CircleApis.clearUnreadCount(type: 1);
     newMessageCount.value = 0;
-    await WNavigator.startLikeOrCommentMessage();
+    await CircleNavigator.startLikeOrCommentMessage();
   }
 
   viewUserProfile(WorkMoments moments) => _viewProfilePanel(
@@ -456,7 +456,7 @@ class WorkMomentsListLogic extends GetxController {
         workMoments.refresh();
       }
     }
-    newMessageCount.value = await WApis.getUnreadCount();
+    newMessageCount.value = await CircleApis.getUnreadCount();
   }
 
 // @override

@@ -22,7 +22,6 @@ class VisibleUsersListPage extends StatelessWidget {
               final user = logic.listUserInfo.elementAt(index);
               return GestureDetector(
                 behavior: HitTestBehavior.translucent,
-                onTap: logic.viewUserInfo,
                 child: Container(
                   height: 64.h,
                   color: StylesLibrary.c_FFFFFF,
@@ -35,7 +34,7 @@ class VisibleUsersListPage extends StatelessWidget {
                       ),
                       10.horizontalSpace,
                       (user.nickname ?? '').toText
-                        ..style = StylesLibrary.ts_333333_17sp,
+                        ..style = StylesLibrary.ts_333333_16sp,
                     ],
                   ),
                 ),

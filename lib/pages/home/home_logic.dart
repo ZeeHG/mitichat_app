@@ -52,7 +52,7 @@ class HomeLogic extends SuperController with FriendCircleBridge {
   }
 
   void viewDiscover(index) async {
-    await WNavigator.startWorkMomentsList();
+    await CircleNavigator.startWorkMomentsList();
     // 发布完xhs刷新
     xhsLogic.refreshWorkingCircleList();
     getUnreadMomentsCount();
@@ -63,7 +63,8 @@ class HomeLogic extends SuperController with FriendCircleBridge {
   }
 
   getUnreadMomentsCount() {
-    WApis.getUnreadCount().then((value) => unreadMomentsCount.value = value);
+    CircleApis.getUnreadCount()
+        .then((value) => unreadMomentsCount.value = value);
   }
 
   getUnreadMsgCount() {

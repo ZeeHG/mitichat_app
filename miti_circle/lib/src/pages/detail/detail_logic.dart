@@ -4,12 +4,9 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
 import '../../../miti_circle.dart';
-import '../../w_apis.dart';
-import '../work_moments_list/preview_picture/preview_picture_view.dart';
-import '../work_moments_list/preview_video/preview_video_view.dart';
 import '../work_moments_list/work_moments_list_logic.dart';
 
-class WorkMomentsDetailLogic extends GetxController {
+class MomentsDetailLogic extends GetxController {
   final inputCtrl = TextEditingController();
   late Rx<WorkMoments> workMoments;
   final popMenuID = ''.obs;
@@ -23,19 +20,14 @@ class WorkMomentsDetailLogic extends GetxController {
   @override
   void onInit() {
     workMoments = Rx(WorkMoments(workMomentID: Get.arguments['workMomentID']));
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
     LoadingView.singleton.start(fn: () => _updateData());
-    super.onReady();
+    super.onInit();
   }
 
   String get workMomentID => workMoments.value.workMomentID!;
 
   _updateData() async {
-    final detail = await WApis.getMomentsDetail(
+    final detail = await CircleApis.getMomentsDetail(
       workMomentID: workMomentID,
     );
     if (detail.workMomentID == null || detail.workMomentID!.isEmpty) {
@@ -79,7 +71,8 @@ class WorkMomentsDetailLogic extends GetxController {
     hiddenLikeCommentPopMenu();
     await LoadingView.singleton.start(
       fn: () async {
-        await WApis.likeMoments(workMomentID: workMomentID, like: !iIsLiked());
+        await CircleApis.likeMoments(
+            workMomentID: workMomentID, like: !iIsLiked());
         await _updateData();
       },
     );
@@ -90,7 +83,7 @@ class WorkMomentsDetailLogic extends GetxController {
     final text = inputCtrl.text.trim();
     if (text.isNotEmpty) {
       await LoadingView.singleton.start(fn: () async {
-        await WApis.commentMoments(
+        await CircleApis.commentMoments(
           workMomentID: workMomentID,
           text: text,
           replyUserID: replyUserID,
@@ -130,7 +123,7 @@ class WorkMomentsDetailLogic extends GetxController {
   delComment(Comments comments) async {
     LoadingView.singleton.start(
       fn: () async {
-        await WApis.deleteComment(
+        await CircleApis.deleteComment(
             workMomentID: workMomentID, commentID: comments.commentID!);
         await _updateData();
       },
@@ -140,7 +133,7 @@ class WorkMomentsDetailLogic extends GetxController {
   delWorkWorkMoments(WorkMoments moments) async {
     await LoadingView.singleton.start(
       fn: () async {
-        await WApis.deleteMoments(workMomentID: moments.workMomentID!);
+        await CircleApis.deleteMoments(workMomentID: moments.workMomentID!);
       },
     );
     wcBridge?.opEventSub.add({'opEvent': OpEvent.delete, 'data': moments});
@@ -179,7 +172,7 @@ class WorkMomentsDetailLogic extends GetxController {
   /// 0：公开 1: 仅自己可见 2：部分可见 3：不给谁看
   previewWhoCanWatchList(WorkMoments moments) {
     if (moments.permission == 2 || moments.permission == 3) {
-      WNavigator.startVisibleUsersList(workMoments: moments);
+      CircleNavigator.startVisibleUsersList(workMoments: moments);
     }
   }
 }
