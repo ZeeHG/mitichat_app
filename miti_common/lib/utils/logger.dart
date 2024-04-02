@@ -79,7 +79,7 @@ Future<void> initLoggerConfig() async {
   //   logFile = File("${myLoggerDirPath}/${myLoggerDateStr}.log");
   // } else {
   myLoggerDirPath = "${applicationDir.path}/";
-  myLoggerPath = "${myLoggerDirPath}/${myLoggerDateStr}.log";
+  myLoggerPath = "$myLoggerDirPath/$myLoggerDateStr.log";
   logFile = File(myLoggerPath);
   // }
 

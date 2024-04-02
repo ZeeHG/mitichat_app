@@ -1,9 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
-import 'dart:ui';
 import 'package:app_installer/app_installer.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rxdart/rxdart.dart';

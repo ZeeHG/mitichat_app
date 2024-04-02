@@ -231,11 +231,11 @@ class TranslateLogic extends GetxController {
       setMsgTranslate({});
     } else {
       // 清除status==loading的状态
-      _msgTranslate.values.forEach((item) {
+      for (var item in _msgTranslate.values) {
         if (item?["status"] == "loading") {
           item.remove("status");
         }
-      });
+      }
       msgTranslate.addAll(_msgTranslate);
     }
 
@@ -305,8 +305,7 @@ class TranslateLogic extends GetxController {
       "ex": exJsonStr,
       "groupID": conversation.groupID
     };
-    final result =
-        await Apis.setConversationConfig(conversation: requestConversation);
+    await Apis.setConversationConfig(conversation: requestConversation);
     conversation.ex = exJsonStr;
     updateLangConfigLocal(conversation: conversation, data: data, mode: mode);
   }
@@ -330,7 +329,7 @@ class TranslateLogic extends GetxController {
       langConfig.addAll({conversationID: data});
     }
     langConfig.refresh();
-    setLangConfig(langConfig.value);
+    setLangConfig(langConfig);
     onLangConfigChangeSub.add("update");
   }
 
@@ -344,7 +343,7 @@ class TranslateLogic extends GetxController {
       msgTranslate.addAll({clientMsgID: item});
     }
     msgTranslate.refresh();
-    setMsgTranslate(msgTranslate.value);
+    setMsgTranslate(msgTranslate);
     myLogger.i({
       "message": "本地翻译更新, clientMsgID=${clientMsgID}",
       "data": msgTranslate[clientMsgID]

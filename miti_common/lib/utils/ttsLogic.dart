@@ -1,13 +1,5 @@
-import 'dart:convert';
-import 'dart:ui';
-import 'package:collection/collection.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
-import 'package:flutter_picker/picker.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:rxdart/rxdart.dart';
 import '../miti_common.dart';
 
 class TtsLogic extends GetxController {
@@ -21,11 +13,11 @@ class TtsLogic extends GetxController {
     if (null == _msgTts) {
       setMsgTts({});
     } else {
-      _msgTts.values.forEach((item) {
+      for (var item in _msgTts.values) {
         if (item?["status"] == "loading") {
           item.remove("status");
         }
-      });
+      }
       msgTts.addAll(_msgTts);
     }
 
@@ -50,9 +42,9 @@ class TtsLogic extends GetxController {
       msgTts.addAll({clientMsgID: item});
     }
     msgTts.refresh();
-    setMsgTts(msgTts.value);
+    setMsgTts(msgTts);
     myLogger.i({
-      "message": "本地tts更新, clientMsgID=${clientMsgID}",
+      "message": "本地tts更新, clientMsgID=$clientMsgID",
       "data": msgTts[clientMsgID]
     });
   }

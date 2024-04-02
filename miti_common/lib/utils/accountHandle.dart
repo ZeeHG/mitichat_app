@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
 Future<void> setAccountLoginInfo(
@@ -20,7 +17,6 @@ Future<void> setAccountLoginInfo(
       (DataSp.getCurServerKey().isNotEmpty
           ? DataSp.getCurServerKey()
           : Config.hostWithProtocol);
-  final uri = Uri.parse(serverWithProtocol);
   final loginType =
       (null != email && email.isNotEmpty) ? "emailWithPwd" : "phoneWithPwd";
   final loginInfoKey =
@@ -57,5 +53,5 @@ Future<void> setAccountLoginInfo(
 
 String getLoginInfoKey(
     {required String serverWithProtocol, required String userID}) {
-  return "${serverWithProtocol}__${userID}";
+  return "${serverWithProtocol}__$userID";
 }
