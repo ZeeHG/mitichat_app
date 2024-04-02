@@ -33,39 +33,38 @@ class UserBlacklistPage extends StatelessWidget {
     BlacklistInfo info, {
     bool underline = true,
   }) =>
-      Ink(
-        height: 62.h,
-        decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
-          border: underline
-              ? BorderDirectional(
-                  bottom: BorderSide(
-                    color: Styles.c_E8EAEF,
-                    width: 1,
-                  ),
-                )
-              : null,
-        ),
-        child: InkWell(
-          onTap: () => logic.removeUser(info),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Row(
-              children: [
-                AvatarView(
-                  width: 44.w,
-                  height: 44.h,
-                  text: info.nickname,
-                  url: info.faceURL,
-                ),
-                12.horizontalSpace,
-                Expanded(
-                  child: (info.nickname ?? '').toText
-                    ..style = Styles.ts_333333_16sp,
-                ),
-                StrLibrary.remove.toText..style = Styles.ts_8443F8_16sp,
-              ],
-            ),
+      GestureDetector(
+        onTap: () => logic.removeUser(info),
+        behavior: HitTestBehavior.translucent,
+        child: Container(
+          height: 62.h,
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          decoration: BoxDecoration(
+            color: Styles.c_FFFFFF,
+            border: underline
+                ? BorderDirectional(
+                    bottom: BorderSide(
+                      color: Styles.c_E8EAEF,
+                      width: 1,
+                    ),
+                  )
+                : null,
+          ),
+          child: Row(
+            children: [
+              AvatarView(
+                width: 44.w,
+                height: 44.h,
+                text: info.nickname,
+                url: info.faceURL,
+              ),
+              12.horizontalSpace,
+              Expanded(
+                child: (info.nickname ?? '').toText
+                  ..style = Styles.ts_333333_16sp,
+              ),
+              StrLibrary.remove.toText..style = Styles.ts_8443F8_16sp,
+            ],
           ),
         ),
       );

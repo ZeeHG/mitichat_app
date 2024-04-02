@@ -167,13 +167,14 @@ class UserProfilePage extends StatelessWidget {
                     logic.isGroupMemberPage &&
                         !logic.notAllowAddGroupMemberFriend.value))
               Material(
-                child: Ink(
-                  decoration: BoxDecoration(
-                    color: Styles.c_8443F8,
-                    borderRadius: BorderRadius.circular(6.r),
-                  ),
-                  child: InkWell(
-                    onTap: logic.addFriend,
+                child: GestureDetector(
+                  onTap: logic.addFriend,
+                  behavior: HitTestBehavior.translucent,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Styles.c_8443F8,
+                      borderRadius: BorderRadius.circular(6.r),
+                    ),
                     child: Container(
                       padding: EdgeInsets.symmetric(
                         horizontal: 9.w,
@@ -357,11 +358,12 @@ class UserProfilePage extends StatelessWidget {
               ),
             ),
             padding: EdgeInsets.only(right: 20.w),
-            child: Ink(
-              color: Styles.c_FFFFFF,
-              height: height ?? 50.h,
-              child: InkWell(
-                onTap: onTap,
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: onTap,
+              child: Container(
+                color: Styles.c_FFFFFF,
+                height: height ?? 50.h,
                 child: Row(
                   children: [
                     label.toText..style = Styles.ts_333333_16sp,

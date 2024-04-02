@@ -108,7 +108,7 @@
 //         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
 //         decoration: BoxDecoration(
 //           borderRadius: BorderRadius.circular(6.r),
-//           border: Border.all(color: Styles.c_E8EAEF, width: 1),
+//           border: Border.all(color: Styles.c_E8EAEF, width: 1.h),
 //         ),
 //         child: Row(
 //           mainAxisSize: MainAxisSize.min,

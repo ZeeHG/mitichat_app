@@ -162,129 +162,127 @@ class ConversationPage extends StatelessWidget {
         child: _buildItemView(info),
       ));
 
-  Widget _buildItemView(ConversationInfo info) => Obx(() => Ink(
-        child: Container(
-          padding: EdgeInsets.only(left: 12.w),
-          child: InkWell(
-            onTap: () => logic.toChat(conversationInfo: info),
-            child: Stack(
-              children: [
+  Widget _buildItemView(ConversationInfo info) => Obx(() => GestureDetector(
+    behavior: HitTestBehavior.translucent,
+    onTap: () => logic.toChat(conversationInfo: info),
+    child: Container(
+      padding: EdgeInsets.only(left: 12.w),
+      child: Stack(
+            children: [
+              Container(
+                height: 68.h,
+                padding: EdgeInsets.only(left: 10.w, right: 12.w),
+                decoration: BoxDecoration(
+                    color: Styles.c_FFFFFF,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(34.r),
+                        bottomLeft: Radius.circular(34.r))),
+                child: Row(
+                  children: [
+                    Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        AvatarView(
+                          width: 54.w,
+                          height: 54.h,
+                          text: logic.getShowName(info),
+                          url: info.faceURL,
+                          isGroup: logic.isGroupChat(info),
+                        ),
+                      ],
+                    ),
+                    12.horizontalSpace,
+                    Expanded(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            ConstrainedBox(
+                              constraints: BoxConstraints(maxWidth: 180.w),
+                              child: logic.getShowName(info).toText
+                                ..style = Styles.ts_332221_16sp
+                                ..maxLines = 1
+                                ..overflow = TextOverflow.ellipsis,
+                            ),
+                            if (aiUtil.isAi(info.userID)) ...[
+                              9.horizontalSpace,
+                              ImageRes.appAiMarker.toImage
+                                ..width = 18.w
+                                ..height = 16.h,
+                            ],
+                            const Spacer(),
+                            logic.getTime(info).toText
+                              ..style = Styles.ts_999999_12sp,
+                          ],
+                        ),
+                        5.verticalSpace,
+                        Row(
+                          children: [
+                            MatchTextView(
+                              text: logic.getContent(info),
+                              textStyle: Styles.ts_999999_14sp,
+                              allAtMap: logic.getAtUserMap(info),
+                              prefixSpan: TextSpan(
+                                text: '',
+                                children: [
+                                  if (logic.isNotDisturb(info) &&
+                                      logic.getUnreadCount(info) > 0)
+                                    TextSpan(
+                                      text: '[${sprintf(StrLibrary.nPieces, [
+                                            logic.getUnreadCount(info)
+                                          ])}] ',
+                                      style: Styles.ts_999999_14sp,
+                                    ),
+                                  TextSpan(
+                                    text: logic.getPrefixTag(info),
+                                    style: Styles.ts_8443F8_14sp,
+                                  ),
+                                ],
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              patterns: <MatchPattern>[
+                                MatchPattern(
+                                  type: PatternType.at,
+                                  style: Styles.ts_999999_14sp,
+                                ),
+                              ],
+                            ),
+                            // logic.getMsgContent(info).toText
+                            //   ..style = Styles.ts_999999_14sp,
+                            const Spacer(),
+                            if (logic.isNotDisturb(info))
+                              ImageRes.notDisturb.toImage
+                                ..width = 13.63.w
+                                ..height = 14.07.h,
+                            UnreadCountView(
+                              count: logic.getUnreadCount(info),
+                              size: 18,
+                            )
+                            // else
+                            //   UnreadCountView(
+                            //       count: logic.getUnreadCount(info)),
+                          ],
+                        ),
+                      ],
+                    )),
+                  ],
+                ),
+              ),
+              if (logic.isPinned(info))
                 Container(
                   height: 68.h,
-                  padding: EdgeInsets.only(left: 10.w, right: 12.w),
-                  decoration: BoxDecoration(
-                      color: Styles.c_FFFFFF,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(34.r),
-                          bottomLeft: Radius.circular(34.r))),
-                  child: Row(
-                    children: [
-                      Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          AvatarView(
-                            width: 54.w,
-                            height: 54.h,
-                            text: logic.getShowName(info),
-                            url: info.faceURL,
-                            isGroup: logic.isGroupChat(info),
-                          ),
-                        ],
-                      ),
-                      12.horizontalSpace,
-                      Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Row(
-                                children: [
-                                  ConstrainedBox(
-                                    constraints: BoxConstraints(maxWidth: 180.w),
-                                    child: logic.getShowName(info).toText
-                                      ..style = Styles.ts_332221_16sp
-                                      ..maxLines = 1
-                                      ..overflow = TextOverflow.ellipsis,
-                                  ),
-                                  if (aiUtil.isAi(info.userID)) ...[
-                                    9.horizontalSpace,
-                                    ImageRes.appAiMarker.toImage
-                                      ..width = 18.w
-                                      ..height = 16.h,
-                                  ],
-                                  const Spacer(),
-                                  logic.getTime(info).toText
-                                    ..style = Styles.ts_999999_12sp,
-                                ],
-                              ),
-                              5.verticalSpace,
-                              Row(
-                                children: [
-                                  MatchTextView(
-                                    text: logic.getContent(info),
-                                    textStyle: Styles.ts_999999_14sp,
-                                    allAtMap: logic.getAtUserMap(info),
-                                    prefixSpan: TextSpan(
-                                      text: '',
-                                      children: [
-                                        if (logic.isNotDisturb(info) &&
-                                            logic.getUnreadCount(info) > 0)
-                                          TextSpan(
-                                            text:
-                                                '[${sprintf(StrLibrary.nPieces, [
-                                                  logic.getUnreadCount(info)
-                                                ])}] ',
-                                            style: Styles.ts_999999_14sp,
-                                          ),
-                                        TextSpan(
-                                          text: logic.getPrefixTag(info),
-                                          style: Styles.ts_8443F8_14sp,
-                                        ),
-                                      ],
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    patterns: <MatchPattern>[
-                                      MatchPattern(
-                                        type: PatternType.at,
-                                        style: Styles.ts_999999_14sp,
-                                      ),
-                                    ],
-                                  ),
-                                  // logic.getMsgContent(info).toText
-                                  //   ..style = Styles.ts_999999_14sp,
-                                  const Spacer(),
-                                  if (logic.isNotDisturb(info))
-                                    ImageRes.notDisturb.toImage
-                                      ..width = 13.63.w
-                                      ..height = 14.07.h,
-                                  UnreadCountView(
-                                    count: logic.getUnreadCount(info),
-                                    size: 18,
-                                  )
-                                  // else
-                                  //   UnreadCountView(
-                                  //       count: logic.getUnreadCount(info)),
-                                ],
-                              ),
-                            ],
-                          )),
-                    ],
+                  margin: EdgeInsets.only(right: 6.w),
+                  foregroundDecoration: RotatedCornerDecoration.withColor(
+                    color: Styles.c_8443F8,
+                    badgeSize: Size(8.29.w, 8.29.h),
                   ),
-                ),
-                if (logic.isPinned(info))
-                  Container(
-                    height: 68.h,
-                    margin: EdgeInsets.only(right: 6.w),
-                    foregroundDecoration: RotatedCornerDecoration.withColor(
-                      color: Styles.c_8443F8,
-                      badgeSize: Size(8.29.w, 8.29.h),
-                    ),
-                  )
-              ],
-            ),
+                )
+            ],
           ),
-        ),
-      ));
+    ),
+  ) );
 
   Widget _buildCusPopMenuInfo(
           {required AccountLoginInfo info, showBorder = true}) =>

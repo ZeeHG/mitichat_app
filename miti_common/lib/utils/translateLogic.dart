@@ -173,8 +173,8 @@ class TranslateLogic extends GetxController {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           border: BorderDirectional(
-            bottom: BorderSide(color: Styles.c_E8EAEF, width: 1),
-            top: BorderSide(color: Styles.c_E8EAEF, width: 1),
+            bottom: BorderSide(color: Styles.c_E8EAEF, width: 1.h),
+            top: BorderSide(color: Styles.c_E8EAEF, width: 1.h),
           ),
         ),
       ),

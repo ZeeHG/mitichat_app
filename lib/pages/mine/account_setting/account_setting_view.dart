@@ -92,43 +92,42 @@ class AccountSettingPage extends StatelessWidget {
     ValueChanged<bool>? onChanged,
     Function()? onTap,
   }) =>
-      Ink(
-        decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
-        ),
-        child: InkWell(
-            onTap: onTap,
+      GestureDetector(
+          onTap: onTap,
+          behavior: HitTestBehavior.translucent,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Styles.c_FFFFFF,
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
-              child: Container(
-                height: 50.h,
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      color: Styles.c_F1F2F6,
-                      width: showBorder ? 1.h : 0,
-                    ),
+              height: 50.h,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: Styles.c_F1F2F6,
+                    width: showBorder ? 1.h : 0,
                   ),
                 ),
-                child: Row(
-                  children: [
-                    label.toText..style = textStyle ?? Styles.ts_333333_16sp,
-                    const Spacer(),
-                    if (null != value)
-                      value.toText..style = Styles.ts_333333_14sp,
-                    if (showSwitchButton)
-                      CupertinoSwitch(
-                        value: switchOn,
-                        activeColor: Styles.c_07C160,
-                        onChanged: onChanged,
-                      ),
-                    if (showRightArrow)
-                      ImageRes.appRightArrow.toImage
-                        ..width = 20.w
-                        ..height = 20.h,
-                  ],
-                ),
               ),
-            )),
-      );
+              child: Row(
+                children: [
+                  label.toText..style = textStyle ?? Styles.ts_333333_16sp,
+                  const Spacer(),
+                  if (null != value)
+                    value.toText..style = Styles.ts_333333_14sp,
+                  if (showSwitchButton)
+                    CupertinoSwitch(
+                      value: switchOn,
+                      activeColor: Styles.c_07C160,
+                      onChanged: onChanged,
+                    ),
+                  if (showRightArrow)
+                    ImageRes.appRightArrow.toImage
+                      ..width = 20.w
+                      ..height = 20.h,
+                ],
+              ),
+            ),
+          ));
 }

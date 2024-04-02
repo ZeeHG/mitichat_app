@@ -223,12 +223,8 @@ class _CustomPopupMenuState extends State<CopyCustomPopupMenu> {
   Widget build(BuildContext context) {
     var child = Material(
       color: Colors.transparent,
-      child: InkWell(
-        hoverColor: Colors.transparent,
-        focusColor: Colors.transparent,
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        child: widget.child,
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTap: () {
           if (widget.pressType == PressType.singleClick && _canResponse) {
             _controller?.showMenu();
@@ -242,7 +238,10 @@ class _CustomPopupMenuState extends State<CopyCustomPopupMenu> {
         onTapDown: (details) {
           _tapDownDetails = details;
         },
-      ),
+        child: Container(
+          child: widget.child,
+        ),
+      ) ,
     );
     if (Platform.isIOS) {
       return child;

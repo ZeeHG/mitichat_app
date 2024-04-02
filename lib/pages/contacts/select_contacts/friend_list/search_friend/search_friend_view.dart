@@ -87,40 +87,39 @@ class SelectContactsFromSearchFriendsPage extends StatelessWidget {
   }
 
   Widget _buildItemView(ISUserInfo info) {
-    Widget buildChild() => Ink(
-          height: 64.h,
-          color: Styles.c_FFFFFF,
-          child: InkWell(
-            onTap: selectContactsLogic.onTap(info),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
-              child: Row(
-                children: [
-                  if (selectContactsLogic.isMultiModel)
-                    Padding(
-                      padding: EdgeInsets.only(right: 10.w),
-                      child: ChatRadio(
-                        checked: selectContactsLogic.isChecked(info),
-                        enabled: !selectContactsLogic.isDefaultChecked(info),
-                      ),
+    Widget buildChild() => GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: selectContactsLogic.onTap(info),
+      child: Container(
+            height: 64.h,
+            color: Styles.c_FFFFFF,
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: Row(
+              children: [
+                if (selectContactsLogic.isMultiModel)
+                  Padding(
+                    padding: EdgeInsets.only(right: 10.w),
+                    child: ChatRadio(
+                      checked: selectContactsLogic.isChecked(info),
+                      enabled: !selectContactsLogic.isDefaultChecked(info),
                     ),
-                  AvatarView(
-                    url: info.faceURL,
-                    text: info.showName,
                   ),
-                  10.horizontalSpace,
-                  // info.getShowName().toText..style = Styles.ts_333333_17sp,
-                  SearchKeywordText(
-                    text: info.showName,
-                    keyText: logic.searchCtrl.text.trim(),
-                    style: Styles.ts_333333_17sp,
-                    keyStyle: Styles.ts_8443F8_17sp,
-                  ),
-                ],
-              ),
+                AvatarView(
+                  url: info.faceURL,
+                  text: info.showName,
+                ),
+                10.horizontalSpace,
+                // info.getShowName().toText..style = Styles.ts_333333_17sp,
+                SearchKeywordText(
+                  text: info.showName,
+                  keyText: logic.searchCtrl.text.trim(),
+                  style: Styles.ts_333333_17sp,
+                  keyStyle: Styles.ts_8443F8_17sp,
+                ),
+              ],
             ),
           ),
-        );
+    ) ;
     return selectContactsLogic.isMultiModel ? Obx(buildChild) : buildChild();
   }
 

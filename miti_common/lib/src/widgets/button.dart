@@ -4,7 +4,7 @@ import 'package:miti_common/miti_common.dart';
 
 class Button extends StatelessWidget {
   const Button({
-    Key? key,
+    super.key,
     required this.text,
     this.enabled = true,
     this.enabledColor,
@@ -18,7 +18,7 @@ class Button extends StatelessWidget {
     this.width,
     this.margin,
     this.padding,
-  }) : super(key: key);
+  });
   final Color? enabledColor;
   final Color? disabledColor;
   final Color? borderColor;
@@ -39,19 +39,19 @@ class Button extends StatelessWidget {
       margin: margin,
       child: Material(
         type: MaterialType.transparency,
-        child: Ink(
-          height: height ?? 44.h,
-          width: width,
-          decoration: BoxDecoration(
-            color: enabled
-                ? enabledColor ?? Styles.c_8443F8
-                : disabledColor ?? Styles.c_8443F8_opacity50,
-            borderRadius: BorderRadius.circular(radius ?? 10.r),
-            border: Border.all(color: borderColor ?? Colors.transparent),
-          ),
-          child: InkWell(
-            onTap: enabled ? onTap : null,
-            borderRadius: BorderRadius.circular(radius ?? 10.r),
+        child: GestureDetector(
+          onTap: enabled ? onTap : null,
+          behavior: HitTestBehavior.translucent,
+          child: Container(
+            height: height ?? 44.h,
+            width: width,
+            decoration: BoxDecoration(
+              color: enabled
+                  ? enabledColor ?? Styles.c_8443F8
+                  : disabledColor ?? Styles.c_8443F8_opacity50,
+              borderRadius: BorderRadius.circular(radius ?? 10.r),
+              border: Border.all(color: borderColor ?? Colors.transparent),
+            ),
             child: Container(
               alignment: Alignment.center,
               padding: padding,
@@ -120,14 +120,15 @@ class ImageTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Ink(
-        height: height ?? 46.h,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius ?? 0),
-          color: color,
-        ),
-        child: InkWell(
-          onTap: onTap,
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: onTap,
+        child: Container(
+          height: height ?? 46.h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(radius ?? 0),
+            color: color,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -139,7 +140,7 @@ class ImageTextButton extends StatelessWidget {
             ],
           ),
         ),
-      ),
+      ) ,
     );
   }
 }

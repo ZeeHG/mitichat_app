@@ -202,7 +202,7 @@ class SelectedMemberListView extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 decoration: BoxDecoration(
                   border: BorderDirectional(
-                    bottom: BorderSide(color: Styles.c_E8EAEF, width: 1),
+                    bottom: BorderSide(color: Styles.c_E8EAEF, width: 1.h),
                   ),
                 ),
                 child: Row(

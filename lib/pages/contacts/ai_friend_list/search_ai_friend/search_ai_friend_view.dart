@@ -34,29 +34,28 @@ class SearchAiFriendPage extends StatelessWidget {
     );
   }
 
-  Widget _buildItemView(ISUserInfo info) => Ink(
-        height: 64.h,
-        color: Styles.c_FFFFFF,
-        child: InkWell(
-          onTap: () => logic.viewFriendInfo(info),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Row(
-              children: [
-                AvatarView(
-                  url: info.faceURL,
-                  text: info.showName,
-                ),
-                10.horizontalSpace,
-                SearchKeywordText(
-                  text: info.showName,
-                  keyText: logic.searchCtrl.text.trim(),
-                  style: Styles.ts_333333_17sp,
-                  keyStyle: Styles.ts_8443F8_17sp,
-                ),
-                // info.getShowName().toText..style = Styles.ts_333333_17sp,
-              ],
-            ),
+  Widget _buildItemView(ISUserInfo info) => GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () => logic.viewFriendInfo(info),
+        child: Container(
+          height: 64.h,
+          color: Styles.c_FFFFFF,
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: Row(
+            children: [
+              AvatarView(
+                url: info.faceURL,
+                text: info.showName,
+              ),
+              10.horizontalSpace,
+              SearchKeywordText(
+                text: info.showName,
+                keyText: logic.searchCtrl.text.trim(),
+                style: Styles.ts_333333_17sp,
+                keyStyle: Styles.ts_8443F8_17sp,
+              ),
+              // info.getShowName().toText..style = Styles.ts_333333_17sp,
+            ],
           ),
         ),
       );

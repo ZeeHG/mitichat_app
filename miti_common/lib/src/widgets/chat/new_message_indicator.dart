@@ -16,7 +16,8 @@ class NewMessageIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-      child: InkWell(
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTap: onTap,
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 13.w, vertical: 7.h),
@@ -24,7 +25,7 @@ class NewMessageIndicator extends StatelessWidget {
           decoration: BoxDecoration(
             color: Styles.c_FFFFFF,
             borderRadius: BorderRadius.circular(16.r),
-            border: Border.all(color: Styles.c_E8EAEF, width: 1),
+            border: Border.all(color: Styles.c_E8EAEF, width: 1.h),
             boxShadow: [
               BoxShadow(
                 offset: Offset(0, 6.h),
@@ -46,7 +47,7 @@ class NewMessageIndicator extends StatelessWidget {
             ],
           ),
         ),
-      ),
+      ) ,
     );
   }
 }

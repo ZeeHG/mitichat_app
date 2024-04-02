@@ -61,7 +61,7 @@ class ChatPreviewMergeMsgView extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: 10.h),
                 decoration: BoxDecoration(
                   border: BorderDirectional(
-                    bottom: BorderSide(color: Styles.c_E8EAEF, width: 1),
+                    bottom: BorderSide(color: Styles.c_E8EAEF, width: 1.h),
                   ),
                 ),
                 child: Column(

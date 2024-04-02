@@ -28,7 +28,7 @@ class ChatLocationView extends StatelessWidget {
         height: 130.h,
         decoration: BoxDecoration(
           color: Styles.c_FFFFFF,
-          border: Border.all(color: Styles.c_E8EAEF, width: 1),
+          border: Border.all(color: Styles.c_E8EAEF, width: 1.h),
           borderRadius: BorderRadius.circular(6.r),
         ),
         child: Column(

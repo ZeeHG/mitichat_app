@@ -63,23 +63,22 @@ class AiFriendListPage extends StatelessWidget {
     );
   }
 
-  Widget _item(ISUserInfo info) => Ink(
-        height: 60.h,
-        color: Styles.c_FFFFFF,
-        child: InkWell(
-          onTap: () => logic.viewFriendInfo(info),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
-            child: Row(
-              children: [
-                AvatarView(
-                  url: info.faceURL,
-                  text: info.showName,
-                ),
-                12.horizontalSpace,
-                info.showName.toText..style = Styles.ts_333333_16sp,
-              ],
-            ),
+  Widget _item(ISUserInfo info) => GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () => logic.viewFriendInfo(info),
+        child: Container(
+          height: 60.h,
+          color: Styles.c_FFFFFF,
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          child: Row(
+            children: [
+              AvatarView(
+                url: info.faceURL,
+                text: info.showName,
+              ),
+              12.horizontalSpace,
+              info.showName.toText..style = Styles.ts_333333_16sp,
+            ],
           ),
         ),
       );

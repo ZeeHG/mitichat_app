@@ -253,7 +253,7 @@ class _InputBoxState extends State<InputBox> {
             height: 42.h,
             padding: EdgeInsets.only(left: 0, right: 8.w),
             decoration: BoxDecoration(
-              // border: Border.all(color: Styles.c_EAEAEA, width: 1),
+              // border: Border.all(color: Styles.c_EAEAEA, width: 1.h),
               // borderRadius: BorderRadius.circular(8.r),
               border: widget.border
                   ? Border(

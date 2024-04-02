@@ -90,35 +90,35 @@ class LanguageSettingPage extends StatelessWidget {
     bool showBorder = true,
     Function()? onTap,
   }) =>
-      Ink(
-        height: 52.h,
-        decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
-        ),
-        child: InkWell(
-          onTap: onTap,
-          child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      color: Styles.c_F1F2F6,
-                      width: showBorder ? 1.h : 0,
-                    ),
-                  ),
+      GestureDetector(
+        onTap: onTap,
+        behavior: HitTestBehavior.translucent,
+        child: Container(
+          height: 52.h,
+          decoration: BoxDecoration(
+            color: Styles.c_FFFFFF,
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: Styles.c_F1F2F6,
+                  width: showBorder ? 1.h : 0,
                 ),
-                child: Row(
-                  children: [
-                    label.toText..style = Styles.ts_333333_16sp,
-                    const Spacer(),
-                    if (isChecked)
-                      ImageRes.checked.toImage
-                        ..width = 20.w
-                        ..height = 15.h,
-                  ],
-                ),
-              )),
+              ),
+            ),
+            child: Row(
+              children: [
+                label.toText..style = Styles.ts_333333_16sp,
+                const Spacer(),
+                if (isChecked)
+                  ImageRes.checked.toImage
+                    ..width = 20.w
+                    ..height = 15.h,
+              ],
+            ),
+          ),
         ),
-      );
+      ) ;
 }

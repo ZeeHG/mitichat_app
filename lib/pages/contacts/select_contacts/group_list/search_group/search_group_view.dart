@@ -39,50 +39,49 @@ class SelectContactsFromSearchGroupPage extends StatelessWidget {
   }
 
   Widget _buildItemView(GroupInfo info) {
-    Widget buildChild() => Ink(
-          height: 64.h,
-          color: Styles.c_FFFFFF,
-          child: InkWell(
-            onTap: () => selectContactsLogic.onTap(info),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Row(
-                children: [
-                  if (selectContactsLogic.isMultiModel)
-                    Padding(
-                      padding: EdgeInsets.only(right: 10.w),
-                      child: ChatRadio(
-                        checked: selectContactsLogic.isChecked(info),
+    Widget buildChild() => GestureDetector(
+      onTap: () => selectContactsLogic.onTap(info),
+      behavior: HitTestBehavior.translucent,
+          child: Container(
+            height: 64.h,
+            color: Styles.c_FFFFFF,
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Row(
+              children: [
+                if (selectContactsLogic.isMultiModel)
+                  Padding(
+                    padding: EdgeInsets.only(right: 10.w),
+                    child: ChatRadio(
+                      checked: selectContactsLogic.isChecked(info),
+                    ),
+                  ),
+                AvatarView(
+                  url: info.faceURL,
+                  text: info.groupName,
+                  isGroup: true,
+                ),
+                10.horizontalSpace,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // (info.groupName ?? '').toText
+                      //   ..style = Styles.ts_333333_17sp,
+                      SearchKeywordText(
+                        text: info.groupName ?? '',
+                        keyText: logic.searchCtrl.text.trim(),
+                        style: Styles.ts_333333_17sp,
+                        keyStyle: Styles.ts_8443F8_17sp,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                    ),
-                  AvatarView(
-                    url: info.faceURL,
-                    text: info.groupName,
-                    isGroup: true,
+                      sprintf(StrLibrary.nPerson, [info.memberCount]).toText
+                        ..style = Styles.ts_999999_14sp,
+                    ],
                   ),
-                  10.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // (info.groupName ?? '').toText
-                        //   ..style = Styles.ts_333333_17sp,
-                        SearchKeywordText(
-                          text: info.groupName ?? '',
-                          keyText: logic.searchCtrl.text.trim(),
-                          style: Styles.ts_333333_17sp,
-                          keyStyle: Styles.ts_8443F8_17sp,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        sprintf(StrLibrary.nPerson, [info.memberCount]).toText
-                          ..style = Styles.ts_999999_14sp,
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );

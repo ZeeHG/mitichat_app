@@ -40,23 +40,22 @@ class FriendListPage extends StatelessWidget {
     );
   }
 
-  Widget _buildItemView(ISUserInfo info) => Ink(
-        height: 60.h,
-        color: Styles.c_FFFFFF,
-        child: InkWell(
-          onTap: () => logic.viewFriendInfo(info),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
-            child: Row(
-              children: [
-                AvatarView(
-                  url: info.faceURL,
-                  text: info.showName,
-                ),
-                12.horizontalSpace,
-                info.showName.toText..style = Styles.ts_333333_16sp,
-              ],
-            ),
+  Widget _buildItemView(ISUserInfo info) => GestureDetector(
+    onTap: () => logic.viewFriendInfo(info),
+    behavior: HitTestBehavior.translucent,
+        child: Container(
+          height: 60.h,
+          color: Styles.c_FFFFFF,
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          child: Row(
+            children: [
+              AvatarView(
+                url: info.faceURL,
+                text: info.showName,
+              ),
+              12.horizontalSpace,
+              info.showName.toText..style = Styles.ts_333333_16sp,
+            ],
           ),
         ),
       );

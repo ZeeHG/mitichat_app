@@ -19,7 +19,7 @@ class ChatNoticeView extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
       decoration: BoxDecoration(
         color: (isISend ? Styles.c_8443F8 : Styles.c_FFFFFF),
-        border: Border.all(color: Styles.c_E8EAEF, width: 1),
+        border: Border.all(color: Styles.c_E8EAEF, width: 1.h),
         borderRadius: borderRadius(isISend),
       ),
       child: Column(

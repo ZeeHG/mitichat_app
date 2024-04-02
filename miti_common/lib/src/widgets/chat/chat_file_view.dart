@@ -25,7 +25,7 @@ class ChatFileView extends StatelessWidget {
       height: 64.h,
       decoration: BoxDecoration(
         color: Styles.c_FFFFFF,
-        border: Border.all(color: Styles.c_E8EAEF, width: 1),
+        border: Border.all(color: Styles.c_E8EAEF, width: 1.h),
         borderRadius: borderRadius(isISend),
       ),
       child: Column(

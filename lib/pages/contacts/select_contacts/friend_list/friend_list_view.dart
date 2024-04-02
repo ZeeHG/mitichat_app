@@ -34,12 +34,12 @@ class SelectContactsFromFriendsPage extends StatelessWidget {
               color: Styles.c_F7F8FA,
               child: Container(
                 color: Styles.c_FFFFFF,
-                child: Ink(
-                    height: 54.h,
-                    color: Styles.c_FFFFFF,
-                    child: InkWell(
-                      onTap: logic.selectAll,
-                      child: Container(
+                child: GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: logic.selectAll,
+                    child: Container(
+                        height: 54.h,
+                        color: Styles.c_FFFFFF,
                         padding: EdgeInsets.symmetric(horizontal: 12.w),
                         child: Row(
                           children: [
@@ -51,9 +51,7 @@ class SelectContactsFromFriendsPage extends StatelessWidget {
                             StrLibrary.selectAll.toText
                               ..style = Styles.ts_333333_16sp,
                           ],
-                        ),
-                      ),
-                    )),
+                        ))),
               ),
             ),
           Flexible(
@@ -72,31 +70,30 @@ class SelectContactsFromFriendsPage extends StatelessWidget {
   }
 
   Widget _buildItemView(ISUserInfo info) {
-    Widget buildChild() => Ink(
-          height: 54.h,
-          color: Styles.c_FFFFFF,
-          child: InkWell(
-            onTap: selectContactsLogic.onTap(info),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
-              child: Row(
-                children: [
-                  if (selectContactsLogic.isMultiModel)
-                    Padding(
-                      padding: EdgeInsets.only(right: 14.w),
-                      child: ChatRadio(
-                        checked: selectContactsLogic.isChecked(info),
-                        enabled: !selectContactsLogic.isDefaultChecked(info),
-                      ),
+    Widget buildChild() => GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: selectContactsLogic.onTap(info),
+          child: Container(
+            height: 54.h,
+            color: Styles.c_FFFFFF,
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: Row(
+              children: [
+                if (selectContactsLogic.isMultiModel)
+                  Padding(
+                    padding: EdgeInsets.only(right: 14.w),
+                    child: ChatRadio(
+                      checked: selectContactsLogic.isChecked(info),
+                      enabled: !selectContactsLogic.isDefaultChecked(info),
                     ),
-                  AvatarView(
-                    url: info.faceURL,
-                    text: info.showName,
                   ),
-                  12.horizontalSpace,
-                  info.showName.toText..style = Styles.ts_333333_16sp,
-                ],
-              ),
+                AvatarView(
+                  url: info.faceURL,
+                  text: info.showName,
+                ),
+                12.horizontalSpace,
+                info.showName.toText..style = Styles.ts_333333_16sp,
+              ],
             ),
           ),
         );
