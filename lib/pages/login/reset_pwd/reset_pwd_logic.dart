@@ -51,7 +51,7 @@ class ResetPwdLogic extends GetxController {
   confirmTheChanges() async {
     if (checkForm()) {
       await LoadingView.singleton.start(
-          fn: () => Apis.resetPassword(
+          fn: () => ClientApis.resetPassword(
                 areaCode: areaCode,
                 phoneNumber: phoneNumber,
                 email: email,

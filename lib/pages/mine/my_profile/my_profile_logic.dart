@@ -23,7 +23,7 @@ class MyProfileLogic extends GetxController {
         onData: (path, url) async {
           if (url != null) {
             LoadingView.singleton.start(
-              fn: () => Apis.updateUserInfo(
+              fn: () => ClientApis.updateUserInfo(
                       userID: OpenIM.iMManager.userID, faceURL: url)
                   .then((value) => imCtrl.userInfo.update((val) {
                         val?.faceURL = url;
@@ -49,7 +49,7 @@ class MyProfileLogic extends GetxController {
         itemStyle: Styles.ts_333333_16sp,
       ),
       onConfirm: (dateTime) {
-        updateInfo("birth" , dateTime.millisecondsSinceEpoch ~/ 1000 * 1000);
+        updateInfo("birth", dateTime.millisecondsSinceEpoch ~/ 1000 * 1000);
       },
     );
   }
@@ -61,11 +61,11 @@ class MyProfileLogic extends GetxController {
         items: [
           SheetItem(
             label: StrLibrary.man,
-            onTap: () => updateInfo("gender" , 1),
+            onTap: () => updateInfo("gender", 1),
           ),
           SheetItem(
             label: StrLibrary.woman,
-            onTap: () => updateInfo("gender" , 2),
+            onTap: () => updateInfo("gender", 2),
           ),
         ],
       ),
@@ -77,7 +77,7 @@ class MyProfileLogic extends GetxController {
       final userID = OpenIM.iMManager.userID;
       switch (key) {
         case "birth":
-          await Apis.updateUserInfo(
+          await ClientApis.updateUserInfo(
             userID: userID,
             birth: value,
           );
@@ -86,7 +86,7 @@ class MyProfileLogic extends GetxController {
           });
           break;
         case "gender":
-          await Apis.updateUserInfo(
+          await ClientApis.updateUserInfo(
             userID: userID,
             gender: value,
           );
@@ -102,7 +102,7 @@ class MyProfileLogic extends GetxController {
   void queryMyFullIno() async {
     CancelToken cancelToken = CancelToken();
     final info = await LoadingView.singleton.start(
-        fn: () => Apis.queryMyFullInfo(cancelToken: cancelToken),
+        fn: () => ClientApis.queryMyFullInfo(cancelToken: cancelToken),
         cancelToken: cancelToken);
     if (null != info) {
       imCtrl.userInfo.update((val) {

@@ -33,7 +33,7 @@ class _ChatVideoViewState extends State<ChatVideoView> {
   @override
   void initState() {
     final video = _message.videoElem;
-    _snapshotUrl = video?.snapshotUrl?.adjustThumbnailAbsoluteString(540);
+    _snapshotUrl = video?.snapshotUrl?.adjustThumbnailUrl(540);
     _snapshotPath = video?.snapshotPath;
 
     var w = video?.snapshotWidth?.toDouble() ?? 1.0;

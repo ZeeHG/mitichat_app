@@ -9,7 +9,7 @@ import 'package:uuid/uuid.dart';
 /// flutter packages pub run build_runner build
 /// flutter packages pub run build_runner build --delete-conflicting-outputs
 ///
-class CacheController extends GetxController {
+class HiveCtrl extends GetxController {
   final favoriteList = <EmojiInfo>[].obs;
   final callRecordList = <CallRecords>[].obs;
   Box? favoriteBox;
@@ -26,20 +26,17 @@ class CacheController extends GetxController {
   }
 
   void addFavoriteFromPath(String path, int width, int height) async {
-    var result = await LoadingView.singleton.start(
-      fn: () => OpenIM.iMManager.uploadFile(
+    await LoadingView.singleton.start(fn: () async {
+      final result = await OpenIM.iMManager.uploadFile(
         id: const Uuid().v4(),
         filePath: path,
         fileName: path,
-      ),
-      // fn: () => HttpUtil.uploadImageForMinio(path: path),
-    );
-    if (result is String) {
-      final url = jsonDecode(result)['url'];
-      var emoji = EmojiInfo(url: url, width: width, height: height);
-      favoriteList.insert(0, emoji);
-      favoriteBox?.put(userID, favoriteList);
-    }
+      );
+      if (result is String) {
+        final url = jsonDecode(result)['url'];
+        addFavoriteFromUrl(url, width, height);
+      }
+    });
   }
 
   void delFavorite(String url) {
@@ -56,11 +53,11 @@ class CacheController extends GetxController {
 
   initFavoriteEmoji() {
     if (!_isInitFavoriteList) {
-      _isInitFavoriteList = true;
-      var list = favoriteBox?.get(userID, defaultValue: <EmojiInfo>[]);
+      final list = favoriteBox?.get(userID, defaultValue: <EmojiInfo>[]);
       if (list != null) {
         favoriteList.assignAll((list as List).cast());
       }
+      _isInitFavoriteList = true;
     }
   }
 
@@ -68,26 +65,26 @@ class CacheController extends GetxController {
 
   initCallRecords() {
     if (!_isInitCallRecords) {
-      _isInitCallRecords = true;
-      var list = callRecordBox?.get(userID, defaultValue: <CallRecords>[]);
-      if (list != null) {
-        callRecordList.assignAll((list as List).cast());
-      }
-    }
-  }
-
-  void resetCache() {
-    if (_isInitCallRecords) {
       final list = callRecordBox?.get(userID, defaultValue: <CallRecords>[]);
       if (list != null) {
         callRecordList.assignAll((list as List).cast());
       }
+      _isInitCallRecords = true;
     }
+  }
 
+  void resetCache() {
     if (_isInitFavoriteList) {
       final list = favoriteBox?.get(userID, defaultValue: <EmojiInfo>[]);
       if (list != null) {
         favoriteList.assignAll((list as List).cast());
+      }
+    }
+
+    if (_isInitCallRecords) {
+      final list = callRecordBox?.get(userID, defaultValue: <CallRecords>[]);
+      if (list != null) {
+        callRecordList.assignAll((list as List).cast());
       }
     }
   }

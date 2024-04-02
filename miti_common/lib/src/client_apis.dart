@@ -1,16 +1,14 @@
 import 'dart:convert';
-import 'dart:ui';
 import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:miti_common/miti_common.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:uuid/uuid.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
-class Apis {
+class ClientApis {
   static Options get imTokenOptions =>
       Options(headers: {'token': DataSp.imToken});
 
@@ -26,7 +24,7 @@ class Apis {
       String? verificationCode,
       bool encryptPwdRequest = true}) async {
     try {
-      var data = await HttpUtil.post(Urls.login, data: {
+      var data = await HttpUtil.post(ClientUrls.login, data: {
         "areaCode": areaCode,
         'phoneNumber': phoneNumber,
         'email': email,
@@ -59,7 +57,7 @@ class Apis {
       bool encryptPwdRequest = true}) async {
     assert(phoneNumber != null || email != null);
     try {
-      var data = await HttpUtil.post(Urls.register, data: {
+      var data = await HttpUtil.post(ClientUrls.register, data: {
         'deviceID': DataSp.getDeviceID(),
         'verifyCode': verificationCode,
         'platform': MitiUtils.getPlatform(),
@@ -94,7 +92,7 @@ class Apis {
     required String verificationCode,
   }) async {
     return HttpUtil.post(
-      Urls.resetPwd,
+      ClientUrls.resetPwd,
       data: {
         "areaCode": areaCode,
         'phoneNumber': phoneNumber,
@@ -116,7 +114,7 @@ class Apis {
   }) async {
     try {
       await HttpUtil.post(
-        Urls.changePwd,
+        ClientUrls.changePwd,
         data: {
           "userID": userID,
           'currentPassword': MitiUtils.generateMD5(currentPassword),
@@ -171,7 +169,7 @@ class Apis {
     put('allowVibration', allowVibration);
 
     return HttpUtil.post(
-      Urls.updateUserInfo,
+      ClientUrls.updateUserInfo,
       data: {
         ...param,
         'platform': MitiUtils.getPlatform(),
@@ -187,7 +185,7 @@ class Apis {
     int showNumber = 10,
   }) async {
     final data = await HttpUtil.post(
-      Urls.searchFriendInfo,
+      ClientUrls.searchFriendInfo,
       data: {
         'pagination': {'pageNumber': pageNumber, 'showNumber': showNumber},
         'keyword': keyword,
@@ -207,7 +205,7 @@ class Apis {
       int showNumber = 10,
       required List<String> userIDList,
       CancelToken? cancelToken}) async {
-    final data = await HttpUtil.post(Urls.getUsersFullInfo,
+    final data = await HttpUtil.post(ClientUrls.getUsersFullInfo,
         data: {
           'pagination': {'pageNumber': pageNumber, 'showNumber': showNumber},
           'userIDs': userIDList,
@@ -230,7 +228,7 @@ class Apis {
     int showNumber = 10,
   }) async {
     final data = await HttpUtil.post(
-      Urls.searchUserFullInfo,
+      ClientUrls.searchUserFullInfo,
       data: {
         'pagination': {'pageNumber': pageNumber, 'showNumber': showNumber},
         'keyword': content,
@@ -248,7 +246,7 @@ class Apis {
 
   static Future<UserFullInfo?> queryMyFullInfo(
       {CancelToken? cancelToken}) async {
-    final list = await Apis.getUserFullInfo(
+    final list = await ClientApis.getUserFullInfo(
         userIDList: [OpenIM.iMManager.userID], cancelToken: cancelToken);
     return list?.firstOrNull;
   }
@@ -263,7 +261,7 @@ class Apis {
     String? invitationCode,
   }) async {
     return HttpUtil.post(
-      Urls.getVerificationCode,
+      ClientUrls.getVerificationCode,
       data: {
         "areaCode": areaCode,
         "phoneNumber": phoneNumber,
@@ -290,7 +288,7 @@ class Apis {
     String? invitationCode,
   }) {
     return HttpUtil.post(
-      Urls.checkVerificationCode,
+      ClientUrls.checkVerificationCode,
       data: {
         "phoneNumber": phoneNumber,
         "areaCode": areaCode,
@@ -333,7 +331,7 @@ class Apis {
     Function(Map<String, bool>)? onlineStatusCallback,
   }) async {
     var resp = await HttpUtil.post(
-      Urls.userOnlineStatus,
+      ClientUrls.userOnlineStatus,
       data: <String, dynamic>{"userIDList": uidList},
       options: imTokenOptions,
     );
@@ -356,7 +354,7 @@ class Apis {
   /// robots
   static Future<Map<String, dynamic>> getClientConfig() async {
     var result = await HttpUtil.post(
-      Urls.getClientConfig,
+      ClientUrls.getClientConfig,
       data: {
         // 'operationID': operationID,
       },
@@ -407,24 +405,24 @@ class Apis {
     onlineStatusCallback?.call(status);
   }
 
-  static Future<List<UniMPInfo>> queryUniMPList() async {
-    var result = await HttpUtil.post(
-      Urls.uniMPUrl,
-      data: {
-        // 'operationID': operationID,
-      },
-      options: chatTokenOptions,
-      showErrorToast: false,
-    );
-    return (result as List).map((e) => UniMPInfo.fromJson(e)).toList();
-  }
+  // static Future<List<UniMPInfo>> queryUniMPList() async {
+  //   var result = await HttpUtil.post(
+  //     ClientUrls.uniMPUrl,
+  //     data: {
+  //       // 'operationID': operationID,
+  //     },
+  //     options: chatTokenOptions,
+  //     showErrorToast: false,
+  //   );
+  //   return (result as List).map((e) => UniMPInfo.fromJson(e)).toList();
+  // }
 
   /// 查询tag组
-  static Future<TagGroup> getUserTags({String? userID}) => HttpUtil.post(
-        Urls.getUserTags,
-        data: {'userID': userID},
-        options: chatTokenOptions,
-      ).then((value) => TagGroup.fromJson(value));
+  // static Future<TagGroup> getUserTags({String? userID}) => HttpUtil.post(
+  //       ClientUrls.getUserTags,
+  //       data: {'userID': userID},
+  //       options: chatTokenOptions,
+  //     ).then((value) => TagGroup.fromJson(value));
 
   /// 创建tag
   static createTag({
@@ -432,14 +430,14 @@ class Apis {
     required List<String> userIDList,
   }) =>
       HttpUtil.post(
-        Urls.createTag,
+        ClientUrls.createTag,
         data: {'tagName': tagName, 'userIDs': userIDList},
         options: chatTokenOptions,
       );
 
   /// 创建tag
   static deleteTag({required String tagID}) => HttpUtil.post(
-        Urls.deleteTag,
+        ClientUrls.deleteTag,
         data: {'tagID': tagID},
         options: chatTokenOptions,
       );
@@ -452,7 +450,7 @@ class Apis {
     required List<String> reduceUserIDList,
   }) =>
       HttpUtil.post(
-        Urls.updateTag,
+        ClientUrls.updateTag,
         data: {
           'tagID': tagID,
           'name': name,
@@ -477,7 +475,7 @@ class Apis {
     List<String> groupIDList = const [],
   }) async {
     return HttpUtil.post(
-      Urls.sendTagNotification,
+      ClientUrls.sendTagNotification,
       data: {
         'tagIDs': tagIDList,
         'userIDs': userIDList,
@@ -506,31 +504,31 @@ class Apis {
   }
 
   /// 获取tag通知列表
-  static Future<List<TagNotification>> getTagNotificationLog({
-    String? userID,
-    required int pageNumber,
-    required int showNumber,
-  }) async {
-    final result = await HttpUtil.post(
-      Urls.getTagNotificationLog,
-      data: {
-        'userID': userID,
-        'pagination': {'pageNumber': pageNumber, 'showNumber': showNumber},
-      },
-      options: chatTokenOptions,
-    );
-    final list = result['tagSendLogs'];
-    if (list is List) {
-      return list.map((e) => TagNotification.fromJson(e)).toList();
-    }
-    return [];
-  }
+  // static Future<List<TagNotification>> getTagNotificationLog({
+  //   String? userID,
+  //   required int pageNumber,
+  //   required int showNumber,
+  // }) async {
+  //   final result = await HttpUtil.post(
+  //     ClientUrls.getTagNotificationLog,
+  //     data: {
+  //       'userID': userID,
+  //       'pagination': {'pageNumber': pageNumber, 'showNumber': showNumber},
+  //     },
+  //     options: chatTokenOptions,
+  //   );
+  //   final list = result['tagSendLogs'];
+  //   if (list is List) {
+  //     return list.map((e) => TagNotification.fromJson(e)).toList();
+  //   }
+  //   return [];
+  // }
 
   static delTagNotificationLog({
     required List<String> ids,
   }) =>
       HttpUtil.post(
-        Urls.delTagNotificationLog,
+        ClientUrls.delTagNotificationLog,
         data: <String, dynamic>{'ids': ids},
         options: chatTokenOptions,
       );
@@ -551,7 +549,7 @@ class Apis {
     };
 
     return HttpUtil.post(
-      Urls.translate,
+      ClientUrls.translate,
       data: {
         ...param,
         'platform': MitiUtils.getPlatform(),
@@ -572,7 +570,7 @@ class Apis {
     };
 
     return HttpUtil.post(
-      Urls.findTranslate,
+      ClientUrls.findTranslate,
       data: {
         ...param,
         'platform': MitiUtils.getPlatform(),
@@ -593,7 +591,7 @@ class Apis {
     };
 
     return HttpUtil.post(
-      Urls.getTranslateConfig,
+      ClientUrls.getTranslateConfig,
       data: {
         ...param,
         'platform': MitiUtils.getPlatform(),
@@ -614,7 +612,7 @@ class Apis {
     };
 
     return HttpUtil.post(
-      Urls.setTranslateConfig,
+      ClientUrls.setTranslateConfig,
       data: {
         ...param,
         'platform': MitiUtils.getPlatform(),
@@ -638,7 +636,7 @@ class Apis {
     assert(email != null);
     try {
       var data = await HttpUtil.post(
-        Urls.updateEmail,
+        ClientUrls.updateEmail,
         data: {
           'email': email,
           'verifyCode': verificationCode,
@@ -664,7 +662,7 @@ class Apis {
     assert(phoneNumber != null);
     try {
       var data = await HttpUtil.post(
-        Urls.updatePhone,
+        ClientUrls.updatePhone,
         data: {
           'phoneNumber': phoneNumber,
           'areaCode': areaCode,
@@ -689,7 +687,7 @@ class Apis {
     };
 
     return HttpUtil.post(
-      Urls.tts,
+      ClientUrls.tts,
       data: {
         ...param,
         'platform': MitiUtils.getPlatform(),
@@ -702,7 +700,7 @@ class Apis {
   // 删除用户
   static Future<dynamic> deleteUser({required String password}) async {
     return HttpUtil.post(
-      Urls.deleteUser,
+      ClientUrls.deleteUser,
       data: {
         'password': MitiUtils.generateMD5(password),
         'platform': MitiUtils.getPlatform(),
@@ -745,7 +743,7 @@ class Apis {
     };
 
     return HttpUtil.post(
-      Urls.complain,
+      ClientUrls.complain,
       data: {
         ...param,
         'platform': MitiUtils.getPlatform(),
@@ -788,7 +786,7 @@ class Apis {
     };
 
     return HttpUtil.post(
-      Urls.complainXhs,
+      ClientUrls.complainXhs,
       data: {
         ...param,
         'platform': MitiUtils.getPlatform(),
@@ -803,7 +801,7 @@ class Apis {
     Map<String, dynamic> param = {'userID': userID, 'operation': operation};
 
     return HttpUtil.post(
-      Urls.blockMoment,
+      ClientUrls.blockMoment,
       data: {
         ...param,
         'platform': MitiUtils.getPlatform(),
@@ -817,7 +815,7 @@ class Apis {
     Map<String, dynamic> param = {'userID': userID};
 
     return HttpUtil.post(
-      Urls.getBlockMoment,
+      ClientUrls.getBlockMoment,
       data: {
         ...param,
         'platform': MitiUtils.getPlatform(),
@@ -830,7 +828,7 @@ class Apis {
   static Future<bool> checkServerValid(
       {required String serverWithProtocol}) async {
     var result = await HttpUtil.post(
-      "${serverWithProtocol}${Config.targetIsDomainWithProtocol(serverWithProtocol) ? '/chat' : ':10008'}${Urls.checkServerValid}",
+      "${serverWithProtocol}${Config.targetIsDomainWithProtocol(serverWithProtocol) ? '/chat' : ':10008'}${ClientUrls.checkServerValid}",
       data: {},
       showErrorToast: false,
     );
@@ -839,14 +837,14 @@ class Apis {
 
   static Future<dynamic> getBots() async {
     return HttpUtil.post(
-      Urls.getBots,
+      ClientUrls.getBots,
       options: chatTokenOptions,
     );
   }
 
   static Future<dynamic> getMyAi() async {
     return HttpUtil.post(
-      Urls.getMyAi,
+      ClientUrls.getMyAi,
       options: chatTokenOptions,
     );
   }
@@ -860,7 +858,7 @@ class Apis {
         : {'botID': botID};
 
     return HttpUtil.post(
-      Urls.getKnowledgeFiles,
+      ClientUrls.getKnowledgeFiles,
       data: {
         ...param,
       },
@@ -895,7 +893,7 @@ class Apis {
     }
 
     return HttpUtil.post(
-      Urls.addKnowledge,
+      ClientUrls.addKnowledge,
       data: formData,
       options: chatTokenOptions,
     );
@@ -903,7 +901,7 @@ class Apis {
 
   static Future<dynamic> getMyAiTask() async {
     return HttpUtil.post(
-      Urls.getMyAiTask,
+      ClientUrls.getMyAiTask,
       options: chatTokenOptions,
     );
   }
@@ -911,7 +909,7 @@ class Apis {
   static Future<dynamic> getBotKnowledgebases({required String botID}) async {
     return HttpUtil.post(
       data: {"botID": botID},
-      Urls.getBotKnowledgebases,
+      ClientUrls.getBotKnowledgebases,
       options: chatTokenOptions,
     );
   }
@@ -924,7 +922,7 @@ class Apis {
         "actionList": List.generate(actionRecordList.length,
             (index) => actionRecordList[index].toJson())
       },
-      Urls.addActionRecord,
+      ClientUrls.addActionRecord,
       options: chatTokenOptions,
     );
   }

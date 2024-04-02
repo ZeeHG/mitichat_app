@@ -23,7 +23,7 @@ class ChatRevokeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bridge = PackageBridge.viewUserProfileBridge;
+    final bridge = MitiBridge.viewUserProfileBridge;
     final groupID = message.groupID;
     String? revoker, sender;
     final value = <String, String>{};

@@ -18,7 +18,7 @@ class WorkMomentsDetailLogic extends GetxController {
   final commentHintText = ''.obs;
   String? replyUserID;
 
-  WorkingCircleBridge? get wcBridge => PackageBridge.workingCircleBridge;
+  FriendCircleBridge? get wcBridge => MitiBridge.friendCircleBridge;
 
   @override
   void onInit() {

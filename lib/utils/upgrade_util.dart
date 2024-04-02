@@ -108,7 +108,7 @@
 //         .start(
 //             fn: () async {
 //               await getAppInfo();
-//               return Apis.checkUpgradeV2(cancelToken: cancelToken);
+//               return ClientApis.checkUpgradeV2(cancelToken: cancelToken);
 //             },
 //             cancelToken: cancelToken)
 //         .then((value) {
@@ -134,7 +134,7 @@
 //     if (!Platform.isAndroid) return;
 //     if (isShowUpgradeDialog || isNowIgnoreUpdate) return;
 //     await getAppInfo();
-//     upgradeInfoV2 = await Apis.checkUpgradeV2();
+//     upgradeInfoV2 = await ClientApis.checkUpgradeV2();
 //     String? ignore = DataSp.getIgnoreVersion();
 //     if (ignore ==
 //         upgradeInfoV2!.buildVersion! + upgradeInfoV2!.buildVersionNo!) {

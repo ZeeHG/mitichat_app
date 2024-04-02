@@ -88,7 +88,7 @@ class HttpUtil {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
-      var resp = ApiResp.fromJson(result.data!);
+      var resp = ApiResponse.fromJson(result.data!);
       if (resp.errCode == 0) {
         return resp.data;
       } else {

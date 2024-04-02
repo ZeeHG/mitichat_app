@@ -27,7 +27,7 @@
 //   queryNotificationLogs() async {
 //     List<TagNotification>? list;
 //     try {
-//       list = await Apis.getTagNotificationLog(
+//       list = await ClientApis.getTagNotificationLog(
 //         pageNumber: pageNumber = 1,
 //         showNumber: showNumber,
 //       );
@@ -44,7 +44,7 @@
 //   loadNotificationLogs() async {
 //     List<TagNotification>? list;
 //     try {
-//       list = await Apis.getTagNotificationLog(
+//       list = await ClientApis.getTagNotificationLog(
 //         pageNumber: ++pageNumber,
 //         showNumber: showNumber,
 //       );
@@ -97,7 +97,7 @@
 //     );
 //     if (result == true) {
 //       await LoadingView.singleton.start(
-//         fn: () => Apis.delTagNotificationLog(ids: [ntf.id!]),
+//         fn: () => ClientApis.delTagNotificationLog(ids: [ntf.id!]),
 //       );
 //       list.remove(ntf);
 //     }

@@ -167,9 +167,9 @@ class MitiUtils {
   }
 
   static String? emptyStrToNull(String? str, [String? str2]) {
-    if(null != str && str.trim().isEmpty){
-      return null != str2 && str2.trim().isEmpty? null : str2;
-    }else{
+    if (null != str && str.trim().isEmpty) {
+      return null != str2 && str2.trim().isEmpty ? null : str2;
+    } else {
       return str;
     }
   }
@@ -1217,8 +1217,8 @@ class MitiUtils {
         }
       } else {
         if (isExitNetwork) {
-          if (Get.isRegistered<DownloadController>()) {
-            final controller = Get.find<DownloadController>();
+          if (Get.isRegistered<DownloadCtrl>()) {
+            final controller = Get.find<DownloadCtrl>();
             controller.clickFileMessage(url!, cachePath);
           }
         }
@@ -1367,9 +1367,9 @@ class MitiUtils {
         if (localPath != null && File(localPath).existsSync()) {
           return ExtendedFileImageProvider(File(localPath));
         }
-        final url = msg.pictureElem?.snapshotPicture?.url
-                ?.adjustThumbnailAbsoluteString(540) ??
-            '';
+        final url =
+            msg.pictureElem?.snapshotPicture?.url?.adjustThumbnailUrl(540) ??
+                '';
 
         return ExtendedNetworkImageProvider(url, cache: true);
       },
@@ -1378,8 +1378,7 @@ class MitiUtils {
         final msg = mediaMessages[index];
 
         final snapshotUrl =
-            msg.videoElem?.snapshotUrl?.adjustThumbnailAbsoluteString(540) ??
-                '';
+            msg.videoElem?.snapshotUrl?.adjustThumbnailUrl(540) ?? '';
         final url = msg.videoElem?.videoUrl ?? '';
         return CustomChild(
           child: Center(

@@ -42,9 +42,8 @@ class _ChatPictureViewState extends State<ChatPictureView> {
 
     _sourceUrl = picture?.bigPicture?.url;
     final snap = picture?.snapshotPicture?.url;
-    _snapshotUrl = snap?.contains('.gif') == true
-        ? snap
-        : snap?.adjustThumbnailAbsoluteString(540);
+    _snapshotUrl =
+        snap?.contains('.gif') == true ? snap : snap?.adjustThumbnailUrl(540);
 
     var w = picture?.sourcePicture?.width?.toDouble() ?? 1.0;
     var h = picture?.sourcePicture?.height?.toDouble() ?? 1.0;

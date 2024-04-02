@@ -75,8 +75,8 @@ class AppBinding extends Bindings {
   void dependencies() {
     Get.put<IMCtrl>(IMCtrl());
     Get.put<PushCtrl>(PushCtrl());
-    Get.put<CacheController>(CacheController());
-    Get.put<DownloadController>(DownloadController());
+    Get.put<HiveCtrl>(HiveCtrl());
+    Get.put<DownloadCtrl>(DownloadCtrl());
     Get.put(BetaTestLogic());
     Get.put(AccountUtil());
     Get.put(AiUtil());

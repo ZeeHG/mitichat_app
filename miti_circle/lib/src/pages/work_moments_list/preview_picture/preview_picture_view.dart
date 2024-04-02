@@ -87,7 +87,7 @@ class _PreviewPicturePageState extends State<PreviewPicturePage> {
                 case LoadState.loading:
                   {
                     return ExtendedImage.network(
-                      meta.original!.thumbnailAbsoluteString,
+                      meta.original!.thumbnailUrl,
                       // "https://bkqsimg.ikafan.com/upload/image/2017/05/10/1494426013836161.png",
                       cache: true,
                       fit: BoxFit.fitWidth,

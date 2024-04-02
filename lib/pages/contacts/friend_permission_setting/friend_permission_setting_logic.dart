@@ -8,7 +8,7 @@ class FriendPermissionSettingLogic extends GetxController {
   changeMoments() async {
     await LoadingView.singleton.start(
       fn: () async {
-        await Apis.blockMoment(
+        await ClientApis.blockMoment(
             userID: userID.value, operation: seeMomentPermission.value ? 1 : 0);
         seeMomentPermission.value = !seeMomentPermission.value;
       },
@@ -24,7 +24,7 @@ class FriendPermissionSettingLogic extends GetxController {
 
   queryMomentPermission() async {
     await LoadingView.singleton.start(fn: () async {
-      final result = await Apis.getBlockMoment(
+      final result = await ClientApis.getBlockMoment(
         userID: userID.value,
       );
       seeMomentPermission.value = result["blocked"] == 1 ? false : true;

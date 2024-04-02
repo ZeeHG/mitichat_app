@@ -45,7 +45,7 @@ class ChangePwdLogic extends GetxController {
     }
 
     final result = await LoadingView.singleton.start(
-      fn: () => Apis.changePassword(
+      fn: () => ClientApis.changePassword(
         userID: OpenIM.iMManager.userID,
         newPassword: newPwdCtrl.text,
         currentPassword: oldPwdCtrl.text,

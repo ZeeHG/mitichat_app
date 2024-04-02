@@ -15,7 +15,7 @@ class ChatHintTextView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bridge = PackageBridge.viewUserProfileBridge;
+    final bridge = MitiBridge.viewUserProfileBridge;
     final groupID = message.groupID;
     final elem = message.notificationElem!;
     final map = json.decode(elem.detail!);

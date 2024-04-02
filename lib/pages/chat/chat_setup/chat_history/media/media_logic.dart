@@ -38,7 +38,9 @@ class ChatHistoryMediaLogic extends GetxController {
       }
     } finally {
       refreshController.refreshCompleted();
-      messageList.length < pageIndex * pageSize? refreshController.loadNoData(): refreshController.loadComplete();
+      messageList.length < pageIndex * pageSize
+          ? refreshController.loadNoData()
+          : refreshController.loadComplete();
     }
   }
 
@@ -78,7 +80,7 @@ class ChatHistoryMediaLogic extends GetxController {
 
   String getSnapshotUrl(Message message) {
     return isPicture
-        ? message.pictureElem!.sourcePicture!.url!.thumbnailAbsoluteString
-        : message.videoElem!.snapshotUrl!.thumbnailAbsoluteString;
+        ? message.pictureElem!.sourcePicture!.url!.thumbnailUrl
+        : message.videoElem!.snapshotUrl!.thumbnailUrl;
   }
 }

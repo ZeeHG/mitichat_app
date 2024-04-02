@@ -38,8 +38,7 @@ enum SelAction {
   notificationIssued,
 }
 
-class SelectContactsLogic extends GetxController
-    implements OrganizationMultiSelBridge {
+class SelectContactsLogic extends GetxController {
   final checkedList = <String, dynamic>{}.obs; // 已经选中的
   final defaultCheckedIDList = <String>{}.obs; // 默认选中，且不能修改
   List<String>? excludeIDList; // 剔除某些数据
@@ -63,14 +62,14 @@ class SelectContactsLogic extends GetxController
     openSelectedSheet = Get.arguments['openSelectedSheet'];
     ex = Get.arguments['ex'];
     selectFromFriend = Get.arguments['selectFromFriend'];
-    PackageBridge.organizationBridge = this;
+    // MitiBridge.organizationBridge = this;
     super.onInit();
   }
 
   @override
   void onClose() {
     inputCtrl.dispose();
-    PackageBridge.organizationBridge = null;
+    // MitiBridge.organizationBridge = null;
     super.onClose();
   }
 
@@ -84,7 +83,7 @@ class SelectContactsLogic extends GetxController
     super.onReady();
   }
 
-  @override
+  // @override
   bool get isMultiModel => action != SelAction.carte;
 
   /// 隐藏群
@@ -172,22 +171,22 @@ class SelectContactsLogic extends GetxController
     }
   }
 
-  @override
+  // @override
   bool isChecked(info) => checkedList.containsKey(parseID(info));
 
-  @override
+  // @override
   bool isDefaultChecked(info) => defaultCheckedIDList.contains(parseID(info));
 
-  @override
+  // @override
   Function()? onTap(dynamic info) =>
       isDefaultChecked(info) ? null : () => toggleChecked(info);
 
-  @override
+  // @override
   removeItem(dynamic info) {
     checkedList.remove(parseID(info));
   }
 
-  @override
+  // @override
   toggleChecked(dynamic info) {
     if (isMultiModel) {
       final key = parseID(info);
@@ -202,7 +201,7 @@ class SelectContactsLogic extends GetxController
   }
 
   /// 邀请群成员，标记已入群的人员
-  @override
+  // @override
   updateDefaultCheckedList(List<String> userIDList) async {
     if (groupID != null) {
       var list = await OpenIM.iMManager.groupManager.getGroupMembersInfo(
@@ -279,7 +278,7 @@ class SelectContactsLogic extends GetxController
         });
       }
     } else {
-      Get.back(result: checkedList.value);
+      Get.back(result: checkedList);
     }
   }
 
@@ -297,7 +296,7 @@ class SelectContactsLogic extends GetxController
   bool get enabledConfirmButton =>
       checkedList.isNotEmpty || action == SelAction.remindWhoToWatch;
 
-  @override
+  // @override
   Widget get checkedConfirmView =>
       isMultiModel ? CheckedConfirmView() : const SizedBox();
 }

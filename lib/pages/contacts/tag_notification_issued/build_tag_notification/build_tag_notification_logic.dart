@@ -46,7 +46,7 @@
 //     }
 //     final map = buildApiParams();
 //     await LoadingView.singleton.start(
-//       fn: () => Apis.sendTagNotification(
+//       fn: () => ClientApis.sendTagNotification(
 //         textElem: TextElem(content: content),
 //         tagIDList: map['tagIDList'] ?? [],
 //         userIDList: map['userIDList'] ?? [],
@@ -70,7 +70,7 @@
 //       }
 //       if (null != url) {
 //         final map = buildApiParams();
-//         await Apis.sendTagNotification(
+//         await ClientApis.sendTagNotification(
 //           soundElem: SoundElem(
 //             uuid: const Uuid().v4(),
 //             sourceUrl: url,

@@ -51,7 +51,7 @@ class MitiLiveClient implements RTCBridge {
   static final MitiLiveClient singleton = MitiLiveClient._();
 
   factory MitiLiveClient() {
-    PackageBridge.rtcBridge = singleton;
+    MitiBridge.rtcBridge = singleton;
     return singleton;
   }
 

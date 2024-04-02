@@ -29,7 +29,7 @@ class DeleteUserLogic extends GetxController {
       mineLogic.kickedSub.cancel();
       try {
         await LoadingView.singleton.start(
-          fn: () => Apis.deleteUser(password: pwdCtrl.text.trim()),
+          fn: () => ClientApis.deleteUser(password: pwdCtrl.text.trim()),
         );
         success.value = true;
       } catch (e) {

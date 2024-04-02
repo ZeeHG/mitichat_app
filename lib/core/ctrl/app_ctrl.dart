@@ -31,9 +31,9 @@ class AppCtrl extends SuperController {
           requestBadgePermission: false,
           requestSoundPermission: true);
 
-  // MeetingBridge? meetingBridge = PackageBridge.meetingBridge;
+  // MeetingBridge? meetingBridge = MitiBridge.meetingBridge;
 
-  RTCBridge? rtcBridge = PackageBridge.rtcBridge;
+  RTCBridge? rtcBridge = MitiBridge.rtcBridge;
 
   // bool get shouldMuted =>
   //     meetingBridge?.hasConnection == true || rtcBridge?.hasConnection == true;
@@ -462,7 +462,7 @@ class AppCtrl extends SuperController {
     };
     Map<String, dynamic> map = defaultConfig;
     try {
-      map = await Apis.getClientConfig();
+      map = await ClientApis.getClientConfig();
     } catch (e, s) {
       myLogger.e({
         "message": "获取客户端配置异常, 使用默认配置",

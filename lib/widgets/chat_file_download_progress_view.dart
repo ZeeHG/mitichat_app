@@ -8,7 +8,7 @@ import 'package:miti_common/miti_common.dart';
 class ChatFileDownloadProgressView extends StatelessWidget {
   ChatFileDownloadProgressView(this.message, {super.key});
   final Message message;
-  final ctrl = Get.find<DownloadController>();
+  final ctrl = Get.find<DownloadCtrl>();
 
   @override
   Widget build(BuildContext context) {

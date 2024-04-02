@@ -62,10 +62,9 @@ class PublishLogic extends GetxController {
     }
   }
 
-  WorkingCircleBridge? get bridge => PackageBridge.workingCircleBridge;
+  FriendCircleBridge? get bridge => MitiBridge.friendCircleBridge;
 
-  SelectContactsBridge? get contactsBridge =>
-      PackageBridge.selectContactsBridge;
+  SelectContactsBridge? get contactsBridge => MitiBridge.selectContactsBridge;
 
   @override
   void onClose() {

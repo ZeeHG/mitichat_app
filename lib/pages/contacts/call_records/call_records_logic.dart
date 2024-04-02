@@ -6,13 +6,13 @@
 // import '../../../core/ctrl/im_ctrl.dart';
 
 // class CallRecordsLogic extends GetxController {
-//   final cacheLogic = Get.find<CacheController>();
+//   final cacheLogic = Get.find<HiveCtrl>();
 //   final imCtrl = Get.find<IMCtrl>();
 //   // final meetingInfoList = <MeetingInfo>[].obs;
 //   final nicknameMapping = <String, String>{}.obs;
 //   final index = 0.obs;
-//   // final rtcIsBusy = PackageBridge.rtcBridge?.hasConnection == true || PackageBridge.meetingBridge?.hasConnection == true;
-//   final rtcIsBusy = PackageBridge.rtcBridge?.hasConnection == true;
+//   // final rtcIsBusy = MitiBridge.rtcBridge?.hasConnection == true || MitiBridge.meetingBridge?.hasConnection == true;
+//   final rtcIsBusy = MitiBridge.rtcBridge?.hasConnection == true;
 
 //   @override
 //   void onInit() {

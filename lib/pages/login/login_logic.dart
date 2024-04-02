@@ -253,7 +253,7 @@ class LoginLogic extends GetxController {
     try {
       final password = MitiUtils.emptyStrToNull(pwdCtrl.text);
       final code = MitiUtils.emptyStrToNull(verificationCodeCtrl.text);
-      final data = await Apis.login(
+      final data = await ClientApis.login(
         areaCode: areaCode.value,
         phoneNumber: phone,
         email: email,
@@ -269,7 +269,7 @@ class LoginLogic extends GetxController {
       await DataSp.putLoginCertificate(data);
       await DataSp.putMainLoginAccount(account);
       await imCtrl.login(data.userID, data.imToken);
-      Get.find<CacheController>().resetCache();
+      Get.find<HiveCtrl>().resetCache();
       await setAccountLoginInfo(
           userID: data.userID,
           imToken: data.imToken,
@@ -314,7 +314,7 @@ class LoginLogic extends GetxController {
     }
 
     return await LoadingView.singleton.start(
-        fn: () => Apis.requestVerificationCode(
+        fn: () => ClientApis.requestVerificationCode(
               areaCode: areaCode.value,
               phoneNumber: phone,
               email: email,

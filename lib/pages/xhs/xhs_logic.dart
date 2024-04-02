@@ -162,7 +162,7 @@ class XhsLogic extends GetxController {
 
   void startXhsMomentDetail(WorkMoments xhsMoment) {
     AppNavigator.startXhsMomentDetail(xhsMoment: xhsMoment);
-    Apis.addActionRecord(actionRecordList: [
+    ClientApis.addActionRecord(actionRecordList: [
       ActionRecord(
           category: ActionCategory.discover,
           actionName: ActionName.read,
@@ -200,9 +200,9 @@ class XhsLogic extends GetxController {
   int get activeCategoryIndex =>
       categoryList.indexWhere((e) => e.value == activeCategory.value.value);
 
-  ViewUserProfileBridge? get bridge => PackageBridge.viewUserProfileBridge;
+  ViewUserProfileBridge? get bridge => MitiBridge.viewUserProfileBridge;
 
-  // WorkingCircleBridge? get wcBridge => PackageBridge.workingCircleBridge;
+  // FriendCircleBridge? get wcBridge => MitiBridge.friendCircleBridge;
 
   bool get isMyself => userID == OpenIM.iMManager.userID || userID == null;
 
@@ -298,7 +298,7 @@ class XhsLogic extends GetxController {
     }
   }
 
-  Future<WorkMomentsList> _request(int pageNo) => userID == null
+  Future<FriendMomentsList> _request(int pageNo) => userID == null
       ? WApis.getMomentsList(
           pageNumber: pageNo,
           showNumber: pageSize,
@@ -357,7 +357,7 @@ class XhsLogic extends GetxController {
     hiddenLikeCommentPopMenu();
     final workMomentID = moments.workMomentID!;
     if (!iIsLiked(moments)) {
-      Apis.addActionRecord(actionRecordList: [
+      ClientApis.addActionRecord(actionRecordList: [
         ActionRecord(
             category: ActionCategory.discover,
             actionName: ActionName.click_like,

@@ -7,7 +7,7 @@ class WhoCanWatchLogic extends GetxController {
   final checkedVisibleList = <dynamic>[].obs;
   final checkedInvisibleList = <dynamic>[].obs;
 
-  SelectContactsBridge? get bridge => PackageBridge.selectContactsBridge;
+  SelectContactsBridge? get bridge => MitiBridge.selectContactsBridge;
 
   @override
   void onInit() {

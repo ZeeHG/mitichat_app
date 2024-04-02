@@ -60,7 +60,7 @@ class SearchAddContactsLogic extends GetxController {
 
   void searchUser() async {
     var list = await LoadingView.singleton.start(
-      fn: () => Apis.searchUserFullInfo(
+      fn: () => ClientApis.searchUserFullInfo(
         content: searchKey,
         pageNumber: pageNo = 1,
         showNumber: 20,
@@ -82,7 +82,7 @@ class SearchAddContactsLogic extends GetxController {
 
   void loadMoreUser() async {
     var list = await LoadingView.singleton.start(
-      fn: () => Apis.searchUserFullInfo(
+      fn: () => ClientApis.searchUserFullInfo(
         content: searchKey,
         pageNumber: ++pageNo,
         showNumber: 20,

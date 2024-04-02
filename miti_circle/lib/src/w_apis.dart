@@ -76,7 +76,7 @@ class WApis {
 
     return HttpUtil.post(
       WUrls.createMoments,
-      options: Apis.chatTokenOptions,
+      options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{
         "content": {
           "metas": metasUrl,
@@ -103,7 +103,7 @@ class WApis {
   }) {
     return HttpUtil.post(
       WUrls.deleteMoments,
-      options: Apis.chatTokenOptions,
+      options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{'workMomentID': workMomentID},
     );
   }
@@ -115,7 +115,7 @@ class WApis {
   }) async {
     final result = await HttpUtil.post(
       WUrls.getMomentsDetail,
-      options: Apis.chatTokenOptions,
+      options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{
         'workMomentID': workMomentID,
         'momentType': momentType
@@ -125,23 +125,23 @@ class WApis {
   }
 
   /// 获取工作圈列表
-  static Future<WorkMomentsList> getMomentsList(
+  static Future<FriendMomentsList> getMomentsList(
       {int pageNumber = 1,
       int showNumber = 20,
       int momentType = 1,
       String category = ""}) {
     return HttpUtil.post(
       WUrls.getMomentsList,
-      options: Apis.chatTokenOptions,
+      options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{
         "pagination": {"pageNumber": pageNumber, "showNumber": showNumber},
         'momentType': momentType,
         "category": category
       },
-    ).then((value) => WorkMomentsList.fromJson(value));
+    ).then((value) => FriendMomentsList.fromJson(value));
   }
 
-  static Future<WorkMomentsList> getUserMomentsList({
+  static Future<FriendMomentsList> getUserMomentsList({
     required String userID,
     int pageNumber = 1,
     int showNumber = 20,
@@ -150,14 +150,14 @@ class WApis {
   }) {
     return HttpUtil.post(
       WUrls.getUserMomentsList,
-      options: Apis.chatTokenOptions,
+      options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{
         "userID": userID,
         "pagination": {"pageNumber": pageNumber, "showNumber": showNumber},
         'momentType': momentType,
         "category": category
       },
-    ).then((value) => WorkMomentsList.fromJson(value));
+    ).then((value) => FriendMomentsList.fromJson(value));
   }
 
   /// 点赞工作圈
@@ -167,7 +167,7 @@ class WApis {
   }) {
     return HttpUtil.post(
       WUrls.likeMoments,
-      options: Apis.chatTokenOptions,
+      options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{'workMomentID': workMomentID, "like": like},
     );
   }
@@ -180,7 +180,7 @@ class WApis {
   }) {
     return HttpUtil.post(
       WUrls.commentMoments,
-      options: Apis.chatTokenOptions,
+      options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{
         'workMomentID': workMomentID,
         'replyUserID': replyUserID ?? '',
@@ -196,7 +196,7 @@ class WApis {
   }) {
     return HttpUtil.post(
       WUrls.deleteComment,
-      options: Apis.chatTokenOptions,
+      options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{
         'workMomentID': workMomentID,
         'commentID': commentID
@@ -212,7 +212,7 @@ class WApis {
   }) async {
     final result = await HttpUtil.post(
       WUrls.getInteractiveLogs,
-      options: Apis.chatTokenOptions,
+      options: ClientApis.chatTokenOptions,
       data: <String, dynamic>{
         "pagination": {"pageNumber": pageNumber, "showNumber": showNumber},
         'momentType': momentType
@@ -230,7 +230,7 @@ class WApis {
   }) =>
       HttpUtil.post(
         WUrls.clearUnreadCount,
-        options: Apis.chatTokenOptions,
+        options: ClientApis.chatTokenOptions,
         data: <String, dynamic>{"type": type, 'momentType': momentType},
       );
 
@@ -240,7 +240,7 @@ class WApis {
     final result = await HttpUtil.post(
       WUrls.getUnreadCount,
       data: {'momentType': momentType},
-      options: Apis.chatTokenOptions,
+      options: ClientApis.chatTokenOptions,
     );
     return result['total'] ?? 0;
   }

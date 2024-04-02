@@ -197,7 +197,7 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
 
   // im+server整合信息
   Future<void> queryMyFullInfo() async {
-    final data = await Apis.queryMyFullInfo();
+    final data = await ClientApis.queryMyFullInfo();
     if (data is UserFullInfo) {
       userInfo.update((val) {
         val?.allowAddFriend = data.allowAddFriend;

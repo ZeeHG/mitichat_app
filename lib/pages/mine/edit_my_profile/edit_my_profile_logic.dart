@@ -42,7 +42,7 @@ class EditMyProfileLogic extends GetxController {
     final value = inputCtrl.text.trim();
     if (editKey == EditAttr.nickname) {
       await LoadingView.singleton.start(
-        fn: () => Apis.updateUserInfo(
+        fn: () => ClientApis.updateUserInfo(
           userID: OpenIM.iMManager.userID,
           nickname: value,
         ),

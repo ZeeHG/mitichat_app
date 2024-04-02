@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-class ApiResp {
+class ApiResponse {
   int errCode;
   String errMsg;
   String errDlt;
   dynamic data;
 
-  ApiResp.fromJson(Map<String, dynamic> map)
+  ApiResponse.fromJson(Map<String, dynamic> map)
       : errCode = map["errCode"] ?? -1,
         errMsg = map["errMsg"] ?? '',
         errDlt = map["errDlt"] ?? '',
@@ -55,5 +55,27 @@ class ApiError {
     '50004': '未知错误',
     '50005': '创建错误',
   };
-  static const _errorEN = {};
+  static const _errorEN = {
+    '10001': 'Request parameter error',
+    '10002': 'Database error',
+    '10003': 'Server error',
+    '10006': 'Record does not exist',
+    '20001': 'Account already registered',
+    '20002': 'Duplicate verification code sent',
+    '20003': 'Invitation code is incorrect',
+    '20004': 'Registration IP restricted',
+    '30001': 'Verification code incorrect',
+    '30002': 'Verification code expired',
+    '30003': 'Invitation code used',
+    '30004': 'Invitation code does not exist',
+    '40001': 'Account not registered',
+    '40002': 'Password incorrect',
+    '40003': 'Login restricted by IP',
+    '40004': 'IP banned from registering or logging in',
+    '50001': 'Expired',
+    '50002': 'Format error',
+    '50003': 'Not effective',
+    '50004': 'Unknown error',
+    '50005': 'Creation error',
+  };
 }

@@ -1,14 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:rxdart/rxdart.dart';
 
-class PackageBridge {
-  PackageBridge._();
+class MitiBridge {
+  MitiBridge._();
 
   static SelectContactsBridge? selectContactsBridge;
   static ViewUserProfileBridge? viewUserProfileBridge;
-  static OrganizationMultiSelBridge? organizationBridge;
-  static WorkingCircleBridge? workingCircleBridge;
+  // static OrganizationMultiSelBridge? organizationBridge;
+  static FriendCircleBridge? friendCircleBridge;
   static ScanBridge? scanBridge;
   // static MeetingBridge? meetingBridge;
   static RTCBridge? rtcBridge;
@@ -20,23 +19,23 @@ abstract class ScanBridge {
   scanOutGroupID(String groupID);
 }
 
-abstract class OrganizationMultiSelBridge {
-  Widget get checkedConfirmView;
+// abstract class OrganizationMultiSelBridge {
+//   Widget get checkedConfirmView;
 
-  bool get isMultiModel;
+//   bool get isMultiModel;
 
-  bool isChecked(dynamic info);
+//   bool isChecked(dynamic info);
 
-  bool isDefaultChecked(dynamic info);
+//   bool isDefaultChecked(dynamic info);
 
-  Function()? onTap(dynamic info);
+//   Function()? onTap(dynamic info);
 
-  toggleChecked(dynamic info);
+//   toggleChecked(dynamic info);
 
-  removeItem(dynamic info);
+//   removeItem(dynamic info);
 
-  updateDefaultCheckedList(List<String> userIDList);
-}
+//   updateDefaultCheckedList(List<String> userIDList);
+// }
 
 abstract class ViewUserProfileBridge {
   viewUserProfile(
@@ -60,7 +59,7 @@ abstract class SelectContactsBridge {
   });
 }
 
-abstract class WorkingCircleBridge {
+abstract class FriendCircleBridge {
   Function(WorkMomentsNotification notification)?
       onRecvNewMessageForWorkingCircle;
 

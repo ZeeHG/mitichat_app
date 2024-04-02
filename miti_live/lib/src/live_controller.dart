@@ -591,7 +591,7 @@ mixin MitiLive {
         (await OpenIM.iMManager.userManager.getUsersInfo(userIDList: [userID]))
             .firstOrNull;
     if (null == userInfo) return;
-    final cache = Get.find<CacheController>();
+    final cache = Get.find<HiveCtrl>();
     cache.addCallRecords(CallRecords(
       userID: userID,
       nickname: userInfo.nickname,

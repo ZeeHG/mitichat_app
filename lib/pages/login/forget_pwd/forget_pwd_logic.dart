@@ -66,7 +66,7 @@ class ForgetPwdLogic extends GetxController {
     }
 
     final success = await LoadingView.singleton.start(
-        fn: () => Apis.requestVerificationCode(
+        fn: () => ClientApis.requestVerificationCode(
               areaCode: areaCode.value,
               phoneNumber: phone,
               email: email,
@@ -76,7 +76,7 @@ class ForgetPwdLogic extends GetxController {
   }
 
   checkVerificationCode() => LoadingView.singleton.start(
-      fn: () => Apis.checkVerificationCode(
+      fn: () => ClientApis.checkVerificationCode(
             areaCode: areaCode.value,
             phoneNumber: phone,
             email: email,

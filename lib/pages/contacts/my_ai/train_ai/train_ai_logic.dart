@@ -51,9 +51,9 @@ class TrainAiLogic extends GetxController {
 
   void getBotKnowledgebases() {
     LoadingView.singleton.start(fn: () async {
-      final knowledgebases =
-          (await Apis.getBotKnowledgebases(botID: ai.value.botID))["data"] ??
-              [];
+      final knowledgebases = (await ClientApis.getBotKnowledgebases(
+              botID: ai.value.botID))["data"] ??
+          [];
       knowledgebaseList.value = knowledgebases
           .map((e) => Knowledgebase.fromJson({
                 "key": e["knowledgebaseID"],
@@ -71,7 +71,7 @@ class TrainAiLogic extends GetxController {
 
   void train() async {
     await LoadingView.singleton.start(fn: () async {
-      await Apis.addKnowledge(
+      await ClientApis.addKnowledge(
           knowledgebaseID: selectedKnowledgebase.value!.knowledgebaseID,
           text: text.value,
           filePathList: files);

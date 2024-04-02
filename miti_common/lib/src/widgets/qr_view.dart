@@ -213,11 +213,11 @@ class _QrcodeViewState extends State<QrcodeView> with TickerProviderStateMixin {
       controller.stop();
       if (result.startsWith(Config.friendScheme)) {
         var userID = result.substring(Config.friendScheme.length);
-        PackageBridge.scanBridge?.scanOutUserID(userID);
+        MitiBridge.scanBridge?.scanOutUserID(userID);
         // AppNavigator.startFriendInfoFromScan(info: UserInfo(userID: uid));
       } else if (result.startsWith(Config.groupScheme)) {
         var groupID = result.substring(Config.groupScheme.length);
-        PackageBridge.scanBridge?.scanOutGroupID(groupID);
+        MitiBridge.scanBridge?.scanOutGroupID(groupID);
         // AppNavigator.startSearchAddGroupFromScan(info: GroupInfo(groupID: gid));
       } else if (MitiUtils.isUrlValid(result)) {
         final uri = Uri.parse(Uri.encodeFull(result));

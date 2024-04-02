@@ -138,7 +138,7 @@ class RegisterLogic extends GetxController {
     if (null != code) areaCode.value = code;
   }
 
-  Future<bool> requestVerificationCode() => Apis.requestVerificationCode(
+  Future<bool> requestVerificationCode() => ClientApis.requestVerificationCode(
         areaCode: areaCodeValue,
         phoneNumber: phone,
         email: email,
@@ -195,7 +195,7 @@ class RegisterLogic extends GetxController {
     if (checkInput()) {
       await LoadingView.singleton.start(fn: () async {
         if (!isAddAccount.value) {
-          final data = await Apis.register(
+          final data = await ClientApis.register(
             nickname: nickname,
             areaCode: areaCodeValue,
             phoneNumber: phone,

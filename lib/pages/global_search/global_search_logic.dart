@@ -209,7 +209,7 @@ abstract class CommonSearchLogic extends GetxController {
   }
 
   Future<List<FriendInfo>> searchFriend() =>
-      Apis.searchFriendInfo(searchCtrl.text.trim()).then(
+      ClientApis.searchFriendInfo(searchCtrl.text.trim()).then(
           (list) => list.map((e) => FriendInfo.fromJson(e.toJson())).toList());
 
   Future<List<GroupInfo>> searchGroup() =>

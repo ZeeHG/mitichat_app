@@ -36,9 +36,9 @@ class XhsMomentDetailLogic extends GetxController {
 
   String? replyUserID;
 
-  ViewUserProfileBridge? get bridge => PackageBridge.viewUserProfileBridge;
+  ViewUserProfileBridge? get bridge => MitiBridge.viewUserProfileBridge;
 
-  WorkingCircleBridge? get wcBridge => PackageBridge.workingCircleBridge;
+  FriendCircleBridge? get wcBridge => MitiBridge.friendCircleBridge;
 
   List<Comments> get comments => xhsMomentList[0].comments ?? [];
 
@@ -59,7 +59,7 @@ class XhsMomentDetailLogic extends GetxController {
   likeMoments() async {
     final workMomentID = xhsMomentList[0].workMomentID!;
     if (!iIsLiked) {
-      Apis.addActionRecord(actionRecordList: [
+      ClientApis.addActionRecord(actionRecordList: [
         ActionRecord(
             category: ActionCategory.discover,
             actionName: ActionName.click_like,
@@ -78,7 +78,7 @@ class XhsMomentDetailLogic extends GetxController {
     final url = xhsMomentList[0]?.content?.originLink;
     if (null != url && url.isNotEmpty) {
       if (await canLaunchUrl(Uri.parse(url))) {
-        Apis.addActionRecord(actionRecordList: [
+        ClientApis.addActionRecord(actionRecordList: [
           ActionRecord(
               category: ActionCategory.discover,
               actionName: ActionName.read_origin,
@@ -100,7 +100,7 @@ class XhsMomentDetailLogic extends GetxController {
   submitComment() async {
     final text = inputCtrl.text.trim();
     if (text.isNotEmpty) {
-      Apis.addActionRecord(actionRecordList: [
+      ClientApis.addActionRecord(actionRecordList: [
         ActionRecord(
             category: ActionCategory.discover,
             actionName: ActionName.publish_comment,
@@ -126,7 +126,7 @@ class XhsMomentDetailLogic extends GetxController {
 
   /// 评论朋友圈
   commentMoments() async {
-    Apis.addActionRecord(actionRecordList: [
+    ClientApis.addActionRecord(actionRecordList: [
       ActionRecord(
           category: ActionCategory.discover,
           actionName: ActionName.click_comment,
@@ -138,7 +138,7 @@ class XhsMomentDetailLogic extends GetxController {
 
   /// 回复评论
   replyComment(Comments comments) async {
-    Apis.addActionRecord(actionRecordList: [
+    ClientApis.addActionRecord(actionRecordList: [
       ActionRecord(
           category: ActionCategory.discover,
           actionName: ActionName.click_comment,

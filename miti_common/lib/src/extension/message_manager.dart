@@ -46,23 +46,23 @@ extension MessageManagerExt on MessageManager {
 
   /// 根据tag下发通知
   /// 包含语音内容或文字内容
-  Future<Message> createTagMessage({
-    String? url,
-    int? duration,
-    String? text,
-  }) =>
-      createCustomMessage(
-        data: json.encode({
-          "customType": CustomMessageType.tag,
-          "data": {
-            'url': url,
-            'duration': duration,
-            'text': text,
-          },
-        }),
-        extension: '',
-        description: '',
-      );
+  // Future<Message> createTagMessage({
+  //   String? url,
+  //   int? duration,
+  //   String? text,
+  // }) =>
+  //     createCustomMessage(
+  //       data: json.encode({
+  //         "customType": CustomMessageType.tag,
+  //         "data": {
+  //           'url': url,
+  //           'duration': duration,
+  //           'text': text,
+  //         },
+  //       }),
+  //       extension: '',
+  //       description: '',
+  //     );
 
   /// 视频会议
   // Future<Message> createMeetingMessage({

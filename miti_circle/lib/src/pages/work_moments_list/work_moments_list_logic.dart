@@ -167,9 +167,9 @@ class WorkMomentsListLogic extends GetxController {
   late String faceURL;
   StreamSubscription? opEventSub;
 
-  ViewUserProfileBridge? get bridge => PackageBridge.viewUserProfileBridge;
+  ViewUserProfileBridge? get bridge => MitiBridge.viewUserProfileBridge;
 
-  WorkingCircleBridge? get wcBridge => PackageBridge.workingCircleBridge;
+  FriendCircleBridge? get wcBridge => MitiBridge.friendCircleBridge;
 
   bool get isMyself => userID == OpenIM.iMManager.userID || userID == null;
 
@@ -228,7 +228,7 @@ class WorkMomentsListLogic extends GetxController {
     }
   }
 
-  Future<WorkMomentsList> _request(int pageNo) => userID == null
+  Future<FriendMomentsList> _request(int pageNo) => userID == null
       ? WApis.getMomentsList(pageNumber: pageNo, showNumber: pageSize)
       : WApis.getUserMomentsList(
           userID: userID!,

@@ -39,7 +39,7 @@ class AccountSettingLogic extends GetxController {
     updateUserInfo("allowBeep", allowBeep);
     // // 1关闭 2开启
     // await LoadingView.singleton.start(
-    //   fn: () => Apis.updateUserInfo(
+    //   fn: () => ClientApis.updateUserInfo(
     //     allowBeep: allowBeep,
     //     userID: OpenIM.iMManager.userID,
     //   ),
@@ -54,7 +54,7 @@ class AccountSettingLogic extends GetxController {
     updateUserInfo("allowVibration", allowVibration);
     // // 1关闭 2开启
     // await LoadingView.singleton.start(
-    //   fn: () => Apis.updateUserInfo(
+    //   fn: () => ClientApis.updateUserInfo(
     //     allowVibration: allowVibration,
     //     userID: OpenIM.iMManager.userID,
     //   ),
@@ -69,7 +69,7 @@ class AccountSettingLogic extends GetxController {
     updateUserInfo("allowAddFriend", allowAddFriend);
     // // 1关闭 2开启
     // await LoadingView.singleton.start(
-    //   fn: () => Apis.updateUserInfo(
+    //   fn: () => ClientApis.updateUserInfo(
     //     allowAddFriend: allowAddFriend,
     //     userID: OpenIM.iMManager.userID,
     //   ),
@@ -84,21 +84,21 @@ class AccountSettingLogic extends GetxController {
       fn: () async {
         switch (key) {
           case 'allowAddFriend':
-            await Apis.updateUserInfo(
+            await ClientApis.updateUserInfo(
                 allowAddFriend: value, userID: OpenIM.iMManager.userID);
             imCtrl.userInfo.update((val) {
               val?.allowAddFriend = value;
             });
             break;
           case 'allowVibration':
-            await Apis.updateUserInfo(
+            await ClientApis.updateUserInfo(
                 allowVibration: value, userID: OpenIM.iMManager.userID);
             imCtrl.userInfo.update((val) {
               val?.allowVibration = value;
             });
             break;
           case 'allowBeep':
-            await Apis.updateUserInfo(
+            await ClientApis.updateUserInfo(
                 allowBeep: value, userID: OpenIM.iMManager.userID);
             imCtrl.userInfo.update((val) {
               val?.allowBeep = value;

@@ -121,7 +121,7 @@ class UserProfileLogic extends GetxController {
     final list = await OpenIM.iMManager.userManager.getUsersInfoWithCache(
       [userID],
     );
-    final list2 = await Apis.getUserFullInfo(userIDList: [userID]);
+    final list2 = await ClientApis.getUserFullInfo(userIDList: [userID]);
     final user = list.firstOrNull;
     final fullInfo = list2?.firstOrNull;
 
@@ -235,7 +235,7 @@ class UserProfileLogic extends GetxController {
 
   /// 在线状态
   _queryUserOnlineStatus() {
-    Apis.queryUserOnlineStatus(
+    ClientApis.queryUserOnlineStatus(
       uidList: [userInfo.value.userID!],
       onlineStatusCallback: (map) {
         onlineStatus.value = map[userInfo.value.userID!]!;

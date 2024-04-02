@@ -1,11 +1,11 @@
-class WorkMomentsList {
+class FriendMomentsList {
   List<WorkMoments>? workMoments;
   int? currentPage;
   int? showNumber;
 
-  WorkMomentsList({this.workMoments, this.currentPage, this.showNumber});
+  FriendMomentsList({this.workMoments, this.currentPage, this.showNumber});
 
-  WorkMomentsList.fromJson(Map<String, dynamic> json) {
+  FriendMomentsList.fromJson(Map<String, dynamic> json) {
     if (json['workMoments'] != null) {
       workMoments = <WorkMoments>[];
       json['workMoments'].forEach((v) {

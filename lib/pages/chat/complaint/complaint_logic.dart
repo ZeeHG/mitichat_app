@@ -76,7 +76,7 @@ class ComplaintLogic extends GetxController {
   submit() async {
     if (complaintType.value == ComplaintType.xhs) {
       await LoadingView.singleton.start(fn: () async {
-        await Apis.complainXhs(
+        await ClientApis.complainXhs(
           workMomentID: params["workMomentID"] ?? "",
           content: content.value,
           reason: reasonList,
@@ -85,7 +85,7 @@ class ComplaintLogic extends GetxController {
       });
     } else {
       await LoadingView.singleton.start(fn: () async {
-        await Apis.complain(
+        await ClientApis.complain(
           userID: params["userID"] ?? "",
           content: content.value,
           type: type.value,

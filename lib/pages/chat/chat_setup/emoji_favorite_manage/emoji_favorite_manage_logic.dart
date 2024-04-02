@@ -3,7 +3,7 @@ import 'package:miti_common/miti_common.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class EmojiFavoriteManageLogic extends GetxController {
-  var cacheLogic = Get.find<CacheController>();
+  var cacheLogic = Get.find<HiveCtrl>();
   var isMultiModel = false.obs;
   var selectedList = <String>[].obs;
 

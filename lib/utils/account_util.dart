@@ -33,7 +33,8 @@ class AccountUtil extends GetxController {
 
   Future<bool> checkServerValid({required String serverWithProtocol}) async {
     if (!checkServerWithProtocolValid(serverWithProtocol)) return false;
-    return await Apis.checkServerValid(serverWithProtocol: serverWithProtocol);
+    return await ClientApis.checkServerValid(
+        serverWithProtocol: serverWithProtocol);
   }
 
   Future<void> delAccount(String loginInfoId,
@@ -58,7 +59,7 @@ class AccountUtil extends GetxController {
           imCtrl.reBuildSubject();
         }
         await DataSp.removeLoginCertificate();
-        // Get.find<CacheController>().resetCache();
+        // Get.find<HiveCtrl>().resetCache();
         // OpenIM.iMManager.userID
         pushCtrl.logout();
       }
@@ -140,7 +141,7 @@ class AccountUtil extends GetxController {
     late LoginCertificate data;
     final curServerKey = DataSp.getCurServerKey();
     try {
-      data = await Apis.login(
+      data = await ClientApis.login(
         encryptPwdRequest: encryptPwdRequest,
         areaCode: areaCode,
         phoneNumber: phoneNumber,
@@ -201,7 +202,7 @@ class AccountUtil extends GetxController {
       });
       rethrow;
     }
-    Get.find<CacheController>().resetCache();
+    Get.find<HiveCtrl>().resetCache();
     await setAccountLoginInfo(
         serverWithProtocol: curServerKey,
         userID: data.userID,
@@ -235,7 +236,7 @@ class AccountUtil extends GetxController {
     late LoginCertificate data;
     final curServerKey = DataSp.getCurServerKey();
     try {
-      data = await Apis.register(
+      data = await ClientApis.register(
           nickname: nickname,
           areaCode: areaCode,
           phoneNumber: phoneNumber,
@@ -296,7 +297,7 @@ class AccountUtil extends GetxController {
       });
       rethrow;
     }
-    Get.find<CacheController>().resetCache();
+    Get.find<HiveCtrl>().resetCache();
     await setAccountLoginInfo(
         serverWithProtocol: curServerKey,
         userID: data.userID,

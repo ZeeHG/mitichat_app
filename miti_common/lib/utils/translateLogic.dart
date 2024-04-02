@@ -305,7 +305,7 @@ class TranslateLogic extends GetxController {
       "ex": exJsonStr,
       "groupID": conversation.groupID
     };
-    await Apis.setConversationConfig(conversation: requestConversation);
+    await ClientApis.setConversationConfig(conversation: requestConversation);
     conversation.ex = exJsonStr;
     updateLangConfigLocal(conversation: conversation, data: data, mode: mode);
   }

@@ -18,10 +18,10 @@ import '../../core/im_callback.dart';
 import '../../routes/app_navigator.dart';
 import '../../widgets/screen_lock_error_view.dart';
 
-class HomeLogic extends SuperController with WorkingCircleBridge {
+class HomeLogic extends SuperController with FriendCircleBridge {
   final pushCtrl = Get.find<PushCtrl>();
   final imCtrl = Get.find<IMCtrl>();
-  final cacheLogic = Get.find<CacheController>();
+  final cacheLogic = Get.find<HiveCtrl>();
   final appCtrl = Get.find<AppCtrl>();
   final index = 0.obs;
   final unreadMsgCount = 0.obs;
@@ -43,7 +43,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
   switchTab(dynamic index) {
     this.index.value = index;
     if (index == 1) {
-      Apis.addActionRecord(actionRecordList: [
+      ClientApis.addActionRecord(actionRecordList: [
         ActionRecord(
             category: ActionCategory.discover,
             actionName: ActionName.enter_discover)
@@ -174,7 +174,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
     index.value = Get.arguments['index'] ?? 0;
     _isAutoLogin = Get.arguments['isAutoLogin'];
 
-    PackageBridge.workingCircleBridge = this;
+    MitiBridge.friendCircleBridge = this;
 
     if (_isAutoLogin) {
       WidgetsBinding.instance.addPostFrameCallback((_) => _showLockScreenPwd());
@@ -207,7 +207,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
     cacheLogic.initCallRecords();
     cacheLogic.initFavoriteEmoji();
     Future.delayed(Duration(milliseconds: 500), () {
-      PackageBridge.workingCircleBridge = this;
+      MitiBridge.friendCircleBridge = this;
       final contactsLogic = Get.find<ContactsLogic>();
       contactsLogic.initPackageBridge();
     });
@@ -216,7 +216,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
   @override
   void onClose() {
     super.onClose();
-    PackageBridge.workingCircleBridge = null;
+    MitiBridge.friendCircleBridge = null;
     _errorController.close();
   }
 

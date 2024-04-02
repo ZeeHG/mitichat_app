@@ -101,16 +101,16 @@ class ContactsLogic extends GetxController
 
   @override
   void onClose() {
-    PackageBridge.selectContactsBridge = null;
-    PackageBridge.viewUserProfileBridge = null;
-    PackageBridge.scanBridge = null;
+    MitiBridge.selectContactsBridge = null;
+    MitiBridge.viewUserProfileBridge = null;
+    MitiBridge.scanBridge = null;
     super.onClose();
   }
 
   initPackageBridge() {
-    PackageBridge.selectContactsBridge = this;
-    PackageBridge.viewUserProfileBridge = this;
-    PackageBridge.scanBridge = this;
+    MitiBridge.selectContactsBridge = this;
+    MitiBridge.viewUserProfileBridge = this;
+    MitiBridge.scanBridge = this;
   }
 
   _getFriendList() async {

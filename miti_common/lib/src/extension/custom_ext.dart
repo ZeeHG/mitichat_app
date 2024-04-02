@@ -45,16 +45,16 @@ extension StrExt on String {
   }
 
   // 换行留白问题 调用此方法会导致字符串插入​ 导致@消息无法match
-  String fixAutoLines() {
-    return Characters(this).join('\u{200B}');
-  }
+  // String fixAutoLines() {
+  //   return Characters(this).join('\u{200B}');
+  // }
 
-  String get thumbnailAbsoluteString {
+  String get thumbnailUrl {
     final host = split('?').first;
     return '$host?height=250&width=250&type=image';
   }
 
-  String adjustThumbnailAbsoluteString(int size) {
+  String adjustThumbnailUrl(int size) {
     final host = split('?').first;
     return '$host?height=$size&width=$size&type=image';
   }
@@ -89,7 +89,7 @@ class LottieView extends StatelessWidget {
 // ignore: must_be_immutable
 class TextView extends StatelessWidget {
   TextView(
-      {Key? key,
+      {super.key,
       required this.data,
       this.style,
       this.textAlign,
@@ -97,8 +97,7 @@ class TextView extends StatelessWidget {
       this.textScaleFactor,
       this.maxLines,
       this.onTap,
-      this.wordEllipsis = true})
-      : super(key: key);
+      this.wordEllipsis = true});
   final String data;
   TextStyle? style;
   TextAlign? textAlign;
@@ -127,7 +126,7 @@ class TextView extends StatelessWidget {
 // ignore: must_be_immutable
 class ImageView extends StatelessWidget {
   ImageView({
-    Key? key,
+    super.key,
     required this.name,
     this.width,
     this.height,
@@ -136,7 +135,7 @@ class ImageView extends StatelessWidget {
     this.fit,
     this.onTap,
     this.onDoubleTap,
-  }) : super(key: key);
+  });
   final String name;
   double? width;
   double? height;

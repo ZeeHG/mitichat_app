@@ -42,8 +42,8 @@ class ChatLogic extends GetxController {
   final imCtrl = Get.find<IMCtrl>();
   final appCtrl = Get.find<AppCtrl>();
   final conversationLogic = Get.find<ConversationLogic>();
-  final cacheLogic = Get.find<CacheController>();
-  final downloadLogic = Get.find<DownloadController>();
+  final cacheLogic = Get.find<HiveCtrl>();
+  final downloadLogic = Get.find<DownloadCtrl>();
 
   final inputCtrl = TextEditingController();
   final focusNode = FocusNode();
@@ -144,9 +144,9 @@ class ChatLogic extends GetxController {
 
   String? groupOwnerID;
 
-  // MeetingBridge? meetingBridge = PackageBridge.meetingBridge;
+  // MeetingBridge? meetingBridge = MitiBridge.meetingBridge;
 
-  RTCBridge? rtcBridge = PackageBridge.rtcBridge;
+  RTCBridge? rtcBridge = MitiBridge.rtcBridge;
 
   // bool get rtcIsBusy =>
   //     meetingBridge?.hasConnection == true || rtcBridge?.hasConnection == true;
@@ -1438,7 +1438,7 @@ class ChatLogic extends GetxController {
   }
 
   Future<List<Message>> findTranslate(List<Message> messages) async {
-    final result = await Apis.findTranslate(
+    final result = await ClientApis.findTranslate(
         ClientMsgIDs: messages.map((e) => e.clientMsgID!).toList(),
         TargetLang: targetLang);
     List<Message> unFindTranslateMessages = [];
@@ -1528,7 +1528,7 @@ class ChatLogic extends GetxController {
       // if (detectLangIsTarget(origin, targetLang)) return;
       try {
         translateLogic.updateMsgAllTranslate(message, {"status": "loading"});
-        final result = await Apis.translate(
+        final result = await ClientApis.translate(
             userID: userID!,
             ClientMsgID: message.clientMsgID!,
             Query: origin,
@@ -1569,7 +1569,7 @@ class ChatLogic extends GetxController {
     if (null != origin) {
       try {
         ttsLogic.updateMsgAllTts(message, {"status": "loading"});
-        final result = await Apis.tts(url: origin);
+        final result = await ClientApis.tts(url: origin);
         updateMsgTts(
             message: message,
             origin: origin,

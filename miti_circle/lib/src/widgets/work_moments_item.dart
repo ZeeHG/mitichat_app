@@ -63,7 +63,7 @@ class WorkMomentsItem extends StatelessWidget {
       moments.userID == OpenIM.iMManager.userID ||
       c.userID == OpenIM.iMManager.userID;
 
-  ViewUserProfileBridge? get bridge => PackageBridge.viewUserProfileBridge;
+  ViewUserProfileBridge? get bridge => MitiBridge.viewUserProfileBridge;
 
   @override
   Widget build(BuildContext context) {
@@ -363,7 +363,7 @@ class WorkMomentsItem extends StatelessWidget {
                       child: ImageUtil.networkImage(
                           url: MitiUtils.isGif(url!)
                               ? meta.original!
-                              : url.thumbnailAbsoluteString,
+                              : url.thumbnailUrl,
                           fit: BoxFit.cover),
                     ),
                   )
@@ -375,8 +375,7 @@ class WorkMomentsItem extends StatelessWidget {
                         alignment: Alignment.center,
                         children: [
                           ImageUtil.networkImage(
-                              url: url!.thumbnailAbsoluteString,
-                              fit: BoxFit.cover),
+                              url: url!.thumbnailUrl, fit: BoxFit.cover),
                           ImageRes.videoPause.toImage
                             ..width = 40.w
                             ..height = 40.h,
@@ -410,7 +409,7 @@ class WorkMomentsItem extends StatelessWidget {
                     child: ImageUtil.networkImage(
                         url: MitiUtils.isGif(url!)
                             ? meta.original!
-                            : url.thumbnailAbsoluteString,
+                            : url.thumbnailUrl,
                         fit: BoxFit.cover),
                   ),
                 ));
@@ -425,7 +424,7 @@ class WorkMomentsItem extends StatelessWidget {
                     alignment: Alignment.center,
                     children: [
                       ImageUtil.networkImage(
-                          url: url!.thumbnailAbsoluteString, fit: BoxFit.cover),
+                          url: url!.thumbnailUrl, fit: BoxFit.cover),
                       ImageRes.videoPause.toImage
                         ..width = 40.w
                         ..height = 40.h,

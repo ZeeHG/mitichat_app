@@ -21,7 +21,7 @@
 //   }
 
 //   void queryTagGroup() async {
-//     final result = await Apis.getUserTags();
+//     final result = await ClientApis.getUserTags();
 //     tagGroups.assignAll(result.tags ?? []);
 //     refreshCtrl.refreshCompleted();
 //   }
@@ -39,7 +39,7 @@
 //     );
 //     if (result == true) {
 //       await LoadingView.singleton.start(
-//         fn: () => Apis.deleteTag(tagID: tagInfo.tagID!),
+//         fn: () => ClientApis.deleteTag(tagID: tagInfo.tagID!),
 //       );
 //       tagGroups.remove(tagInfo);
 //     }

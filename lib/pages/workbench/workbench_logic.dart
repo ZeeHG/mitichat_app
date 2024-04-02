@@ -35,7 +35,7 @@
 
 //   void refreshList() async {
 //     try {
-//       final list = await Apis.queryUniMPList();
+//       final list = await ClientApis.queryUniMPList();
 //       this.list.assignAll(list.map((e) => e.obs));
 //     } catch (e, s) {
 //       Logger.print('$e $s');
