@@ -6,9 +6,9 @@ import 'package:miti_common/miti_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../../routes/app_navigator.dart';
-import 'multimedia/multimedia_logic.dart';
+import 'media/media_logic.dart';
 
-class SearchChatHistoryLogic extends GetxController {
+class ChatHistoryLogic extends GetxController {
   final refreshController = RefreshController();
   final searchCtrl = TextEditingController();
   final focusNode = FocusNode();
@@ -34,11 +34,11 @@ class SearchChatHistoryLogic extends GetxController {
 
   void clickItem(String item) {
     if (item == StrLibrary.picture) {
-      searchChatHistoryPicture();
+      chatHistoryPicture();
     } else if (item == StrLibrary.video) {
-      searchChatHistoryVideo();
+      chatHistoryVideo();
     } else if (item == StrLibrary.file) {
-      searchChatHistoryFile();
+      chatHistoryFile();
     } else if (item == StrLibrary.groupMember) {
       showDeveloping();
     } else if (item == StrLibrary.link) {
@@ -66,6 +66,8 @@ class SearchChatHistoryLogic extends GetxController {
     searchKey.value = value;
     if (value.trim().isNotEmpty) {
       search();
+    } else {
+      messageList.clear();
     }
   }
 
@@ -97,11 +99,9 @@ class SearchChatHistoryLogic extends GetxController {
         messageList.assignAll(item.messageList!);
       }
     } finally {
-      if (messageList.length < pageIndex * pageSize) {
-        refreshController.loadNoData();
-      } else {
-        refreshController.loadComplete();
-      }
+      messageList.length < pageIndex * pageSize
+          ? refreshController.loadNoData()
+          : refreshController.loadComplete();
     }
   }
 
@@ -115,42 +115,38 @@ class SearchChatHistoryLogic extends GetxController {
         messageTypeList: [MessageType.text, MessageType.atText],
       );
       if (result.totalCount! > 0) {
-        var item = result.searchResultItems!.first;
+        final item = result.searchResultItems!.first;
         messageList.addAll(item.messageList!);
       }
     } finally {
-      if (messageList.length < (pageSize * pageIndex)) {
-        refreshController.loadNoData();
-      } else {
-        refreshController.loadComplete();
-      }
+      messageList.length < (pageSize * pageIndex)
+          ? refreshController.loadNoData()
+          : refreshController.loadComplete();
     }
   }
 
   String calContent(Message message) {
     String content = MitiUtils.parseMsg(message, replaceIdToNickname: true);
     // 左右间距+头像跟名称的间距+头像dax
-    var usedWidth = 16.w * 2 + 10.w + 44.w;
+    final usedWidth = 16.w * 2 + 10.w + 44.w;
     return MitiUtils.calContent(
       content: content,
       key: searchKey.value,
-      style: Styles.ts_333333_17sp,
+      style: Styles.ts_333333_16sp,
       usedWidth: usedWidth,
     );
   }
 
-  void searchChatHistoryPicture() =>
-      AppNavigator.startSearchChatHistoryMultimedia(
+  void chatHistoryPicture() => AppNavigator.startChatHistoryMedia(
         conversationInfo: conversationInfo.value,
       );
 
-  void searchChatHistoryVideo() =>
-      AppNavigator.startSearchChatHistoryMultimedia(
+  void chatHistoryVideo() => AppNavigator.startChatHistoryMedia(
         conversationInfo: conversationInfo.value,
         multimediaType: MultimediaType.video,
       );
 
-  void searchChatHistoryFile() => AppNavigator.startSearchChatHistoryFile(
+  void chatHistoryFile() => AppNavigator.startChatHistoryFile(
         conversationInfo: conversationInfo.value,
       );
 

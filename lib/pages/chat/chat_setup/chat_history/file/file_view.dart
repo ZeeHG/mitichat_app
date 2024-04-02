@@ -27,18 +27,18 @@ class ChatHistoryFilePage extends StatelessWidget {
             child: ListView.builder(
               itemCount: logic.messageList.length,
               itemBuilder: (_, index) =>
-                  _buildItemView(logic.messageList.reversed.elementAt(index)),
+                  _itemView(logic.messageList.reversed.elementAt(index)),
             ),
           )),
     );
   }
 
-  Widget _buildItemView(Message message) => GestureDetector(
+  Widget _itemView(Message message) => GestureDetector(
         onTap: () => logic.viewFile(message),
         behavior: HitTestBehavior.translucent,
         child: Container(
-          height: 76.h,
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          height: 80.h,
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
           color: Styles.c_FFFFFF,
           child: Row(
             children: [
@@ -46,10 +46,7 @@ class ChatHistoryFilePage extends StatelessWidget {
                 message: message,
                 downloadProgressView: ChatFileDownloadProgressView(message),
               ),
-              // MitiUtils.fileIcon(message.fileElem!.fileName!).toImage
-              //   ..width = 38.w
-              //   ..height = 44.h,
-              12.horizontalSpace,
+              10.horizontalSpace,
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,11 +54,8 @@ class ChatHistoryFilePage extends StatelessWidget {
                   children: [
                     TextWithMidEllipsis(
                       message.fileElem!.fileName!,
-                      style: Styles.ts_333333_17sp,
+                      style: Styles.ts_333333_16sp,
                     ),
-                    // message.fileElem!.fileName!.toText
-                    //   ..style = Styles.ts_333333_17sp
-                    //   ..maxLines = 1,
                     Row(
                       children: [
                         MitiUtils.formatBytes(message.fileElem!.fileSize!)

@@ -21,7 +21,7 @@ class GroupManagePage extends StatelessWidget {
       body: Obx(() => Column(
             children: [
               10.verticalSpace,
-              _buildItemView(
+              _itemView(
                 text: StrLibrary.muteAllMember,
                 switchOn: logic.groupInfo.value.status == 3,
                 onChanged: (_) => logic.toggleGroupMute(),
@@ -30,20 +30,20 @@ class GroupManagePage extends StatelessWidget {
                 isBottomRadius: true,
               ),
               10.verticalSpace,
-              _buildItemView(
+              _itemView(
                 text: StrLibrary.notAllowSeeMemberProfile,
                 switchOn: logic.allowLookProfiles,
                 onChanged: (_) => logic.toggleMemberProfiles(),
                 showSwitchButton: true,
                 isTopRadius: true,
               ),
-              _buildItemView(
+              _itemView(
                 text: StrLibrary.notAllAddMemberToBeFriend,
                 switchOn: logic.allowAddFriend,
                 onChanged: (_) => logic.toggleAddMemberToFriend(),
                 showSwitchButton: true,
               ),
-              _buildItemView(
+              _itemView(
                 text: StrLibrary.joinGroupSet,
                 value: logic.joinGroupOption,
                 onTap: logic.modifyJoinGroupSet,
@@ -51,7 +51,7 @@ class GroupManagePage extends StatelessWidget {
                 isBottomRadius: true,
               ),
               10.verticalSpace,
-              _buildItemView(
+              _itemView(
                 text: StrLibrary.transferGroupOwnerRight,
                 onTap: logic.transferGroupOwnerRight,
                 showRightArrow: true,
@@ -63,7 +63,7 @@ class GroupManagePage extends StatelessWidget {
     );
   }
 
-  Widget _buildItemView({
+  Widget _itemView({
     required String text,
     TextStyle? textStyle,
     String? value,
@@ -94,7 +94,7 @@ class GroupManagePage extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: text.toText..style = textStyle ?? Styles.ts_333333_17sp,
+                child: text.toText..style = textStyle ?? Styles.ts_333333_16sp,
               ),
               if (null != value)
                 ConstrainedBox(

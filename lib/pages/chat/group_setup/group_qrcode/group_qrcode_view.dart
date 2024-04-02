@@ -20,16 +20,16 @@ class GroupQrcodePage extends StatelessWidget {
         body: Container(
           alignment: Alignment.topCenter,
           child: Container(
-            margin: EdgeInsets.only(top: 22.h),
-            padding: EdgeInsets.symmetric(horizontal: 30.w),
-            width: 331.w,
-            height: 460.h,
+            margin: EdgeInsets.only(top: 20.h),
+            padding: EdgeInsets.symmetric(horizontal: 32.w),
+            width: 311.w,
+            height: 420.h,
             decoration: BoxDecoration(
               color: Styles.c_FFFFFF,
-              borderRadius: BorderRadius.circular(10.r),
+              borderRadius: BorderRadius.circular(12.r),
               boxShadow: [
                 BoxShadow(
-                  blurRadius: 7.r,
+                  blurRadius: 8.r,
                   spreadRadius: 1.r,
                   color: Styles.c_000000.withOpacity(.08),
                 ),
@@ -38,7 +38,7 @@ class GroupQrcodePage extends StatelessWidget {
             child: Stack(
               children: [
                 Positioned(
-                  top: 30.h,
+                  top: 32.h,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -63,15 +63,15 @@ class GroupQrcodePage extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: 140.h,
-                  width: 272.w,
+                  top: 120.h,
+                  width: 247.w,
                   child: StrLibrary.groupQrcodeHint.toText
                     ..style = Styles.ts_999999_15sp
                     ..textAlign = TextAlign.center,
                 ),
                 Positioned(
-                  top: 183.h,
-                  width: 272.w,
+                  top: 160.h,
+                  width: 247.w,
                   child: Container(
                     alignment: Alignment.center,
                     child: Container(

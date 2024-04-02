@@ -66,8 +66,8 @@ class SetMuteForGroupMemberLogic extends GetxController {
         userID: userID,
         seconds: seconds,
       );
+      showToast(StrLibrary.setSuccessfully);
+      Get.back();
     });
-    showToast(StrLibrary.setSuccessfully);
-    Get.back();
   }
 }

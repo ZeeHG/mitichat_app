@@ -20,12 +20,12 @@ class GroupSetupPage extends StatelessWidget {
           body: Obx(() => SingleChildScrollView(
                 child: Column(
                   children: [
-                    if (logic.isJoinedGroup.value) _buildBaseInfoView(),
-                    if (logic.isJoinedGroup.value) _buildMemberView(),
+                    if (logic.isJoinedGroup.value) _baseInfoView(),
+                    if (logic.isJoinedGroup.value) _memberView(),
                     15.verticalSpace,
                     // _buildContentSearchView(),
                     // 群聊名称
-                    _buildItemView(
+                    _itemView(
                       text: StrLibrary.groupName,
                       value: logic.groupInfo.value.groupName,
                       showRightArrow: true,
@@ -34,13 +34,13 @@ class GroupSetupPage extends StatelessWidget {
                           logic.isOwnerOrAdmin ? logic.modifyGroupName : null,
                     ),
                     // 群二维码
-                    _buildItemView(
+                    _itemView(
                       text: StrLibrary.groupQrcode,
                       showRightArrow: true,
                       showBorder: true,
                       onTap: logic.viewGroupQrcode,
                     ),
-                    _buildItemView(
+                    _itemView(
                       text: StrLibrary.groupAc,
                       showRightArrow: true,
                       showBorder: true,
@@ -48,54 +48,39 @@ class GroupSetupPage extends StatelessWidget {
                       onTap: logic.editGroupAnnouncement,
                     ),
                     if (logic.isOwner)
-                      _buildItemView(
+                      _itemView(
                         text: StrLibrary.groupManage,
                         showRightArrow: true,
                         showBorder: true,
                         isBottomRadius: true,
                         onTap: logic.groupManage,
                       ),
-                    // 备注
-                    // _buildItemView(
-                    //   text: StrLibrary .remark,
-                    //   showRightArrow: true,
-                    //   isBottomRadius: true,
-                    //   onTap: () => showDeveloping(),
-                    // ),
                     15.verticalSpace,
                     // 查找聊天内容
-                    _buildItemView(
+                    _itemView(
                       text: StrLibrary.groupSearch,
                       showRightArrow: true,
                       isTopRadius: true,
                       isBottomRadius: true,
-                      onTap: logic.searchChatHistory,
+                      onTap: logic.chatHistory,
                     ),
                     15.verticalSpace,
-                    _buildItemView(
+                    _itemView(
                       text: StrLibrary.messageNotDisturb,
                       switchOn: logic.isNotDisturb,
                       showSwitchButton: true,
                       isTopRadius: true,
                       onChanged: (_) => logic.toggleNotDisturb(),
                     ),
-                    _buildItemView(
+                    _itemView(
                       text: StrLibrary.topChat,
                       switchOn: logic.isPinned,
                       showSwitchButton: true,
                       showBorder: true,
                       onChanged: (_) => logic.toggleTopChat(),
                     ),
-                    // 保存到通讯录
-                    // _buildItemView(
-                    //   text: StrLibrary .saveToContact,
-                    //   switchOn: false,
-                    //   showSwitchButton: true,
-                    //   isTopRadius: true,
-                    //   onChanged: (_) => showDeveloping(),
-                    // ),
                     // 聊天加密
-                    _buildItemView(
+                    _itemView(
                         text: StrLibrary.chatEncryption,
                         switchOn: true,
                         showBorder: true,
@@ -103,23 +88,8 @@ class GroupSetupPage extends StatelessWidget {
                         isBottomRadius: true
                         // onChanged: (_) => showDeveloping(),
                         ),
-                    // _buildItemView(
-                    //   text: StrLibrary .autoTranslate,
-                    //   switchOn: logic.isAutoTranslate,
-                    //   onChanged: (_) => logic.toggleAutoTranslate(),
-                    //   showSwitchButton: true,
-                    //   isTopRadius: true,
-                    //   isBottomRadius: logic.isAutoTranslate ? false : true,
-                    // ),
-                    // _buildItemView(
-                    //     text: StrLibrary .targetLang,
-                    //     value: logic.targetLangStr,
-                    //     onTap: logic.setTargetLang,
-                    //     showRightArrow: true,
-                    //     isBottomRadius: true,
-                    //   ),
                     15.verticalSpace,
-                    _buildItemView(
+                    _itemView(
                       text: StrLibrary.myGroupMemberNickname,
                       value: logic.myGroupMembersInfo.value.nickname,
                       showRightArrow: true,
@@ -127,57 +97,14 @@ class GroupSetupPage extends StatelessWidget {
                       isBottomRadius: true,
                       onTap: logic.modifyMyGroupNickname,
                     ),
-                    // 显示群成员昵称
-                    // _buildItemView(
-                    //   text: StrLibrary .showGroupMemberNickname,
-                    //   switchOn: false,
-                    //   showSwitchButton: true,
-                    //   isTopRadius: true,
-                    //   onTap: () => showDeveloping(),
-                    // ),
                     15.verticalSpace,
-                    // 设置当前聊天背景
-                    // _buildItemView(
-                    //   text: StrLibrary .setChatBackground,
-                    //   showRightArrow: true,
-                    //   isTopRadius: true,
-                    //   isBottomRadius: true,
-                    //   onTap: () => showDeveloping(),
-                    // ),
-                    // _buildItemView(
-                    //   text: StrLibrary .periodicallyDeleteMessage,
-                    //   switchOn: logic.isMsgDestruct,
-                    //   onChanged: (_) => logic.toggleDestructMessage(),
-                    //   showSwitchButton: true,
-                    //   isTopRadius: true,
-                    //   isBottomRadius: logic.isMsgDestruct ? false : true,
-                    // ),
-                    // if (logic.isMsgDestruct)
-                    //   _buildItemView(
-                    //     text: StrLibrary .timeSet,
-                    //     value: logic.getDestructDurationStr,
-                    //     onTap: logic.setDestructMessageDuration,
-                    //     showRightArrow: true,
-                    //     isBottomRadius: true,
-                    //   ),
-                    // 10.verticalSpace,
-                    // 清空聊天
-                    _buildItemView(
+                    _itemView(
                       text: StrLibrary.clearChatHistory,
                       showRightArrow: true,
                       isTopRadius: true,
                       isBottomRadius: true,
                       onTap: logic.clearChatHistory,
                     ),
-                    // 10.verticalSpace,
-                    // 投诉
-                    // _buildItemView(
-                    //   text: StrLibrary .complaint,
-                    //   showRightArrow: true,
-                    //   isTopRadius: true,
-                    //   isBottomRadius: true,
-                    //   onTap: () => showDeveloping(),
-                    // ),
                     15.verticalSpace,
                     if (!logic.isOwner)
                       Button(
@@ -208,7 +135,7 @@ class GroupSetupPage extends StatelessWidget {
         ));
   }
 
-  Widget _buildBaseInfoView() => Container(
+  Widget _baseInfoView() => Container(
         height: 80.h,
         margin: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w),
         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -285,7 +212,7 @@ class GroupSetupPage extends StatelessWidget {
         ),
       );
 
-  Widget _buildMemberView() => Container(
+  Widget _memberView() => Container(
         margin: EdgeInsets.symmetric(horizontal: 15.w),
         padding: EdgeInsets.only(left: 20.w),
         decoration: BoxDecoration(
@@ -412,67 +339,7 @@ class GroupSetupPage extends StatelessWidget {
         ),
       );
 
-  Widget _buildContentSearchView() {
-    Widget childItemView({
-      required String icon,
-      required String text,
-      Function()? onTap,
-    }) =>
-        GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTap: onTap,
-          child: Column(
-            children: [
-              icon.toImage
-                ..width = 28.w
-                ..height = 28.h,
-              4.verticalSpace,
-              text.toText..style = Styles.ts_999999_14sp
-            ],
-          ),
-        );
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-      decoration: BoxDecoration(
-        color: Styles.c_FFFFFF,
-        borderRadius: BorderRadius.circular(6.r),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          StrLibrary.chatContent.toText..style = Styles.ts_999999_14sp,
-          12.verticalSpace,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              childItemView(
-                icon: ImageRes.chatSearch,
-                text: StrLibrary.search,
-                onTap: logic.searchChatHistory,
-              ),
-              childItemView(
-                icon: ImageRes.chatSearchPic,
-                text: StrLibrary.picture,
-                onTap: logic.searchChatHistoryPicture,
-              ),
-              childItemView(
-                icon: ImageRes.chatSearchVideo,
-                text: StrLibrary.video,
-                onTap: logic.searchChatHistoryVideo,
-              ),
-              childItemView(
-                icon: ImageRes.chatSearchFile,
-                text: StrLibrary.file,
-                onTap: logic.searchChatHistoryFile,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildItemView({
+  Widget _itemView({
     required String text,
     TextStyle? textStyle,
     String? value,

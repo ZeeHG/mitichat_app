@@ -3,7 +3,7 @@ import 'package:miti_common/miti_common.dart';
 
 import '../../chat_logic.dart';
 
-class SetBackgroundImageLogic extends GetxController {
+class BackgroundSettingLogic extends GetxController {
   // final chatLogic = Get.find<ChatLogic>();
   final chatLogic = Get.find<ChatLogic>(tag: GetTags.chat);
 
@@ -14,8 +14,8 @@ class SetBackgroundImageLogic extends GetxController {
         if (chatLogic.background.isNotEmpty)
           SheetItem(
             label: StrLibrary.reset,
-            textStyle: Styles.ts_FF4E4C_17sp,
-            onTap: recover,
+            textStyle: Styles.ts_FF4E4C_16sp,
+            onTap: chatLogic.clearBackground,
           )
       ],
       onData: (path, url) async {
@@ -24,9 +24,5 @@ class SetBackgroundImageLogic extends GetxController {
         }
       },
     );
-  }
-
-  recover() {
-    chatLogic.clearBackground();
   }
 }

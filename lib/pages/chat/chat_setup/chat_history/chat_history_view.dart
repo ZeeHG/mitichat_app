@@ -8,39 +8,39 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:search_keyword_text/search_keyword_text.dart';
 import 'package:sprintf/sprintf.dart';
 
-import 'search_chat_history_logic.dart';
+import 'chat_history_logic.dart';
 
-class SearchChatHistoryPage extends StatelessWidget {
-  final logic = Get.find<SearchChatHistoryLogic>();
+class ChatHistory extends StatelessWidget {
+  final logic = Get.find<ChatHistoryLogic>();
 
-  SearchChatHistoryPage({super.key});
+  ChatHistory({super.key});
 
   @override
   Widget build(BuildContext context) {
     return KeyboardDismissOnTap(
-      child: Scaffold(
-        appBar: TitleBar.search(
-            controller: logic.searchCtrl,
-            focusNode: logic.focusNode,
-            onSubmitted: (_) => logic.search(),
-            onCleared: logic.clearInput,
-            onChanged: logic.onChanged,
-            showUnderline: false),
-        backgroundColor: Styles.c_FFFFFF,
-        body: Obx(() => logic.isNotKey
-            ? _defaultView
-            : (logic.isSearchNotResult ? _emptyListView : _resultView)),
-      ),
+      child: Obx(() => Scaffold(
+            appBar: TitleBar.search(
+                controller: logic.searchCtrl,
+                focusNode: logic.focusNode,
+                onSubmitted: (_) => logic.search(),
+                onCleared: logic.clearInput,
+                onChanged: logic.onChanged,
+                showUnderline: false),
+            backgroundColor: Styles.c_FFFFFF,
+            body: logic.isNotKey
+                ? _categoryView
+                : (logic.isSearchNotResult ? _emptyView : _resultView),
+          )),
     );
   }
 
-  Widget _buildItemView(Message message) => GestureDetector(
+  Widget _resultItemView(Message message) => GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () => logic.previewMessageHistory(message),
         child: Container(
-          height: 66.h,
+          height: 70.h,
           color: Styles.c_FFFFFF,
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
           child: Row(
             children: [
               AvatarView(
@@ -52,7 +52,7 @@ class SearchChatHistoryPage extends StatelessWidget {
                   margin: EdgeInsets.only(left: 10.w),
                   decoration: BoxDecoration(
                     border: BorderDirectional(
-                      bottom: BorderSide(color: Styles.c_E8EAEF, width: 1),
+                      bottom: BorderSide(color: Styles.c_E8EAEF, width: 1.h),
                     ),
                   ),
                   child: Column(
@@ -95,19 +95,19 @@ class SearchChatHistoryPage extends StatelessWidget {
         child: ListView.builder(
           itemCount: logic.messageList.length,
           itemBuilder: (_, index) =>
-              _buildItemView(logic.messageList.elementAt(index)),
+              _resultItemView(logic.messageList[index]),
         ),
       );
 
-  Widget get _defaultView => Column(
+  Widget get _categoryView => Column(
         children: [
-          52.verticalSpace,
+          50.verticalSpace,
           StrLibrary.quicklyFindChatHistory.toText
             ..style = Styles.ts_B3B3B3_12sp,
-          16.verticalSpace,
+          15.verticalSpace,
           Container(
             alignment: Alignment.center,
-            child: Container(
+            child: SizedBox(
               width: 300.w,
               child: GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
@@ -121,23 +121,23 @@ class SearchChatHistoryPage extends StatelessWidget {
                     childAspectRatio: 96.w / 22.h,
                   ),
                   itemBuilder: (BuildContext context, int index) {
-                    return itemBuilder(index: index);
+                    return _categoryItemView(index: index);
                   }),
             ),
           )
         ],
       );
 
-  Widget get _emptyListView => SizedBox(
+  Widget get _emptyView => SizedBox(
         width: 1.sw,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            85.verticalSpace,
+            80.verticalSpace,
             ImageRes.searchNotFound.toImage
               ..width = 125.w
               ..height = 76.h,
-            22.verticalSpace,
+            20.verticalSpace,
             sprintf(StrLibrary.notFoundChatHistory, [logic.searchKey.value])
                 .toText
               ..style = Styles.ts_999999_16sp,
@@ -145,7 +145,7 @@ class SearchChatHistoryPage extends StatelessWidget {
         ),
       );
 
-  Widget itemBuilder({
+  Widget _categoryItemView({
     required int index,
   }) {
     return Align(

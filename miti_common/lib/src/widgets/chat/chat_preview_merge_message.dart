@@ -40,7 +40,7 @@ class ChatPreviewMergeMsgView extends StatelessWidget {
             'faceURL': userInfo.faceURL,
           };
           Get.toNamed(
-            '/user_profile_panel',
+            '/user_profile',
             arguments: arguments,
             preventDuplicates: false,
           );

@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
-import 'set_background_logic.dart';
+import 'background_setting_logic.dart';
 
-class SetBackgroundImagePage extends StatelessWidget {
-  final logic = Get.find<SetBackgroundImageLogic>();
+class BackgroundSettingPage extends StatelessWidget {
+  final logic = Get.find<BackgroundSettingLogic>();
 
-  SetBackgroundImagePage({super.key});
+  BackgroundSettingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class SetBackgroundImagePage extends StatelessWidget {
               children: [
                 Container(
                   margin:
-                      EdgeInsets.symmetric(horizontal: 22.w, vertical: 42.h),
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 50.h),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.end,

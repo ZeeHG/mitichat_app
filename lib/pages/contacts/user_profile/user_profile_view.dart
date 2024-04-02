@@ -68,7 +68,7 @@ class UserProfilePage extends StatelessWidget {
                             onTap: logic.setFriendRemark,
                           ),
                           _buildItemView(
-                            label: StrLibrary.friendPermissions,
+                            label: StrLibrary.friendPermissionsSetting,
                             showRightArrow: true,
                             onTap: () =>
                                 AppNavigator.startFriendPermissionSetting(

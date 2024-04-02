@@ -71,14 +71,16 @@ class GroupManageLogic extends GetxController {
               ? GroupVerification.applyNeedVerificationInviteDirectly
               : GroupVerification.allNeedVerification);
       await LoadingView.singleton.start(
-        fn: () => OpenIM.iMManager.groupManager.setGroupVerification(
-          groupID: groupInfo.value.groupID,
-          needVerification: value,
-        ),
+        fn: () async {
+          await OpenIM.iMManager.groupManager.setGroupVerification(
+            groupID: groupInfo.value.groupID,
+            needVerification: value,
+          );
+          groupInfo.update((val) {
+            val?.needVerification = value;
+          });
+        },
       );
-      groupInfo.update((val) {
-        val?.needVerification = value;
-      });
     }
   }
 
@@ -99,15 +101,17 @@ class GroupManageLogic extends GetxController {
     );
     if (result is GroupMembersInfo) {
       await LoadingView.singleton.start(
-        fn: () => OpenIM.iMManager.groupManager.transferGroupOwner(
-          groupID: groupInfo.value.groupID,
-          userID: result.userID!,
-        ),
+        fn: () async {
+          await OpenIM.iMManager.groupManager.transferGroupOwner(
+            groupID: groupInfo.value.groupID,
+            userID: result.userID!,
+          );
+          groupInfo.update((val) {
+            val?.ownerUserID = result.userID;
+          });
+          Get.back();
+        },
       );
-      groupInfo.update((val) {
-        val?.ownerUserID = result.userID;
-      });
-      Get.back();
     }
   }
 }

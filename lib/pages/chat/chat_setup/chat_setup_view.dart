@@ -26,7 +26,7 @@ class ChatSetupPage extends StatelessWidget {
                   showRightArrow: true,
                   isTopRadius: true,
                   isBottomRadius: true,
-                  onTap: logic.searchChatHistory,
+                  onTap: logic.chatHistory,
                 ),
                 15.verticalSpace,
                 _buildItemView(
@@ -87,7 +87,7 @@ class ChatSetupPage extends StatelessWidget {
                 15.verticalSpace,
                 _buildItemView(
                   text: StrLibrary.setChatBackground,
-                  onTap: logic.setBackgroundImage,
+                  onTap: logic.backgroundSetting,
                   showRightArrow: true,
                   isTopRadius: true,
                   isBottomRadius: true,
@@ -233,22 +233,22 @@ class ChatSetupPage extends StatelessWidget {
               childItemView(
                 icon: ImageRes.chatSearch,
                 text: StrLibrary.search,
-                onTap: logic.searchChatHistory,
+                onTap: logic.chatHistory,
               ),
               childItemView(
                 icon: ImageRes.chatSearchPic,
                 text: StrLibrary.picture,
-                onTap: logic.searchChatHistoryPicture,
+                onTap: logic.chatHistoryPicture,
               ),
               childItemView(
                 icon: ImageRes.chatSearchVideo,
                 text: StrLibrary.video,
-                onTap: logic.searchChatHistoryVideo,
+                onTap: logic.chatHistoryVideo,
               ),
               childItemView(
                 icon: ImageRes.chatSearchFile,
                 text: StrLibrary.file,
-                onTap: logic.searchChatHistoryFile,
+                onTap: logic.chatHistoryFile,
               ),
             ],
           ),

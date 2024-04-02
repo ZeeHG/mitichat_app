@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:miti/pages/chat/chat_setup/search_chat_history/multimedia/multimedia_logic.dart';
+import 'package:miti/pages/chat/chat_setup/chat_history/media/media_logic.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:sprintf/sprintf.dart';
 
@@ -281,21 +281,19 @@ class ChatSetupLogic extends GetxController {
         OpenIM.iMManager.userInfo,
       ]);
 
-  void setFontSize() => AppNavigator.startSetFontSize();
+  // void setFontSize() => AppNavigator.startSetFontSize();
 
-  void setBackgroundImage() => AppNavigator.startSetBackgroundImage();
+  void backgroundSetting() => AppNavigator.startBackgroundSetting();
 
-  void searchChatHistory() => AppNavigator.startSearchChatHistory(
+  void chatHistory() => AppNavigator.startChatHistory(
         conversationInfo: conversationInfo.value,
       );
 
-  void searchChatHistoryPicture() =>
-      AppNavigator.startSearchChatHistoryMultimedia(
+  void chatHistoryPicture() => AppNavigator.startChatHistoryMedia(
         conversationInfo: conversationInfo.value,
       );
 
-  void searchChatHistoryVideo() =>
-      AppNavigator.startSearchChatHistoryMultimedia(
+  void chatHistoryVideo() => AppNavigator.startChatHistoryMedia(
         conversationInfo: conversationInfo.value,
         multimediaType: MultimediaType.video,
       );
@@ -307,7 +305,7 @@ class ChatSetupLogic extends GetxController {
     });
   }
 
-  void searchChatHistoryFile() => AppNavigator.startSearchChatHistoryFile(
+  void chatHistoryFile() => AppNavigator.startChatHistoryFile(
         conversationInfo: conversationInfo.value,
       );
 

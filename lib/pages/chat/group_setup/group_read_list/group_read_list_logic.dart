@@ -25,16 +25,16 @@ class GroupReadListLogic extends GetxController {
   void onInit() {
     conversationID = Get.arguments['conversationID'];
     clientMsgID = Get.arguments['clientMsgID'];
-    queryHasReadMembersList();
-    queryUnreadMemberList();
+    queryHasReadMembers();
+    queryUnreadMembers();
     recvGroupReadReceiptSubject = imCtrl.recvGroupReadReceiptSubject
         .listen((GroupMessageReceipt receipt) {
       if (receipt.conversationID == conversationID) {
         final msg = receipt.groupMessageReadInfo
             .firstWhereOrNull((element) => element.clientMsgID == clientMsgID);
         if (msg != null) {
-          queryHasReadMembersList();
-          queryUnreadMemberList();
+          queryHasReadMembers();
+          queryUnreadMembers();
         }
       }
     });
@@ -44,34 +44,31 @@ class GroupReadListLogic extends GetxController {
 
   @override
   void onClose() {
-    super.onClose();
     recvGroupReadReceiptSubject.cancel();
+    super.onClose();
   }
 
-  void queryHasReadMembersList() async {
+  void queryHasReadMembers() async {
     final list = await OpenIM.iMManager.messageManager
         .getGroupMessageReaderList(conversationID, clientMsgID, count: count);
     hasReadMemberList.assignAll(list);
   }
 
-  void queryUnreadMemberList() async {
+  void queryUnreadMembers() async {
     final list = await OpenIM.iMManager.messageManager
         .getGroupMessageReaderList(conversationID, clientMsgID,
             filter: 1, count: count);
 
     unreadMemberList.assignAll(list);
-    if (list.length == count) {
-      unreadRefreshController.loadComplete();
-    } else {
-      unreadRefreshController.loadNoData();
-    }
+
+    list.length == count? unreadRefreshController.loadComplete(): unreadRefreshController.loadNoData();
   }
 
   void switchTab(i) {
     if (i == 0) {
-      queryHasReadMembersList();
-    } else {
-      queryUnreadMemberList();
+      queryHasReadMembers();
+    } else if(i == 1){
+      queryUnreadMembers();
     }
     index.value = i;
   }

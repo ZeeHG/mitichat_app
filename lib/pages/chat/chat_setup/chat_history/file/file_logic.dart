@@ -13,22 +13,17 @@ class ChatHistoryFileLogic extends GetxController {
   @override
   void onInit() {
     conversationInfo = Get.arguments['conversationInfo'];
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
     onRefresh();
-    super.onReady();
+    super.onInit();
   }
 
   onRefresh() async {
     try {
-      var result = await search(pageIndex = 1);
+      final result = await search(pageIndex = 1);
       if (result.totalCount == 0) {
         messageList.clear();
       } else {
-        var item = result.searchResultItems!.first;
+        final item = result.searchResultItems!.first;
         messageList.assignAll(item.messageList!);
       }
     } finally {
@@ -47,11 +42,7 @@ class ChatHistoryFileLogic extends GetxController {
         messageList.addAll(item.messageList!);
       }
     } finally {
-      if (messageList.length < pageIndex * pageSize) {
-        refreshController.loadNoData();
-      } else {
-        refreshController.loadComplete();
-      }
+      messageList.length < pageIndex * pageSize? refreshController.loadNoData() : refreshController.loadComplete();
     }
   }
 

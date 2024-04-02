@@ -14,7 +14,7 @@ class AccountSettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-        title: StrLibrary.accountSetup,
+        title: StrLibrary.accountSetting,
       ),
       backgroundColor: Styles.c_F7F8FA,
       body: Obx(() => SingleChildScrollView(
@@ -57,7 +57,7 @@ class AccountSettingPage extends StatelessWidget {
                   onTap: logic.blacklist,
                 ),
                 _buildItemView(
-                  label: StrLibrary.languageSetup,
+                  label: StrLibrary.languageSetting,
                   value: logic.curLanguage.value,
                   onTap: logic.languageSetting,
                 ),

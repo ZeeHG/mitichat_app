@@ -20,12 +20,6 @@ class GroupMemberListPage extends StatelessWidget {
             title: logic.opType == GroupMemberOpType.del
                 ? StrLibrary.removeGroupMember
                 : StrLibrary.groupMember,
-            // right: logic.opType == GroupMemberOpType.view
-            //     ? (ImageRes.moreBlack.toImage
-            //       ..width = 28.w
-            //       ..height = 28.h
-            //       ..onTap = logic.addOrDelMember)
-            //     : null,
           ),
           backgroundColor: Styles.c_F8F9FA,
           body: Column(
@@ -59,7 +53,7 @@ class GroupMemberListPage extends StatelessWidget {
                         ),
                         10.horizontalSpace,
                         StrLibrary.everyone.toText
-                          ..style = Styles.ts_333333_17sp,
+                          ..style = Styles.ts_333333_16sp,
                       ],
                     ),
                   ),
@@ -75,17 +69,17 @@ class GroupMemberListPage extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: logic.memberList.length,
                     itemBuilder: (_, index) =>
-                        Obx(() => _buildItemView(logic.memberList[index])),
+                        Obx(() => _itemView(logic.memberList[index])),
                   ),
                 ),
               ),
-              if (logic.isMultiSelMode) _buildCheckedConfirmView(),
+              if (logic.isMultiSelMode) _checkedConfirmView(),
             ],
           ),
         ));
   }
 
-  Widget _buildItemView(GroupMembersInfo membersInfo) =>
+  Widget _itemView(GroupMembersInfo membersInfo) =>
       logic.hiddenMember(membersInfo)
           ? const SizedBox()
           : GestureDetector(
@@ -109,22 +103,22 @@ class GroupMemberListPage extends StatelessWidget {
                     10.horizontalSpace,
                     Expanded(
                       child: (membersInfo.nickname ?? '').toText
-                        ..style = Styles.ts_333333_17sp
+                        ..style = Styles.ts_333333_16sp
                         ..maxLines = 1
                         ..overflow = TextOverflow.ellipsis,
                     ),
                     if (membersInfo.roleLevel == GroupRoleLevel.owner)
                       StrLibrary.groupOwner.toText
-                        ..style = Styles.ts_999999_17sp,
+                        ..style = Styles.ts_999999_16sp,
                     if (membersInfo.roleLevel == GroupRoleLevel.admin)
                       StrLibrary.groupAdmin.toText
-                        ..style = Styles.ts_999999_17sp,
+                        ..style = Styles.ts_999999_16sp,
                   ],
                 ),
               ),
             );
 
-  Widget _buildCheckedConfirmView() => Container(
+  Widget _checkedConfirmView() => Container(
         height: 66.h,
         decoration: BoxDecoration(
           color: Styles.c_FFFFFF,
@@ -188,7 +182,7 @@ class GroupMemberListPage extends StatelessWidget {
 }
 
 class SelectedMemberListView extends StatelessWidget {
-  SelectedMemberListView({Key? key}) : super(key: key);
+  SelectedMemberListView({super.key});
   final logic = Get.find<GroupMemberListLogic>();
 
   @override
@@ -215,7 +209,7 @@ class SelectedMemberListView extends StatelessWidget {
                   children: [
                     sprintf(StrLibrary.selectedPeopleCount,
                         [logic.checkedList.length]).toText
-                      ..style = Styles.ts_333333_17sp_medium,
+                      ..style = Styles.ts_333333_16sp_medium,
                     const Spacer(),
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
@@ -224,7 +218,7 @@ class SelectedMemberListView extends StatelessWidget {
                         height: 52.h,
                         alignment: Alignment.center,
                         child: StrLibrary.confirm.toText
-                          ..style = Styles.ts_8443F8_17sp,
+                          ..style = Styles.ts_8443F8_16sp,
                       ),
                     ),
                   ],
@@ -235,7 +229,7 @@ class SelectedMemberListView extends StatelessWidget {
                   itemCount: logic.checkedList.length,
                   shrinkWrap: true,
                   itemBuilder: (_, index) =>
-                      _buildItemView(logic.checkedList[index]),
+                      _itemView(logic.checkedList[index]),
                 ),
               ),
             ],
@@ -243,7 +237,7 @@ class SelectedMemberListView extends StatelessWidget {
     );
   }
 
-  Widget _buildItemView(GroupMembersInfo membersInfo) => Container(
+  Widget _itemView(GroupMembersInfo membersInfo) => Container(
         height: 64.h,
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         color: Styles.c_FFFFFF,
@@ -256,7 +250,7 @@ class SelectedMemberListView extends StatelessWidget {
             10.horizontalSpace,
             Expanded(
               child: (membersInfo.nickname ?? '').toText
-                ..style = Styles.ts_333333_17sp
+                ..style = Styles.ts_333333_16sp
                 ..maxLines = 1
                 ..overflow = TextOverflow.ellipsis,
             ),
@@ -272,7 +266,7 @@ class SelectedMemberListView extends StatelessWidget {
                     width: 1,
                   ),
                 ),
-                child: StrLibrary.remove.toText..style = Styles.ts_8443F8_17sp,
+                child: StrLibrary.remove.toText..style = Styles.ts_8443F8_16sp,
               ),
             ),
           ],

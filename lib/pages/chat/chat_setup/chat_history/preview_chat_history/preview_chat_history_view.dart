@@ -11,8 +11,7 @@ class PreviewChatHistoryPage extends StatelessWidget {
 
   PreviewChatHistoryPage({super.key});
 
-  Widget _buildItemView(Message message) => ChatItemView(
-        // isBubbleMsg: logic.showBubbleBg(message),
+  Widget _itemView(Message message) => ChatItemView(
         message: message,
         highlightColor:
             message == logic.searchMessage ? Styles.c_999999_opacity13 : null,
@@ -74,25 +73,6 @@ class PreviewChatHistoryPage extends StatelessWidget {
         );
         return CustomTypeInfo(view, false, false);
       }
-      // else if (viewType == CustomMessageType.meeting) {
-      //   // 会议
-      //   final inviterUserID = data['inviterUserID'];
-      //   final inviterNickname = data['inviterNickname'];
-      //   final inviterFaceURL = data['inviterFaceURL'];
-      //   final subject = data['subject'];
-      //   final id = data['id'];
-      //   final start = data['start'];
-      //   final duration = data['duration'];
-      //   final view = ChatMeetingView(
-      //     inviterUserID: inviterUserID,
-      //     inviterNickname: inviterNickname,
-      //     subject: subject,
-      //     start: start,
-      //     duration: duration,
-      //     id: id,
-      //   );
-      //   return CustomTypeInfo(view, false, true);
-      // }
       else if (viewType == CustomMessageType.removedFromGroup) {
         return CustomTypeInfo(
           StrLibrary.removedFromGroupHint.toText..style = Styles.ts_999999_12sp,
@@ -123,7 +103,7 @@ class PreviewChatHistoryPage extends StatelessWidget {
         itemBuilder: (BuildContext context, int index, int position, data) {
           return Padding(
             padding: EdgeInsets.only(top: 10.h),
-            child: _buildItemView(data),
+            child: _itemView(data),
           );
         },
         controller: logic.controller,

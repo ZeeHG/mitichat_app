@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
@@ -15,7 +14,7 @@ import '../../../routes/app_navigator.dart';
 import '../../contacts/select_contacts/select_contacts_logic.dart';
 import '../../conversation/conversation_logic.dart';
 import '../chat_logic.dart';
-import '../chat_setup/search_chat_history/multimedia/multimedia_logic.dart';
+import '../chat_setup/chat_history/media/media_logic.dart';
 import 'group_member_list/group_member_list_logic.dart';
 
 class GroupSetupLogic extends GetxController {
@@ -45,7 +44,19 @@ class GroupSetupLogic extends GetxController {
     conversationInfo = Rx(Get.arguments['conversationInfo']);
     groupInfo = Rx(_defaultGroupInfo);
     myGroupMembersInfo = Rx(_defaultMemberInfo);
+    _checkIsJoinedGroup();
 
+    initSub();
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    closeSub();
+    super.onClose();
+  }
+
+  initSub() {
     _ccSub = imCtrl.conversationChangedSubject.listen((newList) {
       for (var newValue in newList) {
         if (newValue.conversationID == conversationInfo.value.conversationID) {
@@ -119,20 +130,9 @@ class GroupSetupLogic extends GetxController {
         }
       }
     });
-    super.onInit();
   }
 
-  @override
-  void onReady() {
-    // getGroupInfo();
-    // getGroupMembers();
-    // getMyGroupMemberInfo();
-    _checkIsJoinedGroup();
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
+  closeSub() {
     _guSub.cancel();
     _mASub.cancel();
     _mDSub.cancel();
@@ -140,7 +140,6 @@ class GroupSetupLogic extends GetxController {
     _mISub.cancel();
     _jdsSub.cancel();
     _jasSub.cancel();
-    super.onClose();
   }
 
   get _defaultGroupInfo => GroupInfo(
@@ -316,22 +315,20 @@ class GroupSetupLogic extends GetxController {
         groupInfo: groupInfo.value,
       );
 
-  void searchChatHistory() => AppNavigator.startSearchChatHistory(
+  void chatHistory() => AppNavigator.startChatHistory(
         conversationInfo: conversationInfo.value,
       );
 
-  void searchChatHistoryPicture() =>
-      AppNavigator.startSearchChatHistoryMultimedia(
+  void chatHistoryPicture() => AppNavigator.startChatHistoryMedia(
         conversationInfo: conversationInfo.value,
       );
 
-  void searchChatHistoryVideo() =>
-      AppNavigator.startSearchChatHistoryMultimedia(
+  void chatHistoryVideo() => AppNavigator.startChatHistoryMedia(
         conversationInfo: conversationInfo.value,
         multimediaType: MultimediaType.video,
       );
 
-  void searchChatHistoryFile() => AppNavigator.startSearchChatHistoryFile(
+  void chatHistoryFile() => AppNavigator.startChatHistoryFile(
         conversationInfo: conversationInfo.value,
       );
 
@@ -465,13 +462,15 @@ class GroupSetupLogic extends GetxController {
     final list = MitiUtils.convertSelectContactsResultToUserID(result);
     if (list is List<String>) {
       await LoadingView.singleton.start(
-        fn: () => OpenIM.iMManager.groupManager.inviteUserToGroup(
-          groupID: groupInfo.value.groupID,
-          userIDList: list,
-          reason: 'Come on baby',
-        ),
+        fn: () async {
+          await OpenIM.iMManager.groupManager.inviteUserToGroup(
+            groupID: groupInfo.value.groupID,
+            userIDList: list,
+            reason: 'Come on baby',
+          );
+          getGroupMembers();
+        },
       );
-      getGroupMembers();
     }
   }
 
@@ -483,13 +482,15 @@ class GroupSetupLogic extends GetxController {
     if (list is List<GroupMembersInfo>) {
       var removeUidList = list.map((e) => e.userID!).toList();
       await LoadingView.singleton.start(
-        fn: () => OpenIM.iMManager.groupManager.kickGroupMember(
-          groupID: groupInfo.value.groupID,
-          userIDList: removeUidList,
-          reason: 'Get out baby',
-        ),
+        fn: () async {
+          await OpenIM.iMManager.groupManager.kickGroupMember(
+            groupID: groupInfo.value.groupID,
+            userIDList: removeUidList,
+            reason: 'Get out baby',
+          );
+          getGroupMembers();
+        },
       );
-      getGroupMembers();
     }
   }
 

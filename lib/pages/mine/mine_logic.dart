@@ -22,7 +22,7 @@ class MineLogic extends GetxController {
     MitiUtils.copy(text: imCtrl.userInfo.value.userID!);
   }
 
-  void accountSetup() => AppNavigator.startAccountSetting();
+  void accountSetting() => AppNavigator.startAccountSetting();
 
   void myPoints() => AppNavigator.startMyPoints();
 

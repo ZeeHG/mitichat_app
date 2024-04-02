@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
@@ -21,23 +18,18 @@ class PreviewChatHistoryLogic extends GetxController {
   int? downLostMinSeq;
 
   @override
-  void onReady() {
-    scrollToTopLoad();
-    scrollToBottomLoad();
-    super.onReady();
-  }
-
-  @override
   void onInit() {
     var arguments = Get.arguments;
     conversationInfo = arguments['conversationInfo'];
     searchMessage = arguments['message'];
     controller = CustomChatListViewController<Message>([searchMessage]);
+    scrollToTopLoad();
+    scrollToBottomLoad();
     super.onInit();
   }
 
   Future<bool> scrollToTopLoad() async {
-    var result =
+    final result =
         await OpenIM.iMManager.messageManager.getAdvancedHistoryMessageList(
       startMsg: messageList.first,
       conversationID: conversationInfo.conversationID,
@@ -46,7 +38,7 @@ class PreviewChatHistoryLogic extends GetxController {
     );
 
     upLastMinSeq = result.lastMinSeq;
-    var list = result.messageList ?? [];
+    final list = result.messageList ?? [];
 
     final hasMore = list.length == 20;
     controller.insertAllToTop(list);
@@ -56,7 +48,7 @@ class PreviewChatHistoryLogic extends GetxController {
   }
 
   Future<bool> scrollToBottomLoad() async {
-    var result = await OpenIM.iMManager.messageManager
+    final result = await OpenIM.iMManager.messageManager
         .getAdvancedHistoryMessageListReverse(
       startMsg: messageList.last,
       conversationID: conversationInfo.conversationID,
@@ -76,21 +68,19 @@ class PreviewChatHistoryLogic extends GetxController {
 
   /// 处理消息点击事件
   void parseClickEvent(Message msg) async {
-    log('parseClickEvent:${jsonEncode(msg)}');
     if (msg.contentType == MessageType.custom) {
-      var data = msg.customElem!.data;
-      var map = json.decode(data!);
-      var customType = map['customType'];
-      if (CustomMessageType.call == customType) {
-        var type = map['data']['type'];
-      }
-      // else if (CustomMessageType.meeting == customType) {
-      //   var data = msg.customElem!.data;
-      //   var map = json.decode(data!);
+      // var data = msg.customElem!.data;
+      // var map = json.decode(data!);
+      // var customType = map['customType'];
+      // if (CustomMessageType.call == customType) {
+      //   var type = map['data']['type'];
       // }
+      // // else if (CustomMessageType.meeting == customType) {
+      // //   var data = msg.customElem!.data;
+      // //   var map = json.decode(data!);
+      // // }
       return;
     }
-    if (msg.contentType == MessageType.voice) {}
     MitiUtils.parseClickEvent(msg, messageList: messageList);
   }
 
@@ -110,11 +100,6 @@ class PreviewChatHistoryLogic extends GetxController {
 
   ValueKey itemKey(Message message) => ValueKey(message.clientMsgID!);
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   String? getShowTime(Message message) {
     if (message.exMap['showTime'] == true) {
       return MitiUtils.getChatTimeline(message.sendTime!);
@@ -122,16 +107,16 @@ class PreviewChatHistoryLogic extends GetxController {
     return null;
   }
 
-  /// 搜索定位消息位置
-  void lockMessageLocation(Message message) {
-    // var upList = list.sublist(0, 15);
-    // var downList = list.sublist(15);
-    // messageList.assignAll(downList);
-    // WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-    //   scrollController.jumpTo(scrollController.position.maxScrollExtent - 50);
-    //   messageList.insertAll(0, upList);
-    // });
-  }
+  // /// 搜索定位消息位置
+  // void lockMessageLocation(Message message) {
+  //   // var upList = list.sublist(0, 15);
+  //   // var downList = list.sublist(15);
+  //   // messageList.assignAll(downList);
+  //   // WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+  //   //   scrollController.jumpTo(scrollController.position.maxScrollExtent - 50);
+  //   //   messageList.insertAll(0, upList);
+  //   // });
+  // }
 }
 
 /// 新版聊天列表控件

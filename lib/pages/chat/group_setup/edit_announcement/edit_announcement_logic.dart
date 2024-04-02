@@ -18,16 +18,8 @@ class EditGroupAnnouncementLogic extends GetxController {
   @override
   void onInit() {
     groupInfo = Rx(GroupInfo.fromJson({"groupID": Get.arguments}));
-    // inputCtrl = TextEditingController(
-    //   text: groupSetupLogic.groupInfo.value.notification,
-    // );
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
     _queryGroupInfo();
-    super.onReady();
+    super.onInit();
   }
 
   @override
@@ -84,8 +76,7 @@ class EditGroupAnnouncementLogic extends GetxController {
     }
     final me =
         list.firstWhereOrNull((e) => e.userID == OpenIM.iMManager.userID);
-    hasEditPermissions.value = me?.roleLevel == GroupRoleLevel.admin ||
-        me?.roleLevel == GroupRoleLevel.owner;
+    hasEditPermissions.value = [GroupRoleLevel.admin, GroupRoleLevel.owner].contains(me?.roleLevel);
   }
 
   editing() {
@@ -96,13 +87,15 @@ class EditGroupAnnouncementLogic extends GetxController {
 
   void publish() async {
     await LoadingView.singleton.start(
-      fn: () => OpenIM.iMManager.groupManager.setGroupInfo(GroupInfo(
-          groupID: groupInfo.value.groupID,
-          notification: inputCtrl.text.trim())),
+      fn: () async {
+        await OpenIM.iMManager.groupManager.setGroupInfo(GroupInfo(
+            groupID: groupInfo.value.groupID,
+            notification: inputCtrl.text.trim()));
+            groupInfo.update((val) {
+          val?.notification = inputCtrl.text.trim();
+        });
+        Get.back();
+      },
     );
-    groupInfo.update((val) {
-      val?.notification = inputCtrl.text.trim();
-    });
-    Get.back();
   }
 }

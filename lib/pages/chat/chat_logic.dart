@@ -1095,7 +1095,7 @@ class ChatLogic extends GetxController {
     }
   }
 
-  void onTapSearch() => AppNavigator.startSearchChatHistory(
+  void onTapSearch() => AppNavigator.startChatHistory(
         conversationInfo: conversationInfo.value,
       );
 

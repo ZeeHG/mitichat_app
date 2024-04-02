@@ -92,7 +92,7 @@ class ImageRes {
   static const rightArrow = "$_dir/ic_right_arrow.webp";
   static const myInfo = "$_dir/ic_mine_my_info.webp";
   static const workingCircle = "$_dir/ic_working_circle.webp";
-  static const accountSetup = "$_dir/ic_mine_account_setup.webp";
+  static const accountSetting = "$_dir/ic_mine_account_setting.webp";
   static const aboutUs = "$_dir/ic_mine_about_us.webp";
   static const logout = "$_dir/ic_mine_logout.webp";
   static const myFriend = "$_dir/ic_my_friend.webp";
@@ -234,7 +234,7 @@ class ImageRes {
   static const appAboutUs = "$_dir/app_mine_about_us.png";
   static const appLogout = "$_dir/app_mine_logout.png";
   static const appMyInfo = "$_dir/app_mine_my_info.png";
-  static const appAccountSetting = "$_dir/app_mine_account_setup.png";
+  static const appAccountSetting = "$_dir/app_mine_account_setting.png";
   static const appHeaderBg = "$_dir/app_header_bg.png";
   static const appHeaderBg2 = "$_dir/app_header_bg2.png";
   static const appHeaderBg3 = "$_dir/app_header_bg3.png";

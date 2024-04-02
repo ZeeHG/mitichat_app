@@ -41,7 +41,7 @@ class GroupReadListPage extends StatelessWidget {
                       footer: IMViews.buildFooter(),
                       child: ListView.builder(
                         itemCount: logic.unreadMemberList.length,
-                        itemBuilder: (_, index) => _buildItemView(
+                        itemBuilder: (_, index) => _itemView(
                           logic.unreadMemberList.elementAt(index),
                         ),
                       ),
@@ -53,8 +53,8 @@ class GroupReadListPage extends StatelessWidget {
                       footer: IMViews.buildFooter(),
                       child: ListView.builder(
                         itemCount: logic.hasReadMemberList.length,
-                        itemBuilder: (_, index) => _buildItemView(
-                          logic.hasReadMemberList.elementAt(index),
+                        itemBuilder: (_, index) => _itemView(
+                          logic.hasReadMemberList[index],
                         ),
                       ),
                     ),
@@ -66,7 +66,7 @@ class GroupReadListPage extends StatelessWidget {
     );
   }
 
-  Widget _buildItemView(GroupMembersInfo info, {String? status}) => Container(
+  Widget _itemView(GroupMembersInfo info, {String? status}) => Container(
         height: 64.h,
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         color: Styles.c_FFFFFF,
@@ -82,7 +82,7 @@ class GroupReadListPage extends StatelessWidget {
             10.horizontalSpace,
             Expanded(
               child: (info.nickname ?? '').toText
-                ..style = Styles.ts_333333_17sp
+                ..style = Styles.ts_333333_16sp
                 ..maxLines = 1
                 ..overflow = TextOverflow.ellipsis,
             ),

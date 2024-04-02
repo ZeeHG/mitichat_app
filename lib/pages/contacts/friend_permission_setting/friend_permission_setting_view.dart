@@ -12,7 +12,7 @@ class FriendPermissionSettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
         appBar: TitleBar.back(
-          title: StrLibrary.friendPermissions,
+          title: StrLibrary.friendPermissionsSetting,
         ),
         backgroundColor: Styles.c_F7F8FA,
         body: SingleChildScrollView(

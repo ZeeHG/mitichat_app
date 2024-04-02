@@ -1,11 +1,9 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:miti/pages/home/home_binding.dart';
-import 'package:miti/pages/login/login_view.dart';
 import 'package:miti/pages/mine/phone_email_change/phone_email_change_logic.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../pages/chat/chat_setup/search_chat_history/multimedia/multimedia_logic.dart';
+import '../pages/chat/chat_setup/chat_history/media/media_logic.dart';
 import '../pages/chat/group_setup/edit_name/edit_name_logic.dart';
 import '../pages/chat/group_setup/group_member_list/group_member_list_logic.dart';
 import '../pages/contacts/search_add_contacts/search_add_contacts_logic.dart';
@@ -121,9 +119,9 @@ class AppNavigator {
     };
 
     return offAndToNamed
-        ? Get.offAndToNamed(AppRoutes.userProfilePanel, arguments: arguments)
+        ? Get.offAndToNamed(AppRoutes.userProfile, arguments: arguments)
         : Get.toNamed(
-            AppRoutes.userProfilePanel,
+            AppRoutes.userProfile,
             arguments: arguments,
             preventDuplicates: false,
           );
@@ -151,7 +149,7 @@ class AppNavigator {
     String? groupID,
     JoinGroupMethod? joinGroupMethod,
   }) =>
-      Get.toNamed(AppRoutes.sendVerificationApplication, arguments: {
+      Get.toNamed(AppRoutes.sendApplication, arguments: {
         'joinGroupMethod': joinGroupMethod,
         'userID': userID,
         'groupID': groupID,
@@ -188,11 +186,11 @@ class AppNavigator {
       Get.toNamed(AppRoutes.editMyInfo,
           arguments: {'editAttr': attr, 'maxLength': maxLength});
 
-  static startAccountSetting() => Get.toNamed(AppRoutes.accountSetup);
+  static startAccountSetting() => Get.toNamed(AppRoutes.accountSetting);
 
   static startBlacklist() => Get.toNamed(AppRoutes.blacklist);
 
-  static startLanguageSetting() => Get.toNamed(AppRoutes.languageSetup);
+  static startLanguageSetting() => Get.toNamed(AppRoutes.languageSetting);
 
   static startAppUnlockSetting() => Get.toNamed(AppRoutes.unlockSetup);
 
@@ -221,30 +219,30 @@ class AppNavigator {
         'conversationInfo': conversationInfo,
       });
 
-  static startSetBackgroundImage() => Get.toNamed(AppRoutes.setBackgroundImage);
+  static startBackgroundSetting() => Get.toNamed(AppRoutes.backgroundSetting);
 
-  static startSetFontSize() => Get.toNamed(AppRoutes.setFontSize);
+  // static startSetFontSize() => Get.toNamed(AppRoutes.setFontSize);
 
-  static startSearchChatHistory({
+  static startChatHistory({
     required ConversationInfo conversationInfo,
   }) =>
-      Get.toNamed(AppRoutes.searchChatHistory, arguments: {
+      Get.toNamed(AppRoutes.chatHistory, arguments: {
         'conversationInfo': conversationInfo,
       });
 
-  static startSearchChatHistoryMultimedia({
+  static startChatHistoryMedia({
     required ConversationInfo conversationInfo,
     MultimediaType multimediaType = MultimediaType.picture,
   }) =>
-      Get.toNamed(AppRoutes.searchChatHistoryMultimedia, arguments: {
+      Get.toNamed(AppRoutes.chatHistoryMedia, arguments: {
         'conversationInfo': conversationInfo,
         'multimediaType': multimediaType,
       });
 
-  static startSearchChatHistoryFile({
+  static startChatHistoryFile({
     required ConversationInfo conversationInfo,
   }) =>
-      Get.toNamed(AppRoutes.searchChatHistoryFile, arguments: {
+      Get.toNamed(AppRoutes.chatHistoryFile, arguments: {
         'conversationInfo': conversationInfo,
       });
 
@@ -306,7 +304,7 @@ class AppNavigator {
   static startHandleFriendRequests({
     required FriendApplicationInfo applicationInfo,
   }) =>
-      Get.toNamed(AppRoutes.processFriendRequests, arguments: {
+      Get.toNamed(AppRoutes.handleFriendRequests, arguments: {
         'applicationInfo': applicationInfo,
       });
 
@@ -315,13 +313,13 @@ class AppNavigator {
   static startHandleGroupRequests({
     required GroupApplicationInfo applicationInfo,
   }) =>
-      Get.toNamed(AppRoutes.processGroupRequests, arguments: {
+      Get.toNamed(AppRoutes.handleGroupRequests, arguments: {
         'applicationInfo': applicationInfo,
       });
 
-  static startFriendList() => Get.toNamed(AppRoutes.friendList);
+  static startMyFriend() => Get.toNamed(AppRoutes.myFriend);
 
-  static startGroupList() => Get.toNamed(AppRoutes.groupList);
+  static startMyGroup() => Get.toNamed(AppRoutes.myGroup);
 
   static startGroupReadList(String conversationID, String clientMsgID) =>
       Get.toNamed(AppRoutes.groupReadList, arguments: {
@@ -400,7 +398,7 @@ class AppNavigator {
     required SearchResultItems searchResultItems,
     required String defaultSearchKey,
   }) =>
-      Get.toNamed(AppRoutes.GloablSearchChatHistory, arguments: {
+      Get.toNamed(AppRoutes.gloablSearchChatHistory, arguments: {
         'searchResultItems': searchResultItems,
         'defaultSearchKey': defaultSearchKey,
       });
@@ -436,7 +434,7 @@ class AppNavigator {
         'verificationCode': verificationCode,
       });
 
-  static startTagGroup() => Get.toNamed(AppRoutes.tagGroup);
+  // static startTagGroup() => Get.toNamed(AppRoutes.tagGroup);
 
   static startCreateBot() => Get.toNamed(AppRoutes.createBot);
 
@@ -446,23 +444,23 @@ class AppNavigator {
 
   static startTrainingBot() => Get.toNamed(AppRoutes.trainingBot);
 
-  static startCreateTagGroup({TagInfo? tagInfo}) =>
-      Get.toNamed(AppRoutes.createTagGroup, arguments: {'tagInfo': tagInfo});
+  // static startCreateTagGroup({TagInfo? tagInfo}) =>
+  //     Get.toNamed(AppRoutes.createTagGroup, arguments: {'tagInfo': tagInfo});
 
-  static startSelectContactsFromTag() =>
-      Get.toNamed(AppRoutes.selectContactsFromTag);
+  // static startSelectContactsFromTag() =>
+  //     Get.toNamed(AppRoutes.selectContactsFromTag);
 
-  static startNotificationIssued() =>
-      Get.toNamed(AppRoutes.tagNotificationIssued);
+  // static startNotificationIssued() =>
+  //     Get.toNamed(AppRoutes.tagNotificationIssued);
 
-  static startNewBuildNotification() =>
-      Get.toNamed(AppRoutes.buildTagNotification);
+  // static startNewBuildNotification() =>
+  //     Get.toNamed(AppRoutes.buildTagNotification);
 
-  static startNotificationDetail({required TagNotification notification}) =>
-      Get.toNamed(
-        AppRoutes.tagNotificationDetail,
-        arguments: {"notification": notification},
-      );
+  // static startNotificationDetail({required TagNotification notification}) =>
+  //     Get.toNamed(
+  //       AppRoutes.tagNotificationDetail,
+  //       arguments: {"notification": notification},
+  //     );
 
   static startDiscover() => Get.toNamed(AppRoutes.discover);
 
@@ -493,9 +491,10 @@ class AppNavigator {
   static startPrivacyPolicy() => Get.toNamed(AppRoutes.privacyPolicy);
 
   static startFriendPermissionSetting({required String userID}) =>
-      Get.toNamed(AppRoutes.friendPermissions, arguments: {"userID": userID});
+      Get.toNamed(AppRoutes.friendPermissionsSetting,
+          arguments: {"userID": userID});
 
-  static startRequestRecords() => Get.toNamed(AppRoutes.recentRequests);
+  static startRequestRecords() => Get.toNamed(AppRoutes.requestRecords);
 
   static startAccountManage() => Get.toNamed(AppRoutes.accountManage);
 

@@ -17,22 +17,22 @@ class EditGroupNamePage extends StatelessWidget {
       appBar: TitleBar.back(
         title: logic.title,
         right: StrLibrary.save.toText
-          ..style = Styles.ts_333333_17sp
+          ..style = Styles.ts_333333_16sp
           ..onTap = logic.save,
       ),
       backgroundColor: Styles.c_FFFFFF,
       body: Column(
         children: [
-          22.verticalSpace,
+          20.verticalSpace,
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10.w),
+            margin: EdgeInsets.symmetric(horizontal: 12.w),
             decoration: BoxDecoration(
               color: Styles.c_E8EAEF,
               borderRadius: BorderRadius.circular(4.r),
             ),
             child: TextField(
               controller: logic.inputCtrl,
-              style: Styles.ts_333333_17sp,
+              style: Styles.ts_333333_16sp,
               autofocus: true,
               inputFormatters: [LengthLimitingTextInputFormatter(16)],
               decoration: InputDecoration(

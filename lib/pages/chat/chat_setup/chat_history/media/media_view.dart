@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import 'multimedia_logic.dart';
+import 'media_logic.dart';
 
-class ChatHistoryMultimediaPage extends StatelessWidget {
-  final logic = Get.find<ChatHistoryMultimediaLogic>();
+class ChatHistoryMediaPage extends StatelessWidget {
+  final logic = Get.find<ChatHistoryMediaLogic>();
 
-  ChatHistoryMultimediaPage({super.key});
+  ChatHistoryMediaPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +26,12 @@ class ChatHistoryMultimediaPage extends StatelessWidget {
             onLoading: logic.onLoad,
             header: IMViews.buildHeader(),
             footer: IMViews.buildFooter(),
-            child: _buildListView(),
+            child: _itemView(),
           )),
     );
   }
 
-  Widget _buildListView() {
+  Widget _itemView() {
     final mediaMessages = logic.messageList.reversed.toList();
 
     return ListView.builder(
@@ -40,7 +40,7 @@ class ChatHistoryMultimediaPage extends StatelessWidget {
       itemBuilder: (_, index) {
         var entry =
             logic.groupMessage.entries.toList().reversed.elementAt(index);
-        return MultimediaItemWidget(
+        return MediaListWidget(
           list: entry.value,
           label: entry.key,
           isVideo: !logic.isPicture,
@@ -58,15 +58,15 @@ class ChatHistoryMultimediaPage extends StatelessWidget {
   }
 }
 
-class MultimediaItemWidget extends StatelessWidget {
-  const MultimediaItemWidget({
-    Key? key,
+class MediaListWidget extends StatelessWidget {
+  const MediaListWidget({
+    super.key,
     required this.list,
     required this.label,
     required this.snapshotUrl,
     this.isVideo = false,
     this.onTap,
-  }) : super(key: key);
+  });
   final String label;
   final List<Message> list;
   final Function(Message message)? onTap;
@@ -90,13 +90,13 @@ class MultimediaItemWidget extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: list.length,
-          itemBuilder: (_, index) => _buildItemView(list.elementAt(index)),
+          itemBuilder: (_, index) => _mediaItemView(list[index]),
         ),
       ],
     );
   }
 
-  Widget _buildItemView(Message message) => GestureDetector(
+  Widget _mediaItemView(Message message) => GestureDetector(
         onTap: () => onTap?.call(message),
         child: Hero(
           tag: message.clientMsgID!,
@@ -104,7 +104,7 @@ class MultimediaItemWidget extends StatelessWidget {
               (BuildContext context, Size heroSize, Widget child) => child,
           child: Container(
             decoration: BoxDecoration(
-              border: Border.all(width: 1, color: Styles.c_E8EAEF),
+              border: Border.all(width: 1.h, color: Styles.c_E8EAEF),
             ),
             child: Stack(
               alignment: Alignment.center,
@@ -116,8 +116,8 @@ class MultimediaItemWidget extends StatelessWidget {
                 ),
                 if (isVideo)
                   ImageRes.videoPause.toImage
-                    ..width = 40.w
-                    ..height = 40.h,
+                    ..width = 38.w
+                    ..height = 38.h,
               ],
             ),
           ),

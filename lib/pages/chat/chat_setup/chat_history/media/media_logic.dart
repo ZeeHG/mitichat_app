@@ -5,7 +5,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 enum MultimediaType { picture, video }
 
-class ChatHistoryMultimediaLogic extends GetxController {
+class ChatHistoryMediaLogic extends GetxController {
   final refreshController = RefreshController();
   late ConversationInfo conversationInfo;
   late MultimediaType multimediaType;
@@ -18,16 +18,11 @@ class ChatHistoryMultimediaLogic extends GetxController {
   void onInit() {
     conversationInfo = Get.arguments['conversationInfo'];
     multimediaType = Get.arguments['multimediaType'];
+    onRefresh();
     super.onInit();
   }
 
   bool get isPicture => multimediaType == MultimediaType.picture;
-
-  @override
-  void onReady() {
-    onRefresh();
-    super.onReady();
-  }
 
   void onRefresh() async {
     try {
@@ -43,11 +38,7 @@ class ChatHistoryMultimediaLogic extends GetxController {
       }
     } finally {
       refreshController.refreshCompleted();
-      if (messageList.length < pageIndex * pageSize) {
-        refreshController.loadNoData();
-      } else {
-        refreshController.loadComplete();
-      }
+      messageList.length < pageIndex * pageSize? refreshController.loadNoData(): refreshController.loadComplete();
     }
   }
 
@@ -61,11 +52,9 @@ class ChatHistoryMultimediaLogic extends GetxController {
             MitiUtils.groupingMessage(item.messageList!.reversed.toList()));
       }
     } finally {
-      if (messageList.length < pageIndex * pageSize) {
-        refreshController.loadNoData();
-      } else {
-        refreshController.loadComplete();
-      }
+      messageList.length < pageIndex * pageSize
+          ? refreshController.loadNoData()
+          : refreshController.loadComplete();
     }
   }
 

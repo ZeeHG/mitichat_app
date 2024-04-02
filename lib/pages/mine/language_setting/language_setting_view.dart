@@ -13,7 +13,7 @@ class LanguageSettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrLibrary.languageSetup),
+      appBar: TitleBar.back(title: StrLibrary.languageSetting),
       backgroundColor: Styles.c_F7F8FA,
       body: Obx(() => Column(
             children: [

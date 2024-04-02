@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
-class FavoriteManageLogic extends GetxController {
+class EmojiFavoriteManageLogic extends GetxController {
   var cacheLogic = Get.find<CacheController>();
   var isMultiModel = false.obs;
   var selectedList = <String>[].obs;
@@ -17,13 +17,9 @@ class FavoriteManageLogic extends GetxController {
         var path = (await asset.file)!.path;
         var width = asset.width;
         var height = asset.height;
-        switch (asset.type) {
-          case AssetType.image:
-            cacheLogic.addFavoriteFromPath(path, width, height);
-            showToast(StrLibrary.addSuccessfully);
-            break;
-          default:
-            break;
+        if (asset.type == AssetType.image) {
+          cacheLogic.addFavoriteFromPath(path, width, height);
+          showToast(StrLibrary.addSuccessfully);
         }
       }
     }
@@ -38,8 +34,8 @@ class FavoriteManageLogic extends GetxController {
   }
 
   void manage() {
-    isMultiModel.value = !isMultiModel.value;
     selectedList.clear();
+    isMultiModel.value = !isMultiModel.value;
   }
 
   void delete() {

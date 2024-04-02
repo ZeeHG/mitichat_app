@@ -76,11 +76,9 @@ class SearchGroupMemberLogic extends GetxController {
     if (key.isNotEmpty) {
       final list = await _request(0);
       memberList.assignAll(list);
-      if (list.length < count) {
-        controller.loadNoData();
-      } else {
-        controller.loadComplete();
-      }
+      list.length < count? controller.loadNoData() : controller.loadComplete();
+    } else {
+      memberList.clear();
     }
   }
 
@@ -89,11 +87,7 @@ class SearchGroupMemberLogic extends GetxController {
     if (key.isNotEmpty) {
       final list = await _request(memberList.length);
       memberList.addAll(list);
-      if (list.length < count) {
-        controller.loadNoData();
-      } else {
-        controller.loadComplete();
-      }
+      list.length < count ? controller.loadNoData() : controller.loadComplete();
     }
   }
 

@@ -359,7 +359,7 @@ class StrLibrary {
 
   static String get workingCircle => 'workingCircle'.tr;
 
-  static String get accountSetup => 'accountSetup'.tr;
+  static String get accountSetting => 'accountSetting'.tr;
 
   static String get aboutUs => 'aboutUs'.tr;
 
@@ -563,7 +563,7 @@ class StrLibrary {
 
   static String get confirmClearChatHistory => 'confirmClearChatHistory'.tr;
 
-  static String get languageSetup => 'languageSetup'.tr;
+  static String get languageSetting => 'languageSetting'.tr;
 
   static String get language => 'language'.tr;
 
@@ -1145,7 +1145,7 @@ class StrLibrary {
   static String get countOfProduct => 'countOfProduct'.tr;
   static String get countOfFanGroup => 'countOfFanGroup'.tr;
   static String get remarkAndLabel => 'remarkAndLabel'.tr;
-  static String get friendPermissions => 'friendPermissions'.tr;
+  static String get friendPermissionsSetting => 'friendPermissionsSetting'.tr;
   static String get moreInfo => 'moreInfo'.tr;
   static String get nicknameAndAvatar => 'nicknameAndAvatar'.tr;
   static String get training => 'training'.tr;
@@ -1514,7 +1514,7 @@ class StrLibrary {
   static String get newEmail => 'newEmail'.tr;
   static String get required => 'required'.tr;
   static String get plsEnterInvitationCode2 => 'plsEnterInvitationCode2'.tr;
-  static String get recentRequests => 'recentRequests'.tr;
+  static String get requestRecords => 'requestRecords'.tr;
   static String get accountManage => 'accountManage'.tr;
   static String get addOrRegisterAccount => 'addOrRegisterAccount'.tr;
   static String get fail => 'fail'.tr;

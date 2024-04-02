@@ -4,12 +4,12 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:sprintf/sprintf.dart';
 
-import 'favorite_manage_logic.dart';
+import 'emoji_favorite_manage_logic.dart';
 
-class FavoriteManagePage extends StatelessWidget {
-  final logic = Get.find<FavoriteManageLogic>();
+class EmojiFavoriteManagePage extends StatelessWidget {
+  final logic = Get.find<EmojiFavoriteManageLogic>();
 
-  FavoriteManagePage({super.key});
+  EmojiFavoriteManagePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,33 +18,33 @@ class FavoriteManagePage extends StatelessWidget {
             title: StrLibrary.favoriteFace,
             right: StrLibrary.favoriteManage.toText
               ..onTap = logic.manage
-              ..style = Styles.ts_333333_17sp,
+              ..style = Styles.ts_333333_16sp,
           ),
           body: Column(
             children: [
               Expanded(
                 child: GridView.builder(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 22.w,
+                    horizontal: 10.w,
                     vertical: 10.h,
                   ),
                   itemCount: logic.cacheLogic.urlList.length + 1,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
                     childAspectRatio: 1,
-                    mainAxisSpacing: 22.h,
-                    crossAxisSpacing: 22.w,
+                    mainAxisSpacing: 25.h,
+                    crossAxisSpacing: 25.w,
                   ),
                   itemBuilder: (BuildContext context, int index) {
                     if (index == 0) {
                       return GestureDetector(
                         onTap: logic.addFavorite,
                         child: ImageRes.addFavorite.toImage
-                          ..width = 66.w
-                          ..height = 66.h,
+                          ..width = 70.w
+                          ..height = 70.h,
                       );
                     }
-                    var url = logic.cacheLogic.urlList.elementAt(index - 1);
+                    var url = logic.cacheLogic.urlList[index - 1];
                     return GestureDetector(
                       onTap: logic.isMultiModel.value
                           ? () => logic.updateSelectedStatus(url)
@@ -53,15 +53,15 @@ class FavoriteManagePage extends StatelessWidget {
                         children: [
                           ImageUtil.networkImage(
                             url: url,
-                            width: 66.w,
-                            height: 66.h,
-                            cacheWidth: 66.w.toInt(),
+                            width: 70.w,
+                            height: 70.h,
+                            cacheWidth: 70.w.toInt(),
                             fit: BoxFit.cover,
                           ),
                           if (logic.isMultiModel.value)
                             Positioned(
-                              right: 4.w,
-                              bottom: 4.h,
+                              right: 4.5.w,
+                              bottom: 4.5.h,
                               child: ChatRadio(checked: logic.isChecked(url)),
                             ),
                         ],
@@ -70,18 +70,18 @@ class FavoriteManagePage extends StatelessWidget {
                   },
                 ),
               ),
-              _buildBottomBar(),
+              _bottomBar(),
             ],
           ),
         ));
   }
 
-  Widget _buildBottomBar() => Container(
+  Widget _bottomBar() => Container(
         height: 48.h,
-        padding: EdgeInsets.only(left: 22.w),
+        padding: EdgeInsets.symmetric(horizontal: 10.w),
         decoration: BoxDecoration(
           border: BorderDirectional(
-            top: BorderSide(color: Styles.c_E8EAEF, width: 1),
+            top: BorderSide(color: Styles.c_E8EAEF, width: 1.h),
           ),
         ),
         child: Row(

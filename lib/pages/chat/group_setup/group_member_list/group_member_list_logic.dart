@@ -63,13 +63,8 @@ class GroupMemberListLogic extends GetxController {
     groupInfo = Get.arguments['groupInfo'];
     opType = Get.arguments['opType'];
     mISub = imCtrl.memberInfoChangedSubject.listen(_updateMemberLevel);
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
     _queryMyGroupMemberLevel();
-    super.onReady();
+    super.onInit();
   }
 
   void _updateMemberLevel(GroupMembersInfo e) {
@@ -164,7 +159,7 @@ class GroupMemberListLogic extends GetxController {
       );
 
   void addOrDelMember() async {
-    final index = await Get.bottomSheet(
+    await Get.bottomSheet(
       barrierColor: Styles.c_191919_opacity50,
       BottomSheetView(
         items: [
@@ -204,7 +199,7 @@ class GroupMemberListLogic extends GetxController {
   }
 
   void confirmSelectedMember() {
-    Get.back(result: checkedList.value);
+    Get.back(result: checkedList);
   }
 
   bool hiddenMember(GroupMembersInfo membersInfo) =>

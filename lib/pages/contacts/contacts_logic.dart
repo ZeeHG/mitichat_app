@@ -35,7 +35,7 @@ class ContactsLogic extends GetxController
         },
         {
           "key": "newRecent",
-          "text": StrLibrary.recentRequests,
+          "text": StrLibrary.requestRecords,
           "color": Styles.c_00CBC5,
           "shadowColor": Color.fromRGBO(0, 203, 197, 0.5),
           "onTap": () => newRecent()
@@ -182,21 +182,21 @@ class ContactsLogic extends GetxController
 
   // void newGroup() => AppNavigator.startGroupRequests();
 
-  void myFriend() => AppNavigator.startFriendList();
+  void myFriend() => AppNavigator.startMyFriend();
 
   void aiFriendList() => AppNavigator.startAiFriendList();
 
-  void myGroup() => AppNavigator.startGroupList();
+  void myGroup() => AppNavigator.startMyGroup();
 
   void searchContacts() => AppNavigator.startGlobalSearch();
 
   // void addContacts() => AppNavigator.startAddContactsMethod();
 
-  void tagGroup() => AppNavigator.startTagGroup();
+  // void tagGroup() => AppNavigator.startTagGroup();
 
   void createBot() => AppNavigator.startCreateBot();
 
-  void notificationIssued() => AppNavigator.startNotificationIssued();
+  // void notificationIssued() => AppNavigator.startNotificationIssued();
 
   scan() => AppNavigator.startScan();
 
