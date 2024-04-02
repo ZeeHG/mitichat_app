@@ -188,7 +188,7 @@ class _QrcodeViewState extends State<QrcodeView> with TickerProviderStateMixin {
         left: 22.w,
         child: IconButton(
           onPressed: () => Get.back(),
-          icon: ImageRes.backBlack.toImage
+          icon: ImageLibrary.backBlack.toImage
             ..width = 24.w
             ..height = 24.h
             ..color = Colors.white,

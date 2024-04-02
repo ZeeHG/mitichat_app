@@ -16,7 +16,7 @@ class GroupQrcodePage extends StatelessWidget {
     return Obx(
       () => Scaffold(
         appBar: TitleBar.back(title: StrLibrary.groupQrcode),
-        backgroundColor: Styles.c_F8F9FA,
+        backgroundColor: StylesLibrary.c_F8F9FA,
         body: Container(
           alignment: Alignment.topCenter,
           child: Container(
@@ -25,13 +25,13 @@ class GroupQrcodePage extends StatelessWidget {
             width: 311.w,
             height: 420.h,
             decoration: BoxDecoration(
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
               borderRadius: BorderRadius.circular(12.r),
               boxShadow: [
                 BoxShadow(
                   blurRadius: 8.r,
                   spreadRadius: 1.r,
-                  color: Styles.c_000000.withOpacity(.08),
+                  color: StylesLibrary.c_000000.withOpacity(.08),
                 ),
               ],
             ),
@@ -55,7 +55,7 @@ class GroupQrcodePage extends StatelessWidget {
                             (logic.groupSetupLogic.groupInfo.value.groupName ??
                                     '')
                                 .toText
-                              ..style = Styles.ts_333333_20sp
+                              ..style = StylesLibrary.ts_333333_20sp
                               ..maxLines = 1
                               ..overflow = TextOverflow.ellipsis,
                       ),
@@ -66,7 +66,7 @@ class GroupQrcodePage extends StatelessWidget {
                   top: 120.h,
                   width: 247.w,
                   child: StrLibrary.groupQrcodeHint.toText
-                    ..style = Styles.ts_999999_15sp
+                    ..style = StylesLibrary.ts_999999_15sp
                     ..textAlign = TextAlign.center,
                 ),
                 Positioned(
@@ -79,8 +79,9 @@ class GroupQrcodePage extends StatelessWidget {
                       height: 180.w,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: Styles.c_FFFFFF,
-                        border: Border.all(color: Styles.c_E8EAEF, width: 4.w),
+                        color: StylesLibrary.c_FFFFFF,
+                        border: Border.all(
+                            color: StylesLibrary.c_E8EAEF, width: 4.w),
                         // gradient: const LinearGradient(
                         //   begin: Alignment.topCenter,
                         //   end: Alignment.bottomCenter,
@@ -90,7 +91,7 @@ class GroupQrcodePage extends StatelessWidget {
                       child: QrImageView(
                         data: logic.buildQRContent(),
                         size: 140.w,
-                        backgroundColor: Styles.c_FFFFFF,
+                        backgroundColor: StylesLibrary.c_FFFFFF,
                       ),
                     ),
                   ),

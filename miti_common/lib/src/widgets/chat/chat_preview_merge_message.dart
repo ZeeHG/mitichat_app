@@ -15,7 +15,7 @@ class ChatPreviewMergeMsgView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: title),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: ListView.builder(
         itemCount: messageList.length,
         shrinkWrap: true,
@@ -61,7 +61,8 @@ class ChatPreviewMergeMsgView extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: 10.h),
                 decoration: BoxDecoration(
                   border: BorderDirectional(
-                    bottom: BorderSide(color: Styles.c_E8EAEF, width: 1.h),
+                    bottom:
+                        BorderSide(color: StylesLibrary.c_E8EAEF, width: 1.h),
                   ),
                 ),
                 child: Column(
@@ -71,15 +72,15 @@ class ChatPreviewMergeMsgView extends StatelessWidget {
                       children: [
                         Expanded(
                           child: (message.senderNickname ?? '').toText
-                            ..style = Styles.ts_999999_12sp,
+                            ..style = StylesLibrary.ts_999999_12sp,
                         ),
                         MitiUtils.getChatTimeline(message.sendTime!).toText
-                          ..style = Styles.ts_999999_12sp,
+                          ..style = StylesLibrary.ts_999999_12sp,
                       ],
                     ),
                     10.verticalSpace,
                     MatchTextView(
-                        text: content, textStyle: Styles.ts_333333_17sp)
+                        text: content, textStyle: StylesLibrary.ts_333333_17sp)
                   ],
                 ),
               ),

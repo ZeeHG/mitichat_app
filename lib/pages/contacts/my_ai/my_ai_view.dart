@@ -14,14 +14,14 @@ class MyAiPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrLibrary.trainAi),
-      backgroundColor: Styles.c_FFFFFF,
+      backgroundColor: StylesLibrary.c_FFFFFF,
       body: Column(
         children: [
           GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: logic.startSearchMyAi,
             child: Container(
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
               child: FakeSearchBox(),
             ),
@@ -32,7 +32,7 @@ class MyAiPage extends StatelessWidget {
                   data: logic.friendList,
                   itemCount: logic.friendList.length,
                   itemBuilder: (_, data, index) => _buildItemView(data),
-                  firstTagPaddingColor: Styles.c_FFFFFF),
+                  firstTagPaddingColor: StylesLibrary.c_FFFFFF),
             ),
           ),
         ],
@@ -45,7 +45,7 @@ class MyAiPage extends StatelessWidget {
         onTap: () => logic.startTrainAi(info),
         child: Container(
           height: 60.h,
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           padding: EdgeInsets.symmetric(horizontal: 12.w),
           child: Row(
             children: [
@@ -54,7 +54,7 @@ class MyAiPage extends StatelessWidget {
                 text: info.showName,
               ),
               12.horizontalSpace,
-              info.showName.toText..style = Styles.ts_333333_16sp,
+              info.showName.toText..style = StylesLibrary.ts_333333_16sp,
             ],
           ),
         ),

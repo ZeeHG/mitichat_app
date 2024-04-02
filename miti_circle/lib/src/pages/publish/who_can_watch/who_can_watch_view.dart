@@ -19,13 +19,13 @@ class WhoCanWatchPage extends StatelessWidget {
         title: StrLibrary.whoCanWatch,
         right: Button(
           text: StrLibrary.determine,
-          textStyle: Styles.ts_FFFFFF_14sp,
+          textStyle: StylesLibrary.ts_FFFFFF_14sp,
           height: 28.h,
           padding: EdgeInsets.symmetric(horizontal: 12.w),
           onTap: logic.determine,
         ),
       ),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: Obx(() => SingleChildScrollView(
             child: Column(
               children: [
@@ -77,10 +77,11 @@ class WhoCanWatchPage extends StatelessWidget {
         onTap: () => logic.selectPermission(index),
         child: Container(
           decoration: BoxDecoration(
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             border: underline
                 ? BorderDirectional(
-                    bottom: BorderSide(color: Styles.c_E8EAEF, width: .5),
+                    bottom:
+                        BorderSide(color: StylesLibrary.c_E8EAEF, width: .5),
                   )
                 : null,
           ),
@@ -95,7 +96,7 @@ class WhoCanWatchPage extends StatelessWidget {
               SizedBox(
                 width: 24.w,
                 child: logic.permission.value == index
-                    ? (ImageRes.checked.toImage
+                    ? (ImageLibrary.checked.toImage
                       ..width = 24.w
                       ..height = 24.h)
                     : null,
@@ -105,20 +106,20 @@ class WhoCanWatchPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    title.toText..style = Styles.ts_333333_17sp,
+                    title.toText..style = StylesLibrary.ts_333333_17sp,
                     4.verticalSpace,
-                    hint.toText..style = Styles.ts_999999_14sp,
+                    hint.toText..style = StylesLibrary.ts_999999_14sp,
                     if (null != value && value.isNotEmpty) 8.verticalSpace,
                     if (null != value && value.isNotEmpty)
                       value.toText
-                        ..style = Styles.ts_8443F8_14sp
+                        ..style = StylesLibrary.ts_8443F8_14sp
                         ..maxLines = 2
                         ..overflow = TextOverflow.ellipsis,
                   ],
                 ),
               ),
               if (showRightArrow)
-                ImageRes.appRightArrow.toImage
+                ImageLibrary.appRightArrow.toImage
                   ..width = 24.w
                   ..height = 24.h
             ],

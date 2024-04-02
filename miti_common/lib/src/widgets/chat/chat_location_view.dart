@@ -27,8 +27,8 @@ class ChatLocationView extends StatelessWidget {
         width: locationWidth,
         height: 130.h,
         decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
-          border: Border.all(color: Styles.c_E8EAEF, width: 1.h),
+          color: StylesLibrary.c_FFFFFF,
+          border: Border.all(color: StylesLibrary.c_E8EAEF, width: 1.h),
           borderRadius: BorderRadius.circular(6.r),
         ),
         child: Column(
@@ -38,14 +38,14 @@ class ChatLocationView extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 4.w),
               child: name.toText
-                ..style = Styles.ts_333333_14sp
+                ..style = StylesLibrary.ts_333333_14sp
                 ..maxLines = 1
                 ..overflow = TextOverflow.ellipsis,
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 4.w),
               child: addr.toText
-                ..style = Styles.ts_999999_12sp
+                ..style = StylesLibrary.ts_999999_12sp
                 ..maxLines = 1
                 ..overflow = TextOverflow.ellipsis,
             ),

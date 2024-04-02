@@ -18,7 +18,7 @@ class CreateGroupPage extends StatelessWidget {
     return KeyboardDismissOnTap(
       child: Scaffold(
         appBar: TitleBar.back(title: StrLibrary.createGroup),
-        backgroundColor: Styles.c_F7F8FA,
+        backgroundColor: StylesLibrary.c_F7F8FA,
         body: SingleChildScrollView(
           child: SizedBox(
             height: 1.sh - 44.h - 10.h - 34.h,
@@ -28,7 +28,7 @@ class CreateGroupPage extends StatelessWidget {
                 _groupMember(),
                 const Spacer(),
                 Container(
-                  color: Styles.c_FFFFFF,
+                  color: StylesLibrary.c_FFFFFF,
                   padding: EdgeInsets.all(12.w),
                   child: Button(
                     text: StrLibrary.completeCreation,
@@ -47,7 +47,7 @@ class CreateGroupPage extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
         decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           borderRadius: BorderRadius.circular(6.r),
         ),
         child: Obx(() => Row(
@@ -60,18 +60,18 @@ class CreateGroupPage extends StatelessWidget {
                     onTap: logic.selectAvatar,
                   )
                 else
-                  ImageRes.cameraGray.toImage
+                  ImageLibrary.cameraGray.toImage
                     ..width = 48.w
                     ..height = 48.h
                     ..onTap = logic.selectAvatar,
                 10.horizontalSpace,
                 Flexible(
                   child: TextField(
-                    style: Styles.ts_333333_16sp,
+                    style: StylesLibrary.ts_333333_16sp,
                     controller: logic.nameCtrl,
                     inputFormatters: [LengthLimitingTextInputFormatter(20)],
                     decoration: InputDecoration(
-                      hintStyle: Styles.ts_999999_16sp,
+                      hintStyle: StylesLibrary.ts_999999_16sp,
                       hintText: StrLibrary.plsEnterGroupNameHint,
                       border: InputBorder.none,
                     ),
@@ -83,7 +83,7 @@ class CreateGroupPage extends StatelessWidget {
 
   Widget _groupMember() => Obx(() => Container(
         decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           borderRadius: BorderRadius.circular(6.r),
         ),
         margin: EdgeInsets.symmetric(horizontal: 12.w),
@@ -93,10 +93,11 @@ class CreateGroupPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
               child: Row(
                 children: [
-                  StrLibrary.groupMember.toText..style = Styles.ts_999999_16sp,
+                  StrLibrary.groupMember.toText
+                    ..style = StylesLibrary.ts_999999_16sp,
                   const Spacer(),
                   sprintf(StrLibrary.nPerson, [logic.allList.length]).toText
-                    ..style = Styles.ts_999999_16sp,
+                    ..style = StylesLibrary.ts_999999_16sp,
                 ],
               ),
             ),
@@ -124,7 +125,7 @@ class CreateGroupPage extends StatelessWidget {
                       ),
                       2.verticalSpace,
                       (info.nickname ?? '').toText
-                        ..style = Styles.ts_999999_10sp
+                        ..style = StylesLibrary.ts_999999_10sp
                         ..maxLines = 1
                         ..overflow = TextOverflow.ellipsis,
                     ],
@@ -133,11 +134,11 @@ class CreateGroupPage extends StatelessWidget {
                     onTap: logic.opMember,
                     child: Column(
                       children: [
-                        ImageRes.addMember.toImage
+                        ImageLibrary.addMember.toImage
                           ..width = 48.w
                           ..height = 48.h,
                         StrLibrary.addMember.toText
-                          ..style = Styles.ts_999999_10sp,
+                          ..style = StylesLibrary.ts_999999_10sp,
                       ],
                     ),
                   ),
@@ -145,11 +146,11 @@ class CreateGroupPage extends StatelessWidget {
                     onTap: () => logic.opMember(isDel: true),
                     child: Column(
                       children: [
-                        ImageRes.delMember.toImage
+                        ImageLibrary.delMember.toImage
                           ..width = 48.w
                           ..height = 48.h,
                         StrLibrary.delMember.toText
-                          ..style = Styles.ts_999999_10sp,
+                          ..style = StylesLibrary.ts_999999_10sp,
                       ],
                     ),
                   ),

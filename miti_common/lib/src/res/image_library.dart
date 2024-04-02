@@ -1,12 +1,12 @@
 /// 使用方法
 /// ```
-/// ImageRes.splashLogo
+/// ImageLibrary.splashLogo
 ///   .toImage
 ///   ..width = 55.61.w
 ///   ..height = 78.91.h,
 /// ```
-class ImageRes {
-  ImageRes._();
+class ImageLibrary {
+  ImageLibrary._();
 
   static const _dir = "assets/images";
 

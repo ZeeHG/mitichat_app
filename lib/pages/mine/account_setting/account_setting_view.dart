@@ -16,7 +16,7 @@ class AccountSettingPage extends StatelessWidget {
       appBar: TitleBar.back(
         title: StrLibrary.accountSetting,
       ),
-      backgroundColor: Styles.c_F7F8FA,
+      backgroundColor: StylesLibrary.c_F7F8FA,
       body: Obx(() => SingleChildScrollView(
             child: Column(
               children: [
@@ -97,7 +97,7 @@ class AccountSettingPage extends StatelessWidget {
           behavior: HitTestBehavior.translucent,
           child: Container(
             decoration: BoxDecoration(
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
             ),
             padding: EdgeInsets.symmetric(horizontal: 12.w),
             child: Container(
@@ -105,25 +105,26 @@ class AccountSettingPage extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: Styles.c_F1F2F6,
+                    color: StylesLibrary.c_F1F2F6,
                     width: showBorder ? 1.h : 0,
                   ),
                 ),
               ),
               child: Row(
                 children: [
-                  label.toText..style = textStyle ?? Styles.ts_333333_16sp,
+                  label.toText
+                    ..style = textStyle ?? StylesLibrary.ts_333333_16sp,
                   const Spacer(),
                   if (null != value)
-                    value.toText..style = Styles.ts_333333_14sp,
+                    value.toText..style = StylesLibrary.ts_333333_14sp,
                   if (showSwitchButton)
                     CupertinoSwitch(
                       value: switchOn,
-                      activeColor: Styles.c_07C160,
+                      activeColor: StylesLibrary.c_07C160,
                       onChanged: onChanged,
                     ),
                   if (showRightArrow)
-                    ImageRes.appRightArrow.toImage
+                    ImageLibrary.appRightArrow.toImage
                       ..width = 20.w
                       ..height = 20.h,
                 ],

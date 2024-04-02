@@ -220,13 +220,15 @@ class ChatPage extends StatelessWidget {
       // }
       else if (viewType == CustomMessageType.removedFromGroup) {
         return CustomTypeInfo(
-          StrLibrary.removedFromGroupHint.toText..style = Styles.ts_999999_12sp,
+          StrLibrary.removedFromGroupHint.toText
+            ..style = StylesLibrary.ts_999999_12sp,
           false,
           false,
         );
       } else if (viewType == CustomMessageType.groupDisbanded) {
         return CustomTypeInfo(
-          StrLibrary.groupDisbanded.toText..style = Styles.ts_999999_12sp,
+          StrLibrary.groupDisbanded.toText
+            ..style = StylesLibrary.ts_999999_12sp,
           false,
           false,
         );
@@ -296,7 +298,7 @@ class ChatPage extends StatelessWidget {
         onCompleted: logic.sendVoice,
         builder: (bar) => Obx(() {
           return Scaffold(
-              backgroundColor: Styles.c_F7F8FA,
+              backgroundColor: StylesLibrary.c_F7F8FA,
               appBar: TitleBar.chat(
                 title: logic.nickname.value,
                 isAiSingleChat: logic.isAiSingleChat,
@@ -315,7 +317,7 @@ class ChatPage extends StatelessWidget {
                 child: WaterMarkBgView(
                   // text: '',
                   path: logic.background.value,
-                  backgroundColor: Styles.c_F7F8FA,
+                  backgroundColor: StylesLibrary.c_F7F8FA,
                   // newMessageCount: logic.scrollingCacheMessageList.length,
                   // onSeeNewMessage: logic.scrollToIndex,
                   topView: _topNoticeView,
@@ -376,7 +378,7 @@ class ChatPage extends StatelessWidget {
                                 child: Container(
                                   width: 300.w,
                                   decoration: BoxDecoration(
-                                      color: Styles.c_EBEBEB,
+                                      color: StylesLibrary.c_EBEBEB,
                                       borderRadius: BorderRadius.circular(6.r)),
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 12.w, vertical: 6.h),
@@ -384,7 +386,7 @@ class ChatPage extends StatelessWidget {
                                   child: RichText(
                                     text: TextSpan(children: [
                                       WidgetSpan(
-                                        child: ImageRes.appEncrypt.toImage
+                                        child: ImageLibrary.appEncrypt.toImage
                                           ..width = 9.w
                                           ..height = 10.h,
                                         alignment: PlaceholderAlignment.middle,
@@ -394,7 +396,7 @@ class ChatPage extends StatelessWidget {
                                         width: 2.w,
                                       )),
                                       TextSpan(
-                                        style: Styles.ts_333333_12sp,
+                                        style: StylesLibrary.ts_333333_12sp,
                                         text: StrLibrary.encryptTips,
                                       )
                                     ]),

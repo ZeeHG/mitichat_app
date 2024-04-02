@@ -329,15 +329,18 @@ class _ChatItemViewState extends State<ChatItemView> {
                     : MitiUtils.replaceMessageAtMapping(_message, {}),
             config: config.copy(configs: [
               PConfig(
-                textStyle:
-                    _isISend ? Styles.ts_FFFFFF_16sp : Styles.ts_333333_16sp,
+                textStyle: _isISend
+                    ? StylesLibrary.ts_FFFFFF_16sp
+                    : StylesLibrary.ts_333333_16sp,
               ),
               ListConfig(
                   marker: (bool isOrdered, int depth, int index) =>
                       getDefaultMarker(
                           isOrdered,
                           depth,
-                          _isISend ? Styles.c_FFFFFF : Styles.c_000000,
+                          _isISend
+                              ? StylesLibrary.c_FFFFFF
+                              : StylesLibrary.c_000000,
                           index,
                           12,
                           config))
@@ -551,13 +554,13 @@ class _ChatItemViewState extends State<ChatItemView> {
     if (null != text && status == "show") {
       _translateMenusItem = [
         MenuInfo(
-          icon: ImageRes.menuCopy,
+          icon: ImageLibrary.menuCopy,
           text: StrLibrary.menuCopy,
           enabled: true,
           onTap: () => MitiUtils.copy(text: text),
         ),
         MenuInfo(
-          icon: ImageRes.appMenuUnTranslate,
+          icon: ImageLibrary.appMenuUnTranslate,
           text: StrLibrary.unTranslate,
           enabled: widget.enabledUnTranslateMenu,
           onTap: widget.onTapUnTranslateMenu,
@@ -572,23 +575,23 @@ class _ChatItemViewState extends State<ChatItemView> {
             alignment: Alignment.centerLeft,
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
               borderRadius: borderRadius(_isISend),
             ),
-            child: ImageRes.appTranslateLoading.toImage..height = 24.h,
+            child: ImageLibrary.appTranslateLoading.toImage..height = 24.h,
           )
         : Container(
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
             margin: EdgeInsets.only(top: 4.h),
             // constraints: BoxConstraints(maxWidth: maxWidth),
             decoration: BoxDecoration(
-              color: _isISend ? Styles.c_8443F8 : Styles.c_FFFFFF,
+              color: _isISend ? StylesLibrary.c_8443F8 : StylesLibrary.c_FFFFFF,
               borderRadius: borderRadius(_isISend),
             ),
             child: status == "fail"
                 ? ChatText(
                     text: StrLibrary.translateFail,
-                    textStyle: Styles.ts_FF4E4C_16sp,
+                    textStyle: StylesLibrary.ts_FF4E4C_16sp,
                     patterns: widget.patterns,
                     textScaleFactor: widget.textScaleFactor,
                     // onVisibleTrulyText: widget.onVisibleTrulyText,
@@ -601,7 +604,7 @@ class _ChatItemViewState extends State<ChatItemView> {
                       menus: _translateMenusItem,
                     ),
                     pressType: PressType.longPress,
-                    arrowColor: Styles.c_333333_opacity85,
+                    arrowColor: StylesLibrary.c_333333_opacity85,
                     barrierColor: Colors.transparent,
                     verticalMargin: 0,
                     child: !showMd
@@ -621,19 +624,19 @@ class _ChatItemViewState extends State<ChatItemView> {
     if (null != text && status == "show") {
       _ttsMenusItem = [
         MenuInfo(
-          icon: ImageRes.menuCopy,
+          icon: ImageLibrary.menuCopy,
           text: StrLibrary.menuCopy,
           enabled: true,
           onTap: () => MitiUtils.copy(text: text),
         ),
         MenuInfo(
-          icon: ImageRes.appMenuUnTts,
+          icon: ImageLibrary.appMenuUnTts,
           text: StrLibrary.hide,
           enabled: widget.enabledUnTtsMenu,
           onTap: widget.onTapUnTtsMenu,
         ),
         // MenuInfo(
-        //     icon: ImageRes.menuForward,
+        //     icon: ImageLibrary.menuForward,
         //     text: StrLibrary .menuForward,
         //     enabled: true,
         //     onTap: widget.onTapForwardMenu,
@@ -648,23 +651,23 @@ class _ChatItemViewState extends State<ChatItemView> {
             alignment: Alignment.centerLeft,
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
               borderRadius: borderRadius(_isISend),
             ),
-            child: ImageRes.appTranslateLoading.toImage..height = 24.h,
+            child: ImageLibrary.appTranslateLoading.toImage..height = 24.h,
           )
         : Container(
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
             margin: EdgeInsets.only(top: 4.h),
             // constraints: BoxConstraints(maxWidth: maxWidth),
             decoration: BoxDecoration(
-              color: _isISend ? Styles.c_8443F8 : Styles.c_FFFFFF,
+              color: _isISend ? StylesLibrary.c_8443F8 : StylesLibrary.c_FFFFFF,
               borderRadius: borderRadius(_isISend),
             ),
             child: status == "fail"
                 ? ChatText(
                     text: StrLibrary.translateFail,
-                    textStyle: Styles.ts_FF4E4C_16sp,
+                    textStyle: StylesLibrary.ts_FF4E4C_16sp,
                     patterns: widget.patterns,
                     textScaleFactor: widget.textScaleFactor,
                     // onVisibleTrulyText: widget.onVisibleTrulyText,
@@ -677,7 +680,7 @@ class _ChatItemViewState extends State<ChatItemView> {
                       menus: _ttsMenusItem,
                     ),
                     pressType: PressType.longPress,
-                    arrowColor: Styles.c_333333_opacity85,
+                    arrowColor: StylesLibrary.c_333333_opacity85,
                     barrierColor: Colors.transparent,
                     verticalMargin: 0,
                     child: ChatText(
@@ -706,77 +709,77 @@ class _ChatItemViewState extends State<ChatItemView> {
   List<MenuInfo> get _menusItem => [
         if (widget.enabledCopyMenu)
           MenuInfo(
-            icon: ImageRes.menuCopy,
+            icon: ImageLibrary.menuCopy,
             text: StrLibrary.menuCopy,
             enabled: widget.enabledCopyMenu,
             onTap: widget.onTapCopyMenu,
           ),
         if (widget.enabledDelMenu)
           MenuInfo(
-            icon: ImageRes.menuDel,
+            icon: ImageLibrary.menuDel,
             text: StrLibrary.menuDel,
             enabled: widget.enabledDelMenu,
             onTap: widget.onTapDelMenu,
           ),
         if (widget.enabledTranslateMenu)
           MenuInfo(
-            icon: ImageRes.appMenuTranslate,
+            icon: ImageLibrary.appMenuTranslate,
             text: StrLibrary.translate,
             enabled: widget.enabledTranslateMenu,
             onTap: widget.onTapTranslateMenu,
           ),
         if (widget.enabledUnTranslateMenu)
           MenuInfo(
-            icon: ImageRes.appMenuUnTranslate,
+            icon: ImageLibrary.appMenuUnTranslate,
             text: StrLibrary.unTranslate,
             enabled: widget.enabledUnTranslateMenu,
             onTap: widget.onTapUnTranslateMenu,
           ),
         if (widget.enabledTtsMenu)
           MenuInfo(
-            icon: ImageRes.appMenuTts,
+            icon: ImageLibrary.appMenuTts,
             text: StrLibrary.tts,
             enabled: widget.enabledTtsMenu,
             onTap: widget.onTapTtsMenu,
           ),
         if (widget.enabledUnTtsMenu)
           MenuInfo(
-            icon: ImageRes.appMenuUnTts,
+            icon: ImageLibrary.appMenuUnTts,
             text: StrLibrary.hide,
             enabled: widget.enabledUnTtsMenu,
             onTap: widget.onTapUnTtsMenu,
           ),
         if (widget.enabledForwardMenu)
           MenuInfo(
-            icon: ImageRes.menuForward,
+            icon: ImageLibrary.menuForward,
             text: StrLibrary.menuForward,
             enabled: widget.enabledForwardMenu,
             onTap: widget.onTapForwardMenu,
           ),
         if (widget.enabledReplyMenu)
           MenuInfo(
-            icon: ImageRes.menuReply,
+            icon: ImageLibrary.menuReply,
             text: StrLibrary.menuReply,
             enabled: widget.enabledReplyMenu,
             onTap: widget.onTapReplyMenu,
           ),
         if (widget.enabledMultiMenu)
           MenuInfo(
-            icon: ImageRes.menuMulti,
+            icon: ImageLibrary.menuMulti,
             text: StrLibrary.menuMulti,
             enabled: widget.enabledMultiMenu,
             onTap: widget.onTapMultiMenu,
           ),
         if (widget.enabledRevokeMenu)
           MenuInfo(
-            icon: ImageRes.menuRevoke,
+            icon: ImageLibrary.menuRevoke,
             text: StrLibrary.menuRevoke,
             enabled: widget.enabledRevokeMenu,
             onTap: widget.onTapRevokeMenu,
           ),
         if (widget.enabledAddEmojiMenu)
           MenuInfo(
-            icon: ImageRes.menuAddFace,
+            icon: ImageLibrary.menuAddFace,
             text: StrLibrary.menuAdd,
             enabled: widget.enabledAddEmojiMenu,
             onTap: widget.onTapAddEmojiMenu,

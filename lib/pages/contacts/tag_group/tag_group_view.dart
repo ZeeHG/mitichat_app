@@ -18,10 +18,10 @@
 //       appBar: TitleBar.back(
 //         title: StrLibrary.tagGroup,
 //         right: StrLibrary.add.toText
-//           ..style = Styles.ts_333333_17sp
+//           ..style = StylesLibrary.ts_333333_17sp
 //           ..onTap = logic.createTagGroup,
 //       ),
-//       backgroundColor: Styles.c_F8F9FA,
+//       backgroundColor: StylesLibrary.c_F8F9FA,
 //       body: Obx(() => SlidableAutoCloseBehavior(
 //             child: SmartRefresher(
 //               controller: logic.refreshCtrl,
@@ -50,14 +50,14 @@
 //             CustomSlidableAction(
 //               onPressed: (_) => logic.edit(tagInfo),
 //               flex: 1,
-//               backgroundColor: Styles.c_8443F8,
-//               child: StrLibrary.edit.toText..style = Styles.ts_FFFFFF_16sp,
+//               backgroundColor: StylesLibrary.c_8443F8,
+//               child: StrLibrary.edit.toText..style = StylesLibrary.ts_FFFFFF_16sp,
 //             ),
 //             CustomSlidableAction(
 //               onPressed: (_) => logic.delete(tagInfo),
 //               flex: 1,
-//               backgroundColor: Styles.c_FF4E4C,
-//               child: StrLibrary.delete.toText..style = Styles.ts_FFFFFF_16sp,
+//               backgroundColor: StylesLibrary.c_FF4E4C,
+//               child: StrLibrary.delete.toText..style = StylesLibrary.ts_FFFFFF_16sp,
 //             ),
 //           ],
 //         ),
@@ -67,16 +67,16 @@
 //   Widget _buildItemView(TagInfo tagInfo) => Container(
 //         height: 68.h,
 //         width: 1.sw,
-//         color: Styles.c_FFFFFF,
+//         color: StylesLibrary.c_FFFFFF,
 //         padding: EdgeInsets.symmetric(horizontal: 15.w),
 //         child: Column(
 //           crossAxisAlignment: CrossAxisAlignment.start,
 //           mainAxisAlignment: MainAxisAlignment.center,
 //           children: [
-//             tagInfo.tagName!.toText..style = Styles.ts_333333_17sp,
+//             tagInfo.tagName!.toText..style = StylesLibrary.ts_333333_17sp,
 //             6.verticalSpace,
 //             tagInfo.users!.map((e) => e.nickname!).join('、').toText
-//               ..style = Styles.ts_999999_14sp,
+//               ..style = StylesLibrary.ts_999999_14sp,
 //           ],
 //         ),
 //       );
@@ -87,11 +87,11 @@
 //           crossAxisAlignment: CrossAxisAlignment.center,
 //           children: [
 //             157.verticalSpace,
-//             ImageRes.blacklistEmpty.toImage
+//             ImageLibrary.blacklistEmpty.toImage
 //               ..width = 120.w
 //               ..height = 120.h,
 //             22.verticalSpace,
-//             StrLibrary.emptyTagGroup.toText..style = Styles.ts_999999_16sp,
+//             StrLibrary.emptyTagGroup.toText..style = StylesLibrary.ts_999999_16sp,
 //           ],
 //         ),
 //       );

@@ -42,29 +42,29 @@ class AzList<T extends ISuspensionBean> extends StatelessWidget {
       indexBarData: SuspensionUtil.getTagIndexList(data),
       indexBarOptions: IndexBarOptions(
         needRebuild: true,
-        textStyle: Styles.ts_999999_11sp,
-        selectTextStyle: Styles.ts_FFFFFF_11sp,
+        textStyle: StylesLibrary.ts_999999_11sp,
+        selectTextStyle: StylesLibrary.ts_FFFFFF_11sp,
         selectItemDecoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Styles.c_8443F8,
+          color: StylesLibrary.c_8443F8,
         ),
         indexHintWidth: 95,
         indexHintHeight: 95,
         indexHintDecoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(ImageRes.indexBarBg, package: 'miti_common'),
+            image: AssetImage(ImageLibrary.indexBarBg, package: 'miti_common'),
             fit: BoxFit.contain,
           ),
         ),
         indexHintAlignment: Alignment.centerRight,
-        indexHintTextStyle: Styles.ts_333333_18sp_semibold,
+        indexHintTextStyle: StylesLibrary.ts_333333_18sp_semibold,
         indexHintOffset: const Offset(-30, 0),
       ),
     );
   }
 
   Widget _tag(String tag, Color? color) => Container(
-        color: color ?? Styles.c_F7F8FA,
+        color: color ?? StylesLibrary.c_F7F8FA,
         padding: EdgeInsets.only(top: 10.h),
         child: Column(
           children: [
@@ -72,8 +72,8 @@ class AzList<T extends ISuspensionBean> extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(12.w, 20.h, 12.w, 0),
               alignment: Alignment.centerLeft,
               width: 1.sw,
-              color: Styles.c_FFFFFF,
-              child: tag.toText..style = Styles.ts_999999_16sp,
+              color: StylesLibrary.c_FFFFFF,
+              child: tag.toText..style = StylesLibrary.ts_999999_16sp,
             )
           ],
         ),

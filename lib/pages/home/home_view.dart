@@ -20,11 +20,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
-            systemNavigationBarColor:
-                logic.index.value == 1 ? Styles.c_F7F8FA : Styles.c_FFFFFF),
+            systemNavigationBarColor: logic.index.value == 1
+                ? StylesLibrary.c_F7F8FA
+                : StylesLibrary.c_FFFFFF),
         child: Scaffold(
-            backgroundColor:
-                logic.index.value == 1 ? Styles.c_F7F8FA : Styles.c_FFFFFF,
+            backgroundColor: logic.index.value == 1
+                ? StylesLibrary.c_F7F8FA
+                : StylesLibrary.c_FFFFFF,
             body: IndexedStack(
               index: logic.index.value,
               children: [
@@ -41,8 +43,8 @@ class HomePage extends StatelessWidget {
                 items: [
                   BottomBarItem(
                     itemIndex: 0,
-                    selectedImgRes: ImageRes.appHomeTab1Sel,
-                    unselectedImgRes: ImageRes.appHomeTab1Nor,
+                    selectedImgRes: ImageLibrary.appHomeTab1Sel,
+                    unselectedImgRes: ImageLibrary.appHomeTab1Nor,
                     label: StrLibrary.chat,
                     imgWidth: 31.w,
                     imgHeight: 22.h,
@@ -52,8 +54,8 @@ class HomePage extends StatelessWidget {
                   ),
                   BottomBarItem(
                     itemIndex: 1,
-                    selectedImgRes: ImageRes.appHomeTab2Sel,
-                    unselectedImgRes: ImageRes.appHomeTab2Nor,
+                    selectedImgRes: ImageLibrary.appHomeTab2Sel,
+                    unselectedImgRes: ImageLibrary.appHomeTab2Nor,
                     label: StrLibrary.discoverTab,
                     imgWidth: 22.w,
                     imgHeight: 22.h,
@@ -64,8 +66,8 @@ class HomePage extends StatelessWidget {
                   ),
                   BottomBarItem(
                     itemIndex: -1,
-                    selectedImgRes: ImageRes.appHomeTab3Nor3,
-                    unselectedImgRes: ImageRes.appHomeTab3Nor3,
+                    selectedImgRes: ImageLibrary.appHomeTab3Nor3,
+                    unselectedImgRes: ImageLibrary.appHomeTab3Nor3,
                     label: StrLibrary.workingCircle,
                     imgWidth: 24.w,
                     imgHeight: 24.h,
@@ -74,8 +76,8 @@ class HomePage extends StatelessWidget {
                   ),
                   BottomBarItem(
                     itemIndex: 2,
-                    selectedImgRes: ImageRes.appHomeTab4Sel3,
-                    unselectedImgRes: ImageRes.appHomeTab4Nor3,
+                    selectedImgRes: ImageLibrary.appHomeTab4Sel3,
+                    unselectedImgRes: ImageLibrary.appHomeTab4Nor3,
                     label: StrLibrary.mine,
                     imgWidth: 22.w,
                     imgHeight: 22.h,

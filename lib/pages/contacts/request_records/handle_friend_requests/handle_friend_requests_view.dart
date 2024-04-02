@@ -14,9 +14,9 @@ class HandleFriendRequestsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrLibrary.newFriend),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: Container(
-        color: Styles.c_FFFFFF,
+        color: StylesLibrary.c_FFFFFF,
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         child: Column(
           children: [
@@ -30,7 +30,7 @@ class HandleFriendRequestsPage extends StatelessWidget {
                 ),
                 10.horizontalSpace,
                 (logic.applicationInfo.fromNickname ?? '').toText
-                  ..style = Styles.ts_333333_16sp,
+                  ..style = StylesLibrary.ts_333333_16sp,
               ],
             ),
             10.verticalSpace,
@@ -40,7 +40,7 @@ class HandleFriendRequestsPage extends StatelessWidget {
                 width: 343.w,
                 margin: EdgeInsets.only(bottom: 10.h),
                 decoration: BoxDecoration(
-                  color: Styles.c_E8EAEF_opacity50,
+                  color: StylesLibrary.c_E8EAEF_opacity50,
                   borderRadius: BorderRadius.circular(6.r),
                 ),
                 child: SingleChildScrollView(
@@ -52,25 +52,25 @@ class HandleFriendRequestsPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       (logic.applicationInfo.reqMsg ?? '').toText
-                        ..style = Styles.ts_333333_16sp,
+                        ..style = StylesLibrary.ts_333333_16sp,
                     ],
                   ),
                 ),
               ),
             Row(
               children: [
-                Flexible(child: Button(
-                  text: StrLibrary.reject,
-                  textStyle: Styles.ts_333333_16sp,
-                  onTap: logic.refuseFriendApplication,
-                  enabledColor: Styles.c_FFFFFF,
-                  borderColor: Styles.c_CCCCCC
-                )),
+                Flexible(
+                    child: Button(
+                        text: StrLibrary.reject,
+                        textStyle: StylesLibrary.ts_333333_16sp,
+                        onTap: logic.refuseFriendApplication,
+                        enabledColor: StylesLibrary.c_FFFFFF,
+                        borderColor: StylesLibrary.c_CCCCCC)),
                 12.horizontalSpace,
                 Flexible(
                   child: Button(
                     text: StrLibrary.accept,
-                    textStyle: Styles.ts_FFFFFF_16sp,
+                    textStyle: StylesLibrary.ts_FFFFFF_16sp,
                     onTap: logic.acceptFriendApplication,
                   ),
                 ),

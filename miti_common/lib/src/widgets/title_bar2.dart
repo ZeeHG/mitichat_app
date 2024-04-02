@@ -30,7 +30,8 @@ class TitleBar2 extends StatelessWidget implements PreferredSizeWidget {
       value: SystemUiOverlayStyle.dark,
       child: Container(
         decoration: BoxDecoration(
-            color: backgroundColor ?? Styles.c_FFFFFF, image: backgroundImage),
+            color: backgroundColor ?? StylesLibrary.c_FFFFFF,
+            image: backgroundImage),
         padding: EdgeInsets.only(top: mq.padding.top),
         child: Container(
           height: height,
@@ -74,9 +75,9 @@ class TitleBar2 extends StatelessWidget implements PreferredSizeWidget {
       TextStyle? leftTitleStyle,
       this.backgroundImage})
       : height = 44.h,
-        backgroundColor = backgroundColor ?? Styles.c_FFFFFF,
+        backgroundColor = backgroundColor ?? StylesLibrary.c_FFFFFF,
         center = (title ?? '').toText
-          ..style = (titleStyle ?? Styles.ts_333333_18sp_medium)
+          ..style = (titleStyle ?? StylesLibrary.ts_333333_18sp_medium)
           ..textAlign = TextAlign.center,
         left = GestureDetector(
           behavior: HitTestBehavior.translucent,
@@ -84,13 +85,14 @@ class TitleBar2 extends StatelessWidget implements PreferredSizeWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ImageRes.appBackBlack.toImage
+              ImageLibrary.appBackBlack.toImage
                 ..width = 24.w
                 ..height = 24.h
-                ..color = backIconColor ?? Styles.c_333333,
+                ..color = backIconColor ?? StylesLibrary.c_333333,
               if (null != leftTitle)
                 leftTitle.toText
-                  ..style = (leftTitleStyle ?? Styles.ts_333333_17sp_semibold),
+                  ..style =
+                      (leftTitleStyle ?? StylesLibrary.ts_333333_17sp_semibold),
             ],
           ),
         );

@@ -17,7 +17,7 @@ class FriendSettingPage extends StatelessWidget {
       appBar: TitleBar.back(
         title: StrLibrary.friendSetup,
       ),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10.w),
         child: Column(
@@ -77,26 +77,27 @@ class FriendSettingPage extends StatelessWidget {
         child: Container(
           height: 46.h,
           decoration: BoxDecoration(
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             borderRadius: borderRadius ?? BorderRadius.circular(6.r),
           ),
           alignment: isDelFriendButton ? Alignment.center : null,
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: isDelFriendButton
-              ? (StrLibrary.unfriend.toText..style = Styles.ts_FF4E4C_16sp)
+              ? (StrLibrary.unfriend.toText
+                ..style = StylesLibrary.ts_FF4E4C_16sp)
               : Row(
                   children: [
-                    (label ?? '').toText..style = Styles.ts_333333_16sp,
+                    (label ?? '').toText..style = StylesLibrary.ts_333333_16sp,
                     const Spacer(),
                     if (showRightArrow)
-                      ImageRes.appRightArrow.toImage
+                      ImageLibrary.appRightArrow.toImage
                         ..width = 24.w
                         ..height = 24.h,
                     if (showSwitchButton)
                       CupertinoSwitch(
                         value: switchOn,
                         onChanged: onChanged,
-                        activeColor: Styles.c_07C160,
+                        activeColor: StylesLibrary.c_07C160,
                       ),
                   ],
                 ),

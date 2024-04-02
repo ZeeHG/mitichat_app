@@ -26,7 +26,7 @@ class SelectContactsFromSearchGroupPage extends StatelessWidget {
           onSubmitted: (_) => logic.search(),
           onCleared: () => logic.focusNode.requestFocus(),
         ),
-        backgroundColor: Styles.c_F8F9FA,
+        backgroundColor: StylesLibrary.c_F8F9FA,
         body: Obx(() => logic.isSearchNotResult
             ? _emptyListView
             : ListView.builder(
@@ -40,11 +40,11 @@ class SelectContactsFromSearchGroupPage extends StatelessWidget {
 
   Widget _buildItemView(GroupInfo info) {
     Widget buildChild() => GestureDetector(
-      onTap: () => selectContactsLogic.onTap(info),
-      behavior: HitTestBehavior.translucent,
+          onTap: () => selectContactsLogic.onTap(info),
+          behavior: HitTestBehavior.translucent,
           child: Container(
             height: 64.h,
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Row(
               children: [
@@ -67,17 +67,17 @@ class SelectContactsFromSearchGroupPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // (info.groupName ?? '').toText
-                      //   ..style = Styles.ts_333333_17sp,
+                      //   ..style = StylesLibrary.ts_333333_17sp,
                       SearchKeywordText(
                         text: info.groupName ?? '',
                         keyText: logic.searchCtrl.text.trim(),
-                        style: Styles.ts_333333_17sp,
-                        keyStyle: Styles.ts_8443F8_17sp,
+                        style: StylesLibrary.ts_333333_17sp,
+                        keyStyle: StylesLibrary.ts_8443F8_17sp,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       sprintf(StrLibrary.nPerson, [info.memberCount]).toText
-                        ..style = Styles.ts_999999_14sp,
+                        ..style = StylesLibrary.ts_999999_14sp,
                     ],
                   ),
                 ),
@@ -94,12 +94,13 @@ class SelectContactsFromSearchGroupPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // 157.verticalSpace,
-            // ImageRes.blacklistEmpty.toImage
+            // ImageLibrary.blacklistEmpty.toImage
             //   ..width = 120.w
             //   ..height = 120.h,
             // 22.verticalSpace,
             44.verticalSpace,
-            StrLibrary.searchNotFound.toText..style = Styles.ts_999999_17sp,
+            StrLibrary.searchNotFound.toText
+              ..style = StylesLibrary.ts_999999_17sp,
           ],
         ),
       );

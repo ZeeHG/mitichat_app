@@ -14,7 +14,7 @@ class VisibleUsersListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: logic.title),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: Obx(() => ListView.builder(
             padding: EdgeInsets.only(top: 10.h),
             itemCount: logic.listUserInfo.length,
@@ -25,7 +25,7 @@ class VisibleUsersListPage extends StatelessWidget {
                 onTap: logic.viewUserInfo,
                 child: Container(
                   height: 64.h,
-                  color: Styles.c_FFFFFF,
+                  color: StylesLibrary.c_FFFFFF,
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Row(
                     children: [
@@ -35,7 +35,7 @@ class VisibleUsersListPage extends StatelessWidget {
                       ),
                       10.horizontalSpace,
                       (user.nickname ?? '').toText
-                        ..style = Styles.ts_333333_17sp,
+                        ..style = StylesLibrary.ts_333333_17sp,
                     ],
                   ),
                 ),

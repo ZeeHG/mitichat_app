@@ -16,7 +16,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Styles.c_FFFFFF,
+      backgroundColor: StylesLibrary.c_FFFFFF,
       body: Obx(() => CustomScrollView(
             // physics: const BouncingScrollPhysics(),
             controller: logic.scrollController,
@@ -39,7 +39,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
                     height: 55.h,
                     child: Center(
                       child: CupertinoActivityIndicator(
-                        color: Styles.c_8443F8,
+                        color: StylesLibrary.c_8443F8,
                       ),
                     ),
                   ),
@@ -49,13 +49,13 @@ class UserWorkMomentsListPage extends StatelessWidget {
                   child: Column(
                     children: [
                       100.verticalSpace,
-                      ImageRes.workingCircleEmpty.toImage
+                      ImageLibrary.workingCircleEmpty.toImage
                         ..width = 84.3.w
                         ..height = 81.35.h
                         ..fit = BoxFit.cover,
                       22.verticalSpace,
                       StrLibrary.noDynamic.toText
-                        ..style = Styles.ts_999999_16sp,
+                        ..style = StylesLibrary.ts_999999_16sp,
                     ],
                   ),
                 ),
@@ -87,16 +87,16 @@ class UserWorkMomentsListPage extends StatelessWidget {
                 children: [
                   // Expanded(
                   //   child: Container(
-                  //     color: Styles.c_E8EAEF,
+                  //     color: StylesLibrary.c_E8EAEF,
                   //     height: 1,
                   //     margin: EdgeInsets.symmetric(horizontal: 18.w),
                   //   ),
                   // ),
                   (logic.yearTimelines[moments] ?? '').toText
-                    ..style = Styles.ts_333333_22sp_medium,
+                    ..style = StylesLibrary.ts_333333_22sp_medium,
                   // Expanded(
                   //   child: Container(
-                  //     color: Styles.c_E8EAEF,
+                  //     color: StylesLibrary.c_E8EAEF,
                   //     height: 1,
                   //     margin: EdgeInsets.symmetric(horizontal: 18.w),
                   //   ),
@@ -118,7 +118,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
               //   width: 60.w,
               //   padding: EdgeInsets.only(left: 10.w),
               //   child: null != timeline
-              //       ? (timeline.toText..style = Styles.ts_333333_17sp_medium)
+              //       ? (timeline.toText..style = StylesLibrary.ts_333333_17sp_medium)
               //       : null,
               // ),
               Expanded(
@@ -135,7 +135,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
                               height: 60.h,
                               radius: 4.r),
                         if (urls.isNotEmpty && isVideo)
-                          ImageRes.videoPause.toImage
+                          ImageLibrary.videoPause.toImage
                             ..width = 20.w
                             ..height = 20.h,
                       ],
@@ -148,10 +148,10 @@ class UserWorkMomentsListPage extends StatelessWidget {
                                 vertical: 10.h,
                               ),
                               decoration: BoxDecoration(
-                                color: Styles.c_F7F7F7,
+                                color: StylesLibrary.c_F7F7F7,
                               ),
                               child: (moments.content?.text ?? '').toText
-                                ..style = Styles.ts_333333_16sp
+                                ..style = StylesLibrary.ts_333333_16sp
                                 ..maxLines = 2
                                 ..overflow = TextOverflow.ellipsis,
                             )
@@ -164,13 +164,13 @@ class UserWorkMomentsListPage extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   ((moments.content?.text ?? '').toText
-                                    ..style = Styles.ts_333333_16sp
+                                    ..style = StylesLibrary.ts_333333_16sp
                                     ..maxLines = 2
                                     ..overflow = TextOverflow.ellipsis),
                                   if (!isVideo)
                                     sprintf(StrLibrary.totalNPicture,
                                         [urls.length]).toText
-                                      ..style = Styles.ts_999999_12sp,
+                                      ..style = StylesLibrary.ts_999999_12sp,
                                 ],
                               ),
                             ),
@@ -191,7 +191,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
             ? Container(
                 padding: EdgeInsets.only(bottom: 20.h),
                 child: StrLibrary.workingCircle.toText
-                  ..style = Styles.ts_333333_18sp_medium,
+                  ..style = StylesLibrary.ts_333333_18sp_medium,
               )
             : Container(
                 padding: EdgeInsets.only(bottom: 20.h),
@@ -205,7 +205,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
         centerTitle: true,
         expandedHeight: 180.h,
         toolbarHeight: 66.h,
-        backgroundColor: Styles.c_FFFFFF,
+        backgroundColor: StylesLibrary.c_FFFFFF,
         floating: false,
         pinned: true,
         snap: false,
@@ -220,16 +220,16 @@ class UserWorkMomentsListPage extends StatelessWidget {
               width: 38.w,
               height: 38.h,
               child: Center(
-                child: ImageRes.appBackWhite.toImage
+                child: ImageLibrary.appBackWhite.toImage
                   ..width = 24.w
                   ..height = 24.h
-                  ..color = Styles.c_333333,
+                  ..color = StylesLibrary.c_333333,
               ),
             ),
           ),
         ),
         // stretchTriggerOffset: 100,
-        // leading: ImageRes.backBlack.toImage..color = Styles.c_FFFFFF,
+        // leading: ImageLibrary.backBlack.toImage..color = StylesLibrary.c_FFFFFF,
         actions: logic.isMyself &&
                 !(logic.scrollHeight <=
                     (180.h - 58.h - MediaQuery.of(context).padding.top))
@@ -246,14 +246,14 @@ class UserWorkMomentsListPage extends StatelessWidget {
                           width: 38.w,
                           height: 38.h,
                           decoration: BoxDecoration(
-                            color: Styles.c_FFFFFF_opacity70,
+                            color: StylesLibrary.c_FFFFFF_opacity70,
                             borderRadius: BorderRadius.circular(6.r),
                           ),
                           child: Center(
-                            child: ImageRes.appAdd.toImage
+                            child: ImageLibrary.appAdd.toImage
                               ..width = 16.w
                               ..height = 16.h
-                              ..color = Styles.c_333333,
+                              ..color = StylesLibrary.c_333333,
                           ),
                         ),
                       ),
@@ -268,14 +268,14 @@ class UserWorkMomentsListPage extends StatelessWidget {
                       width: 38.w,
                       height: 38.h,
                       decoration: BoxDecoration(
-                        color: Styles.c_FFFFFF_opacity70,
+                        color: StylesLibrary.c_FFFFFF_opacity70,
                         borderRadius: BorderRadius.circular(6.r),
                       ),
                       child: Center(
-                        child: ImageRes.appNotification.toImage
+                        child: ImageLibrary.appNotification.toImage
                           ..width = 16.w
                           ..height = 16.h
-                          ..color = Styles.c_333333,
+                          ..color = StylesLibrary.c_333333,
                       ),
                     ),
                   ),
@@ -289,8 +289,8 @@ class UserWorkMomentsListPage extends StatelessWidget {
           children: [
             Container(
               height: 300.h,
-              color: Styles.c_FFFFFF,
-              child: ImageRes.workingCircleHeaderBg3.toImage
+              color: StylesLibrary.c_FFFFFF,
+              child: ImageLibrary.workingCircleHeaderBg3.toImage
                 ..width = 375.w
                 ..height = 180.h
                 ..fit = BoxFit.cover,
@@ -316,7 +316,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
                       12.horizontalSpace,
                       Expanded(
                           child: (logic.nickname ?? '').toText
-                            ..style = Styles.ts_333333_18sp_medium
+                            ..style = StylesLibrary.ts_333333_18sp_medium
                             ..maxLines = 1
                             ..overflow = TextOverflow.ellipsis),
                       12.horizontalSpace,
@@ -328,14 +328,14 @@ class UserWorkMomentsListPage extends StatelessWidget {
                         //     padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 0),
                         //     height: 38.h,
                         //     decoration: BoxDecoration(
-                        //       color: Styles.c_FFFFFF_opacity70,
+                        //       color: StylesLibrary.c_FFFFFF_opacity70,
                         //       borderRadius: BorderRadius.circular(6.r),
                         //     ),
                         //     child: Row(
                         //       children: [
-                        //         ImageRes.appAdd.toImage..width=16.w..height=16.h,
+                        //         ImageLibrary.appAdd.toImage..width=16.w..height=16.h,
                         //         6.horizontalSpace,
-                        //         StrLibrary .publishMoment.toText..style=Styles.ts_333333_14sp_medium
+                        //         StrLibrary .publishMoment.toText..style=StylesLibrary.ts_333333_14sp_medium
                         //       ],
                         //     ),
                         //   ),
@@ -349,17 +349,17 @@ class UserWorkMomentsListPage extends StatelessWidget {
                                 horizontal: 11.w, vertical: 0),
                             height: 38.h,
                             decoration: BoxDecoration(
-                              color: Styles.c_FFFFFF_opacity70,
+                              color: StylesLibrary.c_FFFFFF_opacity70,
                               borderRadius: BorderRadius.circular(6.r),
                             ),
                             child: Row(
                               children: [
-                                ImageRes.appAdd.toImage
+                                ImageLibrary.appAdd.toImage
                                   ..width = 16.w
                                   ..height = 16.h,
                                 6.horizontalSpace,
                                 StrLibrary.publishMoment.toText
-                                  ..style = Styles.ts_333333_14sp_medium
+                                  ..style = StylesLibrary.ts_333333_14sp_medium
                               ],
                             ),
                           ),
@@ -373,11 +373,11 @@ class UserWorkMomentsListPage extends StatelessWidget {
                                   horizontal: 11.w, vertical: 0),
                               height: 38.h,
                               decoration: BoxDecoration(
-                                color: Styles.c_FFFFFF_opacity70,
+                                color: StylesLibrary.c_FFFFFF_opacity70,
                                 borderRadius: BorderRadius.circular(6.r),
                               ),
                               child: Center(
-                                child: ImageRes.appNotification.toImage
+                                child: ImageLibrary.appNotification.toImage
                                   ..width = 16.w
                                   ..height = 16.h,
                               )),
@@ -395,7 +395,7 @@ class UserWorkMomentsListPage extends StatelessWidget {
                   width: 1.sw,
                   height: 16.h,
                   decoration: BoxDecoration(
-                      color: Styles.c_FFFFFF,
+                      color: StylesLibrary.c_FFFFFF,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(16.r),
                         topRight: Radius.circular(16.r),
@@ -412,14 +412,14 @@ class UserWorkMomentsListPage extends StatelessWidget {
   //                         padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 0),
   //                         height: 38.h,
   //                         decoration: BoxDecoration(
-  //                           color: Styles.c_FFFFFF_opacity70,
+  //                           color: StylesLibrary.c_FFFFFF_opacity70,
   //                           borderRadius: BorderRadius.circular(6.r),
   //                         ),
   //                         child: Row(
   //                           children: [
-  //                             ImageRes.appAdd.toImage..width=16.w..height=16.h,
+  //                             ImageLibrary.appAdd.toImage..width=16.w..height=16.h,
   //                             6.horizontalSpace,
-  //                             StrLibrary .publishMoment.toText..style=Styles.ts_333333_14sp_medium
+  //                             StrLibrary .publishMoment.toText..style=StylesLibrary.ts_333333_14sp_medium
   //                           ],
   //                         ),
   //                       ),
@@ -430,11 +430,11 @@ class UserWorkMomentsListPage extends StatelessWidget {
   //           value: 0,
   //           child: Row(
   //             children: [
-  //               ImageRes.appPublishPic.toImage
+  //               ImageLibrary.appPublishPic.toImage
   //                 ..width = 20.w
   //                 ..height = 20.h,
   //               12.horizontalSpace,
-  //               StrLibrary .publishPicture.toText..style = Styles.ts_333333_16sp,
+  //               StrLibrary .publishPicture.toText..style = StylesLibrary.ts_333333_16sp,
   //             ],
   //           ),
   //         ),
@@ -445,11 +445,11 @@ class UserWorkMomentsListPage extends StatelessWidget {
   //           value: 1,
   //           child: Row(
   //             children: [
-  //               ImageRes.appPublishVideo.toImage
+  //               ImageLibrary.appPublishVideo.toImage
   //                 ..width = 20.w
   //                 ..height = 20.h,
   //               12.horizontalSpace,
-  //               StrLibrary .publishVideo.toText..style = Styles.ts_333333_16sp,
+  //               StrLibrary .publishVideo.toText..style = StylesLibrary.ts_333333_16sp,
   //             ],
   //           ),
   //         ),

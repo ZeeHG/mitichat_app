@@ -111,7 +111,9 @@ class _ChatVoiceRecordBarState extends State<ChatVoiceRecordBar> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: widget.speakBarColor ??
-              (_pressing ? Styles.c_999999_opacity30 : Styles.c_FFFFFF),
+              (_pressing
+                  ? StylesLibrary.c_999999_opacity30
+                  : StylesLibrary.c_FFFFFF),
           borderRadius: BorderRadius.circular(4.r),
         ),
         child: Text(
@@ -120,7 +122,7 @@ class _ChatVoiceRecordBarState extends State<ChatVoiceRecordBar> {
                   ? StrLibrary.liftFingerToCancelSend
                   : StrLibrary.releaseToSend)
               : StrLibrary.holdTalk,
-          style: widget.speakTextStyle ?? Styles.ts_333333_16sp_medium,
+          style: widget.speakTextStyle ?? StylesLibrary.ts_333333_16sp_medium,
         ),
       ),
     );

@@ -16,7 +16,7 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           appBar: TitleBar.back(hideBack: logic.success.value),
-          backgroundColor: Styles.c_FFFFFF,
+          backgroundColor: StylesLibrary.c_FFFFFF,
           body: Container(
             width: 1.sw,
             padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -40,16 +40,16 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                                   ? StrLibrary.changeEmail
                                   : StrLibrary.bindEmail)
                       .toText
-                    ..style = Styles.ts_333333_20sp_medium,
+                    ..style = StylesLibrary.ts_333333_20sp_medium,
                   26.verticalSpace,
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 10.h),
                     decoration: BoxDecoration(
                         border: Border(
-                            bottom:
-                                BorderSide(width: 1.h, color: Styles.c_F1F2F6),
+                            bottom: BorderSide(
+                                width: 1.h, color: StylesLibrary.c_F1F2F6),
                             top: BorderSide(
-                                width: 1.h, color: Styles.c_F1F2F6))),
+                                width: 1.h, color: StylesLibrary.c_F1F2F6))),
                     child: Row(
                       children: [
                         SizedBox(
@@ -58,7 +58,7 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                                   ? StrLibrary.phoneNumber
                                   : StrLibrary.email)
                               .toText
-                            ..style = Styles.ts_333333_16sp
+                            ..style = StylesLibrary.ts_333333_16sp
                             ..maxLines = 1
                             ..overflow = TextOverflow.ellipsis,
                         ),
@@ -81,14 +81,15 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 10.h),
                     decoration: BoxDecoration(
                         border: Border(
-                      bottom: BorderSide(width: 1.h, color: Styles.c_F1F2F6),
+                      bottom:
+                          BorderSide(width: 1.h, color: StylesLibrary.c_F1F2F6),
                     )),
                     child: Row(
                       children: [
                         SizedBox(
                           width: 100.w,
                           child: StrLibrary.verificationCode.toText
-                            ..style = Styles.ts_333333_16sp
+                            ..style = StylesLibrary.ts_333333_16sp
                             ..maxLines = 1
                             ..overflow = TextOverflow.ellipsis,
                         ),
@@ -107,14 +108,15 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 10.h),
                     decoration: BoxDecoration(
                         border: Border(
-                      bottom: BorderSide(width: 1.h, color: Styles.c_F1F2F6),
+                      bottom:
+                          BorderSide(width: 1.h, color: StylesLibrary.c_F1F2F6),
                     )),
                     child: Row(
                       children: [
                         SizedBox(
                           width: 100.w,
                           child: StrLibrary.password.toText
-                            ..style = Styles.ts_333333_16sp
+                            ..style = StylesLibrary.ts_333333_16sp
                             ..maxLines = 1
                             ..overflow = TextOverflow.ellipsis,
                         ),
@@ -139,15 +141,15 @@ class PhoneEmailChangeDetailPage extends StatelessWidget {
                 ],
                 if (logic.success.value) ...[
                   45.verticalSpace,
-                  ImageRes.appSuccess.toImage
+                  ImageLibrary.appSuccess.toImage
                     ..width = 60.w
                     ..height = 60.h,
                   25.verticalSpace,
                   StrLibrary.success.toText
-                    ..style = Styles.ts_333333_20sp_medium,
+                    ..style = StylesLibrary.ts_333333_20sp_medium,
                   10.verticalSpace,
                   StrLibrary.changeSuccessTips.toText
-                    ..style = Styles.ts_999999_16sp,
+                    ..style = StylesLibrary.ts_999999_16sp,
                   45.verticalSpace,
                   Button(
                     width: 1.sw - 86.w,

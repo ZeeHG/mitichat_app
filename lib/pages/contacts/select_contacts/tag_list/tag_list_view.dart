@@ -16,7 +16,7 @@
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       appBar: TitleBar.back(title: StrLibrary.tagGroup),
-//       backgroundColor: Styles.c_F8F9FA,
+//       backgroundColor: StylesLibrary.c_F8F9FA,
 //       body: Column(
 //         children: [
 //           if (selectContactsLogic.isMultiModel)
@@ -24,7 +24,7 @@
 //               padding: EdgeInsets.symmetric(vertical: 10.h),
 //               child: Ink(
 //                 height: 64.h,
-//                 color: Styles.c_FFFFFF,
+//                 color: StylesLibrary.c_FFFFFF,
 //                 child: InkWell(
 //                   onTap: logic.selectAll,
 //                   child: Container(
@@ -37,7 +37,7 @@
 //                             )),
 //                         10.horizontalSpace,
 //                         StrLibrary.selectAll.toText
-//                           ..style = Styles.ts_333333_17sp,
+//                           ..style = StylesLibrary.ts_333333_17sp,
 //                       ],
 //                     ),
 //                   ),
@@ -59,16 +59,16 @@
 
 //   // Widget _buildItemView(TagInfo tagInfo) => Container(
 //   //       height: 68.h,
-//   //       color: Styles.c_FFFFFF,
+//   //       color: StylesLibrary.c_FFFFFF,
 //   //       padding: EdgeInsets.symmetric(horizontal: 15.w),
 //   //       child: Column(
 //   //         crossAxisAlignment: CrossAxisAlignment.start,
 //   //         mainAxisAlignment: MainAxisAlignment.center,
 //   //         children: [
-//   //           tagInfo.tagName!.toText..style = Styles.ts_333333_17sp,
+//   //           tagInfo.tagName!.toText..style = StylesLibrary.ts_333333_17sp,
 //   //           6.verticalSpace,
 //   //           tagInfo.users!.map((e) => e.nickname!).join('、').toText
-//   //             ..style = Styles.ts_999999_14sp,
+//   //             ..style = StylesLibrary.ts_999999_14sp,
 //   //         ],
 //   //       ),
 //   //     );
@@ -76,7 +76,7 @@
 //   Widget _buildItemView(TagInfo info) {
 //     Widget buildChild() => Ink(
 //           height: 68.h,
-//           color: Styles.c_FFFFFF,
+//           color: StylesLibrary.c_FFFFFF,
 //           child: InkWell(
 //             onTap: selectContactsLogic.onTap(info),
 //             child: Container(
@@ -96,10 +96,10 @@
 //                       crossAxisAlignment: CrossAxisAlignment.start,
 //                       mainAxisAlignment: MainAxisAlignment.center,
 //                       children: [
-//                         info.tagName!.toText..style = Styles.ts_333333_17sp,
+//                         info.tagName!.toText..style = StylesLibrary.ts_333333_17sp,
 //                         6.verticalSpace,
 //                         info.users!.map((e) => e.nickname!).join('、').toText
-//                           ..style = Styles.ts_999999_14sp,
+//                           ..style = StylesLibrary.ts_999999_14sp,
 //                       ],
 //                     ),
 //                   )

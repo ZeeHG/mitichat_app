@@ -13,13 +13,13 @@ class ScreenLockErrorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Text(StrLibrary.plsEnterPassword, style: Styles.ts_FFFFFF_16sp),
+      Text(StrLibrary.plsEnterPassword, style: StylesLibrary.ts_FFFFFF_16sp),
       StreamBuilder(
         builder: (context, AsyncSnapshot<String?> snapshot) {
           if (snapshot.hasData) {
             return Text(
               sprintf(StrLibrary.lockPwdErrorHint, [snapshot.data]),
-              style: Styles.ts_FF4E4C_16sp,
+              style: StylesLibrary.ts_FF4E4C_16sp,
             );
           }
           return Container();

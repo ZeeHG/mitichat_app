@@ -24,8 +24,8 @@ class ChatFileView extends StatelessWidget {
       width: maxWidth,
       height: 64.h,
       decoration: BoxDecoration(
-        color: Styles.c_FFFFFF,
-        border: Border.all(color: Styles.c_E8EAEF, width: 1.h),
+        color: StylesLibrary.c_FFFFFF,
+        border: Border.all(color: StylesLibrary.c_E8EAEF, width: 1.h),
         borderRadius: borderRadius(isISend),
       ),
       child: Column(
@@ -40,16 +40,16 @@ class ChatFileView extends StatelessWidget {
                   children: [
                     TextWithMidEllipsis(
                       message.fileElem?.fileName ?? '',
-                      style: Styles.ts_333333_16sp,
+                      style: StylesLibrary.ts_333333_16sp,
                       endPartLength: 8,
                     ),
                     // fileName.toText
-                    //   ..style = Styles.ts_333333_16sp
+                    //   ..style = StylesLibrary.ts_333333_16sp
                     //   ..maxLines = 1
                     //   ..overflow = TextOverflow.ellipsis,
                     MitiUtils.formatBytes(message.fileElem?.fileSize ?? 0)
                         .toText
-                      ..style = Styles.ts_999999_14sp,
+                      ..style = StylesLibrary.ts_999999_14sp,
                   ],
                 ),
               ),

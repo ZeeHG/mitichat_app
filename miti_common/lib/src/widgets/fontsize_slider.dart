@@ -16,7 +16,7 @@ class FontSizeSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Styles.c_FFFFFF,
+      color: StylesLibrary.c_FFFFFF,
       padding: EdgeInsets.symmetric(
         horizontal: 20.w,
         vertical: 20.h,
@@ -28,13 +28,13 @@ class FontSizeSlider extends StatelessWidget {
             data: SfSliderThemeData(
               activeTrackHeight: 1,
               inactiveTrackHeight: 1,
-              activeTrackColor: Styles.c_999999_opacity30,
-              inactiveTrackColor: Styles.c_999999_opacity30,
-              activeTickColor: Styles.c_999999_opacity30,
-              inactiveTickColor: Styles.c_999999_opacity30,
-              activeMinorTickColor: Styles.c_999999_opacity30,
-              inactiveMinorTickColor: Styles.c_999999_opacity30,
-              thumbColor: Styles.c_FFFFFF,
+              activeTrackColor: StylesLibrary.c_999999_opacity30,
+              inactiveTrackColor: StylesLibrary.c_999999_opacity30,
+              activeTickColor: StylesLibrary.c_999999_opacity30,
+              inactiveTickColor: StylesLibrary.c_999999_opacity30,
+              activeMinorTickColor: StylesLibrary.c_999999_opacity30,
+              inactiveMinorTickColor: StylesLibrary.c_999999_opacity30,
+              thumbColor: StylesLibrary.c_FFFFFF,
               tickOffset: Offset(0, -10.h),
               // labelOffset: Offset(0, -45.h),
             ),
@@ -63,18 +63,18 @@ class FontSizeSlider extends StatelessWidget {
   Widget _buildIndicatorLabel() => Stack(
         children: [
           StrLibrary.little.toText
-            ..style = Styles.ts_333333_12sp
+            ..style = StylesLibrary.ts_333333_12sp
             ..onTap = () => onChanged?.call(.0),
           Align(
             alignment: Alignment.center,
             child: StrLibrary.standard.toText
-              ..style = Styles.ts_333333_17sp
+              ..style = StylesLibrary.ts_333333_17sp
               ..onTap = () => onChanged?.call(1.0),
           ),
           Align(
             alignment: Alignment.centerRight,
             child: StrLibrary.big.toText
-              ..style = Styles.ts_333333_20sp
+              ..style = StylesLibrary.ts_333333_20sp
               ..onTap = () => onChanged?.call(2.0),
           ),
         ],

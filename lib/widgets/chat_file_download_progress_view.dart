@@ -32,7 +32,7 @@ class ChatFileDownloadProgressView extends StatelessWidget {
                             ? Stack(
                                 alignment: Alignment.center,
                                 children: [
-                                  ImageRes.fileMask.toImage
+                                  ImageLibrary.fileMask.toImage
                                     ..width = 38.w
                                     ..height = 44.h,
                                   SizedBox(
@@ -42,19 +42,20 @@ class ChatFileDownloadProgressView extends StatelessWidget {
                                       alignment: Alignment.center,
                                       children: [
                                         CircularProgressIndicator(
-                                          backgroundColor: Styles.c_FFFFFF,
-                                          color: Styles.c_8443F8,
+                                          backgroundColor:
+                                              StylesLibrary.c_FFFFFF,
+                                          color: StylesLibrary.c_8443F8,
                                           strokeWidth: 1.8,
                                           value: progress,
                                         ),
                                         if ([DownloadStatus.paused]
                                             .contains(status))
-                                          ImageRes.progressGoing.toImage
+                                          ImageLibrary.progressGoing.toImage
                                             ..width = 15.w
                                             ..height = 15.h,
                                         if ([DownloadStatus.downloading]
                                             .contains(status))
-                                          ImageRes.progressPause.toImage
+                                          ImageLibrary.progressPause.toImage
                                             ..width = 15.w
                                             ..height = 15.h,
                                       ],

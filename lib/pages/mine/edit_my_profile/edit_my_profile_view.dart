@@ -17,22 +17,22 @@ class EditMyProfilePage extends StatelessWidget {
       appBar: TitleBar.back(
         title: logic.title,
         right: StrLibrary.save.toText
-          ..style = Styles.ts_333333_16sp
+          ..style = StylesLibrary.ts_333333_16sp
           ..onTap = logic.save,
       ),
-      backgroundColor: Styles.c_FFFFFF,
+      backgroundColor: StylesLibrary.c_FFFFFF,
       body: Column(
         children: [
           22.verticalSpace,
           Container(
             margin: EdgeInsets.symmetric(horizontal: 10.w),
             decoration: BoxDecoration(
-              color: Styles.c_E8EAEF,
+              color: StylesLibrary.c_E8EAEF,
               borderRadius: BorderRadius.circular(4.r),
             ),
             child: TextField(
               controller: logic.inputCtrl,
-              style: Styles.ts_333333_16sp,
+              style: StylesLibrary.ts_333333_16sp,
               autofocus: true,
               keyboardType: logic.keyboardType,
               inputFormatters: [

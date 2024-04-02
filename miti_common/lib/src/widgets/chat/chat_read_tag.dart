@@ -33,8 +33,8 @@ class ChatReadTagView extends StatelessWidget {
       return ((showRead ?? isRead) ? StrLibrary.hasRead : StrLibrary.unread)
           .toText
         ..style = ((showRead ?? isRead)
-            ? Styles.ts_999999_12sp
-            : Styles.ts_8443F8_12sp);
+            ? StylesLibrary.ts_999999_12sp
+            : StylesLibrary.ts_8443F8_12sp);
     } else {
       if (_needReadMemberCount == 0) return const SizedBox();
       bool isAllRead = _unreadCount <= 0;
@@ -45,7 +45,9 @@ class ChatReadTagView extends StatelessWidget {
                 ? StrLibrary.allRead
                 : sprintf(StrLibrary.nPersonUnRead, [_unreadCount]))
             .toText
-          ..style = (isAllRead ? Styles.ts_999999_12sp : Styles.ts_8443F8_12sp),
+          ..style = (isAllRead
+              ? StylesLibrary.ts_999999_12sp
+              : StylesLibrary.ts_8443F8_12sp),
       );
     }
   }

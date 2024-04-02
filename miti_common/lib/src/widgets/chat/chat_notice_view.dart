@@ -18,8 +18,8 @@ class ChatNoticeView extends StatelessWidget {
       constraints: BoxConstraints(maxWidth: maxWidth),
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
       decoration: BoxDecoration(
-        color: (isISend ? Styles.c_8443F8 : Styles.c_FFFFFF),
-        border: Border.all(color: Styles.c_E8EAEF, width: 1.h),
+        color: (isISend ? StylesLibrary.c_8443F8 : StylesLibrary.c_FFFFFF),
+        border: Border.all(color: StylesLibrary.c_E8EAEF, width: 1.h),
         borderRadius: borderRadius(isISend),
       ),
       child: Column(
@@ -27,17 +27,20 @@ class ChatNoticeView extends StatelessWidget {
         children: [
           Row(
             children: [
-              ImageRes.notice.toImage
+              ImageLibrary.notice.toImage
                 ..width = 24.w
                 ..height = 24.h,
               StrLibrary.groupAc.toText
-                ..style =
-                    (isISend ? Styles.ts_FFFFFF_16sp : Styles.ts_333333_16sp),
+                ..style = (isISend
+                    ? StylesLibrary.ts_FFFFFF_16sp
+                    : StylesLibrary.ts_333333_16sp),
             ],
           ),
           6.verticalSpace,
           content.toText
-            ..style = (isISend ? Styles.ts_FFFFFF_16sp : Styles.ts_333333_16sp),
+            ..style = (isISend
+                ? StylesLibrary.ts_FFFFFF_16sp
+                : StylesLibrary.ts_333333_16sp),
         ],
       ),
     );
@@ -61,7 +64,7 @@ class TopNoticeView extends StatelessWidget {
       margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h),
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
       decoration: BoxDecoration(
-        color: Styles.c_F2F8FF,
+        color: StylesLibrary.c_F2F8FF,
         borderRadius: BorderRadius.circular(6.r),
       ),
       child: GestureDetector(
@@ -72,13 +75,13 @@ class TopNoticeView extends StatelessWidget {
           children: [
             Row(
               children: [
-                ImageRes.notice.toImage
+                ImageLibrary.notice.toImage
                   ..width = 24.w
                   ..height = 24.h,
                 2.horizontalSpace,
-                StrLibrary.groupAc.toText..style = Styles.ts_8443F8_16sp,
+                StrLibrary.groupAc.toText..style = StylesLibrary.ts_8443F8_16sp,
                 const Spacer(),
-                ImageRes.closeGroupNotice.toImage
+                ImageLibrary.closeGroupNotice.toImage
                   ..width = 16.w
                   ..height = 16.h
                   ..onTap = onClose,
@@ -86,7 +89,7 @@ class TopNoticeView extends StatelessWidget {
             ),
             8.verticalSpace,
             content.toText
-              ..style = Styles.ts_333333_14sp
+              ..style = StylesLibrary.ts_333333_14sp
               ..maxLines = 2
               ..overflow = TextOverflow.ellipsis,
           ],

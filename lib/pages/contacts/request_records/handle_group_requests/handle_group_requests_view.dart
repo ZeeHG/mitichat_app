@@ -15,9 +15,9 @@ class HandleGroupRequestsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrLibrary.newGroup),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: Container(
-        color: Styles.c_FFFFFF,
+        color: StylesLibrary.c_FFFFFF,
         padding: EdgeInsets.symmetric(
           horizontal: 16.w,
           vertical: 16.h,
@@ -38,17 +38,17 @@ class HandleGroupRequestsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     (logic.applicationInfo.nickname ?? '').toText
-                      ..style = Styles.ts_333333_16sp,
+                      ..style = StylesLibrary.ts_333333_16sp,
                     // if (!logic.isInvite)
                     RichText(
                       text: TextSpan(
                         text: StrLibrary.applyJoin,
-                        style: Styles.ts_999999_14sp,
+                        style: StylesLibrary.ts_999999_14sp,
                         children: [
                           WidgetSpan(child: 2.horizontalSpace),
                           TextSpan(
                             text: logic.groupName,
-                            style: Styles.ts_8443F8_14sp,
+                            style: StylesLibrary.ts_8443F8_14sp,
                           ),
                         ],
                       ),
@@ -64,7 +64,7 @@ class HandleGroupRequestsPage extends StatelessWidget {
                 width: 343.w,
                 margin: EdgeInsets.only(bottom: 10.h),
                 decoration: BoxDecoration(
-                  color: Styles.c_E8EAEF_opacity50,
+                  color: StylesLibrary.c_E8EAEF_opacity50,
                   borderRadius: BorderRadius.circular(6.r),
                 ),
                 child: SingleChildScrollView(
@@ -76,7 +76,7 @@ class HandleGroupRequestsPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       (logic.applicationInfo.reqMsg ?? '').toText
-                        ..style = Styles.ts_333333_16sp,
+                        ..style = StylesLibrary.ts_333333_16sp,
                     ],
                   ),
                 ),
@@ -85,7 +85,7 @@ class HandleGroupRequestsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 sprintf(StrLibrary.sourceFrom, [logic.sourceFrom]).toText
-                  ..style = Styles.ts_999999_14sp
+                  ..style = StylesLibrary.ts_999999_14sp
               ],
             ),
             12.verticalSpace,
@@ -94,16 +94,16 @@ class HandleGroupRequestsPage extends StatelessWidget {
                 Flexible(
                     child: Button(
                         text: StrLibrary.reject,
-                        textStyle: Styles.ts_333333_16sp,
+                        textStyle: StylesLibrary.ts_333333_16sp,
                         onTap: logic.reject,
-                        enabledColor: Styles.c_FFFFFF,
-                        borderColor: Styles.c_CCCCCC)),
+                        enabledColor: StylesLibrary.c_FFFFFF,
+                        borderColor: StylesLibrary.c_CCCCCC)),
                 12.horizontalSpace,
                 Flexible(
                   child: Button(
                     onTap: logic.approve,
                     text: StrLibrary.accept,
-                    textStyle: Styles.ts_FFFFFF_16sp,
+                    textStyle: StylesLibrary.ts_FFFFFF_16sp,
                   ),
                 ),
               ],

@@ -103,7 +103,7 @@ class _ChatWebViewMapState extends State<ChatWebViewMap> {
         context: context,
         builder: (_) => AlertDialog(
           title: StrLibrary.plsSelectLocation.toText
-            ..style = Styles.ts_333333_17sp_semibold,
+            ..style = StylesLibrary.ts_333333_17sp_semibold,
           actions: [
             GestureDetector(
               onTap: () => Navigator.pop(context),
@@ -111,7 +111,7 @@ class _ChatWebViewMapState extends State<ChatWebViewMap> {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                 child: StrLibrary.determine.toText
-                  ..style = Styles.ts_8443F8_17sp_semibold,
+                  ..style = StylesLibrary.ts_8443F8_17sp_semibold,
               ),
             ),
           ],
@@ -145,7 +145,7 @@ class _ChatWebViewMapState extends State<ChatWebViewMap> {
                 onTap: _confirm,
                 behavior: HitTestBehavior.translucent,
                 child: StrLibrary.determine.toText
-                  ..style = Styles.ts_333333_17sp,
+                  ..style = StylesLibrary.ts_333333_17sp,
               ),
       ),
       body: SafeArea(
@@ -222,8 +222,7 @@ class _ChatWebViewMapState extends State<ChatWebViewMap> {
               onUpdateVisitedHistory: (controller, url, androidIsReload) {
                 this.url = url.toString();
               },
-              onConsoleMessage: (controller, consoleMessage) {
-              },
+              onConsoleMessage: (controller, consoleMessage) {},
             ),
             progress < 1.0
                 ? LinearProgressIndicator(value: progress)

@@ -173,20 +173,20 @@ class LoginLogic extends GetxController {
             Text(
               StrLibrary.switchServer,
               textAlign: TextAlign.center,
-              style: Styles.ts_333333_16sp_medium,
+              style: StylesLibrary.ts_333333_16sp_medium,
             ),
             31.verticalSpace,
             Container(
               height: 46.h,
               padding: EdgeInsets.symmetric(horizontal: 10.w),
               decoration: BoxDecoration(
-                color: Styles.c_F7F8FA,
+                color: StylesLibrary.c_F7F8FA,
                 borderRadius: BorderRadius.circular(8.r),
               ),
               child: InputBox(
                 autofocus: false,
                 hintText: StrLibrary.addAccountServerTips,
-                hintStyle: Styles.ts_CCCCCC_14sp,
+                hintStyle: StylesLibrary.ts_CCCCCC_14sp,
                 border: false,
                 controller: serverCtrl,
               ),

@@ -19,8 +19,8 @@ class GradientScrollView extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Styles.c_8443F8_opacity10,
-                      Styles.c_FFFFFF_opacity0,
+                      StylesLibrary.c_8443F8_opacity10,
+                      StylesLibrary.c_FFFFFF_opacity0,
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -38,7 +38,7 @@ class GradientScrollView extends StatelessWidget {
             50.verticalSpace,
             Container(
               padding: EdgeInsets.only(left: 12.w),
-              child: ImageRes.backBlack.toImage
+              child: ImageLibrary.backBlack.toImage
                 ..width = 24.w
                 ..height = 24.h
                 ..onTap = () => Get.back(),

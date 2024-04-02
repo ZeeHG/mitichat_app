@@ -15,8 +15,9 @@ class GroupSetupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           appBar: TitleBar.back(
-              title: logic.appBarTitle, backgroundColor: Styles.transparent),
-          backgroundColor: Styles.c_F7F8FA,
+              title: logic.appBarTitle,
+              backgroundColor: StylesLibrary.transparent),
+          backgroundColor: StylesLibrary.c_F7F8FA,
           body: Obx(() => SingleChildScrollView(
                 child: Column(
                   children: [
@@ -113,9 +114,9 @@ class GroupSetupPage extends StatelessWidget {
                         text: logic.isJoinedGroup.value
                             ? StrLibrary.exitGroup
                             : StrLibrary.delete,
-                        textStyle: Styles.ts_FC4D4D_16sp,
+                        textStyle: StylesLibrary.ts_FC4D4D_16sp,
                         radius: 10.r,
-                        enabledColor: Styles.c_FFFFFF,
+                        enabledColor: StylesLibrary.c_FFFFFF,
                         onTap: logic.quitGroup,
                       ),
                     if (logic.isOwner)
@@ -123,9 +124,9 @@ class GroupSetupPage extends StatelessWidget {
                         width: 1.sw - 30.w,
                         height: 52.h,
                         text: StrLibrary.dismissGroup,
-                        textStyle: Styles.ts_FC4D4D_16sp,
+                        textStyle: StylesLibrary.ts_FC4D4D_16sp,
                         radius: 10.r,
-                        enabledColor: Styles.c_FFFFFF,
+                        enabledColor: StylesLibrary.c_FFFFFF,
                         onTap: logic.quitGroup,
                       ),
                     40.verticalSpace,
@@ -140,7 +141,7 @@ class GroupSetupPage extends StatelessWidget {
         margin: EdgeInsets.only(top: 15.h, left: 15.w, right: 15.w),
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(10.r),
             topRight: Radius.circular(10.r),
@@ -165,7 +166,7 @@ class GroupSetupPage extends StatelessWidget {
                   if (logic.isOwnerOrAdmin)
                     Align(
                         alignment: Alignment.bottomRight,
-                        child: ImageRes.editAvatar.toImage
+                        child: ImageLibrary.editAvatar.toImage
                           ..width = 14.w
                           ..height = 14.h)
                 ],
@@ -186,12 +187,12 @@ class GroupSetupPage extends StatelessWidget {
                             constraints: BoxConstraints(maxWidth: 200.w),
                             child:
                                 (logic.groupInfo.value.groupName ?? '').toText
-                                  ..style = Styles.ts_333333_16sp),
+                                  ..style = StylesLibrary.ts_333333_16sp),
                         '(${logic.groupInfo.value.memberCount ?? 0})'.toText
-                          ..style = Styles.ts_333333_16sp,
+                          ..style = StylesLibrary.ts_333333_16sp,
                         6.horizontalSpace,
                         if (logic.isOwnerOrAdmin)
-                          ImageRes.editName.toImage
+                          ImageLibrary.editName.toImage
                             ..width = 12.w
                             ..height = 12.h,
                       ],
@@ -199,12 +200,12 @@ class GroupSetupPage extends StatelessWidget {
                   ),
                   4.verticalSpace,
                   logic.groupInfo.value.groupID.toText
-                    ..style = Styles.ts_999999_14sp
+                    ..style = StylesLibrary.ts_999999_14sp
                     ..onTap = logic.copyGroupID,
                 ],
               ),
             ),
-            ImageRes.mineQr.toImage
+            ImageLibrary.mineQr.toImage
               ..width = 18.w
               ..height = 18.h
               ..onTap = logic.viewGroupQrcode,
@@ -216,7 +217,7 @@ class GroupSetupPage extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: 15.w),
         padding: EdgeInsets.only(left: 20.w),
         decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(10.r),
             bottomRight: Radius.circular(10.r),
@@ -261,11 +262,11 @@ class GroupSetupPage extends StatelessWidget {
                                   width: 52.w,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                    color: Styles.c_E8EAEF,
+                                    color: StylesLibrary.c_E8EAEF,
                                     borderRadius: BorderRadius.circular(6.r),
                                   ),
                                   child: StrLibrary.groupOwner.toText
-                                    ..style = Styles.ts_999999_10sp
+                                    ..style = StylesLibrary.ts_999999_10sp
                                     ..maxLines = 1
                                     ..overflow = TextOverflow.ellipsis,
                                 ),
@@ -277,7 +278,7 @@ class GroupSetupPage extends StatelessWidget {
                       SizedBox(
                           width: 50.w,
                           child: (info.nickname ?? '').toText
-                            ..style = Styles.ts_999999_10sp
+                            ..style = StylesLibrary.ts_999999_10sp
                             ..textAlign = TextAlign.center
                             ..maxLines = 1
                             ..overflow = TextOverflow.ellipsis),
@@ -287,12 +288,12 @@ class GroupSetupPage extends StatelessWidget {
                     onTap: logic.addMember,
                     child: Column(
                       children: [
-                        ImageRes.addMember.toImage
+                        ImageLibrary.addMember.toImage
                           ..width = 42.w
                           ..height = 42.h,
                         2.verticalSpace,
                         StrLibrary.addMember.toText
-                          ..style = Styles.ts_999999_10sp,
+                          ..style = StylesLibrary.ts_999999_10sp,
                       ],
                     ),
                   ),
@@ -300,12 +301,12 @@ class GroupSetupPage extends StatelessWidget {
                     onTap: logic.removeMember,
                     child: Column(
                       children: [
-                        ImageRes.delMember.toImage
+                        ImageLibrary.delMember.toImage
                           ..width = 42.w
                           ..height = 42.h,
                         2.verticalSpace,
                         StrLibrary.delMember.toText
-                          ..style = Styles.ts_999999_10sp,
+                          ..style = StylesLibrary.ts_999999_10sp,
                       ],
                     ),
                   ),
@@ -313,7 +314,7 @@ class GroupSetupPage extends StatelessWidget {
               },
             ),
             Container(
-              color: Styles.c_F1F2F6,
+              color: StylesLibrary.c_F1F2F6,
               height: 1.h,
             ),
             GestureDetector(
@@ -326,9 +327,9 @@ class GroupSetupPage extends StatelessWidget {
                   children: [
                     sprintf(StrLibrary.viewAllGroupMembers,
                         [logic.groupInfo.value.memberCount]).toText
-                      ..style = Styles.ts_333333_16sp,
+                      ..style = StylesLibrary.ts_333333_16sp,
                     const Spacer(),
-                    ImageRes.appRightArrow.toImage
+                    ImageLibrary.appRightArrow.toImage
                       ..width = 24.w
                       ..height = 24.h,
                   ],
@@ -359,7 +360,7 @@ class GroupSetupPage extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 15.w),
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(isTopRadius ? 10.r : 0),
               topLeft: Radius.circular(isTopRadius ? 10.r : 0),
@@ -369,9 +370,11 @@ class GroupSetupPage extends StatelessWidget {
           ),
           child: Container(
             decoration: BoxDecoration(
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
               border: showBorder
-                  ? Border(top: BorderSide(color: Styles.c_F1F2F6, width: 1.h))
+                  ? Border(
+                      top:
+                          BorderSide(color: StylesLibrary.c_F1F2F6, width: 1.h))
                   : null,
             ),
             height: 52.h,
@@ -381,21 +384,21 @@ class GroupSetupPage extends StatelessWidget {
               children: [
                 Expanded(
                     child: text.toText
-                      ..style = textStyle ?? Styles.ts_333333_16sp
+                      ..style = textStyle ?? StylesLibrary.ts_333333_16sp
                       ..maxLines = 1),
                 if (null != value)
                   value.toText
-                    ..style = Styles.ts_999999_14sp
+                    ..style = StylesLibrary.ts_999999_14sp
                     ..maxLines = 1
                     ..overflow = TextOverflow.ellipsis,
                 if (showSwitchButton)
                   CupertinoSwitch(
                     value: switchOn,
-                    activeColor: Styles.c_07C160,
+                    activeColor: StylesLibrary.c_07C160,
                     onChanged: onChanged,
                   ),
                 if (showRightArrow)
-                  ImageRes.appRightArrow.toImage
+                  ImageLibrary.appRightArrow.toImage
                     ..width = 24.w
                     ..height = 24.h,
               ],

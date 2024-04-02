@@ -120,7 +120,7 @@ class _PreviewPicturePageState extends State<PreviewPicturePage> {
                 case LoadState.failed:
                   // remove memory cached
                   state.imageProvider.evict();
-                  return ImageRes.pictureError.toImage;
+                  return ImageLibrary.pictureError.toImage;
               }
             },
           );

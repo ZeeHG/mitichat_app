@@ -241,7 +241,7 @@ class _ControlsViewState extends State<ControlsView> {
               children: [
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: ImageRes.liveClose.toImage
+                  child: ImageLibrary.liveClose.toImage
                     ..width = 30.w
                     ..height = 30.h
                     ..onTap = widget.onMinimize,
@@ -259,8 +259,8 @@ class _ControlsViewState extends State<ControlsView> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           (_participant!.isCameraEnabled()
-                                  ? ImageRes.liveCameraOn
-                                  : ImageRes.liveCameraOff)
+                                  ? ImageLibrary.liveCameraOn
+                                  : ImageLibrary.liveCameraOff)
                               .toImage
                             ..width = 30.w
                             ..height = 30.h
@@ -268,7 +268,7 @@ class _ControlsViewState extends State<ControlsView> {
                                 ? _disableVideo
                                 : _enableVideo),
                           16.horizontalSpace,
-                          ImageRes.liveSwitchCamera.toImage
+                          ImageLibrary.liveSwitchCamera.toImage
                             ..width = 30.w
                             ..height = 30.h
                             ..onTap = _toggleCamera,
@@ -324,6 +324,6 @@ class _ControlsViewState extends State<ControlsView> {
   Widget get _videoCallingDurationView => Visibility(
         visible: isCalling,
         child: _callingDurationStr.toText
-          ..style = Styles.ts_FFFFFF_opacity70_17sp,
+          ..style = StylesLibrary.ts_FFFFFF_opacity70_17sp,
       );
 }

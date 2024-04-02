@@ -34,7 +34,7 @@ class VoiceRecord {
       if (!(await file.exists())) {
         await file.create(recursive: true);
       }
-      await _audioRecorder.start(RecordConfig(), path: _path);
+      await _audioRecorder.start(const RecordConfig(), path: _path);
       _startTimestamp = _now();
       _timer?.cancel();
       _timer = null;

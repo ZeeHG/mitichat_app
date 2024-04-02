@@ -17,7 +17,7 @@ class GroupReadListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrLibrary.messageRecipientList),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: Obx(() => Column(
             children: [
               CustomTabBar(
@@ -69,7 +69,7 @@ class GroupReadListPage extends StatelessWidget {
   Widget _itemView(GroupMembersInfo info, {String? status}) => Container(
         height: 64.h,
         padding: EdgeInsets.symmetric(horizontal: 16.w),
-        color: Styles.c_FFFFFF,
+        color: StylesLibrary.c_FFFFFF,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -82,7 +82,7 @@ class GroupReadListPage extends StatelessWidget {
             10.horizontalSpace,
             Expanded(
               child: (info.nickname ?? '').toText
-                ..style = Styles.ts_333333_16sp
+                ..style = StylesLibrary.ts_333333_16sp
                 ..maxLines = 1
                 ..overflow = TextOverflow.ellipsis,
             ),

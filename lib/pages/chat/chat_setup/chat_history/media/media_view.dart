@@ -19,7 +19,7 @@ class ChatHistoryMediaPage extends StatelessWidget {
         title: logic.isPicture ? StrLibrary.picture : StrLibrary.video,
         showUnderline: true,
       ),
-      backgroundColor: Styles.c_FFFFFF,
+      backgroundColor: StylesLibrary.c_FFFFFF,
       body: Obx(() => SmartRefresher(
             controller: logic.refreshController,
             onRefresh: logic.onRefresh,
@@ -80,7 +80,7 @@ class MediaListWidget extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
-          child: label.toText..style = Styles.ts_999999_14sp,
+          child: label.toText..style = StylesLibrary.ts_999999_14sp,
         ),
         GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -104,7 +104,7 @@ class MediaListWidget extends StatelessWidget {
               (BuildContext context, Size heroSize, Widget child) => child,
           child: Container(
             decoration: BoxDecoration(
-              border: Border.all(width: 1.h, color: Styles.c_E8EAEF),
+              border: Border.all(width: 1.h, color: StylesLibrary.c_E8EAEF),
             ),
             child: Stack(
               alignment: Alignment.center,
@@ -115,7 +115,7 @@ class MediaListWidget extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
                 if (isVideo)
-                  ImageRes.videoPause.toImage
+                  ImageLibrary.videoPause.toImage
                     ..width = 38.w
                     ..height = 38.h,
               ],

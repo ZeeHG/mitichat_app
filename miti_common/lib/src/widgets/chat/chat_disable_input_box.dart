@@ -13,16 +13,16 @@ class ChatDisableInputBox extends StatelessWidget {
     return type == 0
         ? Container(
             height: 56.h,
-            color: Styles.c_F7F8FA,
+            color: StylesLibrary.c_F7F8FA,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ImageRes.warn.toImage
+                ImageLibrary.warn.toImage
                   ..width = 14.w
                   ..height = 14.h,
                 6.horizontalSpace,
                 StrLibrary.notSendMessageNotInGroup.toText
-                  ..style = Styles.ts_999999_14sp,
+                  ..style = StylesLibrary.ts_999999_14sp,
               ],
             ),
           )

@@ -28,7 +28,7 @@ class SelectContactsFromSearchFriendsPage extends StatelessWidget {
         appBar: TitleBar(
             center: Expanded(
                 child: logic.appBarTitle.toText
-                  ..style = Styles.ts_333333_18sp_medium
+                  ..style = StylesLibrary.ts_333333_18sp_medium
                   ..textAlign = TextAlign.center),
             left: Flexible(
                 child: Container(
@@ -40,7 +40,7 @@ class SelectContactsFromSearchFriendsPage extends StatelessWidget {
                   Get.back();
                 },
                 child: StrLibrary.cancel.toText
-                  ..style = Styles.ts_333333_16sp_medium,
+                  ..style = StylesLibrary.ts_333333_16sp_medium,
               ),
             )),
             right: Flexible(
@@ -49,8 +49,8 @@ class SelectContactsFromSearchFriendsPage extends StatelessWidget {
                 child: IntrinsicWidth(
                   child: Button(
                       text: StrLibrary.confirm,
-                      textStyle: Styles.ts_FFFFFF_14sp,
-                      disabledTextStyle: Styles.ts_FFFFFF_14sp,
+                      textStyle: StylesLibrary.ts_FFFFFF_14sp,
+                      disabledTextStyle: StylesLibrary.ts_FFFFFF_14sp,
                       height: 28.h,
                       padding: EdgeInsets.symmetric(horizontal: 12.w),
                       onTap: () {
@@ -59,7 +59,7 @@ class SelectContactsFromSearchFriendsPage extends StatelessWidget {
                 ),
               ),
             )),
-        backgroundColor: Styles.c_FFFFFF,
+        backgroundColor: StylesLibrary.c_FFFFFF,
         body: Obx(() => Column(
               children: [
                 Container(
@@ -88,11 +88,11 @@ class SelectContactsFromSearchFriendsPage extends StatelessWidget {
 
   Widget _buildItemView(ISUserInfo info) {
     Widget buildChild() => GestureDetector(
-      behavior: HitTestBehavior.translucent,
-      onTap: selectContactsLogic.onTap(info),
-      child: Container(
+          behavior: HitTestBehavior.translucent,
+          onTap: selectContactsLogic.onTap(info),
+          child: Container(
             height: 64.h,
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             padding: EdgeInsets.symmetric(horizontal: 12.w),
             child: Row(
               children: [
@@ -109,17 +109,17 @@ class SelectContactsFromSearchFriendsPage extends StatelessWidget {
                   text: info.showName,
                 ),
                 10.horizontalSpace,
-                // info.getShowName().toText..style = Styles.ts_333333_17sp,
+                // info.getShowName().toText..style = StylesLibrary.ts_333333_17sp,
                 SearchKeywordText(
                   text: info.showName,
                   keyText: logic.searchCtrl.text.trim(),
-                  style: Styles.ts_333333_17sp,
-                  keyStyle: Styles.ts_8443F8_17sp,
+                  style: StylesLibrary.ts_333333_17sp,
+                  keyStyle: StylesLibrary.ts_8443F8_17sp,
                 ),
               ],
             ),
           ),
-    ) ;
+        );
     return selectContactsLogic.isMultiModel ? Obx(buildChild) : buildChild();
   }
 
@@ -129,12 +129,13 @@ class SelectContactsFromSearchFriendsPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // 157.verticalSpace,
-            // ImageRes.blacklistEmpty.toImage
+            // ImageLibrary.blacklistEmpty.toImage
             //   ..width = 120.w
             //   ..height = 120.h,
             // 22.verticalSpace,
             44.verticalSpace,
-            StrLibrary.searchNotFound.toText..style = Styles.ts_999999_17sp,
+            StrLibrary.searchNotFound.toText
+              ..style = StylesLibrary.ts_999999_17sp,
           ],
         ),
       );

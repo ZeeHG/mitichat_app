@@ -12,13 +12,13 @@ class PrivacyPolicyPage extends StatelessWidget {
         appBar: TitleBar.back(
           title: StrLibrary.privacyPolicy,
         ),
-        backgroundColor: Styles.c_FFFFFF,
+        backgroundColor: StylesLibrary.c_FFFFFF,
         body: SingleChildScrollView(
             child: Container(
                 width: 1.sw,
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                 child: DefaultTextStyle(
-                    style: Styles.ts_333333_13sp,
+                    style: StylesLibrary.ts_333333_13sp,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -190,12 +190,12 @@ class PrivacyPolicyPage extends StatelessWidget {
 
   Container boldText(String text) => Container(
         margin: EdgeInsets.only(bottom: 13.h),
-        child: text.toText..style = Styles.ts_333333_13sp_medium,
+        child: text.toText..style = StylesLibrary.ts_333333_13sp_medium,
       );
 
   Container regularText(String text) => Container(
         margin: EdgeInsets.only(bottom: 13.h),
-        child: text.toText..style = Styles.ts_333333_13sp,
+        child: text.toText..style = StylesLibrary.ts_333333_13sp,
       );
 
   RichText richText(List<TextSpan> children) => RichText(
@@ -205,8 +205,8 @@ class PrivacyPolicyPage extends StatelessWidget {
       );
 
   TextSpan boldTextSpan(String text) =>
-      TextSpan(text: text, style: Styles.ts_333333_13sp_medium);
+      TextSpan(text: text, style: StylesLibrary.ts_333333_13sp_medium);
 
   TextSpan regularTextSpan(String text) =>
-      TextSpan(text: text, style: Styles.ts_333333_13sp);
+      TextSpan(text: text, style: StylesLibrary.ts_333333_13sp);
 }

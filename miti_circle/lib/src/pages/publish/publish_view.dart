@@ -24,20 +24,20 @@ class PublishPage extends StatelessWidget {
                   : StrLibrary.publishVideo,
               right: Button(
                   text: StrLibrary.publish,
-                  textStyle: Styles.ts_FFFFFF_14sp,
-                  disabledTextStyle: Styles.ts_FFFFFF_14sp,
+                  textStyle: StylesLibrary.ts_FFFFFF_14sp,
+                  disabledTextStyle: StylesLibrary.ts_FFFFFF_14sp,
                   height: 28.h,
                   padding: EdgeInsets.symmetric(horizontal: 12.w),
                   onTap: logic.publish,
                   enabled: logic.canPublish),
             ),
-            backgroundColor: Styles.c_F8F9FA,
+            backgroundColor: StylesLibrary.c_F8F9FA,
             body: SingleChildScrollView(
               child: Column(
                 children: [
                   10.verticalSpace,
                   Container(
-                    color: Styles.c_FFFFFF,
+                    color: StylesLibrary.c_FFFFFF,
                     padding:
                         EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                     child: Column(
@@ -52,10 +52,10 @@ class PublishPage extends StatelessWidget {
                             minLines: null,
                             maxLines: null,
                             expands: true,
-                            style: Styles.ts_333333_16sp,
+                            style: StylesLibrary.ts_333333_16sp,
                             maxLength: 5570,
                             decoration: InputDecoration(
-                              counterStyle: Styles.ts_999999_14sp,
+                              counterStyle: StylesLibrary.ts_999999_14sp,
                               border: InputBorder.none,
                               contentPadding: EdgeInsets.symmetric(
                                 horizontal: 10.w,
@@ -90,15 +90,16 @@ class PublishPage extends StatelessWidget {
                                                 vertical: 4.h),
                                             decoration: BoxDecoration(
                                               color: isActive
-                                                  ? Styles.c_8443F8
-                                                  : Styles.c_F7F7F7,
+                                                  ? StylesLibrary.c_8443F8
+                                                  : StylesLibrary.c_F7F7F7,
                                               borderRadius:
                                                   BorderRadius.circular(17.r),
                                             ),
                                             child: "# ${tag.label}".toText
                                               ..style = isActive
-                                                  ? Styles.ts_FFFFFF_12sp
-                                                  : Styles.ts_999999_12sp,
+                                                  ? StylesLibrary.ts_FFFFFF_12sp
+                                                  : StylesLibrary
+                                                      .ts_999999_12sp,
                                           ),
                                         );
                                       })),
@@ -112,14 +113,14 @@ class PublishPage extends StatelessWidget {
                   ),
                   10.verticalSpace,
                   // _buildItemView(
-                  //   icon: ImageRes.appLocation,
+                  //   icon: ImageLibrary.appLocation,
                   //   text: StrLibrary .myLocation,
                   //   onTap: showDeveloping,
                   // ),
                   if (!logic.isPublishXhs.value) ...[
                     Obx(
                       () => _buildItemView(
-                        icon: ImageRes.appRemindWhoToWatch,
+                        icon: ImageLibrary.appRemindWhoToWatch,
                         text: StrLibrary.remindWhoToWatch,
                         onTap: logic.remindWhoToWatch,
                         value: logic.remindWhoToWatchValue,
@@ -127,7 +128,7 @@ class PublishPage extends StatelessWidget {
                     ),
                     Obx(
                       () => _buildItemView(
-                        icon: ImageRes.appWhoCanWatch,
+                        icon: ImageLibrary.appWhoCanWatch,
                         text: logic.whoCanWatchLabel,
                         showUnderline: true,
                         onTap: logic.whoCanWatch,
@@ -136,7 +137,7 @@ class PublishPage extends StatelessWidget {
                     )
                   ],
                   _buildItemView(
-                    icon: ImageRes.appWhoCanWatch,
+                    icon: ImageLibrary.appWhoCanWatch,
                     text: StrLibrary.allCanSee,
                     showUnderline: true,
                     showSwitchButton: true,
@@ -148,10 +149,10 @@ class PublishPage extends StatelessWidget {
                         height: 53.h,
                         padding: EdgeInsets.only(left: 20.w, right: 12.w),
                         decoration: BoxDecoration(
-                          color: Styles.c_FFFFFF,
+                          color: StylesLibrary.c_FFFFFF,
                           border: BorderDirectional(
                             bottom: BorderSide(
-                              color: Styles.c_F1F2F6,
+                              color: StylesLibrary.c_F1F2F6,
                               width: 1,
                             ),
                           ),
@@ -165,7 +166,7 @@ class PublishPage extends StatelessWidget {
                         )),
                     if (!logic.isReprintArticle.value)
                       _buildItemView(
-                        icon: ImageRes.reprintArticle,
+                        icon: ImageLibrary.reprintArticle,
                         text: StrLibrary.reprintArticle,
                         onTap: logic.changeReprintArticle,
                       ),
@@ -174,10 +175,10 @@ class PublishPage extends StatelessWidget {
                           height: 53.h,
                           padding: EdgeInsets.only(left: 20.w, right: 12.w),
                           decoration: BoxDecoration(
-                            color: Styles.c_FFFFFF,
+                            color: StylesLibrary.c_FFFFFF,
                             border: BorderDirectional(
                               bottom: BorderSide(
-                                color: Styles.c_F1F2F6,
+                                color: StylesLibrary.c_F1F2F6,
                                 width: 1,
                               ),
                             ),
@@ -193,10 +194,10 @@ class PublishPage extends StatelessWidget {
                           height: 53.h,
                           padding: EdgeInsets.only(left: 20.w, right: 12.w),
                           decoration: BoxDecoration(
-                            color: Styles.c_FFFFFF,
+                            color: StylesLibrary.c_FFFFFF,
                             border: BorderDirectional(
                               bottom: BorderSide(
-                                color: Styles.c_F1F2F6,
+                                color: StylesLibrary.c_F1F2F6,
                                 width: 1,
                               ),
                             ),
@@ -231,13 +232,15 @@ class PublishPage extends StatelessWidget {
           itemBuilder: (_, index) {
             if (logic.isPicture) {
               if (logic.showAddAssetsBtn(index)) {
-                return ImageRes.addFavorite.toImage..onTap = logic.selectAssets;
+                return ImageLibrary.addFavorite.toImage
+                  ..onTap = logic.selectAssets;
               }
               return _buildAssetsItemView(
                   index, logic.assetsList[index], false);
             } else {
               if (logic.assetsList.isEmpty) {
-                return ImageRes.addFavorite.toImage..onTap = logic.selectAssets;
+                return ImageLibrary.addFavorite.toImage
+                  ..onTap = logic.selectAssets;
               }
               return _buildAssetsItemView(index, logic.assetsList[index], true);
             }
@@ -261,7 +264,7 @@ class PublishPage extends StatelessWidget {
             ),
             if (isVideo)
               Center(
-                child: ImageRes.videoPause.toImage
+                child: ImageLibrary.videoPause.toImage
                   ..width = 24.w
                   ..height = 24.h,
               ),
@@ -285,11 +288,11 @@ class PublishPage extends StatelessWidget {
           height: 53.h,
           padding: EdgeInsets.only(left: 20.w, right: 12.w),
           decoration: BoxDecoration(
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             border: showUnderline
                 ? BorderDirectional(
                     bottom: BorderSide(
-                      color: Styles.c_F1F2F6,
+                      color: StylesLibrary.c_F1F2F6,
                       width: 1,
                     ),
                   )
@@ -299,22 +302,22 @@ class PublishPage extends StatelessWidget {
             children: [
               icon.toImage..width = 18.w,
               12.horizontalSpace,
-              text.toText..style = Styles.ts_333333_16sp,
+              text.toText..style = StylesLibrary.ts_333333_16sp,
               Expanded(
                 child: (value ?? '').toText
-                  ..style = Styles.ts_333333_16sp
+                  ..style = StylesLibrary.ts_333333_16sp
                   ..maxLines = 1
                   ..overflow = TextOverflow.ellipsis
                   ..textAlign = TextAlign.end,
               ),
               if (!showSwitchButton)
-                ImageRes.appRightArrow.toImage
+                ImageLibrary.appRightArrow.toImage
                   ..width = 20.w
                   ..height = 20.h,
               if (showSwitchButton)
                 CupertinoSwitch(
                   value: logic.isPublishXhs.value,
-                  activeColor: Styles.c_07C160,
+                  activeColor: StylesLibrary.c_07C160,
                   onChanged: onChanged,
                 ),
             ],

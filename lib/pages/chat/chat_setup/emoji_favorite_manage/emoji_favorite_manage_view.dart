@@ -18,7 +18,7 @@ class EmojiFavoriteManagePage extends StatelessWidget {
             title: StrLibrary.favoriteFace,
             right: StrLibrary.favoriteManage.toText
               ..onTap = logic.manage
-              ..style = Styles.ts_333333_16sp,
+              ..style = StylesLibrary.ts_333333_16sp,
           ),
           body: Column(
             children: [
@@ -39,7 +39,7 @@ class EmojiFavoriteManagePage extends StatelessWidget {
                     if (index == 0) {
                       return GestureDetector(
                         onTap: logic.addFavorite,
-                        child: ImageRes.addFavorite.toImage
+                        child: ImageLibrary.addFavorite.toImage
                           ..width = 70.w
                           ..height = 70.h,
                       );
@@ -81,14 +81,14 @@ class EmojiFavoriteManagePage extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 10.w),
         decoration: BoxDecoration(
           border: BorderDirectional(
-            top: BorderSide(color: Styles.c_E8EAEF, width: 1.h),
+            top: BorderSide(color: StylesLibrary.c_E8EAEF, width: 1.h),
           ),
         ),
         child: Row(
           children: [
             sprintf(StrLibrary.favoriteCount,
                 [logic.cacheLogic.favoriteList.length]).toText
-              ..style = Styles.ts_999999_16sp,
+              ..style = StylesLibrary.ts_999999_16sp,
             const Spacer(),
             if (logic.isMultiModel.value)
               GestureDetector(
@@ -97,7 +97,7 @@ class EmojiFavoriteManagePage extends StatelessWidget {
                 child:
                     sprintf(StrLibrary.favoriteDel, [logic.selectedList.length])
                         .toText
-                      ..style = Styles.ts_8443F8_16sp,
+                      ..style = StylesLibrary.ts_8443F8_16sp,
               ),
           ],
         ),

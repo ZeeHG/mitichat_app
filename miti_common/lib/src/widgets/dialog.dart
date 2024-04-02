@@ -41,7 +41,7 @@ class CustomDialog extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.r),
             child: Container(
               width: 280.w,
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
               child: Column(
                 // crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
@@ -60,7 +60,7 @@ class CustomDialog extends StatelessWidget {
                                 child: Text(
                                   bigTitle ?? StrLibrary.tips,
                                   textAlign: TextAlign.center,
-                                  style: Styles.ts_333333_16sp_medium,
+                                  style: StylesLibrary.ts_333333_16sp_medium,
                                 ),
                               ),
                               Container(
@@ -71,33 +71,33 @@ class CustomDialog extends StatelessWidget {
                                 child: Text(
                                   title ?? '',
                                   textAlign: TextAlign.center,
-                                  style: Styles.ts_333333_14sp,
+                                  style: StylesLibrary.ts_333333_14sp,
                                 ),
                               ),
                               if (null != content) content!
                             ],
                           )),
                   Divider(
-                    color: Styles.c_EDEDED,
+                    color: StylesLibrary.c_EDEDED,
                     height: 1.h,
                   ),
                   Row(
                     children: [
                       _button(
-                        bgColor: Styles.c_FFFFFF,
+                        bgColor: StylesLibrary.c_FFFFFF,
                         text: leftText ?? StrLibrary.cancel,
-                        textStyle: Styles.ts_999999_14sp,
+                        textStyle: StylesLibrary.ts_999999_14sp,
                         onTap: onTapLeft ?? () => Get.back(result: false),
                       ),
                       Container(
-                        color: Styles.c_EDEDED,
+                        color: StylesLibrary.c_EDEDED,
                         width: 1.w,
                         height: 43.h,
                       ),
                       _button(
-                        bgColor: Styles.c_FFFFFF,
+                        bgColor: StylesLibrary.c_FFFFFF,
                         text: rightText ?? StrLibrary.determine,
-                        textStyle: Styles.ts_8443F8_14sp,
+                        textStyle: StylesLibrary.ts_8443F8_14sp,
                         onTap: onTapRight ?? () => Get.back(result: true),
                       ),
                     ],
@@ -158,7 +158,7 @@ class ForwardHintDialog extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
             margin: EdgeInsets.symmetric(horizontal: 36.w),
             decoration: BoxDecoration(
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
               borderRadius: BorderRadius.circular(8.r),
             ),
             child: Column(
@@ -169,7 +169,7 @@ class ForwardHintDialog extends StatelessWidget {
                         ? StrLibrary.sentTo
                         : StrLibrary.sentSeparatelyTo)
                     .toText
-                  ..style = Styles.ts_333333_17sp_medium,
+                  ..style = StylesLibrary.ts_333333_17sp_medium,
                 5.verticalSpace,
                 list.length == 1
                     ? Row(
@@ -181,7 +181,7 @@ class ForwardHintDialog extends StatelessWidget {
                           10.horizontalSpace,
                           Expanded(
                             child: (list.first['nickname'] ?? '').toText
-                              ..style = Styles.ts_333333_17sp
+                              ..style = StylesLibrary.ts_333333_17sp
                               ..maxLines = 1
                               ..overflow = TextOverflow.ellipsis,
                           ),
@@ -207,7 +207,7 @@ class ForwardHintDialog extends StatelessWidget {
                               ),
                               10.horizontalSpace,
                               (list.elementAt(index)['nickname'] ?? '').toText
-                                ..style = Styles.ts_999999_10sp
+                                ..style = StylesLibrary.ts_999999_10sp
                                 ..maxLines = 1
                                 ..overflow = TextOverflow.ellipsis,
                             ],
@@ -216,23 +216,23 @@ class ForwardHintDialog extends StatelessWidget {
                       ),
                 5.verticalSpace,
                 title.toText
-                  ..style = Styles.ts_999999_14sp
+                  ..style = StylesLibrary.ts_999999_14sp
                   ..maxLines = 1
                   ..overflow = TextOverflow.ellipsis,
                 10.verticalSpace,
                 Container(
                   height: 38.h,
                   decoration: BoxDecoration(
-                    color: Styles.c_E8EAEF,
+                    color: StylesLibrary.c_E8EAEF,
                     borderRadius: BorderRadius.circular(6.r),
                   ),
                   alignment: Alignment.centerLeft,
                   child: TextField(
-                    style: Styles.ts_333333_14sp,
+                    style: StylesLibrary.ts_333333_14sp,
                     controller: controller,
                     decoration: InputDecoration(
                       hintText: StrLibrary.leaveMessage,
-                      hintStyle: Styles.ts_999999_14sp,
+                      hintStyle: StylesLibrary.ts_999999_14sp,
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(
                         horizontal: 16.w,
@@ -247,11 +247,11 @@ class ForwardHintDialog extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     StrLibrary.cancel.toText
-                      ..style = Styles.ts_333333_17sp
+                      ..style = StylesLibrary.ts_333333_17sp
                       ..onTap = () => Get.back(),
                     26.horizontalSpace,
                     StrLibrary.determine.toText
-                      ..style = Styles.ts_8443F8_17sp
+                      ..style = StylesLibrary.ts_8443F8_17sp
                       ..onTap = () => Get.back(result: true),
                   ],
                 )
@@ -292,21 +292,21 @@ class SuccessDialog extends StatelessWidget {
                       padding: EdgeInsets.only(
                           left: 10.w, right: 10.w, top: 73.h, bottom: 20.h),
                       decoration: BoxDecoration(
-                        color: Styles.c_FFFFFF,
+                        color: StylesLibrary.c_FFFFFF,
                         borderRadius: BorderRadius.circular(12.r),
                       ),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           text.toText
-                            ..style = Styles.ts_343434_16p_medium
+                            ..style = StylesLibrary.ts_343434_16p_medium
                             ..textAlign = TextAlign.center,
                           30.verticalSpace,
                           GestureDetector(
                             behavior: HitTestBehavior.translucent,
                             child: Button(
                                 text: confirmText ?? StrLibrary.iKnow,
-                                textStyle: Styles.ts_FFFFFF_16sp,
+                                textStyle: StylesLibrary.ts_FFFFFF_16sp,
                                 height: 42.h,
                                 width: 128.w,
                                 padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -318,7 +318,7 @@ class SuccessDialog extends StatelessWidget {
                     )),
                 Positioned(
                     left: 85.w,
-                    child: ImageRes.dialogSuccess.toImage
+                    child: ImageLibrary.dialogSuccess.toImage
                       ..width = 86.w
                       ..height = 86.h),
               ],

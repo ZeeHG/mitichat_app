@@ -71,10 +71,10 @@ class WorkMomentsItem extends StatelessWidget {
         padding:
             padding ?? EdgeInsets.symmetric(horizontal: 18.w, vertical: 15.h),
         decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           border: BorderDirectional(
             bottom: BorderSide(
-              color: Styles.c_EDEDED,
+              color: StylesLibrary.c_EDEDED,
               width: 1.h,
             ),
           ),
@@ -99,7 +99,7 @@ class WorkMomentsItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       (moments.nickname ?? '').toText
-                        ..style = Styles.ts_9280B3_16sp_medium
+                        ..style = StylesLibrary.ts_9280B3_16sp_medium
                         ..onTap = () => onTapAvatar?.call(moments),
                       _buildTimeView(),
                     ],
@@ -113,7 +113,7 @@ class WorkMomentsItem extends StatelessWidget {
               12.verticalSpace,
               ExpandedText(
                 text: moments.content!.text!,
-                textStyle: Styles.ts_333333_16sp,
+                textStyle: StylesLibrary.ts_333333_16sp,
               ),
             ],
             if (null != moments.content?.metas &&
@@ -143,7 +143,7 @@ class WorkMomentsItem extends StatelessWidget {
                 null != moments.comments &&
                 moments.comments!.isNotEmpty)
               Divider(
-                color: Styles.c_EDEDED,
+                color: StylesLibrary.c_EDEDED,
                 height: 1.h,
               ),
             if (null != moments.comments && moments.comments!.isNotEmpty)
@@ -160,7 +160,8 @@ class WorkMomentsItem extends StatelessWidget {
           child: Container(
             height: 26.h,
             alignment: Alignment.center,
-            child: StrLibrary.delete.toText..style = Styles.ts_8443F8_12sp,
+            child: StrLibrary.delete.toText
+              ..style = StylesLibrary.ts_8443F8_12sp,
           ),
         ),
       );
@@ -172,7 +173,7 @@ class WorkMomentsItem extends StatelessWidget {
               .map((e) => MitiUtils.getShowName(e.userID, e.nickname))
               .join('、')
         ]).toText
-          ..style = Styles.ts_999999_12sp,
+          ..style = StylesLibrary.ts_999999_12sp,
       );
 
   Widget _buildTimeView() => TimelineUtil.format(
@@ -180,7 +181,7 @@ class WorkMomentsItem extends StatelessWidget {
         dayFormat: DayFormat.Full,
         locale: Get.locale?.languageCode ?? 'zh',
       ).toText
-        ..style = Styles.ts_999999_12sp;
+        ..style = StylesLibrary.ts_999999_12sp;
 
   Widget _buildSeePermissionView() => GestureDetector(
         behavior: HitTestBehavior.translucent,
@@ -193,7 +194,7 @@ class WorkMomentsItem extends StatelessWidget {
               children: [
                 Icon(
                   moments.permission == 1 ? Icons.lock : Icons.group_rounded,
-                  color: Styles.c_8443F8,
+                  color: StylesLibrary.c_8443F8,
                   size: 14.h,
                 ),
                 4.horizontalSpace,
@@ -201,7 +202,7 @@ class WorkMomentsItem extends StatelessWidget {
                         ? StrLibrary.private
                         : StrLibrary.partiallyVisible)
                     .toText
-                  ..style = Styles.ts_8443F8_12sp,
+                  ..style = StylesLibrary.ts_8443F8_12sp,
               ],
             ),
           ),
@@ -210,9 +211,9 @@ class WorkMomentsItem extends StatelessWidget {
 
   Widget _buildLikeListView(List<LikeUsers> likeUsers) => Container(
         padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
-        color: Styles.c_F7F7F7,
+        color: StylesLibrary.c_F7F7F7,
         child: Row(children: [
-          ImageRes.appLike.toImage
+          ImageLibrary.appLike.toImage
             ..width = 12.w
             ..height = 11.h,
           6.horizontalSpace,
@@ -223,7 +224,7 @@ class WorkMomentsItem extends StatelessWidget {
                 ...likeUsers
                     .map((e) => TextSpan(
                           text: MitiUtils.getShowName(e.userID, e.nickname),
-                          style: Styles.ts_9280B3_14sp_medium,
+                          style: StylesLibrary.ts_9280B3_14sp_medium,
                           recognizer: TapGestureRecognizer()
                             ..onTap = () => bridge?.viewUserProfile(
                                   e.userID!,
@@ -234,7 +235,7 @@ class WorkMomentsItem extends StatelessWidget {
                             if (likeUsers.last != e)
                               TextSpan(
                                   text: '、',
-                                  style: Styles.ts_9280B3_14sp_medium),
+                                  style: StylesLibrary.ts_9280B3_14sp_medium),
                           ],
                         ))
                     .toList(),
@@ -256,7 +257,7 @@ class WorkMomentsItem extends StatelessWidget {
                   textAlign: TextAlign.left,
                   text: TextSpan(
                     text: MitiUtils.getShowName(e.userID, e.nickname),
-                    style: Styles.ts_9280B3_14sp_medium,
+                    style: StylesLibrary.ts_9280B3_14sp_medium,
                     recognizer: TapGestureRecognizer()
                       ..onTap = () => bridge?.viewUserProfile(
                             e.userID!,
@@ -268,14 +269,14 @@ class WorkMomentsItem extends StatelessWidget {
                           e.replyNickname!.isNotEmpty)
                         TextSpan(
                           text: ' ${StrLibrary.reply} ',
-                          style: Styles.ts_333333_14sp,
+                          style: StylesLibrary.ts_333333_14sp,
                           children: [
                             TextSpan(
                               text: MitiUtils.getShowName(
                                 e.replyUserID,
                                 e.replyNickname,
                               ),
-                              style: Styles.ts_9280B3_14sp_medium,
+                              style: StylesLibrary.ts_9280B3_14sp_medium,
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => bridge?.viewUserProfile(
                                       e.replyUserID!,
@@ -287,11 +288,11 @@ class WorkMomentsItem extends StatelessWidget {
                         ),
                       TextSpan(
                           text: '：',
-                          style: Styles.ts_9280B3_14sp_medium,
+                          style: StylesLibrary.ts_9280B3_14sp_medium,
                           children: [
                             TextSpan(
                               text: '${e.content}',
-                              style: Styles.ts_333333_14sp,
+                              style: StylesLibrary.ts_333333_14sp,
                             )
                           ]),
                     ],
@@ -307,7 +308,7 @@ class WorkMomentsItem extends StatelessWidget {
       // margin: EdgeInsets.only(top: 10.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(2.r),
-        color: Styles.c_F7F7F7,
+        color: StylesLibrary.c_F7F7F7,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -338,7 +339,7 @@ class WorkMomentsItem extends StatelessWidget {
           GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: () => showLikeCommentPopMenu?.call(moments.workMomentID!),
-              child: ImageRes.appDiscoverOperation.toImage
+              child: ImageLibrary.appDiscoverOperation.toImage
                 ..width = 24.w
                 ..height = 16.h),
         ],
@@ -376,7 +377,7 @@ class WorkMomentsItem extends StatelessWidget {
                         children: [
                           ImageUtil.networkImage(
                               url: url!.thumbnailUrl, fit: BoxFit.cover),
-                          ImageRes.videoPause.toImage
+                          ImageLibrary.videoPause.toImage
                             ..width = 40.w
                             ..height = 40.h,
                         ],
@@ -425,7 +426,7 @@ class WorkMomentsItem extends StatelessWidget {
                     children: [
                       ImageUtil.networkImage(
                           url: url!.thumbnailUrl, fit: BoxFit.cover),
-                      ImageRes.videoPause.toImage
+                      ImageLibrary.videoPause.toImage
                         ..width = 40.w
                         ..height = 40.h,
                     ],

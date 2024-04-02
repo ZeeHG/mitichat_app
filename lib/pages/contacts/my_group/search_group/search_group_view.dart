@@ -24,7 +24,7 @@ class SearchGroupPage extends StatelessWidget {
           onSubmitted: (_) => logic.search(),
           onCleared: () => logic.focusNode.requestFocus(),
         ),
-        backgroundColor: Styles.c_F8F9FA,
+        backgroundColor: StylesLibrary.c_F8F9FA,
         body: Obx(() => logic.isSearchNotResult
             ? _emptyList
             : ListView.builder(
@@ -40,7 +40,7 @@ class SearchGroupPage extends StatelessWidget {
         behavior: HitTestBehavior.translucent,
         child: Container(
           height: 64.h,
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Row(
             children: [
@@ -57,11 +57,11 @@ class SearchGroupPage extends StatelessWidget {
                   SearchKeywordText(
                     text: info.groupName ?? '',
                     keyText: logic.searchCtrl.text.trim(),
-                    style: Styles.ts_333333_16sp,
-                    keyStyle: Styles.ts_8443F8_16sp,
+                    style: StylesLibrary.ts_333333_16sp,
+                    keyStyle: StylesLibrary.ts_8443F8_16sp,
                   ),
                   sprintf(StrLibrary.nPerson, [info.memberCount]).toText
-                    ..style = Styles.ts_999999_14sp,
+                    ..style = StylesLibrary.ts_999999_14sp,
                 ],
               ),
             ],
@@ -75,7 +75,8 @@ class SearchGroupPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             40.verticalSpace,
-            StrLibrary.searchNotFound.toText..style = Styles.ts_999999_16sp,
+            StrLibrary.searchNotFound.toText
+              ..style = StylesLibrary.ts_999999_16sp,
           ],
         ),
       );

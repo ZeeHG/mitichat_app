@@ -16,7 +16,7 @@ class PersonalInfoPage extends StatelessWidget {
       appBar: TitleBar.back(
         title: StrLibrary.personalInfo,
       ),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: Obx(() => SingleChildScrollView(
             child: Column(
               children: [
@@ -77,7 +77,7 @@ class PersonalInfoPage extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         margin: EdgeInsets.symmetric(horizontal: 10.w),
         decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(6.r),
             topRight: Radius.circular(6.r),
@@ -102,10 +102,10 @@ class PersonalInfoPage extends StatelessWidget {
           height: 46.h,
           child: Row(
             children: [
-              label.toText..style = Styles.ts_333333_16sp,
+              label.toText..style = StylesLibrary.ts_333333_16sp,
               const Spacer(),
               if (null != value && !isAvatar)
-                value.toText..style = Styles.ts_333333_16sp,
+                value.toText..style = StylesLibrary.ts_333333_16sp,
               if (isAvatar)
                 AvatarView(
                   width: 32.w,

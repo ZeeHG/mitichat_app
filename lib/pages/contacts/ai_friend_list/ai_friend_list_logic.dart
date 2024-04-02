@@ -24,13 +24,13 @@ class AiFriendListLogic extends GetxController {
         // {
         //   "key": "createAi",
         //   "text": StrLibrary .createAi,
-        //   "color": Styles.c_8544F8,
+        //   "color": StylesLibrary.c_8544F8,
         //   "shadowColor": Color.fromRGBO(0, 203, 197, 0.5),
         // },
         {
           "key": "trainAi",
           "text": StrLibrary.trainAi,
-          "color": Styles.c_FEA836,
+          "color": StylesLibrary.c_FEA836,
           "shadowColor": Color.fromRGBO(254, 168, 54, 0.5),
           "onTap": () => myAi()
         },

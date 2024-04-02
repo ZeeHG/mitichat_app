@@ -15,7 +15,7 @@
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       appBar: TitleBar.back(title: StrLibrary.detail),
-//       backgroundColor: Styles.c_F8F9FA,
+//       backgroundColor: StylesLibrary.c_F8F9FA,
 //       body: Column(
 //         children: [
 //           Expanded(
@@ -30,14 +30,14 @@
 //                     padding:
 //                         EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
 //                     decoration: BoxDecoration(
-//                       color: Styles.c_FFFFFF,
+//                       color: StylesLibrary.c_FFFFFF,
 //                       borderRadius: BorderRadius.circular(4.r),
 //                     ),
 //                     child: Column(
 //                       children: [
 //                         if (null != logic.textElem)
 //                           logic.textElem!.content!.toText
-//                             ..style = Styles.ts_333333_16sp,
+//                             ..style = StylesLibrary.ts_333333_16sp,
 //                         if (null != logic.soundElem)
 //                           Obx(() => GestureDetector(
 //                                 behavior: HitTestBehavior.translucent,
@@ -47,7 +47,7 @@
 //                                   height: 44.h,
 //                                   child: ChatBubble(
 //                                     bubbleType: BubbleType.receiver,
-//                                     backgroundColor: Styles.c_CCE7FE,
+//                                     backgroundColor: StylesLibrary.c_CCE7FE,
 //                                     child: ChatVoiceView(
 //                                       isISend: false,
 //                                       soundPath: logic.soundElem!.soundPath,
@@ -60,7 +60,7 @@
 //                               )),
 //                         if (null == logic.textElem && null == logic.soundElem)
 //                           StrLibrary.unsupportedMessage.toText
-//                             ..style = Styles.ts_333333_16sp,
+//                             ..style = StylesLibrary.ts_333333_16sp,
 //                       ],
 //                     ),
 //                   ),
@@ -70,14 +70,14 @@
 //                     padding:
 //                         EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
 //                     decoration: BoxDecoration(
-//                       color: Styles.c_FFFFFF,
+//                       color: StylesLibrary.c_FFFFFF,
 //                       borderRadius: BorderRadius.circular(4.r),
 //                     ),
 //                     child: Column(
 //                       crossAxisAlignment: CrossAxisAlignment.start,
 //                       children: [
 //                         StrLibrary.receiveMember.toText
-//                           ..style = Styles.ts_999999_14sp,
+//                           ..style = StylesLibrary.ts_999999_14sp,
 //                         12.verticalSpace,
 //                         Wrap(
 //                           spacing: 8.w,
@@ -98,7 +98,7 @@
 //             ),
 //           ),
 //           Container(
-//             color: Styles.c_FFFFFF,
+//             color: StylesLibrary.c_FFFFFF,
 //             child: Button(
 //               margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
 //               text: StrLibrary.sendAnother,
@@ -132,13 +132,13 @@
 //       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
 //       decoration: BoxDecoration(
 //         borderRadius: BorderRadius.circular(6.r),
-//         border: Border.all(color: Styles.c_E8EAEF, width: 1.h),
+//         border: Border.all(color: StylesLibrary.c_E8EAEF, width: 1.h),
 //       ),
 //       child: Row(
 //         mainAxisSize: MainAxisSize.min,
 //         children: [
 //           if (info is TagInfo)
-//             ImageRes.tagIcon.toImage
+//             ImageLibrary.tagIcon.toImage
 //               ..width = 16.w
 //               ..height = 16.h
 //           else
@@ -153,7 +153,7 @@
 //           ConstrainedBox(
 //             constraints: BoxConstraints(maxWidth: 150.w),
 //             child: (name ?? '').toText
-//               ..style = Styles.ts_333333_14sp
+//               ..style = StylesLibrary.ts_333333_14sp
 //               ..maxLines = 1
 //               ..overflow = TextOverflow.ellipsis,
 //           ),
@@ -163,12 +163,12 @@
 //           //   height: 16.h,
 //           //   decoration: BoxDecoration(
 //           //     borderRadius: BorderRadius.circular(3.r),
-//           //     color: Styles.c_E8EAEF,
+//           //     color: StylesLibrary.c_E8EAEF,
 //           //   ),
 //           //   child: Icon(
 //           //     Icons.clear,
 //           //     size: 10.w,
-//           //     color: Styles.c_999999,
+//           //     color: StylesLibrary.c_999999,
 //           //   ),
 //           // ),
 //         ],

@@ -36,7 +36,7 @@ class SmallWindowView extends StatelessWidget {
               width: 84.w,
               height: 101.h,
               decoration: BoxDecoration(
-                color: Styles.c_0C1C33_opacity80,
+                color: StylesLibrary.c_0C1C33_opacity80,
                 borderRadius: BorderRadius.circular(6.r),
               ),
               child: Material(
@@ -57,7 +57,7 @@ class SmallWindowView extends StatelessWidget {
                       ),
                     10.verticalSpace,
                     callStateStr.toText
-                      ..style = Styles.ts_FFFFFF_12sp
+                      ..style = StylesLibrary.ts_FFFFFF_12sp
                       ..maxLines = 1
                       ..overflow = TextOverflow.ellipsis,
                   ],
@@ -140,7 +140,7 @@ class SmallWindowView extends StatelessWidget {
 //               width: 84.w,
 //               height: 101.h,
 //               decoration: BoxDecoration(
-//                 color: Styles.c_0C1C33_opacity80,
+//                 color: StylesLibrary.c_0C1C33_opacity80,
 //                 borderRadius: BorderRadius.circular(6.r),
 //               ),
 //               child: Material(
@@ -160,7 +160,7 @@ class SmallWindowView extends StatelessWidget {
 //                         url: widget.groupInfo!.faceURL,
 //                       ),
 //                     10.verticalSpace,
-//                     callStateStr.toText..style = Styles.ts_FFFFFF_12sp,
+//                     callStateStr.toText..style = StylesLibrary.ts_FFFFFF_12sp,
 //                   ],
 //                 ),
 //               ),
@@ -212,7 +212,7 @@ class SmallWindowView extends StatelessWidget {
 //                 width: 84.w,
 //                 height: 101.h,
 //                 decoration: BoxDecoration(
-//                   color: Styles.c_0C1C33_opacity80,
+//                   color: StylesLibrary.c_0C1C33_opacity80,
 //                   borderRadius: BorderRadius.circular(6.r),
 //                 ),
 //                 child: Material(
@@ -226,7 +226,7 @@ class SmallWindowView extends StatelessWidget {
 //                         url: userInfo.faceURL,
 //                       ),
 //                       10.verticalSpace,
-//                       callStateStr.toText..style = Styles.ts_FFFFFF_12sp,
+//                       callStateStr.toText..style = StylesLibrary.ts_FFFFFF_12sp,
 //                     ],
 //                   ),
 //                 ),

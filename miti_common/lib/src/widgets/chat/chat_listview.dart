@@ -363,7 +363,7 @@ class _ChatListViewState extends State<ChatListView> {
   Widget get loadMoreView => Container(
         alignment: Alignment.center,
         height: 44,
-        child: CupertinoActivityIndicator(color: Styles.c_8443F8),
+        child: CupertinoActivityIndicator(color: StylesLibrary.c_8443F8),
       );
 
   @override

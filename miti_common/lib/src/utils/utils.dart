@@ -88,7 +88,7 @@ class MitiUtils {
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: '',
-          toolbarColor: Styles.c_8443F8,
+          toolbarColor: StylesLibrary.c_8443F8,
           toolbarWidgetColor: Colors.white,
           initAspectRatio: CropAspectRatioPreset.square,
           lockAspectRatio: false,
@@ -1608,21 +1608,21 @@ class MitiUtils {
   static String fileIcon(String fileName) {
     var mimeType = lookupMimeType(fileName) ?? '';
     if (mimeType == 'application/pdf') {
-      return ImageRes.filePdf;
+      return ImageLibrary.filePdf;
     } else if (mimeType == 'application/msword' ||
         mimeType ==
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
-      return ImageRes.fileWord;
+      return ImageLibrary.fileWord;
     } else if (mimeType == 'application/vnd.ms-excel' ||
         mimeType ==
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-      return ImageRes.fileExcel;
+      return ImageLibrary.fileExcel;
     } else if (mimeType == 'application/vnd.ms-powerpoint') {
-      return ImageRes.filePpt;
+      return ImageLibrary.filePpt;
     } else if (mimeType.startsWith('audio/')) {
     } else if (mimeType == 'application/zip' ||
         mimeType == 'application/x-rar-compressed') {
-      return ImageRes.fileZip;
+      return ImageLibrary.fileZip;
     }
     /*else if (mimeType.startsWith('audio/')) {
       return FontAwesomeIcons.solidFileAudio;
@@ -1633,7 +1633,7 @@ class MitiUtils {
     } else if (mimeType == 'text/plain') {
       return FontAwesomeIcons.solidFileCode;
     }*/
-    return ImageRes.fileUnknown;
+    return ImageLibrary.fileUnknown;
   }
 
   static String createSummary(Message message) {

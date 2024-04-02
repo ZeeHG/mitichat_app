@@ -17,7 +17,7 @@ class ComplaintPage extends StatelessWidget {
           appBar: TitleBar.back(
             title: logic.pageTitle.value,
           ),
-          backgroundColor: Styles.c_F7F8FA,
+          backgroundColor: StylesLibrary.c_F7F8FA,
           body: Stack(
             children: [
               SingleChildScrollView(
@@ -129,7 +129,7 @@ class ComplaintPage extends StatelessWidget {
                                         top: 16.h,
                                         bottom: 16.h),
                                     child: StrLibrary.complaintReason.toText
-                                      ..style = Styles.ts_999999_14sp,
+                                      ..style = StylesLibrary.ts_999999_14sp,
                                   ),
                                   _buildItemView(
                                       text: StrLibrary.harassmentContent,
@@ -164,7 +164,7 @@ class ComplaintPage extends StatelessWidget {
                                         right: 12.w,
                                         top: 16.h,
                                         bottom: 16.h),
-                                    color: Styles.c_FFFFFF,
+                                    color: StylesLibrary.c_FFFFFF,
                                     child: Column(
                                       children: [
                                         SizedBox(
@@ -178,13 +178,13 @@ class ComplaintPage extends StatelessWidget {
                                             minLines: null,
                                             maxLines: null,
                                             expands: true,
-                                            style: Styles.ts_333333_14sp,
+                                            style: StylesLibrary.ts_333333_14sp,
                                             maxLength: 200,
                                             decoration: InputDecoration(
                                               hintText:
                                                   StrLibrary.complaintDetails,
                                               counterStyle:
-                                                  Styles.ts_999999_14sp,
+                                                  StylesLibrary.ts_999999_14sp,
                                               border: InputBorder.none,
                                               contentPadding:
                                                   EdgeInsets.symmetric(
@@ -197,17 +197,19 @@ class ComplaintPage extends StatelessWidget {
                                         ),
                                         Divider(
                                           height: 32.h,
-                                          color: Styles.c_F1F2F6,
+                                          color: StylesLibrary.c_F1F2F6,
                                         ),
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             StrLibrary.imageEvidence.toText
-                                              ..style = Styles.ts_999999_14sp,
+                                              ..style =
+                                                  StylesLibrary.ts_999999_14sp,
                                             "${logic.assetsList.length}/${logic.maxAssetsCount}"
                                                 .toText
-                                              ..style = Styles.ts_999999_14sp,
+                                              ..style =
+                                                  StylesLibrary.ts_999999_14sp,
                                           ],
                                         ),
                                         16.verticalSpace,
@@ -225,16 +227,17 @@ class ComplaintPage extends StatelessWidget {
                                 ]
                               : [
                                   45.verticalSpace,
-                                  ImageRes.appSuccess.toImage
+                                  ImageLibrary.appSuccess.toImage
                                     ..width = 70.w
                                     ..height = 70.h,
                                   24.verticalSpace,
                                   StrLibrary.submitSuccess.toText
-                                    ..style = Styles.ts_333333_20sp_medium,
+                                    ..style =
+                                        StylesLibrary.ts_333333_20sp_medium,
                                   10.verticalSpace,
                                   StrLibrary.promiseResponse.toText
                                     ..textAlign = TextAlign.center
-                                    ..style = Styles.ts_999999_16sp,
+                                    ..style = StylesLibrary.ts_999999_16sp,
                                   45.verticalSpace,
                                   Button(
                                     width: 1.sw - 72.w,
@@ -283,8 +286,8 @@ class ComplaintPage extends StatelessWidget {
                   behavior: HitTestBehavior.translucent,
                   onTap: logic.selectAssetsFromAlbum,
                   child: Container(
-                      color: Styles.c_F7F7F7,
-                      child: ImageRes.appAdd2.toImage
+                      color: StylesLibrary.c_F7F7F7,
+                      child: ImageLibrary.appAdd2.toImage
                         ..width = 34.w
                         ..height = 34.h),
                 ),
@@ -307,25 +310,26 @@ class ComplaintPage extends StatelessWidget {
         onTap: onTap,
         behavior: HitTestBehavior.translucent,
         child: Container(
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           child: Container(
             height: 46.h,
             padding: EdgeInsets.only(right: 12.w),
             margin: EdgeInsets.only(left: 12.w),
             decoration: BoxDecoration(
                 border: Border(
-                    top: BorderSide(color: Styles.c_F1F2F6, width: 1.h))),
+                    top:
+                        BorderSide(color: StylesLibrary.c_F1F2F6, width: 1.h))),
             child: Row(
               children: [
-                text.toText..style = textStyle ?? Styles.ts_333333_16sp,
+                text.toText..style = textStyle ?? StylesLibrary.ts_333333_16sp,
                 const Spacer(),
                 if (showRightArrow)
-                  ImageRes.appRightArrow.toImage
+                  ImageLibrary.appRightArrow.toImage
                     ..width = 24.w
                     ..height = 24.h,
                 if (showRadio) ...[
                   if (logic.reasonList.contains(value))
-                    ImageRes.appChecked2.toImage
+                    ImageLibrary.appChecked2.toImage
                       ..width = 20.w
                       ..height = 20.h,
                   if (!logic.reasonList.contains(value))
@@ -333,8 +337,8 @@ class ComplaintPage extends StatelessWidget {
                         width: 20.w,
                         height: 20.h,
                         decoration: BoxDecoration(
-                          border:
-                              Border.all(color: Styles.c_CFCFCF, width: 1.w),
+                          border: Border.all(
+                              color: StylesLibrary.c_CFCFCF, width: 1.w),
                           borderRadius: BorderRadius.circular(10.r),
                         ))
                 ]
@@ -360,7 +364,7 @@ class ComplaintPage extends StatelessWidget {
             ),
             if (isVideo)
               Center(
-                child: ImageRes.videoPause.toImage
+                child: ImageLibrary.videoPause.toImage
                   ..width = 24.w
                   ..height = 24.h,
               ),

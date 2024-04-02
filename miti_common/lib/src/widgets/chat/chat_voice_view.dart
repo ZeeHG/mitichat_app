@@ -23,20 +23,20 @@ class ChatVoiceView extends StatelessWidget {
         ? Row(
             // mainAxisSize: MainAxisSize.min,
             children: [
-              '${duration ?? 0}"'.toText..style = Styles.ts_FFFFFF_16sp,
+              '${duration ?? 0}"'.toText..style = StylesLibrary.ts_FFFFFF_16sp,
               4.horizontalSpace,
               // if (widget.isPlaying)
               RotatedBox(
                 quarterTurns: 2,
                 child: isPlaying
-                    ? (ImageRes.voiceWhiteAnim.toLottie
+                    ? (ImageLibrary.voiceWhiteAnim.toLottie
                       ..height = 20.h
                       ..width = 20.w
                       ..fit = BoxFit.fitHeight)
-                    : (ImageRes.voiceBlack.toImage
+                    : (ImageLibrary.voiceBlack.toImage
                       ..width = 20.w
                       ..height = 20.h
-                      ..color = Styles.c_FFFFFF),
+                      ..color = StylesLibrary.c_FFFFFF),
               ),
               // else
             ],
@@ -45,16 +45,16 @@ class ChatVoiceView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (isPlaying)
-                ImageRes.voiceBlueAnim.toLottie
+                ImageLibrary.voiceBlueAnim.toLottie
                   ..width = 20.w
                   ..height = 20.h
                   ..fit = BoxFit.fitHeight
               else
-                ImageRes.voiceBlue.toImage
+                ImageLibrary.voiceBlue.toImage
                   ..width = 20.w
                   ..height = 20.h,
               4.horizontalSpace,
-              '${duration ?? 0}"'.toText..style = Styles.ts_333333_16sp,
+              '${duration ?? 0}"'.toText..style = StylesLibrary.ts_333333_16sp,
             ],
           );
   }

@@ -15,17 +15,18 @@ class AppSplashPage extends StatelessWidget {
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
             statusBarIconBrightness: Brightness.dark,
-            systemNavigationBarColor: Styles.c_F7F8FA,
+            systemNavigationBarColor: StylesLibrary.c_F7F8FA,
             systemNavigationBarIconBrightness: Brightness.dark),
         child: Scaffold(
-            backgroundColor: Styles.c_F7F8FA,
+            backgroundColor: StylesLibrary.c_F7F8FA,
             extendBody: true,
             extendBodyBehindAppBar: true,
             body: const Stack(
               children: [
                 Positioned.fill(
                   child: Image(
-                    image: AssetImage(ImageRes.splash, package: 'miti_common'),
+                    image:
+                        AssetImage(ImageLibrary.splash, package: 'miti_common'),
                     fit: BoxFit.fill,
                   ),
                 ),

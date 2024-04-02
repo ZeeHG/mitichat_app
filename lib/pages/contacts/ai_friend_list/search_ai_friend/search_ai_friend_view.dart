@@ -22,7 +22,7 @@ class SearchAiFriendPage extends StatelessWidget {
           onSubmitted: (_) => logic.search(),
           onCleared: () => logic.focusNode.requestFocus(),
         ),
-        backgroundColor: Styles.c_F8F9FA,
+        backgroundColor: StylesLibrary.c_F8F9FA,
         body: Obx(() => logic.isSearchNotResult
             ? _emptyListView
             : ListView.builder(
@@ -39,7 +39,7 @@ class SearchAiFriendPage extends StatelessWidget {
         onTap: () => logic.viewFriendInfo(info),
         child: Container(
           height: 64.h,
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Row(
             children: [
@@ -51,10 +51,10 @@ class SearchAiFriendPage extends StatelessWidget {
               SearchKeywordText(
                 text: info.showName,
                 keyText: logic.searchCtrl.text.trim(),
-                style: Styles.ts_333333_17sp,
-                keyStyle: Styles.ts_8443F8_17sp,
+                style: StylesLibrary.ts_333333_17sp,
+                keyStyle: StylesLibrary.ts_8443F8_17sp,
               ),
-              // info.getShowName().toText..style = Styles.ts_333333_17sp,
+              // info.getShowName().toText..style = StylesLibrary.ts_333333_17sp,
             ],
           ),
         ),
@@ -66,12 +66,13 @@ class SearchAiFriendPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // 157.verticalSpace,
-            // ImageRes.blacklistEmpty.toImage
+            // ImageLibrary.blacklistEmpty.toImage
             //   ..width = 120.w
             //   ..height = 120.h,
             // 22.verticalSpace,
             44.verticalSpace,
-            StrLibrary.searchNotFound.toText..style = Styles.ts_999999_17sp,
+            StrLibrary.searchNotFound.toText
+              ..style = StylesLibrary.ts_999999_17sp,
           ],
         ),
       );

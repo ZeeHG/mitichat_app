@@ -14,7 +14,7 @@ class BackgroundSettingLogic extends GetxController {
         if (chatLogic.background.isNotEmpty)
           SheetItem(
             label: StrLibrary.reset,
-            textStyle: Styles.ts_FF4E4C_16sp,
+            textStyle: StylesLibrary.ts_FF4E4C_16sp,
             onTap: chatLogic.clearBackground,
           )
       ],

@@ -54,7 +54,7 @@ class _ChatSendFailedViewState extends State<ChatSendFailedView> {
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: widget.onFailedToResend,
-        child: ImageRes.failedToResend.toImage
+        child: ImageLibrary.failedToResend.toImage
           ..width = 16.w
           ..height = 16.h,
       ),

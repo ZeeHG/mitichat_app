@@ -19,10 +19,10 @@ class WorkMomentsListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
-            systemNavigationBarColor: Styles.c_FFFFFF,
+            systemNavigationBarColor: StylesLibrary.c_FFFFFF,
             systemNavigationBarIconBrightness: Brightness.dark),
         child: Scaffold(
-          backgroundColor: Styles.c_FFFFFF,
+          backgroundColor: StylesLibrary.c_FFFFFF,
           body: Obx(() => Stack(
                 children: [
                   Listener(
@@ -144,7 +144,7 @@ class WorkMomentsListPage extends StatelessWidget {
                           height: 55.h,
                           child: Center(
                             child: CupertinoActivityIndicator(
-                              color: Styles.c_8443F8,
+                              color: StylesLibrary.c_8443F8,
                             ),
                           ),
                         ),
@@ -173,7 +173,7 @@ class WorkMomentsListPage extends StatelessWidget {
   //                 builder: (BuildContext context, Widget? child) {
   //                   return Transform.rotate(
   //                       angle: logic.rotationAnimation.value,
-  //                       child: ImageRes.circle.toImage
+  //                       child: ImageLibrary.circle.toImage
   //                         ..width = 24.w
   //                         ..height = 24.h);
   //                 }));
@@ -201,7 +201,7 @@ class WorkMomentsListPage extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.only(top: 16.h),
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 7.h),
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           child: Center(
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
@@ -212,13 +212,13 @@ class WorkMomentsListPage extends StatelessWidget {
                   vertical: 4.h,
                 ),
                 decoration: BoxDecoration(
-                  color: Styles.c_000000_opacity60,
+                  color: StylesLibrary.c_000000_opacity60,
                   borderRadius: BorderRadius.circular(4.r),
                 ),
                 child:
                     sprintf(StrLibrary.nMessage, [logic.newMessageCount.value])
                         .toText
-                      ..style = Styles.ts_FFFFFF_16sp,
+                      ..style = StylesLibrary.ts_FFFFFF_16sp,
               ),
             ),
           ),
@@ -231,7 +231,7 @@ class WorkMomentsListPage extends StatelessWidget {
             ? Container(
                 padding: EdgeInsets.only(bottom: 20.h),
                 child: StrLibrary.workingCircle.toText
-                  ..style = Styles.ts_333333_18sp_medium,
+                  ..style = StylesLibrary.ts_333333_18sp_medium,
               )
             : Container(
                 padding: EdgeInsets.only(bottom: 20.h),
@@ -245,7 +245,7 @@ class WorkMomentsListPage extends StatelessWidget {
         centerTitle: true,
         expandedHeight: 180.h,
         toolbarHeight: 66.h,
-        backgroundColor: Styles.c_FFFFFF,
+        backgroundColor: StylesLibrary.c_FFFFFF,
         floating: false,
         pinned: true,
         snap: false,
@@ -260,16 +260,16 @@ class WorkMomentsListPage extends StatelessWidget {
               width: 38.w,
               height: 38.h,
               child: Center(
-                child: ImageRes.appBackWhite.toImage
+                child: ImageLibrary.appBackWhite.toImage
                   ..width = 24.w
                   ..height = 24.h
-                  ..color = Styles.c_333333,
+                  ..color = StylesLibrary.c_333333,
               ),
             ),
           ),
         ),
         // stretchTriggerOffset: 100,
-        // leading: ImageRes.backBlack.toImage..color = Styles.c_FFFFFF,
+        // leading: ImageLibrary.backBlack.toImage..color = StylesLibrary.c_FFFFFF,
         actions: logic.isMyself &&
                 !(logic.scrollHeight <=
                     (180.h - 58.h - MediaQuery.of(context).padding.top))
@@ -286,14 +286,14 @@ class WorkMomentsListPage extends StatelessWidget {
                           width: 38.w,
                           height: 38.h,
                           decoration: BoxDecoration(
-                            color: Styles.c_FFFFFF_opacity70,
+                            color: StylesLibrary.c_FFFFFF_opacity70,
                             borderRadius: BorderRadius.circular(6.r),
                           ),
                           child: Center(
-                            child: ImageRes.appAdd.toImage
+                            child: ImageLibrary.appAdd.toImage
                               ..width = 16.w
                               ..height = 16.h
-                              ..color = Styles.c_333333,
+                              ..color = StylesLibrary.c_333333,
                           ),
                         ),
                       ),
@@ -308,14 +308,14 @@ class WorkMomentsListPage extends StatelessWidget {
                       width: 38.w,
                       height: 38.h,
                       decoration: BoxDecoration(
-                        color: Styles.c_FFFFFF_opacity70,
+                        color: StylesLibrary.c_FFFFFF_opacity70,
                         borderRadius: BorderRadius.circular(6.r),
                       ),
                       child: Center(
-                        child: ImageRes.appNotification.toImage
+                        child: ImageLibrary.appNotification.toImage
                           ..width = 16.w
                           ..height = 16.h
-                          ..color = Styles.c_333333,
+                          ..color = StylesLibrary.c_333333,
                       ),
                     ),
                   ),
@@ -329,8 +329,8 @@ class WorkMomentsListPage extends StatelessWidget {
           children: [
             Container(
               height: 300.h,
-              color: Styles.c_FFFFFF,
-              child: ImageRes.workingCircleHeaderBg3.toImage
+              color: StylesLibrary.c_FFFFFF,
+              child: ImageLibrary.workingCircleHeaderBg3.toImage
                 ..width = 375.w
                 ..height = 180.h
                 ..fit = BoxFit.cover,
@@ -356,7 +356,7 @@ class WorkMomentsListPage extends StatelessWidget {
                       12.horizontalSpace,
                       Expanded(
                           child: (logic.nickname ?? '').toText
-                            ..style = Styles.ts_333333_18sp_medium
+                            ..style = StylesLibrary.ts_333333_18sp_medium
                             ..maxLines = 1
                             ..overflow = TextOverflow.ellipsis),
                       12.horizontalSpace,
@@ -368,14 +368,14 @@ class WorkMomentsListPage extends StatelessWidget {
                         //     padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 0),
                         //     height: 38.h,
                         //     decoration: BoxDecoration(
-                        //       color: Styles.c_FFFFFF_opacity70,
+                        //       color: StylesLibrary.c_FFFFFF_opacity70,
                         //       borderRadius: BorderRadius.circular(6.r),
                         //     ),
                         //     child: Row(
                         //       children: [
-                        //         ImageRes.appAdd.toImage..width=16.w..height=16.h,
+                        //         ImageLibrary.appAdd.toImage..width=16.w..height=16.h,
                         //         6.horizontalSpace,
-                        //         StrLibrary .publishMoment.toText..style=Styles.ts_333333_14sp_medium
+                        //         StrLibrary .publishMoment.toText..style=StylesLibrary.ts_333333_14sp_medium
                         //       ],
                         //     ),
                         //   ),
@@ -389,17 +389,17 @@ class WorkMomentsListPage extends StatelessWidget {
                                 horizontal: 11.w, vertical: 0),
                             height: 38.h,
                             decoration: BoxDecoration(
-                              color: Styles.c_FFFFFF_opacity70,
+                              color: StylesLibrary.c_FFFFFF_opacity70,
                               borderRadius: BorderRadius.circular(6.r),
                             ),
                             child: Row(
                               children: [
-                                ImageRes.appAdd.toImage
+                                ImageLibrary.appAdd.toImage
                                   ..width = 16.w
                                   ..height = 16.h,
                                 6.horizontalSpace,
                                 StrLibrary.publishMoment.toText
-                                  ..style = Styles.ts_333333_14sp_medium
+                                  ..style = StylesLibrary.ts_333333_14sp_medium
                               ],
                             ),
                           ),
@@ -413,11 +413,11 @@ class WorkMomentsListPage extends StatelessWidget {
                                   horizontal: 11.w, vertical: 0),
                               height: 38.h,
                               decoration: BoxDecoration(
-                                color: Styles.c_FFFFFF_opacity70,
+                                color: StylesLibrary.c_FFFFFF_opacity70,
                                 borderRadius: BorderRadius.circular(6.r),
                               ),
                               child: Center(
-                                child: ImageRes.appNotification.toImage
+                                child: ImageLibrary.appNotification.toImage
                                   ..width = 16.w
                                   ..height = 16.h,
                               )),
@@ -435,7 +435,7 @@ class WorkMomentsListPage extends StatelessWidget {
                   width: 1.sw,
                   height: 16.h,
                   decoration: BoxDecoration(
-                      color: Styles.c_FFFFFF,
+                      color: StylesLibrary.c_FFFFFF,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(16.r),
                         topRight: Radius.circular(16.r),
@@ -452,16 +452,16 @@ class WorkMomentsListPage extends StatelessWidget {
   //         padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 0),
   //         height: 38.h,
   //         decoration: BoxDecoration(
-  //           color: Styles.c_FFFFFF_opacity70,
+  //           color: StylesLibrary.c_FFFFFF_opacity70,
   //           borderRadius: BorderRadius.circular(6.r),
   //         ),
   //         child: Row(
   //           children: [
-  //             ImageRes.appAdd.toImage
+  //             ImageLibrary.appAdd.toImage
   //               ..width = 16.w
   //               ..height = 16.h,
   //             6.horizontalSpace,
-  //             StrLibrary .publishMoment.toText..style = Styles.ts_333333_14sp_medium
+  //             StrLibrary .publishMoment.toText..style = StylesLibrary.ts_333333_14sp_medium
   //           ],
   //         ),
   //       ),
@@ -472,11 +472,11 @@ class WorkMomentsListPage extends StatelessWidget {
   //           value: 0,
   //           child: Row(
   //             children: [
-  //               ImageRes.appPublishPic.toImage
+  //               ImageLibrary.appPublishPic.toImage
   //                 ..width = 20.w
   //                 ..height = 20.h,
   //               12.horizontalSpace,
-  //               StrLibrary .publishPicture.toText..style = Styles.ts_333333_16sp,
+  //               StrLibrary .publishPicture.toText..style = StylesLibrary.ts_333333_16sp,
   //             ],
   //           ),
   //         ),
@@ -487,11 +487,11 @@ class WorkMomentsListPage extends StatelessWidget {
   //           value: 1,
   //           child: Row(
   //             children: [
-  //               ImageRes.appPublishVideo.toImage
+  //               ImageLibrary.appPublishVideo.toImage
   //                 ..width = 20.w
   //                 ..height = 20.h,
   //               12.horizontalSpace,
-  //               StrLibrary .publishVideo.toText..style = Styles.ts_333333_16sp,
+  //               StrLibrary .publishVideo.toText..style = StylesLibrary.ts_333333_16sp,
   //             ],
   //           ),
   //         ),
@@ -512,14 +512,14 @@ class WorkMomentsListPage extends StatelessWidget {
   //             width: 38.w,
   //             height: 38.h,
   //             decoration: BoxDecoration(
-  //               color: Styles.c_FFFFFF_opacity70,
+  //               color: StylesLibrary.c_FFFFFF_opacity70,
   //               borderRadius: BorderRadius.circular(6.r),
   //             ),
   //             child: Center(
-  //               child: ImageRes.appAdd.toImage
+  //               child: ImageLibrary.appAdd.toImage
   //                 ..width = 16.w
   //                 ..height = 16.h
-  //                 ..color = Styles.c_333333,
+  //                 ..color = StylesLibrary.c_333333,
   //             ),
   //           ),
   //         ),
@@ -530,11 +530,11 @@ class WorkMomentsListPage extends StatelessWidget {
   //             value: 0,
   //             child: Row(
   //               children: [
-  //                 ImageRes.appPublishPic.toImage
+  //                 ImageLibrary.appPublishPic.toImage
   //                   ..width = 20.w
   //                   ..height = 20.h,
   //                 12.horizontalSpace,
-  //                 StrLibrary .publishPicture.toText..style = Styles.ts_333333_16sp,
+  //                 StrLibrary .publishPicture.toText..style = StylesLibrary.ts_333333_16sp,
   //               ],
   //             ),
   //           ),
@@ -545,11 +545,11 @@ class WorkMomentsListPage extends StatelessWidget {
   //             value: 1,
   //             child: Row(
   //               children: [
-  //                 ImageRes.appPublishVideo.toImage
+  //                 ImageLibrary.appPublishVideo.toImage
   //                   ..width = 20.w
   //                   ..height = 20.h,
   //                 12.horizontalSpace,
-  //                 StrLibrary .publishVideo.toText..style = Styles.ts_333333_16sp,
+  //                 StrLibrary .publishVideo.toText..style = StylesLibrary.ts_333333_16sp,
   //               ],
   //             ),
   //           ),
@@ -563,10 +563,10 @@ class WorkMomentsListPage extends StatelessWidget {
   /* Widget _buildItemView(WorkMoments moments) => Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           border: BorderDirectional(
             bottom: BorderSide(
-              color: Styles.c_E8EAEF,
+              color: StylesLibrary.c_E8EAEF,
               width: .5,
             ),
           ),
@@ -585,8 +585,8 @@ class WorkMomentsListPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   (moments.userName ?? '').toText
-                    ..style = Styles.ts_6085B1_16sp_medium,
-                  // (moments.content?.text ?? '').toText..style = Styles.ts_333333_16sp,
+                    ..style = StylesLibrary.ts_6085B1_16sp_medium,
+                  // (moments.content?.text ?? '').toText..style = StylesLibrary.ts_333333_16sp,
                   ExpandedText(text: moments.content?.text ?? ''),
                   if (null != moments.content?.metas &&
                       moments.content!.metas!.isNotEmpty)
@@ -600,7 +600,7 @@ class WorkMomentsListPage extends StatelessWidget {
                       child: sprintf(StrLibrary .mentioned, [
                         moments.atUsers!.map((e) => e.userName).join('、')
                       ]).toText
-                        ..style = Styles.ts_999999_12sp,
+                        ..style = StylesLibrary.ts_999999_12sp,
                     ),
                   Stack(
                     alignment: Alignment.center,
@@ -612,7 +612,7 @@ class WorkMomentsListPage extends StatelessWidget {
                             dayFormat: DayFormat.Full,
                             locale: Get.locale?.languageCode ?? 'zh',
                           ).toText
-                            ..style = Styles.ts_999999_12sp,
+                            ..style = StylesLibrary.ts_999999_12sp,
                           if (moments.permission != 0 &&
                               moments.userID == OpenIM.iMManager.uid)
                             GestureDetector(
@@ -629,7 +629,7 @@ class WorkMomentsListPage extends StatelessWidget {
                                         moments.permission == 1
                                             ? Icons.lock
                                             : Icons.group_rounded,
-                                        color: Styles.c_6085B1,
+                                        color: StylesLibrary.c_6085B1,
                                         size: 14.h,
                                       ),
                                       4.horizontalSpace,
@@ -637,7 +637,7 @@ class WorkMomentsListPage extends StatelessWidget {
                                               ? StrLibrary .private
                                               : StrLibrary .partiallyVisible)
                                           .toText
-                                        ..style = Styles.ts_6085B1_12sp,
+                                        ..style = StylesLibrary.ts_6085B1_12sp,
                                     ],
                                   ),
                                 ),
@@ -653,7 +653,7 @@ class WorkMomentsListPage extends StatelessWidget {
                                   height: 26.h,
                                   alignment: Alignment.center,
                                   child: StrLibrary .delete.toText
-                                    ..style = Styles.ts_6085B1_12sp,
+                                    ..style = StylesLibrary.ts_6085B1_12sp,
                                 ),
                               ),
                             ),
@@ -684,13 +684,13 @@ class WorkMomentsListPage extends StatelessWidget {
                 child: Icon(
                   Icons.thumb_up_alt_outlined,
                   size: 13.w,
-                  color: Styles.c_6085B1,
+                  color: StylesLibrary.c_6085B1,
                 ),
               ),
             ),
             TextSpan(
               text: likeUsers.map((e) => e.userName).join('、'),
-              style: Styles.ts_6085B1_12sp,
+              style: StylesLibrary.ts_6085B1_12sp,
             ),
           ],
         ),
@@ -708,23 +708,23 @@ class WorkMomentsListPage extends StatelessWidget {
                   textAlign: TextAlign.left,
                   text: TextSpan(
                     text: e.userName ?? '',
-                    style: Styles.ts_6085B1_14sp,
+                    style: StylesLibrary.ts_6085B1_14sp,
                     children: [
                       if (e.replyUserName != null &&
                           e.replyUserName!.isNotEmpty)
                         TextSpan(
                           text: ' ${StrLibrary .reply} ',
-                          style: Styles.ts_333333_14sp,
+                          style: StylesLibrary.ts_333333_14sp,
                           children: [
                             TextSpan(
                               text: e.replyUserName,
-                              style: Styles.ts_6085B1_14sp,
+                              style: StylesLibrary.ts_6085B1_14sp,
                             )
                           ],
                         ),
                       TextSpan(
                         text: '：${e.content}',
-                        style: Styles.ts_333333_14sp,
+                        style: StylesLibrary.ts_333333_14sp,
                       ),
                     ],
                   ),
@@ -742,7 +742,7 @@ class WorkMomentsListPage extends StatelessWidget {
       margin: EdgeInsets.only(top: 10.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(2.r),
-        color: Styles.c_F8F9FA,
+        color: StylesLibrary.c_F8F9FA,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -776,7 +776,7 @@ class WorkMomentsListPage extends StatelessWidget {
           GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: () => logic.showLikeCommentPopMenu(moments.workMomentID!),
-            child: ImageRes.moreOp.toImage
+            child: ImageLibrary.moreOp.toImage
               ..width = 22.w
               ..height = 24.h,
           ),
@@ -817,7 +817,7 @@ class WorkMomentsListPage extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 ImageUtil.networkImage(url: url!, fit: BoxFit.cover),
-                ImageRes.videoPause.toImage
+                ImageLibrary.videoPause.toImage
                   ..width = 40.w
                   ..height = 40.h,
               ],
@@ -831,13 +831,13 @@ class WorkMomentsListPage extends StatelessWidget {
 
   Widget get _inputBox => Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-        color: Styles.c_F7F8FA,
+        color: StylesLibrary.c_F7F8FA,
         child: Row(
           children: [
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Styles.c_FFFFFF,
+                  color: StylesLibrary.c_FFFFFF,
                   borderRadius: BorderRadius.circular(4.r),
                 ),
                 child: TextField(
@@ -846,11 +846,11 @@ class WorkMomentsListPage extends StatelessWidget {
                   autofocus: true,
                   minLines: 1,
                   maxLines: 4,
-                  style: Styles.ts_333333_16sp,
+                  style: StylesLibrary.ts_333333_16sp,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: logic.commentHintText.value,
-                    hintStyle: Styles.ts_999999_16sp,
+                    hintStyle: StylesLibrary.ts_999999_16sp,
                     contentPadding: EdgeInsets.symmetric(
                       horizontal: 10.w,
                       vertical: 6.h,
@@ -861,7 +861,7 @@ class WorkMomentsListPage extends StatelessWidget {
               ),
             ),
             12.horizontalSpace,
-            ImageRes.appSendMessage2.toImage
+            ImageLibrary.appSendMessage2.toImage
               ..width = 28.w
               ..height = 28.h
               ..onTap = logic.submitComment,

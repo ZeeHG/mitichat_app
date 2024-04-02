@@ -17,7 +17,7 @@ class GroupManagePage extends StatelessWidget {
       appBar: TitleBar.back(
         title: StrLibrary.groupManage,
       ),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: Obx(() => Column(
             children: [
               10.verticalSpace,
@@ -83,7 +83,7 @@ class GroupManagePage extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 10.w),
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           decoration: BoxDecoration(
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(isTopRadius ? 6.r : 0),
               topLeft: Radius.circular(isTopRadius ? 6.r : 0),
@@ -94,24 +94,25 @@ class GroupManagePage extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: text.toText..style = textStyle ?? Styles.ts_333333_16sp,
+                child: text.toText
+                  ..style = textStyle ?? StylesLibrary.ts_333333_16sp,
               ),
               if (null != value)
                 ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: 150.w),
                   child: value.toText
-                    ..style = Styles.ts_999999_14sp
+                    ..style = StylesLibrary.ts_999999_14sp
                     ..maxLines = 1
                     ..overflow = TextOverflow.ellipsis,
                 ),
               if (showSwitchButton)
                 CupertinoSwitch(
                   value: switchOn,
-                  activeColor: Styles.c_07C160,
+                  activeColor: StylesLibrary.c_07C160,
                   onChanged: onChanged,
                 ),
               if (showRightArrow)
-                ImageRes.appRightArrow.toImage
+                ImageLibrary.appRightArrow.toImage
                   ..width = 24.w
                   ..height = 24.h,
             ],

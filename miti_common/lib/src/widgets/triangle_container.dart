@@ -17,7 +17,7 @@ class TriangleContainer extends StatelessWidget {
       this.bottom})
       : triangleWidth = triangleWidth ?? 6.w,
         triangleHeight = triangleHeight ?? 10.h,
-        triangleColor = triangleColor ?? Styles.c_8443F8,
+        triangleColor = triangleColor ?? StylesLibrary.c_8443F8,
         super(key: key);
 
   TriangleDirection triangleDirection;
@@ -67,7 +67,7 @@ class TrianglePainter extends CustomPainter {
   TrianglePainter({
     Color? color,
     this.triangleDirection = TriangleDirection.right,
-  })  : color = color ?? Styles.c_8443F8,
+  })  : color = color ?? StylesLibrary.c_8443F8,
         super();
 
   TriangleDirection triangleDirection;

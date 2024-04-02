@@ -24,10 +24,10 @@ class ChangePwdPage extends StatelessWidget {
                 text: StrLibrary.determine,
                 enabled: logic.enabled,
                 onTap: logic.confirm,
-                textStyle: Styles.ts_FFFFFF_16sp,
+                textStyle: StylesLibrary.ts_FFFFFF_16sp,
               ),
             )),
-        backgroundColor: Styles.c_F7F8FA,
+        backgroundColor: StylesLibrary.c_F7F8FA,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -40,7 +40,7 @@ class ChangePwdPage extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.only(left: 12.w, right: 12.w),
-                color: Styles.c_F1F2F6,
+                color: StylesLibrary.c_F1F2F6,
                 height: 1.h,
               ),
               _buildItemView(
@@ -49,7 +49,7 @@ class ChangePwdPage extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.only(left: 12.w, right: 12.w),
-                color: Styles.c_F1F2F6,
+                color: StylesLibrary.c_F1F2F6,
                 height: 1.h,
               ),
               _buildItemView(
@@ -62,7 +62,7 @@ class ChangePwdPage extends StatelessWidget {
                 margin: EdgeInsets.only(top: 12.h, left: 12.w),
                 child: Text(
                   StrLibrary.pwdTips,
-                  style: Styles.ts_999999_12sp,
+                  style: StylesLibrary.ts_999999_12sp,
                 ),
               ),
             ],
@@ -83,11 +83,11 @@ class ChangePwdPage extends StatelessWidget {
         height: 52.h,
         padding: EdgeInsets.symmetric(horizontal: 12.w),
         decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
         ),
         child: Row(
           children: [
-            label.toText..style = Styles.ts_333333_16sp,
+            label.toText..style = StylesLibrary.ts_333333_16sp,
             Expanded(
               child: InputBox.password(
                 border: false,

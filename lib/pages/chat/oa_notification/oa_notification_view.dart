@@ -17,7 +17,7 @@
 //       appBar: TitleBar.back(
 //         title: logic.info.showName,
 //       ),
-//       backgroundColor: Styles.c_F8F9FA,
+//       backgroundColor: StylesLibrary.c_F8F9FA,
 //       body: Obx(() => SmartRefresher(
 //             controller: logic.refreshController,
 //             header: IMViews.buildHeader(),
@@ -48,7 +48,7 @@
 //           ),
 //           Text(
 //             MitiUtils.getChatTimeline(message.sendTime!),
-//             style: Styles.ts_999999_10sp,
+//             style: StylesLibrary.ts_999999_10sp,
 //           ),
 //           Row(
 //             crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +65,7 @@
 //                   mainAxisSize: MainAxisSize.min,
 //                   crossAxisAlignment: CrossAxisAlignment.start,
 //                   children: [
-//                     Text(oa.notificationName!, style: Styles.ts_333333_14sp),
+//                     Text(oa.notificationName!, style: StylesLibrary.ts_333333_14sp),
 //                     GestureDetector(
 //                       onTap: () {},
 //                       behavior: HitTestBehavior.translucent,
@@ -73,7 +73,7 @@
 //                         margin: EdgeInsets.only(top: 8.h),
 //                         // width: double.infinity,
 //                         decoration: BoxDecoration(
-//                           color: Styles.c_FFFFFF,
+//                           color: StylesLibrary.c_FFFFFF,
 //                           borderRadius: BorderRadius.circular(2),
 //                         ),
 //                         padding: EdgeInsets.symmetric(
@@ -86,11 +86,11 @@
 //                           children: [
 //                             Text(
 //                               oa.notificationName!,
-//                               style: Styles.ts_999999_14sp,
+//                               style: StylesLibrary.ts_999999_14sp,
 //                             ),
 //                             Text(
 //                               oa.text!,
-//                               style: Styles.ts_999999_12sp,
+//                               style: StylesLibrary.ts_999999_12sp,
 //                             ),
 //                             if (oa.mixType == 1 ||
 //                                 oa.mixType == 2 ||
@@ -141,13 +141,13 @@
 
 //   /// 系统通知自定义头像
 //   Widget? _buildCustomAvatar() => Container(
-//         color: Styles.c_8443F8,
+//         color: StylesLibrary.c_8443F8,
 //         height: 48.h,
 //         width: 48.h,
 //         alignment: Alignment.center,
 //         child: FaIcon(
 //           FontAwesomeIcons.solidBell,
-//           color: Styles.c_FFFFFF,
+//           color: StylesLibrary.c_FFFFFF,
 //         ),
 //       );
 // }

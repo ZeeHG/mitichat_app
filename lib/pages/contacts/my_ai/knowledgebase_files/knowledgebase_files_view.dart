@@ -15,8 +15,8 @@ class KnowledgebaseFilesPage extends StatelessWidget {
     return Scaffold(
       appBar: TitleBar.back(
           title: StrLibrary.knowledgebaseFiles,
-          backgroundColor: Styles.c_F7F8FA),
-      backgroundColor: Styles.c_F7F8FA,
+          backgroundColor: StylesLibrary.c_F7F8FA),
+      backgroundColor: StylesLibrary.c_F7F8FA,
       body: Obx(() => ListView.builder(
             itemCount: logic.files.length,
             shrinkWrap: true,
@@ -26,20 +26,20 @@ class KnowledgebaseFilesPage extends StatelessWidget {
                 margin: EdgeInsets.only(bottom: 15.h),
                 padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 6.h),
                 decoration: BoxDecoration(
-                  color: Styles.c_FFFFFF,
+                  color: StylesLibrary.c_FFFFFF,
                   borderRadius: BorderRadius.circular(10.r),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ImageRes.files.toImage
+                    ImageLibrary.files.toImage
                       ..width = 40.w
                       ..height = 40.h,
                     10.horizontalSpace,
                     Expanded(
                       child: logic.files[index].toText
-                        ..style = Styles.ts_666666_16sp
+                        ..style = StylesLibrary.ts_666666_16sp
                         ..maxLines = 1
                         ..overflow = TextOverflow.ellipsis,
                     ),

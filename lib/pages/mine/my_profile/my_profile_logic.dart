@@ -44,9 +44,9 @@ class MyProfileLogic extends GetxController {
       currentTime:
           DateTime.fromMillisecondsSinceEpoch(imCtrl.userInfo.value.birth ?? 0),
       theme: DatePickerTheme(
-        cancelStyle: Styles.ts_333333_16sp,
-        doneStyle: Styles.ts_8443F8_16sp,
-        itemStyle: Styles.ts_333333_16sp,
+        cancelStyle: StylesLibrary.ts_333333_16sp,
+        doneStyle: StylesLibrary.ts_8443F8_16sp,
+        itemStyle: StylesLibrary.ts_333333_16sp,
       ),
       onConfirm: (dateTime) {
         updateInfo("birth", dateTime.millisecondsSinceEpoch ~/ 1000 * 1000);
@@ -56,7 +56,7 @@ class MyProfileLogic extends GetxController {
 
   void selectGender() {
     Get.bottomSheet(
-      barrierColor: Styles.c_191919_opacity50,
+      barrierColor: StylesLibrary.c_191919_opacity50,
       BottomSheetView(
         items: [
           SheetItem(

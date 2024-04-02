@@ -22,7 +22,7 @@ class LiveButton extends StatelessWidget {
           ..height = 62.h
           ..onTap = onTap,
         10.verticalSpace,
-        text.toText..style = Styles.ts_FFFFFF_opacity70_14sp,
+        text.toText..style = StylesLibrary.ts_FFFFFF_opacity70_14sp,
       ],
     );
   }
@@ -32,36 +32,36 @@ class LiveButton extends StatelessWidget {
     this.onTap,
     bool on = true,
   })  : text = StrLibrary.microphone,
-        icon = on ? ImageRes.liveMicOn : ImageRes.liveMicOff;
+        icon = on ? ImageLibrary.liveMicOn : ImageLibrary.liveMicOff;
 
   LiveButton.speaker({
     super.key,
     this.onTap,
     bool on = true,
   })  : text = StrLibrary.speaker,
-        icon = on ? ImageRes.liveSpeakerOn : ImageRes.liveSpeakerOff;
+        icon = on ? ImageLibrary.liveSpeakerOn : ImageLibrary.liveSpeakerOff;
 
   LiveButton.hungUp({
     super.key,
     this.onTap,
   })  : text = StrLibrary.hangUp,
-        icon = ImageRes.liveHangUp;
+        icon = ImageLibrary.liveHangUp;
 
   LiveButton.reject({
     super.key,
     this.onTap,
   })  : text = StrLibrary.reject,
-        icon = ImageRes.liveHangUp;
+        icon = ImageLibrary.liveHangUp;
 
   LiveButton.cancel({
     super.key,
     this.onTap,
   })  : text = StrLibrary.cancel,
-        icon = ImageRes.liveHangUp;
+        icon = ImageLibrary.liveHangUp;
 
   LiveButton.pickUp({
     super.key,
     this.onTap,
   })  : text = StrLibrary.pickUp,
-        icon = ImageRes.livePicUp;
+        icon = ImageLibrary.livePicUp;
 }

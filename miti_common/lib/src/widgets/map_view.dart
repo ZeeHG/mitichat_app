@@ -44,7 +44,7 @@ class MapView extends StatelessWidget {
                       point: LatLng(latitude, longitude),
                       child: Icon(
                         Icons.location_on_sharp,
-                        color: Styles.c_FF4E4C,
+                        color: StylesLibrary.c_FF4E4C,
                         size: 30,
                       ),
                     ),
@@ -61,9 +61,10 @@ class MapView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      address1.toText..style = Styles.ts_333333_17sp_semibold,
+                      address1.toText
+                        ..style = StylesLibrary.ts_333333_17sp_semibold,
                       8.verticalSpace,
-                      address2.toText..style = Styles.ts_999999_14sp,
+                      address2.toText..style = StylesLibrary.ts_999999_14sp,
                     ],
                   ),
                 ),
@@ -91,7 +92,7 @@ class MapView extends StatelessWidget {
   _openMapSheet() async {
     final availableMaps = await ml.MapLauncher.installedMaps;
     Get.bottomSheet(
-      barrierColor: Styles.c_191919_opacity50,
+      barrierColor: StylesLibrary.c_191919_opacity50,
       BottomSheetView(
         items: availableMaps
             .map((e) => SheetItem(

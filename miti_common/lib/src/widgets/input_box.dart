@@ -246,18 +246,19 @@ class _InputBoxState extends State<InputBox> {
         children: [
           // Text(
           //   widget.label,
-          //   style: widget.labelStyle ?? Styles.ts_999999_12sp,
+          //   style: widget.labelStyle ?? StylesLibrary.ts_999999_12sp,
           // ),
           // 6.verticalSpace,
           Container(
             height: 42.h,
             padding: EdgeInsets.only(left: 0, right: 8.w),
             decoration: BoxDecoration(
-              // border: Border.all(color: Styles.c_EAEAEA, width: 1.h),
+              // border: Border.all(color: StylesLibrary.c_EAEAEA, width: 1.h),
               // borderRadius: BorderRadius.circular(8.r),
               border: widget.border
                   ? Border(
-                      bottom: BorderSide(color: Styles.c_EAEAEA, width: 1.h))
+                      bottom:
+                          BorderSide(color: StylesLibrary.c_EAEAEA, width: 1.h))
                   : Border(bottom: BorderSide.none),
             ),
             child: Row(
@@ -280,7 +281,8 @@ class _InputBoxState extends State<InputBox> {
             Padding(
               padding: EdgeInsets.only(top: 5.h),
               child: widget.formatHintText!.toText
-                ..style = (widget.formatHintStyle ?? Styles.ts_999999_12sp),
+                ..style =
+                    (widget.formatHintStyle ?? StylesLibrary.ts_999999_12sp),
             ),
         ],
       ),
@@ -294,7 +296,7 @@ class _InputBoxState extends State<InputBox> {
           controller: widget.controller,
           keyboardType: _textInputType,
           textInputAction: TextInputAction.next,
-          style: widget.textStyle ?? Styles.ts_333333_16sp,
+          style: widget.textStyle ?? StylesLibrary.ts_333333_16sp,
           autofocus: widget.autofocus,
           obscureText: _obscureText,
           inputFormatters: [
@@ -305,7 +307,7 @@ class _InputBoxState extends State<InputBox> {
           ],
           decoration: InputDecoration(
             hintText: widget.hintText,
-            hintStyle: widget.hintStyle ?? Styles.ts_CCCCCC_16sp,
+            hintStyle: widget.hintStyle ?? StylesLibrary.ts_CCCCCC_16sp,
             isDense: true,
             contentPadding: EdgeInsets.zero,
             border: InputBorder.none,
@@ -321,10 +323,10 @@ class _InputBoxState extends State<InputBox> {
           children: [
             Text(
               widget.code,
-              style: widget.codeStyle ?? Styles.ts_333333_16sp,
+              style: widget.codeStyle ?? StylesLibrary.ts_333333_16sp,
             ),
             8.horizontalSpace,
-            ImageRes.downArrow.toImage
+            ImageLibrary.downArrow.toImage
               ..width = 8.49.w
               ..height = 8.49.h,
             8.horizontalSpace,
@@ -333,7 +335,7 @@ class _InputBoxState extends State<InputBox> {
             //   height: 26.h,
             //   margin: EdgeInsets.symmetric(horizontal: 14.w),
             //   decoration: BoxDecoration(
-            //     color: Styles.c_EAEAEA,
+            //     color: StylesLibrary.c_EAEAEA,
             //     borderRadius: BorderRadius.circular(2.r),
             //   ),
             // ),
@@ -348,7 +350,7 @@ class _InputBoxState extends State<InputBox> {
             widget.controller?.clear();
           },
           behavior: HitTestBehavior.translucent,
-          child: ImageRes.clearText.toImage
+          child: ImageLibrary.clearText.toImage
             ..width = 24.w
             ..height = 24.h,
         ),
@@ -360,8 +362,8 @@ class _InputBoxState extends State<InputBox> {
           onTap: _toggleEye,
           behavior: HitTestBehavior.translucent,
           child: (_obscureText
-              ? ImageRes.eyeClose.toImage
-              : ImageRes.eyeOpen.toImage)
+              ? ImageLibrary.eyeClose.toImage
+              : ImageLibrary.eyeOpen.toImage)
             ..width = 24.w
             ..height = 24.h,
         ),
@@ -466,7 +468,7 @@ class _VerifyCodedButtonState extends State<VerifyCodedButton> {
   @override
   Widget build(BuildContext context) =>
       (_isEnabled ? StrLibrary.sendVerificationCode : '${_seconds}S').toText
-        ..style = Styles.ts_8443F8_16sp
+        ..style = StylesLibrary.ts_8443F8_16sp
         ..onTap = () {
           if (_isEnabled) {
             widget.onTapCallback?.call().then((start) {

@@ -22,10 +22,10 @@
 //       appBar: TitleBar.back(
 //         title: StrLibrary.issueNotice,
 //         right: StrLibrary.newBuild.toText
-//           ..style = Styles.ts_333333_16sp
+//           ..style = StylesLibrary.ts_333333_16sp
 //           ..onTap = logic.newBuild,
 //       ),
-//       backgroundColor: Styles.c_F8F9FA,
+//       backgroundColor: StylesLibrary.c_F8F9FA,
 //       body: Obx(() => SlidableAutoCloseBehavior(
 //             child: SmartRefresher(
 //               controller: logic.refreshCtrl,
@@ -56,8 +56,8 @@
 //             CustomSlidableAction(
 //               onPressed: (_) => logic.delete(ntf),
 //               flex: 1,
-//               backgroundColor: Styles.c_FF4E4C,
-//               child: StrLibrary.delete.toText..style = Styles.ts_FFFFFF_16sp,
+//               backgroundColor: StylesLibrary.c_FF4E4C,
+//               child: StrLibrary.delete.toText..style = StylesLibrary.ts_FFFFFF_16sp,
 //             ),
 //           ],
 //         ),
@@ -82,24 +82,24 @@
 //       padding: EdgeInsets.fromLTRB(12.w, 12.h, 12.w, 16.h),
 //       decoration: BoxDecoration(
 //         borderRadius: BorderRadius.circular(4.r),
-//         color: Styles.c_FFFFFF,
+//         color: StylesLibrary.c_FFFFFF,
 //       ),
 //       child: Column(
 //         crossAxisAlignment: CrossAxisAlignment.start,
 //         children: [
 //           sprintf(StrLibrary.notificationReceiver,
 //               [logic.getAcceptCount(ntf), logic.getAcceptObject(ntf)]).toText
-//             ..style = Styles.ts_999999_16sp
+//             ..style = StylesLibrary.ts_999999_16sp
 //             ..maxLines = 2
 //             ..overflow = TextOverflow.ellipsis,
 //           Container(
 //             margin: EdgeInsets.symmetric(vertical: 10.h),
-//             color: Styles.c_E8EAEF,
+//             color: StylesLibrary.c_E8EAEF,
 //             height: .5,
 //           ),
 //           if (null != textElem)
 //             textElem.content!.toText
-//               ..style = Styles.ts_333333_16sp
+//               ..style = StylesLibrary.ts_333333_16sp
 //               ..maxLines = 2
 //               ..overflow = TextOverflow.ellipsis,
 //           if (null != soundElem)
@@ -111,7 +111,7 @@
 //                     height: 44.h,
 //                     child: ChatBubble(
 //                       bubbleType: BubbleType.receiver,
-//                       backgroundColor: Styles.c_CCE7FE,
+//                       backgroundColor: StylesLibrary.c_CCE7FE,
 //                       child: ChatVoiceView(
 //                         isISend: false,
 //                         soundPath: soundElem!.soundPath,
@@ -123,7 +123,7 @@
 //                   ),
 //                 )),
 //           if (null == textElem && null == soundElem)
-//             StrLibrary.unsupportedMessage.toText..style = Styles.ts_333333_16sp,
+//             StrLibrary.unsupportedMessage.toText..style = StylesLibrary.ts_333333_16sp,
 //           16.verticalSpace,
 //           Align(
 //             alignment: Alignment.centerRight,
@@ -133,17 +133,17 @@
 //                   ? MitiUtils.getTimeFormat3()
 //                   : MitiUtils.getTimeFormat2(),
 //             ).toText
-//               ..style = Styles.ts_999999_14sp,
+//               ..style = StylesLibrary.ts_999999_14sp,
 //           ),
 //           // Align(
 //           //   alignment: Alignment.centerRight,
 //           //   child: Container(
 //           //     padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 4.h),
 //           //     decoration: BoxDecoration(
-//           //       color: Styles.c_8443F8,
+//           //       color: StylesLibrary.c_8443F8,
 //           //       borderRadius: BorderRadius.circular(21.r),
 //           //     ),
-//           //     child: StrLibrary .sendAnother.toText..style = Styles.ts_FFFFFF_16sp,
+//           //     child: StrLibrary .sendAnother.toText..style = StylesLibrary.ts_FFFFFF_16sp,
 //           //   ),
 //           // ),
 //         ],
@@ -157,11 +157,11 @@
 //           crossAxisAlignment: CrossAxisAlignment.center,
 //           children: [
 //             157.verticalSpace,
-//             ImageRes.blacklistEmpty.toImage
+//             ImageLibrary.blacklistEmpty.toImage
 //               ..width = 120.w
 //               ..height = 120.h,
 //             22.verticalSpace,
-//             StrLibrary.emptyNotification.toText..style = Styles.ts_999999_16sp,
+//             StrLibrary.emptyNotification.toText..style = StylesLibrary.ts_999999_16sp,
 //           ],
 //         ),
 //       );

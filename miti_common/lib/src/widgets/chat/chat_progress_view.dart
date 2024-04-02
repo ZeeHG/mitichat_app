@@ -63,14 +63,14 @@ class _ChatProgressViewState extends State<ChatProgressView> {
           decoration: widget.type == ProgressType.file
               ? null
               : BoxDecoration(
-                  color: Styles.c_000000_opacity70,
+                  color: StylesLibrary.c_000000_opacity70,
                   borderRadius: borderRadius(widget.isISend),
                 ),
           child: Stack(
             alignment: Alignment.center,
             children: [
               if (widget.type == ProgressType.file)
-                ImageRes.fileMask.toImage
+                ImageLibrary.fileMask.toImage
                   ..width = 38.w
                   ..height = 44.h,
               SizedBox(
@@ -80,13 +80,13 @@ class _ChatProgressViewState extends State<ChatProgressView> {
                   alignment: Alignment.center,
                   children: [
                     CircularProgressIndicator(
-                      backgroundColor: Styles.c_FFFFFF,
-                      color: Styles.c_8443F8,
+                      backgroundColor: StylesLibrary.c_FFFFFF,
+                      color: StylesLibrary.c_8443F8,
                       strokeWidth: 1.5,
                       value: _progress / 100,
                     ),
                     if (widget.type == ProgressType.file && !widget.isISend)
-                      ImageRes.progressGoing.toImage
+                      ImageLibrary.progressGoing.toImage
                         ..width = 11.w
                         ..height = 11.h,
                   ],

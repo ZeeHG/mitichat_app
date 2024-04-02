@@ -13,8 +13,9 @@ class PreviewChatHistoryPage extends StatelessWidget {
 
   Widget _itemView(Message message) => ChatItemView(
         message: message,
-        highlightColor:
-            message == logic.searchMessage ? Styles.c_999999_opacity13 : null,
+        highlightColor: message == logic.searchMessage
+            ? StylesLibrary.c_999999_opacity13
+            : null,
         timelineStr: logic.getShowTime(message),
         enabledReadStatus: false,
         rightNickname: OpenIM.iMManager.userInfo.nickname,
@@ -72,16 +73,17 @@ class PreviewChatHistoryPage extends StatelessWidget {
           deletedByFriend: viewType == CustomMessageType.deletedByFriend,
         );
         return CustomTypeInfo(view, false, false);
-      }
-      else if (viewType == CustomMessageType.removedFromGroup) {
+      } else if (viewType == CustomMessageType.removedFromGroup) {
         return CustomTypeInfo(
-          StrLibrary.removedFromGroupHint.toText..style = Styles.ts_999999_12sp,
+          StrLibrary.removedFromGroupHint.toText
+            ..style = StylesLibrary.ts_999999_12sp,
           false,
           false,
         );
       } else if (viewType == CustomMessageType.groupDisbanded) {
         return CustomTypeInfo(
-          StrLibrary.groupDisbanded.toText..style = Styles.ts_999999_12sp,
+          StrLibrary.groupDisbanded.toText
+            ..style = StylesLibrary.ts_999999_12sp,
           false,
           false,
         );

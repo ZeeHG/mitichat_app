@@ -17,7 +17,8 @@ class BottomBar extends StatelessWidget {
     return Container(
       height: 56.h,
       decoration: BoxDecoration(
-        color: activeIndex == 1 ? Styles.c_F7F7F7 : Styles.c_FFFFFF,
+        color:
+            activeIndex == 1 ? StylesLibrary.c_F7F7F7 : StylesLibrary.c_FFFFFF,
       ),
       child: Row(
         children: List.generate(
@@ -30,8 +31,7 @@ class BottomBar extends StatelessWidget {
     );
   }
 
-  Widget _buildItemView({required BottomBarItem item}) =>
-      Expanded(
+  Widget _buildItemView({required BottomBarItem item}) => Expanded(
         child: XGestureDetector(
           onDoubleTap: (_) => item.onDoubleClick?.call(item.itemIndex),
           onPointerDown: (_) => item.onClick?.call(item.itemIndex),
@@ -66,8 +66,8 @@ class BottomBar extends StatelessWidget {
               4.verticalSpace,
               item.label.toText
                 ..style = item.itemIndex == activeIndex
-                    ? (item.selectedStyle ?? Styles.ts_8443F8_11sp)
-                    : (item.unselectedStyle ?? Styles.ts_B3B3B3_11sp),
+                    ? (item.selectedStyle ?? StylesLibrary.ts_8443F8_11sp)
+                    : (item.unselectedStyle ?? StylesLibrary.ts_B3B3B3_11sp),
             ],
           ),
         ),

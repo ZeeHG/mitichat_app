@@ -19,12 +19,12 @@ class XhsPage extends StatelessWidget {
     final mq = MediaQuery.of(context);
     final mqTop = mq.padding.top;
     return Obx(() => Scaffold(
-          backgroundColor: Styles.c_F7F8FA,
+          backgroundColor: StylesLibrary.c_F7F8FA,
           body: Stack(
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: Styles.c_F7F8FA,
+                  color: StylesLibrary.c_F7F8FA,
                 ),
                 child: Column(
                   children: [
@@ -37,9 +37,9 @@ class XhsPage extends StatelessWidget {
                           index: logic.headerIndex.value,
                           // onTabChanged: (i) => logic.switchHeaderIndex(i),
                           showUnderline: false,
-                          bgColor: Styles.transparent,
-                          inactiveTextStyle: Styles.ts_4B3230_18sp,
-                          activeTextStyle: Styles.ts_4B3230_20sp_medium,
+                          bgColor: StylesLibrary.transparent,
+                          inactiveTextStyle: StylesLibrary.ts_4B3230_18sp,
+                          activeTextStyle: StylesLibrary.ts_4B3230_20sp_medium,
                           indicatorWidth: 20.w),
                     ),
                     if (logic.headerIndex.value == 0) ...listPage,
@@ -52,7 +52,7 @@ class XhsPage extends StatelessWidget {
                   child: Container(
                     decoration: const BoxDecoration(
                         image: DecorationImage(
-                      image: AssetImage(ImageRes.appHeaderBg3,
+                      image: AssetImage(ImageLibrary.appHeaderBg3,
                           package: 'miti_common'),
                       fit: BoxFit.fitWidth,
                       alignment: FractionalOffset.topCenter,
@@ -67,7 +67,7 @@ class XhsPage extends StatelessWidget {
     return [
       12.verticalSpace,
       // FakeSearchBox(
-      //     onTap: logic.search, color: Styles.c_FFFFFF, borderRadius: 18.r),
+      //     onTap: logic.search, color: StylesLibrary.c_FFFFFF, borderRadius: 18.r),
       Container(
         width: 375.w,
         height: 46.w,
@@ -92,8 +92,8 @@ class XhsPage extends StatelessWidget {
                                     category.label,
                                     style: category.value ==
                                             logic.activeCategory.value.value
-                                        ? Styles.ts_333333_16sp_medium
-                                        : Styles.ts_999999_16sp,
+                                        ? StylesLibrary.ts_333333_16sp_medium
+                                        : StylesLibrary.ts_999999_16sp,
                                   ),
                                 ),
                               ),
@@ -104,7 +104,7 @@ class XhsPage extends StatelessWidget {
               //   child: Container(
               //     padding: EdgeInsets.only(left: 10.w, right: 20.w),
               //     child: Center(
-              //       child: ImageRes.appUnfold.toImage
+              //       child: ImageLibrary.appUnfold.toImage
               //         ..width = 12.w
               //         ..height = 7.h,
               //     ),
@@ -148,7 +148,7 @@ class XhsPage extends StatelessWidget {
                                   child: Container(
                                     clipBehavior: Clip.hardEdge,
                                     decoration: BoxDecoration(
-                                      color: Styles.c_FFFFFF,
+                                      color: StylesLibrary.c_FFFFFF,
                                       borderRadius: BorderRadius.circular(6.r),
                                     ),
                                     child: Column(
@@ -195,7 +195,7 @@ class XhsPage extends StatelessWidget {
                                                       (context, url, error) =>
                                                           Icon(Icons.error),
                                                 ),
-                                                ImageRes.videoPause.toImage
+                                                ImageLibrary.videoPause.toImage
                                                   ..width = 40.w
                                                   ..height = 40.h,
                                               ],
@@ -222,8 +222,8 @@ class XhsPage extends StatelessWidget {
                                                         xhsMoment.content!.text)
                                                     .toString()
                                                     .toText
-                                                  ..style =
-                                                      Styles.ts_333333_14sp
+                                                  ..style = StylesLibrary
+                                                      .ts_333333_14sp
                                                   ..overflow =
                                                       TextOverflow.ellipsis
                                                   ..maxLines = 2,
@@ -245,7 +245,7 @@ class XhsPage extends StatelessWidget {
                                                                   "")
                                                               .toString()
                                                               .toText
-                                                            ..style = Styles
+                                                            ..style = StylesLibrary
                                                                 .ts_999999_11sp
                                                             ..overflow =
                                                                 TextOverflow
@@ -261,13 +261,15 @@ class XhsPage extends StatelessWidget {
                                                       children: [
                                                         if (logic.iIsLiked(
                                                             xhsMoment))
-                                                          ImageRes.likeActive
+                                                          ImageLibrary
+                                                              .likeActive
                                                               .toImage
                                                             ..width = 14.w
                                                             ..height = 13.h,
                                                         if (!logic.iIsLiked(
                                                             xhsMoment))
-                                                          ImageRes.like.toImage
+                                                          ImageLibrary
+                                                              .like.toImage
                                                             ..width = 14.w
                                                             ..height = 13.h,
                                                         6.horizontalSpace,
@@ -280,7 +282,7 @@ class XhsPage extends StatelessWidget {
                                                                 : 0)
                                                             .toString()
                                                             .toText
-                                                          ..style = Styles
+                                                          ..style = StylesLibrary
                                                               .ts_999999_11sp
                                                       ],
                                                     ),
@@ -311,7 +313,7 @@ class XhsPage extends StatelessWidget {
   //                   return Container(
   //                     padding: EdgeInsets.only(top: 12.h, bottom: 15.h),
   //                     margin: EdgeInsets.only(bottom: 6.h),
-  //                     color: Styles.c_FFFFFF,
+  //                     color: StylesLibrary.c_FFFFFF,
   //                     child: Column(
   //                       children: [
   //                         Container(
@@ -326,18 +328,18 @@ class XhsPage extends StatelessWidget {
   //                                 ),
   //                                 10.horizontalSpace,
   //                                 xhsMoment["user"]["name"].toString().toText
-  //                                   ..style = Styles.ts_4B3230_16sp
+  //                                   ..style = StylesLibrary.ts_4B3230_16sp
   //                                   ..overflow = TextOverflow.ellipsis
   //                                   ..maxLines = 1,
   //                                 10.horizontalSpace,
   //                                 xhsMoment["time"].toString().toText
-  //                                   ..style = Styles.ts_999999_12sp,
+  //                                   ..style = StylesLibrary.ts_999999_12sp,
   //                                 Spacer(),
   //                                 GestureDetector(
   //                                   child: Container(
   //                                     width: 20.w,
   //                                     height: 20.h,
-  //                                     child: ImageRes.appMoreBlack.toImage
+  //                                     child: ImageLibrary.appMoreBlack.toImage
   //                                       ..width = 20.w
   //                                       ..height = 4.h,
   //                                   ),
@@ -362,8 +364,8 @@ class XhsPage extends StatelessWidget {
   //                                           controller: config.pageController!,
   //                                           layout: PageIndicatorLayout.SCALE,
   //                                           size: 10.h,
-  //                                           activeColor: Styles.c_8443F8,
-  //                                           color: Styles.c_CDCDCD,
+  //                                           activeColor: StylesLibrary.c_8443F8,
+  //                                           color: StylesLibrary.c_CDCDCD,
   //                                           space: 5,
   //                                         )),
   //                                   );
@@ -372,7 +374,7 @@ class XhsPage extends StatelessWidget {
   //                               itemBuilder: (BuildContext context, int index) {
   //                                 return Container(
   //                                   padding: EdgeInsets.only(bottom: 25.h),
-  //                                   color: Styles.c_FFFFFF,
+  //                                   color: StylesLibrary.c_FFFFFF,
   //                                   child: Image.network(
   //                                     "https://img0.baidu.com/it/u=104573412,694169124&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=777",
   //                                     fit: BoxFit.contain,
@@ -388,11 +390,11 @@ class XhsPage extends StatelessWidget {
   //                             children: [
   //                               Expanded(
   //                                   child: xhsMoment["title"].toString().toText
-  //                                     ..style = Styles.ts_333333_16sp_medium
+  //                                     ..style = StylesLibrary.ts_333333_16sp_medium
   //                                     ..overflow = TextOverflow.ellipsis
   //                                     ..maxLines = 1),
   //                               StrLibrary .seeDetails.toText
-  //                                 ..style = Styles.ts_9280B3_14sp
+  //                                 ..style = StylesLibrary.ts_9280B3_14sp
   //                             ],
   //                           ),
   //                         ),
@@ -401,32 +403,32 @@ class XhsPage extends StatelessWidget {
   //                           padding: EdgeInsets.symmetric(horizontal: 12.w),
   //                           child: Row(
   //                             children: [
-  //                               ImageRes.like2.toImage
+  //                               ImageLibrary.like2.toImage
   //                                 ..width = 20.w
   //                                 ..height = 18.h,
   //                               5.horizontalSpace,
   //                               Container(
   //                                 width: 75.w,
   //                                 child: xhsMoment["likeCount"].toString().toText
-  //                                   ..style = Styles.ts_4B3230_12sp,
+  //                                   ..style = StylesLibrary.ts_4B3230_12sp,
   //                               ),
-  //                               ImageRes.collect.toImage
+  //                               ImageLibrary.collect.toImage
   //                                 ..width = 20.w
   //                                 ..height = 20.h,
   //                               5.horizontalSpace,
   //                               Container(
   //                                 width: 75.w,
   //                                 child: xhsMoment["likeCount"].toString().toText
-  //                                   ..style = Styles.ts_4B3230_12sp,
+  //                                   ..style = StylesLibrary.ts_4B3230_12sp,
   //                               ),
-  //                               ImageRes.comment.toImage
+  //                               ImageLibrary.comment.toImage
   //                                 ..width = 20.w
   //                                 ..height = 20.h,
   //                               5.horizontalSpace,
   //                               Container(
   //                                 width: 75.w,
   //                                 child: xhsMoment["likeCount"].toString().toText
-  //                                   ..style = Styles.ts_4B3230_12sp,
+  //                                   ..style = StylesLibrary.ts_4B3230_12sp,
   //                               )
   //                             ],
   //                           ),

@@ -16,12 +16,12 @@ class BackgroundSettingPage extends StatelessWidget {
     return Scaffold(
       appBar: TitleBar.back(
         title: StrLibrary.setChatBackground,
-        right: ImageRes.moreBlack.toImage
+        right: ImageLibrary.moreBlack.toImage
           ..width = 24.w
           ..height = 24.h
           ..onTap = logic.selectPicture,
       ),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: Obx(() => WaterMarkBgView(
             // text: OpenIM.iMManager.uInfo.nickname ?? '',
             path: logic.chatLogic.background.value,
@@ -42,7 +42,7 @@ class BackgroundSettingPage extends StatelessWidget {
                             alignment: null,
                             constraints: BoxConstraints(maxWidth: maxWidth),
                             child: StrLibrary.setChatBackground.toText
-                              ..style = Styles.ts_FFFFFF_16sp,
+                              ..style = StylesLibrary.ts_FFFFFF_16sp,
                           )
                         ],
                       ),

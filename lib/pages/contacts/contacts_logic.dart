@@ -29,21 +29,21 @@ class ContactsLogic extends GetxController
         {
           "key": "myGroup",
           "text": StrLibrary.myGroup,
-          "color": Styles.c_8544F8,
+          "color": StylesLibrary.c_8544F8,
           "shadowColor": Color.fromRGBO(132, 67, 248, 0.5),
           "onTap": () => myGroup()
         },
         {
           "key": "newRecent",
           "text": StrLibrary.requestRecords,
-          "color": Styles.c_00CBC5,
+          "color": StylesLibrary.c_00CBC5,
           "shadowColor": Color.fromRGBO(0, 203, 197, 0.5),
           "onTap": () => newRecent()
         },
         {
           "key": "aiFriendList",
           "text": StrLibrary.aiFriends,
-          "color": Styles.c_FEA836,
+          "color": StylesLibrary.c_FEA836,
           "shadowColor": Color.fromRGBO(254, 168, 54, 0.5),
           "onTap": () => aiFriendList()
         },

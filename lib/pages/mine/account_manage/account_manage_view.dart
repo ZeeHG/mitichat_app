@@ -15,7 +15,7 @@ class AccountManagePage extends StatelessWidget {
     return Obx(() => Scaffold(
           appBar: TitleBar.back(
               title: StrLibrary.accountManage, onTap: logic.cusBack),
-          backgroundColor: Styles.c_F7F8FA,
+          backgroundColor: StylesLibrary.c_F7F8FA,
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -32,17 +32,17 @@ class AccountManagePage extends StatelessWidget {
                   onTap: () => logic.goLogin(),
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 12.w),
-                    color: Styles.c_FFFFFF,
+                    color: StylesLibrary.c_FFFFFF,
                     child: SizedBox(
                       height: 54.h,
                       child: Row(children: [
                         10.horizontalSpace,
-                        ImageRes.appAdd3.toImage
+                        ImageLibrary.appAdd3.toImage
                           ..width = 30.w
                           ..height = 30.h,
                         8.horizontalSpace,
                         StrLibrary.addOrRegisterAccount.toText
-                          ..style = Styles.ts_333333_16sp
+                          ..style = StylesLibrary.ts_333333_16sp
                       ]),
                     ),
                   ),
@@ -63,8 +63,9 @@ class AccountManagePage extends StatelessWidget {
             CustomSlidableAction(
               onPressed: (_) => logic.delLoginInfo(info),
               flex: 1,
-              backgroundColor: Styles.c_FF4E4C,
-              child: StrLibrary.delete.toText..style = Styles.ts_FFFFFF_16sp,
+              backgroundColor: StylesLibrary.c_FF4E4C,
+              child: StrLibrary.delete.toText
+                ..style = StylesLibrary.ts_FFFFFF_16sp,
             ),
           ],
         ),
@@ -73,14 +74,14 @@ class AccountManagePage extends StatelessWidget {
           onTap: () => logic.switchAccount(info),
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 12.w),
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             child: Container(
               height: 62.h,
               decoration: BoxDecoration(
                 border: showBorder
                     ? BorderDirectional(
-                        bottom:
-                            BorderSide(color: Styles.c_F1F2F6, width: 1.h),
+                        bottom: BorderSide(
+                            color: StylesLibrary.c_F1F2F6, width: 1.h),
                       )
                     : null,
               ),
@@ -99,17 +100,17 @@ class AccountManagePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       info.nickname.toText
-                        ..style = Styles.ts_333333_16sp
+                        ..style = StylesLibrary.ts_333333_16sp
                         ..maxLines = 1
                         ..overflow = TextOverflow.ellipsis,
                       info.server.toText
-                        ..style = Styles.ts_999999_14sp
+                        ..style = StylesLibrary.ts_999999_14sp
                         ..maxLines = 1
                         ..overflow = TextOverflow.ellipsis,
                     ],
                   )),
                   if (logic.curLoginInfoKey.value == info.id)
-                    ImageRes.appChecked2.toImage
+                    ImageLibrary.appChecked2.toImage
                       ..width = 18.w
                       ..height = 18.h
                 ],

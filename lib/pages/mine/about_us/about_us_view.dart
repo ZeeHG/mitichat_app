@@ -22,13 +22,13 @@ class AboutUsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           appBar: TitleBar.back(title: StrLibrary.aboutUs),
-          backgroundColor: Styles.c_F8F9FA,
+          backgroundColor: StylesLibrary.c_F8F9FA,
           body: SingleChildScrollView(
               child: Column(
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: Styles.c_FFFFFF,
+                  color: StylesLibrary.c_FFFFFF,
                   borderRadius: BorderRadius.circular(6.r),
                 ),
                 margin: EdgeInsets.symmetric(
@@ -37,13 +37,13 @@ class AboutUsPage extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    ImageRes.splashLogo.toImage
+                    ImageLibrary.splashLogo.toImage
                       ..width = 78.w
                       ..height = 78.h
                       ..onDoubleTap = logic.showDebug,
                     10.verticalSpace,
                     '${logic.version.value}(${logic.buildNumber.value})'.toText
-                      ..style = Styles.ts_333333_14sp,
+                      ..style = StylesLibrary.ts_333333_14sp,
                     16.verticalSpace,
                     buildItem(
                         label: StrLibrary.uploadImLog, onTap: logic.uploadLogs),
@@ -182,19 +182,20 @@ class AboutUsPage extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
               border: BorderDirectional(
-                  top: BorderSide(width: 0.5.h, color: Styles.c_E8EAEF))),
+                  top:
+                      BorderSide(width: 0.5.h, color: StylesLibrary.c_E8EAEF))),
           child: Row(
             children: [
-              label.toText..style = Styles.ts_333333_16sp,
+              label.toText..style = StylesLibrary.ts_333333_16sp,
               const Spacer(),
               if (showArrow)
-                ImageRes.appRightArrow.toImage
+                ImageLibrary.appRightArrow.toImage
                   ..width = 24.w
                   ..height = 24.h,
               if (showSwitch)
                 CupertinoSwitch(
                   value: switchValue,
-                  activeColor: Styles.c_07C160,
+                  activeColor: StylesLibrary.c_07C160,
                   onChanged: (bool) => onChange?.call(bool),
                 )
             ],

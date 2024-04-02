@@ -14,8 +14,9 @@ class ChatSetupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-          title: StrLibrary.chatDetail, backgroundColor: Styles.transparent),
-      backgroundColor: Styles.c_F7F8FA,
+          title: StrLibrary.chatDetail,
+          backgroundColor: StylesLibrary.transparent),
+      backgroundColor: StylesLibrary.c_F7F8FA,
       body: SingleChildScrollView(
         child: Obx(() => Column(
               children: [
@@ -95,7 +96,7 @@ class ChatSetupPage extends StatelessWidget {
                 15.verticalSpace,
                 _buildItemView(
                   text: StrLibrary.clearChatHistory,
-                  textStyle: Styles.ts_333333_16sp,
+                  textStyle: StylesLibrary.ts_333333_16sp,
                   onTap: logic.clearChatHistory,
                   // showRightArrow: true,
                   isTopRadius: true,
@@ -104,7 +105,7 @@ class ChatSetupPage extends StatelessWidget {
                 15.verticalSpace,
                 _buildItemView(
                   text: StrLibrary.complaint,
-                  textStyle: Styles.ts_333333_16sp,
+                  textStyle: StylesLibrary.ts_333333_16sp,
                   onTap: logic.complaint,
                   showRightArrow: true,
                   isTopRadius: true,
@@ -169,7 +170,7 @@ class ChatSetupPage extends StatelessWidget {
                     ),
                     // 8.verticalSpace,
                     // (logic.conversationInfo.value.showName ?? '').toText
-                    //   ..style = Styles.ts_999999_14sp
+                    //   ..style = StylesLibrary.ts_999999_14sp
                     //   ..maxLines = 1
                     //   ..overflow = TextOverflow.ellipsis,
                   ],
@@ -180,14 +181,14 @@ class ChatSetupPage extends StatelessWidget {
               width: 72.w,
               child: Column(
                 children: [
-                  ImageRes.addFriendTobeGroup2.toImage
+                  ImageLibrary.addFriendTobeGroup2.toImage
                     ..width = 42.w
                     ..height = 42.h
-                    ..color = Styles.c_CCCCCC
+                    ..color = StylesLibrary.c_CCCCCC
                     ..onTap = logic.createGroup,
                   // 8.verticalSpace,
                   // ''.toText
-                  //   ..style = Styles.ts_999999_14sp
+                  //   ..style = StylesLibrary.ts_999999_14sp
                   //   ..maxLines = 1
                   //   ..overflow = TextOverflow.ellipsis,
                 ],
@@ -212,41 +213,41 @@ class ChatSetupPage extends StatelessWidget {
                 ..width = 28.w
                 ..height = 28.h,
               4.verticalSpace,
-              text.toText..style = Styles.ts_999999_14sp
+              text.toText..style = StylesLibrary.ts_999999_14sp
             ],
           ),
         );
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
       decoration: BoxDecoration(
-        color: Styles.c_FFFFFF,
+        color: StylesLibrary.c_FFFFFF,
         borderRadius: BorderRadius.circular(6.r),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          StrLibrary.chatContent.toText..style = Styles.ts_999999_14sp,
+          StrLibrary.chatContent.toText..style = StylesLibrary.ts_999999_14sp,
           12.verticalSpace,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               childItemView(
-                icon: ImageRes.chatSearch,
+                icon: ImageLibrary.chatSearch,
                 text: StrLibrary.search,
                 onTap: logic.chatHistory,
               ),
               childItemView(
-                icon: ImageRes.chatSearchPic,
+                icon: ImageLibrary.chatSearchPic,
                 text: StrLibrary.picture,
                 onTap: logic.chatHistoryPicture,
               ),
               childItemView(
-                icon: ImageRes.chatSearchVideo,
+                icon: ImageLibrary.chatSearchVideo,
                 text: StrLibrary.video,
                 onTap: logic.chatHistoryVideo,
               ),
               childItemView(
-                icon: ImageRes.chatSearchFile,
+                icon: ImageLibrary.chatSearchFile,
                 text: StrLibrary.file,
                 onTap: logic.chatHistoryFile,
               ),
@@ -278,7 +279,7 @@ class ChatSetupPage extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 15.w),
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(isTopRadius ? 10.r : 0),
               topLeft: Radius.circular(isTopRadius ? 10.r : 0),
@@ -288,9 +289,11 @@ class ChatSetupPage extends StatelessWidget {
           ),
           child: Container(
             decoration: BoxDecoration(
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
               border: showBorder
-                  ? Border(top: BorderSide(color: Styles.c_F1F2F6, width: 1.h))
+                  ? Border(
+                      top:
+                          BorderSide(color: StylesLibrary.c_F1F2F6, width: 1.h))
                   : null,
             ),
             height: hintText == null ? 52.h : 68.h,
@@ -304,21 +307,23 @@ class ChatSetupPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           text.toText
-                            ..style = textStyle ?? Styles.ts_333333_16sp,
-                          hintText.toText..style = Styles.ts_999999_14sp,
+                            ..style = textStyle ?? StylesLibrary.ts_333333_16sp,
+                          hintText.toText..style = StylesLibrary.ts_999999_14sp,
                         ],
                       )
-                    : (text.toText..style = textStyle ?? Styles.ts_333333_16sp),
+                    : (text.toText
+                      ..style = textStyle ?? StylesLibrary.ts_333333_16sp),
                 const Spacer(),
-                if (null != value) value.toText..style = Styles.ts_999999_14sp,
+                if (null != value)
+                  value.toText..style = StylesLibrary.ts_999999_14sp,
                 if (showSwitchButton)
                   CupertinoSwitch(
                     value: switchOn,
-                    activeColor: Styles.c_07C160,
+                    activeColor: StylesLibrary.c_07C160,
                     onChanged: onChanged,
                   ),
                 if (showRightArrow)
-                  ImageRes.appRightArrow.toImage
+                  ImageLibrary.appRightArrow.toImage
                     ..width = 24.w
                     ..height = 24.h,
               ],

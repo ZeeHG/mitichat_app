@@ -85,7 +85,7 @@ class ImageUtil {
               // remove memory cached
               state.imageProvider.evict();
               return errorWidget ??
-                  (ImageRes.pictureError.toImage
+                  (ImageLibrary.pictureError.toImage
                     ..width = width
                     ..height = height);
           }
@@ -144,7 +144,7 @@ class ImageUtil {
             case LoadState.failed:
               // remove memory cached
               state.imageProvider.evict();
-              return errorWidget ?? ImageRes.pictureError.toImage;
+              return errorWidget ?? ImageLibrary.pictureError.toImage;
           }
         },
       );

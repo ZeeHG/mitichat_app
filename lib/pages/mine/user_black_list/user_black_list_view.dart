@@ -15,7 +15,7 @@ class UserBlacklistPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrLibrary.blacklist),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: Obx(() => logic.blacklist.isEmpty
           ? _emptyListView
           : ListView.builder(
@@ -40,11 +40,11 @@ class UserBlacklistPage extends StatelessWidget {
           height: 62.h,
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           decoration: BoxDecoration(
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             border: underline
                 ? BorderDirectional(
                     bottom: BorderSide(
-                      color: Styles.c_E8EAEF,
+                      color: StylesLibrary.c_E8EAEF,
                       width: 1,
                     ),
                   )
@@ -61,9 +61,9 @@ class UserBlacklistPage extends StatelessWidget {
               12.horizontalSpace,
               Expanded(
                 child: (info.nickname ?? '').toText
-                  ..style = Styles.ts_333333_16sp,
+                  ..style = StylesLibrary.ts_333333_16sp,
               ),
-              StrLibrary.remove.toText..style = Styles.ts_8443F8_16sp,
+              StrLibrary.remove.toText..style = StylesLibrary.ts_8443F8_16sp,
             ],
           ),
         ),
@@ -75,11 +75,12 @@ class UserBlacklistPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             157.verticalSpace,
-            ImageRes.blacklistEmpty.toImage
+            ImageLibrary.blacklistEmpty.toImage
               ..width = 120.w
               ..height = 120.h,
             22.verticalSpace,
-            StrLibrary.blacklistEmpty.toText..style = Styles.ts_999999_16sp,
+            StrLibrary.blacklistEmpty.toText
+              ..style = StylesLibrary.ts_999999_16sp,
           ],
         ),
       );

@@ -17,7 +17,7 @@ class SearchAddContactsPage extends StatelessWidget {
       appBar: TitleBar.back(
         title: logic.isSearchUser ? StrLibrary.addFriend : StrLibrary.addGroup,
       ),
-      backgroundColor: Styles.c_FFFFFF,
+      backgroundColor: StylesLibrary.c_FFFFFF,
       body: Column(
         children: [
           SearchBox(
@@ -31,7 +31,7 @@ class SearchAddContactsPage extends StatelessWidget {
             margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
             onSubmitted: (_) => logic.search(),
           ),
-          Container(color: Styles.c_E8EAEF, height: 1.h),
+          Container(color: StylesLibrary.c_E8EAEF, height: 1.h),
           Obx(() => Expanded(
                 child: logic.isSearchUser
                     ? (logic.isNotFoundUser ? _empty() : _userList())
@@ -71,22 +71,22 @@ class SearchAddContactsPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           decoration: BoxDecoration(
             border: BorderDirectional(
-              bottom: BorderSide(color: Styles.c_E8EAEF, width: 1.h),
+              bottom: BorderSide(color: StylesLibrary.c_E8EAEF, width: 1.h),
             ),
           ),
           height: 50.h,
           child: Row(
             children: [
               (logic.isSearchUser
-                      ? ImageRes.searchPersonIcon
-                      : ImageRes.searchGroupIcon)
+                      ? ImageLibrary.searchPersonIcon
+                      : ImageLibrary.searchGroupIcon)
                   .toImage
                 ..width = 24.w
                 ..height = 24.h,
               12.horizontalSpace,
               Expanded(
                   child: logic.getShowTitle(info).toText
-                    ..style = Styles.ts_9280B3_16sp
+                    ..style = StylesLibrary.ts_9280B3_16sp
                     ..maxLines = 1
                     ..overflow = TextOverflow.ellipsis),
             ],
@@ -100,6 +100,6 @@ class SearchAddContactsPage extends StatelessWidget {
                 ? StrLibrary.noFoundUser
                 : StrLibrary.noFoundGroup)
             .toText
-          ..style = Styles.ts_999999_16sp,
+          ..style = StylesLibrary.ts_999999_16sp,
       );
 }

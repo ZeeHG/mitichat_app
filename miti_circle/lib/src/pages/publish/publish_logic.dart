@@ -148,7 +148,7 @@ class PublishLogic extends GetxController {
   }
 
   void selectAssets() => Get.bottomSheet(
-        barrierColor: Styles.c_191919_opacity50,
+        barrierColor: StylesLibrary.c_191919_opacity50,
         BottomSheetView(
           items: [
             SheetItem(

@@ -111,7 +111,7 @@ class _ChatVideoViewState extends State<ChatVideoView> {
             alignment: Alignment.center,
             children: [
               if (null != _child) _child!,
-              ImageRes.videoPause.toImage
+              ImageLibrary.videoPause.toImage
                 ..width = 40.w
                 ..height = 40.h,
               ChatProgressView(
@@ -128,7 +128,7 @@ class _ChatVideoViewState extends State<ChatVideoView> {
                   right: 3.w,
                   child: MitiUtils.seconds2HMS(_message.videoElem!.duration!)
                       .toText
-                    ..style = Styles.ts_FFFFFF_12sp,
+                    ..style = StylesLibrary.ts_FFFFFF_12sp,
                 ),
             ],
           ),

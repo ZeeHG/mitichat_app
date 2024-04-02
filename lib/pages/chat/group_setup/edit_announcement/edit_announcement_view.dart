@@ -24,17 +24,17 @@ class EditGroupAnnouncementPage extends StatelessWidget {
                           ? StrLibrary.edit
                           : StrLibrary.publish)
                       .toText
-                    ..style = Styles.ts_333333_17sp
+                    ..style = StylesLibrary.ts_333333_17sp
                     ..onTap =
                         (logic.onlyRead.value ? logic.editing : logic.publish))
                   : null,
             ),
-            backgroundColor: Styles.c_F8F9FA,
+            backgroundColor: StylesLibrary.c_F8F9FA,
             body: Container(
               margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
               decoration: BoxDecoration(
-                color: Styles.c_FFFFFF,
+                color: StylesLibrary.c_FFFFFF,
                 borderRadius: BorderRadius.circular(6.r),
               ),
               child: Column(
@@ -60,7 +60,7 @@ class EditGroupAnnouncementPage extends StatelessWidget {
                                   : DateFormats.mo_d_h_m,
                             )}'
                                 .toText
-                              ..style = Styles.ts_999999_12sp,
+                              ..style = StylesLibrary.ts_999999_12sp,
                           ],
                         ),
                       ],
@@ -69,7 +69,7 @@ class EditGroupAnnouncementPage extends StatelessWidget {
                     child: TextField(
                       controller: logic.inputCtrl,
                       focusNode: logic.focusNode,
-                      style: Styles.ts_333333_17sp,
+                      style: StylesLibrary.ts_333333_17sp,
                       enabled: !logic.onlyRead.value,
                       expands: true,
                       maxLines: null,
@@ -78,7 +78,7 @@ class EditGroupAnnouncementPage extends StatelessWidget {
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: StrLibrary.plsEnterGroupAc,
-                        hintStyle: Styles.ts_999999_17sp,
+                        hintStyle: StylesLibrary.ts_999999_17sp,
                         isDense: true,
                       ),
                     ),
@@ -90,15 +90,15 @@ class EditGroupAnnouncementPage extends StatelessWidget {
                         width: 30.w,
                         height: 1.h,
                         margin: EdgeInsets.only(right: 8.w),
-                        color: Styles.c_E8EAEF,
+                        color: StylesLibrary.c_E8EAEF,
                       ),
                       StrLibrary.groupAcPermissionTips.toText
-                        ..style = Styles.ts_999999_12sp,
+                        ..style = StylesLibrary.ts_999999_12sp,
                       Container(
                         width: 30.w,
                         height: 1.h,
                         margin: EdgeInsets.only(left: 8.w),
-                        color: Styles.c_E8EAEF,
+                        color: StylesLibrary.c_E8EAEF,
                       ),
                     ],
                   ),

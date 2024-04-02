@@ -18,7 +18,7 @@ class MyQrcodePage extends StatelessWidget {
         appBar: TitleBar.back(
           title: StrLibrary.qrcode,
         ),
-        backgroundColor: Styles.c_FFFFFF,
+        backgroundColor: StylesLibrary.c_FFFFFF,
         body: SizedBox(
           // alignment: Alignment.topCenter,
           width: 1.sw,
@@ -45,7 +45,7 @@ class MyQrcodePage extends StatelessWidget {
                         width: 12.w,
                       ),
                       Text(logic.imCtrl.userInfo.value.nickname ?? "",
-                          style: Styles.ts_4B3230_18sp)
+                          style: StylesLibrary.ts_4B3230_18sp)
                     ]),
                   ),
                   SizedBox(
@@ -54,7 +54,7 @@ class MyQrcodePage extends StatelessWidget {
                   QrImageView(
                     data: logic.qrcodeData,
                     size: 213.w,
-                    backgroundColor: Styles.c_FFFFFF,
+                    backgroundColor: StylesLibrary.c_FFFFFF,
                     padding: EdgeInsets.all(6.r),
                   ),
                 ],
@@ -63,7 +63,7 @@ class MyQrcodePage extends StatelessWidget {
                 height: 30.h,
               ),
               StrLibrary.qrcodeHint.toText
-                ..style = Styles.ts_999999_12sp
+                ..style = StylesLibrary.ts_999999_12sp
                 ..textAlign = TextAlign.center,
               SizedBox(
                 height: 186.h,
@@ -73,25 +73,25 @@ class MyQrcodePage extends StatelessWidget {
               //     crossAxisAlignment: CrossAxisAlignment.center,
               //     children: [
               //       StrLibrary .scan.toText
-              //         ..style = Styles.ts_8443F8_16sp
+              //         ..style = StylesLibrary.ts_8443F8_16sp
               //         ..textAlign = TextAlign.center,
               //       Container(
               //         height: 30.h,
               //         width: 1.w,
-              //         color: Styles.c_EDEDED,
+              //         color: StylesLibrary.c_EDEDED,
               //         margin: EdgeInsets.symmetric(horizontal: 16.w),
               //       ),
               //       StrLibrary .changeStyle.toText
-              //         ..style = Styles.ts_8443F8_16sp
+              //         ..style = StylesLibrary.ts_8443F8_16sp
               //         ..textAlign = TextAlign.center,
               //       Container(
               //         height: 30.h,
               //         width: 1.w,
-              //         color: Styles.c_EDEDED,
+              //         color: StylesLibrary.c_EDEDED,
               //         margin: EdgeInsets.symmetric(horizontal: 16.w),
               //       ),
               //       StrLibrary .saveImg.toText
-              //         ..style = Styles.ts_8443F8_16sp
+              //         ..style = StylesLibrary.ts_8443F8_16sp
               //         ..textAlign = TextAlign.center,
               //     ])
             ],

@@ -53,11 +53,11 @@ class BeCalledView extends StatelessWidget {
                             ? StrLibrary.whoInvitedVoiceCallHint
                             : StrLibrary.whoInvitedVideoCallHint,
                         [inviterUserInfo.nickname]).toText
-                      ..style = Styles.ts_FFFFFF_17sp_medium,
+                      ..style = StylesLibrary.ts_FFFFFF_17sp_medium,
                   if (null != memberInfoList && memberInfoList!.isNotEmpty)
                     sprintf(StrLibrary.nPeopleCalling, [memberInfoList!.length])
                         .toText
-                      ..style = Styles.ts_FFFFFF_14sp,
+                      ..style = StylesLibrary.ts_FFFFFF_14sp,
                 ],
               ),
             ),

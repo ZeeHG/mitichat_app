@@ -16,14 +16,14 @@ class MyGroupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrLibrary.myGroup),
-      backgroundColor: Styles.c_F7F8FA,
+      backgroundColor: StylesLibrary.c_F7F8FA,
       body: Column(
         children: [
           GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: logic.searchGroup,
             child: Container(
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
               child: FakeSearchBox(),
             ),
@@ -62,7 +62,7 @@ class MyGroupPage extends StatelessWidget {
         behavior: HitTestBehavior.translucent,
         child: Container(
           height: 64.h,
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Row(
             children: [
@@ -76,9 +76,10 @@ class MyGroupPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  (info.groupName ?? '').toText..style = Styles.ts_333333_16sp,
+                  (info.groupName ?? '').toText
+                    ..style = StylesLibrary.ts_333333_16sp,
                   sprintf(StrLibrary.nPerson, [info.memberCount]).toText
-                    ..style = Styles.ts_999999_14sp,
+                    ..style = StylesLibrary.ts_999999_14sp,
                 ],
               ),
             ],

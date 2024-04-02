@@ -20,7 +20,7 @@ class ExpandedText extends StatefulWidget {
 class _ExpandedTextState extends State<ExpandedText> {
   bool _isExpand = false;
 
-  TextStyle get _textStyle => widget.textStyle ?? Styles.ts_333333_17sp;
+  TextStyle get _textStyle => widget.textStyle ?? StylesLibrary.ts_333333_17sp;
 
   @override
   void initState() {
@@ -59,7 +59,7 @@ class _ExpandedTextState extends State<ExpandedText> {
                     padding: EdgeInsets.only(top: 2.h),
                     child: (_isExpand ? StrLibrary.rollUp : StrLibrary.fullText)
                         .toText
-                      ..style = Styles.ts_8443F8_17sp,
+                      ..style = StylesLibrary.ts_8443F8_17sp,
                   ),
                 ),
               ],

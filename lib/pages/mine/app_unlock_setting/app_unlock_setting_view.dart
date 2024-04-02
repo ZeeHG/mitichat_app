@@ -14,7 +14,7 @@ class AppUnlockSettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrLibrary.unlockSettings),
-      backgroundColor: Styles.c_F7F8FA,
+      backgroundColor: StylesLibrary.c_F7F8FA,
       body: Obx(() => Column(
             children: [
               12.verticalSpace,
@@ -34,7 +34,7 @@ class AppUnlockSettingPage extends StatelessWidget {
                       logic.canCheckBiometrics.value))
                 Container(
                   margin: EdgeInsets.only(left: 26.w, right: 10.w),
-                  color: Styles.c_E8EAEF,
+                  color: StylesLibrary.c_E8EAEF,
                   height: .5,
                 ),
               if (logic.passwordEnabled.value &&
@@ -61,27 +61,27 @@ class AppUnlockSettingPage extends StatelessWidget {
   }) =>
       Container(
           decoration: BoxDecoration(
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
           ),
           padding: EdgeInsets.symmetric(horizontal: 12.w),
           child: Container(
             height: 52.h,
             decoration: BoxDecoration(
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
               border: Border(
                 top: BorderSide(
-                  color: Styles.c_F1F2F6,
+                  color: StylesLibrary.c_F1F2F6,
                   width: showBorder ? 1.h : 0,
                 ),
               ),
             ),
             child: Row(
               children: [
-                label.toText..style = Styles.ts_333333_16sp,
+                label.toText..style = StylesLibrary.ts_333333_16sp,
                 const Spacer(),
                 CupertinoSwitch(
                   value: switchOn,
-                  activeColor: Styles.c_07C160,
+                  activeColor: StylesLibrary.c_07C160,
                   onChanged: onChanged,
                 ),
               ],

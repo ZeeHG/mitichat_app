@@ -23,7 +23,7 @@ class RegisterPage extends StatelessWidget {
                     ? StrLibrary.phoneRegister
                     : StrLibrary.emailRegister)
                 .toText
-              ..style = Styles.ts_333333_24sp_medium,
+              ..style = StylesLibrary.ts_333333_24sp_medium,
             21.verticalSpace,
             InputBox.invitationCode(
               hintText: sprintf(StrLibrary.plsEnterInvitationCode, [
@@ -77,8 +77,8 @@ class RegisterPage extends StatelessWidget {
               text: logic.isPhoneRegister
                   ? StrLibrary.useEmailRegister
                   : StrLibrary.usePhoneRegister,
-              enabledColor: Styles.c_D9DCE3_opacity40,
-              textStyle: Styles.ts_8443F8_16sp,
+              enabledColor: StylesLibrary.c_D9DCE3_opacity40,
+              textStyle: StylesLibrary.ts_8443F8_16sp,
               onTap: logic.switchType,
             ),
             10.verticalSpace,

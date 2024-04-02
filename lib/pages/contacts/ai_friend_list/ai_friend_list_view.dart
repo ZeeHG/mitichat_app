@@ -14,21 +14,21 @@ class AiFriendListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrLibrary.aiFriends),
-      backgroundColor: Styles.c_FFFFFF,
+      backgroundColor: StylesLibrary.c_FFFFFF,
       body: Column(
         children: [
           GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: logic.searchAiFriend,
             child: Container(
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
               child: FakeSearchBox(),
             ),
           ),
           Container(
             constraints: BoxConstraints(minWidth: 1.sw),
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.only(
@@ -55,7 +55,7 @@ class AiFriendListPage extends StatelessWidget {
                   data: logic.friendList,
                   itemCount: logic.friendList.length,
                   itemBuilder: (_, data, index) => _item(data),
-                  firstTagPaddingColor: Styles.c_FFFFFF),
+                  firstTagPaddingColor: StylesLibrary.c_FFFFFF),
             ),
           ),
         ],
@@ -68,7 +68,7 @@ class AiFriendListPage extends StatelessWidget {
         onTap: () => logic.viewFriendInfo(info),
         child: Container(
           height: 60.h,
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           padding: EdgeInsets.symmetric(horizontal: 12.w),
           child: Row(
             children: [
@@ -77,7 +77,7 @@ class AiFriendListPage extends StatelessWidget {
                 text: info.showName,
               ),
               12.horizontalSpace,
-              info.showName.toText..style = Styles.ts_333333_16sp,
+              info.showName.toText..style = StylesLibrary.ts_333333_16sp,
             ],
           ),
         ),
@@ -95,8 +95,8 @@ class AiFriendListPage extends StatelessWidget {
   }) {
     width = width ?? 162.w;
     height = height ?? 50.h;
-    color = color ?? Styles.c_8544F8;
-    tStyle = tStyle ?? Styles.ts_FFFFFF_14sp_medium;
+    color = color ?? StylesLibrary.c_8544F8;
+    tStyle = tStyle ?? StylesLibrary.ts_FFFFFF_14sp_medium;
     shadowColor = shadowColor ?? Color.fromRGBO(132, 67, 248, 0.5);
     return GestureDetector(
         behavior: HitTestBehavior.translucent,

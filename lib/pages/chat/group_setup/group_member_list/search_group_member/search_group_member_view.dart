@@ -24,7 +24,7 @@ class SearchGroupMemberPage extends StatelessWidget {
           onSubmitted: (_) => logic.search(),
           onCleared: () => logic.focusNode.requestFocus(),
         ),
-        backgroundColor: Styles.c_F8F9FA,
+        backgroundColor: StylesLibrary.c_F8F9FA,
         body: Obx(() => logic.isSearchNotResult
             ? _emptyView
             : SmartRefresher(
@@ -55,7 +55,7 @@ class SearchGroupMemberPage extends StatelessWidget {
         child: Container(
           height: 64.h,
           padding: EdgeInsets.symmetric(horizontal: 16.w),
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           child: Row(
             children: [
               // if (logic.isMultiSelMode)
@@ -70,20 +70,22 @@ class SearchGroupMemberPage extends StatelessWidget {
               10.horizontalSpace,
               Expanded(
                 // child: (membersInfo.nickname ?? '').toText
-                //   ..style = Styles.ts_333333_16sp
+                //   ..style = StylesLibrary.ts_333333_16sp
                 //   ..maxLines = 1
                 //   ..overflow = TextOverflow.ellipsis,
                 child: SearchKeywordText(
                   text: membersInfo.nickname ?? '',
                   keyText: logic.searchCtrl.text.trim(),
-                  style: Styles.ts_333333_16sp,
-                  keyStyle: Styles.ts_8443F8_16sp,
+                  style: StylesLibrary.ts_333333_16sp,
+                  keyStyle: StylesLibrary.ts_8443F8_16sp,
                 ),
               ),
               if (membersInfo.roleLevel == GroupRoleLevel.owner)
-                StrLibrary.groupOwner.toText..style = Styles.ts_999999_16sp,
+                StrLibrary.groupOwner.toText
+                  ..style = StylesLibrary.ts_999999_16sp,
               if (membersInfo.roleLevel == GroupRoleLevel.admin)
-                StrLibrary.groupAdmin.toText..style = Styles.ts_999999_16sp,
+                StrLibrary.groupAdmin.toText
+                  ..style = StylesLibrary.ts_999999_16sp,
             ],
           ),
         ),
@@ -95,12 +97,13 @@ class SearchGroupMemberPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // 157.verticalSpace,
-            // ImageRes.blacklistEmpty.toImage
+            // ImageLibrary.blacklistEmpty.toImage
             //   ..width = 120.w
             //   ..height = 120.h,
             // 22.verticalSpace,
             44.verticalSpace,
-            StrLibrary.searchNotFound.toText..style = Styles.ts_999999_16sp,
+            StrLibrary.searchNotFound.toText
+              ..style = StylesLibrary.ts_999999_16sp,
           ],
         ),
       );

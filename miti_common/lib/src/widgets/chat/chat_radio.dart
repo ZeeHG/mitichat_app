@@ -17,7 +17,9 @@ class ChatRadio extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      child: (checked || !enabled ? ImageRes.appRadioSel : ImageRes.radioNor)
+      child: (checked || !enabled
+              ? ImageLibrary.appRadioSel
+              : ImageLibrary.radioNor)
           .toImage
         ..width = 16.w
         ..height = 16.h

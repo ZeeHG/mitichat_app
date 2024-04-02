@@ -16,14 +16,14 @@ class SelectContactsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: logic.appBarTitle.value),
-      backgroundColor: Styles.c_F7F8FA,
+      backgroundColor: StylesLibrary.c_F7F8FA,
       body: Column(
         children: [
           // GestureDetector(
           //   behavior: HitTestBehavior.translucent,
           //   onTap: logic.selectFromSearch,
           //   child: Container(
-          //     color: Styles.c_FFFFFF,
+          //     color: StylesLibrary.c_FFFFFF,
           //     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
           //     child: const SearchBox(),
           //   ),
@@ -65,7 +65,7 @@ class SelectContactsPage extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           margin: EdgeInsets.symmetric(horizontal: 12.w),
                           child: StrLibrary.recentConversations.toText
-                            ..style = Styles.ts_999999_12sp,
+                            ..style = StylesLibrary.ts_999999_12sp,
                         ),
                       ),
                     SliverFixedExtentList(
@@ -95,13 +95,13 @@ class SelectContactsPage extends StatelessWidget {
         behavior: HitTestBehavior.translucent,
         child: Container(
           height: 54.h,
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Row(
             children: [
-              label.toText..style = Styles.ts_333333_16sp,
+              label.toText..style = StylesLibrary.ts_333333_16sp,
               const Spacer(),
-              ImageRes.appRightArrow.toImage
+              ImageLibrary.appRightArrow.toImage
                 ..width = 20.w
                 ..height = 20.h,
             ],
@@ -115,7 +115,7 @@ class SelectContactsPage extends StatelessWidget {
           behavior: HitTestBehavior.translucent,
           child: Container(
             height: 54.h,
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             padding: EdgeInsets.symmetric(horizontal: 12.w),
             child: Row(
               children: [
@@ -134,7 +134,7 @@ class SelectContactsPage extends StatelessWidget {
                 10.horizontalSpace,
                 Flexible(
                   child: (info.showName ?? '').toText
-                    ..style = Styles.ts_333333_16sp
+                    ..style = StylesLibrary.ts_333333_16sp
                     ..maxLines = 1
                     ..overflow = TextOverflow.ellipsis,
                 ),
@@ -155,13 +155,13 @@ class CheckedConfirmView extends StatelessWidget {
     return Container(
       height: 86.h,
       decoration: BoxDecoration(
-        color: Styles.c_F7F7F7,
+        color: StylesLibrary.c_F7F7F7,
         boxShadow: [
           BoxShadow(
             offset: Offset(0, -1.h),
             blurRadius: 6.r,
             spreadRadius: 1.r,
-            color: Styles.c_000000_opacity4,
+            color: StylesLibrary.c_000000_opacity4,
           ),
         ],
       ),
@@ -177,13 +177,13 @@ class CheckedConfirmView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ImageRes.appUpArrow.toImage
+                      ImageLibrary.appUpArrow.toImage
                         ..width = 10.w
                         ..height = 6.h,
                       if (logic.checkedList.isNotEmpty) 16.horizontalSpace,
                       Expanded(
                         // child: logic.checkedStrTips.toText
-                        //   ..style = Styles.ts_999999_14sp
+                        //   ..style = StylesLibrary.ts_999999_14sp
                         //   ..maxLines = 1
                         //   ..overflow = TextOverflow.ellipsis,
                         child: SizedBox(
@@ -213,7 +213,7 @@ class CheckedConfirmView extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 14.w),
                 text: sprintf(StrLibrary.confirmSelectedPeople,
                     [logic.checkedList.length]),
-                textStyle: Styles.ts_FFFFFF_14sp,
+                textStyle: StylesLibrary.ts_FFFFFF_14sp,
                 onTap: logic.confirmSelectedList,
               ),
             ],
@@ -231,7 +231,7 @@ class SelectedContactsListView extends StatelessWidget {
     return Container(
       constraints: BoxConstraints(maxHeight: 548.h),
       decoration: BoxDecoration(
-        color: Styles.c_FFFFFF,
+        color: StylesLibrary.c_FFFFFF,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(6.r),
           topRight: Radius.circular(6.r),
@@ -243,14 +243,15 @@ class SelectedContactsListView extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 decoration: BoxDecoration(
                   border: BorderDirectional(
-                    bottom: BorderSide(color: Styles.c_E8EAEF, width: 1.h),
+                    bottom:
+                        BorderSide(color: StylesLibrary.c_E8EAEF, width: 1.h),
                   ),
                 ),
                 child: Row(
                   children: [
                     sprintf(StrLibrary.selectedPeopleCount,
                         [logic.checkedList.length]).toText
-                      ..style = Styles.ts_333333_16sp_medium,
+                      ..style = StylesLibrary.ts_333333_16sp_medium,
                     const Spacer(),
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
@@ -259,7 +260,7 @@ class SelectedContactsListView extends StatelessWidget {
                         height: 52.h,
                         alignment: Alignment.center,
                         child: StrLibrary.confirm.toText
-                          ..style = Styles.ts_8443F8_16sp,
+                          ..style = StylesLibrary.ts_8443F8_16sp,
                       ),
                     ),
                   ],
@@ -292,11 +293,11 @@ class SelectedContactsListView extends StatelessWidget {
     return Container(
       height: 64.h,
       padding: EdgeInsets.symmetric(horizontal: 16.w),
-      color: Styles.c_FFFFFF,
+      color: StylesLibrary.c_FFFFFF,
       child: Row(
         children: [
           if (info is TagInfo)
-            ImageRes.tagGroup.toImage
+            ImageLibrary.tagGroup.toImage
               ..width = 44.w
               ..height = 44.h
           else
@@ -304,7 +305,7 @@ class SelectedContactsListView extends StatelessWidget {
           10.horizontalSpace,
           Expanded(
             child: (name ?? '').toText
-              ..style = Styles.ts_333333_16sp
+              ..style = StylesLibrary.ts_333333_16sp
               ..maxLines = 1
               ..overflow = TextOverflow.ellipsis,
           ),
@@ -316,11 +317,12 @@ class SelectedContactsListView extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2.r),
                 border: Border.all(
-                  color: Styles.c_E8EAEF,
+                  color: StylesLibrary.c_E8EAEF,
                   width: 1,
                 ),
               ),
-              child: StrLibrary.remove.toText..style = Styles.ts_8443F8_16sp,
+              child: StrLibrary.remove.toText
+                ..style = StylesLibrary.ts_8443F8_16sp,
             ),
           ),
         ],

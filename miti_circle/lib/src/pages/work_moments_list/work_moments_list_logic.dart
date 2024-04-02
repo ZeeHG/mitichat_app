@@ -315,7 +315,7 @@ class WorkMomentsListLogic extends GetxController {
     hiddenLikeCommentPopMenu();
     if (comments.userID == OpenIM.iMManager.userID) {
       final del = await Get.bottomSheet(
-        barrierColor: Styles.c_191919_opacity50,
+        barrierColor: StylesLibrary.c_191919_opacity50,
         BottomSheetView(
             items: [SheetItem(label: StrLibrary.delete, result: 1)]),
       );

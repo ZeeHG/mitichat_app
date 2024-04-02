@@ -21,14 +21,14 @@ class NewMessagePage extends StatelessWidget {
         appBar: TitleBar.back(
           title: StrLibrary.message,
           right: StrLibrary.clearAll.toText
-            ..style = Styles.ts_333333_16sp
+            ..style = StylesLibrary.ts_333333_16sp
             ..onTap = logic.clearNewMessage,
         ),
-        backgroundColor: Styles.c_FFFFFF,
+        backgroundColor: StylesLibrary.c_FFFFFF,
         body: Obx(
           () => AnnotatedRegion<SystemUiOverlayStyle>(
               value: SystemUiOverlayStyle(
-                  systemNavigationBarColor: Styles.c_FFFFFF),
+                  systemNavigationBarColor: StylesLibrary.c_FFFFFF),
               child: SmartRefresher(
                 controller: logic.refreshCtrl,
                 enablePullUp: true,
@@ -84,10 +84,10 @@ class NewMessagePage extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 12.w),
       padding: EdgeInsets.symmetric(vertical: 10.h),
       decoration: BoxDecoration(
-        color: Styles.c_FFFFFF,
+        color: StylesLibrary.c_FFFFFF,
         border: underline
             ? BorderDirectional(
-                bottom: BorderSide(color: Styles.c_EDEDED, width: 1.h),
+                bottom: BorderSide(color: StylesLibrary.c_EDEDED, width: 1.h),
               )
             : null,
       ),
@@ -105,7 +105,8 @@ class NewMessagePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                (nickname ?? '').toText..style = Styles.ts_9280B3_16sp_medium,
+                (nickname ?? '').toText
+                  ..style = StylesLibrary.ts_9280B3_16sp_medium,
                 4.verticalSpace,
                 // 为你点了赞
                 info.type == 1
@@ -114,18 +115,18 @@ class NewMessagePage extends StatelessWidget {
                           Icon(
                             Icons.thumb_up,
                             size: 13.w,
-                            color: Styles.c_9280B3,
+                            color: StylesLibrary.c_9280B3,
                           ),
                           4.horizontalSpace,
                           RichText(
                               text: TextSpan(children: [
                             TextSpan(
                               text: StrLibrary.likedWho2,
-                              style: Styles.ts_333333_14sp,
+                              style: StylesLibrary.ts_333333_14sp,
                             ),
                             TextSpan(
                               text: " ${info.nickname}",
-                              style: Styles.ts_9280B3_14sp,
+                              style: StylesLibrary.ts_9280B3_14sp,
                             )
                           ]))
                         ],
@@ -134,22 +135,22 @@ class NewMessagePage extends StatelessWidget {
                     : info.type == 2
                         ? (sprintf(StrLibrary.mentionedWho,
                             [info.atUsers?.firstOrNull?.nickname]).toText
-                          ..style = Styles.ts_333333_14sp)
+                          ..style = StylesLibrary.ts_333333_14sp)
                         // 评论了你
                         : (null == replyNickname || replyNickname.isEmpty)
                             ? RichText(
                                 text: TextSpan(children: [
                                 TextSpan(
                                   text: StrLibrary.commentedWho2,
-                                  style: Styles.ts_333333_14sp,
+                                  style: StylesLibrary.ts_333333_14sp,
                                 ),
                                 TextSpan(
                                   text: " ${info.nickname}：",
-                                  style: Styles.ts_9280B3_14sp,
+                                  style: StylesLibrary.ts_9280B3_14sp,
                                 ),
                                 TextSpan(
                                   text: content,
-                                  style: Styles.ts_333333_14sp,
+                                  style: StylesLibrary.ts_333333_14sp,
                                 ),
                               ]))
                             // 某某回复了某某
@@ -158,15 +159,15 @@ class NewMessagePage extends StatelessWidget {
                                   // 回复：xxx ： 内容
                                   TextSpan(
                                     text: StrLibrary.replied,
-                                    style: Styles.ts_333333_14sp,
+                                    style: StylesLibrary.ts_333333_14sp,
                                   ),
                                   TextSpan(
                                     text: ' $replyNickname：',
-                                    style: Styles.ts_9280B3_14sp,
+                                    style: StylesLibrary.ts_9280B3_14sp,
                                   ),
                                   TextSpan(
                                     text: content,
-                                    style: Styles.ts_333333_14sp,
+                                    style: StylesLibrary.ts_333333_14sp,
                                   ),
                                 ]),
                               ),
@@ -176,7 +177,7 @@ class NewMessagePage extends StatelessWidget {
                   dayFormat: DayFormat.Full,
                   locale: Get.locale?.languageCode ?? 'zh',
                 ).toText
-                  ..style = Styles.ts_999999_12sp,
+                  ..style = StylesLibrary.ts_999999_12sp,
               ],
             ),
           ),
@@ -203,7 +204,7 @@ class NewMessagePage extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           if (mateContent.type == 1)
-            ImageRes.videoPause.toImage
+            ImageLibrary.videoPause.toImage
               ..width = 20.w
               ..height = 20.h,
         ],

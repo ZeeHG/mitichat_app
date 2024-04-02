@@ -44,7 +44,7 @@ class ParticipantInfoWidget extends StatelessWidget {
               Flexible(
                 child: Text(
                   title!,
-                  style: Styles.ts_0C1C33_14sp,
+                  style: StylesLibrary.ts_0C1C33_14sp,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),

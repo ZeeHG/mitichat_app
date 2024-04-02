@@ -15,7 +15,7 @@ class WorkMomentsDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrLibrary.detail),
-      backgroundColor: Styles.c_FFFFFF,
+      backgroundColor: StylesLibrary.c_FFFFFF,
       body: Obx(() => logic.workMoments.value.nickname == null
           ? const SizedBox()
           : Stack(
@@ -72,13 +72,13 @@ class WorkMomentsDetailPage extends StatelessWidget {
 
   Widget get _inputBox => Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-        color: Styles.c_F7F8FA,
+        color: StylesLibrary.c_F7F8FA,
         child: Row(
           children: [
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Styles.c_FFFFFF,
+                  color: StylesLibrary.c_FFFFFF,
                   borderRadius: BorderRadius.circular(4.r),
                 ),
                 child: TextField(
@@ -87,11 +87,11 @@ class WorkMomentsDetailPage extends StatelessWidget {
                   autofocus: true,
                   minLines: 1,
                   maxLines: 4,
-                  style: Styles.ts_333333_17sp,
+                  style: StylesLibrary.ts_333333_17sp,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: logic.commentHintText.value,
-                    hintStyle: Styles.ts_999999_17sp,
+                    hintStyle: StylesLibrary.ts_999999_17sp,
                     contentPadding: EdgeInsets.symmetric(
                       horizontal: 10.w,
                       vertical: 6.h,
@@ -102,7 +102,7 @@ class WorkMomentsDetailPage extends StatelessWidget {
               ),
             ),
             12.horizontalSpace,
-            ImageRes.appSendMessage2.toImage
+            ImageLibrary.appSendMessage2.toImage
               ..width = 28.w
               ..height = 28.h
               ..onTap = logic.submitComment,

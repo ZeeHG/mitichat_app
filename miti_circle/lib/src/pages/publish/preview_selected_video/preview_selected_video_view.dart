@@ -14,14 +14,14 @@ class PreviewSelectedVideoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(
-        backgroundColor: Styles.c_000000,
-        backIconColor: Styles.c_FFFFFF,
-        leftTitleStyle: Styles.ts_FFFFFF_17sp_semibold,
+        backgroundColor: StylesLibrary.c_000000,
+        backIconColor: StylesLibrary.c_FFFFFF,
+        leftTitleStyle: StylesLibrary.ts_FFFFFF_17sp_semibold,
         right: StrLibrary.delete.toText
-          ..style = Styles.ts_FFFFFF_17sp_semibold
+          ..style = StylesLibrary.ts_FFFFFF_17sp_semibold
           ..onTap = logic.delete,
       ),
-      backgroundColor: Styles.c_000000,
+      backgroundColor: StylesLibrary.c_000000,
       body: SafeArea(
         child: Obx(() => logic.isInitialized.value
             ? Chewie(controller: logic.chewieController!)

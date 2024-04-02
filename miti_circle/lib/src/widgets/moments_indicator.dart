@@ -138,13 +138,13 @@ class _MaterialClassicHeaderState
           child: _isRefreshing
               ? RotationTransition(
                   turns: _rotationCtrl,
-                  child: ImageRes.circle.toImage
+                  child: ImageLibrary.circle.toImage
                     ..width = 24.w
                     ..height = 24.h,
                 )
               : Transform.rotate(
                   angle: rotation,
-                  child: ImageRes.circle.toImage
+                  child: ImageLibrary.circle.toImage
                     ..width = 24.w
                     ..height = 24.h,
                 ),

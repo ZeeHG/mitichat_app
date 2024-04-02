@@ -20,7 +20,7 @@ class DeleteUserPage extends StatelessWidget {
             title: !logic.success.value ? StrLibrary.deleteUser : "",
             hideBack: logic.success.value,
           ),
-          backgroundColor: Styles.c_FFFFFF,
+          backgroundColor: StylesLibrary.c_FFFFFF,
           body: SingleChildScrollView(
             child: Container(
               width: 1.sw,
@@ -30,27 +30,27 @@ class DeleteUserPage extends StatelessWidget {
                   children: !logic.success.value
                       ? [
                           45.verticalSpace,
-                          ImageRes.appWarn.toImage
+                          ImageLibrary.appWarn.toImage
                             ..width = 70.w
                             ..height = 70.h,
                           24.verticalSpace,
                           StrLibrary.deleteUserTips1.toText
-                            ..style = Styles.ts_333333_20sp_medium,
+                            ..style = StylesLibrary.ts_333333_20sp_medium,
                           10.verticalSpace,
                           StrLibrary.deleteUserTips2.toText
-                            ..style = Styles.ts_999999_16sp,
+                            ..style = StylesLibrary.ts_999999_16sp,
                           10.verticalSpace,
                           StrLibrary.deleteUserTips3.toText
-                            ..style = Styles.ts_999999_16sp,
+                            ..style = StylesLibrary.ts_999999_16sp,
                           10.verticalSpace,
                           StrLibrary.deleteUserTips4.toText
-                            ..style = Styles.ts_999999_16sp,
+                            ..style = StylesLibrary.ts_999999_16sp,
                           25.verticalSpace,
                           Container(
                             height: 46.h,
                             padding: EdgeInsets.symmetric(horizontal: 23.w),
                             decoration: BoxDecoration(
-                              color: Styles.c_F7F8FA,
+                              color: StylesLibrary.c_F7F8FA,
                               borderRadius: BorderRadius.circular(23.r),
                             ),
                             child: InputBox.password(
@@ -69,16 +69,16 @@ class DeleteUserPage extends StatelessWidget {
                         ]
                       : [
                           45.verticalSpace,
-                          ImageRes.appSuccess.toImage
+                          ImageLibrary.appSuccess.toImage
                             ..width = 70.w
                             ..height = 70.h,
                           24.verticalSpace,
                           StrLibrary.deleteUserSuccess.toText
-                            ..style = Styles.ts_333333_20sp_medium,
+                            ..style = StylesLibrary.ts_333333_20sp_medium,
                           10.verticalSpace,
                           StrLibrary.deleteUserSuccessTips.toText
                             ..textAlign = TextAlign.center
-                            ..style = Styles.ts_999999_16sp,
+                            ..style = StylesLibrary.ts_999999_16sp,
                           45.verticalSpace,
                           Button(
                             width: 1.sw - 72.w,

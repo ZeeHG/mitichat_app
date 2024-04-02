@@ -63,18 +63,18 @@ class ConversationPage extends StatelessWidget {
                         Positioned(
                             bottom: 0,
                             right: -4.w,
-                            child: ImageRes.appSwitch.toImage
+                            child: ImageLibrary.appSwitch.toImage
                               ..width = 18.w
                               ..height = 18.h)
                       ],
                     ),
                   ),
                 ),
-                backgroundColor: Styles.c_FFFFFF,
+                backgroundColor: StylesLibrary.c_FFFFFF,
                 body: ConstrainedBox(
                     constraints: BoxConstraints(minHeight: 1.sh - 56.h),
                     child: Container(
-                      color: Styles.c_F7F8FA,
+                      color: StylesLibrary.c_F7F8FA,
                       child: Column(
                         children: [
                           Expanded(
@@ -87,7 +87,8 @@ class ConversationPage extends StatelessWidget {
                                   footer: IMViews.buildFooter(),
                                   enablePullUp: true,
                                   enablePullDown: true,
-                                  onRefresh: () => logic.loadConversationList(true),
+                                  onRefresh: () =>
+                                      logic.loadConversationList(true),
                                   onLoading: logic.loadConversationList,
                                   child: ListView.builder(
                                     itemCount: logic.list.length,
@@ -109,7 +110,8 @@ class ConversationPage extends StatelessWidget {
                                     height: 183.h - 105.h - mq.padding.top,
                                     decoration: const BoxDecoration(
                                         image: DecorationImage(
-                                      image: AssetImage(ImageRes.appHeaderBg3,
+                                      image: AssetImage(
+                                          ImageLibrary.appHeaderBg3,
                                           package: 'miti_common'),
                                       fit: BoxFit.cover,
                                       alignment: FractionalOffset.bottomCenter,
@@ -137,25 +139,26 @@ class ConversationPage extends StatelessWidget {
             CustomSlidableAction(
               onPressed: (_) => logic.pinConversation(info),
               flex: logic.isPinned(info) ? 3 : 2,
-              backgroundColor: Styles.c_8443F8,
+              backgroundColor: StylesLibrary.c_8443F8,
               child:
                   (logic.isPinned(info) ? StrLibrary.cancelTop : StrLibrary.top)
                       .toText
-                    ..style = Styles.ts_FFFFFF_16sp,
+                    ..style = StylesLibrary.ts_FFFFFF_16sp,
             ),
             if (logic.existUnreadMsg(info))
               CustomSlidableAction(
                 onPressed: (_) => logic.markMessageHasRead(info),
                 flex: 3,
-                backgroundColor: Styles.c_999999,
+                backgroundColor: StylesLibrary.c_999999,
                 child: StrLibrary.markHasRead.toText
-                  ..style = Styles.ts_FFFFFF_16sp,
+                  ..style = StylesLibrary.ts_FFFFFF_16sp,
               ),
             CustomSlidableAction(
               onPressed: (_) => logic.deleteConversation(info),
               flex: 2,
-              backgroundColor: Styles.c_FF4E4C,
-              child: StrLibrary.delete.toText..style = Styles.ts_FFFFFF_16sp,
+              backgroundColor: StylesLibrary.c_FF4E4C,
+              child: StrLibrary.delete.toText
+                ..style = StylesLibrary.ts_FFFFFF_16sp,
             ),
           ],
         ),
@@ -163,17 +166,17 @@ class ConversationPage extends StatelessWidget {
       ));
 
   Widget _buildItemView(ConversationInfo info) => Obx(() => GestureDetector(
-    behavior: HitTestBehavior.translucent,
-    onTap: () => logic.toChat(conversationInfo: info),
-    child: Container(
-      padding: EdgeInsets.only(left: 12.w),
-      child: Stack(
+        behavior: HitTestBehavior.translucent,
+        onTap: () => logic.toChat(conversationInfo: info),
+        child: Container(
+          padding: EdgeInsets.only(left: 12.w),
+          child: Stack(
             children: [
               Container(
                 height: 68.h,
                 padding: EdgeInsets.only(left: 10.w, right: 12.w),
                 decoration: BoxDecoration(
-                    color: Styles.c_FFFFFF,
+                    color: StylesLibrary.c_FFFFFF,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(34.r),
                         bottomLeft: Radius.circular(34.r))),
@@ -201,19 +204,19 @@ class ConversationPage extends StatelessWidget {
                             ConstrainedBox(
                               constraints: BoxConstraints(maxWidth: 180.w),
                               child: logic.getShowName(info).toText
-                                ..style = Styles.ts_332221_16sp
+                                ..style = StylesLibrary.ts_332221_16sp
                                 ..maxLines = 1
                                 ..overflow = TextOverflow.ellipsis,
                             ),
                             if (aiUtil.isAi(info.userID)) ...[
                               9.horizontalSpace,
-                              ImageRes.appAiMarker.toImage
+                              ImageLibrary.appAiMarker.toImage
                                 ..width = 18.w
                                 ..height = 16.h,
                             ],
                             const Spacer(),
                             logic.getTime(info).toText
-                              ..style = Styles.ts_999999_12sp,
+                              ..style = StylesLibrary.ts_999999_12sp,
                           ],
                         ),
                         5.verticalSpace,
@@ -221,7 +224,7 @@ class ConversationPage extends StatelessWidget {
                           children: [
                             MatchTextView(
                               text: logic.getContent(info),
-                              textStyle: Styles.ts_999999_14sp,
+                              textStyle: StylesLibrary.ts_999999_14sp,
                               allAtMap: logic.getAtUserMap(info),
                               prefixSpan: TextSpan(
                                 text: '',
@@ -232,11 +235,11 @@ class ConversationPage extends StatelessWidget {
                                       text: '[${sprintf(StrLibrary.nPieces, [
                                             logic.getUnreadCount(info)
                                           ])}] ',
-                                      style: Styles.ts_999999_14sp,
+                                      style: StylesLibrary.ts_999999_14sp,
                                     ),
                                   TextSpan(
                                     text: logic.getPrefixTag(info),
-                                    style: Styles.ts_8443F8_14sp,
+                                    style: StylesLibrary.ts_8443F8_14sp,
                                   ),
                                 ],
                               ),
@@ -245,15 +248,15 @@ class ConversationPage extends StatelessWidget {
                               patterns: <MatchPattern>[
                                 MatchPattern(
                                   type: PatternType.at,
-                                  style: Styles.ts_999999_14sp,
+                                  style: StylesLibrary.ts_999999_14sp,
                                 ),
                               ],
                             ),
                             // logic.getMsgContent(info).toText
-                            //   ..style = Styles.ts_999999_14sp,
+                            //   ..style = StylesLibrary.ts_999999_14sp,
                             const Spacer(),
                             if (logic.isNotDisturb(info))
-                              ImageRes.notDisturb.toImage
+                              ImageLibrary.notDisturb.toImage
                                 ..width = 13.63.w
                                 ..height = 14.07.h,
                             UnreadCountView(
@@ -275,14 +278,14 @@ class ConversationPage extends StatelessWidget {
                   height: 68.h,
                   margin: EdgeInsets.only(right: 6.w),
                   foregroundDecoration: RotatedCornerDecoration.withColor(
-                    color: Styles.c_8443F8,
+                    color: StylesLibrary.c_8443F8,
                     badgeSize: Size(8.29.w, 8.29.h),
                   ),
                 )
             ],
           ),
-    ),
-  ) );
+        ),
+      ));
 
   Widget _buildCusPopMenuInfo(
           {required AccountLoginInfo info, showBorder = true}) =>
@@ -294,7 +297,8 @@ class ConversationPage extends StatelessWidget {
           decoration: BoxDecoration(
             border: showBorder
                 ? BorderDirectional(
-                    bottom: BorderSide(color: Styles.c_F1F2F6, width: 1.h),
+                    bottom:
+                        BorderSide(color: StylesLibrary.c_F1F2F6, width: 1.h),
                   )
                 : null,
           ),
@@ -313,7 +317,7 @@ class ConversationPage extends StatelessWidget {
                     Positioned(
                         bottom: 0,
                         right: -4.w,
-                        child: ImageRes.appChecked2.toImage
+                        child: ImageLibrary.appChecked2.toImage
                           ..width = 18.w
                           ..height = 18.h)
                 ],
@@ -325,11 +329,11 @@ class ConversationPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     info.nickname.toText
-                      ..style = Styles.ts_333333_16sp
+                      ..style = StylesLibrary.ts_333333_16sp
                       ..maxLines = 1
                       ..overflow = TextOverflow.ellipsis,
                     info.server.toText
-                      ..style = Styles.ts_999999_14sp
+                      ..style = StylesLibrary.ts_999999_14sp
                       ..maxLines = 1
                       ..overflow = TextOverflow.ellipsis,
                   ],

@@ -132,7 +132,7 @@ class ChatHistoryLogic extends GetxController {
     return MitiUtils.calContent(
       content: content,
       key: searchKey.value,
-      style: Styles.ts_333333_16sp,
+      style: StylesLibrary.ts_333333_16sp,
       usedWidth: usedWidth,
     );
   }

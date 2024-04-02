@@ -96,7 +96,7 @@ class ChatPicturePreview extends StatelessWidget {
                   height: 15.0,
                   child: Center(
                     child: CircularProgressIndicator(
-                      color: Styles.c_8443F8,
+                      color: StylesLibrary.c_8443F8,
                       strokeWidth: 1.5,
                       value: progress ?? 0,
                     ),
@@ -118,7 +118,7 @@ class ChatPicturePreview extends StatelessWidget {
             case LoadState.failed:
               // remove memory cached
               state.imageProvider.evict();
-              return ImageRes.pictureError.toImage;
+              return ImageLibrary.pictureError.toImage;
           }
         },
       );

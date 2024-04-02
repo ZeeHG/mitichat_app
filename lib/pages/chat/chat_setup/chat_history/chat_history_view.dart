@@ -26,7 +26,7 @@ class ChatHistory extends StatelessWidget {
                 onCleared: logic.clearInput,
                 onChanged: logic.onChanged,
                 showUnderline: false),
-            backgroundColor: Styles.c_FFFFFF,
+            backgroundColor: StylesLibrary.c_FFFFFF,
             body: logic.isNotKey
                 ? _categoryView
                 : (logic.isSearchNotResult ? _emptyView : _resultView),
@@ -39,7 +39,7 @@ class ChatHistory extends StatelessWidget {
         onTap: () => logic.previewMessageHistory(message),
         child: Container(
           height: 70.h,
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           padding: EdgeInsets.symmetric(horizontal: 12.w),
           child: Row(
             children: [
@@ -52,7 +52,8 @@ class ChatHistory extends StatelessWidget {
                   margin: EdgeInsets.only(left: 10.w),
                   decoration: BoxDecoration(
                     border: BorderDirectional(
-                      bottom: BorderSide(color: Styles.c_E8EAEF, width: 1.h),
+                      bottom:
+                          BorderSide(color: StylesLibrary.c_E8EAEF, width: 1.h),
                     ),
                   ),
                   child: Column(
@@ -62,19 +63,19 @@ class ChatHistory extends StatelessWidget {
                       Row(
                         children: [
                           (message.senderNickname ?? '').toText
-                            ..style = Styles.ts_999999_14sp,
+                            ..style = StylesLibrary.ts_999999_14sp,
                           const Spacer(),
                           MitiUtils.getChatTimeline(message.sendTime ?? 0)
                               .toText
-                            ..style = Styles.ts_999999_14sp,
+                            ..style = StylesLibrary.ts_999999_14sp,
                         ],
                       ),
                       2.verticalSpace,
                       SearchKeywordText(
                         text: logic.calContent(message),
                         keyText: logic.searchKey.value,
-                        style: Styles.ts_333333_16sp,
-                        keyStyle: Styles.ts_8443F8_16sp,
+                        style: StylesLibrary.ts_333333_16sp,
+                        keyStyle: StylesLibrary.ts_8443F8_16sp,
                         maxLines: 1,
                       ),
                     ],
@@ -94,8 +95,7 @@ class ChatHistory extends StatelessWidget {
         onLoading: logic.load,
         child: ListView.builder(
           itemCount: logic.messageList.length,
-          itemBuilder: (_, index) =>
-              _resultItemView(logic.messageList[index]),
+          itemBuilder: (_, index) => _resultItemView(logic.messageList[index]),
         ),
       );
 
@@ -103,7 +103,7 @@ class ChatHistory extends StatelessWidget {
         children: [
           50.verticalSpace,
           StrLibrary.quicklyFindChatHistory.toText
-            ..style = Styles.ts_B3B3B3_12sp,
+            ..style = StylesLibrary.ts_B3B3B3_12sp,
           15.verticalSpace,
           Container(
             alignment: Alignment.center,
@@ -134,13 +134,13 @@ class ChatHistory extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             80.verticalSpace,
-            ImageRes.searchNotFound.toImage
+            ImageLibrary.searchNotFound.toImage
               ..width = 125.w
               ..height = 76.h,
             20.verticalSpace,
             sprintf(StrLibrary.notFoundChatHistory, [logic.searchKey.value])
                 .toText
-              ..style = Styles.ts_999999_16sp,
+              ..style = StylesLibrary.ts_999999_16sp,
           ],
         ),
       );
@@ -151,7 +151,7 @@ class ChatHistory extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: "${logic.items[index]}".toText
-        ..style = Styles.ts_9280B3_16sp
+        ..style = StylesLibrary.ts_9280B3_16sp
         ..onTap = () => logic.clickItem(logic.items[index]!),
     );
   }

@@ -54,7 +54,7 @@ class ChatToolBox extends StatelessWidget {
       if (null != onTapAlbum)
         ToolboxItemInfo(
           text: StrLibrary.toolboxAlbum,
-          icon: ImageRes.appToolboxAlbum.toImage
+          icon: ImageLibrary.appToolboxAlbum.toImage
             ..width = 24.w
             ..height = 24.h,
           onTap: () {
@@ -70,7 +70,7 @@ class ChatToolBox extends StatelessWidget {
       if (null != onTapCamera)
         ToolboxItemInfo(
           text: StrLibrary.toolboxCamera,
-          icon: ImageRes.appToolboxCamera.toImage
+          icon: ImageLibrary.appToolboxCamera.toImage
             ..width = 26.w
             ..height = 22.h,
           onTap: () => Permissions.camera(onTapCamera),
@@ -78,7 +78,7 @@ class ChatToolBox extends StatelessWidget {
       if (null != onTapCall)
         ToolboxItemInfo(
           text: StrLibrary.toolboxCall,
-          icon: ImageRes.appToolboxCall.toImage
+          icon: ImageLibrary.appToolboxCall.toImage
             ..width = 30.w
             ..height = 18.h,
           onTap: () => Permissions.cameraAndMicrophone(onTapCall),
@@ -86,7 +86,7 @@ class ChatToolBox extends StatelessWidget {
       if (null != onTapLocation)
         ToolboxItemInfo(
           text: StrLibrary.toolboxLocation,
-          icon: ImageRes.appToolboxLocation.toImage
+          icon: ImageLibrary.appToolboxLocation.toImage
             ..width = 22.w
             ..height = 26.h,
           onTap: () => Permissions.location(onTapLocation),
@@ -94,14 +94,14 @@ class ChatToolBox extends StatelessWidget {
       if (null != onTapCard)
         ToolboxItemInfo(
             text: StrLibrary.toolboxCard,
-            icon: ImageRes.appToolboxCard.toImage
+            icon: ImageLibrary.appToolboxCard.toImage
               ..width = 30.w
               ..height = 22.h,
             onTap: onTapCard),
       if (null != onTapFile)
         ToolboxItemInfo(
           text: StrLibrary.toolboxFile,
-          icon: ImageRes.appToolboxFile.toImage
+          icon: ImageLibrary.appToolboxFile.toImage
             ..width = 30.w
             ..height = 22.h,
           onTap: () => Permissions.storage(
@@ -110,7 +110,7 @@ class ChatToolBox extends StatelessWidget {
       if (null != onTapAutoTranslate)
         ToolboxItemInfo(
           text: StrLibrary.autoTranslate,
-          icon: ImageRes.appTranslate.toImage
+          icon: ImageLibrary.appTranslate.toImage
             ..width = 28.w
             ..height = 25.h,
           onTap: () => onTapAutoTranslate!(),
@@ -119,7 +119,7 @@ class ChatToolBox extends StatelessWidget {
       if (null != onTapSnapchat)
         ToolboxItemInfo(
           text: StrLibrary.toolboxSnapchat,
-          icon: ImageRes.appToolboxSnapchat.toImage
+          icon: ImageLibrary.appToolboxSnapchat.toImage
             ..width = 30.w
             ..height = 24.h,
           onTap: () => onTapSnapchat!(),
@@ -128,7 +128,7 @@ class ChatToolBox extends StatelessWidget {
       if (null != onTapSearch)
         ToolboxItemInfo(
           text: StrLibrary.search2,
-          icon: ImageRes.appToolboxSearch.toImage
+          icon: ImageLibrary.appToolboxSearch.toImage
             ..width = 26.w
             ..height = 26.h,
           onTap: () => onTapSearch!(),
@@ -138,14 +138,14 @@ class ChatToolBox extends StatelessWidget {
       // if (null != onTapGroupNote)
       //   ToolboxItemInfo(
       //     text: StrLibrary .toolboxGroupNote,
-      //     icon: ImageRes.appToolboxGroupNote,
+      //     icon: ImageLibrary.appToolboxGroupNote,
       //     onTap: () => onTapGroupNote!(),
       //     disabled: true,
       //   ),
       if (null != onTapVote)
         ToolboxItemInfo(
           text: StrLibrary.toolboxVote,
-          icon: ImageRes.appToolboxVote.toImage
+          icon: ImageLibrary.appToolboxVote.toImage
             ..width = 24.w
             ..height = 24.h,
           onTap: () => onTapVote!(),
@@ -155,7 +155,7 @@ class ChatToolBox extends StatelessWidget {
     final pages = chunkArray(items, 8);
 
     return Container(
-      color: Styles.c_F7F7F7,
+      color: StylesLibrary.c_F7F7F7,
       height: 240.h,
       child: Stack(
         children: [
@@ -203,8 +203,9 @@ class ChatToolBox extends StatelessWidget {
                       dotHeight: 8.h,
                       paintStyle: PaintingStyle.fill,
                       strokeWidth: 1,
-                      dotColor: Styles.c_DDDDDD,
-                      activeDotColor: Styles.c_767676), // your preferred effect
+                      dotColor: StylesLibrary.c_DDDDDD,
+                      activeDotColor:
+                          StylesLibrary.c_767676), // your preferred effect
                 ),
               )),
         ],
@@ -215,22 +216,22 @@ class ChatToolBox extends StatelessWidget {
       //       children: [
       //         _buildItemView(
       //             text: StrLibrary .toolboxAlbum,
-      //             icon: ImageRes.appToolboxAlbum,
+      //             icon: ImageLibrary.appToolboxAlbum,
       //             onTap: onTapAlbum),
       //         30.horizontalSpace,
       //         _buildItemView(
       //             text: StrLibrary .toolboxCamera,
-      //             icon: ImageRes.appToolboxCamera,
+      //             icon: ImageLibrary.appToolboxCamera,
       //             onTap: onTapCamera),
       //         30.horizontalSpace,
       //         _buildItemView(
       //             text: StrLibrary .toolboxCall,
-      //             icon: ImageRes.appToolboxCall,
+      //             icon: ImageLibrary.appToolboxCall,
       //             onTap: onTapCall),
       //         30.horizontalSpace,
       //         _buildItemView(
       //             text: StrLibrary .toolboxFile,
-      //             icon: ImageRes.appToolboxFile,
+      //             icon: ImageLibrary.appToolboxFile,
       //             onTap: onTapFile),
       //       ],
       //     ),
@@ -239,12 +240,12 @@ class ChatToolBox extends StatelessWidget {
       //       children: [
       //         _buildItemView(
       //             text: StrLibrary .toolboxCard,
-      //             icon: ImageRes.appToolboxCard,
+      //             icon: ImageLibrary.appToolboxCard,
       //             onTap: onTapCard),
       //         30.horizontalSpace,
       //         _buildItemView(
       //             text: StrLibrary .toolboxLocation,
-      //             icon: ImageRes.appToolboxLocation,
+      //             icon: ImageLibrary.appToolboxLocation,
       //             onTap: onTapLocation),
       //       ],
       //     ),
@@ -265,7 +266,9 @@ class ChatToolBox extends StatelessWidget {
             child: Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    color: !disabled ? Styles.c_FFFFFF : Styles.c_E5E5E5,
+                    color: !disabled
+                        ? StylesLibrary.c_FFFFFF
+                        : StylesLibrary.c_E5E5E5,
                     borderRadius: BorderRadius.all(Radius.circular(31.r))),
                 width: 62.w,
                 height: 62.h,
@@ -276,7 +279,7 @@ class ChatToolBox extends StatelessWidget {
           //   ..onTap = onTap,
           10.verticalSpace,
           text.toText
-            ..style = Styles.ts_666666_12sp
+            ..style = StylesLibrary.ts_666666_12sp
             ..maxLines = 1
             ..overflow = TextOverflow.ellipsis,
         ],

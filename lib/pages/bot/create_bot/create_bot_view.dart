@@ -15,10 +15,10 @@ class CreateBotPage extends StatelessWidget {
         appBar: TitleBar.back(
           title: StrLibrary.createBot,
         ),
-        backgroundColor: Styles.c_F7F8FA,
+        backgroundColor: StylesLibrary.c_F7F8FA,
         body: IntrinsicHeight(
           child: Container(
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             margin: EdgeInsets.only(top: 12.h),
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Column(
@@ -27,7 +27,7 @@ class CreateBotPage extends StatelessWidget {
                     label: StrLibrary.nicknameAndAvatar,
                     showBorder: false,
                     onTap: logic.changeBotInfo,
-                    rightWeight: ImageRes.appBot.toImage
+                    rightWeight: ImageLibrary.appBot.toImage
                       ..width = 38.w
                       ..height = 38.h),
                 _buildItemView(
@@ -51,10 +51,10 @@ class CreateBotPage extends StatelessWidget {
           child: Container(
               constraints: BoxConstraints(minHeight: 50.h),
               decoration: BoxDecoration(
-                color: Styles.c_FFFFFF,
+                color: StylesLibrary.c_FFFFFF,
                 border: Border(
                   top: BorderSide(
-                    color: Styles.c_F1F2F6,
+                    color: StylesLibrary.c_F1F2F6,
                     width: showBorder ? 1.h : 0,
                   ),
                 ),
@@ -62,11 +62,11 @@ class CreateBotPage extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  label.toText..style = Styles.ts_333333_14sp,
+                  label.toText..style = StylesLibrary.ts_333333_14sp,
                   const Spacer(),
                   if (null != rightWeight) rightWeight,
                   if (showRightArrow)
-                    ImageRes.appRightArrow.toImage
+                    ImageLibrary.appRightArrow.toImage
                       ..width = 24.w
                       ..height = 24.h,
                 ],

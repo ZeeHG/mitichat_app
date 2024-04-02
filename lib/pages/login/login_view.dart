@@ -25,7 +25,7 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 children: [
                   90.verticalSpace,
-                  ImageRes.logo2.toImage
+                  ImageLibrary.logo2.toImage
                     ..width = 89.w
                     ..height = 81.h,
                   // ..onDoubleTap = logic.configService,
@@ -77,14 +77,14 @@ class LoginPage extends StatelessWidget {
                             // Row(
                             //   children: [
                             //     StrLibrary .forgetPassword.toText
-                            //       ..style = Styles.ts_8443F8_12sp
+                            //       ..style = StylesLibrary.ts_8443F8_12sp
                             //       ..onTap = _showForgetPwdBottomSheet,
                             //     const Spacer(),
                             //     // (logic.isPasswordLogin.value
                             //     //         ? StrLibrary .verificationCodeLogin
                             //     //         : StrLibrary .passwordLogin)
                             //     //     .toText
-                            //     //   ..style = Styles.ts_8443F8_12sp
+                            //     //   ..style = StylesLibrary.ts_8443F8_12sp
                             //     //   ..onTap = logic.togglePasswordType,
                             //   ],
                             // ),
@@ -100,7 +100,8 @@ class LoginPage extends StatelessWidget {
                                           children: [
                                             TextSpan(
                                               text: StrLibrary.switchServer,
-                                              style: Styles.ts_8443F8_14sp,
+                                              style:
+                                                  StylesLibrary.ts_8443F8_14sp,
                                               recognizer: TapGestureRecognizer()
                                                 ..onTap = logic.switchServer,
                                             )
@@ -118,7 +119,8 @@ class LoginPage extends StatelessWidget {
                                           children: [
                                             TextSpan(
                                               text: StrLibrary.forgetPassword,
-                                              style: Styles.ts_8443F8_14sp,
+                                              style:
+                                                  StylesLibrary.ts_8443F8_14sp,
                                               recognizer: TapGestureRecognizer()
                                                 ..onTap =
                                                     _showForgetPwdBottomSheet,
@@ -139,7 +141,7 @@ class LoginPage extends StatelessWidget {
                         )),
                   ),
                   // Divider(
-                  //   color: Styles.c_707070.withOpacity(0.12),
+                  //   color: StylesLibrary.c_707070.withOpacity(0.12),
                   //   height: 56,
                   // ),
                   10.verticalSpace,
@@ -151,8 +153,8 @@ class LoginPage extends StatelessWidget {
                             child: Button(
                               text:
                                   '${logic.loginType.value.exclusiveName} ${StrLibrary.login}',
-                              enabledColor: Styles.c_D9DCE3_opacity40,
-                              textStyle: Styles.ts_8443F8_16sp,
+                              enabledColor: StylesLibrary.c_D9DCE3_opacity40,
+                              textStyle: StylesLibrary.ts_8443F8_16sp,
                               onTap: logic.toggleLoginType,
                             ),
                           )
@@ -172,10 +174,10 @@ class LoginPage extends StatelessWidget {
                                   children: [
                                     TextSpan(
                                         text: StrLibrary.noAccount,
-                                        style: Styles.ts_333333_14sp),
+                                        style: StylesLibrary.ts_333333_14sp),
                                     TextSpan(
                                       text: StrLibrary.registerNow,
-                                      style: Styles.ts_8443F8_14sp,
+                                      style: StylesLibrary.ts_8443F8_14sp,
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = logic.registerNow,
                                     )
@@ -204,9 +206,12 @@ class LoginPage extends StatelessWidget {
                           scale: 0.75,
                           child: Checkbox(
                             visualDensity: VisualDensity.compact,
-                            // activeColor: Styles.c_8443F8,
+                            // activeColor: StylesLibrary.c_8443F8,
                             fillColor: MaterialStateProperty.resolveWith(
-                                (Set<MaterialState> states) => states.contains(MaterialState.selected)? Styles.c_8443F8: null),
+                                (Set<MaterialState> states) =>
+                                    states.contains(MaterialState.selected)
+                                        ? StylesLibrary.c_8443F8
+                                        : null),
                             value: logic.agree.value,
                             onChanged: logic.changeAgree,
                           )),
@@ -217,23 +222,23 @@ class LoginPage extends StatelessWidget {
                           text: TextSpan(children: [
                         TextSpan(
                             text: StrLibrary.privacyPolicyDescriptionP1,
-                            style: Styles.ts_656565_12sp),
+                            style: StylesLibrary.ts_656565_12sp),
                         TextSpan(
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => AppNavigator.startTermsOfServer(),
                             text: StrLibrary.privacyPolicyDescriptionP2,
-                            style: Styles.ts_333333_12sp),
+                            style: StylesLibrary.ts_333333_12sp),
                         TextSpan(
                             text: StrLibrary.privacyPolicyDescriptionP3,
-                            style: Styles.ts_656565_12sp),
+                            style: StylesLibrary.ts_656565_12sp),
                         TextSpan(
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => AppNavigator.startPrivacyPolicy(),
                             text: StrLibrary.privacyPolicyDescriptionP4,
-                            style: Styles.ts_333333_12sp),
+                            style: StylesLibrary.ts_333333_12sp),
                         TextSpan(
                             text: StrLibrary.privacyPolicyDescriptionP5,
-                            style: Styles.ts_656565_12sp),
+                            style: StylesLibrary.ts_656565_12sp),
                       ])),
                     )
                   ],
@@ -243,7 +248,7 @@ class LoginPage extends StatelessWidget {
             if (logic.isAddAccount.value)
               Padding(
                 padding: EdgeInsets.only(left: 12.w, top: 54.h),
-                child: ImageRes.backBlack.toImage
+                child: ImageLibrary.backBlack.toImage
                   ..width = 24.w
                   ..height = 24.h
                   ..onTap = () => logic.cusBack(),

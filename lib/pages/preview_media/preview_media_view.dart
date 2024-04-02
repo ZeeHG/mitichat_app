@@ -7,7 +7,7 @@ import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'preview_media_logic.dart';
 
 class PreviewMediaPage extends StatelessWidget {
-  final logic =Get.find<PreviewMediaLogic>();
+  final logic = Get.find<PreviewMediaLogic>();
   final mediaLogic = Get.arguments['mediaLogic'];
   bool showDel = Get.arguments['showDel'] ?? false;
 
@@ -17,18 +17,18 @@ class PreviewMediaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           appBar: TitleBar.back(
-            backgroundColor: Styles.c_000000,
-            backIconColor: Styles.c_FFFFFF,
+            backgroundColor: StylesLibrary.c_000000,
+            backIconColor: StylesLibrary.c_FFFFFF,
             leftTitle:
                 "${logic.reviseIndex + 1}/${mediaLogic.assetsList.length}",
-            leftTitleStyle: Styles.ts_FFFFFF_16sp,
+            leftTitleStyle: StylesLibrary.ts_FFFFFF_16sp,
             right: showDel
                 ? (StrLibrary.delete.toText
-                  ..style = Styles.ts_FFFFFF_16sp
+                  ..style = StylesLibrary.ts_FFFFFF_16sp
                   ..onTap = logic.delete)
                 : null,
           ),
-          backgroundColor: Styles.c_000000,
+          backgroundColor: StylesLibrary.c_000000,
           body: ExtendedImageGesturePageView.builder(
             itemBuilder: (BuildContext context, int index) {
               var entity = mediaLogic.assetsList.elementAt(index);

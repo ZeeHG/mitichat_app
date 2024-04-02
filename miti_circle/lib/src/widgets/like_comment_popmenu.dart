@@ -39,7 +39,7 @@ class _PopMenuState extends State<LikeCommentPopMenu> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Styles.c_333333_opacity85,
+        color: StylesLibrary.c_333333_opacity85,
         borderRadius: BorderRadius.circular(2.r),
         boxShadow: [
           BoxShadow(
@@ -57,18 +57,19 @@ class _PopMenuState extends State<LikeCommentPopMenu> {
             widget.isLike ? Icons.thumb_up : Icons.thumb_up_alt_outlined,
             StrLibrary.like,
             onTap: widget.onTapLike,
-            color: widget.isLike ? Styles.c_8443F8 : Styles.c_FFFFFF,
+            color:
+                widget.isLike ? StylesLibrary.c_8443F8 : StylesLibrary.c_FFFFFF,
           ),
           Container(
             height: 17.h,
             width: .5.w,
-            color: Styles.c_333333,
+            color: StylesLibrary.c_333333,
           ),
           _buildItemView(
             Icons.chat,
             StrLibrary.comment,
             onTap: widget.onTapComment,
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
           ),
         ],
       ),
@@ -94,7 +95,7 @@ class _PopMenuState extends State<LikeCommentPopMenu> {
             children: [
               Icon(icon, size: 16.w, color: color),
               2.horizontalSpace,
-              label.toText..style = Styles.ts_FFFFFF_12sp,
+              label.toText..style = StylesLibrary.ts_FFFFFF_12sp,
             ],
           ),
         ),

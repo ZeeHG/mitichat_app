@@ -20,10 +20,10 @@ class SendApplicationPage extends StatelessWidget {
               ? StrLibrary.groupVerification
               : StrLibrary.friendVerification,
           right: StrLibrary.send.toText
-            ..style = Styles.ts_333333_16sp
+            ..style = StylesLibrary.ts_333333_16sp
             ..onTap = logic.send,
         ),
-        backgroundColor: Styles.c_F8F9FA,
+        backgroundColor: StylesLibrary.c_F8F9FA,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,11 +34,11 @@ class SendApplicationPage extends StatelessWidget {
                         ? StrLibrary.sendEnterGroupApplication
                         : StrLibrary.sendToBeFriendApplication)
                     .toText
-                  ..style = Styles.ts_999999_14sp,
+                  ..style = StylesLibrary.ts_999999_14sp,
               ),
               Container(
                 height: 140.h,
-                color: Styles.c_FFFFFF,
+                color: StylesLibrary.c_FFFFFF,
                 padding: EdgeInsets.symmetric(vertical: 12.h),
                 child: TextField(
                   // expands: true,

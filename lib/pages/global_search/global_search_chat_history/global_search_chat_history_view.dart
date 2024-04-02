@@ -25,7 +25,7 @@ class GlobalSearchChatHistoryPage extends StatelessWidget {
           onSubmitted: (_) => logic.search(),
           onCleared: () => logic.focusNode.requestFocus(),
         ),
-        backgroundColor: Styles.c_F8F9FA,
+        backgroundColor: StylesLibrary.c_F8F9FA,
         body: Column(
           children: [
             GestureDetector(
@@ -36,7 +36,7 @@ class GlobalSearchChatHistoryPage extends StatelessWidget {
                 margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 decoration: BoxDecoration(
-                  color: Styles.c_FFFFFF,
+                  color: StylesLibrary.c_FFFFFF,
                   borderRadius: BorderRadius.circular(6.r),
                 ),
                 child: Row(
@@ -51,9 +51,9 @@ class GlobalSearchChatHistoryPage extends StatelessWidget {
                     Expanded(
                       child:
                           (logic.searchResultItems.value.showName ?? '').toText
-                            ..style = Styles.ts_333333_16sp,
+                            ..style = StylesLibrary.ts_333333_16sp,
                     ),
-                    ImageRes.appRightArrow.toImage
+                    ImageLibrary.appRightArrow.toImage
                       ..width = 24.w
                       ..height = 24.h,
                   ],
@@ -94,7 +94,7 @@ class GlobalSearchChatHistoryPage extends StatelessWidget {
         child: Container(
           height: 64.h,
           padding: EdgeInsets.symmetric(horizontal: 16.w),
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           child: Row(
             children: [
               AvatarView(
@@ -112,19 +112,19 @@ class GlobalSearchChatHistoryPage extends StatelessWidget {
                       children: [
                         Expanded(
                             child: ((message.senderNickname ?? '').toText
-                              ..style = Styles.ts_333333_16sp
+                              ..style = StylesLibrary.ts_333333_16sp
                               ..maxLines = 1
                               ..overflow = TextOverflow.ellipsis)),
                         if (message.sendTime != null)
                           MitiUtils.getChatTimeline(message.sendTime!).toText
-                            ..style = Styles.ts_999999_14sp,
+                            ..style = StylesLibrary.ts_999999_14sp,
                       ],
                     ),
                     SearchKeywordText(
                       text: logic.calContent(message),
                       keyText: logic.searchKey,
-                      style: Styles.ts_999999_14sp,
-                      keyStyle: Styles.ts_8443F8_14sp,
+                      style: StylesLibrary.ts_999999_14sp,
+                      keyStyle: StylesLibrary.ts_8443F8_14sp,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),

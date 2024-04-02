@@ -164,17 +164,17 @@ class TranslateLogic extends GetxController {
       ),
       changeToFirst: true,
       hideHeader: true,
-      containerColor: Styles.c_FFFFFF,
-      textStyle: Styles.ts_333333_17sp,
-      selectedTextStyle: Styles.ts_333333_17sp,
+      containerColor: StylesLibrary.c_FFFFFF,
+      textStyle: StylesLibrary.ts_333333_17sp,
+      selectedTextStyle: StylesLibrary.ts_333333_17sp,
       itemExtent: 45.h,
       selecteds: index != null ? [index] : [0],
       selectionOverlay: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
           border: BorderDirectional(
-            bottom: BorderSide(color: Styles.c_E8EAEF, width: 1.h),
-            top: BorderSide(color: Styles.c_E8EAEF, width: 1.h),
+            bottom: BorderSide(color: StylesLibrary.c_E8EAEF, width: 1.h),
+            top: BorderSide(color: StylesLibrary.c_E8EAEF, width: 1.h),
           ),
         ),
       ),
@@ -193,13 +193,13 @@ class TranslateLogic extends GetxController {
                 child: Text(
                   StrLibrary.autoTranslate,
                   textAlign: TextAlign.center,
-                  style: Styles.ts_333333_16sp_medium,
+                  style: StylesLibrary.ts_333333_16sp_medium,
                 ),
               ),
               7.verticalSpace,
               Obx(() => CupertinoSwitch(
                     value: useAutoTranslate.value,
-                    activeColor: Styles.c_07C160,
+                    activeColor: StylesLibrary.c_07C160,
                     onChanged: onChanged,
                   )),
               Container(
@@ -210,7 +210,7 @@ class TranslateLogic extends GetxController {
                 child: Text(
                   StrLibrary.targetLang,
                   textAlign: TextAlign.center,
-                  style: Styles.ts_333333_14sp,
+                  style: StylesLibrary.ts_333333_14sp,
                 ),
               ),
               picker.widget!

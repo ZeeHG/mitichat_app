@@ -118,20 +118,20 @@ class _ChatVoiceRecordLayoutState extends State<ChatVoiceRecordLayout> {
                             horizontal: 6.w, vertical: 6.h),
                         decoration: BoxDecoration(
                           color: _isCancelSend
-                              ? Styles.c_FF4E4C_opacity70
-                              : Styles.c_333333_opacity60,
+                              ? StylesLibrary.c_FF4E4C_opacity70
+                              : StylesLibrary.c_333333_opacity60,
                           borderRadius: BorderRadius.circular(6.r),
                         ),
                         child: Column(
                           children: [
                             MitiUtils.seconds2HMS(sec).toText
-                              ..style = Styles.ts_FFFFFF_12sp,
+                              ..style = StylesLibrary.ts_FFFFFF_12sp,
                             Expanded(child: _lottieAnimWidget),
                             (_isCancelSend
                                     ? StrLibrary.liftFingerToCancelSend
                                     : StrLibrary.releaseToSendSwipeUpToCancel)
                                 .toText
-                              ..style = Styles.ts_FFFFFF_12sp,
+                              ..style = StylesLibrary.ts_FFFFFF_12sp,
                           ],
                         ),
                       ),

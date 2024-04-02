@@ -17,7 +17,7 @@ class ChatHistoryFilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrLibrary.file, showUnderline: true),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: Obx(() => SmartRefresher(
             controller: logic.refreshController,
             onRefresh: logic.onRefresh,
@@ -39,7 +39,7 @@ class ChatHistoryFilePage extends StatelessWidget {
         child: Container(
           height: 80.h,
           padding: EdgeInsets.symmetric(horizontal: 12.w),
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           child: Row(
             children: [
               ChatFileIconView(
@@ -54,22 +54,22 @@ class ChatHistoryFilePage extends StatelessWidget {
                   children: [
                     TextWithMidEllipsis(
                       message.fileElem!.fileName!,
-                      style: Styles.ts_333333_16sp,
+                      style: StylesLibrary.ts_333333_16sp,
                     ),
                     Row(
                       children: [
                         MitiUtils.formatBytes(message.fileElem!.fileSize!)
                             .toText
-                          ..style = Styles.ts_999999_14sp,
+                          ..style = StylesLibrary.ts_999999_14sp,
                         10.horizontalSpace,
                         Expanded(
                             child: message.senderNickname!.toText
-                              ..style = Styles.ts_999999_14sp
+                              ..style = StylesLibrary.ts_999999_14sp
                               ..maxLines = 1
                               ..overflow = TextOverflow.ellipsis),
                         10.horizontalSpace,
                         MitiUtils.getChatTimeline(message.sendTime!).toText
-                          ..style = Styles.ts_999999_14sp,
+                          ..style = StylesLibrary.ts_999999_14sp,
                       ],
                     ),
                   ],

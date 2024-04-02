@@ -32,7 +32,7 @@ class IMViews {
   }
 
   static Widget buildHeader() => WaterDropMaterialHeader(
-        backgroundColor: Styles.c_8443F8,
+        backgroundColor: StylesLibrary.c_8443F8,
       );
 
   static Widget buildFooter() => CustomFooter(
@@ -65,19 +65,19 @@ class IMViews {
     Function(int index) onTapSheetItem,
   ) {
     return Get.bottomSheet(
-      barrierColor: Styles.c_191919_opacity50,
+      barrierColor: StylesLibrary.c_191919_opacity50,
       BottomSheetView(
         items: [
           SheetItem(
             label: StrLibrary.callVideo,
-            icon: ImageRes.callVideo2.toImage
+            icon: ImageLibrary.callVideo2.toImage
               ..width = 24.w
               ..height = 15.h,
             onTap: () => onTapSheetItem.call(1),
           ),
           SheetItem(
             label: StrLibrary.callVoice,
-            icon: ImageRes.callVoice2.toImage
+            icon: ImageLibrary.callVoice2.toImage
               ..width = 20.w
               ..height = 21.h,
             onTap: () => onTapSheetItem.call(0),
@@ -91,7 +91,7 @@ class IMViews {
       {required Function(String action) onTapSheetItem,
       bool showDelete = false}) {
     return Get.bottomSheet(
-      barrierColor: Styles.c_191919_opacity50,
+      barrierColor: StylesLibrary.c_191919_opacity50,
       BottomSheetView(
         items: [
           if (showDelete)
@@ -101,7 +101,7 @@ class IMViews {
             ),
           SheetItem(
             label: StrLibrary.complaint2,
-            textStyle: Styles.ts_FC4D4D_16sp,
+            textStyle: StylesLibrary.ts_FC4D4D_16sp,
             onTap: () => onTapSheetItem.call('complaint'),
           ),
         ],
@@ -114,19 +114,19 @@ class IMViews {
     Function(int index) onTapSheetItem,
   ) {
     return Get.bottomSheet(
-      barrierColor: Styles.c_191919_opacity50,
+      barrierColor: StylesLibrary.c_191919_opacity50,
       BottomSheetView(
         items: [
           SheetItem(
             label: StrLibrary.callVideo,
-            icon: ImageRes.callVideo2.toImage
+            icon: ImageLibrary.callVideo2.toImage
               ..width = 24.w
               ..height = 15.h,
             onTap: () => onTapSheetItem.call(1),
           ),
           SheetItem(
             label: StrLibrary.callVoice,
-            icon: ImageRes.callVoice2.toImage
+            icon: ImageLibrary.callVoice2.toImage
               ..width = 20.w
               ..height = 21.h,
             onTap: () => onTapSheetItem.call(0),
@@ -146,7 +146,7 @@ class IMViews {
       List<SheetItem> items = const [],
       int quality = 95}) {
     Get.bottomSheet(
-      barrierColor: Styles.c_191919_opacity50,
+      barrierColor: StylesLibrary.c_191919_opacity50,
       BottomSheetView(
         items: [
           ...items,
@@ -265,14 +265,14 @@ class IMViews {
     if (DateUtil.isToday(ms, locMs: locTimeMs)) {
       return TextSpan(
         text: languageCode == 'zh' ? '今天' : 'Today',
-        style: Styles.ts_333333_22sp_medium,
+        style: StylesLibrary.ts_333333_22sp_medium,
       );
     }
 
     if (DateUtil.isYesterdayByMs(ms, locTimeMs)) {
       return TextSpan(
         text: languageCode == 'zh' ? '昨天' : 'Yesterday',
-        style: Styles.ts_333333_22sp_medium,
+        style: StylesLibrary.ts_333333_22sp_medium,
       );
     }
 
@@ -281,16 +281,17 @@ class IMViews {
       if (weekday.contains('星期')) {
         return TextSpan(
           text: '星期',
-          style: Styles.ts_333333_20sp_medium,
+          style: StylesLibrary.ts_333333_20sp_medium,
           children: [
             TextSpan(
               text: weekday.replaceAll('星期', ''),
-              style: Styles.ts_333333_12sp_medium,
+              style: StylesLibrary.ts_333333_12sp_medium,
             ),
           ],
         );
       }
-      return TextSpan(text: weekday, style: Styles.ts_333333_20sp_medium);
+      return TextSpan(
+          text: weekday, style: StylesLibrary.ts_333333_20sp_medium);
     }
 
     // if (DateUtil.yearIsEqualByMs(ms, locTimeMs)) {
@@ -299,11 +300,11 @@ class IMViews {
     //   final two = date.split('月')[1];
     //   return TextSpan(
     //     text: two,
-    //     style: Styles.ts_333333_17sp_medium,
+    //     style: StylesLibrary.ts_333333_17sp_medium,
     //     children: [
     //       TextSpan(
     //         text: '\n$one${languageCode == 'zh' ? '月' : ''}',
-    //         style: Styles.ts_333333_12sp_medium,
+    //         style: StylesLibrary.ts_333333_12sp_medium,
     //       ),
     //     ],
     //   );
@@ -313,11 +314,11 @@ class IMViews {
     final two = date.split('月')[1];
     return TextSpan(
       text: '${int.parse(two)}',
-      style: Styles.ts_333333_20sp_medium,
+      style: StylesLibrary.ts_333333_20sp_medium,
       children: [
         TextSpan(
           text: '${int.parse(one)}${languageCode == 'zh' ? '月' : ''}',
-          style: Styles.ts_333333_12sp_medium,
+          style: StylesLibrary.ts_333333_12sp_medium,
         ),
       ],
     );
@@ -340,7 +341,7 @@ class IMViews {
           topLeft: Radius.circular(8.0.r),
           topRight: Radius.circular(8.0.r),
         ),
-        //Optional. Styles the search field.
+        //Optional. StylesLibrary the search field.
         inputDecoration: InputDecoration(
           labelText: StrLibrary.search,
           // hintText: 'Start typing to search',
@@ -374,12 +375,12 @@ class IMViews {
         ),
         changeToFirst: true,
         hideHeader: true,
-        containerColor: Styles.c_FFFFFF,
-        textStyle: Styles.ts_333333_17sp,
-        selectedTextStyle: Styles.ts_333333_17sp,
+        containerColor: StylesLibrary.c_FFFFFF,
+        textStyle: StylesLibrary.ts_333333_17sp,
+        selectedTextStyle: StylesLibrary.ts_333333_17sp,
         itemExtent: 45.h,
-        cancelTextStyle: Styles.ts_333333_17sp,
-        confirmTextStyle: Styles.ts_8443F8_17sp,
+        cancelTextStyle: StylesLibrary.ts_333333_17sp,
+        confirmTextStyle: StylesLibrary.ts_8443F8_17sp,
         cancelText: StrLibrary.cancel,
         confirmText: StrLibrary.confirm,
         selecteds: selected,
@@ -387,8 +388,8 @@ class IMViews {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             border: BorderDirectional(
-              bottom: BorderSide(color: Styles.c_E8EAEF, width: 1.h),
-              top: BorderSide(color: Styles.c_E8EAEF, width: 1.h),
+              bottom: BorderSide(color: StylesLibrary.c_E8EAEF, width: 1.h),
+              top: BorderSide(color: StylesLibrary.c_E8EAEF, width: 1.h),
             ),
           ),
         )).getInstance();
@@ -407,7 +408,7 @@ class IMViews {
                 child: Text(
                   title,
                   textAlign: TextAlign.center,
-                  style: Styles.ts_333333_16sp_medium,
+                  style: StylesLibrary.ts_333333_16sp_medium,
                 ),
               ),
               Container(
@@ -418,7 +419,7 @@ class IMViews {
                 child: Text(
                   description,
                   textAlign: TextAlign.center,
-                  style: Styles.ts_333333_14sp,
+                  style: StylesLibrary.ts_333333_14sp,
                 ),
               ),
               picker.widget!

@@ -160,7 +160,7 @@ class GroupMemberListLogic extends GetxController {
 
   void addOrDelMember() async {
     await Get.bottomSheet(
-      barrierColor: Styles.c_191919_opacity50,
+      barrierColor: StylesLibrary.c_191919_opacity50,
       BottomSheetView(
         items: [
           SheetItem(label: StrLibrary.addMember, result: 0),
@@ -168,7 +168,7 @@ class GroupMemberListLogic extends GetxController {
             SheetItem(
               label: StrLibrary.delMember,
               result: 1,
-              textStyle: Styles.ts_FF4E4C_17sp,
+              textStyle: StylesLibrary.ts_FF4E4C_17sp,
             ),
         ],
       ),

@@ -31,7 +31,8 @@ class ChatBubble extends StatelessWidget {
         top: 15.h,
         triangleDirection:
             isISend ? TriangleDirection.right : TriangleDirection.left,
-        triangleColor: isISend ? Styles.c_8443F8 : Styles.c_FFFFFF,
+        triangleColor:
+            isISend ? StylesLibrary.c_8443F8 : StylesLibrary.c_FFFFFF,
         child: Container(
           constraints: constraints,
           margin: margin,
@@ -39,7 +40,7 @@ class ChatBubble extends StatelessWidget {
           alignment: alignment,
           decoration: BoxDecoration(
             color: backgroundColor ??
-                (isISend ? Styles.c_8443F8 : Styles.c_FFFFFF),
+                (isISend ? StylesLibrary.c_8443F8 : StylesLibrary.c_FFFFFF),
             borderRadius: borderRadius(isISend),
           ),
           child: child,

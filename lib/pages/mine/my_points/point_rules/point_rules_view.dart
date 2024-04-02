@@ -14,7 +14,7 @@ class PointRulesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrLibrary.newFriend),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,22 +24,22 @@ class PointRulesPage extends StatelessWidget {
               children: [
                 15.horizontalSpace,
                 StrLibrary.whatAreMitiToken.toText
-                  ..style = Styles.ts_333333_16sp_medium
+                  ..style = StylesLibrary.ts_333333_16sp_medium
               ],
             ),
             10.verticalSpace,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.w),
               child: StrLibrary.welcomeMessage.toText
-                ..style = Styles.ts_666666_14sp,
+                ..style = StylesLibrary.ts_666666_14sp,
             ),
             20.verticalSpace,
             Row(
               children: [
-                ImageRes.appSemicircle.toImage..width = 5.w,
+                ImageLibrary.appSemicircle.toImage..width = 5.w,
                 10.horizontalSpace,
                 StrLibrary.earningTitle2.toText
-                  ..style = Styles.ts_333333_16sp_medium
+                  ..style = StylesLibrary.ts_333333_16sp_medium
               ],
             ),
             10.verticalSpace,
@@ -50,36 +50,39 @@ class PointRulesPage extends StatelessWidget {
                 children: [
                   RichText(
                       text: TextSpan(children: [
-                    TextSpan(text: "- ", style: Styles.ts_8443F8_14sp_medium),
+                    TextSpan(
+                        text: "- ", style: StylesLibrary.ts_8443F8_14sp_medium),
                     TextSpan(
                         text: StrLibrary.dailyPlatform,
-                        style: Styles.ts_666666_14sp),
+                        style: StylesLibrary.ts_666666_14sp),
                     TextSpan(
                         text: StrLibrary.signInBracket,
-                        style: Styles.ts_8443F8_14sp),
+                        style: StylesLibrary.ts_8443F8_14sp),
                   ])),
                   RichText(
                       text: TextSpan(children: [
-                    TextSpan(text: "- ", style: Styles.ts_8443F8_14sp_medium),
+                    TextSpan(
+                        text: "- ", style: StylesLibrary.ts_8443F8_14sp_medium),
                     TextSpan(
                         text: StrLibrary.engageAI,
-                        style: Styles.ts_666666_14sp),
+                        style: StylesLibrary.ts_666666_14sp),
                     TextSpan(
                         text: StrLibrary.effectiveInteraction,
-                        style: Styles.ts_8443F8_14sp),
+                        style: StylesLibrary.ts_8443F8_14sp),
                   ])),
                   RichText(
                       text: TextSpan(children: [
-                    TextSpan(text: "- ", style: Styles.ts_8443F8_14sp_medium),
+                    TextSpan(
+                        text: "- ", style: StylesLibrary.ts_8443F8_14sp_medium),
                     TextSpan(
                         text: StrLibrary.successful,
-                        style: Styles.ts_666666_14sp),
+                        style: StylesLibrary.ts_666666_14sp),
                     TextSpan(
                         text: StrLibrary.inviteBracket,
-                        style: Styles.ts_8443F8_14sp),
+                        style: StylesLibrary.ts_8443F8_14sp),
                     TextSpan(
                         text: StrLibrary.newUsers,
-                        style: Styles.ts_666666_14sp),
+                        style: StylesLibrary.ts_666666_14sp),
                   ]))
                 ],
               ),
@@ -87,18 +90,18 @@ class PointRulesPage extends StatelessWidget {
             20.verticalSpace,
             Row(
               children: [
-                ImageRes.appSemicircle.toImage..width = 5.w,
+                ImageLibrary.appSemicircle.toImage..width = 5.w,
                 10.horizontalSpace,
                 StrLibrary.consumingMitiToken.toText
-                  ..style = Styles.ts_333333_16sp_medium
+                  ..style = StylesLibrary.ts_333333_16sp_medium
               ],
             ),
             Row(
               children: [
-                ImageRes.appSemicircle.toImage..width = 5.w,
+                ImageLibrary.appSemicircle.toImage..width = 5.w,
                 10.horizontalSpace,
                 StrLibrary.earningTable.toText
-                  ..style = Styles.ts_333333_16sp_medium
+                  ..style = StylesLibrary.ts_333333_16sp_medium
               ],
             ),
           ],

@@ -164,7 +164,7 @@ class ChatItemContainer extends StatelessWidget {
             menus: menus ?? allMenus,
           ),
           pressType: PressType.longPress,
-          arrowColor: Styles.c_333333_opacity85,
+          arrowColor: StylesLibrary.c_333333_opacity85,
           barrierColor: Colors.transparent,
           verticalMargin: 0,
           child:
@@ -193,7 +193,7 @@ class ChatItemContainer extends StatelessWidget {
                   nickname: leftNickname,
                   // timeStr: timeStr,
                 ),
-              // timeStr.toText..style = Styles.ts_999999_12sp,
+              // timeStr.toText..style = StylesLibrary.ts_999999_12sp,
               // 4.verticalSpace,
               if (showLeftNickname) 4.verticalSpace,
               Row(
@@ -218,10 +218,10 @@ class ChatItemContainer extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           clipBehavior: Clip.antiAlias,
                           decoration: BoxDecoration(
-                            color: Styles.c_FFFFFF,
+                            color: StylesLibrary.c_FFFFFF,
                             borderRadius: borderRadius(isISend),
                           ),
-                          child: ImageRes.appTranslateLoading.toImage
+                          child: ImageLibrary.appTranslateLoading.toImage
                             ..height = 24.h,
                         )
                       ],
@@ -247,7 +247,7 @@ class ChatItemContainer extends StatelessWidget {
               //   nickname: showRightNickname ? rightNickname : null,
               //   timeStr: timeStr,
               // ),
-              // timeStr.toText..style = Styles.ts_999999_12sp,
+              // timeStr.toText..style = StylesLibrary.ts_999999_12sp,
               // 4.verticalSpace,
               Row(
                 mainAxisSize: MainAxisSize.min,
@@ -280,10 +280,10 @@ class ChatItemContainer extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           clipBehavior: Clip.antiAlias,
                           decoration: BoxDecoration(
-                            color: Styles.c_FFFFFF,
+                            color: StylesLibrary.c_FFFFFF,
                             borderRadius: borderRadius(isISend),
                           ),
-                          child: ImageRes.appTranslateLoading.toImage
+                          child: ImageLibrary.appTranslateLoading.toImage
                             ..height = 24.h,
                         )
                       ],

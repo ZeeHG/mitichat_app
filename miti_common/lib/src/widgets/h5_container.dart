@@ -37,7 +37,7 @@ class _H5ContainerState extends State<H5Container> {
     super.initState();
     pullToRefreshController = PullToRefreshController(
       options: PullToRefreshOptions(
-        color: Styles.c_8443F8,
+        color: StylesLibrary.c_8443F8,
       ),
       onRefresh: () async {
         if (Platform.isAndroid) {

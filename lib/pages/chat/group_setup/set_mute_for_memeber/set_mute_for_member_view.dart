@@ -16,10 +16,10 @@ class SetMuteForGroupMemberPage extends StatelessWidget {
       appBar: TitleBar.back(
         title: StrLibrary.setMute,
         right: StrLibrary.determine.toText
-          ..style = Styles.ts_333333_16sp
+          ..style = StylesLibrary.ts_333333_16sp
           ..onTap = logic.completed,
       ),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 10.w),
@@ -64,9 +64,9 @@ class SetMuteForGroupMemberPage extends StatelessWidget {
     bool isBottomRadius = false,
   }) =>
       Obx(() => GestureDetector(
-        onTap: () => logic.checkedIndex(index),
-        behavior: HitTestBehavior.translucent,
-        child: Container(
+            onTap: () => logic.checkedIndex(index),
+            behavior: HitTestBehavior.translucent,
+            child: Container(
               height: 44.h,
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               decoration: BoxDecoration(
@@ -76,39 +76,39 @@ class SetMuteForGroupMemberPage extends StatelessWidget {
                   bottomRight: Radius.circular(isBottomRadius ? 6.r : 0),
                   bottomLeft: Radius.circular(isBottomRadius ? 6.r : 0),
                 ),
-                color: Styles.c_FFFFFF,
+                color: StylesLibrary.c_FFFFFF,
               ),
               child: Row(
                 children: [
-                  label.toText..style = Styles.ts_333333_16sp,
+                  label.toText..style = StylesLibrary.ts_333333_16sp,
                   const Spacer(),
                   if (logic.index.value == index)
-                    ImageRes.checked.toImage
+                    ImageLibrary.checked.toImage
                       ..width = 22.w
                       ..height = 22.h,
                 ],
               ),
             ),
-      ));
+          ));
 
   Widget _customInputView() => Container(
         height: 44.h,
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           borderRadius: BorderRadius.circular(6.r),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            StrLibrary.custom.toText..style = Styles.ts_333333_16sp,
+            StrLibrary.custom.toText..style = StylesLibrary.ts_333333_16sp,
             Expanded(
               child: TextField(
                 controller: logic.controller,
                 focusNode: logic.focusNode,
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.end,
-                style: Styles.ts_333333_16sp,
+                style: StylesLibrary.ts_333333_16sp,
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                   isDense: true,
@@ -117,7 +117,7 @@ class SetMuteForGroupMemberPage extends StatelessWidget {
               ),
             ),
             10.horizontalSpace,
-            StrLibrary.day.toText..style = Styles.ts_333333_16sp,
+            StrLibrary.day.toText..style = StylesLibrary.ts_333333_16sp,
           ],
         ),
       );

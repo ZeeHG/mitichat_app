@@ -57,7 +57,7 @@ class ChatTextField extends StatelessWidget {
         isDense: true,
         // contentPadding: EdgeInsets.zero,
         hintText: hintText,
-        hintStyle: Styles.ts_999999_17sp,
+        hintStyle: StylesLibrary.ts_999999_17sp,
         contentPadding: EdgeInsets.symmetric(
           horizontal: 4.w,
           vertical: 8.h,

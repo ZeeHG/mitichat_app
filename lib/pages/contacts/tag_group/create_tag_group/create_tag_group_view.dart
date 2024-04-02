@@ -21,7 +21,7 @@
 //               ? StrLibrary.editTagGroup
 //               : StrLibrary.createTagGroup,
 //         ),
-//         backgroundColor: Styles.c_F8F9FA,
+//         backgroundColor: StylesLibrary.c_F8F9FA,
 //         body: Stack(
 //           children: [
 //             SingleChildScrollView(
@@ -59,12 +59,12 @@
 //           vertical: 10.h,
 //         ),
 //         decoration: BoxDecoration(
-//           color: Styles.c_FFFFFF,
+//           color: StylesLibrary.c_FFFFFF,
 //           borderRadius: BorderRadius.circular(4.r),
 //         ),
 //         child: TextField(
 //           controller: logic.inputCtrl,
-//           style: Styles.ts_333333_17sp,
+//           style: StylesLibrary.ts_333333_17sp,
 //           autofocus: true,
 //           decoration: InputDecoration(
 //             border: InputBorder.none,
@@ -73,7 +73,7 @@
 //               vertical: 10.h,
 //             ),
 //             isDense: true,
-//             hintStyle: Styles.ts_999999_17sp,
+//             hintStyle: StylesLibrary.ts_999999_17sp,
 //             hintText: StrLibrary.plsEnterTagGroupName,
 //           ),
 //         ),
@@ -90,13 +90,13 @@
 //           vertical: 12.h,
 //         ),
 //         decoration: BoxDecoration(
-//           color: Styles.c_FFFFFF,
+//           color: StylesLibrary.c_FFFFFF,
 //           borderRadius: BorderRadius.circular(4.r),
 //         ),
 //         child: Obx(() => Column(
 //               crossAxisAlignment: CrossAxisAlignment.start,
 //               children: [
-//                 StrLibrary.tagGroupMember.toText..style = Styles.ts_999999_14sp,
+//                 StrLibrary.tagGroupMember.toText..style = StylesLibrary.ts_999999_14sp,
 //                 // 12.verticalSpace,
 //                 if (logic.memberList.isNotEmpty)
 //                   Padding(
@@ -113,7 +113,7 @@
 //                 Row(
 //                   mainAxisAlignment: MainAxisAlignment.end,
 //                   children: [
-//                     ImageRes.addTagMember.toImage
+//                     ImageLibrary.addTagMember.toImage
 //                       ..width = 76.w
 //                       ..height = 31.h
 //                       ..onTap = logic.selectTagMember,
@@ -129,7 +129,7 @@
 //           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
 //           decoration: BoxDecoration(
 //             borderRadius: BorderRadius.circular(6.r),
-//             border: Border.all(color: Styles.c_E8EAEF, width: 1.h),
+//             border: Border.all(color: StylesLibrary.c_E8EAEF, width: 1.h),
 //           ),
 //           child: Row(
 //             mainAxisSize: MainAxisSize.min,
@@ -144,7 +144,7 @@
 //               ConstrainedBox(
 //                 constraints: BoxConstraints(maxWidth: 50.w),
 //                 child: userInfo.nickname!.toText
-//                   ..style = Styles.ts_333333_14sp
+//                   ..style = StylesLibrary.ts_333333_14sp
 //                   ..maxLines = 1
 //                   ..overflow = TextOverflow.ellipsis,
 //               ),
@@ -154,12 +154,12 @@
 //                 height: 16.h,
 //                 decoration: BoxDecoration(
 //                   borderRadius: BorderRadius.circular(3.r),
-//                   color: Styles.c_E8EAEF,
+//                   color: StylesLibrary.c_E8EAEF,
 //                 ),
 //                 child: Icon(
 //                   Icons.clear,
 //                   size: 10.w,
-//                   color: Styles.c_999999,
+//                   color: StylesLibrary.c_999999,
 //                 ),
 //               ),
 //             ],

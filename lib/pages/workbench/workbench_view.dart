@@ -15,7 +15,7 @@
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       appBar: TitleBar.workbench(),
-//       backgroundColor: Styles.c_F8F9FA,
+//       backgroundColor: StylesLibrary.c_F8F9FA,
 //       body: Obx(() => _buildBody()),
 //     );
 //   }
@@ -80,12 +80,12 @@
 //                         borderRadius: BorderRadius.circular(6.r),
 //                       ),
 //                       child: '${info.progress}%'.toText
-//                         ..style = Styles.ts_FFFFFF_12sp,
+//                         ..style = StylesLibrary.ts_FFFFFF_12sp,
 //                     )
 //                 ],
 //               ),
 //             ),
-//             (info.name ?? '').toText..style = Styles.ts_333333_17sp,
+//             (info.name ?? '').toText..style = StylesLibrary.ts_333333_17sp,
 //           ],
 //         ),
 //       );
@@ -98,11 +98,11 @@
 //               crossAxisAlignment: CrossAxisAlignment.center,
 //               children: [
 //                 157.verticalSpace,
-//                 ImageRes.blacklistEmpty.toImage
+//                 ImageLibrary.blacklistEmpty.toImage
 //                   ..width = 120.w
 //                   ..height = 120.h,
 //                 22.verticalSpace,
-//                 StrLibrary.notFoundMinP.toText..style = Styles.ts_999999_16sp,
+//                 StrLibrary.notFoundMinP.toText..style = StylesLibrary.ts_999999_16sp,
 //               ],
 //             ),
 //           ),

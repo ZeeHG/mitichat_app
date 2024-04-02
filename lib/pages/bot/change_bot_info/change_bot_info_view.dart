@@ -14,38 +14,38 @@ class ChangeBotInfoPage extends StatelessWidget {
     return Scaffold(
         appBar: TitleBar.back(
             title: StrLibrary.nicknameAndAvatar,
-            right: StrLibrary.save.toText..style = Styles.ts_8443F8_16sp
+            right: StrLibrary.save.toText..style = StylesLibrary.ts_8443F8_16sp
             // ..onTap = logic.save,
             ),
-        backgroundColor: Styles.c_F7F8FA,
+        backgroundColor: StylesLibrary.c_F7F8FA,
         body: IntrinsicHeight(
           child: Column(
             children: [
               Container(
                 alignment: Alignment.center,
-                color: Styles.c_FFFFFF,
+                color: StylesLibrary.c_FFFFFF,
                 height: 195.h,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ImageRes.appBot.toImage
+                    ImageLibrary.appBot.toImage
                       ..onTap = logic.openPhotoSheet
                       ..width = 88.w
                       ..height = 88.h,
                     20.verticalSpace,
                     StrLibrary.changeAvatar.toText
                       ..onTap = logic.openPhotoSheet
-                      ..style = Styles.ts_8443F8_16sp
+                      ..style = StylesLibrary.ts_8443F8_16sp
                   ],
                 ),
               ),
               12.verticalSpace,
               Container(
-                color: Styles.c_FFFFFF,
+                color: StylesLibrary.c_FFFFFF,
                 child: InputBox(
                   controller: logic.name,
                   border: false,
-                  textStyle: Styles.ts_333333_14sp,
+                  textStyle: StylesLibrary.ts_333333_14sp,
                 ),
               )
             ],

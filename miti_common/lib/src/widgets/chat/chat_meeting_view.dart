@@ -32,7 +32,7 @@ class ChatMeetingView extends StatelessWidget {
                 width: 6.w,
                 height: 6.h,
                 decoration: BoxDecoration(
-                  color: Styles.c_333333,
+                  color: StylesLibrary.c_333333,
                   shape: BoxShape.circle,
                 ),
               ),
@@ -40,7 +40,8 @@ class ChatMeetingView extends StatelessWidget {
           ),
           8.horizontalSpace,
           Expanded(
-            child: sprintf(text, [value]).toText..style = Styles.ts_333333_17sp,
+            child: sprintf(text, [value]).toText
+              ..style = StylesLibrary.ts_333333_17sp,
           ),
         ],
       );
@@ -51,8 +52,8 @@ class ChatMeetingView extends StatelessWidget {
       // constraints: BoxConstraints(maxWidth: maxWidth),
       width: maxWidth,
       decoration: BoxDecoration(
-        color: Styles.c_FFFFFF,
-        border: Border.all(color: Styles.c_E8EAEF, width: 1.h),
+        color: StylesLibrary.c_FFFFFF,
+        border: Border.all(color: StylesLibrary.c_E8EAEF, width: 1.h),
         borderRadius: BorderRadius.circular(6.r),
       ),
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
@@ -62,7 +63,7 @@ class ChatMeetingView extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ImageRes.videoMeeting.toImage
+              ImageLibrary.videoMeeting.toImage
                 ..width = 20.h
                 ..height = 20.h,
               2.horizontalSpace,
@@ -70,11 +71,11 @@ class ChatMeetingView extends StatelessWidget {
                 // child: sprintf(
                 //         StrLibrary .invitesYouToVideoConference, [inviterNickname])
                 //     .toText
-                //   ..style = Styles.ts_333333_17sp
+                //   ..style = StylesLibrary.ts_333333_17sp
                 //   ..maxLines = 1
                 //   ..overflow = TextOverflow.ellipsis,
                 child: subject.toText
-                  ..style = Styles.ts_333333_17sp
+                  ..style = StylesLibrary.ts_333333_17sp
                   ..maxLines = 1
                   ..overflow = TextOverflow.ellipsis,
               ),
@@ -107,12 +108,12 @@ class ChatMeetingView extends StatelessWidget {
             children: [
               Expanded(
                 child: StrLibrary.enterMeeting.toText
-                  ..style = Styles.ts_8443F8_17sp
+                  ..style = StylesLibrary.ts_8443F8_17sp
                   ..textAlign = TextAlign.center
                   ..maxLines = 1
                   ..overflow = TextOverflow.ellipsis,
               ),
-              ImageRes.nextBlue.toImage
+              ImageLibrary.nextBlue.toImage
                 ..width = 24.w
                 ..height = 24.h,
             ],

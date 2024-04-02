@@ -34,7 +34,7 @@ class _ChatEmojiViewState extends State<ChatEmojiView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Styles.c_FFFFFF,
+      color: StylesLibrary.c_FFFFFF,
       child: Column(
         children: [
           IndexedStack(
@@ -59,10 +59,10 @@ class _ChatEmojiViewState extends State<ChatEmojiView> {
   Widget _buildTabView() => Container(
         height: 56.h,
         decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           border: BorderDirectional(
             top: BorderSide(
-              color: Styles.c_E8EAEF,
+              color: StylesLibrary.c_E8EAEF,
               width: 1.h,
             ),
           ),
@@ -89,21 +89,24 @@ class _ChatEmojiViewState extends State<ChatEmojiView> {
           width: 62.w,
           height: 56.h,
           decoration: BoxDecoration(
-            color: selected ? Styles.c_E8EAEF : null,
+            color: selected ? StylesLibrary.c_E8EAEF : null,
             // borderRadius: BorderRadius.circular(6.r),
           ),
           child: Center(
-            child:
-                (index == 0 ? ImageRes.emojiTab : ImageRes.favoriteTab).toImage
-                  ..width = 28.w
-                  ..height = 28.h
-                  ..color = (selected ? Styles.c_8443F8 : Styles.c_999999),
+            child: (index == 0
+                    ? ImageLibrary.emojiTab
+                    : ImageLibrary.favoriteTab)
+                .toImage
+              ..width = 28.w
+              ..height = 28.h
+              ..color =
+                  (selected ? StylesLibrary.c_8443F8 : StylesLibrary.c_999999),
           ),
         ),
       );
 
   Widget _buildFavoriteLayout() => Container(
-        color: Styles.c_FFFFFF,
+        color: StylesLibrary.c_FFFFFF,
         height: widget.height ?? 188.h,
         child: GridView.builder(
           padding: EdgeInsets.fromLTRB(22.w, 12.h, 22.w, 22.h),
@@ -118,7 +121,7 @@ class _ChatEmojiViewState extends State<ChatEmojiView> {
             if (index == 0) {
               return GestureDetector(
                 onTap: widget.onAddFavorite,
-                child: ImageRes.addFavorite.toImage
+                child: ImageLibrary.addFavorite.toImage
                   ..width = 66.w
                   ..height = 66.h,
               );
@@ -151,7 +154,7 @@ class EmojiLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height ?? 188.h,
-      color: Styles.c_FFFFFF,
+      color: StylesLibrary.c_FFFFFF,
       child: emoji.EmojiPicker(
         onEmojiSelected: (category, emoji) {
           // Do something when emoji is tapped
@@ -176,16 +179,16 @@ class EmojiLayout extends StatelessWidget {
           horizontalSpacing: 0,
           gridPadding: EdgeInsets.zero,
           initCategory: Category.RECENT,
-          bgColor: Styles.c_FFFFFF,
-          indicatorColor: Styles.c_8443F8,
-          iconColor: Styles.c_999999,
-          iconColorSelected: Styles.c_8443F8,
-          backspaceColor: Styles.c_8443F8,
-          skinToneDialogBgColor: Styles.c_FFFFFF,
-          skinToneIndicatorColor: Styles.c_999999,
+          bgColor: StylesLibrary.c_FFFFFF,
+          indicatorColor: StylesLibrary.c_8443F8,
+          iconColor: StylesLibrary.c_999999,
+          iconColorSelected: StylesLibrary.c_8443F8,
+          backspaceColor: StylesLibrary.c_8443F8,
+          skinToneDialogBgColor: StylesLibrary.c_FFFFFF,
+          skinToneIndicatorColor: StylesLibrary.c_999999,
           enableSkinTones: true,
           recentsLimit: 9,
-          noRecents: '最近使用'.toText..style = Styles.ts_333333_17sp,
+          noRecents: '最近使用'.toText..style = StylesLibrary.ts_333333_17sp,
           tabIndicatorAnimDuration: kTabScrollDuration,
           categoryIcons: const CategoryIcons(),
           buttonMode: ButtonMode.MATERIAL,

@@ -23,7 +23,7 @@ class Miti extends StatelessWidget {
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
             statusBarIconBrightness: Brightness.dark,
-            systemNavigationBarColor: Styles.c_F7F8FA,
+            systemNavigationBarColor: StylesLibrary.c_F7F8FA,
             systemNavigationBarIconBrightness: Brightness.dark),
         child: MitiView(
           builder: (locale, transitionWidgetBuilder) => GetMaterialApp(
@@ -63,7 +63,7 @@ class Miti extends StatelessWidget {
     return ThemeData(
         fontFamily: Platform.isIOS ? 'PingFang SC' : null,
         fontFamilyFallback: [if (Platform.isIOS) "PingFang SC", "sans-serif"],
-        dialogBackgroundColor: Styles.c_FFFFFF,
+        dialogBackgroundColor: StylesLibrary.c_FFFFFF,
         bottomSheetTheme: const BottomSheetThemeData(
             backgroundColor: Colors.transparent, modalElevation: 0),
         dialogTheme: const DialogTheme(elevation: 0));

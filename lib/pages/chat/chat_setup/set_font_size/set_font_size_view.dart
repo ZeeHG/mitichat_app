@@ -18,7 +18,7 @@
 //         title: StrLibrary.fontSize,
 //         right: StrLibrary.save.toText..onTap = logic.saveFactor,
 //       ),
-//       backgroundColor: Styles.c_F8F9FA,
+//       backgroundColor: StylesLibrary.c_F8F9FA,
 //       body: Column(
 //         children: [
 //           Container(
@@ -35,7 +35,7 @@
 //                       alignment: null,
 //                       constraints: BoxConstraints(maxWidth: maxWidth),
 //                       child: Obx(() => '预览字体大小'.toText
-//                         ..style = Styles.ts_FFFFFF_16sp
+//                         ..style = StylesLibrary.ts_FFFFFF_16sp
 //                         ..textScaleFactor = logic.factor.value),
 //                     )
 //                   ],

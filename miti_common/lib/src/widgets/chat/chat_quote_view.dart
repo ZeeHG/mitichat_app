@@ -80,7 +80,7 @@ class _ChatQuoteContentView extends StatelessWidget {
                 fit: BoxFit.cover,
                 borderRadius: BorderRadius.circular(6.r),
               ),
-              ImageRes.videoPause.toImage
+              ImageLibrary.videoPause.toImage
                 ..width = 12.w
                 ..height = 12.h,
             ],
@@ -122,7 +122,7 @@ class _ChatQuoteContentView extends StatelessWidget {
               FaIcon(
                 FontAwesomeIcons.locationDot,
                 size: 12.w,
-                color: Styles.c_8443F8,
+                color: StylesLibrary.c_8443F8,
               ),
             ],
           );
@@ -146,7 +146,7 @@ class _ChatQuoteContentView extends StatelessWidget {
       margin: EdgeInsets.only(top: 4.h),
       constraints: BoxConstraints(maxWidth: maxWidth),
       decoration: BoxDecoration(
-        color: Styles.c_F4F5F7,
+        color: StylesLibrary.c_F4F5F7,
         borderRadius: BorderRadius.circular(3.r),
       ),
       child: Row(
@@ -157,13 +157,13 @@ class _ChatQuoteContentView extends StatelessWidget {
             child: ChatText(
               text: '$name：${content ?? ''}',
               allAtMap: allAtMap,
-              textStyle: Styles.ts_999999_14sp,
+              textStyle: StylesLibrary.ts_999999_14sp,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               patterns: [
                 MatchPattern(
                   type: PatternType.at,
-                  style: Styles.ts_999999_14sp,
+                  style: StylesLibrary.ts_999999_14sp,
                 )
               ],
             ),

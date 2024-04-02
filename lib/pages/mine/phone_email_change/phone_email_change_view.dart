@@ -17,7 +17,7 @@ class PhoneEmailChangePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(),
-      backgroundColor: Styles.c_FFFFFF,
+      backgroundColor: StylesLibrary.c_FFFFFF,
       body: Obx(() => Container(
             width: 1.sw,
             padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -35,20 +35,20 @@ class PhoneEmailChangePage extends StatelessWidget {
                       ? (sprintf(StrLibrary.noBind,
                               [logic.isPhone ? StrLibrary.mobile : StrLibrary.email])
                           .toText
-                        ..style = Styles.ts_999999_18sp)
+                        ..style = StylesLibrary.ts_999999_18sp)
                       : ((logic.isPhone
                               ? StrLibrary.curBindPhone
                               : StrLibrary.curBindEmail)
                           .toText
-                        ..style = Styles.ts_999999_18sp),
+                        ..style = StylesLibrary.ts_999999_18sp),
                   20.verticalSpace,
                   if (logic.isPhone &&
                       null != imCtrl.userInfo.value.phoneNumber)
                     imCtrl.userInfo.value.phoneNumber!.toText
-                      ..style = Styles.ts_333333_24sp_medium,
+                      ..style = StylesLibrary.ts_333333_24sp_medium,
                   if (!logic.isPhone && null != imCtrl.userInfo.value.email)
                     imCtrl.userInfo.value.email!.toText
-                      ..style = Styles.ts_333333_24sp_medium,
+                      ..style = StylesLibrary.ts_333333_24sp_medium,
                   50.verticalSpace,
                   Button(
                     width: 1.sw - 86.w,

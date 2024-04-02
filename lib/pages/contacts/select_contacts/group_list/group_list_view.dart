@@ -18,14 +18,14 @@ class SelectContactsFromGroupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrLibrary.myGroup),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: Column(
         children: [
           GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: logic.searchGroup,
             child: Container(
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
               child: FakeSearchBox(),
             ),
@@ -33,15 +33,15 @@ class SelectContactsFromGroupPage extends StatelessWidget {
           if (selectContactsLogic.isMultiModel)
             Container(
                 padding: EdgeInsets.only(top: 12.h, bottom: 12.h),
-                color: Styles.c_F7F8FA,
+                color: StylesLibrary.c_F7F8FA,
                 child: Container(
-                  color: Styles.c_FFFFFF,
+                  color: StylesLibrary.c_FFFFFF,
                   child: GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     onTap: logic.selectAll,
                     child: Container(
                       height: 64.h,
-                      color: Styles.c_FFFFFF,
+                      color: StylesLibrary.c_FFFFFF,
                       child: Row(
                         children: [
                           Obx(() => Padding(
@@ -50,7 +50,7 @@ class SelectContactsFromGroupPage extends StatelessWidget {
                               )),
                           10.horizontalSpace,
                           StrLibrary.selectAll.toText
-                            ..style = Styles.ts_333333_16sp,
+                            ..style = StylesLibrary.ts_333333_16sp,
                         ],
                       ),
                     ),
@@ -73,7 +73,7 @@ class SelectContactsFromGroupPage extends StatelessWidget {
           onTap: selectContactsLogic.onTap(info),
           child: Container(
             height: 64.h,
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             padding: EdgeInsets.symmetric(horizontal: 12.w),
             child: Row(
               children: [
@@ -97,11 +97,11 @@ class SelectContactsFromGroupPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       (info.groupName ?? '').toText
-                        ..style = Styles.ts_333333_16sp
+                        ..style = StylesLibrary.ts_333333_16sp
                         ..maxLines = 1
                         ..overflow = TextOverflow.ellipsis,
                       sprintf(StrLibrary.nPerson, [info.memberCount]).toText
-                        ..style = Styles.ts_999999_14sp,
+                        ..style = StylesLibrary.ts_999999_14sp,
                     ],
                   ),
                 ),

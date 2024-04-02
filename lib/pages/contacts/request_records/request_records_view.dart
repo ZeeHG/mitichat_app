@@ -16,7 +16,7 @@ class RequestRecordsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: ""),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: Obx(() => ListView.builder(
             padding: EdgeInsets.only(top: 10.h),
             itemCount: logic.allList.length,
@@ -39,10 +39,10 @@ class RequestRecordsPage extends StatelessWidget {
       height: 60.h,
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       decoration: BoxDecoration(
-        color: Styles.c_FFFFFF,
+        color: StylesLibrary.c_FFFFFF,
         border: BorderDirectional(
           bottom: BorderSide(
-            color: Styles.c_F8F9FA,
+            color: StylesLibrary.c_F8F9FA,
             width: 1.h,
           ),
         ),
@@ -57,37 +57,37 @@ class RequestRecordsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 (name ?? '').toText
-                  ..style = Styles.ts_333333_17sp
+                  ..style = StylesLibrary.ts_333333_17sp
                   ..maxLines = 1
                   ..overflow = TextOverflow.ellipsis,
                 4.verticalSpace,
                 if (MitiUtils.isNotNullEmptyStr(reason))
                   reason!.toText
-                    ..style = Styles.ts_999999_14sp
+                    ..style = StylesLibrary.ts_999999_14sp
                     ..maxLines = 1
                     ..overflow = TextOverflow.ellipsis,
               ],
             ),
           ),
           if (/*info.isWaitingHandle && */ isISendRequest)
-            ImageRes.sendRequests.toImage
+            ImageLibrary.sendRequests.toImage
               ..width = 20.w
               ..height = 20.h,
           if (info.isWaitingHandle && !isISendRequest)
             Button(
               text: StrLibrary.lookOver,
-              textStyle: Styles.ts_FFFFFF_14sp,
+              textStyle: StylesLibrary.ts_FFFFFF_14sp,
               onTap: () => logic.acceptFriendApplication(info),
               height: 28.h,
               padding: EdgeInsets.symmetric(horizontal: 12.w),
             ),
           if (info.isWaitingHandle && isISendRequest)
             StrLibrary.waitingForVerification.toText
-              ..style = Styles.ts_999999_14sp,
+              ..style = StylesLibrary.ts_999999_14sp,
           if (info.isRejected)
-            StrLibrary.rejected.toText..style = Styles.ts_999999_14sp,
+            StrLibrary.rejected.toText..style = StylesLibrary.ts_999999_14sp,
           if (info.isAgreed)
-            StrLibrary.approved.toText..style = Styles.ts_999999_14sp,
+            StrLibrary.approved.toText..style = StylesLibrary.ts_999999_14sp,
         ],
       ),
     );
@@ -99,9 +99,9 @@ class RequestRecordsPage extends StatelessWidget {
       // height: 68.h,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
       decoration: BoxDecoration(
-        color: Styles.c_FFFFFF,
+        color: StylesLibrary.c_FFFFFF,
         border: BorderDirectional(
-          bottom: BorderSide(color: Styles.c_F8F9FA, width: 1.h),
+          bottom: BorderSide(color: StylesLibrary.c_F8F9FA, width: 1.h),
         ),
       ),
       child: Row(
@@ -121,7 +121,7 @@ class RequestRecordsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       (info.nickname ?? '').toText
-                        ..style = Styles.ts_333333_17sp
+                        ..style = StylesLibrary.ts_333333_17sp
                         ..maxLines = 1
                         ..overflow = TextOverflow.ellipsis,
                       4.verticalSpace,
@@ -129,12 +129,12 @@ class RequestRecordsPage extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text: StrLibrary.applyJoin,
-                            style: Styles.ts_999999_14sp,
+                            style: StylesLibrary.ts_999999_14sp,
                             children: [
                               WidgetSpan(child: 2.horizontalSpace),
                               TextSpan(
                                 text: logic.getGroupName(info),
-                                style: Styles.ts_8443F8_14sp,
+                                style: StylesLibrary.ts_8443F8_14sp,
                               ),
                             ],
                           ),
@@ -143,27 +143,27 @@ class RequestRecordsPage extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text: logic.getInviterNickname(info),
-                            style: Styles.ts_8443F8_14sp,
+                            style: StylesLibrary.ts_8443F8_14sp,
                             children: [
                               WidgetSpan(child: 2.horizontalSpace),
                               TextSpan(
                                 text: StrLibrary.invite,
-                                style: Styles.ts_999999_14sp,
+                                style: StylesLibrary.ts_999999_14sp,
                               ),
                               WidgetSpan(child: 2.horizontalSpace),
                               TextSpan(
                                 text: info.nickname,
-                                style: Styles.ts_8443F8_14sp,
+                                style: StylesLibrary.ts_8443F8_14sp,
                               ),
                               WidgetSpan(child: 2.horizontalSpace),
                               TextSpan(
                                 text: StrLibrary.joinIn,
-                                style: Styles.ts_999999_14sp,
+                                style: StylesLibrary.ts_999999_14sp,
                               ),
                               WidgetSpan(child: 2.horizontalSpace),
                               TextSpan(
                                 text: logic.getGroupName(info),
-                                style: Styles.ts_8443F8_14sp,
+                                style: StylesLibrary.ts_8443F8_14sp,
                               ),
                             ],
                           ),
@@ -174,7 +174,7 @@ class RequestRecordsPage extends StatelessWidget {
                           padding: EdgeInsets.only(top: 4.h),
                           child: sprintf(StrLibrary.applyReason, [info.reqMsg!])
                               .toText
-                            ..style = Styles.ts_999999_14sp
+                            ..style = StylesLibrary.ts_999999_14sp
                             ..maxLines = 1
                             ..overflow = TextOverflow.ellipsis,
                         ),
@@ -185,24 +185,24 @@ class RequestRecordsPage extends StatelessWidget {
             ),
           ),
           if (/*info.handleResult == 0 && */ isISendRequest)
-            ImageRes.sendRequests.toImage
+            ImageLibrary.sendRequests.toImage
               ..width = 20.w
               ..height = 20.h,
           if (info.handleResult == 0 && !isISendRequest)
             Button(
               text: StrLibrary.lookOver,
-              textStyle: Styles.ts_FFFFFF_14sp,
+              textStyle: StylesLibrary.ts_FFFFFF_14sp,
               height: 28.h,
               padding: EdgeInsets.symmetric(horizontal: 13.w),
               onTap: () => logic.handle(info),
             ),
           if (info.handleResult == 0 && isISendRequest)
             StrLibrary.waitingForVerification.toText
-              ..style = Styles.ts_999999_14sp,
+              ..style = StylesLibrary.ts_999999_14sp,
           if (info.handleResult == -1)
-            StrLibrary.rejected.toText..style = Styles.ts_999999_14sp,
+            StrLibrary.rejected.toText..style = StylesLibrary.ts_999999_14sp,
           if (info.handleResult == 1)
-            StrLibrary.approved.toText..style = Styles.ts_999999_14sp,
+            StrLibrary.approved.toText..style = StylesLibrary.ts_999999_14sp,
         ],
       ),
     );

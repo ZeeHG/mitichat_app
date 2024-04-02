@@ -81,7 +81,7 @@ class _RichTextInputBoxState extends State<RichTextInputBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Styles.c_F7F8FA,
+      color: StylesLibrary.c_F7F8FA,
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,35 +90,35 @@ class _RichTextInputBoxState extends State<RichTextInputBox> {
             spacing: 22.w,
             children: [
               if (widget.showAlbumIcon)
-                ImageRes.toolboxAlbum1.toImage
+                ImageLibrary.toolboxAlbum1.toImage
                   ..width = 26.w
                   ..height = 22.h
                   ..opacity = _opacity
                   ..onTap = widget.onTapAlbum,
               // 22.horizontalSpace,
               if (widget.showCameraIcon)
-                ImageRes.toolboxCamera1.toImage
+                ImageLibrary.toolboxCamera1.toImage
                   ..width = 26.w
                   ..height = 22.h
                   ..opacity = _opacity
                   ..onTap = widget.onTapCamera,
               // 22.horizontalSpace,
               if (widget.showFileIcon)
-                ImageRes.toolboxFile1.toImage
+                ImageLibrary.toolboxFile1.toImage
                   ..width = 26.w
                   ..height = 22.h
                   ..opacity = _opacity
                   ..onTap = widget.onTapFile,
               // 22.horizontalSpace,
               if (widget.showCardIcon)
-                ImageRes.toolboxCard1.toImage
+                ImageLibrary.toolboxCard1.toImage
                   ..width = 26.w
                   ..height = 22.h
                   ..opacity = _opacity
                   ..onTap = widget.onTapCard,
               // 15.horizontalSpace,
               if (widget.showLocationIcon)
-                ImageRes.toolboxLocation1.toImage
+                ImageLibrary.toolboxLocation1.toImage
                   ..width = 16.w
                   ..height = 22.h
                   ..opacity = _opacity
@@ -134,8 +134,9 @@ class _RichTextInputBoxState extends State<RichTextInputBox> {
           Row(
             children: [
               (_leftKeyboardButton
-                  ? (ImageRes.openKeyboard.toImage..onTap = onTapLeftKeyboard)
-                  : (ImageRes.openVoice.toImage..onTap = onTapSpeak))
+                  ? (ImageLibrary.openKeyboard.toImage
+                    ..onTap = onTapLeftKeyboard)
+                  : (ImageLibrary.openVoice.toImage..onTap = onTapSpeak))
                 ..width = 32.w
                 ..height = 32.h
                 ..opacity = _opacity,
@@ -174,7 +175,7 @@ class _RichTextInputBoxState extends State<RichTextInputBox> {
 
   Widget get _textFiled => Container(
         decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           borderRadius: BorderRadius.circular(4.r),
         ),
         child: ChatTextField(
@@ -182,8 +183,8 @@ class _RichTextInputBoxState extends State<RichTextInputBox> {
           atCallback: (showText, actualText) {},
           controller: widget.controller,
           focusNode: widget.focusNode,
-          style: Styles.ts_333333_17sp,
-          atStyle: Styles.ts_8443F8_17sp,
+          style: StylesLibrary.ts_333333_17sp,
+          atStyle: StylesLibrary.ts_8443F8_17sp,
           enabled: true,
           textAlign: TextAlign.start,
         ),

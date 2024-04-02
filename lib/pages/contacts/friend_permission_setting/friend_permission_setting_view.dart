@@ -14,7 +14,7 @@ class FriendPermissionSettingPage extends StatelessWidget {
         appBar: TitleBar.back(
           title: StrLibrary.friendPermissionsSetting,
         ),
-        backgroundColor: Styles.c_F7F8FA,
+        backgroundColor: StylesLibrary.c_F7F8FA,
         body: SingleChildScrollView(
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,7 +22,7 @@ class FriendPermissionSettingPage extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(12.w),
               child: StrLibrary.momentsAndStatus.toText
-                ..style = Styles.ts_999999_12sp,
+                ..style = StylesLibrary.ts_999999_12sp,
             ),
             _itemView(
               text: StrLibrary.moments,
@@ -43,17 +43,17 @@ class FriendPermissionSettingPage extends StatelessWidget {
         onTap: onTap,
         behavior: HitTestBehavior.translucent,
         child: Container(
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           padding: EdgeInsets.only(left: 12.w, right: 12.w),
           child: SizedBox(
             height: 46.h,
             child: Row(
               children: [
-                text.toText..style = Styles.ts_333333_16sp,
+                text.toText..style = StylesLibrary.ts_333333_16sp,
                 const Spacer(),
                 CupertinoSwitch(
                   value: switchOn,
-                  activeColor: Styles.c_07C160,
+                  activeColor: StylesLibrary.c_07C160,
                   onChanged: onChanged,
                 )
               ],

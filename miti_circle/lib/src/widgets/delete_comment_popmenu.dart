@@ -34,7 +34,7 @@ class _DeleteCommentPopMenuState extends State<DeleteCommentPopMenu> {
     return CopyCustomPopupMenu(
       controller: _popCtrl,
       pressType: PressType.longPress,
-      arrowColor: Styles.c_333333_opacity85,
+      arrowColor: StylesLibrary.c_333333_opacity85,
       verticalMargin: 0,
       barrierColor: Colors.transparent,
       menuBuilder: () => GestureDetector(
@@ -48,7 +48,7 @@ class _DeleteCommentPopMenuState extends State<DeleteCommentPopMenu> {
           height: 26.h,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: Styles.c_333333_opacity85,
+            color: StylesLibrary.c_333333_opacity85,
             borderRadius: BorderRadius.circular(4.r),
             boxShadow: [
               BoxShadow(
@@ -61,7 +61,7 @@ class _DeleteCommentPopMenuState extends State<DeleteCommentPopMenu> {
           ),
           child: Text(
             StrLibrary.delete,
-            style: Styles.ts_FFFFFF_12sp,
+            style: StylesLibrary.ts_FFFFFF_12sp,
           ),
         ),
       ),

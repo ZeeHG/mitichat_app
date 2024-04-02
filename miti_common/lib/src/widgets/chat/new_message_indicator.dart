@@ -23,31 +23,31 @@ class NewMessageIndicator extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 13.w, vertical: 7.h),
           constraints: BoxConstraints(minHeight: 31.h),
           decoration: BoxDecoration(
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             borderRadius: BorderRadius.circular(16.r),
-            border: Border.all(color: Styles.c_E8EAEF, width: 1.h),
+            border: Border.all(color: StylesLibrary.c_E8EAEF, width: 1.h),
             boxShadow: [
               BoxShadow(
                 offset: Offset(0, 6.h),
                 blurRadius: 16.r,
                 spreadRadius: 1.r,
-                color: Styles.c_999999_opacity16,
+                color: StylesLibrary.c_999999_opacity16,
               ),
             ],
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ImageRes.scrollDown.toImage
+              ImageLibrary.scrollDown.toImage
                 ..width = 16.w
                 ..height = 16.h,
               4.horizontalSpace,
               sprintf(StrLibrary.nMessage, [newMessageCount]).toText
-                ..style = Styles.ts_8443F8_12sp,
+                ..style = StylesLibrary.ts_8443F8_12sp,
             ],
           ),
         ),
-      ) ,
+      ),
     );
   }
 }

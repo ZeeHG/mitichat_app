@@ -21,21 +21,21 @@
 //           appBar: TitleBar.back(
 //             title: StrLibrary.issueNotice,
 //           ),
-//           backgroundColor: Styles.c_F8F9FA,
+//           backgroundColor: StylesLibrary.c_F8F9FA,
 //           body: Column(
 //             children: [
 //               Container(
 //                 margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
 //                 padding: EdgeInsets.fromLTRB(12.w, 12.h, 12.w, 16.h),
 //                 decoration: BoxDecoration(
-//                   color: Styles.c_FFFFFF,
+//                   color: StylesLibrary.c_FFFFFF,
 //                   borderRadius: BorderRadius.circular(4.r),
 //                 ),
 //                 child: Obx(() => Column(
 //                       crossAxisAlignment: CrossAxisAlignment.start,
 //                       children: [
 //                         StrLibrary.receiveMember.toText
-//                           ..style = Styles.ts_999999_14sp,
+//                           ..style = StylesLibrary.ts_999999_14sp,
 //                         if (logic.list.isNotEmpty)
 //                           Padding(
 //                             padding: EdgeInsets.only(top: 12.h, bottom: 26.h),
@@ -50,7 +50,7 @@
 //                         Row(
 //                           mainAxisAlignment: MainAxisAlignment.end,
 //                           children: [
-//                             ImageRes.addTagMember.toImage
+//                             ImageLibrary.addTagMember.toImage
 //                               ..width = 76.w
 //                               ..height = 31.h
 //                               ..onTap = logic.selectIssuedMember,
@@ -108,13 +108,13 @@
 //         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
 //         decoration: BoxDecoration(
 //           borderRadius: BorderRadius.circular(6.r),
-//           border: Border.all(color: Styles.c_E8EAEF, width: 1.h),
+//           border: Border.all(color: StylesLibrary.c_E8EAEF, width: 1.h),
 //         ),
 //         child: Row(
 //           mainAxisSize: MainAxisSize.min,
 //           children: [
 //             if (info is TagInfo)
-//               ImageRes.tagIcon.toImage
+//               ImageLibrary.tagIcon.toImage
 //                 ..width = 16.w
 //                 ..height = 16.h
 //             else
@@ -129,7 +129,7 @@
 //             ConstrainedBox(
 //               constraints: BoxConstraints(maxWidth: 103.w),
 //               child: (name ?? '').toText
-//                 ..style = Styles.ts_333333_14sp
+//                 ..style = StylesLibrary.ts_333333_14sp
 //                 ..maxLines = 1
 //                 ..overflow = TextOverflow.ellipsis,
 //             ),
@@ -139,12 +139,12 @@
 //               height: 16.h,
 //               decoration: BoxDecoration(
 //                 borderRadius: BorderRadius.circular(3.r),
-//                 color: Styles.c_E8EAEF,
+//                 color: StylesLibrary.c_E8EAEF,
 //               ),
 //               child: Icon(
 //                 Icons.clear,
 //                 size: 10.w,
-//                 color: Styles.c_999999,
+//                 color: StylesLibrary.c_999999,
 //               ),
 //             ),
 //           ],

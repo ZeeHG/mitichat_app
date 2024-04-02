@@ -30,7 +30,7 @@ class ContactsPage extends StatelessWidget {
           tabIndex: conversationLogic.tabIndex,
           unhandledCount: homeLogic.unhandledFriendAndGroupCount,
           mq: mq),
-      backgroundColor: Styles.c_F7F8FA,
+      backgroundColor: StylesLibrary.c_F7F8FA,
       body: Obx(
         () => Stack(
           children: [
@@ -44,7 +44,7 @@ class ContactsPage extends StatelessWidget {
             ),
             Container(
               constraints: BoxConstraints(minWidth: 1.sw),
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
               child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   padding: EdgeInsets.only(
@@ -77,7 +77,7 @@ class ContactsPage extends StatelessWidget {
                   height: 183.h - 105.h - mq.padding.top,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
-                    image: AssetImage(ImageRes.appHeaderBg3,
+                    image: AssetImage(ImageLibrary.appHeaderBg3,
                         package: 'miti_common'),
                     fit: BoxFit.cover,
                     alignment: FractionalOffset.bottomCenter,
@@ -101,8 +101,8 @@ class ContactsPage extends StatelessWidget {
   }) {
     width = width ?? 108.w;
     height = height ?? 50.h;
-    color = color ?? Styles.c_8544F8;
-    tStyle = tStyle ?? Styles.ts_FFFFFF_14sp_medium;
+    color = color ?? StylesLibrary.c_8544F8;
+    tStyle = tStyle ?? StylesLibrary.ts_FFFFFF_14sp_medium;
     shadowColor = shadowColor ?? Color.fromRGBO(132, 67, 248, 0.5);
     return GestureDetector(
         behavior: HitTestBehavior.translucent,
@@ -145,7 +145,7 @@ class ContactsPage extends StatelessWidget {
           onTap: () => logic.viewFriendInfo(info),
           child: Container(
             height: 54.h,
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12.w),
               child: Row(
@@ -155,7 +155,7 @@ class ContactsPage extends StatelessWidget {
                     text: info.showName,
                   ),
                   12.horizontalSpace,
-                  info.showName.toText..style = Styles.ts_333333_16sp,
+                  info.showName.toText..style = StylesLibrary.ts_333333_16sp,
                 ],
               ),
             ),

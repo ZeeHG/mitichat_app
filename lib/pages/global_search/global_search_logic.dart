@@ -142,7 +142,7 @@ class GlobalSearchLogic extends CommonSearchLogic {
   String calContent(Message message) => MitiUtils.calContent(
         content: MitiUtils.parseMsg(message, replaceIdToNickname: true),
         key: searchKey.value,
-        style: Styles.ts_999999_14sp,
+        style: StylesLibrary.ts_999999_14sp,
         usedWidth: 80.w + 26.w,
       );
 

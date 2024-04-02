@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:ui';
-import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -15,12 +14,6 @@ class HttpUtil {
   static void init() {
     // add interceptors
     dio
-      // ..interceptors.add(PrettyDioLogger(
-      //   requestHeader: kDebugMode,
-      //   requestBody: kDebugMode,
-      //   responseBody: kDebugMode,
-      //   responseHeader: kDebugMode,
-      // ))
       ..interceptors.add(
         TalkerDioLogger(
           settings: const TalkerDioLoggerSettings(
@@ -54,8 +47,6 @@ class HttpUtil {
 
     // 配置dio实例
     dio.options.baseUrl = Config.imApiUrl;
-    // dio.options.connectTimeout = const Duration(seconds: 30); //30s
-    // dio.options.receiveTimeout = const Duration(seconds: 30);
     dio.options.connectTimeout = const Duration(seconds: 30);
     dio.options.receiveTimeout = const Duration(seconds: 120);
   }
@@ -194,7 +185,7 @@ class HttpUtil {
           intervalDo.drop(
               fun: () async {
                 await ImageGallerySaver.saveFile(cachePath);
-                showToast("${StrLibrary.saveSuccessfully}",
+                showToast(StrLibrary.saveSuccessfully,
                     duration: const Duration(milliseconds: 3000));
               },
               milliseconds: 1500);
@@ -204,8 +195,7 @@ class HttpUtil {
           if (result != null) {
             var tips = StrLibrary.saveSuccessfully;
             if (Platform.isAndroid) {
-              final filePath = result['filePath'].split('//').last;
-              tips = '${StrLibrary.saveSuccessfully}';
+              tips = StrLibrary.saveSuccessfully;
             }
             showToast(tips);
           }
@@ -223,8 +213,7 @@ class HttpUtil {
       if (result != null) {
         var tips = StrLibrary.saveSuccessfully;
         if (Platform.isAndroid) {
-          final filePath = result['filePath'].split('//').last;
-          tips = '${StrLibrary.saveSuccessfully}';
+          tips = StrLibrary.saveSuccessfully;
         }
         showToast(tips);
       }
@@ -248,8 +237,7 @@ class HttpUtil {
           if (result != null) {
             var tips = StrLibrary.saveSuccessfully;
             if (Platform.isAndroid) {
-              final filePath = result['filePath'].split('//').last;
-              tips = '${StrLibrary.saveSuccessfully}';
+              tips = StrLibrary.saveSuccessfully;
             }
             showToast(tips);
           }
@@ -263,8 +251,7 @@ class HttpUtil {
     if (result != null) {
       var tips = StrLibrary.saveSuccessfully;
       if (Platform.isAndroid) {
-        final filePath = result['filePath'].split('//').last;
-        tips = '${StrLibrary.saveSuccessfully}';
+        tips = StrLibrary.saveSuccessfully;
       }
       showToast(tips);
     }

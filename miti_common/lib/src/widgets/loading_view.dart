@@ -85,7 +85,7 @@ class LoadingView extends NavigatorObserver {
                     width: 80.w,
                     height: 80.h,
                     decoration: BoxDecoration(
-                      color: Styles.c_FFFFFF,
+                      color: StylesLibrary.c_FFFFFF,
                       boxShadow: [
                         BoxShadow(
                           color: const Color.fromRGBO(0, 0, 0, 0.11),
@@ -96,7 +96,7 @@ class LoadingView extends NavigatorObserver {
                       borderRadius: BorderRadius.all(Radius.circular(12.r)),
                     ),
                     child: Center(
-                      child: ImageRes.loading.toImage
+                      child: ImageLibrary.loading.toImage
                         ..width = 53.w
                         ..height = 53.h,
                     ),

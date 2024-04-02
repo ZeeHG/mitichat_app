@@ -14,7 +14,7 @@ class InvitePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrLibrary.newFriend),
-      backgroundColor: Styles.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: Obx(() => SingleChildScrollView(
             child: Text(logic.aaa.toString()),
           )),

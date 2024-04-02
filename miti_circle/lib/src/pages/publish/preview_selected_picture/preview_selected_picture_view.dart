@@ -17,16 +17,16 @@ class PreviewSelectedPicturePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           appBar: TitleBar.back(
-            backgroundColor: Styles.c_000000,
-            backIconColor: Styles.c_FFFFFF,
+            backgroundColor: StylesLibrary.c_000000,
+            backIconColor: StylesLibrary.c_FFFFFF,
             leftTitle:
                 "${logic.reviseIndex + 1}/${publishLogic.assetsList.length}",
-            leftTitleStyle: Styles.ts_FFFFFF_17sp_semibold,
+            leftTitleStyle: StylesLibrary.ts_FFFFFF_17sp_semibold,
             right: StrLibrary.delete.toText
-              ..style = Styles.ts_FFFFFF_17sp_semibold
+              ..style = StylesLibrary.ts_FFFFFF_17sp_semibold
               ..onTap = logic.delete,
           ),
-          backgroundColor: Styles.c_000000,
+          backgroundColor: StylesLibrary.c_000000,
           body: ExtendedImageGesturePageView.builder(
             itemBuilder: (BuildContext context, int index) {
               var entity = publishLogic.assetsList.elementAt(index);

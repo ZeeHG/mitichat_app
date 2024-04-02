@@ -32,7 +32,7 @@ class BottomSheetView extends StatelessWidget {
           Container(
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20.r),
                   topRight: Radius.circular(20.r)),
@@ -44,7 +44,7 @@ class BottomSheetView extends StatelessWidget {
           ),
           // 10.verticalSpace,
           Container(
-            color: Styles.c_F7F8FA,
+            color: StylesLibrary.c_F7F8FA,
             height: 6.h,
           ),
           _itemBgView(
@@ -55,7 +55,7 @@ class BottomSheetView extends StatelessWidget {
           ),
           if (Platform.isIOS)
             Container(
-              color: Styles.c_F7F8FA,
+              color: StylesLibrary.c_F7F8FA,
               height: MediaQuery.of(context).padding.bottom,
             )
           // 10.verticalSpace,
@@ -108,14 +108,15 @@ class BottomSheetView extends StatelessWidget {
         onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             borderRadius: borderRadius,
           ),
           child: Container(
             decoration: line
                 ? BoxDecoration(
                     border: BorderDirectional(
-                      bottom: BorderSide(color: Styles.c_EDEDED, width: 1.h),
+                      bottom:
+                          BorderSide(color: StylesLibrary.c_EDEDED, width: 1.h),
                     ),
                   )
                 : null,
@@ -135,8 +136,8 @@ class BottomSheetView extends StatelessWidget {
         ),
       );
 
-  _text(String label, TextStyle? style) =>
-      label.toText..style = (style ?? textStyle ?? Styles.ts_333333_16sp);
+  _text(String label, TextStyle? style) => label.toText
+    ..style = (style ?? textStyle ?? StylesLibrary.ts_333333_16sp);
 
   _image(Widget icon) => Container(
         width: 24.w,

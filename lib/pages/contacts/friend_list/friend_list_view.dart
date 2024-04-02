@@ -14,14 +14,14 @@ class FriendListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrLibrary.myFriend),
-      backgroundColor: Styles.c_FFFFFF,
+      backgroundColor: StylesLibrary.c_FFFFFF,
       body: Column(
         children: [
           GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: logic.searchFriend,
             child: Container(
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
               child: FakeSearchBox(),
             ),
@@ -41,11 +41,11 @@ class FriendListPage extends StatelessWidget {
   }
 
   Widget _buildItemView(ISUserInfo info) => GestureDetector(
-    onTap: () => logic.viewFriendInfo(info),
-    behavior: HitTestBehavior.translucent,
+        onTap: () => logic.viewFriendInfo(info),
+        behavior: HitTestBehavior.translucent,
         child: Container(
           height: 60.h,
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           padding: EdgeInsets.symmetric(horizontal: 12.w),
           child: Row(
             children: [
@@ -54,7 +54,7 @@ class FriendListPage extends StatelessWidget {
                 text: info.showName,
               ),
               12.horizontalSpace,
-              info.showName.toText..style = Styles.ts_333333_16sp,
+              info.showName.toText..style = StylesLibrary.ts_333333_16sp,
             ],
           ),
         ),

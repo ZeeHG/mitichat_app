@@ -65,12 +65,12 @@ class _SearchBoxState extends State<SearchBox> {
       margin: widget.margin,
       padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 14.w),
       decoration: BoxDecoration(
-        color: widget.backgroundColor ?? Styles.c_F7F7F7,
+        color: widget.backgroundColor ?? StylesLibrary.c_F7F7F7,
         borderRadius: BorderRadius.circular(6.r),
       ),
       child: Row(
         children: [
-          ImageRes.searchGrey.toImage
+          ImageLibrary.searchGrey.toImage
             ..color = widget.searchIconColor
             ..width = widget.searchIconWidth ?? 15.w
             ..height = widget.searchIconHeight ?? 15.h,
@@ -79,13 +79,13 @@ class _SearchBoxState extends State<SearchBox> {
             child: TextField(
               controller: widget.controller,
               focusNode: widget.focusNode,
-              style: widget.textStyle ?? Styles.ts_333333_16sp,
+              style: widget.textStyle ?? StylesLibrary.ts_333333_16sp,
               autofocus: widget.autofocus,
               enabled: widget.enabled,
               textInputAction: TextInputAction.search,
               decoration: InputDecoration(
                 hintText: widget.hintText ?? StrLibrary.search,
-                hintStyle: widget.hintStyle ?? Styles.ts_999999_16sp,
+                hintStyle: widget.hintStyle ?? StylesLibrary.ts_999999_16sp,
                 isDense: true,
                 contentPadding: EdgeInsets.zero,
                 border: InputBorder.none,
@@ -108,7 +108,7 @@ class _SearchBoxState extends State<SearchBox> {
             widget.onCleared?.call();
           },
           behavior: HitTestBehavior.translucent,
-          child: ImageRes.clearText.toImage
+          child: ImageLibrary.clearText.toImage
             ..width = widget.searchIconWidth ?? 24.w
             ..height = widget.searchIconHeight ?? 24.h
             ..color = widget.searchIconColor,

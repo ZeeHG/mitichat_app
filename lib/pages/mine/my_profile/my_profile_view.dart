@@ -19,7 +19,7 @@ class MyProfilePage extends StatelessWidget {
       appBar: TitleBar.back(
         title: StrLibrary.myInfo,
       ),
-      backgroundColor: Styles.c_F7F8FA,
+      backgroundColor: StylesLibrary.c_F7F8FA,
       body: Obx(() => SingleChildScrollView(
             child: Column(
               children: [
@@ -83,7 +83,7 @@ class MyProfilePage extends StatelessWidget {
 
   Widget buildItemGroup({required List<Widget> children}) => Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w),
-        color: Styles.c_FFFFFF,
+        color: StylesLibrary.c_FFFFFF,
         child: Column(children: children),
       );
 
@@ -103,7 +103,7 @@ class MyProfilePage extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border(
               top: BorderSide(
-                color: Styles.c_F1F2F6,
+                color: StylesLibrary.c_F1F2F6,
                 width: showBorder ? 1.h : 0,
               ),
             ),
@@ -111,7 +111,7 @@ class MyProfilePage extends StatelessWidget {
           height: 50.h,
           child: Row(
             children: [
-              label.toText..style = Styles.ts_333333_14sp,
+              label.toText..style = StylesLibrary.ts_333333_14sp,
               const Spacer(),
               if (isAvatar)
                 AvatarView(
@@ -125,12 +125,12 @@ class MyProfilePage extends StatelessWidget {
                 Expanded(
                     flex: 3,
                     child: (MitiUtils.emptyStrToNull(value) ?? '').toText
-                      ..style = Styles.ts_999999_14sp
+                      ..style = StylesLibrary.ts_999999_14sp
                       ..maxLines = 1
                       ..overflow = TextOverflow.ellipsis
                       ..textAlign = TextAlign.right),
               if (showRightArrow)
-                ImageRes.appRightArrow.toImage
+                ImageLibrary.appRightArrow.toImage
                   ..width = 20.w
                   ..height = 20.h,
             ],

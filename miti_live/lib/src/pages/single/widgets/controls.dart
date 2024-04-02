@@ -239,7 +239,7 @@ class _ControlsViewState extends State<ControlsView> {
             Positioned(
               left: 16.w,
               top: 7.h,
-              child: ImageRes.liveClose.toImage
+              child: ImageLibrary.liveClose.toImage
                 ..width = 30.w
                 ..height = 30.h
                 ..onTap = widget.onMinimize,
@@ -254,8 +254,8 @@ class _ControlsViewState extends State<ControlsView> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       (_participant!.isCameraEnabled()
-                              ? ImageRes.liveCameraOff
-                              : ImageRes.liveCameraOn)
+                              ? ImageLibrary.liveCameraOff
+                              : ImageLibrary.liveCameraOn)
                           .toImage
                         ..width = 30.w
                         ..height = 30.h
@@ -263,7 +263,7 @@ class _ControlsViewState extends State<ControlsView> {
                             ? _disableVideo
                             : _enableVideo),
                       16.horizontalSpace,
-                      ImageRes.liveSwitchCamera.toImage
+                      ImageLibrary.liveSwitchCamera.toImage
                         ..width = 30.w
                         ..height = 30.h
                         ..onTap = _toggleCamera,
@@ -328,7 +328,7 @@ class _ControlsViewState extends State<ControlsView> {
   Widget get _videoCallingDurationView => Visibility(
         visible: isVideo && isCalling,
         child: _callingDurationStr.toText
-          ..style = Styles.ts_FFFFFF_opacity70_17sp,
+          ..style = StylesLibrary.ts_FFFFFF_opacity70_17sp,
       );
 
   Widget get _userInfoView {
@@ -357,12 +357,12 @@ class _ControlsViewState extends State<ControlsView> {
         children: [
           AvatarView(width: 70.w, height: 70.h, text: nickname, url: faceURL),
           10.verticalSpace,
-          (nickname ?? '').toText..style = Styles.ts_FFFFFF_20sp_medium,
+          (nickname ?? '').toText..style = StylesLibrary.ts_FFFFFF_20sp_medium,
           10.verticalSpace,
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 12.w),
             child: text.toText
-              ..style = Styles.ts_FFFFFF_opacity70_17sp
+              ..style = StylesLibrary.ts_FFFFFF_opacity70_17sp
               ..maxLines = 1
               ..overflow = TextOverflow.ellipsis,
           ),

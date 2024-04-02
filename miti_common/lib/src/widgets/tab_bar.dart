@@ -45,10 +45,10 @@ class CustomTabBar extends StatelessWidget {
         // width: width,
         constraints: BoxConstraints(minWidth: width ?? 110.w),
         decoration: BoxDecoration(
-          color: this.bgColor ?? Styles.c_FFFFFF,
+          color: this.bgColor ?? StylesLibrary.c_FFFFFF,
           border: showUnderline
               ? BorderDirectional(
-                  bottom: BorderSide(color: Styles.c_E8EAEF, width: 1.h))
+                  bottom: BorderSide(color: StylesLibrary.c_E8EAEF, width: 1.h))
               : null,
         ),
         child: Row(
@@ -83,8 +83,8 @@ class CustomTabBar extends StatelessWidget {
                   alignment: Alignment.center,
                   child: labels.elementAt(i).toText
                     ..style = i == index
-                        ? activeTextStyle ?? Styles.ts_333333_16sp
-                        : inactiveTextStyle ?? Styles.ts_333333_16sp,
+                        ? activeTextStyle ?? StylesLibrary.ts_333333_16sp
+                        : inactiveTextStyle ?? StylesLibrary.ts_333333_16sp,
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
@@ -93,11 +93,14 @@ class CustomTabBar extends StatelessWidget {
                     child: Container(
                       margin: EdgeInsets.only(bottom: 2.h),
                       decoration: BoxDecoration(
-                        // color: Styles.c_8443F8,
+                        // color: StylesLibrary.c_8443F8,
                         gradient: LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
-                          colors: [Styles.c_8443F8, Styles.c_BA78FC],
+                          colors: [
+                            StylesLibrary.c_8443F8,
+                            StylesLibrary.c_BA78FC
+                          ],
                         ),
                         borderRadius: BorderRadius.circular(1.r),
                       ),

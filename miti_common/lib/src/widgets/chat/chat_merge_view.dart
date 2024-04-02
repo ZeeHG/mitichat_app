@@ -19,10 +19,10 @@ class ChatMergeMsgView extends StatelessWidget {
       ..add(10.verticalSpace)
       ..add(Padding(
         padding: EdgeInsets.symmetric(horizontal: 13.w),
-        child: title.toText..style = Styles.ts_333333_16sp,
+        child: title.toText..style = StylesLibrary.ts_333333_16sp,
       ))
       ..add(Container(
-        color: Styles.c_E8EAEF,
+        color: StylesLibrary.c_E8EAEF,
         height: 1,
         margin: EdgeInsets.symmetric(vertical: 10.h),
       ));
@@ -33,7 +33,7 @@ class ChatMergeMsgView extends StatelessWidget {
         ..add(Padding(
             padding: EdgeInsets.symmetric(horizontal: 13.w),
             child: MatchTextView(
-                text: s.trim(), textStyle: Styles.ts_999999_14sp)))
+                text: s.trim(), textStyle: StylesLibrary.ts_999999_14sp)))
         ..add(6.verticalSpace);
     }
     return list;
@@ -45,8 +45,8 @@ class ChatMergeMsgView extends StatelessWidget {
       // width: locationWidth,
       constraints: BoxConstraints(maxWidth: maxWidthContainer),
       decoration: BoxDecoration(
-        color: Styles.c_FFFFFF,
-        border: Border.all(color: Styles.c_E8EAEF, width: 1.h),
+        color: StylesLibrary.c_FFFFFF,
+        border: Border.all(color: StylesLibrary.c_E8EAEF, width: 1.h),
         borderRadius: BorderRadius.circular(6.r),
       ),
       child: Column(

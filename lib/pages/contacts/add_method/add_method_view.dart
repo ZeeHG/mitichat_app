@@ -18,25 +18,25 @@
 //         children: [
 //           10.verticalSpace,
 //           _buildItemView(
-//             icon: ImageRes.scanBlue,
+//             icon: ImageLibrary.scanBlue,
 //             text: StrLibrary.scan,
 //             hintText: StrLibrary.scanHint,
 //             onTap: logic.scan,
 //           ),
 //           _buildItemView(
-//             icon: ImageRes.addFriendBlue,
+//             icon: ImageLibrary.addFriendBlue,
 //             text: StrLibrary.addFriend,
 //             hintText: StrLibrary.addFriendHint,
 //             onTap: logic.addFriend,
 //           ),
 //           _buildItemView(
-//             icon: ImageRes.createGroupBlue,
+//             icon: ImageLibrary.createGroupBlue,
 //             text: StrLibrary.createGroup,
 //             hintText: StrLibrary.createGroupHint,
 //             onTap: logic.createGroup,
 //           ),
 //           _buildItemView(
-//             icon: ImageRes.addGroupBLue,
+//             icon: ImageLibrary.addGroupBLue,
 //             text: StrLibrary.addGroup,
 //             hintText: StrLibrary.addGroupHint,
 //             onTap: logic.addGroup,
@@ -55,7 +55,7 @@
 //     Function()? onTap,
 //   }) =>
 //       Ink(
-//         color: Styles.c_FFFFFF,
+//         color: StylesLibrary.c_FFFFFF,
 //         child: InkWell(
 //           onTap: onTap,
 //           child: SizedBox(
@@ -73,7 +73,7 @@
 //                         ? BoxDecoration(
 //                             border: BorderDirectional(
 //                               bottom: BorderSide(
-//                                 color: Styles.c_E8EAEF,
+//                                 color: StylesLibrary.c_E8EAEF,
 //                                 width: .5,
 //                               ),
 //                             ),
@@ -86,13 +86,13 @@
 //                             mainAxisAlignment: MainAxisAlignment.center,
 //                             crossAxisAlignment: CrossAxisAlignment.start,
 //                             children: [
-//                               text.toText..style = Styles.ts_333333_17sp,
+//                               text.toText..style = StylesLibrary.ts_333333_17sp,
 //                               4.verticalSpace,
-//                               hintText.toText..style = Styles.ts_999999_12sp,
+//                               hintText.toText..style = StylesLibrary.ts_999999_12sp,
 //                             ],
 //                           ),
 //                         ),
-//                         ImageRes.appRightArrow.toImage
+//                         ImageLibrary.appRightArrow.toImage
 //                           ..width = 24.w
 //                           ..height = 24.h,
 //                         16.horizontalSpace,

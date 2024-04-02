@@ -99,7 +99,7 @@ class _ChatRecordVoiceViewState extends State<ChatRecordVoiceView> {
 //           width: 138.w,
 //           height: 124.h,
 //           decoration: BoxDecoration(
-//             color: Styles.c_0C1C33_opacity60,
+//             color: StylesLibrary.c_0C1C33_opacity60,
 //             borderRadius: BorderRadius.circular(6.r),
 //           ),
 //           child: Column(),

@@ -13,7 +13,7 @@ class ChatFacePreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: StrLibrary.emoji),
-      backgroundColor: Styles.c_FFFFFF,
+      backgroundColor: StylesLibrary.c_FFFFFF,
       body: Center(
         child: _networkGestureImage(url),
       ),
@@ -54,7 +54,7 @@ class ChatFacePreview extends StatelessWidget {
                   height: 15.0,
                   child: Center(
                     child: CircularProgressIndicator(
-                      color: Styles.c_8443F8,
+                      color: StylesLibrary.c_8443F8,
                       strokeWidth: 1.5,
                       value: progress ?? 0,
                     ),
@@ -66,7 +66,7 @@ class ChatFacePreview extends StatelessWidget {
             case LoadState.failed:
               // remove memory cached
               state.imageProvider.evict();
-              return ImageRes.pictureError.toImage;
+              return ImageLibrary.pictureError.toImage;
           }
         },
       );

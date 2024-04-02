@@ -18,28 +18,29 @@ class GroupProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(),
-      backgroundColor: Styles.c_F7F8FA,
+      backgroundColor: StylesLibrary.c_F7F8FA,
       body: Obx(() => Column(
             children: [
               _buildBaseInfo(),
               if (logic.members.isNotEmpty) _buildGroupMemberList(),
               Container(
                 height: 56.h,
-                color: Styles.c_FFFFFF,
+                color: StylesLibrary.c_FFFFFF,
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Row(
                   children: [
-                    StrLibrary.groupID.toText..style = Styles.ts_333333_16sp,
+                    StrLibrary.groupID.toText
+                      ..style = StylesLibrary.ts_333333_16sp,
                     12.horizontalSpace,
                     logic.groupInfo.value.groupID.toText
-                      ..style = Styles.ts_999999_16sp,
+                      ..style = StylesLibrary.ts_999999_16sp,
                   ],
                 ),
               ),
               const Spacer(),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-                color: Styles.c_FFFFFF,
+                color: StylesLibrary.c_FFFFFF,
                 child: Button(
                   text: logic.isJoined.value
                       ? StrLibrary.enterGroup
@@ -54,7 +55,7 @@ class GroupProfilePage extends StatelessWidget {
 
   Widget _buildBaseInfo() => Container(
         height: 80.h,
-        color: Styles.c_FFFFFF,
+        color: StylesLibrary.c_FFFFFF,
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         margin: EdgeInsets.only(bottom: 10.h),
         child: Row(
@@ -73,11 +74,11 @@ class GroupProfilePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   (logic.groupInfo.value.groupName ?? '').toText
-                    ..style = Styles.ts_333333_16sp_medium,
+                    ..style = StylesLibrary.ts_333333_16sp_medium,
                   4.verticalSpace,
                   Row(
                     children: [
-                      ImageRes.createGroupTime.toImage
+                      ImageLibrary.createGroupTime.toImage
                         ..width = 12.w
                         ..height = 12.h,
                       6.horizontalSpace,
@@ -85,7 +86,7 @@ class GroupProfilePage extends StatelessWidget {
                         (logic.groupInfo.value.createTime ?? 0),
                         format: MitiUtils.getTimeFormat1(),
                       ).toText
-                        ..style = Styles.ts_999999_14sp,
+                        ..style = StylesLibrary.ts_999999_14sp,
                     ],
                   ),
                 ],
@@ -96,7 +97,7 @@ class GroupProfilePage extends StatelessWidget {
       );
 
   Widget _buildGroupMemberList() => Container(
-        color: Styles.c_FFFFFF,
+        color: StylesLibrary.c_FFFFFF,
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         margin: EdgeInsets.only(bottom: 10.h),
         child: Column(
@@ -105,13 +106,13 @@ class GroupProfilePage extends StatelessWidget {
             RichText(
               text: TextSpan(
                 text: StrLibrary.groupMember,
-                style: Styles.ts_333333_16sp,
+                style: StylesLibrary.ts_333333_16sp,
                 children: [
                   WidgetSpan(child: 12.horizontalSpace),
                   TextSpan(
                     text: sprintf(StrLibrary.nPerson,
                         [logic.groupInfo.value.memberCount]),
-                    style: Styles.ts_999999_16sp,
+                    style: StylesLibrary.ts_999999_16sp,
                   ),
                 ],
               ),
@@ -129,7 +130,7 @@ class GroupProfilePage extends StatelessWidget {
               itemBuilder: (_, index) {
                 final member = logic.members.elementAt(index);
                 if (index == 6 && logic.members.length != 7) {
-                  return ImageRes.moreMembers.toImage
+                  return ImageLibrary.moreMembers.toImage
                     ..width = 44.w
                     ..height = 44.h;
                 }

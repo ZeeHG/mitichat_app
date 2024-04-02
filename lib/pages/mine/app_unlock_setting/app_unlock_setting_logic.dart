@@ -70,7 +70,8 @@ class AppUnlockSettingLogic extends GetxController {
     screenLock(
       context: Get.context!,
       correctString: lockScreenPwd!,
-      title: StrLibrary.plsEnterPwd.toText..style = Styles.ts_FFFFFF_16sp,
+      title: StrLibrary.plsEnterPwd.toText
+        ..style = StylesLibrary.ts_FFFFFF_16sp,
       onUnlocked: () async {
         await DataSp.clearLockScreenPassword();
         await DataSp.closeBiometric();
@@ -86,10 +87,12 @@ class AppUnlockSettingLogic extends GetxController {
     screenLockCreate(
       context: Get.context!,
       inputController: controller,
-      title: StrLibrary.plsEnterNewPwd.toText..style = Styles.ts_FFFFFF_16sp,
+      title: StrLibrary.plsEnterNewPwd.toText
+        ..style = StylesLibrary.ts_FFFFFF_16sp,
       confirmTitle: StrLibrary.plsConfirmNewPwd.toText
-        ..style = Styles.ts_FFFFFF_16sp,
-      cancelButton: StrLibrary.cancel.toText..style = Styles.ts_FFFFFF_16sp,
+        ..style = StylesLibrary.ts_FFFFFF_16sp,
+      cancelButton: StrLibrary.cancel.toText
+        ..style = StylesLibrary.ts_FFFFFF_16sp,
       onConfirmed: (matchedText) async {
         lockScreenPwd = matchedText;
         await DataSp.putLockScreenPassword(matchedText);
@@ -101,7 +104,7 @@ class AppUnlockSettingLogic extends GetxController {
           // Release the confirmation state and return to the initial input state.
           controller.unsetConfirmed();
         },
-        child: StrLibrary.reset.toText..style = Styles.ts_8443F8_16sp,
+        child: StrLibrary.reset.toText..style = StylesLibrary.ts_8443F8_16sp,
       ),
     );
   }

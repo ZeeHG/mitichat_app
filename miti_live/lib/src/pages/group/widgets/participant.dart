@@ -137,7 +137,7 @@ abstract class _ParticipantWidgetState<T extends ParticipantWidget>
   Widget build(BuildContext ctx) => Container(
         foregroundDecoration: BoxDecoration(
           border: widget.participant.isSpeaking && !widget.isScreenShare
-              ? Border.all(width: 5, color: Styles.c_0089FF)
+              ? Border.all(width: 5, color: StylesLibrary.c_0089FF)
               : null,
         ),
         decoration: BoxDecoration(

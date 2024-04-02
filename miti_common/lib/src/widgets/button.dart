@@ -47,8 +47,8 @@ class Button extends StatelessWidget {
             width: width,
             decoration: BoxDecoration(
               color: enabled
-                  ? enabledColor ?? Styles.c_8443F8
-                  : disabledColor ?? Styles.c_8443F8_opacity50,
+                  ? enabledColor ?? StylesLibrary.c_8443F8
+                  : disabledColor ?? StylesLibrary.c_8443F8_opacity50,
               borderRadius: BorderRadius.circular(radius ?? 10.r),
               border: Border.all(color: borderColor ?? Colors.transparent),
             ),
@@ -58,8 +58,8 @@ class Button extends StatelessWidget {
               child: Text(
                 text,
                 style: enabled
-                    ? textStyle ?? Styles.ts_FFFFFF_16sp
-                    : disabledTextStyle ?? Styles.ts_FFFFFF_16sp,
+                    ? textStyle ?? StylesLibrary.ts_FFFFFF_16sp
+                    : disabledTextStyle ?? StylesLibrary.ts_FFFFFF_16sp,
                 maxLines: 1,
               ),
             ),
@@ -98,9 +98,9 @@ class ImageTextButton extends StatelessWidget {
   final Function()? onTap;
 
   ImageTextButton.call({super.key, this.onTap})
-      : icon = ImageRes.audioAndVideoCall,
+      : icon = ImageLibrary.audioAndVideoCall,
         text = StrLibrary.audioAndVideoCall,
-        color = Styles.c_FFFFFF,
+        color = StylesLibrary.c_FFFFFF,
         textStyle = null,
         iconWidth = null,
         iconHeight = null,
@@ -108,10 +108,10 @@ class ImageTextButton extends StatelessWidget {
         height = null;
 
   ImageTextButton.message({super.key, this.onTap})
-      : icon = ImageRes.message,
+      : icon = ImageLibrary.message,
         text = StrLibrary.sendMessage,
-        color = Styles.c_8443F8,
-        textStyle = Styles.ts_FFFFFF_16sp,
+        color = StylesLibrary.c_8443F8,
+        textStyle = StylesLibrary.ts_FFFFFF_16sp,
         iconWidth = null,
         iconHeight = null,
         radius = null,
@@ -136,11 +136,11 @@ class ImageTextButton extends StatelessWidget {
                 ..width = iconWidth
                 ..height = iconHeight,
               7.horizontalSpace,
-              text.toText..style = textStyle ?? Styles.ts_333333_16sp,
+              text.toText..style = textStyle ?? StylesLibrary.ts_333333_16sp,
             ],
           ),
         ),
-      ) ,
+      ),
     );
   }
 }

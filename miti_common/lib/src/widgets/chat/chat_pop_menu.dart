@@ -35,7 +35,7 @@ class ChatLongPressMenu extends StatelessWidget {
     return Container(
       constraints: BoxConstraints(maxWidth: 256.w, maxHeight: 122.h),
       decoration: BoxDecoration(
-        color: Styles.c_333333_opacity85,
+        color: StylesLibrary.c_333333_opacity85,
         borderRadius: BorderRadius.circular(15.r),
       ),
       child: Container(
@@ -116,7 +116,7 @@ class _MenuItemView extends StatelessWidget {
           ..width = 28.w
           ..height = 28.h,
         label.toText
-          ..style = Styles.ts_FFFFFF_10sp
+          ..style = StylesLibrary.ts_FFFFFF_10sp
           ..maxLines = 1
           ..overflow = TextOverflow.ellipsis,
       ],
@@ -126,37 +126,37 @@ class _MenuItemView extends StatelessWidget {
 
 final allMenus = <MenuInfo>[
   MenuInfo(
-    icon: ImageRes.menuCopy,
+    icon: ImageLibrary.menuCopy,
     text: StrLibrary.menuCopy,
     onTap: () {},
   ),
   MenuInfo(
-    icon: ImageRes.menuDel,
+    icon: ImageLibrary.menuDel,
     text: StrLibrary.menuDel,
     onTap: () {},
   ),
   MenuInfo(
-    icon: ImageRes.menuForward,
+    icon: ImageLibrary.menuForward,
     text: StrLibrary.menuForward,
     onTap: () {},
   ),
   MenuInfo(
-    icon: ImageRes.menuReply,
+    icon: ImageLibrary.menuReply,
     text: StrLibrary.menuReply,
     onTap: () {},
   ),
   MenuInfo(
-    icon: ImageRes.menuMulti,
+    icon: ImageLibrary.menuMulti,
     text: StrLibrary.menuMulti,
     onTap: () {},
   ),
   MenuInfo(
-    icon: ImageRes.menuRevoke,
+    icon: ImageLibrary.menuRevoke,
     text: StrLibrary.menuRevoke,
     onTap: () {},
   ),
   MenuInfo(
-    icon: ImageRes.menuAddFace,
+    icon: ImageLibrary.menuAddFace,
     text: StrLibrary.menuAdd,
     onTap: () {},
   ),

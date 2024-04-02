@@ -53,7 +53,7 @@ class GlobalSearchChatHistoryLogic extends GetxController {
   String calContent(Message message) => MitiUtils.calContent(
         content: MitiUtils.parseMsg(message, replaceIdToNickname: true),
         key: searchKey,
-        style: Styles.ts_999999_14sp,
+        style: StylesLibrary.ts_999999_14sp,
         usedWidth: 80.w + 26.w,
       );
 

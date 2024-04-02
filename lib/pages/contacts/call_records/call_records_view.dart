@@ -14,7 +14,7 @@
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       appBar: TitleBar.back(title: StrLibrary.callRecords),
-//       backgroundColor: Styles.c_FFFFFF,
+//       backgroundColor: StylesLibrary.c_FFFFFF,
 //       body: Obx(() => Column(
 //             children: [
 //               CustomTabBar(
@@ -78,13 +78,13 @@
 //                     children: [
 //                       records.nickname.toText
 //                         ..style = (records.success
-//                             ? Styles.ts_333333_17sp
-//                             : Styles.ts_FF4E4C_17sp),
+//                             ? StylesLibrary.ts_333333_17sp
+//                             : StylesLibrary.ts_FF4E4C_17sp),
 //                       '[${records.type == 'video' ? StrLibrary.callVideo : StrLibrary.callVoice}]${MitiUtils.getChatTimeline(records.date)}'
 //                           .toText
 //                         ..style = (records.success
-//                             ? Styles.ts_333333_14sp
-//                             : Styles.ts_FF4E4C_14sp),
+//                             ? StylesLibrary.ts_333333_14sp
+//                             : StylesLibrary.ts_FF4E4C_14sp),
 //                     ],
 //                   ),
 //                 ),
@@ -95,8 +95,8 @@
 //                             : StrLibrary.outgoingCall))
 //                     .toText
 //                   ..style = (records.success
-//                       ? Styles.ts_333333_14sp
-//                       : Styles.ts_FF4E4C_14sp),
+//                       ? StylesLibrary.ts_333333_14sp
+//                       : StylesLibrary.ts_FF4E4C_14sp),
 //               ],
 //             ),
 //           ),

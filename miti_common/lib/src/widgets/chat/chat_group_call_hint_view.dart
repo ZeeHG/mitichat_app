@@ -28,7 +28,7 @@ class ChatGroupCallHitView extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: Styles.c_F2F8FF,
+            color: StylesLibrary.c_F2F8FF,
             borderRadius: BorderRadius.circular(6.r),
           ),
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
@@ -53,11 +53,11 @@ class ChatGroupCallHitView extends StatelessWidget {
               child:
                   sprintf(StrLibrary.groupVideoCallHint, [participants.length])
                       .toText
-                    ..style = Styles.ts_999999_14sp,
+                    ..style = StylesLibrary.ts_999999_14sp,
             ),
             Transform.rotate(
               angle: (showCallingMember ? 1 : 0) * pi,
-              child: ImageRes.groupCallHitArrow.toImage
+              child: ImageLibrary.groupCallHitArrow.toImage
                 ..width = 16.w
                 ..height = 16.h,
             ),
@@ -85,7 +85,7 @@ class ChatGroupCallHitView extends StatelessWidget {
               itemBuilder: (context, index) {
                 final info = participants.elementAt(index).groupMemberInfo;
                 if (index == maxCount - 1) {
-                  return ImageRes.moreCallMember.toImage
+                  return ImageLibrary.moreCallMember.toImage
                     ..width = 44.w
                     ..height = 44.h;
                 }
@@ -96,14 +96,15 @@ class ChatGroupCallHitView extends StatelessWidget {
                 );
               },
             ),
-            Container(color: Styles.c_E8EAEF, height: .5),
+            Container(color: StylesLibrary.c_E8EAEF, height: .5),
             GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: joinGroupCalling,
               child: Container(
                 height: 44.h,
                 alignment: Alignment.center,
-                child: StrLibrary.joinIn.toText..style = Styles.ts_8443F8_14sp,
+                child: StrLibrary.joinIn.toText
+                  ..style = StylesLibrary.ts_8443F8_14sp,
               ),
             ),
           ],

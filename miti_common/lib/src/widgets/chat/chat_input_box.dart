@@ -149,14 +149,14 @@ class _ChatInputBoxState
                         // height: 56.h,
                         constraints:
                             BoxConstraints(minHeight: kInputBoxMinHeight),
-                        color: Styles.c_F7F7F7,
+                        color: StylesLibrary.c_F7F7F7,
                         child: Row(
                           children: [
                             12.horizontalSpace,
                             (_leftKeyboardButton
-                                ? (ImageRes.openKeyboard.toImage
+                                ? (ImageLibrary.openKeyboard.toImage
                                   ..onTap = onTapLeftKeyboard)
-                                : (ImageRes.openVoice.toImage
+                                : (ImageLibrary.openVoice.toImage
                                   ..onTap = onTapSpeak))
                               ..width = 28.w
                               ..height = 28.h
@@ -178,17 +178,17 @@ class _ChatInputBoxState
                             ),
                             12.horizontalSpace,
                             (_rightKeyboardButton
-                                ? (ImageRes.openKeyboard.toImage
+                                ? (ImageLibrary.openKeyboard.toImage
                                   ..onTap = onTapRightKeyboard)
-                                : (ImageRes.openEmoji.toImage
+                                : (ImageLibrary.openEmoji.toImage
                                   ..onTap = onTapEmoji))
                               ..width = 28.w
                               ..height = 28.h
                               ..opacity = _opacity,
                             12.horizontalSpace,
                             (_sendButtonVisible
-                                    ? ImageRes.appSendMessage2
-                                    : ImageRes.openToolbox)
+                                    ? ImageLibrary.appSendMessage2
+                                    : ImageLibrary.openToolbox)
                                 .toImage
                               ..width = 28.w
                               ..height = 28.h
@@ -239,7 +239,7 @@ class _ChatInputBoxState
                         right: 0,
                         bottom: 0,
                         child: Container(
-                          color: Styles.c_999999_opacity13,
+                          color: StylesLibrary.c_999999_opacity13,
                         ))
                 ],
               );
@@ -248,7 +248,7 @@ class _ChatInputBoxState
   Widget get _textFiled => Container(
         margin: EdgeInsets.only(top: 10.h, bottom: _showQuoteView ? 4.h : 10.h),
         decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
           borderRadius: BorderRadius.circular(4.r),
         ),
         child: ChatTextField(
@@ -256,8 +256,8 @@ class _ChatInputBoxState
           atCallback: widget.atCallback,
           controller: widget.controller,
           focusNode: widget.focusNode,
-          style: widget.style ?? Styles.ts_333333_17sp,
-          atStyle: widget.atStyle ?? Styles.ts_8443F8_17sp,
+          style: widget.style ?? StylesLibrary.ts_333333_17sp,
+          atStyle: widget.atStyle ?? StylesLibrary.ts_8443F8_17sp,
           inputFormatters: widget.inputFormatters ??
               [AtTextInputFormatter(widget.openAtList)],
           enabled: widget.enabled,
@@ -352,14 +352,14 @@ class _QuoteView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(bottom: 10.h, left: 56.w, right: 100.w),
-      color: Styles.c_F7F8FA,
+      color: StylesLibrary.c_F7F8FA,
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: onClearQuote,
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
           decoration: BoxDecoration(
-            color: Styles.c_FFFFFF,
+            color: StylesLibrary.c_FFFFFF,
             borderRadius: BorderRadius.circular(4.r),
           ),
           child: Row(
@@ -368,12 +368,12 @@ class _QuoteView extends StatelessWidget {
               Expanded(
                 child: Text(
                   content,
-                  style: Styles.ts_999999_14sp,
+                  style: StylesLibrary.ts_999999_14sp,
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              ImageRes.delQuote.toImage
+              ImageLibrary.delQuote.toImage
                 ..width = 14.w
                 ..height = 14.h,
             ],

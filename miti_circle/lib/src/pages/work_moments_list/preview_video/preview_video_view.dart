@@ -95,14 +95,14 @@ class _PreviewVideoPageState extends State<PreviewVideoPage> {
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
-            systemNavigationBarColor: Styles.c_000000,
+            systemNavigationBarColor: StylesLibrary.c_000000,
             systemNavigationBarIconBrightness: Brightness.light),
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Styles.c_000000,
+            backgroundColor: StylesLibrary.c_000000,
             toolbarHeight: 0,
           ),
-          backgroundColor: Styles.c_000000,
+          backgroundColor: StylesLibrary.c_000000,
           body: widget.heroTag != null
               ? Hero(tag: widget.heroTag!, child: _childView)
               : _childView,
@@ -110,7 +110,7 @@ class _PreviewVideoPageState extends State<PreviewVideoPage> {
   }
 
   Widget get _childView => Material(
-        color: Styles.c_000000,
+        color: StylesLibrary.c_000000,
         child: _chewieController != null &&
                 _chewieController!.videoPlayerController.value.isInitialized
             ? Chewie(controller: _chewieController!)

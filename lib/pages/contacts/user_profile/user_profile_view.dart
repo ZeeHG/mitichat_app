@@ -19,13 +19,13 @@ class UserProfilePage extends StatelessWidget {
     return Obx(() => Scaffold(
           appBar: TitleBar.back(
             right: logic.baseDataFinished.value && logic.isFriendship
-                ? (ImageRes.appMoreBlack.toImage
+                ? (ImageLibrary.appMoreBlack.toImage
                   ..width = 24.w
                   ..height = 24.h
                   ..onTap = logic.friendSetting)
                 : null,
           ),
-          backgroundColor: Styles.c_F7F8FA,
+          backgroundColor: StylesLibrary.c_F7F8FA,
           body: !logic.baseDataFinished.value
               ? const SizedBox()
               : SizedBox(
@@ -112,7 +112,7 @@ class UserProfilePage extends StatelessWidget {
   }
 
   Widget _buildBaseInfoView() => Container(
-        color: Styles.c_FFFFFF,
+        color: StylesLibrary.c_FFFFFF,
         height: 80.h,
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Row(
@@ -134,17 +134,17 @@ class UserProfilePage extends StatelessWidget {
                     children: [
                       Flexible(
                         child: logic.getShowName().toText
-                          ..style = Styles.ts_4B3230_18sp
+                          ..style = StylesLibrary.ts_4B3230_18sp
                           ..maxLines = 1
                           ..overflow = TextOverflow.ellipsis,
                       ),
                       12.horizontalSpace,
                       if (null != logic.userInfo.value.gender)
                         logic.userInfo.value.gender == 1
-                            ? (ImageRes.appMan.toImage
+                            ? (ImageLibrary.appMan.toImage
                               ..width = 21.w
                               ..height = 15.h)
-                            : (ImageRes.appWoman.toImage
+                            : (ImageLibrary.appWoman.toImage
                               ..width = 21.w
                               ..height = 15.h)
                     ],
@@ -154,7 +154,7 @@ class UserProfilePage extends StatelessWidget {
                           !logic.notAllowAddGroupMemberFriend.value) ...[
                     5.verticalSpace,
                     (logic.userInfo.value.userID ?? '').toText
-                      ..style = Styles.ts_B3AAAA_14sp
+                      ..style = StylesLibrary.ts_B3AAAA_14sp
                       ..onTap = logic.copyID
                   ]
                 ],
@@ -172,7 +172,7 @@ class UserProfilePage extends StatelessWidget {
                   behavior: HitTestBehavior.translucent,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Styles.c_8443F8,
+                      color: StylesLibrary.c_8443F8,
                       borderRadius: BorderRadius.circular(6.r),
                     ),
                     child: Container(
@@ -182,7 +182,8 @@ class UserProfilePage extends StatelessWidget {
                       ),
                       child: Row(
                         children: [
-                          StrLibrary.add.toText..style = Styles.ts_FFFFFF_14sp,
+                          StrLibrary.add.toText
+                            ..style = StylesLibrary.ts_FFFFFF_14sp,
                         ],
                       ),
                     ),
@@ -194,7 +195,7 @@ class UserProfilePage extends StatelessWidget {
       );
 
   Widget _buildOtherInfoView() => Container(
-        color: Styles.c_FFFFFF,
+        color: StylesLibrary.c_FFFFFF,
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
         child: Row(
           children: [
@@ -208,12 +209,12 @@ class UserProfilePage extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6.r),
-                          color: Styles.c_F7F7F7,
+                          color: StylesLibrary.c_F7F7F7,
                         ),
                         width: 40.w,
                         height: 40.h,
                         alignment: Alignment.center,
-                        child: ImageRes.appProductView.toImage
+                        child: ImageLibrary.appProductView.toImage
                           ..width = 20.w
                           ..height = 22.h,
                       ),
@@ -223,12 +224,12 @@ class UserProfilePage extends StatelessWidget {
                         children: [
                           Text(
                             StrLibrary.productView,
-                            style: Styles.ts_333333_14sp,
+                            style: StylesLibrary.ts_333333_14sp,
                           ),
                           4.verticalSpace,
                           Text(
                             sprintf(StrLibrary.countOfProduct, ["7"]),
-                            style: Styles.ts_B3AAAA_12sp,
+                            style: StylesLibrary.ts_B3AAAA_12sp,
                           ),
                         ],
                       )
@@ -244,12 +245,12 @@ class UserProfilePage extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6.r),
-                        color: Styles.c_F7F7F7,
+                        color: StylesLibrary.c_F7F7F7,
                       ),
                       width: 40.w,
                       height: 40.h,
                       alignment: Alignment.center,
-                      child: ImageRes.appFanGroup.toImage
+                      child: ImageLibrary.appFanGroup.toImage
                         ..width = 19.w
                         ..height = 19.h,
                     ),
@@ -259,12 +260,12 @@ class UserProfilePage extends StatelessWidget {
                       children: [
                         Text(
                           StrLibrary.fanGroup,
-                          style: Styles.ts_333333_14sp,
+                          style: StylesLibrary.ts_333333_14sp,
                         ),
                         4.verticalSpace,
                         Text(
                           sprintf(StrLibrary.countOfFanGroup, ["3"]),
-                          style: Styles.ts_B3AAAA_12sp,
+                          style: StylesLibrary.ts_B3AAAA_12sp,
                         ),
                       ],
                     )
@@ -279,7 +280,7 @@ class UserProfilePage extends StatelessWidget {
       return Container();
     }
     return Container(
-      color: Styles.c_FFFFFF,
+      color: StylesLibrary.c_FFFFFF,
       padding: EdgeInsets.only(left: 20.w),
       child: Table(
         defaultVerticalAlignment: TableCellVerticalAlignment.top,
@@ -312,7 +313,7 @@ class UserProfilePage extends StatelessWidget {
       TableRow(
         decoration: BoxDecoration(
           border: Border(
-            top: BorderSide(color: Styles.c_F1F2F6, width: 1.h),
+            top: BorderSide(color: StylesLibrary.c_F1F2F6, width: 1.h),
           ),
         ),
         children: [
@@ -320,7 +321,7 @@ class UserProfilePage extends StatelessWidget {
             child: Container(
               constraints: BoxConstraints(minHeight: 50.h),
               alignment: Alignment.centerLeft,
-              child: label.toText..style = Styles.ts_333333_16sp,
+              child: label.toText..style = StylesLibrary.ts_333333_16sp,
             ),
           ),
           TableCell(
@@ -328,7 +329,7 @@ class UserProfilePage extends StatelessWidget {
               padding: EdgeInsets.only(right: 20.w),
               constraints: BoxConstraints(minHeight: 50.h),
               alignment: Alignment.centerRight,
-              child: (value ?? '').toText..style = Styles.ts_999999_16sp,
+              child: (value ?? '').toText..style = StylesLibrary.ts_999999_16sp,
             ),
           ),
         ],
@@ -349,12 +350,12 @@ class UserProfilePage extends StatelessWidget {
       Container(
         margin: EdgeInsets.only(top: addMargin ? 12.h : 0),
         padding: EdgeInsets.only(left: 20.w),
-        color: Styles.c_FFFFFF,
+        color: StylesLibrary.c_FFFFFF,
         child: Container(
             decoration: BoxDecoration(
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
               border: Border(
-                top: BorderSide(color: Styles.c_F1F2F6, width: 1.h),
+                top: BorderSide(color: StylesLibrary.c_F1F2F6, width: 1.h),
               ),
             ),
             padding: EdgeInsets.only(right: 20.w),
@@ -362,23 +363,23 @@ class UserProfilePage extends StatelessWidget {
               behavior: HitTestBehavior.translucent,
               onTap: onTap,
               child: Container(
-                color: Styles.c_FFFFFF,
+                color: StylesLibrary.c_FFFFFF,
                 height: height ?? 50.h,
                 child: Row(
                   children: [
-                    label.toText..style = Styles.ts_333333_16sp,
+                    label.toText..style = StylesLibrary.ts_333333_16sp,
                     if (null != customContent) customContent,
                     const Spacer(),
                     if (showSwitchButton)
                       CupertinoSwitch(
                         value: switchOn,
-                        activeColor: Styles.c_07C160,
+                        activeColor: StylesLibrary.c_07C160,
                         onChanged: onChanged,
                       ),
                     if (null != value)
-                      value.toText..style = Styles.ts_999999_16sp,
+                      value.toText..style = StylesLibrary.ts_999999_16sp,
                     if (showRightArrow)
-                      ImageRes.appRightArrow.toImage
+                      ImageLibrary.appRightArrow.toImage
                         ..width = 24.w
                         ..height = 24.h,
                   ],
@@ -392,10 +393,10 @@ class UserProfilePage extends StatelessWidget {
         child: Column(children: [
           ImageTextButton(
             onTap: logic.toChat,
-            icon: ImageRes.appSendMessage,
+            icon: ImageLibrary.appSendMessage,
             text: StrLibrary.sendMessage,
-            textStyle: Styles.ts_9280B3_16sp_medium,
-            color: Styles.c_FFFFFF,
+            textStyle: StylesLibrary.ts_9280B3_16sp_medium,
+            color: StylesLibrary.c_FFFFFF,
             height: 50.h,
             iconHeight: 13.h,
             iconWidth: 21.w,
@@ -403,14 +404,14 @@ class UserProfilePage extends StatelessWidget {
           ),
           Divider(
             height: 1.h,
-            color: Styles.c_F1F2F6,
+            color: StylesLibrary.c_F1F2F6,
           ),
           ImageTextButton(
             onTap: logic.toCall,
-            icon: ImageRes.appAudioAndVideoCall,
+            icon: ImageLibrary.appAudioAndVideoCall,
             text: StrLibrary.audioAndVideoCall,
-            textStyle: Styles.ts_9280B3_16sp_medium,
-            color: Styles.c_FFFFFF,
+            textStyle: StylesLibrary.ts_9280B3_16sp_medium,
+            color: StylesLibrary.c_FFFFFF,
             height: 50.h,
             iconHeight: 17.h,
             iconWidth: 17.w,

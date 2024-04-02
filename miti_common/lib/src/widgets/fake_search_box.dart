@@ -12,7 +12,7 @@ class FakeSearchBox extends StatelessWidget {
       double? borderRadius})
       : width = width ?? 350.w,
         height = height ?? 35.h,
-        color = color ?? Styles.c_F7F7F7,
+        color = color ?? StylesLibrary.c_F7F7F7,
         borderRadius = borderRadius ?? 6.r,
         super(key: key);
 
@@ -35,11 +35,11 @@ class FakeSearchBox extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ImageRes.appSearch.toImage
+              ImageLibrary.appSearch.toImage
                 ..width = 15.w
                 ..height = 15.h,
               10.horizontalSpace,
-              StrLibrary.search.toText..style = Styles.ts_999999_16sp
+              StrLibrary.search.toText..style = StylesLibrary.ts_999999_16sp
             ],
           )),
     );

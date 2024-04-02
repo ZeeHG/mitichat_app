@@ -234,10 +234,10 @@ abstract class SignalState<T extends SignalView> extends State<T> {
             duration: const Duration(milliseconds: 200),
             onEnd: () {},
             child: Material(
-              color: Styles.c_000000,
+              color: StylesLibrary.c_000000,
               child: Stack(
                 children: [
-                  // ImageRes.liveBg.toImage
+                  // ImageLibrary.liveBg.toImage
                   //   ..fit = BoxFit.cover
                   //   ..width = 1.sw
                   //   ..height = 1.sh,

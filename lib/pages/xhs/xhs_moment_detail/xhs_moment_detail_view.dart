@@ -22,10 +22,10 @@ class XhsMomentDetailPage extends StatelessWidget {
       final xhsMoment = logic.xhsMomentList[0];
       return Scaffold(
         appBar: TitleBar.xhsMomentDetail(
-            backgroundColor: Styles.c_FFFFFF,
+            backgroundColor: StylesLibrary.c_FFFFFF,
             left: Expanded(
                 child: Row(children: [
-              ImageRes.appBackBlack.toImage
+              ImageLibrary.appBackBlack.toImage
                 ..width = 24.w
                 ..height = 24.h
                 ..onTap = (() => Get.back()),
@@ -38,15 +38,15 @@ class XhsMomentDetailPage extends StatelessWidget {
               ),
               9.horizontalSpace,
               (xhsMoment.nickname ?? "").toText
-                ..style = Styles.ts_333333_18sp_medium
+                ..style = StylesLibrary.ts_333333_18sp_medium
                 ..maxLines = 1
                 ..overflow = TextOverflow.ellipsis
                 ..textAlign = TextAlign.center,
             ])),
             // right: logic.isMyMoment? Button(
             //     text: StrLibrary .delete,
-            //     textStyle: Styles.ts_FFFFFF_14sp,
-            //     disabledTextStyle: Styles.ts_FFFFFF_14sp,
+            //     textStyle: StylesLibrary.ts_FFFFFF_14sp,
+            //     disabledTextStyle: StylesLibrary.ts_FFFFFF_14sp,
             //     height: 28.h,
             //     padding: EdgeInsets.symmetric(horizontal: 12.w),
             //     onTap: logic.delXhsMoment) : SizedBox(),
@@ -57,18 +57,18 @@ class XhsMomentDetailPage extends StatelessWidget {
                   width: 30.w,
                   height: 30.h,
                   child: Center(
-                    child: ImageRes.appMoreBlack.toImage
+                    child: ImageLibrary.appMoreBlack.toImage
                       ..width = 20.w
                       ..height = 20.h,
                   )),
             )),
-        backgroundColor: Styles.c_F7F7F7,
+        backgroundColor: StylesLibrary.c_F7F7F7,
         body: Stack(
           alignment: Alignment.center,
           fit: StackFit.expand,
           children: [
             Container(
-              color: Styles.c_FFFFFF,
+              color: StylesLibrary.c_FFFFFF,
             ),
             Listener(
                 onPointerDown: (event) {
@@ -104,8 +104,9 @@ class XhsMomentDetailPage extends StatelessWidget {
                                                   config.pageController!,
                                               layout: PageIndicatorLayout.SCALE,
                                               size: 10.h,
-                                              activeColor: Styles.c_8443F8,
-                                              color: Styles.c_CDCDCD,
+                                              activeColor:
+                                                  StylesLibrary.c_8443F8,
+                                              color: StylesLibrary.c_CDCDCD,
                                               space: 5,
                                             )),
                                       );
@@ -115,7 +116,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                                       (BuildContext context, int index) {
                                     return Container(
                                         padding: EdgeInsets.only(bottom: 25.h),
-                                        color: Styles.c_FFFFFF,
+                                        color: StylesLibrary.c_FFFFFF,
                                         child: xhsMoment.content?.type == 1
                                             ? Stack(
                                                 alignment: Alignment.center,
@@ -140,7 +141,8 @@ class XhsMomentDetailPage extends StatelessWidget {
                                                         (context, url, error) =>
                                                             Icon(Icons.error),
                                                   ),
-                                                  ImageRes.videoPause.toImage
+                                                  ImageLibrary
+                                                      .videoPause.toImage
                                                     ..width = 40.w
                                                     ..height = 40.h,
                                                 ],
@@ -186,7 +188,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 10.w, vertical: 10.h),
                                       decoration: BoxDecoration(
-                                        color: Styles.c_F7F8FA,
+                                        color: StylesLibrary.c_F7F8FA,
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(6.r)),
                                       ),
@@ -207,7 +209,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                                                 xhsMoment!.content!.title!
                                                     .toString()
                                                     .toText
-                                                  ..style = Styles
+                                                  ..style = StylesLibrary
                                                       .ts_333333_16sp_medium
                                                   ..overflow =
                                                       TextOverflow.ellipsis
@@ -222,7 +224,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                                                 xhsMoment!.content!.author!
                                                     .toString()
                                                     .toText
-                                                  ..style = Styles
+                                                  ..style = StylesLibrary
                                                       .ts_999999_12sp_medium
                                                   ..overflow =
                                                       TextOverflow.ellipsis
@@ -236,7 +238,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                                             Container(
                                               clipBehavior: Clip.antiAlias,
                                               decoration: BoxDecoration(
-                                                color: Styles.c_F7F8FA,
+                                                color: StylesLibrary.c_F7F8FA,
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(6.r)),
                                               ),
@@ -271,13 +273,14 @@ class XhsMomentDetailPage extends StatelessWidget {
                                 if (null != xhsMoment?.content?.title &&
                                     xhsMoment!.content!.title!.isNotEmpty) ...[
                                   xhsMoment!.content!.title!.toString().toText
-                                    ..style = Styles.ts_333333_16sp_medium,
+                                    ..style =
+                                        StylesLibrary.ts_333333_16sp_medium,
                                   10.verticalSpace
                                 ],
                                 if (null != xhsMoment.content?.text &&
                                     xhsMoment!.content!.text!.isNotEmpty) ...[
                                   xhsMoment.content!.text.toString().toText
-                                    ..style = Styles.ts_333333_14sp,
+                                    ..style = StylesLibrary.ts_333333_14sp,
                                   10.verticalSpace
                                 ],
                                 _buildTimeView(),
@@ -286,7 +289,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            color: Styles.c_F7F7F7,
+                            color: StylesLibrary.c_F7F7F7,
                             height: 6.h,
                           ),
                           Container(
@@ -299,7 +302,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                                       12.horizontalSpace,
                                       sprintf(StrLibrary.totalComment,
                                           [logic.commentsCount]).trim().toText
-                                        ..style = Styles.ts_999999_12sp,
+                                        ..style = StylesLibrary.ts_999999_12sp,
                                     ],
                                   ),
                                   if (logic.comments.isNotEmpty)
@@ -312,7 +315,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                       ),
                     )),
                     Container(
-                      color: Styles.c_F7F7F7,
+                      color: StylesLibrary.c_F7F7F7,
                       padding: EdgeInsets.symmetric(
                           horizontal: 12.w, vertical: 12.h),
                       child: Row(
@@ -326,39 +329,40 @@ class XhsMomentDetailPage extends StatelessWidget {
                                     horizontal: 14.w, vertical: 8.h),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(18.r),
-                                  color: Styles.c_FFFFFF,
+                                  color: StylesLibrary.c_FFFFFF,
                                 ),
                                 child: Row(
                                   children: [
-                                    ImageRes.editComment.toImage
+                                    ImageLibrary.editComment.toImage
                                       ..width = 14.w
                                       ..height = 14.h,
                                     6.horizontalSpace,
                                     Expanded(
                                         child: StrLibrary.saySomething.toText
-                                          ..style = Styles.ts_999999_14sp)
+                                          ..style =
+                                              StylesLibrary.ts_999999_14sp)
                                   ],
                                 )),
                           )),
                           19.horizontalSpace,
                           (logic.iIsLiked
-                                  ? ImageRes.likeActive
-                                  : ImageRes.like2)
+                                  ? ImageLibrary.likeActive
+                                  : ImageLibrary.like2)
                               .toImage
                             ..width = 20.w
                             ..height = 18.h
                             ..onTap = () => logic.likeMoments(),
                           5.horizontalSpace,
                           logic.likeUsersCount.toString().toText
-                            ..style = Styles.ts_4B3230_12sp,
+                            ..style = StylesLibrary.ts_4B3230_12sp,
                           19.horizontalSpace,
-                          ImageRes.comment.toImage
+                          ImageLibrary.comment.toImage
                             ..width = 20.w
                             ..height = 20.h
                             ..onTap = () => logic.commentMoments(),
                           5.horizontalSpace,
                           logic.commentsCount.toString().toText
-                            ..style = Styles.ts_4B3230_12sp,
+                            ..style = StylesLibrary.ts_4B3230_12sp,
                         ],
                       ),
                     )
@@ -380,13 +384,13 @@ class XhsMomentDetailPage extends StatelessWidget {
         dayFormat: DayFormat.Full,
         locale: Get.locale?.languageCode ?? 'zh',
       ).toText
-        ..style = Styles.ts_999999_12sp;
+        ..style = StylesLibrary.ts_999999_12sp;
 
   Widget _buildCommentView(Comments comment) => Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
         decoration: BoxDecoration(
-          border:
-              Border(bottom: BorderSide(color: Styles.c_EDEDED, width: 1.h)),
+          border: Border(
+              bottom: BorderSide(color: StylesLibrary.c_EDEDED, width: 1.h)),
         ),
         child: Column(
           children: [
@@ -411,7 +415,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             (comment.nickname ?? "").toText
-                              ..style = Styles.ts_9280B3_14sp_medium
+                              ..style = StylesLibrary.ts_9280B3_14sp_medium
                               ..overflow = TextOverflow.ellipsis
                               ..maxLines = 1,
                             // if (null != comment.content &&
@@ -421,7 +425,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                             //         BoxConstraints(maxWidth: 375.w - 104.w),
                             //     child: Container(
                             //       child: comment.content!.toText
-                            //         ..style = Styles.ts_333333_14sp,
+                            //         ..style = StylesLibrary.ts_333333_14sp,
                             //     ),
                             //   )
                             if (null != comment.content &&
@@ -441,17 +445,20 @@ class XhsMomentDetailPage extends StatelessWidget {
                                                   .isNotEmpty) ...[
                                             TextSpan(
                                                 text: StrLibrary.replied,
-                                                style: Styles.ts_333333_14sp),
+                                                style: StylesLibrary
+                                                    .ts_333333_14sp),
                                             TextSpan(
                                                 text: " " +
                                                     (comment.replyNickname ??
                                                         "") +
                                                     "：",
-                                                style: Styles.ts_8443F8_14sp)
+                                                style: StylesLibrary
+                                                    .ts_8443F8_14sp)
                                           ],
                                           TextSpan(
                                               text: comment.content,
-                                              style: Styles.ts_333333_14sp),
+                                              style:
+                                                  StylesLibrary.ts_333333_14sp),
                                         ]
                                       ]),
                                     ),
@@ -468,7 +475,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                       dayFormat: DayFormat.Full,
                       locale: Get.locale?.languageCode ?? 'zh',
                     ).toText
-                      ..style = Styles.ts_999999_11sp
+                      ..style = StylesLibrary.ts_999999_11sp
                   ],
                 ))
               ],
@@ -479,13 +486,13 @@ class XhsMomentDetailPage extends StatelessWidget {
 
   Widget get _inputBox => Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-        color: Styles.c_F7F8FA,
+        color: StylesLibrary.c_F7F8FA,
         child: Row(
           children: [
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Styles.c_FFFFFF,
+                  color: StylesLibrary.c_FFFFFF,
                   borderRadius: BorderRadius.circular(4.r),
                 ),
                 child: TextField(
@@ -494,11 +501,11 @@ class XhsMomentDetailPage extends StatelessWidget {
                   autofocus: true,
                   minLines: 1,
                   maxLines: 4,
-                  style: Styles.ts_333333_16sp,
+                  style: StylesLibrary.ts_333333_16sp,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: logic.commentHintText.value,
-                    hintStyle: Styles.ts_999999_16sp,
+                    hintStyle: StylesLibrary.ts_999999_16sp,
                     contentPadding: EdgeInsets.symmetric(
                       horizontal: 10.w,
                       vertical: 6.h,
@@ -509,7 +516,7 @@ class XhsMomentDetailPage extends StatelessWidget {
               ),
             ),
             12.horizontalSpace,
-            ImageRes.appSendMessage2.toImage
+            ImageLibrary.appSendMessage2.toImage
               ..width = 28.w
               ..height = 28.h
               ..onTap = logic.submitComment,

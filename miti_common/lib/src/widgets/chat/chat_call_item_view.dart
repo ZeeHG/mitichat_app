@@ -16,15 +16,20 @@ class ChatCallItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Row(
         children: [
-          (type == 'audio' ? ImageRes.voiceCallMsg : ImageRes.videoCallMsg)
+          (type == 'audio'
+                  ? ImageLibrary.voiceCallMsg
+                  : ImageLibrary.videoCallMsg)
               .toImage
             ..width = 18.w
             ..height = 18.h
-            ..color = (isISend ? Styles.c_FFFFFF : Styles.c_333333),
+            ..color =
+                (isISend ? StylesLibrary.c_FFFFFF : StylesLibrary.c_333333),
           8.horizontalSpace,
           Text(
             content,
-            style: isISend ? Styles.ts_FFFFFF_17sp : Styles.ts_333333_17sp,
+            style: isISend
+                ? StylesLibrary.ts_FFFFFF_17sp
+                : StylesLibrary.ts_333333_17sp,
           ),
         ],
       );

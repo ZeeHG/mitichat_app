@@ -41,7 +41,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       child: null == overBottomBg
           ? Container(
               decoration: BoxDecoration(
-                  color: backgroundColor ?? Styles.c_FFFFFF,
+                  color: backgroundColor ?? StylesLibrary.c_FFFFFF,
                   image: backgroundImage),
               padding: EdgeInsets.only(top: mq.padding.top),
               child: Container(
@@ -50,8 +50,8 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
                 decoration: showUnderline
                     ? BoxDecoration(
                         border: BorderDirectional(
-                          bottom:
-                              BorderSide(color: Styles.c_E8EAEF, width: 1.h),
+                          bottom: BorderSide(
+                              color: StylesLibrary.c_E8EAEF, width: 1.h),
                         ),
                       )
                     : null,
@@ -72,7 +72,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
             )
           : Container(
               decoration: BoxDecoration(
-                color: backgroundColor ?? Styles.c_FFFFFF,
+                color: backgroundColor ?? StylesLibrary.c_FFFFFF,
               ),
               // padding: EdgeInsets.only(top: mq.padding.top),
               child: Stack(
@@ -121,7 +121,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       CustomPopupMenuController? popCtrl,
       // this.left,
       this.backIconColor})
-      : backgroundColor = Styles.c_F7F8FA,
+      : backgroundColor = StylesLibrary.c_F7F8FA,
         showUnderline = false,
         height = 105.h,
         overBottomBg = IgnorePointer(
@@ -129,8 +129,8 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
             child: Container(
               decoration: const BoxDecoration(
                   image: DecorationImage(
-                image:
-                    AssetImage(ImageRes.appHeaderBg3, package: 'miti_common'),
+                image: AssetImage(ImageLibrary.appHeaderBg3,
+                    package: 'miti_common'),
                 fit: BoxFit.cover,
                 alignment: FractionalOffset.topCenter,
               )),
@@ -138,7 +138,9 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
         bottom = Positioned(
           top: (mq?.padding.top ?? 30.h) + 55.h,
           child: FakeSearchBox(
-              onTap: onClickSearch, color: Styles.c_FFFFFF, borderRadius: 18.r),
+              onTap: onClickSearch,
+              color: StylesLibrary.c_FFFFFF,
+              borderRadius: 18.r),
         ),
         // left = SizedBox(width: 28.w),
         center = Expanded(
@@ -150,9 +152,9 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
                 index: tabIndex.value,
                 onTabChanged: (i) => onSwitchTab(i),
                 showUnderline: false,
-                bgColor: Styles.transparent,
-                inactiveTextStyle: Styles.ts_4B3230_18sp,
-                activeTextStyle: Styles.ts_4B3230_20sp_medium,
+                bgColor: StylesLibrary.transparent,
+                inactiveTextStyle: StylesLibrary.ts_4B3230_18sp,
+                activeTextStyle: StylesLibrary.ts_4B3230_20sp_medium,
                 indicatorWidth: 20.w),
           ),
         ),
@@ -165,33 +167,33 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
               menus: [
                 PopMenuInfo(
                   text: StrLibrary.scan,
-                  icon: ImageRes.appPopMenuScan,
+                  icon: ImageLibrary.appPopMenuScan,
                   onTap: onScan,
                 ),
                 PopMenuInfo(
                   text: StrLibrary.addFriend,
-                  icon: ImageRes.appPopMenuAddFriend,
+                  icon: ImageLibrary.appPopMenuAddFriend,
                   onTap: onAddFriend,
                 ),
                 PopMenuInfo(
                   text: StrLibrary.addGroup,
-                  icon: ImageRes.appPopMenuAddGroup,
+                  icon: ImageLibrary.appPopMenuAddGroup,
                   onTap: onAddGroup,
                 ),
                 PopMenuInfo(
                   text: StrLibrary.createGroup,
-                  icon: ImageRes.appPopMenuCreateGroup,
+                  icon: ImageLibrary.appPopMenuCreateGroup,
                   onTap: onCreateGroup,
                 ),
                 // PopMenuInfo(
                 //   text: StrLibrary .videoMeeting,
-                //   icon: ImageRes.appPopMenuVideoMeeting,
+                //   icon: ImageLibrary.appPopMenuVideoMeeting,
                 //   onTap: onVideoMeeting,
                 // ),
               ],
               child: Padding(
                 padding: EdgeInsets.only(left: 12.w),
-                child: ImageRes.appAddBlack2.toImage
+                child: ImageLibrary.appAddBlack2.toImage
                   ..width = 28.w
                   ..height = 28.h,
               ) /*..onTap = onClickAddBtn*/,
@@ -233,7 +235,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
         //               flex: 5,
         //               child: Container(
         //                 child: title.trim().toText
-        //                   ..style = Styles.ts_333333_17sp_semibold
+        //                   ..style = StylesLibrary.ts_333333_17sp_semibold
         //                   ..maxLines = 1
         //                   ..overflow = TextOverflow.ellipsis
         //                   ..textAlign = TextAlign.center,
@@ -243,7 +245,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
         //                 flex: 2,
         //                 child: Container(
         //                     child: member.toText
-        //                       ..style = Styles.ts_333333_17sp_semibold
+        //                       ..style = StylesLibrary.ts_333333_17sp_semibold
         //                       ..maxLines = 1))
         //         ],
         //       ),
@@ -258,10 +260,10 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
         //               margin: EdgeInsets.only(right: 4.w),
         //               decoration: BoxDecoration(
         //                 shape: BoxShape.circle,
-        //                 color: isOnline ? Styles.c_18E875 : Styles.c_999999,
+        //                 color: isOnline ? StylesLibrary.c_18E875 : StylesLibrary.c_999999,
         //               ),
         //             ),
-        //           subTitle!.toText..style = Styles.ts_999999_10sp,
+        //           subTitle!.toText..style = StylesLibrary.ts_999999_10sp,
         //         ],
         //       ),
         //   ],
@@ -271,30 +273,30 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
             // flex: 1,
             child: isMultiModel
                 ? (StrLibrary.cancel.toText
-                  ..style = Styles.ts_333333_17sp
+                  ..style = StylesLibrary.ts_333333_17sp
                   ..onTap = onCloseMultiModel)
                 : Row(children: [
-                    ImageRes.appBackBlack.toImage
+                    ImageLibrary.appBackBlack.toImage
                       ..width = 24.w
                       ..height = 24.h
                       ..onTap = (() => Get.back()),
                     SizedBox(width: 12.w),
                     if (null != title) ...[
                       title.trim().toText
-                        ..style = Styles.ts_333333_18sp_medium
+                        ..style = StylesLibrary.ts_333333_18sp_medium
                         ..maxLines = 1
                         ..overflow = TextOverflow.ellipsis
                         ..textAlign = TextAlign.center,
                       if (isAiSingleChat) ...[
                         9.horizontalSpace,
-                        ImageRes.appAiMarker.toImage
+                        ImageLibrary.appAiMarker.toImage
                           ..width = 18.w
                           ..height = 16.h,
                       ]
                     ],
                     if (null != member)
                       member.toText
-                        ..style = Styles.ts_333333_18sp_medium
+                        ..style = StylesLibrary.ts_333333_18sp_medium
                         ..maxLines = 1
                   ])),
         right = SizedBox(
@@ -305,16 +307,16 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 // if (showCallBtn)
-                //   ImageRes.callBack.toImage
+                //   ImageLibrary.callBack.toImage
                 //     ..width = 28.w
                 //     ..height = 28.h
                 //     ..onTap = onClickCallBtn,
                 // if (showBotBtn)
-                //   ImageRes.botBtn.toImage
+                //   ImageLibrary.botBtn.toImage
                 //     ..width = 26.w
                 //     ..height = 20.h,
                 // 29.horizontalSpace,
-                ImageRes.appMoreBlack.toImage
+                ImageLibrary.appMoreBlack.toImage
                   ..width = 24.w
                   ..height = 24.h
                   ..onTap = onClickMoreBtn,
@@ -338,10 +340,10 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       this.bottom,
       this.backgroundImage})
       : height = 44.h,
-        backgroundColor = backgroundColor ?? Styles.c_FFFFFF,
+        backgroundColor = backgroundColor ?? StylesLibrary.c_FFFFFF,
         center = Expanded(
             child: (title ?? '').toText
-              ..style = (titleStyle ?? Styles.ts_333333_18sp_medium)
+              ..style = (titleStyle ?? StylesLibrary.ts_333333_18sp_medium)
               ..textAlign = TextAlign.center),
         left = hideBack
             ? null
@@ -351,14 +353,14 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    ImageRes.appBackBlack.toImage
+                    ImageLibrary.appBackBlack.toImage
                       ..width = 24.w
                       ..height = 24.h
                       ..color = backIconColor,
                     if (null != leftTitle)
                       leftTitle.toText
-                        ..style =
-                            (leftTitleStyle ?? Styles.ts_333333_17sp_semibold),
+                        ..style = (leftTitleStyle ??
+                            StylesLibrary.ts_333333_17sp_semibold),
                   ],
                 ),
               ),
@@ -385,7 +387,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       : height = 44.h,
         center = Expanded(
             child: (title ?? '').toText
-              ..style = (titleStyle ?? Styles.ts_FFFFFF_17sp_semibold)
+              ..style = (titleStyle ?? StylesLibrary.ts_FFFFFF_17sp_semibold)
               ..textAlign = TextAlign.center),
         left = GestureDetector(
           behavior: HitTestBehavior.translucent,
@@ -393,13 +395,14 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ImageRes.appBackBlack.toImage
+              ImageLibrary.appBackBlack.toImage
                 ..width = 24.w
                 ..height = 24.h
-                ..color = backIconColor ?? Styles.c_FFFFFF,
+                ..color = backIconColor ?? StylesLibrary.c_FFFFFF,
               if (null != leftTitle)
                 leftTitle.toText
-                  ..style = (leftTitleStyle ?? Styles.ts_333333_17sp_semibold),
+                  ..style =
+                      (leftTitleStyle ?? StylesLibrary.ts_333333_17sp_semibold),
             ],
           ),
         );
@@ -422,15 +425,15 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       RxInt? unhandledCount,
       MediaQueryData? mq,
       this.backgroundImage})
-      : backgroundColor = Styles.c_FFFFFF,
+      : backgroundColor = StylesLibrary.c_FFFFFF,
         height = 105.h,
         overBottomBg = IgnorePointer(
             ignoring: true,
             child: Container(
               decoration: const BoxDecoration(
                   image: DecorationImage(
-                image:
-                    AssetImage(ImageRes.appHeaderBg3, package: 'miti_common'),
+                image: AssetImage(ImageLibrary.appHeaderBg3,
+                    package: 'miti_common'),
                 fit: BoxFit.cover,
                 alignment: FractionalOffset.topCenter,
               )),
@@ -451,9 +454,9 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
                 index: tabIndex.value,
                 onTabChanged: (i) => onSwitchTab(i),
                 showUnderline: false,
-                bgColor: Styles.transparent,
-                inactiveTextStyle: Styles.ts_4B3230_18sp,
-                activeTextStyle: Styles.ts_4B3230_20sp_medium,
+                bgColor: StylesLibrary.transparent,
+                inactiveTextStyle: StylesLibrary.ts_4B3230_18sp,
+                activeTextStyle: StylesLibrary.ts_4B3230_20sp_medium,
                 indicatorWidth: 20.w),
           ),
         ),
@@ -464,7 +467,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
         // right = Row(
         //   children: [
         //     12.horizontalSpace,
-        //     ImageRes.appAddContacts.toImage
+        //     ImageLibrary.appAddContacts.toImage
         //       ..width = 28.w
         //       ..height = 28.h
         //       ..onTap = onClickAddContacts,
@@ -478,33 +481,33 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
               menus: [
                 PopMenuInfo(
                   text: StrLibrary.scan,
-                  icon: ImageRes.appPopMenuScan,
+                  icon: ImageLibrary.appPopMenuScan,
                   onTap: onScan,
                 ),
                 PopMenuInfo(
                   text: StrLibrary.addFriend,
-                  icon: ImageRes.appPopMenuAddFriend,
+                  icon: ImageLibrary.appPopMenuAddFriend,
                   onTap: onAddFriend,
                 ),
                 PopMenuInfo(
                   text: StrLibrary.addGroup,
-                  icon: ImageRes.appPopMenuAddGroup,
+                  icon: ImageLibrary.appPopMenuAddGroup,
                   onTap: onAddGroup,
                 ),
                 PopMenuInfo(
                   text: StrLibrary.createGroup,
-                  icon: ImageRes.appPopMenuCreateGroup,
+                  icon: ImageLibrary.appPopMenuCreateGroup,
                   onTap: onCreateGroup,
                 ),
                 // PopMenuInfo(
                 //   text: StrLibrary .videoMeeting,
-                //   icon: ImageRes.appPopMenuVideoMeeting,
+                //   icon: ImageLibrary.appPopMenuVideoMeeting,
                 //   onTap: onVideoMeeting,
                 // ),
               ],
               child: Padding(
                 padding: EdgeInsets.only(left: 12.w),
-                child: ImageRes.appAddBlack2.toImage
+                child: ImageLibrary.appAddBlack2.toImage
                   ..width = 28.w
                   ..height = 28.h,
               ) /*..onTap = onClickAddBtn*/,
@@ -520,10 +523,10 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
   //     this.backIconColor,
   //     this.backgroundImage})
   //     : height = 44.h,
-  //       backgroundColor = Styles.c_FFFFFF,
+  //       backgroundColor = StylesLibrary.c_FFFFFF,
   //       center = null,
   //       left = StrLibrary.workbench.toText
-  //         ..style = Styles.ts_333333_20sp_semibold,
+  //         ..style = StylesLibrary.ts_333333_20sp_semibold,
   //       right = null;
 
   TitleBar.search(
@@ -541,7 +544,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       this.overBottomBg,
       this.backgroundImage})
       : height = 44.h,
-        backgroundColor = Styles.c_FFFFFF,
+        backgroundColor = StylesLibrary.c_FFFFFF,
         center = Expanded(
           child: Container(
               child: SearchBox(
@@ -559,7 +562,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
         right = Padding(
           padding: EdgeInsets.only(left: 16.w),
           child: StrLibrary.cancel.toText
-            ..style = Styles.ts_9280B3_16sp
+            ..style = StylesLibrary.ts_9280B3_16sp
             ..onTap = (() => Get.back()),
         );
 

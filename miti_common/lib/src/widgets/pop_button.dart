@@ -118,11 +118,11 @@ class PopButton extends StatelessWidget {
 
   Widget _buildPopBgView({Widget? child}) => Container(
         decoration: BoxDecoration(
-          color: bgColor ?? Styles.c_FFFFFF,
+          color: bgColor ?? StylesLibrary.c_FFFFFF,
           borderRadius: BorderRadius.circular(bgRadius ?? 8.r),
           boxShadow: [
             BoxShadow(
-              color: bgShadowColor ?? Styles.c_999999_opacity16,
+              color: bgShadowColor ?? StylesLibrary.c_999999_opacity16,
               offset: bgShadowOffset ?? Offset(0, 6.h),
               blurRadius: bgShadowBlurRadius ?? 16.r,
               spreadRadius: bgShadowSpreadRadius ?? 1.r,
@@ -149,7 +149,7 @@ class PopButton extends StatelessWidget {
               ? BoxDecoration(
                   border: BorderDirectional(
                     bottom: BorderSide(
-                      color: lineColor ?? Styles.c_F5F0F0,
+                      color: lineColor ?? StylesLibrary.c_F5F0F0,
                       width: lineWidth ?? 1,
                     ),
                   ),
@@ -166,7 +166,7 @@ class PopButton extends StatelessWidget {
                     ..height = (menuItemIconHeight ?? 20.h),
                 ),
               info.text.toText
-                ..style = (menuItemTextStyle ?? Styles.ts_333333_16sp),
+                ..style = (menuItemTextStyle ?? StylesLibrary.ts_333333_16sp),
             ],
           ),
         ),

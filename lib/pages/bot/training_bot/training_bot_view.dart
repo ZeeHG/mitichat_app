@@ -15,7 +15,7 @@ class TrainingBotPage extends StatelessWidget {
         appBar: TitleBar.back(
           title: StrLibrary.training,
         ),
-        backgroundColor: Styles.c_F7F8FA,
+        backgroundColor: StylesLibrary.c_F7F8FA,
         body: Stack(
           children: [
             SizedBox(
@@ -27,28 +27,29 @@ class TrainingBotPage extends StatelessWidget {
                         EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
                     child: Row(
                       children: [
-                        ImageRes.appRefresh.toImage
+                        ImageLibrary.appRefresh.toImage
                           ..width = 16.w
                           ..height = 16.h,
                         10.horizontalSpace,
-                        StrLibrary.temp1.toText..style = Styles.ts_8443F8_12sp,
+                        StrLibrary.temp1.toText
+                          ..style = StylesLibrary.ts_8443F8_12sp,
                       ],
                     ),
                   ),
                   Container(
-                    color: Styles.c_FFFFFF,
+                    color: StylesLibrary.c_FFFFFF,
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ("${StrLibrary.question}：").toText
-                          ..style = Styles.ts_303137_14sp_medium,
+                          ..style = StylesLibrary.ts_303137_14sp_medium,
                         TextFormField(
                           maxLines: 7,
-                          style: Styles.ts_303137_14sp_medium,
+                          style: StylesLibrary.ts_303137_14sp_medium,
                           decoration: InputDecoration(
-                              fillColor: Styles.c_FFFFFF,
+                              fillColor: StylesLibrary.c_FFFFFF,
                               contentPadding: EdgeInsets.zero,
                               filled: true,
                               border: InputBorder.none),
@@ -58,19 +59,19 @@ class TrainingBotPage extends StatelessWidget {
                   ),
                   12.verticalSpace,
                   Container(
-                    color: Styles.c_FFFFFF,
+                    color: StylesLibrary.c_FFFFFF,
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ("${StrLibrary.answer}：").toText
-                          ..style = Styles.ts_303137_14sp_medium,
+                          ..style = StylesLibrary.ts_303137_14sp_medium,
                         TextFormField(
                           maxLines: 7,
-                          style: Styles.ts_303137_14sp_medium,
+                          style: StylesLibrary.ts_303137_14sp_medium,
                           decoration: InputDecoration(
-                              fillColor: Styles.c_FFFFFF,
+                              fillColor: StylesLibrary.c_FFFFFF,
                               contentPadding: EdgeInsets.zero,
                               filled: true,
                               border: InputBorder.none),
@@ -89,9 +90,9 @@ class TrainingBotPage extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Button(
                     text: StrLibrary.startTrain,
-                    textStyle: Styles.ts_FFFFFF_16sp,
+                    textStyle: StylesLibrary.ts_FFFFFF_16sp,
                     radius: 21.r,
-                    enabledColor: Styles.c_8443F8,
+                    enabledColor: StylesLibrary.c_8443F8,
                     height: 42.h,
                     width: 289.w,
                   ),
