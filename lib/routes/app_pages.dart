@@ -64,41 +64,41 @@ import '../pages/bot/create_bot/create_bot_view.dart';
 import '../pages/bot/training_bot/training_bot_binding.dart';
 import '../pages/bot/training_bot/training_bot_view.dart';
 import '../pages/chat/chat_binding.dart';
-import '../pages/chat/chat_setup/chat_setup_binding.dart';
-import '../pages/chat/chat_setup/chat_setup_view.dart';
-import '../pages/chat/chat_setup/emoji_favorite_manage/emoji_favorite_manage_binding.dart';
-import '../pages/chat/chat_setup/emoji_favorite_manage/emoji_favorite_manage_view.dart';
-import '../pages/chat/chat_setup/chat_history/file/file_binding.dart';
-import '../pages/chat/chat_setup/chat_history/file/file_view.dart';
-import '../pages/chat/chat_setup/chat_history/media/media_binding.dart';
-import '../pages/chat/chat_setup/chat_history/media/media_view.dart';
-import '../pages/chat/chat_setup/chat_history/preview_chat_history/preview_chat_history_binding.dart';
-import '../pages/chat/chat_setup/chat_history/preview_chat_history/preview_chat_history_view.dart';
-import '../pages/chat/chat_setup/chat_history/chat_history_binding.dart';
-import '../pages/chat/chat_setup/chat_history/chat_history_view.dart';
-import '../pages/chat/chat_setup/background_setting/background_setting_binding.dart';
-import '../pages/chat/chat_setup/background_setting/background_setting_view.dart';
-// import '../pages/chat/chat_setup/set_font_size/set_font_size_binding.dart';
-// import '../pages/chat/chat_setup/set_font_size/set_font_size_view.dart';
+import '../pages/chat/chat_setting/chat_setting_binding.dart';
+import '../pages/chat/chat_setting/chat_setting_view.dart';
+import '../pages/chat/chat_setting/emoji_favorite_manage/emoji_favorite_manage_binding.dart';
+import '../pages/chat/chat_setting/emoji_favorite_manage/emoji_favorite_manage_view.dart';
+import '../pages/chat/chat_setting/chat_history/file/file_binding.dart';
+import '../pages/chat/chat_setting/chat_history/file/file_view.dart';
+import '../pages/chat/chat_setting/chat_history/media/media_binding.dart';
+import '../pages/chat/chat_setting/chat_history/media/media_view.dart';
+import '../pages/chat/chat_setting/chat_history/preview_chat_history/preview_chat_history_binding.dart';
+import '../pages/chat/chat_setting/chat_history/preview_chat_history/preview_chat_history_view.dart';
+import '../pages/chat/chat_setting/chat_history/chat_history_binding.dart';
+import '../pages/chat/chat_setting/chat_history/chat_history_view.dart';
+import '../pages/chat/chat_setting/background_setting/background_setting_binding.dart';
+import '../pages/chat/chat_setting/background_setting/background_setting_view.dart';
+// import '../pages/chat/chat_setting/set_font_size/set_font_size_binding.dart';
+// import '../pages/chat/chat_setting/set_font_size/set_font_size_view.dart';
 import '../pages/chat/chat_view.dart';
-import '../pages/chat/group_setup/edit_announcement/edit_announcement_binding.dart';
-import '../pages/chat/group_setup/edit_announcement/edit_announcement_view.dart';
-import '../pages/chat/group_setup/edit_name/edit_name_binding.dart';
-import '../pages/chat/group_setup/edit_name/edit_name_view.dart';
-import '../pages/chat/group_setup/group_manage/group_manage_binding.dart';
-import '../pages/chat/group_setup/group_manage/group_manage_view.dart';
-import '../pages/chat/group_setup/group_member_list/group_member_list_binding.dart';
-import '../pages/chat/group_setup/group_member_list/group_member_list_view.dart';
-import '../pages/chat/group_setup/group_member_list/search_group_member/search_group_member_binding.dart';
-import '../pages/chat/group_setup/group_member_list/search_group_member/search_group_member_view.dart';
-import '../pages/chat/group_setup/group_qrcode/group_qrcode_binding.dart';
-import '../pages/chat/group_setup/group_qrcode/group_qrcode_view.dart';
-import '../pages/chat/group_setup/group_read_list/group_read_list_binding.dart';
-import '../pages/chat/group_setup/group_read_list/group_read_list_view.dart';
-import '../pages/chat/group_setup/group_setup_binding.dart';
-import '../pages/chat/group_setup/group_setup_view.dart';
-import '../pages/chat/group_setup/set_mute_for_memeber/set_mute_for_member_binding.dart';
-import '../pages/chat/group_setup/set_mute_for_memeber/set_mute_for_member_view.dart';
+import '../pages/chat/group_setting/edit_announcement/edit_announcement_binding.dart';
+import '../pages/chat/group_setting/edit_announcement/edit_announcement_view.dart';
+import '../pages/chat/group_setting/edit_name/edit_name_binding.dart';
+import '../pages/chat/group_setting/edit_name/edit_name_view.dart';
+import '../pages/chat/group_setting/group_manage/group_manage_binding.dart';
+import '../pages/chat/group_setting/group_manage/group_manage_view.dart';
+import '../pages/chat/group_setting/group_member_list/group_member_list_binding.dart';
+import '../pages/chat/group_setting/group_member_list/group_member_list_view.dart';
+import '../pages/chat/group_setting/group_member_list/search_group_member/search_group_member_binding.dart';
+import '../pages/chat/group_setting/group_member_list/search_group_member/search_group_member_view.dart';
+import '../pages/chat/group_setting/group_qrcode/group_qrcode_binding.dart';
+import '../pages/chat/group_setting/group_qrcode/group_qrcode_view.dart';
+import '../pages/chat/group_setting/group_read_list/group_read_list_binding.dart';
+import '../pages/chat/group_setting/group_read_list/group_read_list_view.dart';
+import '../pages/chat/group_setting/group_setting_binding.dart';
+import '../pages/chat/group_setting/group_setting_view.dart';
+import '../pages/chat/group_setting/set_mute_for_memeber/set_mute_for_member_binding.dart';
+import '../pages/chat/group_setting/set_mute_for_memeber/set_mute_for_member_view.dart';
 import '../pages/contacts/search_add_contacts/search_add_contacts_binding.dart';
 import '../pages/contacts/search_add_contacts/search_add_contacts_view.dart';
 // import '../pages/contacts/add_method/add_method_binding.dart';
@@ -368,8 +368,8 @@ class AppPages {
     ),
     _pageBuilder(
       name: AppRoutes.groupChatSetup,
-      page: () => GroupSetupPage(),
-      binding: GroupSetupBinding(),
+      page: () => ChatSettingPage(),
+      binding: ChatSettingBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.groupManage,

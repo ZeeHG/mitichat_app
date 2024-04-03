@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:sprintf/sprintf.dart';
-import 'group_setup_logic.dart';
+import 'group_setting_logic.dart';
 
-class GroupSetupPage extends StatelessWidget {
-  final logic = Get.find<GroupSetupLogic>();
+class ChatSettingPage extends StatelessWidget {
+  final logic = Get.find<ChatSettingLogic>();
 
-  GroupSetupPage({super.key});
+  ChatSettingPage({super.key});
 
   @override
   Widget build(BuildContext context) {

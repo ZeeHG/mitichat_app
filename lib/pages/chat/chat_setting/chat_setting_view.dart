@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
-import 'chat_setup_logic.dart';
+import 'chat_setting_logic.dart';
 
 class ChatSetupPage extends StatelessWidget {
   final logic = Get.find<ChatSetupLogic>();

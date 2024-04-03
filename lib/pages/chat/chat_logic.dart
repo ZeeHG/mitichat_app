@@ -32,7 +32,7 @@ import '../../core/im_callback.dart';
 import '../../routes/app_navigator.dart';
 import '../contacts/select_contacts/select_contacts_logic.dart';
 import '../conversation/conversation_logic.dart';
-import 'group_setup/group_member_list/group_member_list_logic.dart';
+import 'group_setting/group_member_list/group_member_list_logic.dart';
 
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart'

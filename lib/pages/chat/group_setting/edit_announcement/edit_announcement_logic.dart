@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
 class EditGroupAnnouncementLogic extends GetxController {
-  // final groupSetupLogic = Get.find<GroupSetupLogic>();
+  // final groupSetupLogic = Get.find<ChatSettingLogic>();
   final inputCtrl = TextEditingController();
   final focusNode = FocusNode();
   final onlyRead = true.obs;
@@ -76,7 +76,8 @@ class EditGroupAnnouncementLogic extends GetxController {
     }
     final me =
         list.firstWhereOrNull((e) => e.userID == OpenIM.iMManager.userID);
-    hasEditPermissions.value = [GroupRoleLevel.admin, GroupRoleLevel.owner].contains(me?.roleLevel);
+    hasEditPermissions.value =
+        [GroupRoleLevel.admin, GroupRoleLevel.owner].contains(me?.roleLevel);
   }
 
   editing() {
@@ -91,7 +92,7 @@ class EditGroupAnnouncementLogic extends GetxController {
         await OpenIM.iMManager.groupManager.setGroupInfo(GroupInfo(
             groupID: groupInfo.value.groupID,
             notification: inputCtrl.text.trim()));
-            groupInfo.update((val) {
+        groupInfo.update((val) {
           val?.notification = inputCtrl.text.trim();
         });
         Get.back();

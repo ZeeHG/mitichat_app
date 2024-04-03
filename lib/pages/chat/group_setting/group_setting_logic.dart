@@ -3,7 +3,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:miti/pages/chat/group_setup/edit_name/edit_name_logic.dart';
+import 'package:miti/pages/chat/group_setting/edit_name/edit_name_logic.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:synchronized/synchronized.dart';
@@ -14,10 +14,10 @@ import '../../../routes/app_navigator.dart';
 import '../../contacts/select_contacts/select_contacts_logic.dart';
 import '../../conversation/conversation_logic.dart';
 import '../chat_logic.dart';
-import '../chat_setup/chat_history/media/media_logic.dart';
+import '../chat_setting/chat_history/media/media_logic.dart';
 import 'group_member_list/group_member_list_logic.dart';
 
-class GroupSetupLogic extends GetxController {
+class ChatSettingLogic extends GetxController {
   final imCtrl = Get.find<IMCtrl>();
 
   // final chatLogic = Get.find<ChatLogic>();

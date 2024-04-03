@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:miti/pages/mine/phone_email_change/phone_email_change_logic.dart';
 import 'package:miti_common/miti_common.dart';
 
-import '../pages/chat/chat_setup/chat_history/media/media_logic.dart';
-import '../pages/chat/group_setup/edit_name/edit_name_logic.dart';
-import '../pages/chat/group_setup/group_member_list/group_member_list_logic.dart';
+import '../pages/chat/chat_setting/chat_history/media/media_logic.dart';
+import '../pages/chat/group_setting/edit_name/edit_name_logic.dart';
+import '../pages/chat/group_setting/group_member_list/group_member_list_logic.dart';
 import '../pages/contacts/search_add_contacts/search_add_contacts_logic.dart';
 import '../pages/contacts/group_profile/group_profile_logic.dart';
 import '../pages/contacts/select_contacts/select_contacts_logic.dart';

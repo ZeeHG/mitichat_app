@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:miti/pages/chat/group_setup/group_setup_logic.dart';
+import 'package:miti/pages/chat/group_setting/group_setting_logic.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sprintf/sprintf.dart';
@@ -76,7 +76,7 @@ class SearchGroupMemberLogic extends GetxController {
     if (key.isNotEmpty) {
       final list = await _request(0);
       memberList.assignAll(list);
-      list.length < count? controller.loadNoData() : controller.loadComplete();
+      list.length < count ? controller.loadNoData() : controller.loadComplete();
     } else {
       memberList.clear();
     }
@@ -97,7 +97,7 @@ class SearchGroupMemberLogic extends GetxController {
         opType == GroupMemberOpType.call) {
       return info.userID == OpenIM.iMManager.userID;
     } else if (opType == GroupMemberOpType.del) {
-      final logic = Get.find<GroupSetupLogic>();
+      final logic = Get.find<ChatSettingLogic>();
       return logic.isAdmin && info.roleLevel != GroupRoleLevel.member ||
           logic.isOwner && info.roleLevel == GroupRoleLevel.owner;
     }

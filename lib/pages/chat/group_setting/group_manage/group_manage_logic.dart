@@ -1,13 +1,13 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:miti/pages/chat/group_setup/group_setup_logic.dart';
+import 'package:miti/pages/chat/group_setting/group_setting_logic.dart';
 import 'package:miti_common/miti_common.dart';
 
 import '../../../../routes/app_navigator.dart';
 import '../group_member_list/group_member_list_logic.dart';
 
 class GroupManageLogic extends GetxController {
-  final groupSetupLogic = Get.find<GroupSetupLogic>();
+  final groupSetupLogic = Get.find<ChatSettingLogic>();
 
   Rx<GroupInfo> get groupInfo => groupSetupLogic.groupInfo;
 

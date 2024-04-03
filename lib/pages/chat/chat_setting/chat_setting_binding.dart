@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import 'chat_setup_logic.dart';
+import 'chat_setting_logic.dart';
 
 class ChatSetupBinding extends Bindings {
   @override
