@@ -10,7 +10,7 @@ typedef CustomAvatarBuilder = Widget? Function();
 
 class AvatarView extends StatelessWidget {
   const AvatarView({
-    Key? key,
+    super.key,
     this.width,
     this.height,
     this.onTap,
@@ -26,7 +26,7 @@ class AvatarView extends StatelessWidget {
     this.nineGridUrl = const [],
     this.isGroup = false,
     this.showDefaultAvatar = true,
-  }) : super(key: key);
+  });
   final double? width;
   final double? height;
   final Function()? onTap;

@@ -5,11 +5,11 @@ import 'package:miti_common/miti_common.dart';
 
 class ChatFileIconView extends StatelessWidget {
   const ChatFileIconView({
-    Key? key,
+    super.key,
     required this.message,
     this.sendProgressStream,
     this.downloadProgressView,
-  }) : super(key: key);
+  });
   final Message message;
   final Stream<MsgStreamEv<int>>? sendProgressStream;
   final Widget? downloadProgressView;

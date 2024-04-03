@@ -5,7 +5,7 @@ import 'package:miti_common/miti_common.dart';
 
 class CustomTabBar extends StatelessWidget {
   const CustomTabBar(
-      {Key? key,
+      {super.key,
       required this.index,
       required this.labels,
       this.selectedStyle,
@@ -20,8 +20,7 @@ class CustomTabBar extends StatelessWidget {
       this.activeTextStyle,
       this.inactiveTextStyle,
       this.counts,
-      this.bgColor})
-      : super(key: key);
+      this.bgColor});
   final int index;
   final List<String> labels;
   final List<RxInt>? counts;
