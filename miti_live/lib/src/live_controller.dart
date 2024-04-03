@@ -566,6 +566,7 @@ mixin MitiLive {
     //   _audioPlayer.stop();
     // }
     try {
+      FlutterRingtonePlayer().playNotification(volume: 0);
       FlutterRingtonePlayer().stop();
       Vibration.cancel();
     } catch (e) {

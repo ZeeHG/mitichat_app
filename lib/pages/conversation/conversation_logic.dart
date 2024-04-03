@@ -328,17 +328,13 @@ class ConversationLogic extends GetxController {
         list = await getConversationList(this.list.length);
         this.list.addAll(list);
       }
-      if (list.isEmpty || list.length < pageSize) {
-        refreshController.loadNoData();
-      } else {
-        refreshController.loadComplete();
-      }
     } finally {
       if (list.isEmpty || list.length < pageSize) {
         refreshController.loadNoData();
       } else {
         refreshController.loadComplete();
       }
+      if(refresh) refreshController.refreshCompleted();
     }
   }
 
