@@ -53,7 +53,7 @@ class XhsMomentDetailPage extends StatelessWidget {
             right: GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: logic.openMoreSheet,
-              child: Container(
+              child: SizedBox(
                   width: 30.w,
                   height: 30.h,
                   child: Center(
@@ -131,7 +131,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                                                             .original!,
                                                     placeholder:
                                                         (context, url) =>
-                                                            Container(
+                                                            SizedBox(
                                                                 height: 80.h,
                                                                 child: Center(
                                                                   child: Text(
@@ -139,7 +139,7 @@ class XhsMomentDetailPage extends StatelessWidget {
                                                                 )),
                                                     errorWidget:
                                                         (context, url, error) =>
-                                                            Icon(Icons.error),
+                                                            const Icon(Icons.error),
                                                   ),
                                                   ImageLibrary
                                                       .videoPause.toImage
@@ -151,15 +151,15 @@ class XhsMomentDetailPage extends StatelessWidget {
                                                 imageUrl: xhsMoment.content!
                                                     .metas![index].original!,
                                                 placeholder: (context, url) =>
-                                                    Container(
+                                                    SizedBox(
                                                         height: 80.h,
-                                                        child: Center(
+                                                        child: const Center(
                                                           child: Text(
                                                               "loading..."),
                                                         )),
                                                 errorWidget:
                                                     (context, url, error) =>
-                                                        Container(
+                                                        SizedBox(
                                                             height: 80.h,
                                                             child: Center(
                                                               child: Text(""),

@@ -67,7 +67,7 @@ class XhsPage extends StatelessWidget {
       12.verticalSpace,
       // FakeSearchBox(
       //     onTap: logic.search, color: StylesLibrary.c_FFFFFF, borderRadius: 18.r),
-      Container(
+      SizedBox(
         width: 375.w,
         height: 46.w,
         child: Center(

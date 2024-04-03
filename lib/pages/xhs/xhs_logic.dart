@@ -235,6 +235,7 @@ class XhsLogic extends GetxController {
     // opEventSub = wcBridge?.opEventSub.listen(_opEventListener);
     scrollController.addListener(_scrollListener);
     pageController.addListener(_pageListener);
+    refreshWorkingCircleList(silence: false);
     super.onInit();
   }
 
@@ -262,12 +263,6 @@ class XhsLogic extends GetxController {
         refreshWorkingCircleList(silence: false);
       });
     }
-  }
-
-  @override
-  void onReady() {
-    refreshWorkingCircleList(silence: false);
-    super.onReady();
   }
 
   void refreshWorkingCircleList({bool silence = true}) {
@@ -373,60 +368,60 @@ class XhsLogic extends GetxController {
   }
 
   /// 提交评论
-  submitComment() async {
-    final text = inputCtrl.text.trim();
-    if (text.isNotEmpty && null != commentWorkMomentsID) {
-      await LoadingView.singleton.start(fn: () async {
-        await CircleApis.commentMoments(
-          workMomentID: commentWorkMomentsID!,
-          text: text,
-          replyUserID: replyUserID,
-        );
-        await _updateData(commentWorkMomentsID!);
-      });
-      cancelComment();
-    }
-  }
+  // submitComment() async {
+  //   final text = inputCtrl.text.trim();
+  //   if (text.isNotEmpty && null != commentWorkMomentsID) {
+  //     await LoadingView.singleton.start(fn: () async {
+  //       await CircleApis.commentMoments(
+  //         workMomentID: commentWorkMomentsID!,
+  //         text: text,
+  //         replyUserID: replyUserID,
+  //       );
+  //       await _updateData(commentWorkMomentsID!);
+  //     });
+  //     cancelComment();
+  //   }
+  // }
 
   /// 评论朋友圈
-  commentMoments(WorkMoments moments) async {
-    hiddenLikeCommentPopMenu();
-    commentHintText.value = '${StrLibrary.comment}：';
-    commentWorkMomentsID = moments.workMomentID!;
-    replyUserID = null;
-  }
+  // commentMoments(WorkMoments moments) async {
+  //   hiddenLikeCommentPopMenu();
+  //   commentHintText.value = '${StrLibrary.comment}：';
+  //   commentWorkMomentsID = moments.workMomentID!;
+  //   replyUserID = null;
+  // }
 
   /// 回复评论
-  replyComment(WorkMoments moments, Comments comments) async {
-    hiddenLikeCommentPopMenu();
-    if (comments.userID == OpenIM.iMManager.userID) {
-      final del = await Get.bottomSheet(
-        barrierColor: StylesLibrary.c_191919_opacity50,
-        BottomSheetView(
-            items: [SheetItem(label: StrLibrary.delete, result: 1)]),
-      );
-      if (del == 1) {
-        delComment(moments, comments);
-      }
-    } else {
-      commentHintText.value = '${StrLibrary.reply} ${comments.nickname}：';
-      commentWorkMomentsID = moments.workMomentID!;
-      replyUserID = comments.userID;
-    }
-  }
+  // replyComment(WorkMoments moments, Comments comments) async {
+  //   hiddenLikeCommentPopMenu();
+  //   if (comments.userID == OpenIM.iMManager.userID) {
+  //     final del = await Get.bottomSheet(
+  //       barrierColor: StylesLibrary.c_191919_opacity50,
+  //       BottomSheetView(
+  //           items: [SheetItem(label: StrLibrary.delete, result: 1)]),
+  //     );
+  //     if (del == 1) {
+  //       delComment(moments, comments);
+  //     }
+  //   } else {
+  //     commentHintText.value = '${StrLibrary.reply} ${comments.nickname}：';
+  //     commentWorkMomentsID = moments.workMomentID!;
+  //     replyUserID = comments.userID;
+  //   }
+  // }
 
   /// 删除评论
-  delComment(WorkMoments moments, Comments comments) async {
-    LoadingView.singleton.start(
-      fn: () async {
-        await CircleApis.deleteComment(
-          workMomentID: moments.workMomentID!,
-          commentID: comments.commentID!,
-        );
-        await _updateData(moments.workMomentID!);
-      },
-    );
-  }
+  // delComment(WorkMoments moments, Comments comments) async {
+  //   LoadingView.singleton.start(
+  //     fn: () async {
+  //       await CircleApis.deleteComment(
+  //         workMomentID: moments.workMomentID!,
+  //         commentID: comments.commentID!,
+  //       );
+  //       await _updateData(moments.workMomentID!);
+  //     },
+  //   );
+  // }
 
   Future<void> delWorkWorkMoments(WorkMoments moments) async {
     var confirm = await Get.dialog(CustomDialog(
@@ -455,17 +450,17 @@ class XhsLogic extends GetxController {
 
   hiddenLikeCommentPopMenu() => showLikeCommentPopMenu("");
 
-  popMenuPositionCallback(Offset position, Size size) {
-    popMenuPosition = position;
-    popMenuSize = size;
-  }
+  // popMenuPositionCallback(Offset position, Size size) {
+  //   popMenuPosition = position;
+  //   popMenuSize = size;
+  // }
 
-  cancelComment() {
-    commentHintText.value = '';
-    commentWorkMomentsID = null;
-    replyUserID = null;
-    inputCtrl.clear();
-  }
+  // cancelComment() {
+  //   commentHintText.value = '';
+  //   commentWorkMomentsID = null;
+  //   replyUserID = null;
+  //   inputCtrl.clear();
+  // }
 
   // publish(int type) => CircleNavigator.startPublishWorkMoments(
   //       type: type == 0 ? PublishType.picture : PublishType.video,
@@ -501,11 +496,11 @@ class XhsLogic extends GetxController {
     }
   }
 
-  seeNewMessage() async {
-    CircleApis.clearUnreadCount(type: 1, momentType: 2);
-    newMessageCount.value = 0;
-    await CircleNavigator.startLikeOrCommentMessage();
-  }
+  // seeNewMessage() async {
+  //   CircleApis.clearUnreadCount(type: 1, momentType: 2);
+  //   newMessageCount.value = 0;
+  //   await CircleNavigator.startLikeOrCommentMessage();
+  // }
 
   viewUserProfile(WorkMoments moments) => _viewProfilePanel(
         userID: moments.userID!,
@@ -528,18 +523,18 @@ class XhsLogic extends GetxController {
   }) =>
       bridge?.viewUserProfile(userID, nickname, faceURL);
 
-  _recvNewMessage(WorkMomentsNotification notification) async {
-    // newMessageCount.value = notification.unreadNum ?? 0;
-    final newValue = notification.body;
-    if (null != newValue) {
-      final index = workMoments.indexOf(newValue);
-      if (index != -1) {
-        workMoments.replaceRange(index, index + 1, [newValue]);
-        workMoments.refresh();
-      }
-    }
-    newMessageCount.value = await CircleApis.getUnreadCount(momentType: 2);
-  }
+  // _recvNewMessage(WorkMomentsNotification notification) async {
+  //   // newMessageCount.value = notification.unreadNum ?? 0;
+  //   final newValue = notification.body;
+  //   if (null != newValue) {
+  //     final index = workMoments.indexOf(newValue);
+  //     if (index != -1) {
+  //       workMoments.replaceRange(index, index + 1, [newValue]);
+  //       workMoments.refresh();
+  //     }
+  //   }
+  //   newMessageCount.value = await CircleApis.getUnreadCount(momentType: 2);
+  // }
 
 // @override
 // Future<bool> onRefresh() async {
