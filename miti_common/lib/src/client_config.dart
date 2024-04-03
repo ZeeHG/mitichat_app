@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
@@ -29,11 +27,10 @@ class Config {
     ]);
 
     // 状态栏透明（Android）
-    var brightness = Platform.isAndroid ? Brightness.dark : Brightness.light;
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarBrightness: brightness,
-      statusBarIconBrightness: brightness,
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.dark,
     ));
   }
 
@@ -42,8 +39,8 @@ class Config {
   static const uiH = 812.0;
 
   /// 默认公司配置
-  static const String deptName = "miti";
-  static const String deptID = '0';
+  // static const String deptName = "miti";
+  // static const String deptID = '0';
 
   /// 全局字体size
   static const double textScaleFactor = 1.0;
@@ -178,12 +175,8 @@ class Config {
 
   /// 图片存储
   static String get objectStorage {
-    String? storage;
     var server = DataSp.getServerConfig();
-    if (null != server) {
-      storage = server['objectStorage'];
-    }
-    return storage ?? 'minio';
+    return null != server && null !=server['objectStorage'] ? server['objectStorage'] : 'minio';
   }
 
   // 用户id, 隐藏开关

@@ -564,7 +564,7 @@ mixin MitiLive {
     //   _audioPlayer.stop();
     // }
     try {
-      FlutterRingtonePlayer().playNotification(volume: 0);
+      FlutterRingtonePlayer().play(fromAsset: "packages/miti_common/assets/audio/live_ring_loop.wav", volume: 0);
       FlutterRingtonePlayer().stop();
       Vibration.cancel();
     } catch (e) {
@@ -582,7 +582,7 @@ mixin MitiLive {
     var mediaType = invitation.mediaType;
     var inviterUserID = invitation.inviterUserID;
     var inviteeUserID = invitation.inviteeUserIDList!.first;
-    var groupID = invitation.groupID;
+    // var groupID = invitation.groupID;
     var isMeCall = inviterUserID == OpenIM.iMManager.userID;
     var userID = isMeCall ? inviteeUserID : inviterUserID!;
     var incomingCall = isMeCall ? false : true;
