@@ -25,6 +25,7 @@ dependencies:
   common_utils: ^2.1.0
   uuid: ^4.0.7
   device_info_plus: ^9.1.0
+  just_audio: ^0.9.37
   miti_common:
     path: ../miti_common
   flutter_openim_sdk:

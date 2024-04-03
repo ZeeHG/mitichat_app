@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_miti_live_alert/flutter_miti_live_alert.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
 // import 'package:just_audio/just_audio.dart';
 import 'package:miti_common/miti_common.dart';
 // import 'package:permission_handler/permission_handler.dart';
@@ -77,13 +78,10 @@ mixin MitiLive {
   /// true:点击了系统桌面的接受按钮，恢复拨号界面后自动接听
   bool _autoPickup = false;
 
-  // final _ring = 'assets/audio/live_ring.wav';
-  // final _audioPlayer = AudioPlayer(
-  //   // Handle audio_session events ourselves for the purpose of this demo.
-  //   handleInterruptions: false,
-  //   // androidApplyAudioAttributes: false,
-  //   // handleAudioSessionActivation: false,
-  // );
+  final ring = 'assets/audio/live_ring.wav';
+  final ringPlayer = AudioPlayer(
+    handleInterruptions: false,
+  );
 
   bool get isBusy => MitiLiveClient().isBusy;
 
@@ -537,13 +535,17 @@ mixin MitiLive {
 
   /// 播放提示音
   void _playSound({bool vibrate = false}) async {
-    // if (!_audioPlayer.playerState.playing) {
-    // _audioPlayer.setAsset(_ring, package: 'miti_common');
-    // _audioPlayer.setLoopMode(LoopMode.one);
-    // _audioPlayer.setVolume(1.0);
-    // _audioPlayer.play();
-    FlutterRingtonePlayer().play(
-        fromAsset: "packages/miti_common/assets/audio/live_ring_loop.wav");
+    if (Platform.isAndroid) {
+      FlutterRingtonePlayer().play(
+          fromAsset: "packages/miti_common/assets/audio/live_ring_loop.wav");
+    } else {
+      if (!ringPlayer.playerState.playing) {
+        ringPlayer.setAsset(ring, package: 'miti_common');
+        ringPlayer.setLoopMode(LoopMode.one);
+        ringPlayer.setVolume(1.0);
+        ringPlayer.play();
+      }
+    }
 
     if (vibrate) {
       try {
@@ -560,11 +562,10 @@ mixin MitiLive {
 
   /// 关闭提示音
   void _stopBeepAndVibrate() async {
-    // if (_audioPlayer.playerState.playing) {
-    //   _audioPlayer.stop();
-    // }
     try {
-      FlutterRingtonePlayer().play(fromAsset: "packages/miti_common/assets/audio/live_ring_loop.wav", volume: 0);
+      if (ringPlayer.playerState.playing) {
+        ringPlayer.stop();
+      }
       FlutterRingtonePlayer().stop();
       Vibration.cancel();
     } catch (e) {
