@@ -548,10 +548,8 @@ mixin MitiLive {
     if (vibrate) {
       try {
         int n = 30;
-        List<int> pattern = [
-          0,
-          ...List.generate(n * 2, (index) => index % 2 == 0 ? 1000 : 500)
-        ];
+        List<int> pattern =
+            List.generate(n * 2, (index) => index % 2 == 0 ? 500 : 1000);
         Vibration.vibrate(pattern: pattern);
       } catch (e) {
         myLogger.e({"设备不支持震动"});
