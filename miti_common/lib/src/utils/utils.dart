@@ -897,6 +897,9 @@ class MitiUtils {
           var customType = map['customType'];
           var customData = map['data'];
           switch (customType) {
+            case CustomMessageType.textWithPrompt:
+              return map['welcome'];
+              
             case CustomMessageType.call:
               var type = map['data']['type'];
               content =
@@ -915,6 +918,9 @@ class MitiUtils {
               } else {
                 content = '[${StrLibrary.unsupportedMessage}]';
               }
+              break;
+            case CustomMessageType.textWithPrompt:
+              content = map['welcome'];
               break;
             // case CustomMessageType.meeting:
             //   content = '[${StrLibrary .meetingMessage}]';
@@ -1016,6 +1022,12 @@ class MitiUtils {
               case CustomMessageType.tag:
                 map['data']['viewType'] = CustomMessageType.tag;
                 return map['data'];
+              case CustomMessageType.textWithPrompt:
+                return {
+                  'viewType': CustomMessageType.textWithPrompt,
+                  'welcome': map['welcome'],
+                  'questions': map['questions'],
+                };
               // case CustomMessageType.meeting:
               //   map['data']['viewType'] = CustomMessageType.meeting;
               //   return map['data'];

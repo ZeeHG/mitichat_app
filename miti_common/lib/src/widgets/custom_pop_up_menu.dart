@@ -36,7 +36,7 @@ Rect _menuRect = Rect.zero;
 
 class CopyCustomPopupMenu extends StatefulWidget {
   const CopyCustomPopupMenu({
-    Key? key,
+    super.key,
     required this.child,
     required this.menuBuilder,
     required this.pressType,
@@ -50,7 +50,7 @@ class CopyCustomPopupMenu extends StatefulWidget {
     this.position,
     this.menuOnChange,
     this.enablePassEvent = true,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final PressType pressType;

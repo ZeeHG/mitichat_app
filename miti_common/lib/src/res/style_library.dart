@@ -35,6 +35,7 @@ class StylesLibrary {
   static Color c_F4F5F7 = c_FFFFFF;
   static Color c_CCE7FE = c_8443F8;
 
+  static Color c_FFFFFF_opacity40 = c_FFFFFF.withOpacity(.4);
   static Color c_656565 = const Color(0xFF656565);
   static Color c_F5F0F0 = const Color(0xFFF5F0F0);
   static Color c_B3B3B3 = const Color(0xFFB3B3B3);

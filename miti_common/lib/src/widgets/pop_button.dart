@@ -52,7 +52,7 @@ class PopButton extends StatelessWidget {
   final List<CusPopMenuInfo>? cusMenus;
 
   PopButton({
-    Key? key,
+    super.key,
     menus,
     required this.child,
     this.cusMenus,
@@ -78,8 +78,7 @@ class PopButton extends StatelessWidget {
     this.menuItemPadding,
     this.lineColor,
     this.lineWidth = 1.0,
-  })  : menus = menus ?? [],
-        super(key: key);
+  })  : menus = menus ?? [];
 
   @override
   Widget build(BuildContext context) {

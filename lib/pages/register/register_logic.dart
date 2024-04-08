@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
 import 'package:miti/core/ctrl/im_ctrl.dart';
 import 'package:miti/core/ctrl/push_ctrl.dart';
@@ -29,6 +32,11 @@ class RegisterLogic extends GetxController {
   final isAddAccount = false.obs;
   final accountUtil = Get.find<AccountUtil>();
   final server = Config.hostWithProtocol.obs;
+  final scrollCtrl = ScrollController();
+  final keyboardVisibilityController = KeyboardVisibilityController();
+  bool keyboardVisibility = false;
+  late StreamSubscription<bool> keyboardSub;
+  Future<void>? autoScrollCtrl;
 
   bool get isPhoneRegister => operateType.value == LoginType.phone;
   String? get email => !isPhoneRegister ? emailCtrl.text.trim() : null;
@@ -49,6 +57,8 @@ class RegisterLogic extends GetxController {
     pwdCtrl.dispose();
     pwdAgainCtrl.dispose();
     invitationCodeCtrl.dispose();
+    scrollCtrl.dispose();
+    keyboardSub.cancel();
     super.onClose();
   }
 
@@ -69,7 +79,22 @@ class RegisterLogic extends GetxController {
     pwdCtrl.addListener(_onChanged);
     pwdAgainCtrl.addListener(_onChanged);
     invitationCodeCtrl.addListener(_onChanged);
+    keyboardSub =
+        keyboardVisibilityController.onChange.listen((bool visible) async {
+      keyboardVisibility = visible;
+      autoScrollCtrl = autoScroll();
+    });
     super.onInit();
+  }
+
+  Future<void> autoScroll() async {
+    if (keyboardVisibility) {
+      if (autoScrollCtrl != null) unawaited(autoScrollCtrl);
+      await Future.delayed(const Duration(milliseconds: 250));
+      scrollCtrl.jumpTo(
+        9999,
+      );
+    }
   }
 
   _initData() async {

@@ -187,23 +187,23 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: "HKGrotesk-400"
-      fonts:
-        - asset: assets/fonts/HKGrotesk-Medium.subset.otf
-          weight: 400
-    - family: "HKGrotesk-500"
-      fonts:
-        - asset: assets/fonts/HKGrotesk-SemiBold.subset.otf
-          weight: 500
-    - family: "HKGrotesk-600"
-      fonts:
-        - asset: assets/fonts/HKGrotesk-SemiBold.subset.otf
-          weight: 600
-    - family: "HKGrotesk-700"
-      fonts:
-        - asset: assets/fonts/HKGrotesk-SemiBold.subset.otf
-          weight: 700
+  # fonts:
+  #   - family: "HKGrotesk-400"
+  #     fonts:
+  #       - asset: assets/fonts/HKGrotesk-Medium.subset.otf
+  #         weight: 400
+  #   - family: "HKGrotesk-500"
+  #     fonts:
+  #       - asset: assets/fonts/HKGrotesk-SemiBold.subset.otf
+  #         weight: 500
+  #   - family: "HKGrotesk-600"
+  #     fonts:
+  #       - asset: assets/fonts/HKGrotesk-SemiBold.subset.otf
+  #         weight: 600
+  #   - family: "HKGrotesk-700"
+  #     fonts:
+  #       - asset: assets/fonts/HKGrotesk-SemiBold.subset.otf
+  #         weight: 700
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

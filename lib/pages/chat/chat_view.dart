@@ -32,7 +32,9 @@ class ChatPage extends StatelessWidget {
         isPrivateChat: message.isPrivateType,
         readingDuration: logic.readTime(message),
         isPlayingSound: logic.isPlaySound(message),
-        showLongPressMenu: !logic.isMuted && !logic.isInvalidGroup,
+        showLongPressMenu: !logic.isMuted &&
+            !logic.isInvalidGroup &&
+            !message.isTextWithPromptType,
         canReEdit: logic.canEditMessage(message),
         leftNickname: logic.getNewestNickname(message),
         leftFaceUrl: logic.getNewestFaceURL(message),
@@ -69,7 +71,7 @@ class ChatPage extends StatelessWidget {
         onTapUnTtsMenu: () => logic.unTts(message),
         onTapCopyMenu: () => logic.copy(message),
         onTapDelMenu: () => logic.deleteMsg(message),
-        onTapForwardMenu: () => logic.forward(message),
+        onTapForwardMenu: () => logic.forward(message: message),
         onTapReplyMenu: () => logic.setQuoteMsg(message),
         onTapRevokeMenu: () {
           logic.markRevokedMessage(message);
@@ -94,28 +96,7 @@ class ChatPage extends StatelessWidget {
         },
         customTypeBuilder: _buildCustomTypeItemView,
         ChatFileDownloadProgressView: ChatFileDownloadProgressView(message),
-        patterns: <MatchPattern>[
-          MatchPattern(
-            type: PatternType.at,
-            onTap: logic.clickLinkText,
-          ),
-          MatchPattern(
-            type: PatternType.email,
-            onTap: logic.clickLinkText,
-          ),
-          MatchPattern(
-            type: PatternType.url,
-            onTap: logic.clickLinkText,
-          ),
-          MatchPattern(
-            type: PatternType.mobile,
-            onTap: logic.clickLinkText,
-          ),
-          MatchPattern(
-            type: PatternType.tel,
-            onTap: logic.clickLinkText,
-          ),
-        ],
+        patterns: logic.pattern,
         mediaItemBuilder: (context, message) {
           return _buildMediaItem(context, message);
         },
@@ -146,7 +127,7 @@ class ChatPage extends StatelessWidget {
             },
             onOperate: (type) {
               if (type == OperateType.forward) {
-                logic.forward(message);
+                logic.forward(message: message);
               }
             }).then((value) {
           logic.playOnce = false;
@@ -256,9 +237,39 @@ class ChatPage extends StatelessWidget {
             ),
           );
         }
+      } else if (viewType == CustomMessageType.textWithPrompt) {
+        final welcome = data["welcome"].toString();
+        final questions = List<String>.from(data["questions"]);
+        return CustomTypeInfo(
+            ChatTextWithPrompt(
+              textScaleFactor: logic.scaleFactor.value,
+              patterns: logic.pattern,
+              welcome: welcome,
+              questions: questions,
+              isISend: isISend,
+              onSendTextMsg: logic.sendTextMsg,
+              enabledTranslateMenu: logic.showTranslateMenu(message),
+              enabledUnTranslateMenu: logic.showUnTranslateMenu(message),
+              enabledRevokeMenu: logic.showRevokeMenu(message),
+              onTapCopyMenu: () => logic.copy(message),
+              onTapDelMenu: () => logic.deleteMsg(message),
+              onTapForwardMenu: () => logic.forward(message: message),
+              onTapReplyMenu: () => logic.setQuoteMsg(message),
+              onTapRevokeMenu: () {
+                logic.markRevokedMessage(message);
+                logic.revokeMsgV2(message);
+              },
+              onTapMultiMenu: () => logic.openMultiSelMode(message),
+              onTapTranslateMenu: () => logic.translate(message),
+              onTapUnTranslateMenu: () => logic.unTranslate(message),
+              onPopMenuShowChanged: logic.onPopMenuShowChanged,
+              closePopMenuSubject: logic.forceCloseMenuSub,
+              disabledChatInput: logic.disabledChatInput,
+            ),
+            false);
       }
+      return null;
     }
-    return null;
   }
 
   Widget get _topNoticeView => logic.announcement.value.isNotEmpty
@@ -362,7 +373,8 @@ class ChatPage extends StatelessWidget {
                     ),
                     multiOpToolbox: ChatMultiSelToolbox(
                       onDelete: logic.mergeDelete,
-                      onMergeForward: () => logic.forward(null),
+                      onMergeForward: () => logic.forward(isMerge: true),
+                      onByOneForward: () => logic.forward(isOneByOne: true),
                     ),
                   ),
                   child: ChatListView(

@@ -298,6 +298,22 @@ extension MessageExt on Message {
   bool get isTagTextType => isCustomType && tagContent?.textElem != null;
 
   bool get isTagVoiceType => isCustomType && tagContent?.soundElem != null;
+
+  // 自定义
+  bool get isTextWithPromptType {
+    if (!isCustomType) return false;
+    final data = customElem!.data;
+    final map = json.decode(data!);
+    final customType = map['customType'];
+    return customType == CustomMessageType.textWithPrompt;
+  }
+
+  Map<String, dynamic>? get customData {
+    if (!isCustomType) return null;
+    final data = customElem!.data;
+    final map = json.decode(data!);
+    return map;
+  }
 }
 
 class CustomMessageType {
@@ -310,6 +326,8 @@ class CustomMessageType {
   static const deletedByFriend = 911;
   static const removedFromGroup = 912;
   static const groupDisbanded = 913;
+
+  static const textWithPrompt = 1001;
 
   static const waitingAiReplay = 9001;
 }

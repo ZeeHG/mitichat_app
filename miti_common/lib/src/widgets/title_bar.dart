@@ -282,17 +282,25 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
                       ..onTap = (() => Get.back()),
                     SizedBox(width: 12.w),
                     if (null != title) ...[
-                      title.trim().toText
-                        ..style = StylesLibrary.ts_333333_18sp_medium
-                        ..maxLines = 1
-                        ..overflow = TextOverflow.ellipsis
-                        ..textAlign = TextAlign.center,
-                      if (isAiSingleChat) ...[
-                        9.horizontalSpace,
-                        ImageLibrary.appAiMarker.toImage
-                          ..width = 18.w
-                          ..height = 16.h,
-                      ]
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Flexible(
+                              child: title.trim().toText
+                                ..style = StylesLibrary.ts_333333_18sp_medium
+                                ..maxLines = 1
+                                ..overflow = TextOverflow.ellipsis
+                                ..textAlign = TextAlign.center,
+                            ),
+                            if (isAiSingleChat) ...[
+                              9.horizontalSpace,
+                              ImageLibrary.appAiMarker.toImage
+                                ..width = 18.w
+                                ..height = 16.h,
+                            ]
+                          ],
+                        ),
+                      )
                     ],
                     if (null != member)
                       member.toText

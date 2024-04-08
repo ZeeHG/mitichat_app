@@ -5,10 +5,11 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 
 class GradientScrollView extends StatelessWidget {
-  const GradientScrollView(
-      {super.key, required this.child, this.isGradientBg = true});
+  GradientScrollView(
+      {super.key, required this.child, this.isGradientBg = true, this.scrollCtrl});
   final Widget child;
   final bool isGradientBg;
+  ScrollController? scrollCtrl;
 
   @override
   Widget build(BuildContext context) => KeyboardDismissOnTap(
@@ -32,6 +33,7 @@ class GradientScrollView extends StatelessWidget {
       )));
 
   Widget get scrollContainer => SingleChildScrollView(
+        controller: scrollCtrl,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

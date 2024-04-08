@@ -252,9 +252,7 @@ class ConversationPage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            // logic.getMsgContent(info).toText
-                            //   ..style = StylesLibrary.ts_999999_14sp,
-                            const Spacer(),
+                            10.horizontalSpace,
                             if (logic.isNotDisturb(info))
                               ImageLibrary.notDisturb.toImage
                                 ..width = 13.63.w

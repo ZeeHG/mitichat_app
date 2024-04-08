@@ -69,6 +69,7 @@ class ChatLogic extends GetxController {
   final aiUtil = Get.find<AiUtil>();
   Timer? curTimer;
   final curTime = 0.obs;
+  late List<MatchPattern> pattern;
 
   late Rx<ConversationInfo> conversationInfo;
   Message? searchMessage;
@@ -167,8 +168,8 @@ class ChatLogic extends GetxController {
 
   List<Message> get messageListV2 {
     return [
-      ...messageList.value,
-      ...(disabledChatInput ? extraMessageList.value : [])
+      ...messageList,
+      ...(disabledChatInput ? extraMessageList : [])
     ];
   }
 
@@ -192,6 +193,31 @@ class ChatLogic extends GetxController {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       scrollController.jumpTo(0);
     });
+  }
+
+  initPattern() {
+    pattern = <MatchPattern>[
+      MatchPattern(
+        type: PatternType.at,
+        onTap: clickLinkText,
+      ),
+      MatchPattern(
+        type: PatternType.email,
+        onTap: clickLinkText,
+      ),
+      MatchPattern(
+        type: PatternType.url,
+        onTap: clickLinkText,
+      ),
+      MatchPattern(
+        type: PatternType.mobile,
+        onTap: clickLinkText,
+      ),
+      MatchPattern(
+        type: PatternType.tel,
+        onTap: clickLinkText,
+      ),
+    ];
   }
 
   // Query multimedia messages and prepare for large image browsing.
@@ -233,6 +259,7 @@ class ChatLogic extends GetxController {
     curTimer = Timer.periodic(Duration(seconds: 5), (Timer t) {
       curTime.value = DateTime.now().millisecondsSinceEpoch;
     });
+    initPattern();
     _createWaitingAiMessage();
     _clearUnreadCount();
     _initChatConfig();
@@ -545,10 +572,9 @@ class ChatLogic extends GetxController {
     // DataSp.putAtUserMap(groupID!, atUserNameMappingMap);
   }
 
-  /// 发送文字内容，包含普通内容，引用回复内容，@内容
-  void sendTextMsg() async {
-    var content = MitiUtils.safeTrim(inputCtrl.text);
-    if (content.isEmpty) return;
+  Future<Message?> createTextMsg({String? content}) async {
+    content = content ?? MitiUtils.safeTrim(inputCtrl.text);
+    if (content.isEmpty) return null;
     Message message;
     if (curMsgAtUser.isNotEmpty) {
       createAtInfoByID(id) => AtUserInfo(
@@ -575,7 +601,16 @@ class ChatLogic extends GetxController {
         text: content,
       );
     }
-    _sendMessage(message);
+    return message;
+  }
+
+  /// 发送文字内容，包含普通内容，引用回复内容，@内容
+  Future<void> sendTextMsg(
+      {String? content, String? userId, String? groupId}) async {
+    final message = await createTextMsg(content: content);
+    if (null != message) {
+      _sendMessage(message, userId: userId, groupId: groupId);
+    }
   }
 
   /// 发送图片
@@ -653,14 +688,20 @@ class ChatLogic extends GetxController {
   }
 
   /// 转发
-  sendForwardMsg(
+  Future<Message> createForwardMsg(Message originalMessage) async {
+    final message = await OpenIM.iMManager.messageManager.createForwardMessage(
+      message: originalMessage,
+    );
+    return message;
+  }
+
+  /// 转发
+  Future<void> sendForwardMsg(
     Message originalMessage, {
     String? userId,
     String? groupId,
   }) async {
-    var message = await OpenIM.iMManager.messageManager.createForwardMessage(
-      message: originalMessage,
-    );
+    final message = await createForwardMsg(originalMessage);
     _sendMessage(message, userId: userId, groupId: groupId);
   }
 
@@ -728,13 +769,12 @@ class ChatLogic extends GetxController {
     _sendMessage(message);
   }
 
-  void _sendMessage(
+  Future<void> _sendMessage(
     Message message, {
     String? userId,
     String? groupId,
     bool addToUI = true,
-  }) {
-    log('send : ${json.encode(message)}');
+  }) async{
     userId = MitiUtils.emptyStrToNull(userId);
     groupId = MitiUtils.emptyStrToNull(groupId);
     if (null == userId && null == groupId ||
@@ -771,8 +811,10 @@ class ChatLogic extends GetxController {
       text = StrLibrary.defaultMergeNotification;
     } else if (message.isCardType) {
       text = StrLibrary.defaultCardNotification;
+    } else if (message.isTextWithPromptType) {
+      text = message.customData?["welcome"] ?? "";
     }
-    OpenIM.iMManager.messageManager
+    await OpenIM.iMManager.messageManager
         .sendMessage(
           message: message,
           userID: useOuterValue ? userId : userID,
@@ -887,7 +929,8 @@ class ChatLogic extends GetxController {
     } else {
       quoteMsg = message;
       var name = quoteMsg!.senderNickname;
-      quoteContent.value = "$name：${MitiUtils.parseMsg(quoteMsg!)}";
+      quoteContent.value =
+          "$name：${MitiUtils.parseMsg(quoteMsg!, replaceIdToNickname: true)}";
       focusNode.requestFocus();
     }
   }
@@ -952,28 +995,84 @@ class ChatLogic extends GetxController {
   // }
 
   /// 转发
-  void forward(Message? message) async {
+  void forward(
+      {Message? message, bool isMerge = false, bool isOneByOne = false}) async {
+    final curMultiSelList = [...multiSelList];
     final result = await AppNavigator.startSelectContacts(
       action: SelAction.forward,
       ex: null != message
           ? MitiUtils.parseMsg(message)
-          : sprintf(StrLibrary.mergeForwardHint, [multiSelList.length]),
+          : isMerge
+              ? sprintf(StrLibrary.mergeForwardHint, [curMultiSelList.length])
+              : isOneByOne
+                  ? sprintf(
+                      StrLibrary.oneByOneForwardHint, [curMultiSelList.length])
+                  : "",
     );
     if (null != result) {
       final customEx = result['customEx'];
       final checkedList = result['checkedList'];
       for (var info in checkedList) {
+        final taskList = [];
         final userID = MitiUtils.convertCheckedToUserID(info);
         final groupID = MitiUtils.convertCheckedToGroupID(info);
+        if (null != message) {
+          forwardMsg(message: message, userID: userID, groupID: groupID);
+        } else if (isMerge) {
+          sendMergeMsg(userId: userID, groupId: groupID);
+        } else if (isOneByOne) {
+          for (var msg in curMultiSelList) {
+            taskList.add(await createForwardMsgTask(
+                message: msg, userID: userID, groupID: groupID));
+          }
+        }
+
+        // 批量发送, 连续发送有可能会出现乱序
+        if (taskList.isNotEmpty) {
+          for (var task in taskList) {
+            if (null != task["newMessage"])
+              await _sendMessage(task["newMessage"],
+                  userId: task["userID"], groupId: task["groupID"]);
+          }
+        }
+
         if (customEx is String && customEx.isNotEmpty) {
           sendForwardRemarkMsg(customEx, userId: userID, groupId: groupID);
         }
-        if (null != message) {
-          sendForwardMsg(message, userId: userID, groupId: groupID);
-        } else {
-          sendMergeMsg(userId: userID, groupId: groupID);
-        }
       }
+    }
+  }
+
+  Future<void> forwardMsg(
+      {required Message message, String? userID, String? groupID}) async {
+    if (message.isTextWithPromptType) {
+      sendTextMsg(
+          content: message.customData?["welcome"],
+          userId: userID,
+          groupId: groupID);
+    } else if (message.isAtTextType) {
+      sendTextMsg(
+          content: MitiUtils.parseMsg(message, replaceIdToNickname: true),
+          userId: userID,
+          groupId: groupID);
+    } else {
+      sendForwardMsg(message, userId: userID, groupId: groupID);
+    }
+  }
+
+  Future<dynamic> createForwardMsgTask(
+      {required Message message, String? userID, String? groupID}) async {
+    late Message? newMessage;
+    if (message.isTextWithPromptType) {
+      newMessage = await createTextMsg(content: message.customData?["welcome"]);
+    } else if (message.isAtTextType) {
+      newMessage = await createTextMsg(
+          content: MitiUtils.parseMsg(message, replaceIdToNickname: true));
+    } else {
+      newMessage = await createForwardMsg(message);
+    }
+    if (null != newMessage) {
+      return {"newMessage": newMessage, "userID": userID, "groupID": groupID};
     }
   }
 
@@ -1413,7 +1512,9 @@ class ChatLogic extends GetxController {
   void copy(Message message) {
     String? content;
     final textElem = message.tagContent?.textElem;
-    if (null != textElem) {
+    if (message.isTextWithPromptType) {
+      content = message.customData?["welcome"];
+    } else if (null != textElem) {
       content = textElem.content;
     } else {
       content = copyTextMap[message.clientMsgID] ?? message.textElem?.content;

@@ -72,7 +72,7 @@ class _ChatInputBoxState
   bool get _showQuoteView => MitiUtils.isNotNullEmptyStr(widget.quoteContent);
 
   /// 不可使用时的透明度，如禁言开启
-  double get _opacity => (widget.enabled ? 1 : .4);
+  double get _opacity => (widget.enabled ? 1 : .5);
 
   @override
   void initState() {
@@ -239,7 +239,7 @@ class _ChatInputBoxState
                         right: 0,
                         bottom: 0,
                         child: Container(
-                          color: StylesLibrary.c_999999_opacity13,
+                          color: StylesLibrary.c_FFFFFF_opacity50,
                         ))
                 ],
               );

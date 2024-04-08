@@ -132,3 +132,5 @@ export 'src/widgets/title_bar2.dart';
 export 'src/models/knowledgebase.dart';
 export 'src/models/action_record.dart';
 export 'src/models/complaint.dart';
+
+export 'src/widgets/chat/chat_text_with_prompt.dart';

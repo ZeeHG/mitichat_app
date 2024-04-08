@@ -1142,5 +1142,7 @@ const Map<String, String> zh_CN = {
   "other": "其他",
 
   // 上面3.8校对
-  "selectFriends": "选择联系人"
+  "selectFriends": "选择联系人",
+  "oneByOneForwardHint": "[逐条转发]共%s条消息",
+  "oneByOneForward": "逐条转发",
 };

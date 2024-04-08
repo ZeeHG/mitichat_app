@@ -1661,4 +1661,6 @@ class StrLibrary {
   static String get illegalSales => 'illegalSales'.tr;
   static String get other => 'other'.tr;
   static String get selectFriends => 'selectFriends'.tr;
+  static String get oneByOneForward => 'oneByOneForward'.tr;
+  static String get oneByOneForwardHint => 'oneByOneForwardHint'.tr;
 }

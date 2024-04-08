@@ -252,6 +252,8 @@ class AppCtrl extends SuperController {
           text = MitiUtils.replaceMessageAtMapping(message, {});
         } else if (message.isQuoteType) {
           text = message.quoteElem?.text ?? text;
+        } else if (message.isTextWithPromptType) {
+          text = message.customData?["welcome"] ?? "welcome";
         } else if (message.isPictureType) {
           text = StrLibrary.defaultImgNotification;
         } else if (message.isVideoType) {

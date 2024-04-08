@@ -15,6 +15,7 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GradientScrollView(
+          scrollCtrl: logic.scrollCtrl,
           child: Obx(
         () => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
