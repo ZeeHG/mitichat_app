@@ -119,7 +119,7 @@ class RegisterLogic extends GetxController {
       showToast(StrLibrary.twicePwdNoSame);
       return false;
     }
-    if (checkInvitationCodeValid()) {
+    if (!checkInvitationCodeValid()) {
       showToast(StrLibrary.plsEnterInvitationCode2);
       return false;
     }
@@ -127,8 +127,8 @@ class RegisterLogic extends GetxController {
   }
 
   bool get needInvitationCode =>
-      null != appCtrl.clientConfig['needInvitationCode'] &&
-      appCtrl.clientConfig['needInvitationCode'] != '0';
+      null != appCtrl.clientConfig['needInvitationCodeRegister'] &&
+      appCtrl.clientConfig['needInvitationCodeRegister'] != '0';
 
   bool checkInvitationCodeValid() =>
       needInvitationCode ? invitationCodeCtrl.text.trim().isNotEmpty : true;
@@ -147,7 +147,8 @@ class RegisterLogic extends GetxController {
       );
 
   Future<bool> getVerificationCode() async {
-    if (checkInvitationCodeValid()) {
+    myLogger.e(appCtrl.clientConfig);
+    if (!checkInvitationCodeValid()) {
       showToast(StrLibrary.plsEnterInvitationCode2);
       return false;
     }
