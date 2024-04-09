@@ -105,7 +105,6 @@ class ImageLibrary {
   static const chatSearchVideo = "$_dir/ic_chat_video.png";
   static const chatSearchFile = "$_dir/ic_chat_file.png";
   static const addFriendTobeGroup = "$_dir/ic_add_friend_tobe_group.png";
-  static const editAvatar = "$_dir/ic_edit_avatar.png";
   static const editName = "$_dir/ic_edit_name.png";
   static const addMember = "$_dir/ic_member_add.png";
   static const delMember = "$_dir/ic_member_del.png";

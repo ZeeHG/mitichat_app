@@ -162,13 +162,7 @@ class ChatSettingPage extends StatelessWidget {
                     isGroup: true,
                     onTap:
                         logic.isOwnerOrAdmin ? logic.modifyGroupAvatar : null,
-                  ),
-                  if (logic.isOwnerOrAdmin)
-                    Align(
-                        alignment: Alignment.bottomRight,
-                        child: ImageLibrary.editAvatar.toImage
-                          ..width = 14.w
-                          ..height = 14.h)
+                  )
                 ],
               ),
             ),
@@ -183,11 +177,12 @@ class ChatSettingPage extends StatelessWidget {
                     onTap: logic.isOwnerOrAdmin ? logic.modifyGroupName : null,
                     child: Row(
                       children: [
-                        ConstrainedBox(
-                            constraints: BoxConstraints(maxWidth: 200.w),
-                            child:
-                                (logic.groupInfo.value.groupName ?? '').toText
-                                  ..style = StylesLibrary.ts_333333_16sp),
+                        Flexible(
+                          child: (logic.groupInfo.value.groupName ?? '').toText
+                            ..style = StylesLibrary.ts_333333_16sp
+                            ..maxLines = 1
+                            ..overflow = TextOverflow.ellipsis,
+                        ),
                         '(${logic.groupInfo.value.memberCount ?? 0})'.toText
                           ..style = StylesLibrary.ts_333333_16sp,
                         6.horizontalSpace,
@@ -205,6 +200,7 @@ class ChatSettingPage extends StatelessWidget {
                 ],
               ),
             ),
+            20.horizontalSpace,
             ImageLibrary.mineQr.toImage
               ..width = 18.w
               ..height = 18.h

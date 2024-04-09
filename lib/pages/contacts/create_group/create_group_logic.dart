@@ -42,7 +42,7 @@ class CreateGroupLogic extends GetxController {
       // convertMemberRole(UserInfo u) => GroupMemberRole(userID: u.userID);
       await LoadingView.singleton.start(
         fn: () async {
-          await OpenIM.iMManager.groupManager.createGroup(
+          final data = await OpenIM.iMManager.groupManager.createGroup(
             groupInfo: GroupInfo(
               groupID: '',
               groupName: groupName,
@@ -53,6 +53,14 @@ class CreateGroupLogic extends GetxController {
                 .where((e) => e.userID != OpenIM.iMManager.userID)
                 .map((e) => e.userID!)
                 .toList(),
+          );
+
+          conversationLogic.toChat(
+            offUntilHome: true,
+            groupID: data.groupID,
+            nickname: groupName,
+            faceURL: faceURL.value,
+            sessionType: data.sessionType,
           );
         },
       );
