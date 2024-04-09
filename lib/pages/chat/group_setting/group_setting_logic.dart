@@ -17,7 +17,7 @@ import '../chat_logic.dart';
 import '../chat_setting/chat_history/media/media_logic.dart';
 import 'group_member_list/group_member_list_logic.dart';
 
-class ChatSettingLogic extends GetxController {
+class GroupChatSettingLogic extends GetxController {
   final imCtrl = Get.find<IMCtrl>();
 
   // final chatLogic = Get.find<ChatLogic>();
@@ -174,7 +174,7 @@ class ChatSettingLogic extends GetxController {
 
   String get appBarTitle {
     return (groupInfo.value.memberCount ?? 0) > 0
-        ? "${StrLibrary.groupChatSetup}（${groupInfo.value.memberCount}）"
+        ? "${StrLibrary.groupChatSetting}（${groupInfo.value.memberCount}）"
         : "";
   }
 

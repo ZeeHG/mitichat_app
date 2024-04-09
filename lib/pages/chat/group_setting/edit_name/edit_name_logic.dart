@@ -10,7 +10,7 @@ enum EditNameType {
 }
 
 class EditGroupNameLogic extends GetxController {
-  final groupSetupLogic = Get.find<ChatSettingLogic>();
+  final groupSetupLogic = Get.find<GroupChatSettingLogic>();
   late TextEditingController inputCtrl;
   late EditNameType type;
 

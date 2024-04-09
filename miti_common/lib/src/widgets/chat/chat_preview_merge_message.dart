@@ -80,7 +80,7 @@ class ChatPreviewMergeMsgView extends StatelessWidget {
                     ),
                     10.verticalSpace,
                     MatchTextView(
-                        text: content, textStyle: StylesLibrary.ts_333333_17sp)
+                        text: content, textStyle: StylesLibrary.ts_333333_16sp)
                   ],
                 ),
               ),

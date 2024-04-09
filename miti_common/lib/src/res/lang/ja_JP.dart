@@ -304,7 +304,7 @@ const Map<String, String> ja_JP = {
   "fiveMinutes": "5分",
   "clearAll": "全てクリア",
   "clearSuccessfully": "クリアに成功しました",
-  "groupChatSetup": "グループ設定",
+  "groupChatSetting": "グループ設定",
   "viewAllGroupMembers": "全てのグループメンバーを表示する（%s）",
   "groupManage": "管理",
   "myGroupMemberNickname": "自分のニックネーム",

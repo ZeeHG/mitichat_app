@@ -320,7 +320,7 @@ class ChatPage extends StatelessWidget {
                 isMultiModel: logic.multiSelMode.value,
                 // showCallBtn: !logic.isInvalidGroup,
                 onCloseMultiModel: logic.exit,
-                onClickMoreBtn: logic.chatSetup,
+                onClickMoreBtn: logic.chatSetting,
                 // onClickCallBtn: logic.call,
               ),
               body: SafeArea(

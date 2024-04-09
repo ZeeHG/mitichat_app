@@ -97,7 +97,7 @@ class SearchGroupMemberLogic extends GetxController {
         opType == GroupMemberOpType.call) {
       return info.userID == OpenIM.iMManager.userID;
     } else if (opType == GroupMemberOpType.del) {
-      final logic = Get.find<ChatSettingLogic>();
+      final logic = Get.find<GroupChatSettingLogic>();
       return logic.isAdmin && info.roleLevel != GroupRoleLevel.member ||
           logic.isOwner && info.roleLevel == GroupRoleLevel.owner;
     }

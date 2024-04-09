@@ -899,7 +899,7 @@ class MitiUtils {
           switch (customType) {
             case CustomMessageType.textWithPrompt:
               return map['welcome'];
-              
+
             case CustomMessageType.call:
               var type = map['data']['type'];
               content =

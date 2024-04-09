@@ -19,10 +19,24 @@ class CreateGroupLogic extends GetxController {
   final faceURL = ''.obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     defaultCheckedList.addAll(Get.arguments['defaultCheckedList']);
     checkedList.addAll(Get.arguments['checkedList']);
-    allList.addAll(defaultCheckedList);
+    if (defaultCheckedList.isNotEmpty) {
+      final list = await OpenIM.iMManager.friendshipManager.getFriendListMap();
+      for (var defaultItem in defaultCheckedList) {
+        final friendJson = list.firstWhereOrNull((element) {
+          final fullUser = FullUserInfo.fromJson(element);
+          return fullUser.userID == defaultItem.userID;
+        });
+        if (null != friendJson) {
+          allList.add(UserInfo.fromJson(friendJson["friendInfo"]));
+        } else {
+          allList.add(defaultItem);
+        }
+      }
+    }
+    // allList.addAll(defaultCheckedList);
     allList.addAll(checkedList);
     super.onInit();
   }

@@ -167,10 +167,7 @@ class ChatLogic extends GetxController {
   bool get isAiSingleChat => isSingleChat && aiUtil.isAi(userID);
 
   List<Message> get messageListV2 {
-    return [
-      ...messageList,
-      ...(disabledChatInput ? extraMessageList : [])
-    ];
+    return [...messageList, ...(disabledChatInput ? extraMessageList : [])];
   }
 
   /// 是当前聊天窗口
@@ -207,6 +204,7 @@ class ChatLogic extends GetxController {
       ),
       MatchPattern(
         type: PatternType.url,
+        style: StylesLibrary.ts_32C5FF_14sp,
         onTap: clickLinkText,
       ),
       MatchPattern(
@@ -545,9 +543,9 @@ class ChatLogic extends GetxController {
     });
   }
 
-  void chatSetup() => isSingleChat
-      ? AppNavigator.startChatSetup(conversationInfo: conversationInfo.value)
-      : AppNavigator.startGroupChatSetup(
+  void chatSetting() => isSingleChat
+      ? AppNavigator.startChatSetting(conversationInfo: conversationInfo.value)
+      : AppNavigator.startGroupChatSetting(
           conversationInfo: conversationInfo.value);
 
   void clearCurAtMap() {
@@ -774,7 +772,7 @@ class ChatLogic extends GetxController {
     String? userId,
     String? groupId,
     bool addToUI = true,
-  }) async{
+  }) async {
     userId = MitiUtils.emptyStrToNull(userId);
     groupId = MitiUtils.emptyStrToNull(groupId);
     if (null == userId && null == groupId ||

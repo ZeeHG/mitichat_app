@@ -149,6 +149,11 @@ class MatchTextView extends StatelessWidget {
               text: matchText,
               style: mapping.style ?? matchTextStyle ?? textStyle,
             );
+          } else if (mapping.type == PatternType.url) {
+            inlineSpan = TextSpan(
+              text: matchText,
+              style: mapping.style ?? matchTextStyle ?? textStyle,
+            );
           }
           /* else if (mapping.type == PatternType.EMOJI) {
             inlineSpan = ImageSpan();

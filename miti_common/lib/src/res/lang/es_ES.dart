@@ -313,7 +313,7 @@ const Map<String, String> es_ES = {
   "fiveMinutes": "5 Minutos",
   "clearAll": "Borrar Todo",
   "clearSuccessfully": "Borrado Exitoso",
-  "groupChatSetup": "Configuración de Grupo",
+  "groupChatSetting": "Configuración de Grupo",
   "viewAllGroupMembers": "Ver Todos los Miembros del Grupo (%s)",
   "groupManage": "Gestión",
   "myGroupMemberNickname": "Mi Apodo",

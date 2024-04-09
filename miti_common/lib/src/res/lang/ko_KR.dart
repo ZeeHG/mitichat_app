@@ -304,7 +304,7 @@ const Map<String, String> ko_KR = {
   "fiveMinutes": "5분",
   "clearAll": "모두 지우기",
   "clearSuccessfully": "성공적으로 지워짐",
-  "groupChatSetup": "그룹 설정",
+  "groupChatSetting": "그룹 설정",
   "viewAllGroupMembers": "모든 그룹 멤버 보기 (%s)",
   "groupManage": "관리",
   "myGroupMemberNickname": "내 별명",

@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 import 'chat_setting_logic.dart';
 
-class ChatSetupPage extends StatelessWidget {
-  final logic = Get.find<ChatSetupLogic>();
+class ChatSettingPage extends StatelessWidget {
+  final logic = Get.find<ChatSettingLogic>();
 
-  ChatSetupPage({super.key});
+  ChatSettingPage({super.key});
 
   @override
   Widget build(BuildContext context) {

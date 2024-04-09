@@ -7,7 +7,7 @@ abstract class AppRoutes {
   static const home = '/home';
   static const chat = '/chat';
   static const myQrcode = '/my_qrcode';
-  static const chatSetup = '/chat_setting';
+  static const chatSetting = '/chat_setting';
   static const favoriteManage = '/emoji_favorite_manage';
   // static const addContactsMethod = '/add_contacts_method';
   static const addContactsBySearch = '/add_contacts_by_search';
@@ -32,7 +32,7 @@ abstract class AppRoutes {
   static const chatHistoryMedia = '/chat_history_media';
   static const chatHistoryFile = '/chat_history_file';
   static const previewChatHistory = '/preview_chat_history';
-  static const groupChatSetup = '/group_chat_setting';
+  static const groupChatSetting = '/group_chat_setting';
   static const groupManage = '/group_manage';
   static const editGroupName = '/edit_group_name';
   static const editGroupAnnouncement = '/edit_group_announcement';

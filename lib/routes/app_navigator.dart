@@ -212,10 +212,10 @@ class AppNavigator {
 
   static startAboutUs() => Get.toNamed(AppRoutes.aboutUs);
 
-  static startChatSetup({
+  static startChatSetting({
     required ConversationInfo conversationInfo,
   }) =>
-      Get.toNamed(AppRoutes.chatSetup, arguments: {
+      Get.toNamed(AppRoutes.chatSetting, arguments: {
         'conversationInfo': conversationInfo,
       });
 
@@ -255,10 +255,10 @@ class AppNavigator {
         'message': message,
       });
 
-  static startGroupChatSetup({
+  static startGroupChatSetting({
     required ConversationInfo conversationInfo,
   }) =>
-      Get.toNamed(AppRoutes.groupChatSetup, arguments: {
+      Get.toNamed(AppRoutes.groupChatSetting, arguments: {
         'conversationInfo': conversationInfo,
       });
 

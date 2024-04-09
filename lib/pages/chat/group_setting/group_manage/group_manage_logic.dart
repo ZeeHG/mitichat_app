@@ -7,7 +7,7 @@ import '../../../../routes/app_navigator.dart';
 import '../group_member_list/group_member_list_logic.dart';
 
 class GroupManageLogic extends GetxController {
-  final groupSetupLogic = Get.find<ChatSettingLogic>();
+  final groupSetupLogic = Get.find<GroupChatSettingLogic>();
 
   Rx<GroupInfo> get groupInfo => groupSetupLogic.groupInfo;
 

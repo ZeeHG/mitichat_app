@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:miti/pages/chat/chat_setting/chat_setting_binding.dart';
+import 'package:miti/pages/chat/chat_setting/chat_setting_view.dart';
 import 'package:miti/pages/chat/complaint/complaint_binding.dart';
 import 'package:miti/pages/chat/complaint/complaint_view.dart';
 import 'package:miti/pages/contacts/ai_friend_list/ai_friend_list_binding.dart';
@@ -64,8 +66,6 @@ import '../pages/bot/create_bot/create_bot_view.dart';
 import '../pages/bot/training_bot/training_bot_binding.dart';
 import '../pages/bot/training_bot/training_bot_view.dart';
 import '../pages/chat/chat_binding.dart';
-import '../pages/chat/chat_setting/chat_setting_binding.dart';
-import '../pages/chat/chat_setting/chat_setting_view.dart';
 import '../pages/chat/chat_setting/emoji_favorite_manage/emoji_favorite_manage_binding.dart';
 import '../pages/chat/chat_setting/emoji_favorite_manage/emoji_favorite_manage_view.dart';
 import '../pages/chat/chat_setting/chat_history/file/file_binding.dart';
@@ -242,9 +242,9 @@ class AppPages {
       binding: MyQrcodeBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.chatSetup,
-      page: () => ChatSetupPage(),
-      binding: ChatSetupBinding(),
+      name: AppRoutes.chatSetting,
+      page: () => ChatSettingPage(),
+      binding: ChatSettingBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.favoriteManage,
@@ -367,9 +367,9 @@ class AppPages {
       binding: PreviewChatHistoryBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.groupChatSetup,
-      page: () => ChatSettingPage(),
-      binding: ChatSettingBinding(),
+      name: AppRoutes.groupChatSetting,
+      page: () => GroupChatSettingPage(),
+      binding: GroupChatSettingBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.groupManage,

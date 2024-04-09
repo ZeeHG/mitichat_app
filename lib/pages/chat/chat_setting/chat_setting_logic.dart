@@ -12,7 +12,7 @@ import '../../../core/ctrl/im_ctrl.dart';
 import '../../../routes/app_navigator.dart';
 import '../chat_logic.dart';
 
-class ChatSetupLogic extends GetxController {
+class ChatSettingLogic extends GetxController {
   // final chatLogic = Get.find<ChatLogic>();
   final chatLogic = Get.find<ChatLogic>(tag: GetTags.chat);
   final appCtrl = Get.find<AppCtrl>();

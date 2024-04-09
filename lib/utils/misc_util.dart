@@ -14,6 +14,7 @@ Future<void> requestBackgroundPermission(
         notificationTitle: "miti",
         notificationText: "running....",
         notificationImportance: AndroidNotificationImportance.Default,
+        showBadge: false,
         notificationIcon:
             const AndroidResource(name: 'ic_launcher', defType: 'mipmap'),
         shouldRequestBatteryOptimizationsOff:

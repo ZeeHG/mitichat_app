@@ -275,6 +275,10 @@ class StylesLibrary {
     fontSize: 20.sp,
     fontWeight: FontWeight.w600,
   ).merge(en600);
+  static TextStyle ts_32C5FF_14sp = TextStyle(
+    color: c_32C5FF,
+    fontSize: 14.sp,
+  ).merge(en400);
 
   /// 0089FF
   static TextStyle ts_0089FF_10sp_semibold = TextStyle(

@@ -123,7 +123,7 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
         onSyncServerFinish: () async {
           imSdkStatus(IMSdkStatus.syncEnded);
           if (Platform.isAndroid) {
-            await requestBackgroundPermission();
+            // await requestBackgroundPermission();
             Permissions.request([Permission.systemAlertWindow]);
           }
         },

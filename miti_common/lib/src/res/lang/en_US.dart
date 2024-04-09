@@ -311,7 +311,7 @@ const Map<String, String> en_US = {
   "fiveMinutes": "5 Minutes",
   "clearAll": "Clear All",
   "clearSuccessfully": "Cleared Successfully",
-  "groupChatSetup": "Group Settings",
+  "groupChatSetting": "Group Settings",
   "viewAllGroupMembers": "View All Group Members (%s)",
   "groupManage": "Management",
   "myGroupMemberNickname": "My Nickname",

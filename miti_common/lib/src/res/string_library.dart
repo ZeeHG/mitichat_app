@@ -637,7 +637,7 @@ class StrLibrary {
 
   static String get clearSuccessfully => 'clearSuccessfully'.tr;
 
-  static String get groupChatSetup => 'groupChatSetup'.tr;
+  static String get groupChatSetting => 'groupChatSetting'.tr;
 
   static String get viewAllGroupMembers => 'viewAllGroupMembers'.tr;
 

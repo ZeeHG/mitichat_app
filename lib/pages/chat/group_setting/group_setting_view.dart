@@ -6,10 +6,10 @@ import 'package:miti_common/miti_common.dart';
 import 'package:sprintf/sprintf.dart';
 import 'group_setting_logic.dart';
 
-class ChatSettingPage extends StatelessWidget {
-  final logic = Get.find<ChatSettingLogic>();
+class GroupChatSettingPage extends StatelessWidget {
+  final logic = Get.find<GroupChatSettingLogic>();
 
-  ChatSettingPage({super.key});
+  GroupChatSettingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
