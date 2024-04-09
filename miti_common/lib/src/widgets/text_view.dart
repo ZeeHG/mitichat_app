@@ -1,3 +1,4 @@
+import 'package:extended_text/extended_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:miti_common/miti_common.dart';
@@ -26,6 +27,7 @@ class MatchTextView extends StatelessWidget {
   final List<MatchPattern> patterns;
   final TextModel model;
   final Function(String? text)? onVisibleTrulyText;
+  final bool selectMode;
 
   // final TextAlign textAlign;
   const MatchTextView({
@@ -42,6 +44,7 @@ class MatchTextView extends StatelessWidget {
     this.textScaleFactor = 1.0,
     this.model = TextModel.match,
     this.onVisibleTrulyText,
+    this.selectMode = false
   }) : super(key: key);
 
   @override
@@ -62,14 +65,22 @@ class MatchTextView extends StatelessWidget {
 
     return Container(
       constraints: BoxConstraints(maxWidth: maxWidth),
-      child: RichText(
-        textAlign: textAlign,
-        overflow: overflow,
-        maxLines: maxLines,
-        // textScaleFactor: textScaleFactor,
-        textScaler: TextScaler.linear(textScaleFactor ?? 1),
-        text: textSpan,
-      ),
+      child: !selectMode
+          ? RichText(
+              textAlign: textAlign,
+              overflow: overflow,
+              maxLines: maxLines,
+              // textScaleFactor: textScaleFactor,
+              textScaler: TextScaler.linear(textScaleFactor ?? 1),
+              text: textSpan,
+            )
+          : ExtendedText.rich(
+              textSpan,
+              textAlign: textAlign,
+              maxLines: maxLines,
+              textScaler: TextScaler.linear(textScaleFactor ?? 1),
+              style: textStyle?.copyWith(overflow: TextOverflow.ellipsis),
+            ),
     );
   }
 

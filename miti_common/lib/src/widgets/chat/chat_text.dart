@@ -16,6 +16,7 @@ class ChatText extends StatelessWidget {
     this.textScaleFactor = 1.0,
     this.model = TextModel.match,
     this.onVisibleTrulyText,
+    this.selectMode = false
   }) : super(key: key);
   final bool isISend;
   final String text;
@@ -29,6 +30,7 @@ class ChatText extends StatelessWidget {
   final List<MatchPattern> patterns;
   final TextModel model;
   final Function(String? text)? onVisibleTrulyText;
+  final bool selectMode;
 
   @override
   Widget build(BuildContext context) => MatchTextView(
@@ -50,5 +52,6 @@ class ChatText extends StatelessWidget {
         model: model,
         maxLines: maxLines,
         onVisibleTrulyText: onVisibleTrulyText,
+        selectMode: selectMode
       );
 }

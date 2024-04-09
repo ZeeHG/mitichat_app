@@ -68,7 +68,7 @@ dependencies:
   device_info_plus: ^9.1.0
   visibility_detector: ^0.4.0+2
   extended_text_field: ^13.0.0
-  extended_text: ^12.0.0
+  extended_text: ^13.0.0
   animate_do: ^3.0.2
   emoji_picker_flutter: ^1.5.2
   should_rebuild: ^1.0.1

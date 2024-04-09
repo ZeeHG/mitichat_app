@@ -156,6 +156,7 @@ class _ChatQuoteContentView extends StatelessWidget {
             constraints: BoxConstraints(maxWidth: maxWidth - 70.w),
             child: ChatText(
               text: '$name：${content ?? ''}',
+              selectMode: true,
               allAtMap: allAtMap,
               textStyle: StylesLibrary.ts_999999_14sp,
               maxLines: 2,
