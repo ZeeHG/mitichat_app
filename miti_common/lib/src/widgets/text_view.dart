@@ -1,6 +1,7 @@
 import 'package:extended_text/extended_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:miti_common/miti_common.dart';
 
 /// message content: @uid1 @uid2 xxxxxxx
@@ -28,24 +29,25 @@ class MatchTextView extends StatelessWidget {
   final TextModel model;
   final Function(String? text)? onVisibleTrulyText;
   final bool selectMode;
+  final Function({SelectedContent? selectedContent})? onSelectionChanged;
 
   // final TextAlign textAlign;
-  const MatchTextView({
-    Key? key,
-    required this.text,
-    this.allAtMap = const <String, String>{},
-    this.prefixSpan,
-    this.patterns = const <MatchPattern>[],
-    this.textAlign = TextAlign.left,
-    this.overflow = TextOverflow.clip,
-    this.textStyle,
-    this.matchTextStyle,
-    this.maxLines,
-    this.textScaleFactor = 1.0,
-    this.model = TextModel.match,
-    this.onVisibleTrulyText,
-    this.selectMode = false
-  }) : super(key: key);
+  const MatchTextView(
+      {super.key,
+      required this.text,
+      this.allAtMap = const <String, String>{},
+      this.prefixSpan,
+      this.patterns = const <MatchPattern>[],
+      this.textAlign = TextAlign.left,
+      this.overflow = TextOverflow.clip,
+      this.textStyle,
+      this.matchTextStyle,
+      this.maxLines,
+      this.textScaleFactor = 1.0,
+      this.model = TextModel.match,
+      this.onVisibleTrulyText,
+      this.onSelectionChanged,
+      this.selectMode = false});
 
   @override
   Widget build(BuildContext context) {
@@ -71,16 +73,25 @@ class MatchTextView extends StatelessWidget {
               overflow: overflow,
               maxLines: maxLines,
               // textScaleFactor: textScaleFactor,
-              textScaler: TextScaler.linear(textScaleFactor ?? 1),
+              textScaler: TextScaler.linear(textScaleFactor),
               text: textSpan,
             )
-          : ExtendedText.rich(
-              textSpan,
-              textAlign: textAlign,
-              maxLines: maxLines,
-              textScaler: TextScaler.linear(textScaleFactor ?? 1),
-              style: textStyle?.copyWith(overflow: TextOverflow.ellipsis),
-            ),
+          : Theme(
+              data: Theme.of(context).copyWith(
+                textSelectionTheme: const TextSelectionThemeData(
+                  selectionColor: Colors.green,
+                ),
+              ),
+              child: SelectionArea(
+                  onSelectionChanged: (selectedContent) => onSelectionChanged
+                      ?.call(selectedContent: selectedContent),
+                  child: ExtendedText.rich(
+                    textSpan,
+                    textAlign: textAlign,
+                    maxLines: maxLines ?? 999,
+                    textScaler: TextScaler.linear(textScaleFactor),
+                    style: textStyle?.copyWith(overflow: TextOverflow.ellipsis),
+                  ))),
     );
   }
 
@@ -164,6 +175,11 @@ class MatchTextView extends StatelessWidget {
             inlineSpan = TextSpan(
               text: matchText,
               style: mapping.style ?? matchTextStyle ?? textStyle,
+              recognizer: mapping.onTap == null
+                  ? null
+                  : (TapGestureRecognizer()
+                    ..onTap = () => mapping.onTap!(
+                        _getUrl(matchText, mapping.type), mapping.type)),
             );
           }
           /* else if (mapping.type == PatternType.EMOJI) {

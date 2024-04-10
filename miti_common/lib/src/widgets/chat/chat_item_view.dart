@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -67,7 +68,7 @@ typedef ItemVisibilityChange = void Function(
 
 class ChatItemView extends StatefulWidget {
   const ChatItemView({
-    Key? key,
+    super.key,
     this.mediaItemBuilder,
     this.itemViewBuilder,
     this.customTypeBuilder,
@@ -136,7 +137,7 @@ class ChatItemView extends StatefulWidget {
     this.onClickItemView,
     this.ChatFileDownloadProgressView,
     this.showRead,
-  }) : super(key: key);
+  });
   final ItemViewBuilder? mediaItemBuilder;
   final ItemViewBuilder? itemViewBuilder;
   final CustomTypeBuilder? customTypeBuilder;
@@ -349,6 +350,17 @@ class _ChatItemViewState extends State<ChatItemView> {
     );
   }
 
+  onSelectionChanged(CustomPopupMenuController popupCtrl,
+      {SelectedContent? selectedContent}) async {
+    // 防止输入框焦点切换到选择文本焦点导致菜单列表闪一下
+    await Future.delayed(const Duration(milliseconds: 50));
+    if (null != selectedContent) {
+      popupCtrl.showMenu();
+    } else {
+      popupCtrl.hideMenu();
+    }
+  }
+
   Widget _buildChildView() {
     Widget? child;
     String? senderNickname;
@@ -369,6 +381,9 @@ class _ChatItemViewState extends State<ChatItemView> {
         textScaleFactor: widget.textScaleFactor,
         onVisibleTrulyText: widget.onVisibleTrulyText,
         isISend: _isISend,
+        selectMode: true,
+        onSelectionChanged: ({SelectedContent? selectedContent}) =>
+            onSelectionChanged(_popupCtrl, selectedContent: selectedContent),
       );
     } else if (_message.isAtTextType) {
       isBubbleBg = true;
@@ -379,6 +394,9 @@ class _ChatItemViewState extends State<ChatItemView> {
         textScaleFactor: widget.textScaleFactor,
         onVisibleTrulyText: widget.onVisibleTrulyText,
         isISend: _isISend,
+        selectMode: true,
+        onSelectionChanged: ({SelectedContent? selectedContent}) =>
+            onSelectionChanged(_popupCtrl, selectedContent: selectedContent),
       );
     } else if (_message.isPictureType) {
       child = widget.mediaItemBuilder?.call(context, _message) ??
@@ -426,6 +444,9 @@ class _ChatItemViewState extends State<ChatItemView> {
         patterns: widget.patterns,
         onVisibleTrulyText: widget.onVisibleTrulyText,
         isISend: _isISend,
+        selectMode: true,
+        onSelectionChanged: ({SelectedContent? selectedContent}) =>
+            onSelectionChanged(_popupCtrl, selectedContent: selectedContent),
       );
     } else if (_message.isMergerType) {
       child = ChatMergeMsgView(
@@ -613,6 +634,11 @@ class _ChatItemViewState extends State<ChatItemView> {
                             patterns: widget.patterns,
                             textScaleFactor: widget.textScaleFactor,
                             isISend: _isISend,
+                            selectMode: true,
+                            onSelectionChanged: (
+                                    {SelectedContent? selectedContent}) =>
+                                onSelectionChanged(_popupTranslateMenuCtrl,
+                                    selectedContent: selectedContent),
                           )
                         : _buildMarkdown(text: text!),
                   ),
@@ -688,6 +714,11 @@ class _ChatItemViewState extends State<ChatItemView> {
                       patterns: widget.patterns,
                       textScaleFactor: widget.textScaleFactor,
                       isISend: _isISend,
+                      selectMode: true,
+                      onSelectionChanged: (
+                              {SelectedContent? selectedContent}) =>
+                          onSelectionChanged(_popupTranslateMenuCtrl,
+                              selectedContent: selectedContent),
                     ),
                   ),
           );

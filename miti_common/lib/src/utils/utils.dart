@@ -28,6 +28,7 @@ import 'package:local_auth_android/local_auth_android.dart';
 import 'package:local_auth_ios/local_auth_ios.dart';
 import 'package:lpinyin/lpinyin.dart';
 import 'package:mime/mime.dart';
+import 'package:miti_common/src/widgets/chat/chat_preview_text_message.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:path_provider/path_provider.dart';
@@ -1448,6 +1449,57 @@ class MitiUtils {
     }
   }
 
+  static void previewTextMessage(
+      Message message, OverlayEntry? textOverlayEntry) {
+    // Get.to(
+    //   () => ChatPreviewTextMsgView(message: message),
+    //   preventDuplicates: false,
+    //   transition: Transition.cupertino,
+    //   popGesture: true,
+    // );
+    String content = "";
+    if (message.isTextType) {
+      content = message.textElem!.content!;
+    } else if (message.isAtTextType) {
+      content = MitiUtils.replaceMessageAtMapping(message, {});
+    } else if (message.isQuoteType) {
+      content = message.quoteElem?.text ?? "";
+    }
+    if (content.isNotEmpty == true) {
+      textOverlayEntry = OverlayEntry(
+        builder: (context) => Scaffold(
+            backgroundColor: StylesLibrary.c_F8F9FA,
+            body: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () {
+                // textOverlayEntry?.remove();
+                Get.back();
+              },
+              child: Center(
+                child: SelectionArea(
+                  child: content.toText..style = StylesLibrary.ts_333333_16sp,
+                ),
+              ),
+            )),
+      );
+
+      Overlay.of(Get.context!).insert(textOverlayEntry);
+
+      Navigator.of(Get.context!)
+          .push(MaterialPageRoute<void>(builder: (BuildContext context) {
+        return WillPopScope(
+          onWillPop: () async {
+            textOverlayEntry?.remove();
+            return true;
+          },
+          child: Scaffold(backgroundColor: Colors.transparent),
+        );
+      })).then((_) {
+        textOverlayEntry?.remove();
+      });
+    }
+  }
+
   static void previewLocation(Message message) {
     var location = message.locationElem;
     Map detail = json.decode(location!.description!);
@@ -1487,11 +1539,11 @@ class MitiUtils {
 
   /// 处理消息点击事件
   /// [messageList] 预览图片消息的时候，可用左右滑动
-  static void parseClickEvent(
-    Message message, {
-    List<Message> messageList = const [],
-    Function(UserInfo userInfo)? onViewUserInfo,
-  }) async {
+  static void parseClickEvent(Message message,
+      {List<Message> messageList = const [],
+      Function(UserInfo userInfo)? onViewUserInfo,
+      isQuote = false,
+      OverlayEntry? textOverlayEntry}) async {
     if (message.contentType == MessageType.picture ||
         message.contentType == MessageType.video) {
       var mediaMessages = messageList
@@ -1518,6 +1570,10 @@ class MitiUtils {
       previewLocation(message);
     } else if (message.contentType == MessageType.customFace) {
       previewCustomFace(message);
+    } else if (isQuote &&
+        [MessageType.text, MessageType.atText, MessageType.quote]
+            .contains(message.contentType)) {
+      previewTextMessage(message, textOverlayEntry);
     }
   }
 

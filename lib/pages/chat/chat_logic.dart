@@ -126,6 +126,7 @@ class ChatLogic extends GetxController {
 
   late StreamSubscription connectionSub;
   final syncStatus = IMSdkStatus.syncEnded.obs;
+  OverlayEntry? textOverlayEntry;
 
   // late StreamSubscription signalingMessageSub;
 
@@ -204,7 +205,7 @@ class ChatLogic extends GetxController {
       ),
       MatchPattern(
         type: PatternType.url,
-        style: StylesLibrary.ts_32C5FF_14sp,
+        style: StylesLibrary.ts_32C5FF_16sp,
         onTap: clickLinkText,
       ),
       MatchPattern(
@@ -1301,7 +1302,7 @@ class ChatLogic extends GetxController {
   }
 
   /// 处理消息点击事件
-  void parseClickEvent(Message msg) async {
+  void parseClickEvent(Message msg, [bool isQuote = false]) async {
     if (msg.contentType == MessageType.custom) {
       var data = msg.customElem!.data;
       var map = json.decode(data!);
@@ -1350,11 +1351,11 @@ class ChatLogic extends GetxController {
       return;
     }
 
-    MitiUtils.parseClickEvent(
-      msg,
-      messageList: messageList,
-      onViewUserInfo: viewUserInfo,
-    );
+    MitiUtils.parseClickEvent(msg,
+        messageList: messageList,
+        onViewUserInfo: viewUserInfo,
+        isQuote: isQuote,
+        textOverlayEntry: textOverlayEntry);
   }
 
   /// 点击引用消息
@@ -1364,7 +1365,7 @@ class ChatLogic extends GetxController {
     // } else if (message.contentType == MessageType.atText) {
     //   parseClickEvent(message.atElem!.quoteMessage!);
     // }
-    parseClickEvent(message);
+    parseClickEvent(message, true);
   }
 
   /// 群聊天长按头像为@用户
@@ -2606,7 +2607,10 @@ class ChatLogic extends GetxController {
 
   /// 复制菜单
   bool showCopyMenu(Message message) {
-    return message.isTextType || message.isAtTextType || message.isTagTextType;
+    return message.isTextType ||
+        message.isAtTextType ||
+        message.isTagTextType ||
+        message.isQuoteType;
   }
 
   /// 删除菜单
@@ -2699,6 +2703,7 @@ class ChatLogic extends GetxController {
   }
 
   WillPopCallback? willPop() {
+    // textOverlayEntry?.remove();
     return multiSelMode.value || isShowPopMenu.value
         ? () async => exit()
         : null;

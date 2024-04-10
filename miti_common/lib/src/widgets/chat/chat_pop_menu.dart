@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:miti_common/miti_common.dart';
 
@@ -23,10 +24,10 @@ class ChatLongPressMenu extends StatelessWidget {
   final List<MenuInfo> menus;
 
   const ChatLongPressMenu({
-    Key? key,
+    super.key,
     required this.popupMenuController,
     required this.menus,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +78,7 @@ class ChatLongPressMenu extends StatelessWidget {
       GestureDetector(
         onTap: () {
           popupMenuController?.hideMenu();
+          FocusScope.of(Get.context!).unfocus();
           onTap?.call();
         },
         behavior: HitTestBehavior.translucent,

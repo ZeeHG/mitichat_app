@@ -2,6 +2,8 @@ import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:miti_common/miti_common.dart';
 
 enum PressType {
   longPress,
@@ -17,13 +19,16 @@ class CustomPopupMenuController extends ChangeNotifier {
   bool menuIsShowing = false;
 
   void showMenu() {
+    if (menuIsShowing) return;
     menuIsShowing = true;
     notifyListeners();
   }
 
   void hideMenu() {
+    if (!menuIsShowing) return;
     menuIsShowing = false;
     notifyListeners();
+    // FocusScope.of(Get.context!).unfocus();
   }
 
   void toggleMenu() {
@@ -92,9 +97,9 @@ class _CustomPopupMenuState extends State<CopyCustomPopupMenu> {
     );
 
     final viewInsets = EdgeInsets.fromViewPadding(
-      WidgetsBinding.instance.platformDispatcher.views.first.viewInsets,
-      WidgetsBinding.instance.platformDispatcher.views.first.devicePixelRatio
-    );
+        WidgetsBinding.instance.platformDispatcher.views.first.viewInsets,
+        WidgetsBinding
+            .instance.platformDispatcher.views.first.devicePixelRatio);
 
     var keyboardHeight = viewInsets.bottom;
 
@@ -159,6 +164,7 @@ class _CustomPopupMenuState extends State<CopyCustomPopupMenu> {
               return;
             }
             _controller?.hideMenu();
+            FocusScope.of(Get.context!).unfocus();
             // When [enablePassEvent] works and we tap the [child] to [hideMenu],
             // but the passed event would trigger [showMenu] again.
             // So, we use time threshold to solve this bug.
@@ -241,7 +247,7 @@ class _CustomPopupMenuState extends State<CopyCustomPopupMenu> {
         child: Container(
           child: widget.child,
         ),
-      ) ,
+      ),
     );
     if (Platform.isIOS) {
       return child;

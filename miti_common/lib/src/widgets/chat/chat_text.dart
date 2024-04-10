@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:miti_common/miti_common.dart';
 
 class ChatText extends StatelessWidget {
   const ChatText({
-    Key? key,
+    super.key,
     this.isISend = false,
     required this.text,
     this.allAtMap = const <String, String>{},
@@ -16,8 +17,9 @@ class ChatText extends StatelessWidget {
     this.textScaleFactor = 1.0,
     this.model = TextModel.match,
     this.onVisibleTrulyText,
-    this.selectMode = false
-  }) : super(key: key);
+    this.selectMode = false,
+    this.onSelectionChanged
+  });
   final bool isISend;
   final String text;
   final TextStyle? textStyle;
@@ -31,6 +33,8 @@ class ChatText extends StatelessWidget {
   final TextModel model;
   final Function(String? text)? onVisibleTrulyText;
   final bool selectMode;
+  final Function(
+      {SelectedContent? selectedContent})? onSelectionChanged;
 
   @override
   Widget build(BuildContext context) => MatchTextView(
@@ -52,6 +56,7 @@ class ChatText extends StatelessWidget {
         model: model,
         maxLines: maxLines,
         onVisibleTrulyText: onVisibleTrulyText,
-        selectMode: selectMode
+        selectMode: selectMode,
+        onSelectionChanged: onSelectionChanged
       );
 }

@@ -222,7 +222,7 @@ class ConversationPage extends StatelessWidget {
                         5.verticalSpace,
                         Row(
                           children: [
-                            MatchTextView(
+                            Expanded(child: MatchTextView(
                               text: logic.getContent(info),
                               textStyle: StylesLibrary.ts_999999_14sp,
                               allAtMap: logic.getAtUserMap(info),
@@ -251,7 +251,7 @@ class ConversationPage extends StatelessWidget {
                                   style: StylesLibrary.ts_999999_14sp,
                                 ),
                               ],
-                            ),
+                            ),),
                             10.horizontalSpace,
                             if (logic.isNotDisturb(info))
                               ImageLibrary.notDisturb.toImage
