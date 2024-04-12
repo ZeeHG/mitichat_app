@@ -205,7 +205,7 @@ class ChatLogic extends GetxController {
       ),
       MatchPattern(
         type: PatternType.url,
-        style: StylesLibrary.ts_32C5FF_16sp,
+        style: StylesLibrary.ts_FCC307_16sp,
         onTap: clickLinkText,
       ),
       MatchPattern(

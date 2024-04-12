@@ -78,8 +78,8 @@ class MatchTextView extends StatelessWidget {
             )
           : Theme(
               data: Theme.of(context).copyWith(
-                textSelectionTheme: const TextSelectionThemeData(
-                  selectionColor: Colors.green,
+                textSelectionTheme: TextSelectionThemeData(
+                  selectionColor: StylesLibrary.c_D8D8D8,
                 ),
               ),
               child: SelectionArea(
@@ -255,7 +255,7 @@ const regexEmail = r"\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b";
 // const regexUrl =
 //     r"[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:._\+-~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:_\+.~#?&\/\/=]*)";
 const regexUrl =
-    r"(?:http(s)?://)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\*\+,;=.]+\b";
+    r"(?:http(s)?://)?[\w.-]+(?:\.[\w\.-]+)+[/\w\-\._~:/?#[\]@!\$&'\*\+,;=%]+";
 
 /// Phone Regex - A predefined type for handling phone matching
 // const regexMobile =
