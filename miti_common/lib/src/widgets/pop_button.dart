@@ -93,16 +93,20 @@ class PopButton extends StatelessWidget {
       pressType: pressType,
       child: child,
       menuBuilder: () => _buildPopBgView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: null == cusMenus
-              ? menus
-                  .map((e) =>
-                      _buildPopItemView(e, showLine: menus.lastOrNull != e))
-                  .toList()
-              : cusMenus!.map((e) => _buildCusPopItemView(e)).toList(),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: 0.5.sh),
+          child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: null == cusMenus
+                ? menus
+                    .map((e) =>
+                        _buildPopItemView(e, showLine: menus.lastOrNull != e))
+                    .toList()
+                : cusMenus!.map((e) => _buildCusPopItemView(e)).toList(),
+          ),
         ),
-      ),
+          )),
     );
   }
 
