@@ -27,7 +27,7 @@ class ChatPage extends StatelessWidget {
         closePopMenuSubject: logic.forceCloseMenuSub,
         isMultiSelMode: logic.showCheckbox(message),
         // ignorePointer: logic.isMuted || logic.isInvalidGroup,
-        checkedList: logic.multiSelList,
+        checkedList: logic.multiSelList.value,
         enabledReadStatus: logic.enabledReadStatus(message),
         isPrivateChat: message.isPrivateType,
         readingDuration: logic.readTime(message),

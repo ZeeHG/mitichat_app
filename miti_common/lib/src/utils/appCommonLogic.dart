@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:app_installer/app_installer.dart';
+// import 'package:app_installer/app_installer.dart';
 import 'package:get/get.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -59,7 +59,7 @@ class AppCommonLogic extends GetxController {
             file != null &&
             await file.length() == int.parse(appCacheInfo["size"])) {
           myLogger.i({"message": "在前台更新app"});
-          AppInstaller.installApk(appCacheInfo["path"]);
+          // AppInstaller.installApk(appCacheInfo["path"]);
         }
       } finally {
         // 修改状态
