@@ -2365,9 +2365,8 @@ class ChatLogic extends GetxController {
   /// 显示菜单屏蔽消息插入
   void onPopMenuShowChanged(show) {
     isShowPopMenu.value = show;
-    if (!show && scrollingCacheMessageList.isNotEmpty) {
-      messageList.addAll(scrollingCacheMessageList);
-      scrollingCacheMessageList.clear();
+    if (!show) {
+      addScrollingCacheToMessageList();
     }
   }
 
@@ -2749,8 +2748,19 @@ class ChatLogic extends GetxController {
 
   /// 当滚动位置处于底部时，将新镇的消息放入列表里
   void onScrollToTop() {
+    addScrollingCacheToMessageList();
+  }
+
+  void addScrollingCacheToMessageList() {
     if (scrollingCacheMessageList.isNotEmpty) {
-      messageList.addAll(scrollingCacheMessageList);
+      // messageList.addAll(scrollingCacheMessageList);
+      final messageIDList =
+          messageList.map((element) => element.clientMsgID).toList();
+      for (var e in scrollingCacheMessageList) {
+        if (!messageIDList.contains(e.clientMsgID)) {
+          messageList.add(e);
+        }
+      }
       scrollingCacheMessageList.clear();
     }
   }
