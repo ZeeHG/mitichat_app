@@ -223,7 +223,6 @@ abstract class CommonSearchLogic extends GetxController {
                 element.userID == keyword))
         .map((e) => e.friendInfo!)
         .toList();
-    myLogger.e(result1[0].toJson());
     List<FriendInfo> result2 = [];
     final result1IdList = result1.map((e) => e.userID).toList();
     final fullUserInfoList = await ClientApis.getUserFullInfo(
