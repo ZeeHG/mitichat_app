@@ -75,7 +75,7 @@ class GlobalSearchLogic extends CommonSearchLogic {
             ]));
     if (curSearchText != textBeforeSearch) return;
     final friendList = (result[0] as List<FriendInfo>).map((e) =>
-        UserInfo(userID: e.userID, nickname: e.nickname, faceURL: e.faceURL));
+        UserInfo(userID: e.userID, nickname: (e.remark !=null && e.remark!.isNotEmpty)? e.remark : e.nickname, faceURL: e.faceURL));
     final gList = result[1] as List<GroupInfo>;
     final textMessageResult = (result[2] as SearchResult).searchResultItems;
     final fileMessageResult = (result[3] as SearchResult).searchResultItems;
@@ -208,9 +208,38 @@ abstract class CommonSearchLogic extends GetxController {
     }
   }
 
-  Future<List<FriendInfo>> searchFriend() =>
-      ClientApis.searchFriendInfo(searchCtrl.text.trim()).then(
-          (list) => list.map((e) => FriendInfo.fromJson(e.toJson())).toList());
+  Future<List<FriendInfo>> searchFriend() async {
+    final keyword = searchCtrl.text.trim().toLowerCase();
+
+    final list = await OpenIM.iMManager.friendshipManager.getFriendList();
+    // 昵称，备注，id
+    final result1 = list
+        .where((element) =>
+            element.friendInfo != null &&
+            (element.showName.toLowerCase().contains(keyword) ||
+                (element.friendInfo!.remark ?? "")
+                    .toLowerCase()
+                    .contains(keyword) ||
+                element.userID == keyword))
+        .map((e) => e.friendInfo!)
+        .toList();
+    myLogger.e(result1[0].toJson());
+    List<FriendInfo> result2 = [];
+    final result1IdList = result1.map((e) => e.userID).toList();
+    final fullUserInfoList = await ClientApis.getUserFullInfo(
+        userIDList: list.map((e) => e.userID).toList());
+    // 手机, 邮箱
+    if (fullUserInfoList != null) {
+      result2 = fullUserInfoList
+          .where((element) =>
+              (element.phoneNumber == keyword ||
+                  element.email?.toLowerCase() == keyword) &&
+              !result1IdList.contains(element.userID))
+          .map((e) => FriendInfo.fromJson(e.toJson()))
+          .toList();
+    }
+    return [...result1, ...result2];
+  }
 
   Future<List<GroupInfo>> searchGroup() =>
       OpenIM.iMManager.groupManager.searchGroups(
