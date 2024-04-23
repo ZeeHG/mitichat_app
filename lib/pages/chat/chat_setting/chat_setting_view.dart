@@ -49,12 +49,12 @@ class ChatSettingPage extends StatelessWidget {
                 //   showSwitchButton: true,
                 //   isBottomRadius: true,
                 // ),
-                _buildItemView(
-                    text: StrLibrary.chatEncryption,
-                    switchOn: true,
-                    // onChanged: (_) => showDeveloping(),
-                    showSwitchButton: true,
-                    showBorder: true),
+                // _buildItemView(
+                //     text: StrLibrary.chatEncryption,
+                //     switchOn: true,
+                //     // onChanged: (_) => showDeveloping(),
+                //     showSwitchButton: true,
+                //     showBorder: true),
                 _buildItemView(
                     text: StrLibrary.burnAfterReading,
                     switchOn: logic.isBurnAfterReading,

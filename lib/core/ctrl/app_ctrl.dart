@@ -133,7 +133,7 @@ class AppCtrl extends SuperController {
               priority: Priority.max,
               playSound: false,
               enableVibration: false,
-              // 启动后通知要很久才消失
+              // 启动后通知超时才消失
               // fullScreenIntent: true,
               silent: false,
               // 无效

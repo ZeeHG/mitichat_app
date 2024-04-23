@@ -81,14 +81,14 @@ class GroupChatSettingPage extends StatelessWidget {
                       onChanged: (_) => logic.toggleTopChat(),
                     ),
                     // 聊天加密
-                    _itemView(
-                        text: StrLibrary.chatEncryption,
-                        switchOn: true,
-                        showBorder: true,
-                        showSwitchButton: true,
-                        isBottomRadius: true
-                        // onChanged: (_) => showDeveloping(),
-                        ),
+                    // _itemView(
+                    //     text: StrLibrary.chatEncryption,
+                    //     switchOn: true,
+                    //     showBorder: true,
+                    //     showSwitchButton: true,
+                    //     isBottomRadius: true
+                    //     // onChanged: (_) => showDeveloping(),
+                    //     ),
                     15.verticalSpace,
                     _itemView(
                       text: StrLibrary.myGroupMemberNickname,
