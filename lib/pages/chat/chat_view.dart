@@ -379,7 +379,7 @@ class ChatPage extends StatelessWidget {
                   ),
                   child: ChatListView(
                     onTouch: () => logic.closeToolbox(),
-                    itemCount: logic.messageListV2.length + 1,
+                    itemCount: logic.messageListV2.length,
                     controller: logic.scrollController,
                     onScrollToBottomLoad: logic.onScrollToBottomLoad,
                     onScrollToTop: logic.onScrollToTop,
