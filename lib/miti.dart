@@ -29,7 +29,7 @@ class Miti extends StatelessWidget {
           builder: (locale, transitionWidgetBuilder) => GetMaterialApp(
             theme: getTheme(Brightness.dark),
             navigatorObservers: [LoadingView.singleton],
-            debugShowCheckedModeBanner: true,
+            debugShowCheckedModeBanner: false,
             enableLog: true,
             builder: transitionWidgetBuilder,
             logWriterCallback: Logger.print,
