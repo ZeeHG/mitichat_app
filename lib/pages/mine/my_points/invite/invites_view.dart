@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 import 'invite_logic.dart';
 
@@ -13,11 +13,11 @@ class InvitePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.newFriend),
-      backgroundColor: Styles.c_F8F9FA,
+      appBar: TitleBar.back(title: StrLibrary.newFriend),
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: Obx(() => SingleChildScrollView(
-        child: Text(logic.aaa.toString()),
-      )),
+            child: Text(logic.aaa.toString()),
+          )),
     );
   }
 }

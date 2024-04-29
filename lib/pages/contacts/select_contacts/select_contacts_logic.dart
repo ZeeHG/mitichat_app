@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 import 'select_contacts_view.dart';
 
@@ -32,14 +32,13 @@ enum SelAction {
   remindWhoToWatch,
 
   /// 会议：好友，组织架构，群，最近会话
-  meeting,
+  // meeting,
 
   /// 下发通知 好友，组织架构，群，标签，最近会话
   notificationIssued,
 }
 
-class SelectContactsLogic extends GetxController
-    implements OrganizationMultiSelBridge {
+class SelectContactsLogic extends GetxController {
   final checkedList = <String, dynamic>{}.obs; // 已经选中的
   final defaultCheckedIDList = <String>{}.obs; // 默认选中，且不能修改
   List<String>? excludeIDList; // 剔除某些数据
@@ -50,6 +49,7 @@ class SelectContactsLogic extends GetxController
   String? ex;
   final inputCtrl = TextEditingController();
   final appBarTitle = "".obs;
+  bool selectFromFriend = false;
 
   @override
   void onInit() {
@@ -61,25 +61,29 @@ class SelectContactsLogic extends GetxController
     checkedList.addAll(Get.arguments['checkedList'] ?? {});
     openSelectedSheet = Get.arguments['openSelectedSheet'];
     ex = Get.arguments['ex'];
-    PackageBridge.organizationBridge = this;
+    selectFromFriend = Get.arguments['selectFromFriend'];
+    // MitiBridge.organizationBridge = this;
     super.onInit();
   }
 
   @override
   void onClose() {
     inputCtrl.dispose();
-    PackageBridge.organizationBridge = null;
+    // MitiBridge.organizationBridge = null;
     super.onClose();
   }
 
   @override
   void onReady() {
-    _queryConversationList();
-    if (openSelectedSheet) viewSelectedContactsList();
+    if (selectFromFriend) {
+      selectFromMyFriend();
+    } else {
+      if (openSelectedSheet) viewSelectedContactsList();
+    }
     super.onReady();
   }
 
-  @override
+  // @override
   bool get isMultiModel => action != SelAction.carte;
 
   /// 隐藏群
@@ -104,16 +108,19 @@ class SelectContactsLogic extends GetxController
       action == SelAction.whoCanWatch || action == SelAction.remindWhoToWatch;
 
   /// 隐藏标签组
-  bool get hiddenTagGroup =>
-      action == SelAction.forward ||
-      action == SelAction.carte ||
-      action == SelAction.crateGroup ||
-      action == SelAction.addMember ||
-      action == SelAction.recommend ||
-      action == SelAction.createTag ||
-      action == SelAction.whoCanWatch ||
-      action == SelAction.remindWhoToWatch ||
-      action == SelAction.meeting;
+  // bool get hiddenTagGroup =>
+  //     action == SelAction.forward ||
+  //     action == SelAction.carte ||
+  //     action == SelAction.crateGroup ||
+  //     action == SelAction.addMember ||
+  //     action == SelAction.recommend ||
+  //     action == SelAction.createTag ||
+  //     action == SelAction.whoCanWatch ||
+  //     action == SelAction.remindWhoToWatch
+  //     // || action == SelAction.meeting
+  //     ;
+
+  bool get hiddenTagGroup => true;
 
   /// 最近会话
   _queryConversationList() async {
@@ -164,22 +171,22 @@ class SelectContactsLogic extends GetxController
     }
   }
 
-  @override
+  // @override
   bool isChecked(info) => checkedList.containsKey(parseID(info));
 
-  @override
+  // @override
   bool isDefaultChecked(info) => defaultCheckedIDList.contains(parseID(info));
 
-  @override
+  // @override
   Function()? onTap(dynamic info) =>
       isDefaultChecked(info) ? null : () => toggleChecked(info);
 
-  @override
+  // @override
   removeItem(dynamic info) {
     checkedList.remove(parseID(info));
   }
 
-  @override
+  // @override
   toggleChecked(dynamic info) {
     if (isMultiModel) {
       final key = parseID(info);
@@ -194,7 +201,7 @@ class SelectContactsLogic extends GetxController
   }
 
   /// 邀请群成员，标记已入群的人员
-  @override
+  // @override
   updateDefaultCheckedList(List<String> userIDList) async {
     if (groupID != null) {
       var list = await OpenIM.iMManager.groupManager.getGroupMembersInfo(
@@ -207,15 +214,25 @@ class SelectContactsLogic extends GetxController
 
   String get checkedStrTips => checkedList.values.map(parseName).join('、');
 
+  List<String?> get checkedFaceUrls =>
+      checkedList.values.map(parseFaceURL).toList();
+
+  List<String?> get checkedNames => checkedList.values.map(parseName).toList();
+
   viewSelectedContactsList() => Get.bottomSheet(
         SelectedContactsListView(),
         isScrollControlled: true,
       );
 
   selectFromMyFriend() async {
-    final result = await AppNavigator.startSelectContactsFromFriends();
+    final result = await AppNavigator.startSelectContactsFromFriends(
+        appBarTitle: StrLibrary.selectFriends);
     if (null != result) {
       Get.back(result: result);
+    } else {
+      if (selectFromFriend) {
+        Get.back();
+      }
     }
   }
 
@@ -240,12 +257,12 @@ class SelectContactsLogic extends GetxController
     }
   }
 
-  selectTagGroup() async {
-    final result = await await AppNavigator.startSelectContactsFromTag();
-    if (null != result) {
-      Get.back(result: result);
-    }
-  }
+  // selectTagGroup() async {
+  //   final result = await await AppNavigator.startSelectContactsFromTag();
+  //   if (null != result) {
+  //     Get.back(result: result);
+  //   }
+  // }
 
   confirmSelectedList() async {
     if (action == SelAction.forward || action == SelAction.recommend) {
@@ -261,14 +278,14 @@ class SelectContactsLogic extends GetxController
         });
       }
     } else {
-      Get.back(result: checkedList.value);
+      Get.back(result: checkedList);
     }
   }
 
   confirmSelectedItem(ISUserInfo info) async {
     if (action == SelAction.carte) {
       final sure = await Get.dialog(CustomDialog(
-        title: StrRes.sendCarteConfirmHint,
+        title: StrLibrary.sendCarteConfirmHint,
       ));
       if (sure == true) {
         Get.back(result: UserInfo.fromJson(info.toJson()));
@@ -279,7 +296,7 @@ class SelectContactsLogic extends GetxController
   bool get enabledConfirmButton =>
       checkedList.isNotEmpty || action == SelAction.remindWhoToWatch;
 
-  @override
+  // @override
   Widget get checkedConfirmView =>
       isMultiModel ? CheckedConfirmView() : const SizedBox();
 }

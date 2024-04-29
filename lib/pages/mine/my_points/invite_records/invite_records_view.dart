@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 import 'invite_records_logic.dart';
 
@@ -13,8 +13,8 @@ class InviteRecordsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrRes.allRecords),
-      backgroundColor: Styles.c_F8F9FA,
+      appBar: TitleBar.back(title: StrLibrary.allRecords),
+      backgroundColor: StylesLibrary.c_F8F9FA,
       body: Obx(() => Padding(
             padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 15.w),
             child: ListView.builder(
@@ -25,10 +25,11 @@ class InviteRecordsPage extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border(
                             bottom: BorderSide(
-                                width: 1.w, color: Styles.c_F1F2F6))),
+                                width: 1.w, color: StylesLibrary.c_F1F2F6))),
                     child: Row(
                       children: [
-                        "AAAAAA".toText..style=Styles.ts_343434_18p_medium,
+                        "AAAAAA".toText
+                          ..style = StylesLibrary.ts_343434_18p_medium,
                         Spacer(),
                         AvatarView(
                           url: "",
@@ -37,7 +38,8 @@ class InviteRecordsPage extends StatelessWidget {
                           height: 26.h,
                         ),
                         10.horizontalSpace,
-                        StrRes.used.toText..style = Styles.ts_999999_14sp,
+                        StrLibrary.used.toText
+                          ..style = StylesLibrary.ts_999999_14sp,
                       ],
                     ),
                   );

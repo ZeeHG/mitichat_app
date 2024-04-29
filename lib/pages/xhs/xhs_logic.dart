@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
-import 'package:openim_common/openim_common.dart';
-import 'package:openim_working_circle/openim_working_circle.dart';
-import 'package:openim_working_circle/src/w_apis.dart';
+import 'package:miti_common/miti_common.dart';
+import 'package:miti_circle/miti_circle.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // import '../publish/publish_logic.dart';
@@ -162,7 +161,7 @@ class XhsLogic extends GetxController {
 
   void startXhsMomentDetail(WorkMoments xhsMoment) {
     AppNavigator.startXhsMomentDetail(xhsMoment: xhsMoment);
-    Apis.addActionRecord(actionRecordList: [
+    ClientApis.addActionRecord(actionRecordList: [
       ActionRecord(
           category: ActionCategory.discover,
           actionName: ActionName.read,
@@ -170,7 +169,7 @@ class XhsLogic extends GetxController {
     ]);
   }
 
-  final refreshCtrl = RefreshController();
+  late List<RefreshController> refreshCtrlList;
   final inputCtrl = TextEditingController();
   final workMoments = <WorkMoments>[].obs;
   final commentHintText = ''.obs;
@@ -187,33 +186,30 @@ class XhsLogic extends GetxController {
   late String faceURL;
   StreamSubscription? opEventSub;
   Rx<Category> activeCategory =
-      Rx(Category(label: StrRes.recommend, value: ""));
+      Rx(Category(label: StrLibrary.recommend, value: ""));
 
   List<Category> get categoryList => [
-        Category(label: StrRes.recommend, value: ""),
-        Category(label: StrRes.life, value: "life"),
-        Category(label: StrRes.aigc, value: "aigc"),
-        Category(label: StrRes.web3, value: "web3"),
-        Category(label: StrRes.news, value: "news"),
+        Category(label: StrLibrary.recommend, value: ""),
+        Category(label: StrLibrary.life, value: "life"),
+        Category(label: StrLibrary.aigc, value: "aigc"),
+        Category(label: StrLibrary.web3, value: "web3"),
+        Category(label: StrLibrary.news, value: "news"),
       ];
 
-  clickCategory(Category category) {
-    final newRefresh = activeCategory.value.value != category.value;
-    activeCategory.value = category;
-    if (newRefresh) {
-      refreshWorkingCircleList(showLoading: true);
-    }
-  }
+  int get activeCategoryIndex =>
+      categoryList.indexWhere((e) => e.value == activeCategory.value.value);
 
-  ViewUserProfileBridge? get bridge => PackageBridge.viewUserProfileBridge;
+  ViewUserProfileBridge? get bridge => MitiBridge.viewUserProfileBridge;
 
-  // WorkingCircleBridge? get wcBridge => PackageBridge.workingCircleBridge;
+  // FriendCircleBridge? get wcBridge => MitiBridge.friendCircleBridge;
 
   bool get isMyself => userID == OpenIM.iMManager.userID || userID == null;
 
   final hasMore = true.obs;
   final ScrollController scrollController = ScrollController();
   final RxDouble scrollHeight = 0.0.obs;
+  final PageController pageController = PageController();
+  bool switching = false;
 
   @override
   void onClose() {
@@ -221,20 +217,25 @@ class XhsLogic extends GetxController {
     opEventSub?.cancel();
     inputCtrl.dispose();
     scrollController.dispose();
+    pageController.removeListener(_pageListener);
+    pageController.dispose();
     super.onClose();
   }
 
   @override
   void onInit() {
+    refreshCtrlList = categoryList.map((e) => RefreshController()).toList();
     userID = Get.arguments['userID'] /*?? OpenIM.iMManager.uid*/;
     nickname = Get.arguments['nickname'] ?? OpenIM.iMManager.userInfo.nickname;
     faceURL =
         Get.arguments['faceURL'] ?? OpenIM.iMManager.userInfo.faceURL ?? "";
     // wcBridge?.onRecvNewMessageForWorkingCircle = _recvNewMessage;
-    WApis.getUnreadCount(momentType: 2)
+    CircleApis.getUnreadCount(momentType: 2)
         .then((value) => newMessageCount.value = value);
     // opEventSub = wcBridge?.opEventSub.listen(_opEventListener);
     scrollController.addListener(_scrollListener);
+    pageController.addListener(_pageListener);
+    refreshWorkingCircleList(silence: false);
     super.onInit();
   }
 
@@ -242,19 +243,35 @@ class XhsLogic extends GetxController {
     scrollHeight.value = scrollController.offset;
   }
 
-  @override
-  void onReady() {
-    refreshWorkingCircleList(showLoading: true);
-    super.onReady();
+  void _pageListener() async {
+    if (switching || activeCategoryIndex == pageController.page!.round())
+      return;
+    activeCategory.value = categoryList[pageController.page!.round()];
+    refreshWorkingCircleList(silence: false);
   }
 
-  void refreshWorkingCircleList({bool showLoading = false}) {
-    if (showLoading) {
-      LoadingView.singleton.wrap(
-        asyncFunction: () => queryWorkingCircleList(),
+  clickCategory(Category category) {
+    final newRefresh = activeCategory.value.value != category.value;
+    activeCategory.value = category;
+    if (newRefresh) {
+      switching = true;
+      pageController
+          .animateToPage(activeCategoryIndex,
+              duration: Duration(milliseconds: 50), curve: Curves.easeInOut)
+          .then((value) {
+        switching = false;
+        refreshWorkingCircleList(silence: false);
+      });
+    }
+  }
+
+  void refreshWorkingCircleList({bool silence = true}) {
+    if (!silence) {
+      LoadingView.singleton.start(
+        fn: () => queryWorkingCircleList(silence: silence),
       );
     } else {
-      queryWorkingCircleList();
+      queryWorkingCircleList(silence: silence);
     }
   }
 
@@ -275,36 +292,39 @@ class XhsLogic extends GetxController {
     }
   }
 
-  Future<WorkMomentsList> _request(int pageNo) => userID == null
-      ? WApis.getMomentsList(
+  Future<FriendMomentsList> _request(int pageNo) => userID == null
+      ? CircleApis.getMomentsList(
           pageNumber: pageNo,
           showNumber: pageSize,
           momentType: 2,
           category: activeCategory.value.value)
-      : WApis.getUserMomentsList(
+      : CircleApis.getUserMomentsList(
           userID: userID!,
           pageNumber: pageNo,
           showNumber: pageSize,
           momentType: 2,
           category: activeCategory.value.value);
 
-  queryWorkingCircleList() async {
+  queryWorkingCircleList({bool silence = true}) async {
+    final curActiveCategoryIndex = activeCategoryIndex;
     try {
+      if (!silence) workMoments.clear();
       final result = await _request(pageNo = 1);
       final list = result.workMoments ?? [];
       hasMore.value = list.isNotEmpty && list.length == pageSize;
-      workMoments.clear();
+      if (silence) workMoments.clear();
       workMoments.assignAll(list);
     } catch (_) {}
-    refreshCtrl.refreshCompleted();
+    refreshCtrlList.map((e) => e.refreshCompleted()).toList();
     if (hasMore.value) {
-      refreshCtrl.loadComplete();
+      refreshCtrlList[curActiveCategoryIndex].loadComplete();
     } else {
-      refreshCtrl.loadNoData();
+      refreshCtrlList[curActiveCategoryIndex].loadNoData();
     }
   }
 
   loadMore() async {
+    final curActiveCategoryIndex = activeCategoryIndex;
     try {
       final result = await _request(++pageNo);
       final list = result.workMoments ?? [];
@@ -314,9 +334,9 @@ class XhsLogic extends GetxController {
       pageNo--;
     }
     if (hasMore.value) {
-      refreshCtrl.loadComplete();
+      refreshCtrlList[curActiveCategoryIndex].loadComplete();
     } else {
-      refreshCtrl.loadNoData();
+      refreshCtrlList[curActiveCategoryIndex].loadNoData();
     }
   }
 
@@ -331,16 +351,16 @@ class XhsLogic extends GetxController {
     hiddenLikeCommentPopMenu();
     final workMomentID = moments.workMomentID!;
     if (!iIsLiked(moments)) {
-      Apis.addActionRecord(actionRecordList: [
+      ClientApis.addActionRecord(actionRecordList: [
         ActionRecord(
             category: ActionCategory.discover,
             actionName: ActionName.click_like,
             workMomentID: workMomentID)
       ]);
     }
-    await LoadingView.singleton.wrap(
-      asyncFunction: () async {
-        await WApis.likeMoments(
+    await LoadingView.singleton.start(
+      fn: () async {
+        await CircleApis.likeMoments(
             workMomentID: workMomentID, like: !iIsLiked(moments));
         await _updateData(workMomentID);
       },
@@ -348,76 +368,78 @@ class XhsLogic extends GetxController {
   }
 
   /// 提交评论
-  submitComment() async {
-    final text = inputCtrl.text.trim();
-    if (text.isNotEmpty && null != commentWorkMomentsID) {
-      await LoadingView.singleton.wrap(asyncFunction: () async {
-        await WApis.commentMoments(
-          workMomentID: commentWorkMomentsID!,
-          text: text,
-          replyUserID: replyUserID,
-        );
-        await _updateData(commentWorkMomentsID!);
-      });
-      cancelComment();
-    }
-  }
+  // submitComment() async {
+  //   final text = inputCtrl.text.trim();
+  //   if (text.isNotEmpty && null != commentWorkMomentsID) {
+  //     await LoadingView.singleton.start(fn: () async {
+  //       await CircleApis.commentMoments(
+  //         workMomentID: commentWorkMomentsID!,
+  //         text: text,
+  //         replyUserID: replyUserID,
+  //       );
+  //       await _updateData(commentWorkMomentsID!);
+  //     });
+  //     cancelComment();
+  //   }
+  // }
 
   /// 评论朋友圈
-  commentMoments(WorkMoments moments) async {
-    hiddenLikeCommentPopMenu();
-    commentHintText.value = '${StrRes.comment}：';
-    commentWorkMomentsID = moments.workMomentID!;
-    replyUserID = null;
-  }
+  // commentMoments(WorkMoments moments) async {
+  //   hiddenLikeCommentPopMenu();
+  //   commentHintText.value = '${StrLibrary.comment}：';
+  //   commentWorkMomentsID = moments.workMomentID!;
+  //   replyUserID = null;
+  // }
 
   /// 回复评论
-  replyComment(WorkMoments moments, Comments comments) async {
-    hiddenLikeCommentPopMenu();
-    if (comments.userID == OpenIM.iMManager.userID) {
-      final del = await Get.bottomSheet(
-        BottomSheetView(items: [SheetItem(label: StrRes.delete, result: 1)]),
-      );
-      if (del == 1) {
-        delComment(moments, comments);
-      }
-    } else {
-      commentHintText.value = '${StrRes.reply} ${comments.nickname}：';
-      commentWorkMomentsID = moments.workMomentID!;
-      replyUserID = comments.userID;
-    }
-  }
+  // replyComment(WorkMoments moments, Comments comments) async {
+  //   hiddenLikeCommentPopMenu();
+  //   if (comments.userID == OpenIM.iMManager.userID) {
+  //     final del = await Get.bottomSheet(
+  //       barrierColor: StylesLibrary.c_191919_opacity50,
+  //       BottomSheetView(
+  //           items: [SheetItem(label: StrLibrary.delete, result: 1)]),
+  //     );
+  //     if (del == 1) {
+  //       delComment(moments, comments);
+  //     }
+  //   } else {
+  //     commentHintText.value = '${StrLibrary.reply} ${comments.nickname}：';
+  //     commentWorkMomentsID = moments.workMomentID!;
+  //     replyUserID = comments.userID;
+  //   }
+  // }
 
   /// 删除评论
-  delComment(WorkMoments moments, Comments comments) async {
-    LoadingView.singleton.wrap(
-      asyncFunction: () async {
-        await WApis.deleteComment(
-          workMomentID: moments.workMomentID!,
-          commentID: comments.commentID!,
-        );
-        await _updateData(moments.workMomentID!);
-      },
-    );
-  }
+  // delComment(WorkMoments moments, Comments comments) async {
+  //   LoadingView.singleton.start(
+  //     fn: () async {
+  //       await CircleApis.deleteComment(
+  //         workMomentID: moments.workMomentID!,
+  //         commentID: comments.commentID!,
+  //       );
+  //       await _updateData(moments.workMomentID!);
+  //     },
+  //   );
+  // }
 
   Future<void> delWorkWorkMoments(WorkMoments moments) async {
     var confirm = await Get.dialog(CustomDialog(
-      title: StrRes.confirmDelMoment,
+      title: StrLibrary.confirmDelMoment,
     ));
     if (!confirm) return;
-    await LoadingView.singleton.wrap(
-      asyncFunction: () async {
-        await WApis.deleteMoments(workMomentID: moments.workMomentID!);
+    await LoadingView.singleton.start(
+      fn: () async {
+        await CircleApis.deleteMoments(workMomentID: moments.workMomentID!);
       },
     );
     workMoments.remove(moments);
-    newMessageCount.value = await WApis.getUnreadCount(momentType: 2);
+    newMessageCount.value = await CircleApis.getUnreadCount(momentType: 2);
   }
 
   _updateData(String workMomentID) async {
-    final detail =
-        await WApis.getMomentsDetail(workMomentID: workMomentID, momentType: 2);
+    final detail = await CircleApis.getMomentsDetail(
+        workMomentID: workMomentID, momentType: 2);
     final index = workMoments.indexOf(detail);
     workMoments.replaceRange(index, index + 1, [detail]);
   }
@@ -428,19 +450,19 @@ class XhsLogic extends GetxController {
 
   hiddenLikeCommentPopMenu() => showLikeCommentPopMenu("");
 
-  popMenuPositionCallback(Offset position, Size size) {
-    popMenuPosition = position;
-    popMenuSize = size;
-  }
+  // popMenuPositionCallback(Offset position, Size size) {
+  //   popMenuPosition = position;
+  //   popMenuSize = size;
+  // }
 
-  cancelComment() {
-    commentHintText.value = '';
-    commentWorkMomentsID = null;
-    replyUserID = null;
-    inputCtrl.clear();
-  }
+  // cancelComment() {
+  //   commentHintText.value = '';
+  //   commentWorkMomentsID = null;
+  //   replyUserID = null;
+  //   inputCtrl.clear();
+  // }
 
-  // publish(int type) => WNavigator.startPublishWorkMoments(
+  // publish(int type) => CircleNavigator.startPublishWorkMoments(
   //       type: type == 0 ? PublishType.picture : PublishType.video,
   //     );
 
@@ -470,15 +492,15 @@ class XhsLogic extends GetxController {
   /// 0：公开 1: 仅自己可见 2：部分可见 3：不给谁看
   previewWhoCanWatchList(WorkMoments moments) {
     if (moments.permission == 2 || moments.permission == 3) {
-      WNavigator.startVisibleUsersList(workMoments: moments);
+      CircleNavigator.startVisibleUsersList(workMoments: moments);
     }
   }
 
-  seeNewMessage() async {
-    WApis.clearUnreadCount(type: 1, momentType: 2);
-    newMessageCount.value = 0;
-    await WNavigator.startLikeOrCommentMessage();
-  }
+  // seeNewMessage() async {
+  //   CircleApis.clearUnreadCount(type: 1, momentType: 2);
+  //   newMessageCount.value = 0;
+  //   await CircleNavigator.startLikeOrCommentMessage();
+  // }
 
   viewUserProfile(WorkMoments moments) => _viewProfilePanel(
         userID: moments.userID!,
@@ -501,18 +523,18 @@ class XhsLogic extends GetxController {
   }) =>
       bridge?.viewUserProfile(userID, nickname, faceURL);
 
-  _recvNewMessage(WorkMomentsNotification notification) async {
-    // newMessageCount.value = notification.unreadNum ?? 0;
-    final newValue = notification.body;
-    if (null != newValue) {
-      final index = workMoments.indexOf(newValue);
-      if (index != -1) {
-        workMoments.replaceRange(index, index + 1, [newValue]);
-        workMoments.refresh();
-      }
-    }
-    newMessageCount.value = await WApis.getUnreadCount(momentType: 2);
-  }
+  // _recvNewMessage(WorkMomentsNotification notification) async {
+  //   // newMessageCount.value = notification.unreadNum ?? 0;
+  //   final newValue = notification.body;
+  //   if (null != newValue) {
+  //     final index = workMoments.indexOf(newValue);
+  //     if (index != -1) {
+  //       workMoments.replaceRange(index, index + 1, [newValue]);
+  //       workMoments.refresh();
+  //     }
+  //   }
+  //   newMessageCount.value = await CircleApis.getUnreadCount(momentType: 2);
+  // }
 
 // @override
 // Future<bool> onRefresh() async {

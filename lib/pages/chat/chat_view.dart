@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
-import '../../widgets/file_download_progress.dart';
+import '../../widgets/chat_file_download_progress_view.dart';
 import 'chat_logic.dart';
 
 class ChatPage extends StatelessWidget {
@@ -14,7 +14,7 @@ class ChatPage extends StatelessWidget {
   ChatPage({super.key});
 
   Widget _buildItemView(Message message) => ChatItemView(
-        showRead: logic.isAiSingleChat? true : null,
+        showRead: logic.isAiSingleChat ? true : null,
         key: logic.itemKey(message),
         // isBubbleMsg: logic.showBubbleBg(message),
         message: message,
@@ -32,7 +32,9 @@ class ChatPage extends StatelessWidget {
         isPrivateChat: message.isPrivateType,
         readingDuration: logic.readTime(message),
         isPlayingSound: logic.isPlaySound(message),
-        showLongPressMenu: !logic.isMuted && !logic.isInvalidGroup,
+        showLongPressMenu: !logic.isMuted &&
+            !logic.isInvalidGroup &&
+            !message.isTextWithPromptType,
         canReEdit: logic.canEditMessage(message),
         leftNickname: logic.getNewestNickname(message),
         leftFaceUrl: logic.getNewestFaceURL(message),
@@ -69,7 +71,7 @@ class ChatPage extends StatelessWidget {
         onTapUnTtsMenu: () => logic.unTts(message),
         onTapCopyMenu: () => logic.copy(message),
         onTapDelMenu: () => logic.deleteMsg(message),
-        onTapForwardMenu: () => logic.forward(message),
+        onTapForwardMenu: () => logic.forward(message: message),
         onTapReplyMenu: () => logic.setQuoteMsg(message),
         onTapRevokeMenu: () {
           logic.markRevokedMessage(message);
@@ -93,44 +95,25 @@ class ChatPage extends StatelessWidget {
           logic.copyTextMap[message.clientMsgID] = text;
         },
         customTypeBuilder: _buildCustomTypeItemView,
-        fileDownloadProgressView: FileDownloadProgressView(message),
-        patterns: <MatchPattern>[
-          MatchPattern(
-            type: PatternType.at,
-            onTap: logic.clickLinkText,
-          ),
-          MatchPattern(
-            type: PatternType.email,
-            onTap: logic.clickLinkText,
-          ),
-          MatchPattern(
-            type: PatternType.url,
-            onTap: logic.clickLinkText,
-          ),
-          MatchPattern(
-            type: PatternType.mobile,
-            onTap: logic.clickLinkText,
-          ),
-          MatchPattern(
-            type: PatternType.tel,
-            onTap: logic.clickLinkText,
-          ),
-        ],
+        ChatFileDownloadProgressView: ChatFileDownloadProgressView(message),
+        patterns: logic.pattern,
         mediaItemBuilder: (context, message) {
           return _buildMediaItem(context, message);
         },
       );
 
   Widget? _buildMediaItem(BuildContext context, Message message) {
-    if (message.contentType != MessageType.picture && message.contentType != MessageType.video) {
+    if (message.contentType != MessageType.picture &&
+        message.contentType != MessageType.video) {
       return null;
     }
-    final mediaMessages = logic.mediaMessages;
-    final cellIndex = mediaMessages.indexOf(message);
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        await logic.searchMediaMessage();
+        final mediaMessages = logic.mediaMessages;
+        final cellIndex = mediaMessages.indexOf(message);
         logic.stopVoice();
-        IMUtils.previewMediaFile(
+        MitiUtils.previewMediaFile(
             context: context,
             currentIndex: cellIndex,
             mediaMessages: mediaMessages,
@@ -144,17 +127,17 @@ class ChatPage extends StatelessWidget {
             },
             onOperate: (type) {
               if (type == OperateType.forward) {
-                logic.forward(message);
+                logic.forward(message: message);
               }
             }).then((value) {
-          print('PhotoBrowser closed');
           logic.playOnce = false;
         });
       },
       child: Hero(
           tag: message.clientMsgID!,
           child: _buildMediaContent(message),
-          placeholderBuilder: (BuildContext context, Size heroSize, Widget child) => child),
+          placeholderBuilder:
+              (BuildContext context, Size heroSize, Widget child) => child),
     );
   }
 
@@ -177,16 +160,18 @@ class ChatPage extends StatelessWidget {
   }
 
   CustomTypeInfo? _buildCustomTypeItemView(_, Message message) {
-    final data = IMUtils.parseCustomMessage(message);
+    final data = MitiUtils.parseCustomMessage(message);
     final isISend = message.sendID == OpenIM.iMManager.userID;
     if (null != data) {
       final viewType = data['viewType'];
       if (viewType == CustomMessageType.call) {
         final type = data['type'];
         final content = data['content'];
-        final view = ChatCallItemView(type: type, content: content, isISend: isISend);
+        final view =
+            ChatCallItemView(type: type, content: content, isISend: isISend);
         return CustomTypeInfo(view);
-      } else if (viewType == CustomMessageType.deletedByFriend || viewType == CustomMessageType.blockedByFriend) {
+      } else if (viewType == CustomMessageType.deletedByFriend ||
+          viewType == CustomMessageType.blockedByFriend) {
         final view = ChatFriendRelationshipAbnormalHintView(
           name: logic.nickname.value,
           onTap: logic.sendFriendVerification,
@@ -194,33 +179,37 @@ class ChatPage extends StatelessWidget {
           deletedByFriend: viewType == CustomMessageType.deletedByFriend,
         );
         return CustomTypeInfo(view, false, false);
-      } else if (viewType == CustomMessageType.meeting) {
-        // 会议
-        final inviterUserID = data['inviterUserID'];
-        final inviterNickname = data['inviterNickname'];
-        final inviterFaceURL = data['inviterFaceURL'];
-        final subject = data['subject'];
-        final id = data['id'];
-        final start = data['start'];
-        final duration = data['duration'];
-        final view = ChatMeetingView(
-          inviterUserID: inviterUserID,
-          inviterNickname: inviterNickname,
-          subject: subject,
-          start: start,
-          duration: duration,
-          id: id,
-        );
-        return CustomTypeInfo(view, false, true);
-      } else if (viewType == CustomMessageType.removedFromGroup) {
+      }
+      // else if (viewType == CustomMessageType.meeting) {
+      //   // 会议
+      //   final inviterUserID = data['inviterUserID'];
+      //   final inviterNickname = data['inviterNickname'];
+      //   final inviterFaceURL = data['inviterFaceURL'];
+      //   final subject = data['subject'];
+      //   final id = data['id'];
+      //   final start = data['start'];
+      //   final duration = data['duration'];
+      //   final view = ChatMeetingView(
+      //     inviterUserID: inviterUserID,
+      //     inviterNickname: inviterNickname,
+      //     subject: subject,
+      //     start: start,
+      //     duration: duration,
+      //     id: id,
+      //   );
+      //   return CustomTypeInfo(view, false, true);
+      // }
+      else if (viewType == CustomMessageType.removedFromGroup) {
         return CustomTypeInfo(
-          StrRes.removedFromGroupHint.toText..style = Styles.ts_999999_12sp,
+          StrLibrary.removedFromGroupHint.toText
+            ..style = StylesLibrary.ts_999999_12sp,
           false,
           false,
         );
       } else if (viewType == CustomMessageType.groupDisbanded) {
         return CustomTypeInfo(
-          StrRes.groupDisbanded.toText..style = Styles.ts_999999_12sp,
+          StrLibrary.groupDisbanded.toText
+            ..style = StylesLibrary.ts_999999_12sp,
           false,
           false,
         );
@@ -248,9 +237,39 @@ class ChatPage extends StatelessWidget {
             ),
           );
         }
+      } else if (viewType == CustomMessageType.textWithPrompt) {
+        final welcome = data["welcome"].toString();
+        final questions = List<String>.from(data["questions"]);
+        return CustomTypeInfo(
+            ChatTextWithPrompt(
+              textScaleFactor: logic.scaleFactor.value,
+              patterns: logic.pattern,
+              welcome: welcome,
+              questions: questions,
+              isISend: isISend,
+              onSendTextMsg: logic.sendTextMsg,
+              enabledTranslateMenu: logic.showTranslateMenu(message),
+              enabledUnTranslateMenu: logic.showUnTranslateMenu(message),
+              enabledRevokeMenu: logic.showRevokeMenu(message),
+              onTapCopyMenu: () => logic.copy(message),
+              onTapDelMenu: () => logic.deleteMsg(message),
+              onTapForwardMenu: () => logic.forward(message: message),
+              onTapReplyMenu: () => logic.setQuoteMsg(message),
+              onTapRevokeMenu: () {
+                logic.markRevokedMessage(message);
+                logic.revokeMsgV2(message);
+              },
+              onTapMultiMenu: () => logic.openMultiSelMode(message),
+              onTapTranslateMenu: () => logic.translate(message),
+              onTapUnTranslateMenu: () => logic.unTranslate(message),
+              onPopMenuShowChanged: logic.onPopMenuShowChanged,
+              closePopMenuSubject: logic.forceCloseMenuSub,
+              disabledChatInput: logic.disabledChatInput,
+            ),
+            false);
       }
+      return null;
     }
-    return null;
   }
 
   Widget get _topNoticeView => logic.announcement.value.isNotEmpty
@@ -290,7 +309,7 @@ class ChatPage extends StatelessWidget {
         onCompleted: logic.sendVoice,
         builder: (bar) => Obx(() {
           return Scaffold(
-              backgroundColor: Styles.c_F7F8FA,
+              backgroundColor: StylesLibrary.c_F7F8FA,
               appBar: TitleBar.chat(
                 title: logic.nickname.value,
                 isAiSingleChat: logic.isAiSingleChat,
@@ -301,7 +320,7 @@ class ChatPage extends StatelessWidget {
                 isMultiModel: logic.multiSelMode.value,
                 // showCallBtn: !logic.isInvalidGroup,
                 onCloseMultiModel: logic.exit,
-                onClickMoreBtn: logic.chatSetup,
+                onClickMoreBtn: logic.chatSetting,
                 // onClickCallBtn: logic.call,
               ),
               body: SafeArea(
@@ -309,7 +328,7 @@ class ChatPage extends StatelessWidget {
                 child: WaterMarkBgView(
                   // text: '',
                   path: logic.background.value,
-                  backgroundColor: Styles.c_F7F8FA,
+                  backgroundColor: StylesLibrary.c_F7F8FA,
                   // newMessageCount: logic.scrollingCacheMessageList.length,
                   // onSeeNewMessage: logic.scrollToIndex,
                   topView: _topNoticeView,
@@ -329,21 +348,20 @@ class ChatPage extends StatelessWidget {
                     onClearQuote: () => logic.setQuoteMsg(null),
                     onSend: (v) => logic.sendTextMsg(),
                     toolbox: ChatToolBox(
-                      onTapAlbum: logic.onTapAlbum,
-                      onTapCall: logic.call,
-                      onTapCamera: logic.onTapCamera,
-                      onTapCard: logic.onTapCarte,
-                      onTapFile: logic.onTapFile,
-                      onTapLocation: logic.onTapLocation,
-                      onTapAutoTranslate: logic.onTapAutoTranslate,
-                      onTapSnapchat: logic.isSingleChat
-                          ? logic.toggleBurnAfterReading
-                          : null,
-                      onTapGroupNote:
-                          !logic.isSingleChat ? showDeveloping : null,
-                      onTapVote: !logic.isSingleChat ? showDeveloping : null,
-                      onTapSearch: logic.onTapSearch
-                    ),
+                        onTapAlbum: logic.onTapAlbum,
+                        onTapCall: logic.call,
+                        onTapCamera: logic.onTapCamera,
+                        onTapCard: logic.onTapCarte,
+                        onTapFile: logic.onTapFile,
+                        onTapLocation: logic.onTapLocation,
+                        onTapAutoTranslate: logic.onTapAutoTranslate,
+                        onTapSnapchat: logic.isSingleChat
+                            ? logic.toggleBurnAfterReading
+                            : null,
+                        onTapGroupNote:
+                            !logic.isSingleChat ? showDeveloping : null,
+                        onTapVote: !logic.isSingleChat ? showDeveloping : null,
+                        onTapSearch: logic.onTapSearch),
                     voiceRecordBar: bar,
                     emojiView: ChatEmojiView(
                       textEditingController: logic.inputCtrl,
@@ -355,12 +373,13 @@ class ChatPage extends StatelessWidget {
                     ),
                     multiOpToolbox: ChatMultiSelToolbox(
                       onDelete: logic.mergeDelete,
-                      onMergeForward: () => logic.forward(null),
+                      onMergeForward: () => logic.forward(isMerge: true),
+                      onByOneForward: () => logic.forward(isOneByOne: true),
                     ),
                   ),
                   child: ChatListView(
                     onTouch: () => logic.closeToolbox(),
-                    itemCount: logic.messageListV2.length + 1,
+                    itemCount: logic.messageListV2.length,
                     controller: logic.scrollController,
                     onScrollToBottomLoad: logic.onScrollToBottomLoad,
                     onScrollToTop: logic.onScrollToTop,
@@ -368,33 +387,34 @@ class ChatPage extends StatelessWidget {
                       if (index == logic.messageListV2.length) {
                         return logic.showEncryptTips.value
                             ? Align(
-                              child: Container(
-                                width: 300.w,
-                                decoration: BoxDecoration(
-                                    color: Styles.c_EBEBEB,
-                                    borderRadius: BorderRadius.circular(6.r)),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 12.w, vertical: 6.h),
-                                margin: EdgeInsets.only(bottom: 16.h),
-                                child: RichText(
-                                  text: TextSpan(children: [
-                                    WidgetSpan(
-                                      child: ImageRes.appEncrypt.toImage
-                                        ..width = 9.w
-                                        ..height = 10.h,
-                                      alignment: PlaceholderAlignment.middle,
-                                    ),
-                                    WidgetSpan(
-                                      child: SizedBox(width: 2.w,)
-                                    ),
-                                    TextSpan(
-                                      style: Styles.ts_333333_12sp,
-                                      text: StrRes.encryptTips,
-                                    )
-                                  ]),
+                                child: Container(
+                                  width: 300.w,
+                                  decoration: BoxDecoration(
+                                      color: StylesLibrary.c_EBEBEB,
+                                      borderRadius: BorderRadius.circular(6.r)),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 12.w, vertical: 6.h),
+                                  margin: EdgeInsets.only(bottom: 16.h),
+                                  child: RichText(
+                                    text: TextSpan(children: [
+                                      WidgetSpan(
+                                        child: ImageLibrary.appEncrypt.toImage
+                                          ..width = 9.w
+                                          ..height = 10.h,
+                                        alignment: PlaceholderAlignment.middle,
+                                      ),
+                                      WidgetSpan(
+                                          child: SizedBox(
+                                        width: 2.w,
+                                      )),
+                                      TextSpan(
+                                        style: StylesLibrary.ts_333333_12sp,
+                                        text: StrLibrary.encryptTips,
+                                      )
+                                    ]),
+                                  ),
                                 ),
-                              ),
-                            )
+                              )
                             : SizedBox();
                       } else {
                         final message = logic.indexOfMessage(index);

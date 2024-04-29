@@ -1,17 +1,17 @@
-import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
-import 'package:get/get.dart';
-import 'package:miti/pages/contacts/add_by_search/add_by_search_logic.dart';
-import 'package:miti/routes/app_navigator.dart';
+// import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
+// import 'package:get/get.dart';
+// import 'package:miti/pages/contacts/search_add_contacts/search_add_contacts_logic.dart';
+// import 'package:miti/routes/app_navigator.dart';
 
-class AddContactsMethodLogic extends GetxController {
-  scan() => AppNavigator.startScan();
+// class AddContactsMethodLogic extends GetxController {
+//   scan() => AppNavigator.startScan();
 
-  addFriend() =>
-      AppNavigator.startAddContactsBySearch(searchType: SearchType.user);
+//   addFriend() =>
+//       AppNavigator.startSearchAddContacts(searchType: SearchType.user);
 
-  createGroup() => AppNavigator.startCreateGroup(
-      defaultCheckedList: [OpenIM.iMManager.userInfo]);
+//   createGroup() => AppNavigator.startCreateGroup(
+//       defaultCheckedList: [OpenIM.iMManager.userInfo]);
 
-  addGroup() =>
-      AppNavigator.startAddContactsBySearch(searchType: SearchType.group);
-}
+//   addGroup() =>
+//       AppNavigator.startSearchAddContacts(searchType: SearchType.group);
+// }

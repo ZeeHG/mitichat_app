@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
-
-import '../../../core/controller/push_controller.dart';
+import 'package:miti/utils/account_util.dart';
+import 'package:miti_common/miti_common.dart';
+import '../../../core/ctrl/push_ctrl.dart';
 import '../../../routes/app_navigator.dart';
 
 class ChangePwdLogic extends GetxController {
-  final pushLogic = Get.find<PushController>();
+  final pushCtrl = Get.find<PushCtrl>();
   final oldPwdCtrl = TextEditingController();
   final newPwdCtrl = TextEditingController();
   final againPwdCtrl = TextEditingController();
   final enabled = true.obs();
+  final accountUtil = Get.find<AccountUtil>();
 
   @override
   void onClose() {
@@ -22,40 +23,38 @@ class ChangePwdLogic extends GetxController {
   }
 
   void confirm() async {
-    if (oldPwdCtrl.text.isEmpty) {
-      IMViews.showToast(StrRes.plsEnterOldPwd);
-      return;
-    }
-    if (!IMUtils.isValidPassword(newPwdCtrl.text)) {
-      IMViews.showToast(StrRes.wrongPasswordFormat);
-      return;
-    }
     if (newPwdCtrl.text.isEmpty) {
-      IMViews.showToast(StrRes.plsEnterNewPwd);
+      showToast(StrLibrary.plsEnterNewPwd);
+      return;
+    }
+    if (!MitiUtils.isValidPassword(newPwdCtrl.text)) {
+      showToast(StrLibrary.wrongPasswordFormat);
+      return;
+    }
+    if (oldPwdCtrl.text.isEmpty) {
+      showToast(StrLibrary.plsEnterOldPwd);
       return;
     }
     if (againPwdCtrl.text.isEmpty) {
-      IMViews.showToast(StrRes.plsEnterConfirmPwd);
+      showToast(StrLibrary.plsEnterConfirmPwd);
       return;
     }
     if (newPwdCtrl.text != againPwdCtrl.text) {
-      IMViews.showToast(StrRes.twicePwdNoSame);
+      showToast(StrLibrary.twicePwdNoSame);
       return;
     }
 
-    final result = await LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.changePassword(
+    final result = await LoadingView.singleton.start(
+      fn: () => ClientApis.changePassword(
         userID: OpenIM.iMManager.userID,
         newPassword: newPwdCtrl.text,
         currentPassword: oldPwdCtrl.text,
       ),
     );
     if (result) {
-      IMViews.showToast(StrRes.changedSuccessfully);
-      await LoadingView.singleton.wrap(asyncFunction: () async {
-        await OpenIM.iMManager.logout();
-        await DataSp.removeLoginCertificate();
-        pushLogic.logout();
+      showToast(StrLibrary.changedSuccessfully);
+      await LoadingView.singleton.start(fn: () async {
+        await accountUtil.tryLogout();
       });
       AppNavigator.startLogin();
     }

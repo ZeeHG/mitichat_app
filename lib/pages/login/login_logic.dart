@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:miti/pages/mine/server_config/server_config_binding.dart';
-import 'package:miti/pages/mine/server_config/server_config_view.dart';
 import 'package:miti/utils/account_util.dart';
-import 'package:openim_common/openim_common.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-
-import '../../core/controller/im_controller.dart';
-import '../../core/controller/push_controller.dart';
+import 'package:miti_common/miti_common.dart';
+import '../../core/ctrl/im_ctrl.dart';
+import '../../core/ctrl/push_ctrl.dart';
 import '../../routes/app_navigator.dart';
 
 enum LoginType {
@@ -30,35 +26,35 @@ extension LoginTypeExt on LoginType {
   String get name {
     switch (this) {
       case LoginType.phone:
-        return StrRes.phoneNumber;
+        return StrLibrary.phoneNumber;
       case LoginType.email:
-        return StrRes.email;
+        return StrLibrary.email;
     }
   }
 
   String get hintText {
     switch (this) {
       case LoginType.phone:
-        return StrRes.plsEnterPhoneNumber;
+        return StrLibrary.plsEnterPhoneNumber;
       case LoginType.email:
-        return StrRes.plsEnterEmail;
+        return StrLibrary.plsEnterEmail;
     }
   }
 
   String get exclusiveName {
     switch (this) {
       case LoginType.phone:
-        return StrRes.email;
+        return StrLibrary.email;
       case LoginType.email:
-        return StrRes.phoneNumber;
+        return StrLibrary.phoneNumber;
     }
   }
 }
 
 class LoginLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
-  final pushLogic = Get.find<PushController>();
-  final phoneCtrl = TextEditingController();
+  final imCtrl = Get.find<IMCtrl>();
+  final pushCtrl = Get.find<PushCtrl>();
+  final phoneEmailCtrl = TextEditingController();
   final pwdCtrl = TextEditingController();
   final serverCtrl = TextEditingController();
   final onlyReadServerCtrl = TextEditingController();
@@ -70,9 +66,9 @@ class LoginLogic extends GetxController {
   final versionInfo = ''.obs;
   final loginType = LoginType.phone.obs;
   String? get email =>
-      loginType.value == LoginType.email ? phoneCtrl.text.trim() : null;
+      loginType.value == LoginType.email ? phoneEmailCtrl.text.trim() : null;
   String? get phone =>
-      loginType.value == LoginType.phone ? phoneCtrl.text.trim() : null;
+      loginType.value == LoginType.phone ? phoneEmailCtrl.text.trim() : null;
   LoginType operateType = LoginType.phone;
   final agree = false.obs;
   final translateLogic = Get.find<TranslateLogic>();
@@ -82,33 +78,29 @@ class LoginLogic extends GetxController {
   final server = Config.hostWithProtocol.obs;
   int curStatusChangeCount = 0;
 
-  _initData() async {
-    onlyReadServerCtrl.text = DataSp.getCurServerKey().isNotEmpty? DataSp.getCurServerKey() : Config.hostWithProtocol;
+  _init() async {
+    isAddAccount.value = Get.arguments?['isAddAccount'] ?? false;
+    server.value = Get.arguments?['server'] ?? server.value;
+    curStatusChangeCount = accountUtil.statusChangeCount.value;
+
+    onlyReadServerCtrl.text = DataSp.getCurServerKey().isNotEmpty
+        ? DataSp.getCurServerKey()
+        : Config.hostWithProtocol;
     var map = DataSp.getMainLoginAccount();
     if (map is Map) {
-      // String? email = map["email"];
-      // String? phoneNumber = map["phoneNumber"];
       String? areaCode = map["areaCode"];
-      // if (email != null && email.isNotEmpty && !isAddAccount.value) {
-      //   phoneCtrl.text = email;
-      // }
-      // if (phoneNumber != null &&
-      //     phoneNumber.isNotEmpty &&
-      //     !isAddAccount.value) {
-      //   phoneCtrl.text = phoneNumber;
-      // }
       if (areaCode != null && areaCode.isNotEmpty) {
         this.areaCode.value = areaCode;
       }
     }
 
     loginType.value =
-        (await DataSp.getLoginType()) == 0 ? LoginType.phone : LoginType.email;
+        DataSp.getLoginType() == 0 ? LoginType.phone : LoginType.email;
   }
 
   @override
   void onClose() {
-    phoneCtrl.dispose();
+    phoneEmailCtrl.dispose();
     pwdCtrl.dispose();
     verificationCodeCtrl.dispose();
     super.onClose();
@@ -116,68 +108,54 @@ class LoginLogic extends GetxController {
 
   @override
   void onInit() async {
-    isAddAccount.value = Get.arguments?['isAddAccount'] ?? false;
-    server.value = Get.arguments?['server'] ?? server.value;
-    curStatusChangeCount = accountUtil.statusChangeCount.value;
-    _initData();
-    phoneCtrl.addListener(_onChanged);
-    pwdCtrl.addListener(_onChanged);
-    verificationCodeCtrl.addListener(_onChanged);
-    // if (!isAddAccount.value) {
-    //   LoadingView.singleton.wrap(
-    //       navBarHeight: 0, asyncFunction: () => accountUtil.reloadServerConf());
-    // }
+    _init();
+    phoneEmailCtrl.addListener(handleFormChange);
+    pwdCtrl.addListener(handleFormChange);
+    verificationCodeCtrl.addListener(handleFormChange);
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-    getPackageInfo();
-  }
-
-  _onChanged() {
+  handleFormChange() {
     enabled.value = (isPasswordLogin.value &&
-            phoneCtrl.text.trim().isNotEmpty &&
+            phoneEmailCtrl.text.trim().isNotEmpty &&
             pwdCtrl.text.trim().isNotEmpty ||
         !isPasswordLogin.value &&
-            phoneCtrl.text.trim().isNotEmpty &&
+            phoneEmailCtrl.text.trim().isNotEmpty &&
             verificationCodeCtrl.text.trim().isNotEmpty);
   }
 
   login(BuildContext context) {
-    FocusScope.of(context).requestFocus(new FocusNode());
+    FocusScope.of(context).requestFocus(FocusNode());
     DataSp.putLoginType(loginType.value.rawValue);
-    LoadingView.singleton.wrap(
-        navBarHeight: 0,
-        asyncFunction: () async {
+    LoadingView.singleton.start(
+        topBarHeight: 0,
+        fn: () async {
+          if (!checkForm()) {
+            return;
+          }
           if (!isAddAccount.value) {
-            var suc = await _login();
-            if (suc) {
-              Get.find<CacheController>().resetCache();
-              AppNavigator.startMain();
-            }
+            await loginAccount();
           } else {
-            if (!checkForm()) {
-              return false;
-            }
-            final password = IMUtils.emptyStrToNull(pwdCtrl.text);
-            final code = IMUtils.emptyStrToNull(verificationCodeCtrl.text);
-            final isOk = await accountUtil.loginAccount(
-                switchBack: false,
-                serverWithProtocol: server.value,
-                areaCode: areaCode.value,
-                phoneNumber: phone,
-                email: email,
-                password: password,
-                verificationCode: isPasswordLogin.value ? null : code);
-            if (isOk) AppNavigator.startMain();
+            await addAndLoginAccount();
           }
         });
   }
 
+  Future<void> addAndLoginAccount() async {
+    final password = MitiUtils.emptyStrToNull(pwdCtrl.text);
+    final code = MitiUtils.emptyStrToNull(verificationCodeCtrl.text);
+    final isOk = await accountUtil.loginAccount(
+        switchBack: false,
+        serverWithProtocol: server.value,
+        areaCode: areaCode.value,
+        phoneNumber: phone,
+        email: email,
+        password: password,
+        verificationCode: isPasswordLogin.value ? null : code);
+    if (isOk) AppNavigator.startMain();
+  }
+
   cusBack() async {
-    // await accountUtil.backMain(curStatusChangeCount);
     Get.back();
   }
 
@@ -193,22 +171,22 @@ class LoginLogic extends GetxController {
         child: Column(
           children: [
             Text(
-              StrRes.switchServer,
+              StrLibrary.switchServer,
               textAlign: TextAlign.center,
-              style: Styles.ts_333333_16sp_medium,
+              style: StylesLibrary.ts_333333_16sp_medium,
             ),
             31.verticalSpace,
             Container(
               height: 46.h,
               padding: EdgeInsets.symmetric(horizontal: 10.w),
               decoration: BoxDecoration(
-                color: Styles.c_F7F8FA,
+                color: StylesLibrary.c_F7F8FA,
                 borderRadius: BorderRadius.circular(8.r),
               ),
               child: InputBox(
                 autofocus: false,
-                label: "",
-                hintText: StrRes.addAccountServerTips,
+                hintText: StrLibrary.addAccountServerTips,
+                hintStyle: StylesLibrary.ts_CCCCCC_14sp,
                 border: false,
                 controller: serverCtrl,
               ),
@@ -224,11 +202,11 @@ class LoginLogic extends GetxController {
       onTapRight: () async {
         // http://xx
         if (!Config.targetIsDomainOrIPWithProtocol(serverCtrl.text)) {
-          showToast(StrRes.serverFormatErr);
+          showToast(StrLibrary.serverFormatErr);
         } else {
-          LoadingView.singleton.wrap(
-              navBarHeight: 0,
-              asyncFunction: () async {
+          LoadingView.singleton.start(
+              topBarHeight: 0,
+              fn: () async {
                 try {
                   await accountUtil.checkServerValid(
                       serverWithProtocol: serverCtrl.text);
@@ -240,9 +218,11 @@ class LoginLogic extends GetxController {
                   }
                   serverCtrl.text = "";
                 } catch (e) {
-                  showToast(StrRes.serverErr);
+                  showToast(StrLibrary.serverErr);
                 }
-                onlyReadServerCtrl.text = DataSp.getCurServerKey().isNotEmpty? DataSp.getCurServerKey() : Config.hostWithProtocol;
+                onlyReadServerCtrl.text = DataSp.getCurServerKey().isNotEmpty
+                    ? DataSp.getCurServerKey()
+                    : Config.hostWithProtocol;
               });
         }
       },
@@ -251,33 +231,29 @@ class LoginLogic extends GetxController {
 
   bool checkForm() {
     if (phone?.isNotEmpty == true &&
-        !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-      IMViews.showToast(StrRes.plsEnterRightPhone);
+        !MitiUtils.isMobile(areaCode.value, phoneEmailCtrl.text)) {
+      showToast(StrLibrary.plsEnterRightPhone);
       return false;
     }
 
-    if (email?.isNotEmpty == true && !phoneCtrl.text.isEmail) {
-      IMViews.showToast(StrRes.plsEnterRightEmail);
+    if (email?.isNotEmpty == true && !phoneEmailCtrl.text.isEmail) {
+      showToast(StrLibrary.plsEnterRightEmail);
       return false;
     }
 
     if (!agree.value) {
-      IMViews.showToast(StrRes.plsAgree);
+      showToast(StrLibrary.plsAgree);
       return false;
     }
 
     return true;
   }
 
-  Future<bool> _login() async {
+  Future<bool> loginAccount() async {
     try {
-      if (!checkForm()) {
-        return false;
-      }
-
-      final password = IMUtils.emptyStrToNull(pwdCtrl.text);
-      final code = IMUtils.emptyStrToNull(verificationCodeCtrl.text);
-      final data = await Apis.login(
+      final password = MitiUtils.emptyStrToNull(pwdCtrl.text);
+      final code = MitiUtils.emptyStrToNull(verificationCodeCtrl.text);
+      final data = await ClientApis.login(
         areaCode: areaCode.value,
         phoneNumber: phone,
         email: email,
@@ -286,13 +262,14 @@ class LoginLogic extends GetxController {
       );
       final account = {
         "areaCode": areaCode.value,
-        "phoneNumber": phoneCtrl.text,
-        'email': email
+        "phoneNumber": phone,
+        'email': email,
+        "server": onlyReadServerCtrl.text
       };
       await DataSp.putLoginCertificate(data);
       await DataSp.putMainLoginAccount(account);
-      Logger.print('login : ${data.userID}, token: ${data.imToken}');
-      await imLogic.login(data.userID, data.imToken);
+      await imCtrl.login(data.userID, data.imToken);
+      Get.find<HiveCtrl>().resetCache();
       await setAccountLoginInfo(
           userID: data.userID,
           imToken: data.imToken,
@@ -300,87 +277,64 @@ class LoginLogic extends GetxController {
           email: email,
           phoneNumber: phone,
           areaCode: areaCode.value,
-          password: IMUtils.generateMD5(password ?? "")!,
-          faceURL: imLogic.userInfo.value.faceURL,
-          nickname: imLogic.userInfo.value.nickname);
-      Logger.print('im login success');
+          password: MitiUtils.generateMD5(password ?? "")!,
+          faceURL: imCtrl.userInfo.value.faceURL,
+          nickname: imCtrl.userInfo.value.nickname);
       translateLogic.init(data.userID);
       ttsLogic.init(data.userID);
-      pushLogic.login(data.userID);
-      Logger.print('push login success');
+      pushCtrl.login(data.userID);
+      AppNavigator.startMain();
       return true;
     } catch (e, s) {
-      Logger.print('login e: $e $s');
       myLogger.e({"message": "登录失败", "error": e, "stack": s});
     }
     return false;
   }
 
-  void togglePasswordType() {
-    isPasswordLogin.value = !isPasswordLogin.value;
-  }
+  // void togglePasswordType() {
+  //   isPasswordLogin.value = !isPasswordLogin.value;
+  // }
 
   void toggleLoginType() {
-    if (loginType.value == LoginType.phone) {
-      loginType.value = LoginType.email;
-    } else {
-      loginType.value = LoginType.phone;
-    }
-
-    phoneCtrl.text = '';
+    loginType.value =
+        loginType.value == LoginType.phone ? LoginType.email : LoginType.phone;
+    phoneEmailCtrl.text = '';
   }
 
   Future<bool> getVerificationCode() async {
     if (phone?.isNotEmpty == true &&
-        !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-      IMViews.showToast(StrRes.plsEnterRightPhone);
+        !MitiUtils.isMobile(areaCode.value, phoneEmailCtrl.text)) {
+      showToast(StrLibrary.plsEnterRightPhone);
       return false;
     }
 
-    if (email?.isNotEmpty == true && !phoneCtrl.text.isEmail) {
-      IMViews.showToast(StrRes.plsEnterRightEmail);
+    if (email?.isNotEmpty == true && !phoneEmailCtrl.text.isEmail) {
+      showToast(StrLibrary.plsEnterRightEmail);
       return false;
     }
 
-    return sendVerificationCode();
+    return await LoadingView.singleton.start(
+        fn: () => ClientApis.requestVerificationCode(
+              areaCode: areaCode.value,
+              phoneNumber: phone,
+              email: email,
+              usedFor: 3,
+            ));
   }
-
-  /// [usedFor] 1：注册，2：重置密码 3：登录
-  Future<bool> sendVerificationCode() => LoadingView.singleton.wrap(
-      asyncFunction: () => Apis.requestVerificationCode(
-            areaCode: areaCode.value,
-            phoneNumber: phone,
-            email: email,
-            usedFor: 3,
-          ));
 
   void openCountryCodePicker() async {
     String? code = await IMViews.showCountryCodePicker();
     if (null != code) areaCode.value = code;
   }
 
-  void configService() => Get.to(
-        () => ServerConfigPage(),
-        binding: ServerConfigBinding(),
-      );
-
   void registerNow() => AppNavigator.startRegister(
       isAddAccount: isAddAccount.value, server: server.value);
 
-  void forgetPassword() => AppNavigator.startForgetPassword(
+  void forgetPassword() => AppNavigator.startForgetPwd(
       isAddAccount: isAddAccount.value, server: server.value);
-
-  void getPackageInfo() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    final version = packageInfo.version;
-    final appName = packageInfo.appName;
-    final buildNumber = packageInfo.buildNumber;
-
-    versionInfo.value = '$appName $version+$buildNumber SDK: ${OpenIM.version}';
-  }
 
   void changeAgree(bool? bool) {
     agree.value = bool!;
-    _onChanged();
+    handleFormChange();
   }
 }

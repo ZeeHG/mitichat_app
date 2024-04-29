@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:miti/core/controller/im_controller.dart';
-import 'package:miti/core/controller/push_controller.dart';
+import 'package:miti/core/ctrl/im_ctrl.dart';
+import 'package:miti/core/ctrl/push_ctrl.dart';
 import 'package:miti/pages/mine/phone_email_change/phone_email_change_logic.dart';
 import 'package:miti/routes/app_navigator.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti/utils/account_util.dart';
+import 'package:miti_common/miti_common.dart';
 
 class PhoneEmailChangeDetailLogic extends GetxController {
   late Rx<UserFullInfo> userInfo;
-  final imLogic = Get.find<IMController>();
-  final pushLogic = Get.find<PushController>();
+  final imCtrl = Get.find<IMCtrl>();
+  final pushCtrl = Get.find<PushCtrl>();
   final type = PhoneEmailChangeType.phone.obs;
   final phoneCtrl = TextEditingController();
   final emailCtrl = TextEditingController();
@@ -18,8 +19,9 @@ class PhoneEmailChangeDetailLogic extends GetxController {
   final areaCode = "+1".obs;
   final enabled = false.obs;
   final success = false.obs;
+  final accountUtil = Get.find<AccountUtil>();
 
-  get isPhone => type == PhoneEmailChangeType.phone;
+  get isPhone => type.value == PhoneEmailChangeType.phone;
   String? get email => !isPhone ? emailCtrl.text.trim() : null;
   String? get phone => isPhone ? phoneCtrl.text.trim() : null;
   String? get areaCodeValue => isPhone ? areaCode.value : null;
@@ -66,16 +68,16 @@ class PhoneEmailChangeDetailLogic extends GetxController {
   }
 
   bool _checkingInput() {
-    if (isPhone && !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-      IMViews.showToast(StrRes.plsEnterRightPhone);
+    if (isPhone && !MitiUtils.isMobile(areaCode.value, phoneCtrl.text)) {
+      showToast(StrLibrary.plsEnterRightPhone);
       return false;
     }
-    if (!isPhone && !IMUtils.isEmail(emailCtrl.text)) {
-      IMViews.showToast(StrRes.plsEnterRightEmail);
+    if (!isPhone && !MitiUtils.isEmail(emailCtrl.text)) {
+      showToast(StrLibrary.plsEnterRightEmail);
       return false;
     }
     if (verificationCodeCtrl.text.trim().isEmpty) {
-      IMViews.showToast(StrRes.plsEnterVerificationCode);
+      showToast(StrLibrary.plsEnterVerificationCode);
       return false;
     }
     return true;
@@ -89,30 +91,30 @@ class PhoneEmailChangeDetailLogic extends GetxController {
   Future<bool> getVerificationCode() async {
     if (isPhone) {
       if (phone?.isEmpty == true) {
-        IMViews.showToast(StrRes.plsEnterPhoneNumber);
+        showToast(StrLibrary.plsEnterPhoneNumber);
         return false;
       }
       if (phone?.isNotEmpty == true &&
-          !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
-        IMViews.showToast(StrRes.plsEnterRightPhone);
+          !MitiUtils.isMobile(areaCode.value, phoneCtrl.text)) {
+        showToast(StrLibrary.plsEnterRightPhone);
         return false;
       }
     } else {
       if (email?.isEmpty == true) {
-        IMViews.showToast(StrRes.plsEnterEmail);
+        showToast(StrLibrary.plsEnterEmail);
         return false;
       }
       if (email?.isNotEmpty == true && !email!.isEmail) {
-        IMViews.showToast(StrRes.plsEnterRightEmail);
+        showToast(StrLibrary.plsEnterRightEmail);
         return false;
       }
     }
-    return await LoadingView.singleton.wrap(
-      asyncFunction: () => requestVerificationCode(),
+    return await LoadingView.singleton.start(
+      fn: () => requestVerificationCode(),
     );
   }
 
-  Future<bool> requestVerificationCode() => Apis.requestVerificationCode(
+  Future<bool> requestVerificationCode() => ClientApis.requestVerificationCode(
         areaCode: areaCodeValue,
         phoneNumber: phone,
         email: email,
@@ -121,23 +123,21 @@ class PhoneEmailChangeDetailLogic extends GetxController {
 
   void updateInfo() async {
     if (_checkingInput()) {
-      await LoadingView.singleton.wrap(asyncFunction: () async {
-        final data = !isPhone
-            ? await Apis.updateEmail(
+      await LoadingView.singleton.start(fn: () async {
+        !isPhone
+            ? await ClientApis.updateEmail(
                 email: email,
                 password: pwdCtrl.text,
                 verificationCode: verificationCode,
               )
-            : await Apis.updatePhone(
+            : await ClientApis.updatePhone(
                 areaCode: areaCodeValue,
                 phoneNumber: phone,
                 password: pwdCtrl.text,
                 verificationCode: verificationCode,
               );
       });
-      await imLogic.logout();
-      await DataSp.removeLoginCertificate();
-      pushLogic.logout();
+      accountUtil.tryLogout();
       success.value = true;
     }
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import 'my_qrcode_logic.dart';
@@ -16,10 +16,10 @@ class MyQrcodePage extends StatelessWidget {
     return Obx(
       () => Scaffold(
         appBar: TitleBar.back(
-          title: StrRes.qrcode,
+          title: StrLibrary.qrcode,
         ),
-        backgroundColor: Styles.c_FFFFFF,
-        body: Container(
+        backgroundColor: StylesLibrary.c_FFFFFF,
+        body: SizedBox(
           // alignment: Alignment.topCenter,
           width: 1.sw,
           child: Column(
@@ -31,40 +31,39 @@ class MyQrcodePage extends StatelessWidget {
                   SizedBox(
                     height: 121.h,
                   ),
-                  Container(
+                  SizedBox(
                     width: 213.w,
                     child: Row(children: [
                       AvatarView(
                         width: 42.w,
                         height: 42.h,
-                        url: logic.imLogic.userInfo.value.faceURL,
-                        text: logic.imLogic.userInfo.value.nickname,
-                        textStyle: Styles.ts_FFFFFF_14sp,
-                        borderRadius: BorderRadius.all(Radius.circular(6.w)),
+                        url: logic.imCtrl.userInfo.value.faceURL,
+                        text: logic.imCtrl.userInfo.value.nickname,
+                        borderRadius: BorderRadius.all(Radius.circular(6.r)),
                       ),
                       SizedBox(
                         width: 12.w,
                       ),
-                      Text(logic.imLogic.userInfo.value.nickname ?? "",
-                          style: Styles.ts_4B3230_18sp)
+                      Text(logic.imCtrl.userInfo.value.nickname ?? "",
+                          style: StylesLibrary.ts_4B3230_18sp)
                     ]),
                   ),
                   SizedBox(
                     height: 30.h,
                   ),
                   QrImageView(
-                    data: logic.buildQRContent(),
+                    data: logic.qrcodeData,
                     size: 213.w,
-                    backgroundColor: Styles.c_FFFFFF,
-                    padding: EdgeInsets.all(6),
+                    backgroundColor: StylesLibrary.c_FFFFFF,
+                    padding: EdgeInsets.all(6.r),
                   ),
                 ],
               ),
               SizedBox(
                 height: 30.h,
               ),
-              StrRes.qrcodeHint.toText
-                ..style = Styles.ts_999999_12sp
+              StrLibrary.qrcodeHint.toText
+                ..style = StylesLibrary.ts_999999_12sp
                 ..textAlign = TextAlign.center,
               SizedBox(
                 height: 186.h,
@@ -73,26 +72,26 @@ class MyQrcodePage extends StatelessWidget {
               //     mainAxisAlignment: MainAxisAlignment.center,
               //     crossAxisAlignment: CrossAxisAlignment.center,
               //     children: [
-              //       StrRes.scan.toText
-              //         ..style = Styles.ts_8443F8_16sp
+              //       StrLibrary .scan.toText
+              //         ..style = StylesLibrary.ts_8443F8_16sp
               //         ..textAlign = TextAlign.center,
               //       Container(
               //         height: 30.h,
               //         width: 1.w,
-              //         color: Styles.c_EDEDED,
+              //         color: StylesLibrary.c_EDEDED,
               //         margin: EdgeInsets.symmetric(horizontal: 16.w),
               //       ),
-              //       StrRes.changeStyle.toText
-              //         ..style = Styles.ts_8443F8_16sp
+              //       StrLibrary .changeStyle.toText
+              //         ..style = StylesLibrary.ts_8443F8_16sp
               //         ..textAlign = TextAlign.center,
               //       Container(
               //         height: 30.h,
               //         width: 1.w,
-              //         color: Styles.c_EDEDED,
+              //         color: StylesLibrary.c_EDEDED,
               //         margin: EdgeInsets.symmetric(horizontal: 16.w),
               //       ),
-              //       StrRes.saveImg.toText
-              //         ..style = Styles.ts_8443F8_16sp
+              //       StrLibrary .saveImg.toText
+              //         ..style = StylesLibrary.ts_8443F8_16sp
               //         ..textAlign = TextAlign.center,
               //     ])
             ],

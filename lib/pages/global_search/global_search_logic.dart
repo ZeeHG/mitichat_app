@@ -3,7 +3,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../conversation/conversation_logic.dart';
@@ -14,17 +14,18 @@ class GlobalSearchLogic extends CommonSearchLogic {
   final fileMessageRefreshCtrl = RefreshController();
   final contactsList = <UserInfo>[].obs;
   final groupList = <GroupInfo>[].obs;
-  final textSearchResultItems = <SearchResultItems>[].obs;
+  final textMessageList = <SearchResultItems>[].obs;
+  String curSearchText = "";
 
   // final fileSearchResultItems = <SearchResultItems>[].obs;
   final fileMessageList = <Message>[].obs;
   final index = 0.obs;
   final tabs = [
-    StrRes.globalSearchAll,
-    StrRes.globalSearchContacts,
-    StrRes.globalSearchGroup,
-    StrRes.globalSearchChatHistory,
-    StrRes.globalSearchChatFile,
+    StrLibrary.globalSearchAll,
+    StrLibrary.globalSearchContacts,
+    StrLibrary.globalSearchGroup,
+    StrLibrary.globalSearchChatHistory,
+    StrLibrary.globalSearchChatFile,
   ];
 
   int textMessagePageIndex = 1;
@@ -39,41 +40,51 @@ class GlobalSearchLogic extends CommonSearchLogic {
   void clearList() {
     contactsList.clear();
     groupList.clear();
-    textSearchResultItems.clear();
+    textMessageList.clear();
     fileMessageList.clear();
   }
 
-  bool get isSearchNotResult =>
-      searchKey.isNotEmpty && contactsList.isEmpty && groupList.isEmpty && textSearchResultItems.isEmpty && fileMessageList.isEmpty;
+  bool get isAllEmpty =>
+      searchKey.isNotEmpty &&
+      contactsList.isEmpty &&
+      groupList.isEmpty &&
+      textMessageList.isEmpty &&
+      fileMessageList.isEmpty;
 
   search() async {
-    final result = await LoadingView.singleton.wrap(
-        asyncFunction: () => Future.wait([
+    searchKey.value = searchCtrl.text.trim();
+    curSearchText = searchKey.value;
+    final textBeforeSearch = curSearchText;
+    if (curSearchText.isEmpty) {
+      return clearList();
+    }
+    final result = await LoadingView.singleton.start(
+        fn: () => Future.wait([
               searchFriend(),
-              // searchDeptMember(),
               searchGroup(),
-              searchTextMessage(
+              searchMessage(
+                typeList: [MessageType.text, MessageType.atText],
                 pageIndex: textMessagePageIndex = 1,
                 count: count,
               ),
-              searchFileMessage(
+              searchMessage(
+                typeList: [MessageType.file],
                 pageIndex: fileMessagePageIndex = 1,
                 count: count,
               ),
             ]));
-    final friendList = (result[0] as List<FriendInfo>).map((e) => UserInfo(userID: e.userID, nickname: e.nickname, faceURL: e.faceURL));
-    // final deptMemberList = result[1] as List<DeptMemberInfo>;
+    if (curSearchText != textBeforeSearch) return;
+    final friendList = (result[0] as List<FriendInfo>).map((e) =>
+        UserInfo(userID: e.userID, nickname: (e.remark !=null && e.remark!.isNotEmpty)? e.remark : e.nickname, faceURL: e.faceURL));
     final gList = result[1] as List<GroupInfo>;
     final textMessageResult = (result[2] as SearchResult).searchResultItems;
     final fileMessageResult = (result[3] as SearchResult).searchResultItems;
 
     clearList();
 
-    contactsList
-        // ..assignAll(deptMemberList)
-        .addAll(friendList);
+    contactsList.assignAll(friendList);
     groupList.assignAll(gList);
-    textSearchResultItems.assignAll(textMessageResult ?? []);
+    textMessageList.assignAll(textMessageResult ?? []);
     fileMessageList.clear();
     if (null != fileMessageResult && fileMessageResult.isNotEmpty) {
       for (var element in fileMessageResult) {
@@ -93,9 +104,12 @@ class GlobalSearchLogic extends CommonSearchLogic {
   }
 
   void loadTextMessage() async {
-    final result = await searchTextMessage(pageIndex: ++textMessagePageIndex, count: count);
+    final result = await searchMessage(
+        typeList: [MessageType.text, MessageType.atText],
+        pageIndex: ++textMessagePageIndex,
+        count: count);
     final textMessageResult = result.searchResultItems;
-    textSearchResultItems.addAll(textMessageResult ?? []);
+    textMessageList.addAll(textMessageResult ?? []);
     if ((textMessageResult ?? []).length < count) {
       textMessageRefreshCtrl.loadNoData();
     } else {
@@ -104,7 +118,10 @@ class GlobalSearchLogic extends CommonSearchLogic {
   }
 
   void loadFileMessage() async {
-    final result = await searchFileMessage(pageIndex: ++fileMessagePageIndex, count: count);
+    final result = await searchMessage(
+        typeList: [MessageType.file],
+        pageIndex: ++fileMessagePageIndex,
+        count: count);
     final fileMessageResult = result.searchResultItems;
     if (null != fileMessageResult && fileMessageResult.isNotEmpty) {
       for (var element in fileMessageResult) {
@@ -118,13 +135,14 @@ class GlobalSearchLogic extends CommonSearchLogic {
     }
   }
 
-  /// 最多显示2条
-  List<T> subList<T>(List<T> list) => list.sublist(0, list.length > 2 ? 2 : list.length).toList();
+  /// 最多显示3条
+  List<T> subList<T>(List<T> list) =>
+      list.sublist(0, list.length > 3 ? 3 : list.length).toList();
 
-  String calContent(Message message) => IMUtils.calContent(
-        content: IMUtils.parseMsg(message, replaceIdToNickname: true),
-        key: searchKey,
-        style: Styles.ts_999999_14sp,
+  String calContent(Message message) => MitiUtils.calContent(
+        content: MitiUtils.parseMsg(message, replaceIdToNickname: true),
+        key: searchKey.value,
+        style: StylesLibrary.ts_999999_14sp,
         usedWidth: 80.w + 26.w,
       );
 
@@ -134,7 +152,7 @@ class GlobalSearchLogic extends CommonSearchLogic {
         faceURL: info.faceURL,
       );
 
-  void viewFile(Message message) => IMUtils.previewFile(message);
+  void viewFile(Message message) => MitiUtils.previewFile(message);
 
   void viewGroup(GroupInfo groupInfo) {
     conversationLogic.toChat(
@@ -147,9 +165,9 @@ class GlobalSearchLogic extends CommonSearchLogic {
 
   void viewMessage(SearchResultItems item) {
     if (item.messageCount! > 1) {
-      AppNavigator.startExpandChatHistory(
+      AppNavigator.startGlobalSearchChatHistory(
         searchResultItems: item,
-        defaultSearchKey: searchKey,
+        defaultSearchKey: searchKey.value,
       );
     } else {
       AppNavigator.startPreviewChatHistory(
@@ -167,6 +185,7 @@ class GlobalSearchLogic extends CommonSearchLogic {
 abstract class CommonSearchLogic extends GetxController {
   final searchCtrl = TextEditingController();
   final focusNode = FocusNode();
+  final searchKey = "".obs;
 
   void clearList();
 
@@ -189,36 +208,49 @@ abstract class CommonSearchLogic extends GetxController {
     }
   }
 
-  String get searchKey => searchCtrl.text.trim();
+  Future<List<FriendInfo>> searchFriend() async {
+    final keyword = searchCtrl.text.trim().toLowerCase();
 
-  Future<List<FriendInfo>> searchFriend() =>
-      Apis.searchFriendInfo(searchCtrl.text.trim()).then((list) => list.map((e) => FriendInfo.fromJson(e.toJson())).toList());
-
-  // Future<List<DeptMemberInfo>> searchDeptMember() =>
-  //     OApis.searchDeptMember(keyword: searchKey)
-  //         .then((value) => value.departmentMemberList ?? []);
+    final list = await OpenIM.iMManager.friendshipManager.getFriendList();
+    // 昵称，备注，id
+    final result1 = list
+        .where((element) =>
+            element.friendInfo != null &&
+            (element.showName.toLowerCase().contains(keyword) ||
+                (element.friendInfo!.remark ?? "")
+                    .toLowerCase()
+                    .contains(keyword) ||
+                element.userID == keyword))
+        .map((e) => e.friendInfo!)
+        .toList();
+    List<FriendInfo> result2 = [];
+    final result1IdList = result1.map((e) => e.userID).toList();
+    final fullUserInfoList = await ClientApis.getUserFullInfo(
+        userIDList: list.map((e) => e.userID).toList());
+    // 手机, 邮箱
+    if (fullUserInfoList != null) {
+      result2 = fullUserInfoList
+          .where((element) =>
+              (element.phoneNumber == keyword ||
+                  element.email?.toLowerCase() == keyword) &&
+              !result1IdList.contains(element.userID))
+          .map((e) => FriendInfo.fromJson(e.toJson()))
+          .toList();
+    }
+    return [...result1, ...result2];
+  }
 
   Future<List<GroupInfo>> searchGroup() =>
-      OpenIM.iMManager.groupManager.searchGroups(keywordList: [searchCtrl.text.trim()], isSearchGroupName: true, isSearchGroupID: true);
+      OpenIM.iMManager.groupManager.searchGroups(
+          keywordList: [searchCtrl.text.trim()],
+          isSearchGroupName: true,
+          isSearchGroupID: true);
 
-  Future<SearchResult> searchTextMessage({
-    int pageIndex = 1,
-    int count = 20,
-  }) =>
+  Future<SearchResult> searchMessage(
+          {int pageIndex = 1, int count = 20, required List<int> typeList}) =>
       OpenIM.iMManager.messageManager.searchLocalMessages(
-        keywordList: [searchKey],
-        messageTypeList: [MessageType.text, MessageType.atText],
-        pageIndex: pageIndex,
-        count: count,
-      );
-
-  Future<SearchResult> searchFileMessage({
-    int pageIndex = 1,
-    int count = 20,
-  }) =>
-      OpenIM.iMManager.messageManager.searchLocalMessages(
-        keywordList: [searchKey],
-        messageTypeList: [MessageType.file],
+        keywordList: [searchKey.value],
+        messageTypeList: typeList,
         pageIndex: pageIndex,
         count: count,
       );

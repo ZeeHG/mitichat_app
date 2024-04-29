@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import 'package:miti_common/miti_common.dart';
 import 'train_ai_logic.dart';
 
 class TrainAiPage extends StatelessWidget {
@@ -13,13 +13,13 @@ class TrainAiPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => TouchCloseSoftKeyboard(
+    return Obx(() => KeyboardDismissOnTap(
         child: Scaffold(
             appBar: TitleBar.trainAi(
-              backgroundColor: Styles.c_F7F8FA,
+              backgroundColor: StylesLibrary.c_F7F8FA,
               left: Expanded(
                   child: Row(children: [
-                ImageRes.appBackBlack.toImage
+                ImageLibrary.appBackBlack.toImage
                   ..width = 24.w
                   ..height = 24.h
                   ..onTap = (() => Get.back()),
@@ -31,8 +31,8 @@ class TrainAiPage extends StatelessWidget {
                   height: 36.h,
                 ),
                 9.horizontalSpace,
-                (logic.showName.value ?? "").toText
-                  ..style = Styles.ts_333333_18sp_medium
+                logic.showName.value.toText
+                  ..style = StylesLibrary.ts_333333_18sp_medium
                   ..maxLines = 1
                   ..overflow = TextOverflow.ellipsis
                   ..textAlign = TextAlign.center,
@@ -43,15 +43,15 @@ class TrainAiPage extends StatelessWidget {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          ImageRes.files.toImage
+                          ImageLibrary.files.toImage
                             ..width = 40.w
                             ..height = 40.h
                             ..onTap = logic.startKnowledgeFiles,
                         ],
                       ))
-                  : SizedBox(),
+                  : const SizedBox(),
             ),
-            backgroundColor: Styles.c_F7F8FA,
+            backgroundColor: StylesLibrary.c_F7F8FA,
             body: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.only(
@@ -61,7 +61,7 @@ class TrainAiPage extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.r),
-                        color: Styles.c_FFFFFF,
+                        color: StylesLibrary.c_FFFFFF,
                       ),
                       child: Column(
                         children: [
@@ -70,17 +70,16 @@ class TrainAiPage extends StatelessWidget {
                             child: TextField(
                               controller: logic.inputCtrl,
                               keyboardType: TextInputType.multiline,
-                              autofocus: false,
                               minLines: null,
                               maxLines: null,
                               expands: true,
-                              style: Styles.ts_333333_16sp,
+                              style: StylesLibrary.ts_333333_16sp,
                               maxLength: logic.maxLength.value,
                               decoration: InputDecoration(
-                                hintText: StrRes.trainInputTips,
-                                helperStyle: Styles.ts_999999_16sp,
+                                hintText: StrLibrary.trainInputTips,
+                                helperStyle: StylesLibrary.ts_999999_16sp,
                                 counterText: '',
-                                counterStyle: Styles.ts_999999_12sp,
+                                counterStyle: StylesLibrary.ts_999999_12sp,
                                 border: InputBorder.none,
                                 contentPadding: EdgeInsets.symmetric(
                                   horizontal: 15.w,
@@ -103,10 +102,10 @@ class TrainAiPage extends StatelessWidget {
                                     width: 58.w,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4.r),
-                                      color: Styles.c_F7F7F7,
+                                      color: StylesLibrary.c_F7F7F7,
                                     ),
                                     child: Center(
-                                      child: ImageRes.add.toImage
+                                      child: ImageLibrary.add.toImage
                                         ..width = 26.w
                                         ..height = 26.h
                                         ..onTap = logic.selectFile,
@@ -114,7 +113,7 @@ class TrainAiPage extends StatelessWidget {
                                   ),
                                 ),
                                 logic.count.toText
-                                  ..style = Styles.ts_999999_12sp
+                                  ..style = StylesLibrary.ts_999999_12sp
                               ],
                             ),
                           ),
@@ -129,21 +128,21 @@ class TrainAiPage extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.r),
-                          color: Styles.c_FFFFFF,
+                          color: StylesLibrary.c_FFFFFF,
                         ),
                         padding: EdgeInsets.symmetric(
                             horizontal: 15.w, vertical: 15.h),
                         child: Row(
                           children: [
-                            StrRes.knowledgebase.toText
-                              ..style = Styles.ts_2C2C2C_16sp,
-                            Spacer(),
+                            StrLibrary.knowledgebase.toText
+                              ..style = StylesLibrary.ts_2C2C2C_16sp,
+                            const Spacer(),
                             (logic.selectedKnowledgebase.value
                                         ?.knowledgebaseName ??
-                                    StrRes.select)
+                                    StrLibrary.select)
                                 .toText
-                              ..style = Styles.ts_999999_16sp,
-                            ImageRes.appRightArrow.toImage
+                              ..style = StylesLibrary.ts_999999_16sp,
+                            ImageLibrary.appRightArrow.toImage
                               ..width = 20.w
                               ..height = 20.h
                           ],
@@ -151,18 +150,18 @@ class TrainAiPage extends StatelessWidget {
                       ),
                     ),
                     11.verticalSpace,
-                    if (logic.fileNames.length < 1)
+                    if (logic.fileNames.isEmpty)
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          StrRes.trainFileTips1.toText
-                            ..style = Styles.ts_999999_14sp,
+                          StrLibrary.trainFileTips1.toText
+                            ..style = StylesLibrary.ts_999999_14sp,
                           3.verticalSpace,
-                          StrRes.trainFileTips2.toText
-                            ..style = Styles.ts_999999_14sp,
+                          StrLibrary.trainFileTips2.toText
+                            ..style = StylesLibrary.ts_999999_14sp,
                         ],
                       ),
-                    if (logic.fileNames.length >= 1)
+                    if (logic.fileNames.isNotEmpty)
                       ...List.generate(
                           logic.fileNames.length,
                           (index) => Container(
@@ -170,20 +169,20 @@ class TrainAiPage extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 15.w, vertical: 6.h),
                                 decoration: BoxDecoration(
-                                  color: Styles.c_FFFFFF,
+                                  color: StylesLibrary.c_FFFFFF,
                                   borderRadius: BorderRadius.circular(10.r),
                                 ),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    ImageRes.files.toImage
+                                    ImageLibrary.files.toImage
                                       ..width = 40.w
                                       ..height = 40.h,
                                     10.horizontalSpace,
                                     Expanded(
                                       child: logic.fileNames[index].toText
-                                        ..style = Styles.ts_666666_16sp
+                                        ..style = StylesLibrary.ts_666666_16sp
                                         ..maxLines = 1
                                         ..overflow = TextOverflow.ellipsis,
                                     ),
@@ -193,10 +192,10 @@ class TrainAiPage extends StatelessWidget {
                               )),
                     50.verticalSpace,
                     Button(
-                        text: StrRes.startTrain,
-                        textStyle: Styles.ts_FFFFFF_16sp,
-                        disabledTextStyle: Styles.ts_FFFFFF_16sp,
-                        disabledColor: Styles.c_8443F8_opacity40,
+                        text: StrLibrary.startTrain,
+                        textStyle: StylesLibrary.ts_FFFFFF_16sp,
+                        disabledTextStyle: StylesLibrary.ts_FFFFFF_16sp,
+                        disabledColor: StylesLibrary.c_8443F8_opacity40,
                         height: 42.h,
                         width: 289.w,
                         padding: EdgeInsets.symmetric(horizontal: 12.w),

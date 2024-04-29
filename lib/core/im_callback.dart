@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
-import 'package:openim_meeting/openim_meeting.dart';
+import 'package:miti_common/miti_common.dart';
+// import 'package:openim_meeting/openim_meeting.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'controller/app_controller.dart';
+import 'ctrl/app_ctrl.dart';
 
 enum IMSdkStatus {
   connectionFailed,
@@ -19,7 +19,7 @@ enum IMSdkStatus {
 }
 
 class IMCallback {
-  final initLogic = Get.find<AppController>();
+  final appCtrl = Get.find<AppCtrl>();
 
   /// 收到消息撤回
   Function(RevokedInfo info)? onRecvMessageRevoked;
@@ -45,10 +45,10 @@ class IMCallback {
   /// 已从黑名单移除
   Function(BlacklistInfo u)? onBlacklistDeleted;
 
-  var recvGroupReadReceiptSubject = BehaviorSubject<GroupMessageReceipt>();
-
   /// upload logs
   Function(int current, int size)? onUploadProgress;
+
+  var recvGroupReadReceiptSubject = BehaviorSubject<GroupMessageReceipt>();
 
   /// 新增会话
   var conversationAddedSubject = BehaviorSubject<List<ConversationInfo>>();
@@ -131,7 +131,7 @@ class IMCallback {
     selfInfoUpdatedSubject.addSafely(u);
   }
 
-  void userStausChanged(UserStatusInfo u) {
+  void userStatusChanged(UserStatusInfo u) {
     userStatusChangedSubject.addSafely(u);
   }
 
@@ -153,12 +153,12 @@ class IMCallback {
   }
 
   void recvNewMessage(Message msg) {
-    initLogic.showNotification(msg);
+    appCtrl.showNotification(msg);
     onRecvNewMessage?.call(msg);
   }
 
   void recvOfflineMessage(Message msg) {
-    initLogic.showNotification(msg);
+    appCtrl.showNotification(msg);
     onRecvOfflineMessage?.call(msg);
   }
 
@@ -268,7 +268,7 @@ class IMCallback {
   }
 
   void totalUnreadMsgCountChanged(int count) {
-    initLogic.showBadge(count);
+    // appCtrl.showBadge(count);
     unreadMsgCountEventSubject.addSafely(count);
   }
 
@@ -282,9 +282,9 @@ class IMCallback {
     roomParticipantDisconnectedSubject.add(info);
   }
 
-  void meetingSteamChanged(MeetingStreamEvent event) {
-    MeetingClient().subject?.add(event);
-  }
+  // void meetingSteamChanged(MeetingStreamEvent event) {
+  //   MeetingClient().subject?.add(event);
+  // }
 
   void close() {
     initializedSubject.close();

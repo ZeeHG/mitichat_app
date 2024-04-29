@@ -1,9 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti/utils/account_util.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 class AiUtil extends GetxController {
   final accountUtil = Get.find<AccountUtil>();
@@ -14,9 +13,9 @@ class AiUtil extends GetxController {
 
   String getKey(String aiUserID) => accountKey + "__" + aiUserID;
 
-  init() async{
+  init() async {
     // todo 暂时加上, 防止数据结构出错
-    await DataSp.clearAiStore();
+    // await DataSp.clearAiStore();
     final store = DataSp.getAiStore();
     if (null != store) {
       aiStore.addAll(store);
@@ -39,7 +38,7 @@ class AiUtil extends GetxController {
 
   Future<bool?> updateStore(Map<String, Ai> store) async {
     aiStore.addAll(store);
-    return await DataSp.putAiStore(aiStore.value);
+    return await DataSp.putAiStore(aiStore);
   }
 
   List<String> getAiKeys() {
@@ -59,7 +58,7 @@ class AiUtil extends GetxController {
   }
 
   Future<bool?> queryAiList() async {
-    List<Ai> list = ((await Apis.getBots())["bots"] ?? [])
+    List<Ai> list = ((await ClientApis.getBots())["bots"] ?? [])
         .map((e) {
           return Ai.fromJson({
             "key": getKey(e["userID"]),
@@ -73,14 +72,13 @@ class AiUtil extends GetxController {
         .toList()
         .cast<Ai>();
 
-    Map<String, Ai> store =
-        Map.fromIterable(list, key: (e) => e.key, value: (e) => e);
+    Map<String, Ai> store = {for (var e in list) e.key: e};
 
     return await updateStore(store);
   }
 
   Future<List<Ai>> queryMyAiList() async {
-    return ((await Apis.getMyAi())["bots"] ?? [])
+    return ((await ClientApis.getMyAi())["bots"] ?? [])
         .map((e) {
           return Ai.fromJson({
             "key": getKey(e["userID"]),

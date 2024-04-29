@@ -4,52 +4,46 @@ import 'dart:ui';
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:miti/pages/contacts/group_profile_panel/group_profile_panel_logic.dart';
+import 'package:miti/pages/contacts/group_profile/group_profile_logic.dart';
 import 'package:miti/routes/app_navigator.dart';
-import 'package:openim_common/openim_common.dart';
-// import 'package:openim_working_circle/openim_working_circle.dart';
+import 'package:miti_common/miti_common.dart';
+// import 'package:miti_circle/miti_circle.dart';
 
-import '../../core/controller/im_controller.dart';
+import '../../core/ctrl/im_ctrl.dart';
 import '../home/home_logic.dart';
+import 'search_add_contacts/search_add_contacts_logic.dart';
 import 'select_contacts/select_contacts_logic.dart';
 
 class ContactsLogic extends GetxController
     implements ViewUserProfileBridge, SelectContactsBridge, ScanBridge {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final homeLogic = Get.find<HomeLogic>();
   final friendList = <ISUserInfo>[].obs;
   final userIDList = <String>[];
-  final imLoic = Get.find<IMController>();
+  final popCtrl = CustomPopupMenuController();
   late StreamSubscription delSub;
   late StreamSubscription addSub;
   late StreamSubscription infoChangedSub;
 
   List<Map<String, dynamic>> get menus => [
-        // {
-        //   "key": "myFriend",
-        //   "text": StrRes.myFriend,
-        //   "color": Styles.c_8544F8,
-        //   "shadowColor": Color.fromRGBO(132, 67, 248, 0.5),
-        //   "onTap": () => myFriend()
-        // },
         {
           "key": "myGroup",
-          "text": StrRes.myGroup,
-          "color": Styles.c_8544F8,
+          "text": StrLibrary.myGroup,
+          "color": StylesLibrary.c_8544F8,
           "shadowColor": Color.fromRGBO(132, 67, 248, 0.5),
           "onTap": () => myGroup()
         },
         {
           "key": "newRecent",
-          "text": StrRes.recentRequests,
-          "color": Styles.c_00CBC5,
+          "text": StrLibrary.requestRecords,
+          "color": StylesLibrary.c_00CBC5,
           "shadowColor": Color.fromRGBO(0, 203, 197, 0.5),
           "onTap": () => newRecent()
         },
         {
           "key": "aiFriendList",
-          "text": StrRes.aiFriends,
-          "color": Styles.c_FEA836,
+          "text": StrLibrary.aiFriends,
+          "color": StylesLibrary.c_FEA836,
           "shadowColor": Color.fromRGBO(254, 168, 54, 0.5),
           "onTap": () => aiFriendList()
         },
@@ -58,10 +52,10 @@ class ContactsLogic extends GetxController
   // final organizationLogic = Get.find<OrganizationLogic>();
   final friendApplicationList = <UserInfo>[];
 
-  int get friendApplicationCount =>
+  int get unhandledFriendApplicationCount =>
       homeLogic.unhandledFriendApplicationCount.value;
 
-  int get groupApplicationCount =>
+  int get unhandledGroupApplicationCount =>
       homeLogic.unhandledGroupApplicationCount.value;
 
   // String? get organizationName => organizationLogic.organizationName;
@@ -70,59 +64,53 @@ class ContactsLogic extends GetxController
 
   @override
   void onInit() {
-    // imLogic.friendApplicationSubject.listen((value) {
+    // imCtrl.friendApplicationSubject.listen((value) {
     //
     // });
     // 收到新的好友申请
-    // imLogic.onFriendApplicationListAdded = (u) {
+    // imCtrl.onFriendApplicationListAdded = (u) {
     //   getFriendApplicationList();
     // };
     // 删除好友申请记录
-    // imLogic.onFriendApplicationListDeleted = (u) {
+    // imCtrl.onFriendApplicationListDeleted = (u) {
     //   getFriendApplicationList();
     // };
     /// 我的申请被拒绝了
-    // imLogic.onFriendApplicationListRejected = (u) {
+    // imCtrl.onFriendApplicationListRejected = (u) {
     //   getFriendApplicationList();
     // };
     // 我的申请被接受了
-    // imLogic.onFriendApplicationListAccepted = (u) {
+    // imCtrl.onFriendApplicationListAccepted = (u) {
     //   getFriendApplicationList();
     // };
+    super.onInit();
     initPackageBridge();
 
-    delSub = imLoic.friendDelSubject.listen(_delFriend);
-    addSub = imLoic.friendAddSubject.listen(_addFriend);
-    infoChangedSub = imLoic.friendInfoChangedSubject.listen(_friendInfoChanged);
-    imLoic.onBlacklistAdd = _delFriend;
-    imLoic.onBlacklistDeleted = _addFriend;
+    delSub = imCtrl.friendDelSubject.listen(_delFriend);
+    addSub = imCtrl.friendAddSubject.listen(_addFriend);
+    infoChangedSub = imCtrl.friendInfoChangedSubject.listen(_friendInfoChanged);
+    imCtrl.onBlacklistAdd = _delFriend;
+    imCtrl.onBlacklistDeleted = _addFriend;
 
-    // imLogic.momentsSubject.listen((value) {
+    // imCtrl.momentsSubject.listen((value) {
     //   onRecvNewMessageForWorkingCircle?.call(value);
     // });
-    super.onInit();
-  }
 
-  @override
-  void onReady() {
     _getFriendList();
-    super.onReady();
   }
 
   @override
   void onClose() {
-    PackageBridge.selectContactsBridge = null;
-    PackageBridge.viewUserProfileBridge = null;
-    // PackageBridge.workingCircleBridge = null;
-    PackageBridge.scanBridge = null;
+    MitiBridge.selectContactsBridge = null;
+    MitiBridge.viewUserProfileBridge = null;
+    MitiBridge.scanBridge = null;
     super.onClose();
   }
 
   initPackageBridge() {
-    PackageBridge.selectContactsBridge = this;
-    PackageBridge.viewUserProfileBridge = this;
-    // PackageBridge.workingCircleBridge = this;
-    PackageBridge.scanBridge = this;
+    MitiBridge.selectContactsBridge = this;
+    MitiBridge.viewUserProfileBridge = this;
+    MitiBridge.scanBridge = this;
   }
 
   _getFriendList() async {
@@ -136,9 +124,8 @@ class ContactsLogic extends GetxController
                   : ISUserInfo.fromJson(fullUser.publicInfo!.toJson());
               return user;
             }).toList())
-        .then((list) => IMUtils.convertToAZList(list));
+        .then((list) => MitiUtils.convertToAZList(list));
 
-    onUserIDList(userIDList);
     friendList.assignAll(list.cast<ISUserInfo>());
   }
 
@@ -155,25 +142,25 @@ class ContactsLogic extends GetxController
   }
 
   _addFriend(dynamic user) {
-    if (user is FriendInfo || user is BlacklistInfo) {
-      _addUser(user.toJson());
-    }
+    if (!_checkUserType(user)) return;
+    _addUser(user.toJson());
   }
 
   _delFriend(dynamic user) {
-    if (user is FriendInfo || user is BlacklistInfo) {
-      friendList.removeWhere((e) => e.userID == user.userID);
-    }
+    if (!_checkUserType(user)) return;
+    friendList.removeWhere((e) => e.userID == user.userID);
   }
 
+  _checkUserType(dynamic user) => user is FriendInfo || user is BlacklistInfo;
+
   _friendInfoChanged(FriendInfo user) {
-    friendList.removeWhere((e) => e.userID == user.userID);
+    _delFriend(user);
     _addUser(user.toJson());
   }
 
   void _addUser(Map<String, dynamic> json) {
     final info = ISUserInfo.fromJson(json);
-    friendList.add(IMUtils.setAzPinyinAndTag(info) as ISUserInfo);
+    friendList.add(MitiUtils.setAzPinyinAndTag(info) as ISUserInfo);
 
     // A-Z sort.
     SuspensionUtil.sortListBySuspensionTag(friendList);
@@ -189,31 +176,40 @@ class ContactsLogic extends GetxController
         userID: info.userID!,
       );
 
-  void onUserIDList(List<String> userIDList) {}
+  // void newFriend() => AppNavigator.startFriendRequests();
 
-  void newFriend() => AppNavigator.startFriendRequests();
+  void newRecent() => AppNavigator.startRequestRecords();
 
-  void newRecent() => AppNavigator.startRecentRequests();
+  // void newGroup() => AppNavigator.startGroupRequests();
 
-  void newGroup() => AppNavigator.startGroupRequests();
-
-  void myFriend() => AppNavigator.startFriendList();
+  void myFriend() => AppNavigator.startMyFriend();
 
   void aiFriendList() => AppNavigator.startAiFriendList();
 
-  void myGroup() => AppNavigator.startGroupList();
+  void myGroup() => AppNavigator.startMyGroup();
 
   void searchContacts() => AppNavigator.startGlobalSearch();
 
-  void addContacts() => AppNavigator.startAddContactsMethod();
+  // void addContacts() => AppNavigator.startAddContactsMethod();
 
-  void tagGroup() => AppNavigator.startTagGroup();
+  // void tagGroup() => AppNavigator.startTagGroup();
 
   void createBot() => AppNavigator.startCreateBot();
 
-  void notificationIssued() => AppNavigator.startNotificationIssued();
+  // void notificationIssued() => AppNavigator.startNotificationIssued();
 
-  // void workMoments() => WNavigator.startWorkMomentsList();
+  scan() => AppNavigator.startScan();
+
+  addFriend() =>
+      AppNavigator.startSearchAddContacts(searchType: SearchType.user);
+
+  createGroup() => AppNavigator.startCreateGroup(
+      defaultCheckedList: [OpenIM.iMManager.userInfo]);
+
+  addGroup() =>
+      AppNavigator.startSearchAddContacts(searchType: SearchType.group);
+
+  // void workMoments() => CircleNavigator.startWorkMomentsList();
 
   @override
   Future<T?>? selectContacts<T>(
@@ -225,10 +221,12 @@ class ContactsLogic extends GetxController
     String? groupID,
     String? ex,
   }) =>
+      // AppNavigator.startSelectContacts(
+      //   action: type == 0
+      //       ? SelAction.whoCanWatch
+      //       : (type == 1 ? SelAction.remindWhoToWatch : SelAction.meeting),
       AppNavigator.startSelectContacts(
-        action: type == 0
-            ? SelAction.whoCanWatch
-            : (type == 1 ? SelAction.remindWhoToWatch : SelAction.meeting),
+        action: type == 0 ? SelAction.whoCanWatch : SelAction.remindWhoToWatch,
         defaultCheckedIDList: defaultCheckedIDList,
         checkedList: checkedList,
         excludeIDList: excludeIDList,
@@ -248,7 +246,7 @@ class ContactsLogic extends GetxController
       );
 
   @override
-  scanOutGroupID(String groupID) => AppNavigator.startGroupProfilePanel(
+  scanOutGroupID(String groupID) => AppNavigator.startGroupProfile(
         groupID: groupID,
         joinGroupMethod: JoinGroupMethod.qrcode,
         offAndToNamed: true,

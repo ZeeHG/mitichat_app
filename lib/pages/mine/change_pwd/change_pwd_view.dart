@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 import 'change_pwd_logic.dart';
 
@@ -12,51 +13,47 @@ class ChangePwdPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TouchCloseSoftKeyboard(
+    return KeyboardDismissOnTap(
       child: Scaffold(
         appBar: TitleBar.back(
-            title: StrRes.changePassword,
-            right: Container(
+            title: StrLibrary.changePassword,
+            right: SizedBox(
               width: 56.w,
               height: 28.h,
               child: Button(
-                text: StrRes.determine,
+                text: StrLibrary.determine,
                 enabled: logic.enabled,
                 onTap: logic.confirm,
-                textStyle: Styles.ts_FFFFFF_16sp,
+                textStyle: StylesLibrary.ts_FFFFFF_16sp,
               ),
-            )
-            // StrRes.determine.toText
-            //   ..style = Styles.ts_333333_16sp
-            //   ..onTap = logic.confirm,
-            ),
-        backgroundColor: Styles.c_F7F8FA,
+            )),
+        backgroundColor: StylesLibrary.c_F7F8FA,
         body: SingleChildScrollView(
           child: Column(
             children: [
               12.verticalSpace,
               _buildItemView(
-                label: StrRes.oldPwd,
+                label: StrLibrary.oldPwd,
                 controller: logic.oldPwdCtrl,
                 autofocus: true,
                 isTopRadius: true,
               ),
               Container(
                 margin: EdgeInsets.only(left: 12.w, right: 12.w),
-                color: Styles.c_F1F2F6,
+                color: StylesLibrary.c_F1F2F6,
                 height: 1.h,
               ),
               _buildItemView(
-                label: StrRes.newPwd,
+                label: StrLibrary.newPwd,
                 controller: logic.newPwdCtrl,
               ),
               Container(
                 margin: EdgeInsets.only(left: 12.w, right: 12.w),
-                color: Styles.c_F1F2F6,
+                color: StylesLibrary.c_F1F2F6,
                 height: 1.h,
               ),
               _buildItemView(
-                label: StrRes.confirmNewPwd,
+                label: StrLibrary.confirmNewPwd,
                 controller: logic.againPwdCtrl,
                 isBottomRadius: true,
               ),
@@ -64,8 +61,8 @@ class ChangePwdPage extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 margin: EdgeInsets.only(top: 12.h, left: 12.w),
                 child: Text(
-                  StrRes.pwdTips,
-                  style: Styles.ts_999999_12sp,
+                  StrLibrary.pwdTips,
+                  style: StylesLibrary.ts_999999_12sp,
                 ),
               ),
             ],
@@ -86,17 +83,16 @@ class ChangePwdPage extends StatelessWidget {
         height: 52.h,
         padding: EdgeInsets.symmetric(horizontal: 12.w),
         decoration: BoxDecoration(
-          color: Styles.c_FFFFFF,
+          color: StylesLibrary.c_FFFFFF,
         ),
         child: Row(
           children: [
-            label.toText..style = Styles.ts_333333_16sp,
+            label.toText..style = StylesLibrary.ts_333333_16sp,
             Expanded(
               child: InputBox.password(
-                label: "",
                 border: false,
                 controller: controller,
-                inputFormatters: [IMUtils.getPasswordFormatter()],
+                inputFormatters: [MitiUtils.getPasswordFormatter()],
               ),
             ),
           ],

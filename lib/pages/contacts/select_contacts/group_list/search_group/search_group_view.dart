@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:search_keyword_text/search_keyword_text.dart';
 import 'package:sprintf/sprintf.dart';
 
@@ -17,7 +18,7 @@ class SelectContactsFromSearchGroupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TouchCloseSoftKeyboard(
+    return KeyboardDismissOnTap(
       child: Scaffold(
         appBar: TitleBar.search(
           focusNode: logic.focusNode,
@@ -25,7 +26,7 @@ class SelectContactsFromSearchGroupPage extends StatelessWidget {
           onSubmitted: (_) => logic.search(),
           onCleared: () => logic.focusNode.requestFocus(),
         ),
-        backgroundColor: Styles.c_F8F9FA,
+        backgroundColor: StylesLibrary.c_F8F9FA,
         body: Obx(() => logic.isSearchNotResult
             ? _emptyListView
             : ListView.builder(
@@ -38,50 +39,49 @@ class SelectContactsFromSearchGroupPage extends StatelessWidget {
   }
 
   Widget _buildItemView(GroupInfo info) {
-    Widget buildChild() => Ink(
-          height: 64.h,
-          color: Styles.c_FFFFFF,
-          child: InkWell(
-            onTap: () => selectContactsLogic.onTap(info),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Row(
-                children: [
-                  if (selectContactsLogic.isMultiModel)
-                    Padding(
-                      padding: EdgeInsets.only(right: 10.w),
-                      child: ChatRadio(
-                        checked: selectContactsLogic.isChecked(info),
+    Widget buildChild() => GestureDetector(
+          onTap: () => selectContactsLogic.onTap(info),
+          behavior: HitTestBehavior.translucent,
+          child: Container(
+            height: 64.h,
+            color: StylesLibrary.c_FFFFFF,
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Row(
+              children: [
+                if (selectContactsLogic.isMultiModel)
+                  Padding(
+                    padding: EdgeInsets.only(right: 10.w),
+                    child: ChatRadio(
+                      checked: selectContactsLogic.isChecked(info),
+                    ),
+                  ),
+                AvatarView(
+                  url: info.faceURL,
+                  text: info.groupName,
+                  isGroup: true,
+                ),
+                10.horizontalSpace,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // (info.groupName ?? '').toText
+                      //   ..style = StylesLibrary.ts_333333_17sp,
+                      SearchKeywordText(
+                        text: info.groupName ?? '',
+                        keyText: logic.searchCtrl.text.trim(),
+                        style: StylesLibrary.ts_333333_17sp,
+                        keyStyle: StylesLibrary.ts_8443F8_17sp,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                    ),
-                  AvatarView(
-                    url: info.faceURL,
-                    text: info.groupName,
-                    isGroup: true,
+                      sprintf(StrLibrary.nPerson, [info.memberCount]).toText
+                        ..style = StylesLibrary.ts_999999_14sp,
+                    ],
                   ),
-                  10.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // (info.groupName ?? '').toText
-                        //   ..style = Styles.ts_333333_17sp,
-                        SearchKeywordText(
-                          text: info.groupName ?? '',
-                          keyText: logic.searchCtrl.text.trim(),
-                          style: Styles.ts_333333_17sp,
-                          keyStyle: Styles.ts_8443F8_17sp,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        sprintf(StrRes.nPerson, [info.memberCount]).toText
-                          ..style = Styles.ts_999999_14sp,
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );
@@ -94,12 +94,13 @@ class SelectContactsFromSearchGroupPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // 157.verticalSpace,
-            // ImageRes.blacklistEmpty.toImage
+            // ImageLibrary.blacklistEmpty.toImage
             //   ..width = 120.w
             //   ..height = 120.h,
             // 22.verticalSpace,
             44.verticalSpace,
-            StrRes.searchNotFound.toText..style = Styles.ts_999999_17sp,
+            StrLibrary.searchNotFound.toText
+              ..style = StylesLibrary.ts_999999_17sp,
           ],
         ),
       );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 import 'my_points_logic.dart';
 
@@ -14,12 +14,12 @@ class MyPointsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar2.back(
-          title: StrRes.myPoints,
-          backgroundColor: Styles.c_E5E4F6,
-          right: StrRes.rulesTitle.toText
-            ..style = Styles.ts_333333_16sp
+          title: StrLibrary.myPoints,
+          backgroundColor: StylesLibrary.c_E5E4F6,
+          right: StrLibrary.rulesTitle.toText
+            ..style = StylesLibrary.ts_333333_16sp
             ..onTap = logic.pointRules),
-      backgroundColor: Styles.c_E5E4F6,
+      backgroundColor: StylesLibrary.c_E5E4F6,
       body: Obx(() => SingleChildScrollView(
             child: Stack(
               children: [
@@ -28,8 +28,8 @@ class MyPointsPage extends StatelessWidget {
                     height: 812.h - 44.h - MediaQuery.of(context).padding.top,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage(ImageRes.appMyPointsBg,
-                            package: 'openim_common'),
+                        image: AssetImage(ImageLibrary.appMyPointsBg,
+                            package: 'miti_common'),
                         fit: BoxFit.fitWidth,
                         alignment: Alignment.bottomCenter,
                       ),
@@ -38,7 +38,7 @@ class MyPointsPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: Column(
                     children: [
-                      "aaa".toText..onTap=logic.inviteRecords,
+                      "aaa".toText..onTap = logic.inviteRecords,
                       10.verticalSpace,
                       "aaa".toText..onTap = logic.inviteRecords,
                       30.verticalSpace,
@@ -48,13 +48,16 @@ class MyPointsPage extends StatelessWidget {
                           shaderCallback: (bounds) => LinearGradient(
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
-                            colors: [Styles.c_BA78FC, Styles.c_8443F8],
+                            colors: [
+                              StylesLibrary.c_BA78FC,
+                              StylesLibrary.c_8443F8
+                            ],
                             tileMode: TileMode.mirror,
                           ).createShader(bounds),
                           // blendMode: BlendMode.src,
                           child: Text(
                             '20',
-                            style: Styles.ts_FFFFFF_46sp_bold,
+                            style: StylesLibrary.ts_FFFFFF_46sp_bold,
                           ),
                         ),
                       ),
@@ -62,7 +65,7 @@ class MyPointsPage extends StatelessWidget {
                       Container(
                         clipBehavior: Clip.hardEdge,
                         decoration: BoxDecoration(
-                          color: Styles.c_FFFFFF_opacity95,
+                          color: StylesLibrary.c_FFFFFF_opacity95,
                           borderRadius: BorderRadius.all(
                             Radius.circular(10.r),
                           ),
@@ -77,9 +80,9 @@ class MyPointsPage extends StatelessWidget {
                                   end: Alignment.bottomRight,
                                   stops: [0, 0.51, 1],
                                   colors: [
-                                    Styles.c_F7B500_opacity10,
-                                    Styles.c_B620E0_opacity10,
-                                    Styles.c_32C5FF_opacity10,
+                                    StylesLibrary.c_F7B500_opacity10,
+                                    StylesLibrary.c_B620E0_opacity10,
+                                    StylesLibrary.c_32C5FF_opacity10,
                                   ],
                                 ),
                               ),
@@ -87,16 +90,16 @@ class MyPointsPage extends StatelessWidget {
                                 child: RichText(
                                   text: TextSpan(children: [
                                     TextSpan(
-                                      text: StrRes.consecutiveSignIn + " ",
-                                      style: Styles.ts_343434_12p,
+                                      text: StrLibrary.consecutiveSignIn + " ",
+                                      style: StylesLibrary.ts_343434_12p,
                                     ),
                                     TextSpan(
                                       text: '1',
-                                      style: Styles.ts_8443F8_18sp_bold,
+                                      style: StylesLibrary.ts_8443F8_18sp_bold,
                                     ),
                                     TextSpan(
-                                      text: " " + StrRes.day,
-                                      style: Styles.ts_343434_12p,
+                                      text: " " + StrLibrary.day,
+                                      style: StylesLibrary.ts_343434_12p,
                                     ),
                                   ]),
                                 ),
@@ -112,7 +115,7 @@ class MyPointsPage extends StatelessWidget {
                       Container(
                         clipBehavior: Clip.hardEdge,
                         decoration: BoxDecoration(
-                          color: Styles.c_FFFFFF_opacity95,
+                          color: StylesLibrary.c_FFFFFF_opacity95,
                           borderRadius: BorderRadius.all(
                             Radius.circular(10.r),
                           ),
@@ -122,10 +125,10 @@ class MyPointsPage extends StatelessWidget {
                             15.verticalSpace,
                             Row(
                               children: [
-                                ImageRes.appSemicircle.toImage..width = 5.w,
+                                ImageLibrary.appSemicircle.toImage..width = 5.w,
                                 10.horizontalSpace,
-                                StrRes.earningTitle.toText
-                                  ..style = Styles.ts_333333_16sp_medium
+                                StrLibrary.earningTitle.toText
+                                  ..style = StylesLibrary.ts_333333_16sp_medium
                               ],
                             ),
                             16.verticalSpace,
@@ -135,7 +138,7 @@ class MyPointsPage extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                      ImageRes.appSignInTask.toImage
+                                      ImageLibrary.appSignInTask.toImage
                                         ..width = 36.w,
                                       10.horizontalSpace,
                                       Column(
@@ -144,17 +147,19 @@ class MyPointsPage extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          StrRes.dailySignIn.toText
-                                            ..style =
-                                                Styles.ts_333333_16sp_medium,
+                                          StrLibrary.dailySignIn.toText
+                                            ..style = StylesLibrary
+                                                .ts_333333_16sp_medium,
                                           RichText(
                                               text: TextSpan(children: [
                                             TextSpan(
-                                                text: StrRes.mitiToken,
-                                                style: Styles.ts_999999_12sp),
+                                                text: StrLibrary.mitiToken,
+                                                style: StylesLibrary
+                                                    .ts_999999_12sp),
                                             TextSpan(
                                                 text: "+1",
-                                                style: Styles.ts_8443F8_12sp)
+                                                style: StylesLibrary
+                                                    .ts_8443F8_12sp)
                                           ]))
                                         ],
                                       ),
@@ -166,18 +171,18 @@ class MyPointsPage extends StatelessWidget {
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 19.w),
                                           decoration: BoxDecoration(
-                                              // color: Styles.c_32C5FF_opacity10,
+                                              // color: StylesLibrary.c_32C5FF_opacity10,
                                               borderRadius: BorderRadius.all(
                                                 Radius.circular(21.r),
                                               ),
                                               border: Border.all(
-                                                color: Styles.c_8443F8,
+                                                color: StylesLibrary.c_8443F8,
                                                 width: 1.w,
                                               )),
                                           child: Center(
-                                              child: StrRes.signedIn.toText
-                                                ..style =
-                                                    Styles.ts_8443F8_14sp),
+                                              child: StrLibrary.signedIn.toText
+                                                ..style = StylesLibrary
+                                                    .ts_8443F8_14sp),
                                         ),
                                       ),
                                     ],
@@ -192,7 +197,7 @@ class MyPointsPage extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                      ImageRes.appInviteTask.toImage
+                                      ImageLibrary.appInviteTask.toImage
                                         ..width = 36.w,
                                       10.horizontalSpace,
                                       Column(
@@ -201,17 +206,19 @@ class MyPointsPage extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          StrRes.inviteFriends.toText
-                                            ..style =
-                                                Styles.ts_333333_16sp_medium,
+                                          StrLibrary.inviteFriends.toText
+                                            ..style = StylesLibrary
+                                                .ts_333333_16sp_medium,
                                           RichText(
                                               text: TextSpan(children: [
                                             TextSpan(
-                                                text: StrRes.mitiToken,
-                                                style: Styles.ts_999999_12sp),
+                                                text: StrLibrary.mitiToken,
+                                                style: StylesLibrary
+                                                    .ts_999999_12sp),
                                             TextSpan(
                                                 text: "+10",
-                                                style: Styles.ts_8443F8_12sp)
+                                                style: StylesLibrary
+                                                    .ts_8443F8_12sp)
                                           ]))
                                         ],
                                       ),
@@ -223,18 +230,18 @@ class MyPointsPage extends StatelessWidget {
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 19.w),
                                           decoration: BoxDecoration(
-                                              color: Styles.c_8443F8,
+                                              color: StylesLibrary.c_8443F8,
                                               borderRadius: BorderRadius.all(
                                                 Radius.circular(21.r),
                                               ),
                                               border: Border.all(
-                                                color: Styles.c_8443F8,
+                                                color: StylesLibrary.c_8443F8,
                                                 width: 1.w,
                                               )),
                                           child: Center(
-                                              child: StrRes.invite2.toText
-                                                ..style =
-                                                    Styles.ts_FFFFFF_14sp),
+                                              child: StrLibrary.invite2.toText
+                                                ..style = StylesLibrary
+                                                    .ts_FFFFFF_14sp),
                                         ),
                                       ),
                                     ],
@@ -249,7 +256,7 @@ class MyPointsPage extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                      ImageRes.appChatTask.toImage
+                                      ImageLibrary.appChatTask.toImage
                                         ..width = 36.w,
                                       10.horizontalSpace,
                                       Column(
@@ -258,17 +265,19 @@ class MyPointsPage extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          StrRes.aiAgentInteraction.toText
-                                            ..style =
-                                                Styles.ts_333333_16sp_medium,
+                                          StrLibrary.aiAgentInteraction.toText
+                                            ..style = StylesLibrary
+                                                .ts_333333_16sp_medium,
                                           RichText(
                                               text: TextSpan(children: [
                                             TextSpan(
-                                                text: StrRes.mitiToken,
-                                                style: Styles.ts_999999_12sp),
+                                                text: StrLibrary.mitiToken,
+                                                style: StylesLibrary
+                                                    .ts_999999_12sp),
                                             TextSpan(
                                                 text: "+1",
-                                                style: Styles.ts_8443F8_12sp)
+                                                style: StylesLibrary
+                                                    .ts_8443F8_12sp)
                                           ]))
                                         ],
                                       ),
@@ -280,18 +289,18 @@ class MyPointsPage extends StatelessWidget {
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 19.w),
                                           decoration: BoxDecoration(
-                                              color: Styles.c_8443F8,
+                                              color: StylesLibrary.c_8443F8,
                                               borderRadius: BorderRadius.all(
                                                 Radius.circular(21.r),
                                               ),
                                               border: Border.all(
-                                                color: Styles.c_8443F8,
+                                                color: StylesLibrary.c_8443F8,
                                                 width: 1.w,
                                               )),
                                           child: Center(
-                                              child: StrRes.interact.toText
-                                                ..style =
-                                                    Styles.ts_FFFFFF_14sp),
+                                              child: StrLibrary.interact.toText
+                                                ..style = StylesLibrary
+                                                    .ts_FFFFFF_14sp),
                                         ),
                                       ),
                                     ],
@@ -307,7 +316,7 @@ class MyPointsPage extends StatelessWidget {
                       Container(
                           clipBehavior: Clip.hardEdge,
                           decoration: BoxDecoration(
-                            color: Styles.c_FFFFFF_opacity95,
+                            color: StylesLibrary.c_FFFFFF_opacity95,
                             borderRadius: BorderRadius.all(
                               Radius.circular(10.r),
                             ),
@@ -316,19 +325,19 @@ class MyPointsPage extends StatelessWidget {
                             15.verticalSpace,
                             Row(
                               children: [
-                                ImageRes.appSemicircle.toImage..width = 5.w,
+                                ImageLibrary.appSemicircle.toImage..width = 5.w,
                                 10.horizontalSpace,
-                                StrRes.history.toText
-                                  ..style = Styles.ts_333333_16sp_medium,
+                                StrLibrary.history.toText
+                                  ..style = StylesLibrary.ts_333333_16sp_medium,
                                 Spacer(),
                                 GestureDetector(
                                   behavior: HitTestBehavior.translucent,
                                   onTap: logic.pointRecords,
                                   child: Row(
                                     children: [
-                                      StrRes.allRecords.toText
-                                        ..style = Styles.ts_999999_12sp,
-                                      ImageRes.appRightArrow.toImage
+                                      StrLibrary.allRecords.toText
+                                        ..style = StylesLibrary.ts_999999_12sp,
+                                      ImageLibrary.appRightArrow.toImage
                                         ..width = 16.w,
                                       15.horizontalSpace
                                     ],
@@ -349,27 +358,26 @@ class MyPointsPage extends StatelessWidget {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              StrRes.inviteFriends.toText
-                                                ..style = Styles
+                                              StrLibrary.inviteFriends.toText
+                                                ..style = StylesLibrary
                                                     .ts_333333_14sp_medium,
                                               "2024-01-01".toText
-                                                ..style = Styles.ts_999999_12sp,
+                                                ..style = StylesLibrary
+                                                    .ts_999999_12sp,
                                             ],
                                           ),
                                           Spacer(),
                                           "+5".toText
-                                            ..style =
-                                                Styles.ts_8443F8_18sp_medium,
+                                            ..style = StylesLibrary
+                                                .ts_8443F8_18sp_medium,
                                         ],
                                       ),
                                     )),
-                                    
                           ])),
-                          16.verticalSpace
+                      16.verticalSpace
                     ],
                   ),
                 ),
-                
               ],
             ),
           )),

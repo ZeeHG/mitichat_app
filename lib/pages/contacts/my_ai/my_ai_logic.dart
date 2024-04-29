@@ -1,18 +1,15 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:ui';
-
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti/utils/ai_util.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
-import '../../../core/controller/im_controller.dart';
+import '../../../core/ctrl/im_ctrl.dart';
 
 class MyAiLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final friendList = <ISUserInfo>[].obs;
   final userIDList = <String>[];
   late StreamSubscription delSub;
@@ -23,18 +20,17 @@ class MyAiLogic extends GetxController {
 
   @override
   void onInit() {
-    delSub = imLogic.friendDelSubject.listen(_delFriend);
-    addSub = imLogic.friendAddSubject.listen(_addFriend);
-    infoChangedSub =
-        imLogic.friendInfoChangedSubject.listen(_friendInfoChanged);
-    imLogic.onBlacklistAdd = _delFriend;
-    imLogic.onBlacklistDeleted = _addFriend;
+    delSub = imCtrl.friendDelSubject.listen(_delFriend);
+    addSub = imCtrl.friendAddSubject.listen(_addFriend);
+    infoChangedSub = imCtrl.friendInfoChangedSubject.listen(_friendInfoChanged);
+    imCtrl.onBlacklistAdd = _delFriend;
+    imCtrl.onBlacklistDeleted = _addFriend;
     super.onInit();
   }
 
   @override
   void onReady() {
-    LoadingView.singleton.wrap(asyncFunction: () async {
+    LoadingView.singleton.start(fn: () async {
       await _getFriendList();
     });
 
@@ -59,7 +55,7 @@ class MyAiLogic extends GetxController {
         ai: myAiList.firstWhere((e) => e.userID == info.userID));
   }
 
-  Future<void>  _getFriendList() async {
+  Future<void> _getFriendList() async {
     myAiList.value = await aiUtil.queryMyAiList();
     final myAiUserIDList = myAiList.map((e) => e.userID).toList();
     final list = await OpenIM.iMManager.friendshipManager
@@ -74,12 +70,9 @@ class MyAiLogic extends GetxController {
             }).toList())
         .then((list) =>
             list.where((e) => myAiUserIDList.contains(e.userID)).toList())
-        .then((list) => IMUtils.convertToAZList(list));
-    onUserIDList(userIDList);
+        .then((list) => MitiUtils.convertToAZList(list));
     friendList.assignAll(list.cast<ISUserInfo>());
   }
-
-  void onUserIDList(List<String> userIDList) {}
 
   bool _filterBlacklist(e) {
     final user = FullUserInfo.fromJson(e);
@@ -113,7 +106,7 @@ class MyAiLogic extends GetxController {
 
   void _addUser(Map<String, dynamic> json) {
     final info = ISUserInfo.fromJson(json);
-    friendList.add(IMUtils.setAzPinyinAndTag(info) as ISUserInfo);
+    friendList.add(MitiUtils.setAzPinyinAndTag(info) as ISUserInfo);
 
     // A-Z sort.
     SuspensionUtil.sortListBySuspensionTag(friendList);

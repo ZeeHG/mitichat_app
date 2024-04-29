@@ -4,28 +4,23 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class TrainAiLogic extends GetxController {
   @override
   void onInit() {
+    super.onInit();
     inputCtrl.addListener(() {
       text.value = inputCtrl.text;
     });
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
     getBotKnowledgebases();
-    super.onReady();
   }
 
   @override
   void onClose() {
-    inputCtrl.dispose();
     super.onClose();
+    inputCtrl.dispose();
   }
 
   final arguments = Get.arguments;
@@ -44,7 +39,7 @@ class TrainAiLogic extends GetxController {
   String get count => "${text.value.length}/${maxLength.value}";
 
   bool get canTain =>
-      (text.value.length > 0 || files.value.length > 0) &&
+      (text.value.isNotEmpty || files.isNotEmpty) &&
       (null != selectedKnowledgebase.value);
 
   bool get canSeeFiles => null != selectedKnowledgebase.value;
@@ -55,10 +50,10 @@ class TrainAiLogic extends GetxController {
       knowledgebase: selectedKnowledgebase.value!);
 
   void getBotKnowledgebases() {
-    LoadingView.singleton.wrap(asyncFunction: () async {
-      final knowledgebases =
-          (await Apis.getBotKnowledgebases(botID: ai.value.botID))["data"] ??
-              [];
+    LoadingView.singleton.start(fn: () async {
+      final knowledgebases = (await ClientApis.getBotKnowledgebases(
+              botID: ai.value.botID))["data"] ??
+          [];
       knowledgebaseList.value = knowledgebases
           .map((e) => Knowledgebase.fromJson({
                 "key": e["knowledgebaseID"],
@@ -68,25 +63,24 @@ class TrainAiLogic extends GetxController {
               }))
           .toList()
           .cast<Knowledgebase>();
-      if (knowledgebaseList.length == 0) {
-        showToast(StrRes.pleaseUpgradeAiOrOpenKnowledgebase);
+      if (knowledgebaseList.isEmpty) {
+        showToast(StrLibrary.pleaseUpgradeAiOrOpenKnowledgebase);
       }
     });
   }
 
   void train() async {
-    await LoadingView.singleton.wrap(asyncFunction: () async {
-      await Apis.addKnowledge(
+    await LoadingView.singleton.start(fn: () async {
+      await ClientApis.addKnowledge(
           knowledgebaseID: selectedKnowledgebase.value!.knowledgebaseID,
           text: text.value,
-          filePathList: files.value);
+          filePathList: files);
       inputCtrl.text = '';
       text.value = '';
       files.value = [];
     });
-    // await Apis.getMyAiTask();
-    final confirm = await Get.dialog(SuccessDialog(
-      text: StrRes.trainSuccessTips,
+    await Get.dialog(SuccessDialog(
+      text: StrLibrary.trainSuccessTips,
       onTapConfirm: () => Get.back(),
     ));
   }
@@ -111,9 +105,9 @@ class TrainAiLogic extends GetxController {
   }
 
   void selectKnowledgebase() async {
-    if (knowledgebaseList.length == 0) return;
+    if (knowledgebaseList.isEmpty) return;
     IMViews.showSinglePicker(
-      title: StrRes.selectKnowledgebase,
+      title: StrLibrary.selectKnowledgebase,
       description: "",
       pickerData: knowledgebaseList
           .map((element) => element.knowledgebaseName)

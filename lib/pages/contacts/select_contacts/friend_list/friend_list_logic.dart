@@ -1,16 +1,24 @@
 import 'package:get/get.dart';
 import 'package:miti/pages/contacts/friend_list/friend_list_logic.dart';
 import 'package:miti/routes/app_navigator.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 import '../select_contacts_logic.dart';
 
 class SelectContactsFromFriendsLogic extends FriendListLogic {
   final selectContactsLogic = Get.find<SelectContactsLogic>();
+  String appBarTitle = "";
+
+  @override
+  void onInit() {
+    appBarTitle = Get.arguments['appBarTitle'] ?? StrLibrary.myFriend;
+    super.onInit();
+  }
 
   @override
   searchFriend() async {
-    final result = await AppNavigator.startSelectContactsFromSearchFriends();
+    final result = await AppNavigator.startSelectContactsFromSearchFriends(
+        appBarTitle: appBarTitle);
     if (null != result) {
       Get.back(result: result);
     }

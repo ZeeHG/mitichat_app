@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
+import 'package:miti/pages/chat/chat_setting/chat_setting_binding.dart';
+import 'package:miti/pages/chat/chat_setting/chat_setting_view.dart';
 import 'package:miti/pages/chat/complaint/complaint_binding.dart';
 import 'package:miti/pages/chat/complaint/complaint_view.dart';
 import 'package:miti/pages/contacts/ai_friend_list/ai_friend_list_binding.dart';
 import 'package:miti/pages/contacts/ai_friend_list/ai_friend_list_view.dart';
 import 'package:miti/pages/contacts/ai_friend_list/search_ai_friend/search_ai_friend_binding.dart';
 import 'package:miti/pages/contacts/ai_friend_list/search_ai_friend/search_ai_friend_view.dart';
+import 'package:miti/pages/contacts/friend_permission_setting/friend_permission_setting_view.dart';
 import 'package:miti/pages/contacts/my_ai/knowledgebase_files/knowledgebase_files_binding.dart';
 import 'package:miti/pages/contacts/my_ai/knowledgebase_files/knowledgebase_files_view.dart';
 import 'package:miti/pages/contacts/my_ai/my_ai_binding.dart';
@@ -13,10 +16,14 @@ import 'package:miti/pages/contacts/my_ai/search_my_ai/search_my_ai_binding.dart
 import 'package:miti/pages/contacts/my_ai/search_my_ai/search_my_ai_view.dart';
 import 'package:miti/pages/contacts/my_ai/train_ai/train_ai_binding.dart';
 import 'package:miti/pages/contacts/my_ai/train_ai/train_ai_view.dart';
-import 'package:miti/pages/contacts/recent_requests/recent_requests_binding.dart';
-import 'package:miti/pages/contacts/recent_requests/recent_requests_view.dart';
-import 'package:miti/pages/friend_permissions/friend_permissions_binding.dart';
-import 'package:miti/pages/friend_permissions/friend_permissions_view.dart';
+import 'package:miti/pages/contacts/request_records/request_records_binding.dart';
+import 'package:miti/pages/contacts/request_records/request_records_view.dart';
+import 'package:miti/pages/contacts/select_contacts/group_list/group_list_binding.dart';
+import 'package:miti/pages/contacts/select_contacts/group_list/group_list_view.dart';
+import 'package:miti/pages/contacts/select_contacts/group_list/search_group/search_group_binding.dart';
+import 'package:miti/pages/contacts/select_contacts/group_list/search_group/search_group_view.dart';
+// import 'package:miti/pages/contacts/friend_permission_setting_setting/friend_permission_setting_setting_binding.dart';
+// import 'package:miti/pages/contacts/friend_permission_setting_setting/friend_permission_setting_setting_view.dart';
 import 'package:miti/pages/mine/account_and_security/account_and_security_binding.dart';
 import 'package:miti/pages/mine/account_and_security/account_and_security_view.dart';
 import 'package:miti/pages/mine/account_manage/account_manage_binding.dart';
@@ -37,8 +44,8 @@ import 'package:miti/pages/mine/phone_email_change/phone_email_change_binding.da
 import 'package:miti/pages/mine/phone_email_change/phone_email_change_view.dart';
 import 'package:miti/pages/mine/phone_email_change_detail/phone_email_change_detail_binding.dart';
 import 'package:miti/pages/mine/phone_email_change_detail/phone_email_change_detail_view.dart';
-import 'package:miti/pages/preview_selected_assets/preview_selected_assets_binding.dart';
-import 'package:miti/pages/preview_selected_assets/preview_selected_assets_view.dart';
+import 'package:miti/pages/preview_media/preview_media_binding.dart';
+import 'package:miti/pages/preview_media/preview_media_view.dart';
 import 'package:miti/pages/privacy_policy/privacy_policy_binding.dart';
 import 'package:miti/pages/privacy_policy/privacy_policy_view.dart';
 import 'package:miti/pages/terms_of_server/terms_of_server_binding.dart';
@@ -47,8 +54,8 @@ import 'package:miti/pages/xhs/xhs_binding.dart';
 import 'package:miti/pages/xhs/xhs_moment_detail/xhs_moment_detail_binding.dart';
 import 'package:miti/pages/xhs/xhs_moment_detail/xhs_moment_detail_view.dart';
 import 'package:miti/pages/xhs/xhs_view.dart';
-import 'package:openim_meeting/openim_meeting.dart';
-import 'package:openim_working_circle/openim_working_circle.dart';
+// import 'package:openim_meeting/openim_meeting.dart';
+import 'package:miti_circle/miti_circle.dart';
 
 import '../pages/bot/bot_binding.dart';
 import '../pages/bot/bot_view.dart';
@@ -59,107 +66,102 @@ import '../pages/bot/create_bot/create_bot_view.dart';
 import '../pages/bot/training_bot/training_bot_binding.dart';
 import '../pages/bot/training_bot/training_bot_view.dart';
 import '../pages/chat/chat_binding.dart';
-import '../pages/chat/chat_setup/chat_setup_binding.dart';
-import '../pages/chat/chat_setup/chat_setup_view.dart';
-import '../pages/chat/chat_setup/favorite_manage/favorite_manage_binding.dart';
-import '../pages/chat/chat_setup/favorite_manage/favorite_manage_view.dart';
-import '../pages/chat/chat_setup/search_chat_history/file/file_binding.dart';
-import '../pages/chat/chat_setup/search_chat_history/file/file_view.dart';
-import '../pages/chat/chat_setup/search_chat_history/multimedia/multimedia_binding.dart';
-import '../pages/chat/chat_setup/search_chat_history/multimedia/multimedia_view.dart';
-import '../pages/chat/chat_setup/search_chat_history/preview_chat_history/preview_chat_history_binding.dart';
-import '../pages/chat/chat_setup/search_chat_history/preview_chat_history/preview_chat_history_view.dart';
-import '../pages/chat/chat_setup/search_chat_history/search_chat_history_binding.dart';
-import '../pages/chat/chat_setup/search_chat_history/search_chat_history_view.dart';
-import '../pages/chat/chat_setup/set_background/set_background_binding.dart';
-import '../pages/chat/chat_setup/set_background/set_background_view.dart';
-import '../pages/chat/chat_setup/set_font_size/set_font_size_binding.dart';
-import '../pages/chat/chat_setup/set_font_size/set_font_size_view.dart';
+import '../pages/chat/chat_setting/emoji_favorite_manage/emoji_favorite_manage_binding.dart';
+import '../pages/chat/chat_setting/emoji_favorite_manage/emoji_favorite_manage_view.dart';
+import '../pages/chat/chat_setting/chat_history/file/file_binding.dart';
+import '../pages/chat/chat_setting/chat_history/file/file_view.dart';
+import '../pages/chat/chat_setting/chat_history/media/media_binding.dart';
+import '../pages/chat/chat_setting/chat_history/media/media_view.dart';
+import '../pages/chat/chat_setting/chat_history/preview_chat_history/preview_chat_history_binding.dart';
+import '../pages/chat/chat_setting/chat_history/preview_chat_history/preview_chat_history_view.dart';
+import '../pages/chat/chat_setting/chat_history/chat_history_binding.dart';
+import '../pages/chat/chat_setting/chat_history/chat_history_view.dart';
+import '../pages/chat/chat_setting/background_setting/background_setting_binding.dart';
+import '../pages/chat/chat_setting/background_setting/background_setting_view.dart';
+// import '../pages/chat/chat_setting/set_font_size/set_font_size_binding.dart';
+// import '../pages/chat/chat_setting/set_font_size/set_font_size_view.dart';
 import '../pages/chat/chat_view.dart';
-import '../pages/chat/group_setup/edit_announcement/edit_announcement_binding.dart';
-import '../pages/chat/group_setup/edit_announcement/edit_announcement_view.dart';
-import '../pages/chat/group_setup/edit_name/edit_name_binding.dart';
-import '../pages/chat/group_setup/edit_name/edit_name_view.dart';
-import '../pages/chat/group_setup/group_manage/group_manage_binding.dart';
-import '../pages/chat/group_setup/group_manage/group_manage_view.dart';
-import '../pages/chat/group_setup/group_member_list/group_member_list_binding.dart';
-import '../pages/chat/group_setup/group_member_list/group_member_list_view.dart';
-import '../pages/chat/group_setup/group_member_list/search_group_member/search_group_member_binding.dart';
-import '../pages/chat/group_setup/group_member_list/search_group_member/search_group_member_view.dart';
-import '../pages/chat/group_setup/group_qrcode/group_qrcode_binding.dart';
-import '../pages/chat/group_setup/group_qrcode/group_qrcode_view.dart';
-import '../pages/chat/group_setup/group_read_list/group_read_list_binding.dart';
-import '../pages/chat/group_setup/group_read_list/group_read_list_view.dart';
-import '../pages/chat/group_setup/group_setup_binding.dart';
-import '../pages/chat/group_setup/group_setup_view.dart';
-import '../pages/chat/group_setup/set_mute_for_memeber/set_mute_for_member_binding.dart';
-import '../pages/chat/group_setup/set_mute_for_memeber/set_mute_for_member_view.dart';
-import '../pages/contacts/add_by_search/add_by_search_binding.dart';
-import '../pages/contacts/add_by_search/add_by_search_view.dart';
-import '../pages/contacts/add_method/add_method_binding.dart';
-import '../pages/contacts/add_method/add_method_view.dart';
-import '../pages/contacts/call_records/call_records_binding.dart';
-import '../pages/contacts/call_records/call_records_view.dart';
+import '../pages/chat/group_setting/edit_announcement/edit_announcement_binding.dart';
+import '../pages/chat/group_setting/edit_announcement/edit_announcement_view.dart';
+import '../pages/chat/group_setting/edit_name/edit_name_binding.dart';
+import '../pages/chat/group_setting/edit_name/edit_name_view.dart';
+import '../pages/chat/group_setting/group_manage/group_manage_binding.dart';
+import '../pages/chat/group_setting/group_manage/group_manage_view.dart';
+import '../pages/chat/group_setting/group_member_list/group_member_list_binding.dart';
+import '../pages/chat/group_setting/group_member_list/group_member_list_view.dart';
+import '../pages/chat/group_setting/group_member_list/search_group_member/search_group_member_binding.dart';
+import '../pages/chat/group_setting/group_member_list/search_group_member/search_group_member_view.dart';
+import '../pages/chat/group_setting/group_qrcode/group_qrcode_binding.dart';
+import '../pages/chat/group_setting/group_qrcode/group_qrcode_view.dart';
+import '../pages/chat/group_setting/group_read_list/group_read_list_binding.dart';
+import '../pages/chat/group_setting/group_read_list/group_read_list_view.dart';
+import '../pages/chat/group_setting/group_setting_binding.dart';
+import '../pages/chat/group_setting/group_setting_view.dart';
+import '../pages/chat/group_setting/set_mute_for_memeber/set_mute_for_member_binding.dart';
+import '../pages/chat/group_setting/set_mute_for_memeber/set_mute_for_member_view.dart';
+import '../pages/contacts/search_add_contacts/search_add_contacts_binding.dart';
+import '../pages/contacts/search_add_contacts/search_add_contacts_view.dart';
+// import '../pages/contacts/add_method/add_method_binding.dart';
+// import '../pages/contacts/add_method/add_method_view.dart';
+// import '../pages/contacts/call_records/call_records_binding.dart';
+// import '../pages/contacts/call_records/call_records_view.dart';
 import '../pages/contacts/create_group/create_group_binding.dart';
 import '../pages/contacts/create_group/create_group_view.dart';
 import '../pages/contacts/friend_list/friend_list_binding.dart';
 import '../pages/contacts/friend_list/friend_list_view.dart';
 import '../pages/contacts/friend_list/search_friend/search_friend_binding.dart';
 import '../pages/contacts/friend_list/search_friend/search_friend_view.dart';
-import '../pages/contacts/friend_requests/friend_requests_binding.dart';
-import '../pages/contacts/friend_requests/friend_requests_view.dart';
-import '../pages/contacts/friend_requests/process_friend_requests/process_friend_requests_binding.dart';
-import '../pages/contacts/friend_requests/process_friend_requests/process_friend_requests_view.dart';
-import '../pages/contacts/group_list/group_list_binding.dart';
-import '../pages/contacts/group_list/group_list_view.dart';
-import '../pages/contacts/group_list/search_group/search_group_binding.dart';
-import '../pages/contacts/group_list/search_group/search_group_view.dart';
-import '../pages/contacts/group_profile_panel/group_profile_panel_binding.dart';
-import '../pages/contacts/group_profile_panel/group_profile_panel_view.dart';
-import '../pages/contacts/group_requests/group_requests_binding.dart';
-import '../pages/contacts/group_requests/group_requests_view.dart';
-import '../pages/contacts/group_requests/process_group_requests/process_group_requests_binding.dart';
-import '../pages/contacts/group_requests/process_group_requests/process_group_requests_view.dart';
+// import '../pages/contacts/friend_requests/friend_requests_binding.dart';
+// import '../pages/contacts/friend_requests/friend_requests_view.dart';
+import '../pages/contacts/friend_permission_setting/friend_permission_setting_binding.dart';
+import '../pages/contacts/request_records/handle_friend_requests/handle_friend_requests_binding.dart';
+import '../pages/contacts/request_records/handle_friend_requests/handle_friend_requests_view.dart';
+import '../pages/contacts/my_group/my_group_binding.dart';
+import '../pages/contacts/my_group/my_group_view.dart';
+import '../pages/contacts/my_group/search_group/search_group_binding.dart';
+import '../pages/contacts/my_group/search_group/search_group_view.dart';
+import '../pages/contacts/group_profile/group_profile_binding.dart';
+import '../pages/contacts/group_profile/group_profile_view.dart';
+// import '../pages/contacts/group_requests/group_requests_binding.dart';
+// import '../pages/contacts/group_requests/group_requests_view.dart';
+import '../pages/contacts/request_records/handle_group_requests/handle_group_requests_binding.dart';
+import '../pages/contacts/request_records/handle_group_requests/handle_group_requests_view.dart';
 import '../pages/contacts/select_contacts/friend_list/friend_list_binding.dart';
 import '../pages/contacts/select_contacts/friend_list/friend_list_view.dart';
 import '../pages/contacts/select_contacts/friend_list/search_friend/search_friend_binding.dart';
 import '../pages/contacts/select_contacts/friend_list/search_friend/search_friend_view.dart';
-import '../pages/contacts/select_contacts/group_list/group_list_binding.dart';
-import '../pages/contacts/select_contacts/group_list/group_list_view.dart';
-import '../pages/contacts/select_contacts/group_list/search_group/search_group_binding.dart';
-import '../pages/contacts/select_contacts/group_list/search_group/search_group_view.dart';
 import '../pages/contacts/select_contacts/search_contacts/search_contacts_binding.dart';
 import '../pages/contacts/select_contacts/search_contacts/search_contacts_view.dart';
 import '../pages/contacts/select_contacts/select_contacts_binding.dart';
 import '../pages/contacts/select_contacts/select_contacts_view.dart';
-import '../pages/contacts/select_contacts/tag_list/tag_list_binding.dart';
-import '../pages/contacts/select_contacts/tag_list/tag_list_view.dart';
-import '../pages/contacts/send_verification_application/send_verification_application_binding.dart';
-import '../pages/contacts/send_verification_application/send_verification_application_view.dart';
-import '../pages/contacts/tag_group/create_tag_group/create_tag_group_binding.dart';
-import '../pages/contacts/tag_group/create_tag_group/create_tag_group_view.dart';
-import '../pages/contacts/tag_group/tag_group_binding.dart';
-import '../pages/contacts/tag_group/tag_group_view.dart';
-import '../pages/contacts/tag_notification_issued/build_tag_notification/build_tag_notification_binding.dart';
-import '../pages/contacts/tag_notification_issued/build_tag_notification/build_tag_notification_view.dart';
-import '../pages/contacts/tag_notification_issued/tag_notification_detail/tag_notification_detail_binding.dart';
-import '../pages/contacts/tag_notification_issued/tag_notification_detail/tag_notification_detail_view.dart';
-import '../pages/contacts/tag_notification_issued/tag_notification_issued_binding.dart';
-import '../pages/contacts/tag_notification_issued/tag_notification_issued_view.dart';
-import '../pages/contacts/user_profile_panel/friend_setup/friend_setup_binding.dart';
-import '../pages/contacts/user_profile_panel/friend_setup/friend_setup_view.dart';
-import '../pages/contacts/user_profile_panel/personal_info/personal_info_binding.dart';
-import '../pages/contacts/user_profile_panel/personal_info/personal_info_view.dart';
-import '../pages/contacts/user_profile_panel/set_remark/set_remark_binding.dart';
-import '../pages/contacts/user_profile_panel/set_remark/set_remark_view.dart';
-import '../pages/contacts/user_profile_panel/user_profile _panel_binding.dart';
-import '../pages/contacts/user_profile_panel/user_profile _panel_view.dart';
-import '../pages/forget_password/forget_password_binding.dart';
-import '../pages/forget_password/forget_password_view.dart';
-import '../pages/forget_password/reset_password/reset_password_binding.dart';
-import '../pages/forget_password/reset_password/reset_password_view.dart';
-import '../pages/global_search/expand_chat_history/expand_chat_history_binding.dart';
-import '../pages/global_search/expand_chat_history/expand_chat_history_view.dart';
+// import '../pages/contacts/select_contacts/tag_list/tag_list_binding.dart';
+// import '../pages/contacts/select_contacts/tag_list/tag_list_view.dart';
+import '../pages/contacts/send_application/send_application_binding.dart';
+import '../pages/contacts/send_application/send_application_view.dart';
+// import '../pages/contacts/tag_group/create_tag_group/create_tag_group_binding.dart';
+// import '../pages/contacts/tag_group/create_tag_group/create_tag_group_view.dart';
+// import '../pages/contacts/tag_group/tag_group_binding.dart';
+// import '../pages/contacts/tag_group/tag_group_view.dart';
+// import '../pages/contacts/tag_notification_issued/build_tag_notification/build_tag_notification_binding.dart';
+// import '../pages/contacts/tag_notification_issued/build_tag_notification/build_tag_notification_view.dart';
+// import '../pages/contacts/tag_notification_issued/tag_notification_detail/tag_notification_detail_binding.dart';
+// import '../pages/contacts/tag_notification_issued/tag_notification_detail/tag_notification_detail_view.dart';
+// import '../pages/contacts/tag_notification_issued/tag_notification_issued_binding.dart';
+// import '../pages/contacts/tag_notification_issued/tag_notification_issued_view.dart';
+import '../pages/contacts/user_profile/friend_setting/friend_setting_binding.dart';
+import '../pages/contacts/user_profile/friend_setting/friend_setting_view.dart';
+import '../pages/contacts/user_profile/personal_info/personal_info_binding.dart';
+import '../pages/contacts/user_profile/personal_info/personal_info_view.dart';
+import '../pages/contacts/user_profile/set_remark/set_remark_binding.dart';
+import '../pages/contacts/user_profile/set_remark/set_remark_view.dart';
+import '../pages/contacts/user_profile/user_profile_binding.dart';
+import '../pages/contacts/user_profile/user_profile_view.dart';
+import '../pages/login/forget_pwd/forget_pwd_binding.dart';
+import '../pages/login/forget_pwd/forget_pwd_view.dart';
+import '../pages/login/reset_pwd/reset_pwd_binding.dart';
+import '../pages/login/reset_pwd/reset_pwd_view.dart';
+import '../pages/global_search/global_search_chat_history/global_search_chat_history_binding.dart';
+import '../pages/global_search/global_search_chat_history/global_search_chat_history_view.dart';
 import '../pages/global_search/global_search_binding.dart';
 import '../pages/global_search/global_search_view.dart';
 import '../pages/home/home_binding.dart';
@@ -168,36 +170,28 @@ import '../pages/login/login_binding.dart';
 import '../pages/login/login_view.dart';
 import '../pages/mine/about_us/about_us_binding.dart';
 import '../pages/mine/about_us/about_us_view.dart';
-import '../pages/mine/account_setup/account_setup_binding.dart';
-import '../pages/mine/account_setup/account_setup_view.dart';
-import '../pages/mine/blacklist/blacklist_binding.dart';
-import '../pages/mine/blacklist/blacklist_view.dart';
+import '../pages/mine/account_setting/account_setting_binding.dart';
+import '../pages/mine/account_setting/account_setting_view.dart';
+import '../pages/mine/user_black_list/user_black_list_binding.dart';
+import '../pages/mine/user_black_list/user_black_list_view.dart';
 import '../pages/mine/change_pwd/change_pwd_binding.dart';
 import '../pages/mine/change_pwd/change_pwd_view.dart';
-import '../pages/mine/edit_my_info/edit_my_info_binding.dart';
-import '../pages/mine/edit_my_info/edit_my_info_view.dart';
-import '../pages/mine/language_setup/language_setup_binding.dart';
-import '../pages/mine/language_setup/language_setup_view.dart';
-import '../pages/mine/my_info/my_info_binding.dart';
-import '../pages/mine/my_info/my_info_view.dart';
+import '../pages/mine/edit_my_profile/edit_my_profile_binding.dart';
+import '../pages/mine/edit_my_profile/edit_my_profile_view.dart';
+import '../pages/mine/language_setting/language_setting_binding.dart';
+import '../pages/mine/language_setting/language_setting_view.dart';
+import '../pages/mine/my_profile/my_profile_binding.dart';
+import '../pages/mine/my_profile/my_profile_view.dart';
 import '../pages/mine/my_qrcode/my_qrcode_binding.dart';
 import '../pages/mine/my_qrcode/my_qrcode_view.dart';
-import '../pages/mine/unlock_setup/unlock_setup_binding.dart';
-import '../pages/mine/unlock_setup/unlock_setup_view.dart';
+import '../pages/mine/app_unlock_setting/app_unlock_setting_binding.dart';
+import '../pages/mine/app_unlock_setting/app_unlock_setting_view.dart';
 import '../pages/register/register_binding.dart';
 import '../pages/register/register_view.dart';
-import '../pages/register/set_password/set_password_binding.dart';
-import '../pages/register/set_password/set_password_view.dart';
-import '../pages/register/set_self_info/set_self_info_binding.dart';
-import '../pages/register/set_self_info/set_self_info_view.dart';
-import '../pages/register/verify_phone/verify_phone_binding.dart';
-import '../pages/register/verify_phone/verify_phone_view.dart';
-import '../pages/splash/splash_binding.dart';
-import '../pages/splash/splash_view.dart';
-import '../pages/discover/discover_binding.dart';
-import '../pages/discover/discover_view.dart';
-import '../pages/chat/oa_notification/oa_notification_binding.dart';
-import '../pages/chat/oa_notification/oa_notification_view.dart';
+import '../pages/app_splash/app_splash_binding.dart';
+import '../pages/app_splash/app_splash_view.dart';
+// import '../pages/chat/oa_notification/oa_notification_binding.dart';
+// import '../pages/chat/oa_notification/oa_notification_view.dart';
 
 part 'app_routes.dart';
 
@@ -214,15 +208,17 @@ class AppPages {
         page: page,
         binding: binding,
         preventDuplicates: preventDuplicates,
-        transition: [AppRoutes.home, AppRoutes.accountManage].contains(name)? Transition.noTransition : Transition.cupertino,
+        transition: [AppRoutes.home, AppRoutes.accountManage].contains(name)
+            ? Transition.noTransition
+            : Transition.cupertino,
         popGesture: true,
       );
 
   static final routes = <GetPage>[
     _pageBuilder(
       name: AppRoutes.splash,
-      page: () => SplashPage(),
-      binding: SplashBinding(),
+      page: () => AppSplashPage(),
+      binding: AppSplashBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.login,
@@ -246,29 +242,29 @@ class AppPages {
       binding: MyQrcodeBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.chatSetup,
-      page: () => ChatSetupPage(),
-      binding: ChatSetupBinding(),
+      name: AppRoutes.chatSetting,
+      page: () => ChatSettingPage(),
+      binding: ChatSettingBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.favoriteManage,
-      page: () => FavoriteManagePage(),
-      binding: FavoriteManageBinding(),
+      page: () => EmojiFavoriteManagePage(),
+      binding: EmojiFavoriteManageBinding(),
     ),
-    _pageBuilder(
-      name: AppRoutes.addContactsMethod,
-      page: () => AddContactsMethodPage(),
-      binding: AddContactsMethodBinding(),
-    ),
+    // _pageBuilder(
+    //   name: AppRoutes.addContactsMethod,
+    //   page: () => AddContactsMethodPage(),
+    //   binding: AddContactsMethodBinding(),
+    // ),
     _pageBuilder(
       name: AppRoutes.addContactsBySearch,
-      page: () => AddContactsBySearchPage(),
-      binding: AddContactsBySearchBinding(),
+      page: () => SearchAddContactsPage(),
+      binding: SearchAddContactsBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.userProfilePanel,
-      page: () => UserProfilePanelPage(),
-      binding: UserProfilePanelBinding(),
+      name: AppRoutes.userProfile,
+      page: () => UserProfilePage(),
+      binding: UserProfileBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.personalInfo,
@@ -276,24 +272,24 @@ class AppPages {
       binding: PersonalInfoBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.friendSetup,
-      page: () => FriendSetupPage(),
-      binding: FriendSetupBinding(),
+      name: AppRoutes.friendSetting,
+      page: () => FriendSettingPage(),
+      binding: FriendSettingBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.setFriendRemark,
-      page: () => SetFriendRemarkPage(),
-      binding: SetFriendRemarkBinding(),
+      page: () => SetRemarkPage(),
+      binding: SetRemarkBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.sendVerificationApplication,
-      page: () => SendVerificationApplicationPage(),
-      binding: SendVerificationApplicationBinding(),
+      name: AppRoutes.sendApplication,
+      page: () => SendApplicationPage(),
+      binding: SendApplicationBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.groupProfilePanel,
-      page: () => GroupProfilePanelPage(),
-      binding: GroupProfilePanelBinding(),
+      page: () => GroupProfilePage(),
+      binding: GroupProfileBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.setMuteForGroupMember,
@@ -302,33 +298,33 @@ class AppPages {
     ),
     _pageBuilder(
       name: AppRoutes.myInfo,
-      page: () => MyInfoPage(),
-      binding: MyInfoBinding(),
+      page: () => MyProfilePage(),
+      binding: MyProfileBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.editMyInfo,
-      page: () => EditMyInfoPage(),
-      binding: EditMyInfoBinding(),
+      page: () => EditMyProfilePage(),
+      binding: EditMyProfileBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.accountSetup,
-      page: () => AccountSetupPage(),
-      binding: AccountSetupBinding(),
+      name: AppRoutes.accountSetting,
+      page: () => AccountSettingPage(),
+      binding: AccountSettingBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.blacklist,
-      page: () => BlacklistPage(),
-      binding: BlacklistBinding(),
+      page: () => UserBlacklistPage(),
+      binding: UserBlacklistBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.languageSetup,
-      page: () => LanguageSetupPage(),
-      binding: LanguageSetupBinding(),
+      name: AppRoutes.languageSetting,
+      page: () => LanguageSettingPage(),
+      binding: LanguageSettingBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.unlockSetup,
-      page: () => UnlockSetupPage(),
-      binding: UnlockSetupBinding(),
+      page: () => AppUnlockSettingPage(),
+      binding: AppUnlockSettingBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.changePassword,
@@ -341,27 +337,27 @@ class AppPages {
       binding: AboutUsBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.setBackgroundImage,
-      page: () => SetBackgroundImagePage(),
-      binding: SetBackgroundImageBinding(),
+      name: AppRoutes.backgroundSetting,
+      page: () => BackgroundSettingPage(),
+      binding: BackgroundSettingBinding(),
+    ),
+    // _pageBuilder(
+    //   name: AppRoutes.setFontSize,
+    //   page: () => SetFontSizePage(),
+    //   binding: SetFontSizeBinding(),
+    // ),
+    _pageBuilder(
+      name: AppRoutes.chatHistory,
+      page: () => ChatHistory(),
+      binding: ChatHistoryBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.setFontSize,
-      page: () => SetFontSizePage(),
-      binding: SetFontSizeBinding(),
+      name: AppRoutes.chatHistoryMedia,
+      page: () => ChatHistoryMediaPage(),
+      binding: ChatHistoryMediaBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.searchChatHistory,
-      page: () => SearchChatHistoryPage(),
-      binding: SearchChatHistoryBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.searchChatHistoryMultimedia,
-      page: () => ChatHistoryMultimediaPage(),
-      binding: ChatHistoryMultimediaBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.searchChatHistoryFile,
+      name: AppRoutes.chatHistoryFile,
       page: () => ChatHistoryFilePage(),
       binding: ChatHistoryFileBinding(),
     ),
@@ -371,9 +367,9 @@ class AppPages {
       binding: PreviewChatHistoryBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.groupChatSetup,
-      page: () => GroupSetupPage(),
-      binding: GroupSetupBinding(),
+      name: AppRoutes.groupChatSetting,
+      page: () => GroupChatSettingPage(),
+      binding: GroupChatSettingBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.groupManage,
@@ -405,35 +401,35 @@ class AppPages {
       page: () => GroupQrcodePage(),
       binding: GroupQrcodeBinding(),
     ),
+    // _pageBuilder(
+    //   name: AppRoutes.friendRequests,
+    //   page: () => FriendRequestsPage(),
+    //   binding: FriendRequestsBinding(),
+    // ),
     _pageBuilder(
-      name: AppRoutes.friendRequests,
-      page: () => FriendRequestsPage(),
-      binding: FriendRequestsBinding(),
+      name: AppRoutes.handleFriendRequests,
+      page: () => HandleFriendRequestsPage(),
+      binding: HandleFriendRequestsBinding(),
+    ),
+    // _pageBuilder(
+    //   name: AppRoutes.groupRequests,
+    //   page: () => GroupRequestsPage(),
+    //   binding: GroupRequestsBinding(),
+    // ),
+    _pageBuilder(
+      name: AppRoutes.handleGroupRequests,
+      page: () => HandleGroupRequestsPage(),
+      binding: HandleGroupRequestsBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.processFriendRequests,
-      page: () => ProcessFriendRequestsPage(),
-      binding: ProcessFriendRequestsBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.groupRequests,
-      page: () => GroupRequestsPage(),
-      binding: GroupRequestsBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.processGroupRequests,
-      page: () => ProcessGroupRequestsPage(),
-      binding: ProcessGroupRequestsBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.friendList,
+      name: AppRoutes.myFriend,
       page: () => FriendListPage(),
       binding: FriendListBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.groupList,
-      page: () => GroupListPage(),
-      binding: GroupListBinding(),
+      name: AppRoutes.myGroup,
+      page: () => MyGroupPage(),
+      binding: MyGroupBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.groupReadList,
@@ -491,85 +487,65 @@ class AppPages {
       binding: GlobalSearchBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.expandChatHistory,
-      page: () => ExpandChatHistoryPage(),
-      binding: ExpandChatHistoryBinding(),
+      name: AppRoutes.gloablSearchChatHistory,
+      page: () => GlobalSearchChatHistoryPage(),
+      binding: GlobalSearchChatHistoryBinding(),
     ),
-    _pageBuilder(
-      name: AppRoutes.callRecords,
-      page: () => CallRecordsPage(),
-      binding: CallRecordsBinding(),
-    ),
+    // _pageBuilder(
+    //   name: AppRoutes.callRecords,
+    //   page: () => CallRecordsPage(),
+    //   binding: CallRecordsBinding(),
+    // ),
     _pageBuilder(
       name: AppRoutes.register,
       page: () => RegisterPage(),
       binding: RegisterBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.verifyPhone,
-      page: () => VerifyPhonePage(),
-      binding: VerifyPhoneBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.setPassword,
-      page: () => SetPasswordPage(),
-      binding: SetPasswordBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.setSelfInfo,
-      page: () => SetSelfInfoPage(),
-      binding: SetSelfInfoBinding(),
-    ),
-    _pageBuilder(
       name: AppRoutes.forgetPassword,
-      page: () => ForgetPasswordPage(),
-      binding: ForgetPasswordBinding(),
+      page: () => ForgetPwdPage(),
+      binding: ForgetPwdBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.resetPassword,
-      page: () => ResetPasswordPage(),
-      binding: ResetPasswordBinding(),
+      page: () => ResetPwdPage(),
+      binding: ResetPwdBinding(),
     ),
-    _pageBuilder(
-      name: AppRoutes.tagGroup,
-      page: () => TagGroupPage(),
-      binding: TagGroupBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.createTagGroup,
-      page: () => CreateTagGroupPage(),
-      binding: CreateTagGroupBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.selectContactsFromTag,
-      page: () => SelectContactsFromTagPage(),
-      binding: SelectContactsFromTagBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.tagNotificationIssued,
-      page: () => TagNotificationIssuedPage(),
-      binding: TagNotificationIssuedBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.buildTagNotification,
-      page: () => BuildTagNotificationPage(),
-      binding: BuildTagNotificationBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.tagNotificationDetail,
-      page: () => TagNotificationDetailPage(),
-      binding: TagNotificationDetailBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.oaNotificationList,
-      page: () => OANotificationPage(),
-      binding: OANotificationBinding(),
-    ),
-    _pageBuilder(
-      name: AppRoutes.discover,
-      page: () => DiscoverPage(),
-      binding: DiscoverBinding(),
-    ),
+    // _pageBuilder(
+    //   name: AppRoutes.tagGroup,
+    //   page: () => TagGroupPage(),
+    //   binding: TagGroupBinding(),
+    // ),
+    // _pageBuilder(
+    //   name: AppRoutes.createTagGroup,
+    //   page: () => CreateTagGroupPage(),
+    //   binding: CreateTagGroupBinding(),
+    // ),
+    // _pageBuilder(
+    //   name: AppRoutes.selectContactsFromTag,
+    //   page: () => SelectContactsFromTagPage(),
+    //   binding: SelectContactsFromTagBinding(),
+    // ),
+    // _pageBuilder(
+    //   name: AppRoutes.tagNotificationIssued,
+    //   page: () => TagNotificationIssuedPage(),
+    //   binding: TagNotificationIssuedBinding(),
+    // ),
+    // _pageBuilder(
+    //   name: AppRoutes.buildTagNotification,
+    //   page: () => BuildTagNotificationPage(),
+    //   binding: BuildTagNotificationBinding(),
+    // ),
+    // _pageBuilder(
+    //   name: AppRoutes.tagNotificationDetail,
+    //   page: () => TagNotificationDetailPage(),
+    //   binding: TagNotificationDetailBinding(),
+    // ),
+    // _pageBuilder(
+    //   name: AppRoutes.oaNotificationList,
+    //   page: () => OANotificationPage(),
+    //   binding: OANotificationBinding(),
+    // ),
     _pageBuilder(
       name: AppRoutes.bot,
       page: () => BotPage(),
@@ -616,9 +592,9 @@ class AppPages {
       binding: ComplaintBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.previewSelectedAssets,
-      page: () => PreviewSelectedAssetsPage(),
-      binding: PreviewSelectedAssetsBinding(),
+      name: AppRoutes.previewMedia,
+      page: () => PreviewMediaPage(),
+      binding: PreviewMediaBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.termsOfServer,
@@ -631,14 +607,14 @@ class AppPages {
       binding: PrivacyPolicyBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.friendPermissions,
-      page: () => FriendPermissionsPage(),
-      binding: FriendPermissionsBinding(),
+      name: AppRoutes.friendPermissionsSetting,
+      page: () => FriendPermissionSettingPage(),
+      binding: FriendPermissionSettingBinding(),
     ),
     _pageBuilder(
-      name: AppRoutes.recentRequests,
-      page: () => RecentRequestsPage(),
-      binding: RecentRequestsBinding(),
+      name: AppRoutes.requestRecords,
+      page: () => RequestRecordsPage(),
+      binding: RequestRecordsBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.accountManage,
@@ -711,7 +687,7 @@ class AppPages {
       binding: XhsMomentDetailBinding(),
     ),
     // ...OPages.pages, // 组织架构
-    ...WPages.pages, // 工作圈
-    ...MPages.pages, //
+    ...CirclePages.pages, // 工作圈
+    // ...MPages.pages, //
   ];
 }

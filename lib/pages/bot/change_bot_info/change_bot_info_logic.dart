@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 class ChangeBotInfoLogic extends GetxController {
   final name = TextEditingController();
@@ -9,7 +9,7 @@ class ChangeBotInfoLogic extends GetxController {
     IMViews.openPhotoSheet(
         onData: (path, url) async {
           if (url != null) {
-            LoadingView.singleton.wrap(asyncFunction: () => Future(() => 1));
+            LoadingView.singleton.start(fn: () => Future(() => 1));
           }
         },
         quality: 15);

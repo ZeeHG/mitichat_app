@@ -1,6 +1,6 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 import '../../../global_search/global_search_logic.dart';
 import '../select_contacts_logic.dart';
@@ -18,8 +18,8 @@ class SelectContactsFromSearchLogic extends CommonSearchLogic {
   }
 
   void search() async {
-    final result = await LoadingView.singleton.wrap(
-        asyncFunction: () => Future.wait([
+    final result = await LoadingView.singleton.start(
+        fn: () => Future.wait([
               searchFriend(),
               // if (!selectContactsLogic.hiddenOrganization) searchDeptMember(),
               if (!selectContactsLogic.hiddenGroup) searchGroup(),

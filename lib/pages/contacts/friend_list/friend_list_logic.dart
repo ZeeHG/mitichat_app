@@ -4,12 +4,12 @@ import 'package:azlistview/azlistview.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
-import '../../../core/controller/im_controller.dart';
+import '../../../core/ctrl/im_ctrl.dart';
 
 class FriendListLogic extends GetxController {
-  final imLoic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   final friendList = <ISUserInfo>[].obs;
   final userIDList = <String>[];
   late StreamSubscription delSub;
@@ -18,11 +18,11 @@ class FriendListLogic extends GetxController {
 
   @override
   void onInit() {
-    delSub = imLoic.friendDelSubject.listen(_delFriend);
-    addSub = imLoic.friendAddSubject.listen(_addFriend);
-    infoChangedSub = imLoic.friendInfoChangedSubject.listen(_friendInfoChanged);
-    imLoic.onBlacklistAdd = _delFriend;
-    imLoic.onBlacklistDeleted = _addFriend;
+    delSub = imCtrl.friendDelSubject.listen(_delFriend);
+    addSub = imCtrl.friendAddSubject.listen(_addFriend);
+    infoChangedSub = imCtrl.friendInfoChangedSubject.listen(_friendInfoChanged);
+    imCtrl.onBlacklistAdd = _delFriend;
+    imCtrl.onBlacklistDeleted = _addFriend;
     super.onInit();
   }
 
@@ -51,7 +51,7 @@ class FriendListLogic extends GetxController {
                   : ISUserInfo.fromJson(fullUser.publicInfo!.toJson());
               return user;
             }).toList())
-        .then((list) => IMUtils.convertToAZList(list));
+        .then((list) => MitiUtils.convertToAZList(list));
 
     onUserIDList(userIDList);
     friendList.assignAll(list.cast<ISUserInfo>());
@@ -90,7 +90,7 @@ class FriendListLogic extends GetxController {
 
   void _addUser(Map<String, dynamic> json) {
     final info = ISUserInfo.fromJson(json);
-    friendList.add(IMUtils.setAzPinyinAndTag(info) as ISUserInfo);
+    friendList.add(MitiUtils.setAzPinyinAndTag(info) as ISUserInfo);
 
     // A-Z sort.
     SuspensionUtil.sortListBySuspensionTag(friendList);

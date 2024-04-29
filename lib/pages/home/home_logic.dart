@@ -5,30 +5,30 @@ import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:miti/pages/contacts/contacts_logic.dart';
 import 'package:miti/pages/xhs/xhs_logic.dart';
+import 'package:miti/utils/account_util.dart';
 import 'package:miti/utils/ai_util.dart';
-import 'package:openim_common/openim_common.dart';
-import 'package:openim_working_circle/openim_working_circle.dart';
-import 'package:openim_working_circle/src/w_apis.dart';
+import 'package:miti_common/miti_common.dart';
+import 'package:miti_circle/miti_circle.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../core/controller/app_controller.dart';
-import '../../core/controller/im_controller.dart';
-import '../../core/controller/push_controller.dart';
+import '../../core/ctrl/app_ctrl.dart';
+import '../../core/ctrl/im_ctrl.dart';
+import '../../core/ctrl/push_ctrl.dart';
 import '../../core/im_callback.dart';
 import '../../routes/app_navigator.dart';
-import '../../widgets/screen_lock_title.dart';
+import '../../widgets/screen_lock_error_view.dart';
 
-class HomeLogic extends SuperController with WorkingCircleBridge {
-  final pushLogic = Get.find<PushController>();
-  final imLogic = Get.find<IMController>();
-  final cacheLogic = Get.find<CacheController>();
-  final initLogic = Get.find<AppController>();
+class HomeLogic extends SuperController with FriendCircleBridge {
+  final pushCtrl = Get.find<PushCtrl>();
+  final imCtrl = Get.find<IMCtrl>();
+  final cacheLogic = Get.find<HiveCtrl>();
+  final appCtrl = Get.find<AppCtrl>();
   final index = 0.obs;
   final unreadMsgCount = 0.obs;
   final unreadMomentsCount = 0.obs;
   final unhandledFriendApplicationCount = 0.obs;
   final unhandledGroupApplicationCount = 0.obs;
-  final unhandledCount = 0.obs;
+  final unhandledFriendAndGroupCount = 0.obs;
   String? _lockScreenPwd;
   bool _isShowScreenLock = false;
   late bool _isAutoLogin;
@@ -36,37 +36,40 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
   final _errorController = PublishSubject<String>();
   final aiUtil = Get.find<AiUtil>();
   final xhsLogic = Get.find<XhsLogic>();
+  final accountUtil = Get.find<AccountUtil>();
 
-  Function()? onScrollToUnreadMessage;
+  Function()? onscrollToUnreadConversation;
 
   switchTab(dynamic index) {
     this.index.value = index;
-    if (index == 2) {
-      Apis.addActionRecord(actionRecordList: [
-        ActionRecord(category: ActionCategory.discover, actionName: ActionName.enter_discover)
+    if (index == 1) {
+      ClientApis.addActionRecord(actionRecordList: [
+        ActionRecord(
+            category: ActionCategory.discover,
+            actionName: ActionName.enter_discover)
       ]);
     }
   }
 
   void viewDiscover(index) async {
-    await WNavigator.startWorkMomentsList();
+    await CircleNavigator.startWorkMomentsList();
+    // 发布完xhs刷新
     xhsLogic.refreshWorkingCircleList();
-    _getUnreadMomentsCount();
+    getUnreadMomentsCount();
   }
 
-  scrollToUnreadMessage(index) {
-    onScrollToUnreadMessage?.call();
+  scrollToUnreadConversation(index) {
+    onscrollToUnreadConversation?.call();
   }
 
-  _getUnreadMomentsCount() {
-    WApis.getUnreadCount().then((value) => unreadMomentsCount.value = value);
+  getUnreadMomentsCount() {
+    CircleApis.getUnreadCount()
+        .then((value) => unreadMomentsCount.value = value);
   }
 
-  /// 获取消息未读数
-  _getUnreadMsgCount() {
+  getUnreadMsgCount() {
     OpenIM.iMManager.conversationManager.getTotalUnreadMsgCount().then((count) {
       unreadMsgCount.value = int.tryParse(count) ?? 0;
-      initLogic.showBadge(unreadMsgCount.value);
     });
   }
 
@@ -76,16 +79,17 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
     var i = 0;
     var list = await OpenIM.iMManager.friendshipManager
         .getFriendApplicationListAsRecipient();
-    var haveReadList = DataSp.getHaveReadUnHandleFriendApplication();
-    haveReadList ??= <String>[];
+    var haveReadList = DataSp.getHaveReadUnHandleFriendApplication() ?? [];
     for (var info in list) {
-      var id = IMUtils.buildFriendApplicationID(info);
-      if (!haveReadList.contains(id)) {
-        if (info.handleResult == 0) i++;
+      var id = MitiUtils.buildFriendApplicationID(info);
+      if (!haveReadList.contains(id) && info.handleResult == 0) {
+        i++;
       }
     }
     unhandledFriendApplicationCount.value = i;
-    unhandledCount.value = unhandledGroupApplicationCount.value + i;
+    // 待处理的未读未处理总数
+    unhandledFriendAndGroupCount.value =
+        unhandledGroupApplicationCount.value + i;
   }
 
   /// 获取群申请未处理数
@@ -93,71 +97,30 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
     var i = 0;
     var list = await OpenIM.iMManager.groupManager
         .getGroupApplicationListAsRecipient();
-    var haveReadList = DataSp.getHaveReadUnHandleGroupApplication();
-    haveReadList ??= <String>[];
+    var haveReadList = DataSp.getHaveReadUnHandleGroupApplication() ?? [];
     for (var info in list) {
-      var id = IMUtils.buildGroupApplicationID(info);
-      if (!haveReadList.contains(id)) {
-        if (info.handleResult == 0) i++;
+      var id = MitiUtils.buildGroupApplicationID(info);
+      if (!haveReadList.contains(id) && info.handleResult == 0) {
+        i++;
       }
     }
     unhandledGroupApplicationCount.value = i;
-    unhandledCount.value = unhandledFriendApplicationCount.value + i;
+    // 待处理的未读未处理总数
+    unhandledFriendAndGroupCount.value =
+        unhandledFriendApplicationCount.value + i;
   }
 
-  @override
-  void onInit() {
-    index.value = Get.arguments['index'] ?? 0;
-    _isAutoLogin = Get.arguments['isAutoLogin'];
-    if (_isAutoLogin) {
-      WidgetsBinding.instance.addPostFrameCallback((_) => _showLockScreenPwd());
+  void _getRTCInvitationStart() async {
+    final signalingInfo = await OpenIM.iMManager.signalingManager
+        .getSignalingInvitationInfoStartApp();
+    if (null != signalingInfo.invitation) {
+      // 调用视频界面
+      imCtrl.receiveNewInvitation(signalingInfo);
     }
-
-    _getUnreadMomentsCount();
-
-    PackageBridge.workingCircleBridge = this;
-
-    imLogic.unreadMsgCountEventSubject.listen((value) {
-      unreadMsgCount.value = value;
-    });
-    imLogic.momentsSubject.listen((value) {
-      onRecvNewMessageForWorkingCircle?.call(value);
-      _getUnreadMomentsCount();
-    });
-    imLogic.friendApplicationChangedSubject.listen((value) {
-      getUnhandledFriendApplicationCount();
-    });
-    imLogic.groupApplicationChangedSubject.listen((value) {
-      getUnhandledGroupApplicationCount();
-    });
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    aiUtil.init();
-    _getUnreadMsgCount();
-    getUnhandledFriendApplicationCount();
-    getUnhandledGroupApplicationCount();
-    cacheLogic.initCallRecords();
-    cacheLogic.initFavoriteEmoji();
-    Future.delayed(Duration(milliseconds: 500), () {
-      PackageBridge.workingCircleBridge = this;
-      final contactsLogic = Get.find<ContactsLogic>();
-      contactsLogic.initPackageBridge();
-    });
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    PackageBridge.workingCircleBridge = null;
-    _errorController.close();
-    super.onClose();
   }
 
   _localAuth() async {
-    final didAuthenticate = await IMUtils.checkingBiometric(auth);
+    final didAuthenticate = await MitiUtils.checkingBiometric(auth);
     if (didAuthenticate) {
       Get.back();
     }
@@ -179,7 +142,7 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
         context: Get.context!,
         correctString: _lockScreenPwd!,
         maxRetries: 3,
-        title: ScreenLockTitle(stream: _errorController.stream),
+        title: ScreenLockErrorView(stream: _errorController.stream),
         canCancel: false,
         customizedButtonChild: enabled ? const Icon(Icons.fingerprint) : null,
         customizedButtonTap: enabled ? () async => await _localAuth() : null,
@@ -190,12 +153,10 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
         },
         onMaxRetries: (_) async {
           Get.back();
-          await LoadingView.singleton.wrap(asyncFunction: () async {
-            await imLogic.logout();
-            await DataSp.removeLoginCertificate();
+          await LoadingView.singleton.start(fn: () async {
+            await accountUtil.tryLogout();
             await DataSp.clearLockScreenPassword();
             await DataSp.closeBiometric();
-            pushLogic.logout();
           });
           AppNavigator.startLogin();
         },
@@ -206,6 +167,58 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
         },
       );
     }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    index.value = Get.arguments['index'] ?? 0;
+    _isAutoLogin = Get.arguments['isAutoLogin'];
+
+    MitiBridge.friendCircleBridge = this;
+
+    if (_isAutoLogin) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _showLockScreenPwd());
+    }
+
+    aiUtil.init();
+    getUnreadMsgCount();
+    getUnhandledFriendApplicationCount();
+    getUnhandledGroupApplicationCount();
+    getUnreadMomentsCount();
+
+    imCtrl.unreadMsgCountEventSubject.listen((value) {
+      unreadMsgCount.value = value;
+    });
+    imCtrl.friendApplicationChangedSubject.listen((value) {
+      getUnhandledFriendApplicationCount();
+    });
+    imCtrl.groupApplicationChangedSubject.listen((value) {
+      getUnhandledGroupApplicationCount();
+    });
+    imCtrl.momentsSubject.listen((value) {
+      onRecvNewMessageForWorkingCircle?.call(value);
+      getUnreadMomentsCount();
+    });
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    cacheLogic.initCallRecords();
+    cacheLogic.initFavoriteEmoji();
+    Future.delayed(Duration(milliseconds: 500), () {
+      MitiBridge.friendCircleBridge = this;
+      final contactsLogic = Get.find<ContactsLogic>();
+      contactsLogic.initPackageBridge();
+    });
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    MitiBridge.friendCircleBridge = null;
+    _errorController.close();
   }
 
   @override
@@ -225,25 +238,15 @@ class HomeLogic extends SuperController with WorkingCircleBridge {
 
   @override
   void onResumed() {
-    // TODO: implement onResumed
-    if (imLogic.imSdkStatusSubject.valueOrNull ==
+    if (imCtrl.imSdkStatusSubject.valueOrNull ==
         IMSdkStatus.connectionSucceeded) {
       _getRTCInvitationStart();
     } else {
-      imLogic.imSdkStatusSubject.listen((value) {
+      imCtrl.imSdkStatusSubject.listen((value) {
         if (value == IMSdkStatus.connectionSucceeded) {
           _getRTCInvitationStart();
         }
       });
-    }
-  }
-
-  void _getRTCInvitationStart() async {
-    final signalingInfo = await OpenIM.iMManager.signalingManager
-        .getSignalingInvitationInfoStartApp();
-    if (null != signalingInfo.invitation) {
-      // 调用视频界面
-      imLogic.receiveNewInvitation(signalingInfo);
     }
   }
 

@@ -1,0 +1,142 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "NSAppleMusicUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please tap \"OK\" to grant access. Without permission, you won't be able to send or upload local photos and videos to your friends."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "请点击“好”以允许访问。若不允许，你将无法给好友发送或者上传本地相册图片及视频内容。"
+          }
+        }
+      }
+    },
+    "NSCameraUsageDescription " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please tap \"OK\" to grant access. Without permission, you won't be able to use features like taking photos, recording videos, or scanning."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "请点击“好”以允许访问。若不允许，你将无法使用拍照、录制视频、扫一扫等功能。"
+          }
+        }
+      }
+    },
+    "NSLocationAlwaysAndWhenInUseUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please tap \"OK\" to grant access. Without permission, you won't be able to use features like sharing your location during chats."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "请点击“好”以允许访问。若不允许，你将无法使用聊天时发送定位等功能。"
+          }
+        }
+      }
+    },
+    "NSLocationAlwaysUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please tap \"OK\" to grant access. Without permission, you won't be able to use features like sharing your location during chats."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "请点击“好”以允许访问。若不允许，你将无法使用聊天时发送定位等功能。"
+          }
+        }
+      }
+    },
+    "NSLocationWhenInUseUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please tap \"OK\" to grant access. Without permission, you won't be able to use features like sharing your location during chats."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "请点击“好”以允许访问。若不允许，你将无法使用聊天时发送定位等功能。"
+          }
+        }
+      }
+    },
+    "NSMicrophoneUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please tap \"OK\" to grant access. Without permission, you won't be able to use video calls, send voice messages, or record videos."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "请点击“好”以允许访问。若不允许，你将无法使用视频通话、发送语音消息或录制视频等功能。"
+          }
+        }
+      }
+    },
+    "NSPhotoLibraryAddUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please tap \"OK\" to grant access. Without permission, you won't be able to send or upload local photos and videos to your friends."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "请点击“好”以允许访问。若不允许，你将无法给好友发送或者上传本地相册图片及视频内容。"
+          }
+        }
+      }
+    },
+    "NSPhotoLibraryUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please tap \"OK\" to grant access. Without permission, you won't be able to send or upload local photos and videos to your friends."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "请点击“好”以允许访问。若不允许，你将无法给好友发送或者上传本地相册图片及视频内容。"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

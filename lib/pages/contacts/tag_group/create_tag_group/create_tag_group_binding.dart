@@ -1,10 +1,10 @@
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
 
-import 'create_tag_group_logic.dart';
+// import 'create_tag_group_logic.dart';
 
-class CreateTagGroupBinding extends Bindings {
-  @override
-  void dependencies() {
-    Get.lazyPut(() => CreateTagGroupLogic());
-  }
-}
+// class CreateTagGroupBinding extends Bindings {
+//   @override
+//   void dependencies() {
+//     Get.lazyPut(() => CreateTagGroupLogic());
+//   }
+// }

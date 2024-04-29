@@ -1,10 +1,9 @@
-import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti/utils/account_util.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 class AccountManageLogic extends GetxController {
   final loginInfoList = <AccountLoginInfo>[].obs;
@@ -23,16 +22,6 @@ class AccountManageLogic extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   setLoginInfoList() {
     final map = DataSp.getAccountLoginInfoMap();
     if (null != map) {
@@ -46,12 +35,12 @@ class AccountManageLogic extends GetxController {
 
   delLoginInfo(AccountLoginInfo info) async {
     final confirm = await Get.dialog(CustomDialog(
-      title: StrRes.confirmDelAccount,
+      title: StrLibrary.confirmDelAccount,
     ));
     if (confirm) {
-      LoadingView.singleton.wrap(
-          navBarHeight: 0,
-          asyncFunction: () async {
+      LoadingView.singleton.start(
+          topBarHeight: 0,
+          fn: () async {
             if (curLoginInfoKey.value == info.id) {
               await accountUtil.delAccount(info.id, finishLogout: true);
             } else {
@@ -65,9 +54,9 @@ class AccountManageLogic extends GetxController {
   cusBack() async {
     if (accountUtil.statusChangeCount.value > curStatusChangeCount) {
       // 最后一次操作切换了服务器
-      LoadingView.singleton.wrap(
-          navBarHeight: 0,
-          asyncFunction: () async {
+      LoadingView.singleton.start(
+          topBarHeight: 0,
+          fn: () async {
             await accountUtil.backCurAccount();
             AppNavigator.startMain();
           });
@@ -80,11 +69,11 @@ class AccountManageLogic extends GetxController {
   }
 
   switchAccount(AccountLoginInfo loginInfo) async {
-    if (loginInfo.id == curLoginInfoKey) return;
-    LoadingView.singleton.wrap(
-        navBarHeight: 0,
-        loadingTips: StrRes.loading,
-        asyncFunction: () async {
+    if (loginInfo.id == curLoginInfoKey.value) return;
+    LoadingView.singleton.start(
+        topBarHeight: 0,
+        loadingTips: StrLibrary.loading,
+        fn: () async {
           await accountUtil.switchAccount(
               serverWithProtocol: loginInfo.server, userID: loginInfo.userID);
           setCurLoginInfoKey();
@@ -93,7 +82,7 @@ class AccountManageLogic extends GetxController {
   }
 
   goLogin() async {
-    final confirm = await Get.dialog(CustomDialog(
+    await Get.dialog(CustomDialog(
       // bigTitle: "",
       body: Container(
         padding: EdgeInsets.only(
@@ -104,22 +93,22 @@ class AccountManageLogic extends GetxController {
         child: Column(
           children: [
             Text(
-              StrRes.addAccountServer,
+              StrLibrary.addAccountServer,
               textAlign: TextAlign.center,
-              style: Styles.ts_333333_16sp_medium,
+              style: StylesLibrary.ts_333333_16sp_medium,
             ),
             31.verticalSpace,
             Container(
               height: 46.h,
               padding: EdgeInsets.symmetric(horizontal: 10.w),
               decoration: BoxDecoration(
-                color: Styles.c_F7F8FA,
+                color: StylesLibrary.c_F7F8FA,
                 borderRadius: BorderRadius.circular(8.r),
               ),
               child: InputBox(
                 autofocus: false,
-                label: "",
-                hintText: StrRes.addAccountServerTips,
+                hintText: StrLibrary.addAccountServerTips,
+                hintStyle: StylesLibrary.ts_CCCCCC_14sp,
                 border: false,
                 controller: serverCtrl,
               ),
@@ -135,11 +124,11 @@ class AccountManageLogic extends GetxController {
       onTapRight: () async {
         // http://xx
         if (!Config.targetIsDomainOrIPWithProtocol(serverCtrl.text)) {
-          showToast(StrRes.serverFormatErr);
+          showToast(StrLibrary.serverFormatErr);
         } else {
-          LoadingView.singleton.wrap(
-              navBarHeight: 0,
-              asyncFunction: () async {
+          LoadingView.singleton.start(
+              topBarHeight: 0,
+              fn: () async {
                 try {
                   await accountUtil.checkServerValid(
                       serverWithProtocol: serverCtrl.text);
@@ -149,7 +138,7 @@ class AccountManageLogic extends GetxController {
                       isAddAccount: true, server: serverCtrl.text);
                   serverCtrl.text = "";
                 } catch (e) {
-                  showToast(StrRes.serverErr);
+                  showToast(StrLibrary.serverErr);
                 }
               });
         }

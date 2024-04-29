@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:miti/core/controller/im_controller.dart';
+import 'package:miti/core/ctrl/im_ctrl.dart';
 import 'package:miti/routes/app_navigator.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 enum PhoneEmailChangeType {
   phone,
@@ -21,34 +21,34 @@ extension PhoneEmailChangeTypeExt on PhoneEmailChangeType {
   String get name {
     switch (this) {
       case PhoneEmailChangeType.phone:
-        return StrRes.phoneNumber;
+        return StrLibrary.phoneNumber;
       case PhoneEmailChangeType.email:
-        return StrRes.email;
+        return StrLibrary.email;
     }
   }
 
   String get hintText {
     switch (this) {
       case PhoneEmailChangeType.phone:
-        return StrRes.newPhone;
+        return StrLibrary.newPhone;
       case PhoneEmailChangeType.email:
-        return StrRes.newEmail;
+        return StrLibrary.newEmail;
     }
   }
 
   String get exclusiveName {
     switch (this) {
       case PhoneEmailChangeType.phone:
-        return StrRes.email;
+        return StrLibrary.email;
       case PhoneEmailChangeType.email:
-        return StrRes.phoneNumber;
+        return StrLibrary.phoneNumber;
     }
   }
 }
 
 class PhoneEmailChangeLogic extends GetxController {
   late Rx<UserFullInfo> userInfo;
-  final imLogic = Get.find<IMController>();
+  final imCtrl = Get.find<IMCtrl>();
   PhoneEmailChangeType type = PhoneEmailChangeType.phone;
 
   get isPhone => type == PhoneEmailChangeType.phone;
@@ -60,5 +60,6 @@ class PhoneEmailChangeLogic extends GetxController {
   @override
   void onInit() {
     type = Get.arguments['type'];
+    super.onInit();
   }
 }

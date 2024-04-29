@@ -14,9 +14,9 @@ import 'package:just_audio/just_audio.dart';
 import 'package:mime/mime.dart';
 import 'package:miti/utils/ai_util.dart';
 import 'package:miti/utils/conversation_util.dart';
-import 'package:openim_common/openim_common.dart';
-import 'package:openim_live/openim_live.dart';
-import 'package:openim_meeting/openim_meeting.dart';
+import 'package:miti_common/miti_common.dart';
+import 'package:miti_live/miti_live.dart';
+// import 'package:openim_meeting/openim_meeting.dart';
 import 'package:photo_browser/photo_browser.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rxdart/rxdart.dart' hide Rx;
@@ -26,24 +26,24 @@ import 'package:video_compress/video_compress.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
-import '../../core/controller/app_controller.dart';
-import '../../core/controller/im_controller.dart';
+import '../../core/ctrl/app_ctrl.dart';
+import '../../core/ctrl/im_ctrl.dart';
 import '../../core/im_callback.dart';
 import '../../routes/app_navigator.dart';
 import '../contacts/select_contacts/select_contacts_logic.dart';
 import '../conversation/conversation_logic.dart';
-import 'group_setup/group_member_list/group_member_list_logic.dart';
+import 'group_setting/group_member_list/group_member_list_logic.dart';
 
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart'
     as cacheManager;
 
 class ChatLogic extends GetxController {
-  final imLogic = Get.find<IMController>();
-  final appLogic = Get.find<AppController>();
+  final imCtrl = Get.find<IMCtrl>();
+  final appCtrl = Get.find<AppCtrl>();
   final conversationLogic = Get.find<ConversationLogic>();
-  final cacheLogic = Get.find<CacheController>();
-  final downloadLogic = Get.find<DownloadController>();
+  final cacheLogic = Get.find<HiveCtrl>();
+  final downloadLogic = Get.find<DownloadCtrl>();
 
   final inputCtrl = TextEditingController();
   final focusNode = FocusNode();
@@ -69,6 +69,7 @@ class ChatLogic extends GetxController {
   final aiUtil = Get.find<AiUtil>();
   Timer? curTimer;
   final curTime = 0.obs;
+  late List<MatchPattern> pattern;
 
   late Rx<ConversationInfo> conversationInfo;
   Message? searchMessage;
@@ -125,6 +126,7 @@ class ChatLogic extends GetxController {
 
   late StreamSubscription connectionSub;
   final syncStatus = IMSdkStatus.syncEnded.obs;
+  OverlayEntry? textOverlayEntry;
 
   // late StreamSubscription signalingMessageSub;
 
@@ -144,12 +146,14 @@ class ChatLogic extends GetxController {
 
   String? groupOwnerID;
 
-  MeetingBridge? meetingBridge = PackageBridge.meetingBridge;
+  // MeetingBridge? meetingBridge = MitiBridge.meetingBridge;
 
-  RTCBridge? rtcBridge = PackageBridge.rtcBridge;
+  RTCBridge? rtcBridge = MitiBridge.rtcBridge;
 
-  bool get rtcIsBusy =>
-      meetingBridge?.hasConnection == true || rtcBridge?.hasConnection == true;
+  // bool get rtcIsBusy =>
+  //     meetingBridge?.hasConnection == true || rtcBridge?.hasConnection == true;
+
+  bool get rtcIsBusy => rtcBridge?.hasConnection == true;
 
   String? get userID => conversationInfo.value.userID;
 
@@ -164,10 +168,7 @@ class ChatLogic extends GetxController {
   bool get isAiSingleChat => isSingleChat && aiUtil.isAi(userID);
 
   List<Message> get messageListV2 {
-    return [
-      ...messageList.value,
-      ...(disabledChatInput ? extraMessageList.value : [])
-    ];
+    return [...messageList, ...(disabledChatInput ? extraMessageList : [])];
   }
 
   /// 是当前聊天窗口
@@ -192,8 +193,34 @@ class ChatLogic extends GetxController {
     });
   }
 
+  initPattern() {
+    pattern = <MatchPattern>[
+      MatchPattern(
+        type: PatternType.at,
+        onTap: clickLinkText,
+      ),
+      MatchPattern(
+        type: PatternType.email,
+        onTap: clickLinkText,
+      ),
+      MatchPattern(
+        type: PatternType.url,
+        style: StylesLibrary.ts_FCC307_16sp,
+        onTap: clickLinkText,
+      ),
+      MatchPattern(
+        type: PatternType.mobile,
+        onTap: clickLinkText,
+      ),
+      MatchPattern(
+        type: PatternType.tel,
+        onTap: clickLinkText,
+      ),
+    ];
+  }
+
   // Query multimedia messages and prepare for large image browsing.
-  void _searchMediaMessage() async {
+  Future<void> searchMediaMessage() async {
     final messageList = await OpenIM.iMManager.messageManager
         .searchLocalMessages(
             conversationID: conversationInfo.value.conversationID,
@@ -213,6 +240,11 @@ class ChatLogic extends GetxController {
     _readDraftText();
     _queryUserOnlineStatus();
     _resetGroupAtType();
+    // ever(messageList, (_) {
+    //   Future.delayed(Duration(milliseconds: 500), () {
+    //     searchMediaMessage();
+    //   });
+    // });
     super.onReady();
   }
 
@@ -226,16 +258,17 @@ class ChatLogic extends GetxController {
     curTimer = Timer.periodic(Duration(seconds: 5), (Timer t) {
       curTime.value = DateTime.now().millisecondsSinceEpoch;
     });
+    initPattern();
     _createWaitingAiMessage();
     _clearUnreadCount();
     _initChatConfig();
     _initPlayListener();
     _setSdkSyncDataListener();
-    _searchMediaMessage();
+    searchMediaMessage();
     // 获取在线状态
     // _startQueryOnlineStatus();
     // 新增消息监听
-    imLogic.onRecvNewMessage = (Message message) {
+    imCtrl.onRecvNewMessage = (Message message) {
       // 如果是当前窗口的消息
       if (isCurrentChat(message)) {
         // 对方正在输入消息
@@ -295,7 +328,7 @@ class ChatLogic extends GetxController {
     };
 
     // 已被撤回消息监听（新版本）
-    imLogic.onRecvMessageRevoked = (RevokedInfo info) {
+    imCtrl.onRecvMessageRevoked = (RevokedInfo info) {
       var message = messageList
           .firstWhereOrNull((e) => e.clientMsgID == info.clientMsgID);
       message?.notificationElem = NotificationElem(detail: jsonEncode(info));
@@ -309,7 +342,7 @@ class ChatLogic extends GetxController {
       }
     };
     // 消息已读回执监听
-    imLogic.onRecvC2CReadReceipt = (List<ReadReceiptInfo> list) {
+    imCtrl.onRecvC2CReadReceipt = (List<ReadReceiptInfo> list) {
       try {
         for (var readInfo in list) {
           if (readInfo.userID == userID) {
@@ -325,7 +358,7 @@ class ChatLogic extends GetxController {
       } catch (e) {}
     };
     // 消息已读回执监听
-    imLogic.onRecvGroupReadReceipt = (GroupMessageReceipt receipt) {
+    imCtrl.onRecvGroupReadReceipt = (GroupMessageReceipt receipt) {
       if (receipt.conversationID == conversationInfo.value.conversationID) {
         for (var element in receipt.groupMessageReadInfo) {
           // enum all message
@@ -342,20 +375,20 @@ class ChatLogic extends GetxController {
       }
     };
     // 消息发送进度
-    imLogic.onMsgSendProgress = (String msgId, int progress) {
+    imCtrl.onMsgSendProgress = (String msgId, int progress) {
       sendProgressSub.addSafely(
         MsgStreamEv<int>(id: msgId, value: progress),
       );
     };
 
-    joinedGroupAddedSub = imLogic.joinedGroupAddedSubject.listen((event) {
+    joinedGroupAddedSub = imCtrl.joinedGroupAddedSubject.listen((event) {
       if (event.groupID == groupID) {
         isInGroup.value = true;
         _queryGroupInfo();
       }
     });
 
-    joinedGroupDeletedSub = imLogic.joinedGroupDeletedSubject.listen((event) {
+    joinedGroupDeletedSub = imCtrl.joinedGroupDeletedSubject.listen((event) {
       if (event.groupID == groupID) {
         isInGroup.value = false;
         inputCtrl.clear();
@@ -363,14 +396,14 @@ class ChatLogic extends GetxController {
     });
 
     // 有新成员进入
-    memberAddSub = imLogic.memberAddedSubject.listen((info) {
+    memberAddSub = imCtrl.memberAddedSubject.listen((info) {
       var groupId = info.groupID;
       if (groupId == groupID) {
         _putMemberInfo([info]);
       }
     });
 
-    memberDelSub = imLogic.memberDeletedSubject.listen((info) {
+    memberDelSub = imCtrl.memberDeletedSubject.listen((info) {
       if (info.groupID == groupID && info.userID == OpenIM.iMManager.userID) {
         isInGroup.value = false;
         inputCtrl.clear();
@@ -378,7 +411,7 @@ class ChatLogic extends GetxController {
     });
 
     // 成员信息改变
-    memberInfoChangedSub = imLogic.memberInfoChangedSubject.listen((info) {
+    memberInfoChangedSub = imCtrl.memberInfoChangedSubject.listen((info) {
       if (info.groupID == groupID) {
         if (info.userID == OpenIM.iMManager.userID) {
           muteEndTime.value = info.muteEndTime ?? 0;
@@ -404,7 +437,7 @@ class ChatLogic extends GetxController {
     });
 
     // 群信息变化
-    groupInfoUpdatedSub = imLogic.groupInfoUpdatedSubject.listen((value) {
+    groupInfoUpdatedSub = imCtrl.groupInfoUpdatedSubject.listen((value) {
       if (groupID == value.groupID) {
         nickname.value = value.groupName ?? '';
         faceUrl.value = value.faceURL ?? '';
@@ -415,7 +448,7 @@ class ChatLogic extends GetxController {
     });
 
     // 好友信息变化
-    friendInfoChangedSub = imLogic.friendInfoChangedSubject.listen((value) {
+    friendInfoChangedSub = imCtrl.friendInfoChangedSubject.listen((value) {
       if (userID == value.userID) {
         nickname.value = value.getShowName();
         faceUrl.value = value.faceURL ?? '';
@@ -443,7 +476,7 @@ class ChatLogic extends GetxController {
     });
 
     // 通话消息处理
-    imLogic.onSignalingMessage = (value) {
+    imCtrl.onSignalingMessage = (value) {
       if (value.isSingleChat && value.userID == userID ||
           value.isGroupChat && value.groupID == groupID) {
         messageList.add(value.message);
@@ -451,20 +484,19 @@ class ChatLogic extends GetxController {
       }
     };
 
-    imLogic.roomParticipantConnectedSubject.listen((value) {
+    imCtrl.roomParticipantConnectedSubject.listen((value) {
       if (value.groupID == groupID) {
         roomCallingInfo = value;
         participants.assignAll(value.participant ?? []);
       }
     });
-    imLogic.roomParticipantDisconnectedSubject.listen((value) {
+    imCtrl.roomParticipantDisconnectedSubject.listen((value) {
       if (value.groupID == groupID) {
         roomCallingInfo = value;
         participants.assignAll(value.participant ?? []);
       }
     });
-    // signalingMessageSub = imLogic.signalingMessageSubject.listen((value) {
-    //   print('====value.userID:${value.userID}===uid: $uid == gid:$gid');
+    // signalingMessageSub = imCtrl.signalingMessageSubject.listen((value) {
     //   if (value.isSingleChat && value.userID == uid ||
     //       value.isGroupChat && value.groupID == gid) {
     //     messageList.add(value.message);
@@ -472,7 +504,7 @@ class ChatLogic extends GetxController {
     //   }
     // });
 
-    // imLogic.conversationChangedSubject.listen((newList) {
+    // imCtrl.conversationChangedSubject.listen((newList) {
     //   for (var newValue in newList) {
     //     if (newValue.conversationID == info?.conversationID) {
     //       burnAfterReading.value = newValue.isPrivateChat!;
@@ -481,7 +513,7 @@ class ChatLogic extends GetxController {
     //   }
     // });
 
-    ccSub = imLogic.conversationChangedSubject.listen((newList) {
+    ccSub = imCtrl.conversationChangedSubject.listen((newList) {
       for (var newValue in newList) {
         if (newValue.conversationID == conversationID) {
           conversationInfo.update((val) {
@@ -512,9 +544,9 @@ class ChatLogic extends GetxController {
     });
   }
 
-  void chatSetup() => isSingleChat
-      ? AppNavigator.startChatSetup(conversationInfo: conversationInfo.value)
-      : AppNavigator.startGroupChatSetup(
+  void chatSetting() => isSingleChat
+      ? AppNavigator.startChatSetting(conversationInfo: conversationInfo.value)
+      : AppNavigator.startGroupChatSetting(
           conversationInfo: conversationInfo.value);
 
   void clearCurAtMap() {
@@ -533,16 +565,15 @@ class ChatLogic extends GetxController {
     });
     // 更新群成员信息
     messageList.refresh();
-    atUserNameMappingMap[OpenIM.iMManager.userID] = StrRes.you;
+    atUserNameMappingMap[OpenIM.iMManager.userID] = StrLibrary.you;
     atUserInfoMappingMap[OpenIM.iMManager.userID] = OpenIM.iMManager.userInfo;
 
     // DataSp.putAtUserMap(groupID!, atUserNameMappingMap);
   }
 
-  /// 发送文字内容，包含普通内容，引用回复内容，@内容
-  void sendTextMsg() async {
-    var content = IMUtils.safeTrim(inputCtrl.text);
-    if (content.isEmpty) return;
+  Future<Message?> createTextMsg({String? content}) async {
+    content = content ?? MitiUtils.safeTrim(inputCtrl.text);
+    if (content.isEmpty) return null;
     Message message;
     if (curMsgAtUser.isNotEmpty) {
       createAtInfoByID(id) => AtUserInfo(
@@ -569,12 +600,21 @@ class ChatLogic extends GetxController {
         text: content,
       );
     }
-    _sendMessage(message);
+    return message;
+  }
+
+  /// 发送文字内容，包含普通内容，引用回复内容，@内容
+  Future<void> sendTextMsg(
+      {String? content, String? userId, String? groupId}) async {
+    final message = await createTextMsg(content: content);
+    if (null != message) {
+      _sendMessage(message, userId: userId, groupId: groupId);
+    }
   }
 
   /// 发送图片
   void sendPicture({required String path}) async {
-    final file = await IMUtils.compressImageAndGetFile(File(path));
+    final file = await MitiUtils.compressImageAndGetFile(File(path));
 
     var message =
         await OpenIM.iMManager.messageManager.createImageMessageFromFullPath(
@@ -647,14 +687,20 @@ class ChatLogic extends GetxController {
   }
 
   /// 转发
-  sendForwardMsg(
+  Future<Message> createForwardMsg(Message originalMessage) async {
+    final message = await OpenIM.iMManager.messageManager.createForwardMessage(
+      message: originalMessage,
+    );
+    return message;
+  }
+
+  /// 转发
+  Future<void> sendForwardMsg(
     Message originalMessage, {
     String? userId,
     String? groupId,
   }) async {
-    var message = await OpenIM.iMManager.messageManager.createForwardMessage(
-      message: originalMessage,
-    );
+    final message = await createForwardMsg(originalMessage);
     _sendMessage(message, userId: userId, groupId: groupId);
   }
 
@@ -666,15 +712,15 @@ class ChatLogic extends GetxController {
     var summaryList = <String>[];
     String title;
     for (var msg in multiSelList) {
-      summaryList.add(IMUtils.createSummary(msg));
+      summaryList.add(MitiUtils.createSummary(msg));
       if (summaryList.length >= 2) break;
     }
     if (isGroupChat) {
-      title = "群聊${StrRes.chatRecord}";
+      title = "群聊${StrLibrary.chatRecord}";
     } else {
       var partner1 = OpenIM.iMManager.userInfo.getShowName();
       var partner2 = nickname.value;
-      title = "$partner1和$partner2${StrRes.chatRecord}";
+      title = "$partner1和$partner2${StrLibrary.chatRecord}";
     }
     var message = await OpenIM.iMManager.messageManager.createMergerMessage(
       messageList: multiSelList,
@@ -722,15 +768,14 @@ class ChatLogic extends GetxController {
     _sendMessage(message);
   }
 
-  void _sendMessage(
+  Future<void> _sendMessage(
     Message message, {
     String? userId,
     String? groupId,
     bool addToUI = true,
-  }) {
-    log('send : ${json.encode(message)}');
-    userId = IMUtils.emptyStrToNull(userId);
-    groupId = IMUtils.emptyStrToNull(groupId);
+  }) async {
+    userId = MitiUtils.emptyStrToNull(userId);
+    groupId = MitiUtils.emptyStrToNull(groupId);
     if (null == userId && null == groupId ||
         userId == userID && userId != null ||
         groupId == groupID && groupId != null) {
@@ -740,42 +785,43 @@ class ChatLogic extends GetxController {
         scrollBottom();
       }
     }
-    Logger.print('uid:$userID userId:$userId gid:$groupID groupId:$groupId');
     _reset(message);
     // 借用当前聊天窗口，给其他用户或群发送信息，如合并转发，分享名片。
     bool useOuterValue = null != userId || null != groupId;
     setConversationConfig(waitingST: message.sendTime);
-    String text = StrRes.defaultNotification;
+    String text = StrLibrary.defaultNotification;
     if (message.isTextType) {
       text = message.textElem!.content!;
     } else if (message.isAtTextType) {
-      text = IMUtils.replaceMessageAtMapping(message, {});
+      text = MitiUtils.replaceMessageAtMapping(message, {});
     } else if (message.isQuoteType) {
       text = message.quoteElem?.text ?? text;
     } else if (message.isPictureType) {
-      text = StrRes.defaultImgNotification;
+      text = StrLibrary.defaultImgNotification;
     } else if (message.isVideoType) {
-      text = StrRes.defaultVideoNotification;
+      text = StrLibrary.defaultVideoNotification;
     } else if (message.isVoiceType) {
-      text = StrRes.defaultVoiceNotification;
+      text = StrLibrary.defaultVoiceNotification;
     } else if (message.isFileType) {
-      text = StrRes.defaultFileNotification;
+      text = StrLibrary.defaultFileNotification;
     } else if (message.isLocationType) {
-      text = StrRes.defaultLocationNotification;
+      text = StrLibrary.defaultLocationNotification;
     } else if (message.isMergerType) {
-      text = StrRes.defaultMergeNotification;
+      text = StrLibrary.defaultMergeNotification;
     } else if (message.isCardType) {
-      text = StrRes.defaultCardNotification;
+      text = StrLibrary.defaultCardNotification;
+    } else if (message.isTextWithPromptType) {
+      text = message.customData?["welcome"] ?? "";
     }
-    OpenIM.iMManager.messageManager
+    await OpenIM.iMManager.messageManager
         .sendMessage(
           message: message,
           userID: useOuterValue ? userId : userID,
           groupID: useOuterValue ? groupId : groupID,
           offlinePushInfo: Config.offlinePushInfo
             ..title = (isSingleChat
-                ? (OpenIM.iMManager.userInfo.nickname ?? StrRes.friend)
-                : (nickname.value ?? StrRes.group))
+                ? (OpenIM.iMManager.userInfo.nickname ?? StrLibrary.friend)
+                : (nickname.value ?? StrLibrary.group))
             ..desc = (isSingleChat
                 ? text
                 : "${groupMembersInfo?.nickname ?? OpenIM.iMManager.userInfo.nickname}: ${text}"),
@@ -796,7 +842,6 @@ class ChatLogic extends GetxController {
 
   ///  消息发送成功
   void _sendSucceeded(Message oldMsg, Message newMsg) {
-    Logger.print('message send success----');
     setConversationConfig(waitingST: newMsg.sendTime);
     // message.status = MessageStatus.succeeded;
     oldMsg.update(newMsg);
@@ -808,7 +853,6 @@ class ChatLogic extends GetxController {
 
   ///  消息发送失败
   void _senFailed(Message message, String? groupId, error, stack) async {
-    Logger.print('message send failed e :$error  $stack');
     setConversationConfig(waitingST: -1);
     message.status = MessageStatus.failed;
     sendStatusSub.addSafely(MsgStreamEv<bool>(
@@ -884,19 +928,20 @@ class ChatLogic extends GetxController {
     } else {
       quoteMsg = message;
       var name = quoteMsg!.senderNickname;
-      quoteContent.value = "$name：${IMUtils.parseMsg(quoteMsg!)}";
+      quoteContent.value =
+          "$name：${MitiUtils.parseMsg(quoteMsg!, replaceIdToNickname: true)}";
       focusNode.requestFocus();
     }
   }
 
   /// 删除消息
   void deleteMsg(Message message) async {
-    LoadingView.singleton.wrap(asyncFunction: () => _deleteMessage(message));
+    LoadingView.singleton.start(fn: () => _deleteMessage(message));
   }
 
   /// 批量删除
   void _deleteMultiMsg() async {
-    await LoadingView.singleton.wrap(asyncFunction: () async {
+    await LoadingView.singleton.start(fn: () async {
       for (var e in multiSelList) {
         await _deleteMessage(e);
       }
@@ -932,14 +977,14 @@ class ChatLogic extends GetxController {
   // void mergeForward() async {
   //   final result = await AppNavigator.startSelectContacts(
   //     action: SelAction.forward,
-  //     ex: sprintf(StrRes.mergeForwardHint, [multiSelList.length]),
+  //     ex: sprintf(StrLibrary .mergeForwardHint, [multiSelList.length]),
   //   );
   //   if (null != result) {
   //     final customEx = result['customEx'];
   //     final checkedList = result['checkedList'];
   //     for (var info in checkedList) {
-  //       final userID = IMUtils.convertCheckedToUserID(info);
-  //       final groupID = IMUtils.convertCheckedToGroupID(info);
+  //       final userID = MitiUtils.convertCheckedToUserID(info);
+  //       final groupID = MitiUtils.convertCheckedToGroupID(info);
   //       if (customEx is String && customEx.isNotEmpty) {
   //         sendForwardRemarkMsg(customEx, userId: userID, groupId: groupID);
   //       }
@@ -949,28 +994,84 @@ class ChatLogic extends GetxController {
   // }
 
   /// 转发
-  void forward(Message? message) async {
+  void forward(
+      {Message? message, bool isMerge = false, bool isOneByOne = false}) async {
+    final curMultiSelList = [...multiSelList];
     final result = await AppNavigator.startSelectContacts(
       action: SelAction.forward,
       ex: null != message
-          ? IMUtils.parseMsg(message)
-          : sprintf(StrRes.mergeForwardHint, [multiSelList.length]),
+          ? MitiUtils.parseMsg(message)
+          : isMerge
+              ? sprintf(StrLibrary.mergeForwardHint, [curMultiSelList.length])
+              : isOneByOne
+                  ? sprintf(
+                      StrLibrary.oneByOneForwardHint, [curMultiSelList.length])
+                  : "",
     );
     if (null != result) {
       final customEx = result['customEx'];
       final checkedList = result['checkedList'];
       for (var info in checkedList) {
-        final userID = IMUtils.convertCheckedToUserID(info);
-        final groupID = IMUtils.convertCheckedToGroupID(info);
+        final taskList = [];
+        final userID = MitiUtils.convertCheckedToUserID(info);
+        final groupID = MitiUtils.convertCheckedToGroupID(info);
+        if (null != message) {
+          forwardMsg(message: message, userID: userID, groupID: groupID);
+        } else if (isMerge) {
+          sendMergeMsg(userId: userID, groupId: groupID);
+        } else if (isOneByOne) {
+          for (var msg in curMultiSelList) {
+            taskList.add(await createForwardMsgTask(
+                message: msg, userID: userID, groupID: groupID));
+          }
+        }
+
+        // 批量发送, 连续发送有可能会出现乱序
+        if (taskList.isNotEmpty) {
+          for (var task in taskList) {
+            if (null != task["newMessage"])
+              await _sendMessage(task["newMessage"],
+                  userId: task["userID"], groupId: task["groupID"]);
+          }
+        }
+
         if (customEx is String && customEx.isNotEmpty) {
           sendForwardRemarkMsg(customEx, userId: userID, groupId: groupID);
         }
-        if (null != message) {
-          sendForwardMsg(message, userId: userID, groupId: groupID);
-        } else {
-          sendMergeMsg(userId: userID, groupId: groupID);
-        }
       }
+    }
+  }
+
+  Future<void> forwardMsg(
+      {required Message message, String? userID, String? groupID}) async {
+    if (message.isTextWithPromptType) {
+      sendTextMsg(
+          content: message.customData?["welcome"],
+          userId: userID,
+          groupId: groupID);
+    } else if (message.isAtTextType) {
+      sendTextMsg(
+          content: MitiUtils.parseMsg(message, replaceIdToNickname: true),
+          userId: userID,
+          groupId: groupID);
+    } else {
+      sendForwardMsg(message, userId: userID, groupId: groupID);
+    }
+  }
+
+  Future<dynamic> createForwardMsgTask(
+      {required Message message, String? userID, String? groupID}) async {
+    late Message? newMessage;
+    if (message.isTextWithPromptType) {
+      newMessage = await createTextMsg(content: message.customData?["welcome"]);
+    } else if (message.isAtTextType) {
+      newMessage = await createTextMsg(
+          content: MitiUtils.parseMsg(message, replaceIdToNickname: true));
+    } else {
+      newMessage = await createForwardMsg(message);
+    }
+    if (null != newMessage) {
+      return {"newMessage": newMessage, "userID": userID, "groupID": groupID};
     }
   }
 
@@ -980,7 +1081,7 @@ class ChatLogic extends GetxController {
     if (visible &&
         message.contentType! < 1000 &&
         message.contentType! != MessageType.voice) {
-      var data = IMUtils.parseCustomMessage(message);
+      var data = MitiUtils.parseCustomMessage(message);
       if (null != data && data['viewType'] == CustomMessageType.call) {
         return;
       }
@@ -990,9 +1091,7 @@ class ChatLogic extends GetxController {
 
   /// 标记消息为已读
   _markMessageAsRead(Message message) async {
-    Logger.print('mark as read：${message.clientMsgID!} ${message.isRead}');
     if (!message.isRead! && message.sendID != OpenIM.iMManager.userID) {
-      Logger.print('mark as read：${message.clientMsgID!} ${message.isRead}');
       // 多端同步问题
       try {
         if (isGroupChat) {
@@ -1029,7 +1128,7 @@ class ChatLogic extends GetxController {
     if (checked) {
       // 合并最多20条限制
       if (multiSelList.length >= 20) {
-        Get.dialog(CustomDialog(title: StrRes.forwardMaxCountHint));
+        Get.dialog(CustomDialog(title: StrLibrary.forwardMaxCountHint));
       } else {
         multiSelList.add(message);
         multiSelList.sort((a, b) {
@@ -1070,7 +1169,6 @@ class ChatLogic extends GetxController {
       popGesture: true,
     );
     if (null != location) {
-      Logger.print(location);
       sendLocation(location: location);
     }
   }
@@ -1082,8 +1180,8 @@ class ChatLogic extends GetxController {
             AssetPickerConfig(selectPredicate: (_, entity, isSelected) {
       // 视频限制5分钟的时长
       if (entity.videoDuration > const Duration(seconds: 5 * 60)) {
-        IMViews.showToast(
-            sprintf(StrRes.selectVideoLimit, [5]) + StrRes.minute);
+        showToast(
+            sprintf(StrLibrary.selectVideoLimit, [5]) + StrLibrary.minute);
         return false;
       }
       return true;
@@ -1095,7 +1193,7 @@ class ChatLogic extends GetxController {
     }
   }
 
-  void onTapSearch() => AppNavigator.startSearchChatHistory(
+  void onTapSearch() => AppNavigator.startChatHistory(
         conversationInfo: conversationInfo.value,
       );
 
@@ -1111,7 +1209,7 @@ class ChatLogic extends GetxController {
         resolutionPreset: ResolutionPreset.medium,
         maximumRecordingDuration: 60.seconds,
         onMinimumRecordDurationNotMet: () {
-          IMViews.showToast(StrRes.tapTooShort);
+          showToast(StrLibrary.tapTooShort);
         },
       ),
     );
@@ -1129,7 +1227,7 @@ class ChatLogic extends GetxController {
 
     if (result != null) {
       for (var file in result.files) {
-        // String? mimeType = IMUtils.getMediaType(file.name);
+        // String? mimeType = MitiUtils.getMediaType(file.name);
         String? mimeType = lookupMimeType(file.name);
         if (mimeType != null) {
           if (mimeType.contains('image/')) {
@@ -1151,7 +1249,7 @@ class ChatLogic extends GetxController {
               );
               continue;
             } catch (e, s) {
-              Logger.print('e :$e  s:$s');
+              myLogger.e({"error": e, "stack": s});
             }
           }
         }
@@ -1165,8 +1263,7 @@ class ChatLogic extends GetxController {
   /// 名片
   void onTapCarte() async {
     var result = await AppNavigator.startSelectContacts(
-      action: SelAction.carte,
-    );
+        action: SelAction.carte, selectFromFriend: true);
     if (result is UserInfo || result is FriendInfo) {
       sendCarte(
         userID: result.userID!,
@@ -1178,27 +1275,25 @@ class ChatLogic extends GetxController {
 
   void _handleAssets(AssetEntity? asset) async {
     if (null != asset) {
-      Logger.print('--------assets type-----${asset.type}');
       var path = (await asset.file)!.path;
-      Logger.print('--------assets path-----$path');
       switch (asset.type) {
         case AssetType.image:
           sendPicture(path: path);
           break;
         case AssetType.video:
-          var thumbnailFile = await IMUtils.getVideoThumbnail(File(path));
-          LoadingView.singleton.show();
-          final file = await IMUtils.compressVideoAndGetFile(File(path));
-          LoadingView.singleton.dismiss();
-
-          sendVideo(
-            videoPath: file!.path,
-            mimeType: asset.mimeType ?? IMUtils.getMediaType(path) ?? '',
-            duration: asset.duration,
-            // duration: mediaInfo.duration?.toInt() ?? 0,
-            thumbnailPath: thumbnailFile.path,
-          );
-          // sendVoice(duration: asset.duration, path: path);
+          File? file;
+          await LoadingView.singleton.start(fn: () async {
+            var thumbnailFile = await MitiUtils.getVideoThumbnail(File(path));
+            final file = await MitiUtils.compressVideoAndGetFile(File(path));
+            sendVideo(
+              videoPath: file!.path,
+              mimeType: asset.mimeType ?? MitiUtils.getMediaType(path) ?? '',
+              duration: asset.duration,
+              // duration: mediaInfo.duration?.toInt() ?? 0,
+              thumbnailPath: thumbnailFile.path,
+            );
+            // sendVoice(duration: asset.duration, path: path);
+          });
           break;
         default:
           break;
@@ -1207,32 +1302,33 @@ class ChatLogic extends GetxController {
   }
 
   /// 处理消息点击事件
-  void parseClickEvent(Message msg) async {
-    log('parseClickEvent:${jsonEncode(msg)}');
+  void parseClickEvent(Message msg, [bool isQuote = false]) async {
     if (msg.contentType == MessageType.custom) {
       var data = msg.customElem!.data;
       var map = json.decode(data!);
       var customType = map['customType'];
       if (CustomMessageType.call == customType && !isInBlacklist.value) {
         if (rtcIsBusy) {
-          IMViews.showToast(StrRes.callingBusy);
+          showToast(StrLibrary.callingBusy);
           return;
         }
         var type = map['data']['type'];
-        imLogic.call(
+        imCtrl.call(
           callObj: CallObj.single,
           callType: type == "audio" ? CallType.audio : CallType.video,
           inviteeUserIDList: [if (isSingleChat) userID!],
         );
-      } else if (CustomMessageType.meeting == customType) {
-        if (rtcIsBusy) {
-          IMViews.showToast(StrRes.callingBusy);
-          return;
-        }
-        var data = msg.customElem!.data;
-        var map = json.decode(data!);
-        MeetingClient().join(Get.context!, meetingID: map['data']['id']);
-      } else if (CustomMessageType.tag == customType) {
+      }
+      // else if (CustomMessageType.meeting == customType) {
+      //   if (rtcIsBusy) {
+      //     showToast(StrLibrary .callingBusy);
+      //     return;
+      //   }
+      //   var data = msg.customElem!.data;
+      //   var map = json.decode(data!);
+      //   MeetingClient().join(Get.context!, meetingID: map['data']['id']);
+      // }
+      else if (CustomMessageType.tag == customType) {
         final data = map['data'];
         if (null != data['soundElem']) {
           final soundElem = SoundElem.fromJson(data['soundElem']);
@@ -1255,11 +1351,11 @@ class ChatLogic extends GetxController {
       return;
     }
 
-    IMUtils.parseClickEvent(
-      msg,
-      messageList: messageList,
-      onViewUserInfo: viewUserInfo,
-    );
+    MitiUtils.parseClickEvent(msg,
+        messageList: messageList,
+        onViewUserInfo: viewUserInfo,
+        isQuote: isQuote,
+        textOverlayEntry: textOverlayEntry);
   }
 
   /// 点击引用消息
@@ -1269,7 +1365,7 @@ class ChatLogic extends GetxController {
     // } else if (message.contentType == MessageType.atText) {
     //   parseClickEvent(message.atElem!.quoteMessage!);
     // }
-    parseClickEvent(message);
+    parseClickEvent(message, true);
   }
 
   /// 群聊天长按头像为@用户
@@ -1300,7 +1396,7 @@ class ChatLogic extends GetxController {
       var end = inputCtrl.text.substring(cursor);
       var at = '@$uid ';
       inputCtrl.text = '$start$at$end';
-      Logger.print('start:$start end:$end  at:$at  content:${inputCtrl.text}');
+
       inputCtrl.selection = TextSelection.collapsed(offset: '$start$at'.length);
       // inputCtrl.selection = TextSelection.fromPosition(TextPosition(
       //   offset: '$start$at'.length,
@@ -1341,7 +1437,6 @@ class ChatLogic extends GetxController {
   }
 
   void clickLinkText(url, type) async {
-    Logger.print('--------link  type:$type-------url: $url---');
     if (type == PatternType.at) {
       clickAtText(url);
       return;
@@ -1355,12 +1450,10 @@ class ChatLogic extends GetxController {
   /// 读取草稿
   void _readDraftText() {
     var draftText = Get.arguments['draftText'];
-    Logger.print('readDraftText:$draftText');
     if (null != draftText && "" != draftText) {
       var map = json.decode(draftText!);
       String text = map['text'];
       Map<String, dynamic> atMap = map['at'];
-      Logger.print('text:$text  atMap:$atMap');
       atMap.forEach((key, value) {
         if (!curMsgAtUser.contains(key)) curMsgAtUser.add(key);
         atUserNameMappingMap.putIfAbsent(key, () => value);
@@ -1411,7 +1504,6 @@ class ChatLogic extends GetxController {
   void focusNodeChanged(bool hasFocus) {
     sendTypingMsg(focus: hasFocus);
     if (hasFocus) {
-      Logger.print('focus:$hasFocus');
       scrollBottom();
     }
   }
@@ -1419,32 +1511,34 @@ class ChatLogic extends GetxController {
   void copy(Message message) {
     String? content;
     final textElem = message.tagContent?.textElem;
-    if (null != textElem) {
+    if (message.isTextWithPromptType) {
+      content = message.customData?["welcome"];
+    } else if (null != textElem) {
       content = textElem.content;
     } else {
       content = copyTextMap[message.clientMsgID] ?? message.textElem?.content;
     }
     if (null != content) {
-      IMUtils.copy(text: content);
+      MitiUtils.copy(text: content);
     } else {
       myLogger.e({"message": "复制message内容, 默认方式解析content失败, 使用自定义解析"});
       if (message.isTextType) {
         content = message.textElem!.content!;
       } else if (message.isAtTextType) {
-        content = IMUtils.replaceMessageAtMapping(message, {});
+        content = MitiUtils.replaceMessageAtMapping(message, {});
       } else if (message.isQuoteType) {
         content = message.quoteElem?.text;
       }
       if (null != content) {
-        IMUtils.copy(text: content);
+        MitiUtils.copy(text: content);
       } else {
-        IMViews.showToast(StrRes.copyFail);
+        showToast(StrLibrary.copyFail);
       }
     }
   }
 
   Future<List<Message>> findTranslate(List<Message> messages) async {
-    final result = await Apis.findTranslate(
+    final result = await ClientApis.findTranslate(
         ClientMsgIDs: messages.map((e) => e.clientMsgID!).toList(),
         TargetLang: targetLang);
     List<Message> unFindTranslateMessages = [];
@@ -1485,7 +1579,7 @@ class ChatLogic extends GetxController {
   get targetLang {
     final langConfig = translateLogic.langConfig[conversationID];
     final targetLang = (null == langConfig || null == langConfig["targetLang"])
-        ? window.locale.toString()
+        ? WidgetsBinding.instance.platformDispatcher.locale.toString()
         : langConfig["targetLang"];
     return targetLang;
   }
@@ -1523,7 +1617,7 @@ class ChatLogic extends GetxController {
     if (message.isTextType) {
       origin = message.textElem!.content;
     } else if (message.isAtTextType) {
-      origin = IMUtils.replaceMessageAtMapping(message, {});
+      origin = MitiUtils.replaceMessageAtMapping(message, {});
     } else if (message.isQuoteType) {
       origin = message.quoteElem?.text;
     }
@@ -1534,7 +1628,7 @@ class ChatLogic extends GetxController {
       // if (detectLangIsTarget(origin, targetLang)) return;
       try {
         translateLogic.updateMsgAllTranslate(message, {"status": "loading"});
-        final result = await Apis.translate(
+        final result = await ClientApis.translate(
             userID: userID!,
             ClientMsgID: message.clientMsgID!,
             Query: origin,
@@ -1557,7 +1651,7 @@ class ChatLogic extends GetxController {
           "messageCopyTextMap": copyTextMap[message.clientMsgID]
         }
       });
-      IMViews.showToast(StrRes.noWorking);
+      showToast(StrLibrary.noWorking);
     }
   }
 
@@ -1575,7 +1669,7 @@ class ChatLogic extends GetxController {
     if (null != origin) {
       try {
         ttsLogic.updateMsgAllTts(message, {"status": "loading"});
-        final result = await Apis.tts(url: origin);
+        final result = await ClientApis.tts(url: origin);
         updateMsgTts(
             message: message,
             origin: origin,
@@ -1590,7 +1684,7 @@ class ChatLogic extends GetxController {
         "message": "文本转语音message, 获取不到音频",
         "error": {"message": json.encode(message)}
       });
-      IMViews.showToast(StrRes.noWorking);
+      showToast(StrLibrary.noWorking);
     }
   }
 
@@ -1633,7 +1727,7 @@ class ChatLogic extends GetxController {
 
   /// 阅后即焚
   void toggleBurnAfterReading() {
-    LoadingView.singleton.wrap(asyncFunction: () async {
+    LoadingView.singleton.start(fn: () async {
       await OpenIM.iMManager.conversationManager.setConversationPrivateChat(
         conversationID: conversationID,
         isPrivate: !isBurnAfterReading,
@@ -1642,7 +1736,7 @@ class ChatLogic extends GetxController {
   }
 
   Message indexOfMessage(int index, {bool calculate = true}) =>
-      IMUtils.calChatTimeInterval(
+      MitiUtils.calChatTimeInterval(
         messageListV2,
         calculate: calculate,
       ).reversed.elementAt(index);
@@ -1682,7 +1776,7 @@ class ChatLogic extends GetxController {
 
   String? getShowTime(Message message) {
     if (message.exMap['showTime'] == true && !message.isWaitingAiReplayType) {
-      return IMUtils.getChatTimeline(message.sendTime!);
+      return MitiUtils.getChatTimeline(message.sendTime!);
     }
     return null;
   }
@@ -1772,8 +1866,9 @@ class ChatLogic extends GetxController {
     _lastCursorIndex = cursor;
   }
 
-  // String getSubTile() => typing.value ? StrRes.typing : onlineStatusDesc.value;
-  String? get subTile => typing.value ? StrRes.typing : onlineStatusDesc.value;
+  // String getSubTile() => typing.value ? StrLibrary .typing : onlineStatusDesc.value;
+  String? get subTile =>
+      typing.value ? StrLibrary.typing : onlineStatusDesc.value;
 
   bool showOnlineStatus() => !typing.value && onlineStatusDesc.isNotEmpty;
 
@@ -1833,7 +1928,7 @@ class ChatLogic extends GetxController {
       var width = message.pictureElem?.sourcePicture?.width;
       var height = message.pictureElem?.sourcePicture?.height;
       cacheLogic.addFavoriteFromUrl(url, width, height);
-      IMViews.showToast(StrRes.addSuccessfully);
+      showToast(StrLibrary.addSuccessfully);
     } else if (message.contentType == MessageType.customFace) {
       var index = message.faceElem?.index;
       var data = message.faceElem?.data;
@@ -1844,7 +1939,7 @@ class ChatLogic extends GetxController {
         var width = map['width'];
         var height = map['height'];
         cacheLogic.addFavoriteFromUrl(url, width, height);
-        IMViews.showToast(StrRes.addSuccessfully);
+        showToast(StrLibrary.addSuccessfully);
       }
     }
   }
@@ -1871,14 +1966,14 @@ class ChatLogic extends GetxController {
   changeFontSize(double factor) async {
     await DataSp.putChatFontSizeFactor(factor);
     scaleFactor.value = factor;
-    IMViews.showToast(StrRes.setSuccessfully);
+    showToast(StrLibrary.setSuccessfully);
   }
 
   /// 修改聊天背景
   changeBackground(String path) async {
     await DataSp.putChatBackground(otherId, path);
     background.value = path;
-    IMViews.showToast(StrRes.setSuccessfully);
+    showToast(StrLibrary.setSuccessfully);
   }
 
   String get otherId => isSingleChat ? userID! : groupID!;
@@ -1887,20 +1982,20 @@ class ChatLogic extends GetxController {
   clearBackground() async {
     await DataSp.clearChatBackground(otherId);
     background.value = '';
-    IMViews.showToast(StrRes.setSuccessfully);
+    showToast(StrLibrary.setSuccessfully);
   }
 
   /// 拨视频或音频
   void call() async {
     if (rtcIsBusy) {
-      IMViews.showToast(StrRes.callingBusy);
+      showToast(StrLibrary.callingBusy);
       return;
     }
     if (isGroupChat) {
       if (participants.isNotEmpty) {
         var confirm = await Get.dialog(CustomDialog(
-          title: StrRes.groupCallHint,
-          rightText: StrRes.joinIn,
+          title: StrLibrary.groupCallHint,
+          rightText: StrLibrary.joinIn,
         ));
         if (confirm == true) {
           joinGroupCalling();
@@ -1915,7 +2010,7 @@ class ChatLogic extends GetxController {
           );
           if (list is List<GroupMembersInfo>) {
             final uidList = list.map((e) => e.userID!).toList();
-            imLogic.call(
+            imCtrl.call(
               callObj: CallObj.group,
               callType: index == 0 ? CallType.audio : CallType.video,
               groupID: groupID,
@@ -1926,7 +2021,7 @@ class ChatLogic extends GetxController {
       });
     } else {
       IMViews.openIMCallSheet(nickname.value, (index) {
-        imLogic.call(
+        imCtrl.call(
           callObj: CallObj.single,
           callType: index == 0 ? CallType.audio : CallType.video,
           inviteeUserIDList: [if (isSingleChat) userID!],
@@ -2091,7 +2186,7 @@ class ChatLogic extends GetxController {
             value.firstWhereOrNull((element) => element.userID == userID);
         _configUserStatusChanged(status);
       });
-      userStatusChangedSub = imLogic.userStatusChangedSubject.listen((value) {
+      userStatusChangedSub = imCtrl.userStatusChangedSubject.listen((value) {
         if (value.userID == userID) {
           _configUserStatusChanged(value);
         }
@@ -2109,8 +2204,8 @@ class ChatLogic extends GetxController {
     if (status != null) {
       onlineStatus.value = status.status == 1;
       onlineStatusDesc.value = status.status == 0
-          ? StrRes.offline
-          : _onlineStatusDes(status.platformIDs!) + StrRes.online;
+          ? StrLibrary.offline
+          : _onlineStatusDes(status.platformIDs!) + StrLibrary.online;
     }
   }
 
@@ -2270,9 +2365,8 @@ class ChatLogic extends GetxController {
   /// 显示菜单屏蔽消息插入
   void onPopMenuShowChanged(show) {
     isShowPopMenu.value = show;
-    if (!show && scrollingCacheMessageList.isNotEmpty) {
-      messageList.addAll(scrollingCacheMessageList);
-      scrollingCacheMessageList.clear();
+    if (!show) {
+      addScrollingCacheToMessageList();
     }
   }
 
@@ -2341,6 +2435,7 @@ class ChatLogic extends GetxController {
     message.createTime = -1;
     message.sendTime = -1;
     message.sendID = userID;
+    message.senderNickname = nickname.value;
     message.recvID = OpenIM.iMManager.userID;
     extraMessageList.add(message);
   }
@@ -2377,8 +2472,9 @@ class ChatLogic extends GetxController {
       muteEndTime.value > DateTime.now().millisecondsSinceEpoch;
 
   /// 禁言提示
-  String? get hintText =>
-      isMuted ? (isGroupMuted ? StrRes.groupMuted : StrRes.youMuted) : null;
+  String? get hintText => isMuted
+      ? (isGroupMuted ? StrLibrary.groupMuted : StrLibrary.youMuted)
+      : null;
 
   /// 禁言后 清除所有状态
   void _mutedClearAllInput() {
@@ -2408,8 +2504,8 @@ class ChatLogic extends GetxController {
         canRevoke = true;
       } else {
         // 群组或管理员撤回群成员的消息
-        var list = await LoadingView.singleton.wrap(
-            asyncFunction: () => OpenIM.iMManager.groupManager
+        var list = await LoadingView.singleton.start(
+            fn: () => OpenIM.iMManager.groupManager
                 .getGroupOwnerAndAdmin(groupID: groupID!));
         var sender = list.firstWhereOrNull((e) => e.userID == message.sendID);
         var revoker =
@@ -2445,8 +2541,8 @@ class ChatLogic extends GetxController {
     }
     if (canRevoke) {
       try {
-        await LoadingView.singleton.wrap(
-          asyncFunction: () => OpenIM.iMManager.messageManager.revokeMessage(
+        await LoadingView.singleton.start(
+          fn: () => OpenIM.iMManager.messageManager.revokeMessage(
             conversationID: conversationInfo.value.conversationID,
             clientMsgID: message.clientMsgID!,
           ),
@@ -2459,10 +2555,10 @@ class ChatLogic extends GetxController {
         formatQuoteMessage(message.clientMsgID!);
         messageList.refresh();
       } catch (e) {
-        IMViews.showToast(e.toString());
+        showToast(e.toString());
       }
     } else {
-      IMViews.showToast('你没有撤回消息的权限!');
+      showToast('你没有撤回消息的权限!');
     }
   }
 
@@ -2510,7 +2606,10 @@ class ChatLogic extends GetxController {
 
   /// 复制菜单
   bool showCopyMenu(Message message) {
-    return message.isTextType || message.isAtTextType || message.isTagTextType;
+    return message.isTextType ||
+        message.isAtTextType ||
+        message.isTagTextType ||
+        message.isQuoteType;
   }
 
   /// 删除菜单
@@ -2603,6 +2702,7 @@ class ChatLogic extends GetxController {
   }
 
   WillPopCallback? willPop() {
+    // textOverlayEntry?.remove();
     return multiSelMode.value || isShowPopMenu.value
         ? () async => exit()
         : null;
@@ -2625,17 +2725,16 @@ class ChatLogic extends GetxController {
 
   void joinGroupCalling() async {
     if (rtcIsBusy) {
-      IMViews.showToast(StrRes.callingBusy);
+      showToast(StrLibrary.callingBusy);
       return;
     }
-    final certificate = await LoadingView.singleton.wrap(
-      asyncFunction: () =>
-          OpenIM.iMManager.signalingManager.signalingGetTokenByRoomID(
+    final certificate = await LoadingView.singleton.start(
+      fn: () => OpenIM.iMManager.signalingManager.signalingGetTokenByRoomID(
         roomID: roomCallingInfo.roomID!,
       ),
     );
     final info = roomCallingInfo.invitation!;
-    imLogic.call(
+    imCtrl.call(
       callObj: CallObj.group,
       callType: info.mediaType == 'audio' ? CallType.audio : CallType.video,
       groupID: info.groupID,
@@ -2649,14 +2748,25 @@ class ChatLogic extends GetxController {
 
   /// 当滚动位置处于底部时，将新镇的消息放入列表里
   void onScrollToTop() {
+    addScrollingCacheToMessageList();
+  }
+
+  void addScrollingCacheToMessageList() {
     if (scrollingCacheMessageList.isNotEmpty) {
-      messageList.addAll(scrollingCacheMessageList);
+      // messageList.addAll(scrollingCacheMessageList);
+      final messageIDList =
+          messageList.map((element) => element.clientMsgID).toList();
+      for (var e in scrollingCacheMessageList) {
+        if (!messageIDList.contains(e.clientMsgID)) {
+          messageList.add(e);
+        }
+      }
       scrollingCacheMessageList.clear();
     }
   }
 
   String get markText {
-    String? phoneNumber = imLogic.userInfo.value.phoneNumber;
+    String? phoneNumber = imCtrl.userInfo.value.phoneNumber;
     if (phoneNumber != null) {
       int start = phoneNumber.length > 4 ? phoneNumber.length - 4 : 0;
       final sub = phoneNumber.substring(start);
@@ -2677,10 +2787,10 @@ class ChatLogic extends GetxController {
   }
 
   void sendFriendVerification() =>
-      AppNavigator.startSendVerificationApplication(userID: userID);
+      AppNavigator.startSendApplication(userID: userID);
 
   void _setSdkSyncDataListener() {
-    connectionSub = imLogic.imSdkStatusSubject.listen((value) {
+    connectionSub = imCtrl.imSdkStatusSubject.listen((value) {
       syncStatus.value = value;
       // -1 链接失败 0 链接中 1 链接成功 2 同步开始 3 同步结束 4 同步错误
       if (value == IMSdkStatus.syncStart) {
@@ -2714,9 +2824,9 @@ class ChatLogic extends GetxController {
     switch (syncStatus.value) {
       case IMSdkStatus.syncStart:
       case IMSdkStatus.synchronizing:
-        return StrRes.synchronizing;
+        return StrLibrary.synchronizing;
       case IMSdkStatus.syncFailed:
-        return StrRes.syncFailed;
+        return StrLibrary.syncFailed;
       default:
         return null;
     }
@@ -2794,7 +2904,7 @@ class ChatLogic extends GetxController {
       showEncryptTips.value = true;
       return false;
     }
-    _searchMediaMessage();
+    searchMediaMessage();
     list = result.messageList!;
     lastMinSeq = result.lastMinSeq;
     if (_isFirstLoad) {
@@ -2806,7 +2916,7 @@ class ChatLogic extends GetxController {
       if (list.isNotEmpty && list.length < 20) {
         final result = await _requestHistoryMessage();
         if (result.messageList?.isNotEmpty == true) {
-          _searchMediaMessage();
+          searchMediaMessage();
           list = result.messageList!;
           lastMinSeq = result.lastMinSeq;
         }
@@ -2832,14 +2942,14 @@ class ChatLogic extends GetxController {
   recommendFriendCarte(UserInfo userInfo) async {
     final result = await AppNavigator.startSelectContacts(
       action: SelAction.recommend,
-      ex: '[${StrRes.carte}]${userInfo.nickname}',
+      ex: '[${StrLibrary.carte}]${userInfo.nickname}',
     );
     if (null != result) {
       final customEx = result['customEx'];
       final checkedList = result['checkedList'];
       for (var info in checkedList) {
-        final userID = IMUtils.convertCheckedToUserID(info);
-        final groupID = IMUtils.convertCheckedToGroupID(info);
+        final userID = MitiUtils.convertCheckedToUserID(info);
+        final groupID = MitiUtils.convertCheckedToGroupID(info);
         if (customEx is String && customEx.isNotEmpty) {
           // 推荐备注消息
           _sendMessage(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 
 import '../friend_list_logic.dart';
 
@@ -9,10 +9,12 @@ class SelectContactsFromSearchFriendsLogic extends GetxController {
   final focusNode = FocusNode();
   final searchCtrl = TextEditingController();
   final resultList = <ISUserInfo>[].obs;
+  String appBarTitle = "";
 
   @override
   void onInit() {
     searchCtrl.addListener(_clearInput);
+    appBarTitle = Get.arguments['appBarTitle'] ?? "";
     super.onInit();
   }
 
@@ -23,7 +25,8 @@ class SelectContactsFromSearchFriendsLogic extends GetxController {
     super.onClose();
   }
 
-  bool get isSearchNotResult => searchCtrl.text.trim().isNotEmpty && resultList.isEmpty;
+  bool get isSearchNotResult =>
+      searchCtrl.text.trim().isNotEmpty && resultList.isEmpty;
 
   _clearInput() {
     final key = searchCtrl.text.trim();

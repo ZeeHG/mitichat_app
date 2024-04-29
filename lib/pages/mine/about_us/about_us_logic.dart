@@ -1,18 +1,13 @@
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
-import '../../../core/controller/app_controller.dart';
-import '../../../core/controller/im_controller.dart';
-
+import '../../../core/ctrl/app_ctrl.dart';
+import '../../../core/ctrl/im_ctrl.dart';
 import 'dart:convert';
 import 'dart:io';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
-import '../../../core/controller/im_controller.dart';
-import '../../../core/controller/push_controller.dart';
+import '../../../core/ctrl/push_ctrl.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path_package;
 
@@ -20,14 +15,14 @@ class AboutUsLogic extends GetxController {
   final version = "".obs;
   final buildNumber = "".obs;
   final appName = "App".obs;
-  final appLogic = Get.find<AppController>();
-  final imLogic = Get.find<IMController>();
+  final appCtrl = Get.find<AppCtrl>();
+  final imCtrl = Get.find<IMCtrl>();
   final uploadLogsProgress = (0.0).obs;
   final cid = "".obs;
-  final pushLogic = Get.find<PushController>();
+  final pushCtrl = Get.find<PushCtrl>();
   final betaTestLogic = Get.find<BetaTestLogic>();
   final appCommonLogic = Get.find<AppCommonLogic>();
-  final showDev = false.obs;
+  final debugMode = false.obs;
 
   void getPackageInfo() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -36,56 +31,46 @@ class AboutUsLogic extends GetxController {
     buildNumber.value = packageInfo.buildNumber;
   }
 
-  // void checkUpdate() {
-  //   appLogic.checkUpdate();
-  // }
-
   void uploadLogs() async {
-    try{
+    try {
       uploadLogsProgress.value = 0.01;
-      OpenIM.iMManager.uploadLogs().then((value) => IMViews.showToast(StrRes.uploaded));
+      OpenIM.iMManager
+          .uploadLogs()
+          .then((value) => showToast(StrLibrary.uploaded));
 
-      imLogic.onUploadProgress = (current, size) {
+      imCtrl.onUploadProgress = (current, size) {
         uploadLogsProgress.value = current / size;
       };
-    }catch (e, s) {
-      IMViews.showToast(StrRes.uploadFail);
+    } catch (e, s) {
+      showToast(StrLibrary.uploadFail);
       myLogger.e({"message": "uploadLogs, 上传IM日志出错", "error": e, "stack": s});
     }
   }
 
-  void startDev() {
-    // if (betaTestLogic.isDevUser(imLogic.userInfo.value.userID!) ||
-    //     betaTestLogic.isTestUser(imLogic.userInfo.value.userID!)) {
-    //   showDev.value = true;
-    // }
-    showDev.value = true;
+  void showDebug() {
+    debugMode.value = true;
   }
 
   void uploadLogsByDate([String? date]) async {
     try {
       var dateStr = "open-im-sdk-core.${date ?? myLoggerDateStr}";
-      var result = await LoadingView.singleton.wrap(
-        asyncFunction: () => OpenIM.iMManager.uploadFile(
+      var result = await LoadingView.singleton.start(
+        fn: () => OpenIM.iMManager.uploadFile(
           id: const Uuid().v4(),
           filePath: Config.cachePath + dateStr,
-          fileName: (imLogic.userInfo.value.userID ?? "null") +
-              "_im_" +
-              dateStr +
-              "_${appCommonLogic.deviceModel}_" +
-              DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now()) +
-              ".log",
+          fileName:
+              "${imCtrl.userInfo.value.userID ?? "null"}_im_${dateStr}_${appCommonLogic.deviceModel}_${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}.log",
         ),
       );
-      IMViews.showToast(StrRes.uploaded);
+      showToast(StrLibrary.uploaded);
       if (result is String) {
         String url = jsonDecode(result)['url'];
-        IMUtils.copy(text: !url.isEmpty ? url : "log url is not empty");
+        MitiUtils.copy(text: !url.isEmpty ? url : "log url is not empty");
       } else {
-        IMViews.showToast(StrRes.copyFail);
+        showToast(StrLibrary.copyFail);
       }
     } catch (e, s) {
-      IMViews.showToast(StrRes.uploadFail);
+      showToast(StrLibrary.uploadFail);
       myLogger.e({
         "message": "uploadLogsByDate, 上传IM日志(按日期)出错",
         "error": {"date": "${date ?? myLoggerDateStr}", "error": e, "stack": s}
@@ -98,39 +83,41 @@ class AboutUsLogic extends GetxController {
       bool toast = true,
       bool copy = true}) async {
     try {
-      var asyncFunction = () => OpenIM.iMManager.uploadFile(
+      fn() => OpenIM.iMManager.uploadFile(
             id: const Uuid().v4(),
             filePath: logInfo?["path"] ?? myLoggerPath,
-            fileName: (imLogic.userInfo.value.userID ?? "null") +
-                "_app_" +
-                (logInfo?["date"] ?? myLoggerDateStr) +
-                "_${appCommonLogic.deviceModel}_" +
-                DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now()) +
-                ".log",
+            fileName:
+                "${imCtrl.userInfo.value.userID ?? "null"}_app_${logInfo?["date"] ?? myLoggerDateStr}_${appCommonLogic.deviceModel}_${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}.log",
           );
       var result;
       if (null != logInfo) {
-        result = await asyncFunction();
+        result = await fn();
       } else {
-        result = await LoadingView.singleton.wrap(
-          asyncFunction: asyncFunction,
+        result = await LoadingView.singleton.start(
+          fn: fn,
         );
       }
-      if (toast) IMViews.showToast(StrRes.uploaded);
+      if (toast) showToast(StrLibrary.uploaded);
       if (result is String) {
         String url = jsonDecode(result)['url'];
-        if (copy) IMUtils.copy(text: !url.isEmpty ? url : "url is not empty");
+        if (copy)
+          MitiUtils.copy(text: url.isNotEmpty ? url : "url is not empty");
         return url;
       } else {
-        if (toast) IMViews.showToast(StrRes.copyFail);
+        if (toast) showToast(StrLibrary.copyFail);
       }
     } catch (e, s) {
-      if (toast) IMViews.showToast(StrRes.uploadFail);
+      if (toast) showToast(StrLibrary.uploadFail);
       myLogger.e({
         "message": "uploadAppLogs, 上传APP日志(按日期)出错",
-        "error": {"date": "${logInfo?["date"] ?? myLoggerDateStr}", "error": e, "stack": s}
+        "error": {
+          "date": logInfo?["date"] ?? myLoggerDateStr,
+          "error": e,
+          "stack": s
+        }
       });
     }
+    return null;
   }
 
   // 2000-01-01.log, 上传最新的日志不要同时修改日志, md5有可能会校验不正确
@@ -149,27 +136,26 @@ class AboutUsLogic extends GetxController {
     }
     var result = [];
     try {
-      result = await LoadingView.singleton.wrap(
-          asyncFunction: () => Future.wait(logInfoList
+      result = await LoadingView.singleton.start(
+          fn: () => Future.wait(logInfoList
               .map((logInfo) => uploadAppLogsByDate(
                   logInfo: logInfo, toast: false, copy: false))
               .toList()));
     } finally {
-      // IMViews.showToast(StrRes.uploaded);
-      IMUtils.copy(text: result.join(", "));
+      // showToast(StrLibrary .uploaded);
+      MitiUtils.copy(text: result.join(", "));
     }
   }
 
   @override
-  void onReady() async{
+  void onReady() async {
     getPackageInfo();
-    cid.value = await pushLogic.getClientId();
+    cid.value = await pushCtrl.getClientId();
     super.onReady();
   }
 
   @override
   void onClose() {
-    // TODO: implement onClose
     super.onClose();
   }
 }

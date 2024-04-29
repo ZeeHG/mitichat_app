@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:search_keyword_text/search_keyword_text.dart';
 
 import 'search_friend_logic.dart';
@@ -13,7 +14,7 @@ class SearchFriendPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TouchCloseSoftKeyboard(
+    return KeyboardDismissOnTap(
       child: Scaffold(
         appBar: TitleBar.search(
           focusNode: logic.focusNode,
@@ -21,40 +22,40 @@ class SearchFriendPage extends StatelessWidget {
           onSubmitted: (_) => logic.search(),
           onCleared: () => logic.focusNode.requestFocus(),
         ),
-        backgroundColor: Styles.c_F8F9FA,
+        backgroundColor: StylesLibrary.c_F8F9FA,
         body: Obx(() => logic.isSearchNotResult
             ? _emptyListView
             : ListView.builder(
                 itemCount: logic.resultList.length,
-                itemBuilder: (_, index) => _buildItemView(logic.resultList[index]),
+                itemBuilder: (_, index) =>
+                    _buildItemView(logic.resultList[index]),
               )),
       ),
     );
   }
 
-  Widget _buildItemView(ISUserInfo info) => Ink(
-        height: 64.h,
-        color: Styles.c_FFFFFF,
-        child: InkWell(
-          onTap: () => logic.viewFriendInfo(info),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Row(
-              children: [
-                AvatarView(
-                  url: info.faceURL,
-                  text: info.showName,
-                ),
-                10.horizontalSpace,
-                SearchKeywordText(
-                  text: info.showName,
-                  keyText: logic.searchCtrl.text.trim(),
-                  style: Styles.ts_333333_17sp,
-                  keyStyle: Styles.ts_8443F8_17sp,
-                ),
-                // info.getShowName().toText..style = Styles.ts_333333_17sp,
-              ],
-            ),
+  Widget _buildItemView(ISUserInfo info) => GestureDetector(
+        onTap: () => logic.viewFriendInfo(info),
+        behavior: HitTestBehavior.translucent,
+        child: Container(
+          height: 64.h,
+          color: StylesLibrary.c_FFFFFF,
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: Row(
+            children: [
+              AvatarView(
+                url: info.faceURL,
+                text: info.showName,
+              ),
+              10.horizontalSpace,
+              SearchKeywordText(
+                text: info.showName,
+                keyText: logic.searchCtrl.text.trim(),
+                style: StylesLibrary.ts_333333_17sp,
+                keyStyle: StylesLibrary.ts_8443F8_17sp,
+              ),
+              // info.getShowName().toText..style = StylesLibrary.ts_333333_17sp,
+            ],
           ),
         ),
       );
@@ -65,12 +66,13 @@ class SearchFriendPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // 157.verticalSpace,
-            // ImageRes.blacklistEmpty.toImage
+            // ImageLibrary.blacklistEmpty.toImage
             //   ..width = 120.w
             //   ..height = 120.h,
             // 22.verticalSpace,
             44.verticalSpace,
-            StrRes.searchNotFound.toText..style = Styles.ts_999999_17sp,
+            StrLibrary.searchNotFound.toText
+              ..style = StylesLibrary.ts_999999_17sp,
           ],
         ),
       );

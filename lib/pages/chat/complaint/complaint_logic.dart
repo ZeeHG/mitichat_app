@@ -1,30 +1,47 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:miti/routes/app_navigator.dart';
-import 'package:openim_common/openim_common.dart';
+import 'package:miti_common/miti_common.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class ComplaintLogic extends GetxController {
+  // select, input, result
   final status = "select".obs;
   final type = "".obs;
   final content = "".obs;
   final assetsList = <AssetEntity>[].obs;
   final inputCtrl = TextEditingController();
   final focusNode = FocusNode();
-  final userID = "".obs;
-  final maxAssetsCount = 9;
+  final params = <String, dynamic>{}.obs;
+  final maxAssetsCount = 3;
+  final pageTitle = "".obs;
+  final complaintType = ComplaintType.user.obs;
+  final reasonList = <String>[].obs;
 
   int get btnLength => (assetsList.length < maxAssetsCount ? 1 : 0);
 
-  changeType(String value) {
+  changeType(String value, {bool autoJump = true}) {
     type.value = value;
-    status.value = "input";
+    if (autoJump) {
+      status.value = "input";
+    }
   }
 
-  previewSelectedPicture(int index) =>
-      AppNavigator.startPreviewSelectedAssetsPage(
-          assetsLogic: this, currentIndex: index);
+  mulSelect(String value) {
+    if (reasonList.contains(value)) {
+      reasonList.remove(value);
+    } else {
+      reasonList.add(value);
+    }
+  }
+
+  nextStep(String value) {
+    status.value = value;
+  }
+
+  previewSelectedPicture(int index) => AppNavigator.startPreviewMediaPage(
+      mediaLogic: this, currentIndex: index, showDel: true);
 
   bool showAddAssetsBtn(index) =>
       (assetsList.length < maxAssetsCount) &&
@@ -37,7 +54,8 @@ class ComplaintLogic extends GetxController {
   }
 
   selectAssetsFromAlbum() async {
-    Permissions.storage(permissions: [Permission.photos, Permission.videos], () async {
+    Permissions.storage(permissions: [Permission.photos, Permission.videos],
+        () async {
       final List<AssetEntity>? assets = await AssetPicker.pickAssets(
         Get.context!,
         pickerConfig: AssetPickerConfig(
@@ -56,19 +74,33 @@ class ComplaintLogic extends GetxController {
   }
 
   submit() async {
-    await LoadingView.singleton.wrap(asyncFunction: () async {
-      await Apis.complain(
-        userID: userID.value,
-        content: content.value,
-        type: type.value,
-        assets: assetsList.value,
-      );
-    });
+    if (complaintType.value == ComplaintType.xhs) {
+      await LoadingView.singleton.start(fn: () async {
+        await ClientApis.complainXhs(
+          workMomentID: params["workMomentID"] ?? "",
+          content: content.value,
+          reason: reasonList,
+          assets: assetsList,
+        );
+      });
+    } else {
+      await LoadingView.singleton.start(fn: () async {
+        await ClientApis.complain(
+          userID: params["userID"] ?? "",
+          content: content.value,
+          type: type.value,
+          assets: assetsList,
+        );
+      });
+    }
+
     status.value = "result";
+    pageTitle.value = "";
   }
 
   backHome() {
-    AppNavigator.startBackMain();
+    // AppNavigator.startBackMain();
+    Get.back();
   }
 
   @override
@@ -80,7 +112,9 @@ class ComplaintLogic extends GetxController {
 
   @override
   void onInit() {
-    userID.value = Get.arguments["userID"];
+    params.value = Get.arguments["params"];
+    pageTitle.value = params["pageTitle"] ?? StrLibrary.complaint;
+    complaintType.value = params["complaintType"] ?? ComplaintType.user;
     inputCtrl.addListener(() {
       content.value = inputCtrl.text.trim();
     });
