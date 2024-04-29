@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:io';
 import 'package:get/get.dart';
 import 'package:miti/core/ctrl/app_ctrl.dart';
 import 'package:miti/core/ctrl/im_ctrl.dart';
@@ -7,6 +7,7 @@ import 'package:miti/core/ctrl/push_ctrl.dart';
 import 'package:miti/core/im_callback.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
+import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 
 /*
   切换
@@ -25,6 +26,35 @@ class AccountUtil extends GetxController {
   final appCtrl = Get.find<AppCtrl>();
   final statusChangeCount = 0.obs;
   final imTimeout = 30;
+
+  googleOAuth2() async {
+    try {
+      GoogleAuth? googleAuth;
+      final googleClientId = Config.googleClientId;
+      final callbackUrlScheme = Platform.isIOS ? 'https' : Config.packageName;
+      final redirectUri = Platform.isIOS
+          ? 'https'
+          : '${Config.packageName}:/${Config.webAuthPath}';
+      final uri = Uri.https('accounts.google.com', '/o/oauth2/v2/auth', {
+        'response_type': 'code',
+        'client_id': googleClientId,
+        'redirect_uri': redirectUri,
+        'scope': 'email',
+      }).toString();
+      final result = await FlutterWebAuth2.authenticate(
+          url: uri, callbackUrlScheme: callbackUrlScheme);
+      final code = Uri.parse(result).queryParameters['code'];
+      if (null != code) {
+        googleAuth = await ExternalApis.googleOAuth2(
+            clientID: googleClientId, redirectUri: redirectUri, code: code);
+      } else {
+        myLogger.e({"message": "google web授权失败, 缺少code"});
+      }
+      myLogger.e(googleAuth);
+    } catch (e, s) {
+      myLogger.e({"message": "google web授权失败", "error": e, "stack": s});
+    }
+  }
 
   checkServerWithProtocolValid(String serverWithProtocol) {
     return serverWithProtocol.isNotEmpty &&

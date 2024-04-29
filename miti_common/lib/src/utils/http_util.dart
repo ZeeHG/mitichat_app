@@ -58,6 +58,7 @@ class HttpUtil {
   static Future post(
     String path, {
     dynamic data,
+    bool returnOriginResp = false,
     bool showErrorToast = true,
     Map<String, dynamic>? queryParameters,
     Options? options,
@@ -79,16 +80,18 @@ class HttpUtil {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
-      var resp = ApiResponse.fromJson(result.data!);
-      if (resp.errCode == 0) {
-        return resp.data;
-      } else {
-        if (showErrorToast) {
-          showToast(resp.errDlt);
-          // showToast(ApiError.getMsg(resp.errCode));
+      if (!returnOriginResp) {
+        var resp = ApiResponse.fromJson(result.data!);
+        if (resp.errCode == 0) {
+          return resp.data;
+        } else {
+          if (showErrorToast) {
+            showToast(resp.errDlt);
+          }
+          return Future.error(resp.errMsg);
         }
-
-        return Future.error(resp.errMsg);
+      } else {
+        return result.data;
       }
     } catch (error) {
       if (error is DioException) {

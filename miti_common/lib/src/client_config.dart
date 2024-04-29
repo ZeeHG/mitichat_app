@@ -176,8 +176,15 @@ class Config {
   /// 图片存储
   static String get objectStorage {
     var server = DataSp.getServerConfig();
-    return null != server && null !=server['objectStorage'] ? server['objectStorage'] : 'minio';
+    return null != server && null != server['objectStorage']
+        ? server['objectStorage']
+        : 'minio';
   }
+
+  static String googleClientId =
+      "46211409784-t1u24355vsibhbo3ce9g62v9t7rf54gc.apps.googleusercontent.com";
+  static String packageName = "miti.chat";
+  static String webAuthPath = "web-auth";
 
   // 用户id, 隐藏开关
   static const testUserIds = [
