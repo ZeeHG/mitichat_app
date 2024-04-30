@@ -1145,4 +1145,7 @@ const Map<String, String> zh_CN = {
   "selectFriends": "选择联系人",
   "oneByOneForwardHint": "[逐条转发]共%s条消息",
   "oneByOneForward": "逐条转发",
+  "googleOAuth2Login": "谷歌网页登录",
+  "firebaseGoogleLogin": "谷歌登录",
+  "facebookLogin": "facebook登录",
 };

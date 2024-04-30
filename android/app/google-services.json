@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "431976415575",
+    "project_id": "miti-2e347",
+    "storage_bucket": "miti-2e347.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431976415575:android:00cc41930e51a636e63e12",
+        "android_client_info": {
+          "package_name": "miti.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "431976415575-45i7ffficml1ckt8e5761su7bo6l0u5n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "miti.chat",
+            "certificate_hash": "85ffbddd3cb4b1b4195df06d666c13e442cac4f3"
+          }
+        },
+        {
+          "client_id": "431976415575-1prfs4geq085l005q8kp28bebf3ga51m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuplML7U8PxiqUg_xMrPG_Rdnvw9NAXHY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "431976415575-1prfs4geq085l005q8kp28bebf3ga51m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "431976415575-9ubb0tk0ftgc7e8qp16neholl9mpjt49.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "chat.miti.ios.NotificationService"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

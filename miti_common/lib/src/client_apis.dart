@@ -83,6 +83,24 @@ class ClientApis {
     }
   }
 
+  /// register
+  static Future<LoginCertificate> registerOAuth(
+      {required String idToken}) async {
+    try {
+      var data = await HttpUtil.post(ClientUrls.registerOAuth, data: {
+        'deviceID': DataSp.getDeviceID(),
+        'platform': MitiUtils.getPlatform(),
+        'clientId': Config.googleClientId,
+        'registerType': 3,
+        'idToken': idToken
+      });
+      return LoginCertificate.fromJson(data!);
+    } catch (e, s) {
+      myLogger.e({"error": e, "stack": s});
+      return Future.error(e);
+    }
+  }
+
   /// reset password
   static Future<dynamic> resetPassword({
     String? areaCode,

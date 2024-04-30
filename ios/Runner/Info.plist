@@ -98,5 +98,30 @@ Please tap "OK" to grant access. Without permission, you won't be able to send o
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
+	<key>GIDClientID</key>
+	<string>431976415575-9ubb0tk0ftgc7e8qp16neholl9mpjt49.apps.googleusercontent.com</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.431976415575-9ubb0tk0ftgc7e8qp16neholl9mpjt49</string>
+				<string>fb422970893820284</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>422970893820284</string>
+	<key>FacebookClientToken</key>
+	<string>d3864468b90196f2571daa4f1cb132ed</string>
+	<key>FacebookDisplayName</key>
+	<string>miti</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
 </dict>
 </plist>

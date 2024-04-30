@@ -2,11 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dart_date/dart_date.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart' as imSdk;
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
+import 'package:google_api_availability/google_api_availability.dart';
+import 'package:miti/firebase_options.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:sound_mode/sound_mode.dart';
 import 'package:sound_mode/utils/ringer_mode_statuses.dart';
@@ -16,8 +19,12 @@ import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 // import '../../utils/upgrade_manager.dart';
 import 'im_ctrl.dart';
 
+mixin AppControllerGetx on GetxController {
+  final supportFirebase = false.obs;
+}
+
 // 下载0, 后台1, 消息message.seq
-class AppCtrl extends SuperController {
+class AppCtrl extends SuperController with AppControllerGetx {
   bool onBackground = false;
   // bool isAppBadgeSupported = false;
   int notificationSeq = 3000;
@@ -58,6 +65,29 @@ class AppCtrl extends SuperController {
   }
 
   IMCtrl? getIMCtrl() => Get.isRegistered<IMCtrl>() ? Get.find<IMCtrl>() : null;
+
+
+  AppCtrl() {
+    initFirebase();
+  }
+
+  Future<void> initFirebase() async {
+    GooglePlayServicesAvailability? availability;
+    if (Platform.isAndroid) {
+      availability = await GoogleApiAvailability.instance
+          .checkGooglePlayServicesAvailability();
+    }
+    if (Platform.isIOS || availability?.value == 0) {
+      try {
+        await Firebase.initializeApp(
+            options: DefaultFirebaseOptions.currentPlatform);
+        supportFirebase.value = true;
+        myLogger.i({"message": "Firebase初始化成功"});
+      } catch (e, s) {
+        myLogger.e({"message": "google服务不可用", "error": e, "stack": s});
+      }
+    }
+  }
 
   @override
   void onInit() async {

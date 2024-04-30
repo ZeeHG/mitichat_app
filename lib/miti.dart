@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:miti/core/ctrl/app_ctrl.dart';
 import 'package:miti/utils/account_util.dart';
 import 'package:miti/utils/ai_util.dart';
 import 'package:miti/utils/conversation_util.dart';
@@ -74,6 +75,7 @@ class Miti extends StatelessWidget {
 class AppBinding extends Bindings {
   @override
   void dependencies() {
+    Get.put(AppCtrl());
     Get.put<IMCtrl>(IMCtrl());
     Get.put<PushCtrl>(PushCtrl());
     Get.put<HiveCtrl>(HiveCtrl());

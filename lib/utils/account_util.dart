@@ -8,6 +8,9 @@ import 'package:miti/core/im_callback.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 /*
   切换
@@ -26,6 +29,7 @@ class AccountUtil extends GetxController {
   final appCtrl = Get.find<AppCtrl>();
   final statusChangeCount = 0.obs;
   final imTimeout = 30;
+  final appControllerLogic = Get.find<AppCtrl>();
 
   googleOAuth2() async {
     try {
@@ -50,9 +54,112 @@ class AccountUtil extends GetxController {
       } else {
         myLogger.e({"message": "google web授权失败, 缺少code"});
       }
+      MitiUtils.copy(text: googleAuth!.idToken!);
       myLogger.e(googleAuth);
+      await loginOAuth(
+          idToken:
+              googleAuth!.idToken!);
+      AppNavigator.startMain();
     } catch (e, s) {
       myLogger.e({"message": "google web授权失败", "error": e, "stack": s});
+    }
+  }
+
+  // final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  // final GoogleSignIn googleSignIn = GoogleSignIn();
+  var extraLoginInfo;
+
+  User? get firebaseCurUser => FirebaseAuth.instance.currentUser;
+
+  Future<void> signInWithGoogle(
+      {bool signOut = true, loginFirebase = false}) async {
+    myLogger.e(appControllerLogic.supportFirebase.value);
+    await loginOAuth(idToken: "eyJhbGciOiJSUzI1NiIsImtpZCI6ImFjM2UzZTU1ODExMWM3YzdhNzVjNWI2NTEzNGQyMmY2M2VlMDA2ZDAiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI0MzE5NzY0MTU1NzUtNDVpN2ZmZmljbWwxY2t0OGU1NzYxc3U3Ym82bDB1NW4uYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI0MzE5NzY0MTU1NzUtMXByZnM0Z2VxMDg1bDAwNXE4a3AyOGJlYmYzZ2E1MW0uYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDA2MjQ2MjAzNjk5NzY3MDYzNDMiLCJlbWFpbCI6ImNsYW5uYWQxMTQyNzE0MDM0QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiY2xhbm5hZCBjbGFubmFkIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0wyZDROUE9LWTMwTC1jUTZtekVhaGNYLWJrcUIxVzNYOWdWVkFLbU5UdW1FZ1RDYnM9czk2LWMiLCJnaXZlbl9uYW1lIjoiY2xhbm5hZCIsImZhbWlseV9uYW1lIjoiY2xhbm5hZCIsImlhdCI6MTcxNDkwNjc2MywiZXhwIjoxNzE0OTEwMzYzfQ.i3sZOr3iAIiJD2raHnqrd_aDL1wp3QIkwsWR8XyGNhQyhgFqZ8yPeIrtL6Xh4JpcgVZrF5lfgFFBickRxeTg02YGsXJId-vZi1C3PaEC2y-Nx673DOKJf5oGn4e57EsjM7pYe7ehSYglpI15Ip8ZFfGA0DcgCNp3bH4VIxiUHWXXlrcSLAaXBy9P9-hVQF2fshhK3Pxn4gEg5GIJ0Ym7RVc3ebecohEjjkiDFi29l-tN_suOlx1FC0E6hzzgUulDFp7_ZS418SeN11DsqD8LRY9JlKzl1CB1jexOzniJAPEcF3me-6SdlBPJ94GKdOpGKi0a-4cHFtmAE7sui7fshA");
+    AppNavigator.startMain();
+    return;
+    if (!appControllerLogic.supportFirebase.value) return;
+    try {
+      final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      // 每次重置账户
+      if (signOut) {
+        await googleSignIn.signOut();
+      }
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      if (googleUser != null) {
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+        if (!loginFirebase) {
+          extraLoginInfo = {
+            "googleUser": googleUser,
+          };
+          MitiUtils.copy(text: googleAuth.idToken!);
+          if (null != googleAuth.idToken) {
+            myLogger.i({"message": "google授权成功", "data": googleAuth});
+            await loginOAuth(idToken: googleAuth.idToken!);
+          }
+          return;
+        }
+        final AuthCredential googleToFirebaseCredential =
+            GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        final UserCredential firebaseCredential =
+            await firebaseAuth.signInWithCredential(googleToFirebaseCredential);
+        extraLoginInfo = {
+          "googleUser": googleUser,
+          "firebaseCredential": firebaseCredential,
+          "firebaseCurUser": firebaseAuth.currentUser
+        };
+        myLogger.i({"message": "firebase登录成功", "data": extraLoginInfo});
+      } else {
+        myLogger.e({
+          "message": "google授权失败",
+          "data": {"loginFirebase": loginFirebase}
+        });
+      }
+    } catch (e, s) {
+      showToast(e.toString());
+      myLogger.e({
+        "message": "google授权或者firebase登录失败",
+        "data": {"loginFirebase": loginFirebase},
+        "error": e,
+        "stack": s
+      });
+    }
+  }
+
+  Future<void> signInWithFacebook({bool signOut = true}) async {
+    if (!appControllerLogic.supportFirebase.value) return;
+    try {
+      if (signOut) {
+        await FacebookAuth.instance.logOut();
+      }
+      final LoginResult result = await FacebookAuth.instance.login();
+      if (result.status == LoginStatus.success) {
+        Map<String, dynamic> facebookUser =
+            await FacebookAuth.instance.getUserData();
+        final OAuthCredential facebookToFirebaseCredential =
+            FacebookAuthProvider.credential(result.accessToken!.token);
+        myLogger.e(facebookUser);
+        myLogger.e(result.accessToken!.token);
+        myLogger.e(facebookToFirebaseCredential);
+        final UserCredential firebaseCredential = await FirebaseAuth.instance
+            .signInWithCredential(facebookToFirebaseCredential);
+        extraLoginInfo = {
+          "facebookUser": facebookUser,
+          "firebaseCredential": firebaseCredential,
+          "firebaseCurUser": FirebaseAuth.instance.currentUser
+        };
+        myLogger.i({"message": "firebase登录成功", "data": extraLoginInfo});
+      } else {
+        myLogger.e({"message": "facebook授权失败", "data": result});
+      }
+    } catch (e, s) {
+      showToast(e.toString());
+      myLogger
+          .e({"message": "facebook授权或者firebase登录失败", "error": e, "stack": s});
     }
   }
 
@@ -158,6 +265,81 @@ class AccountUtil extends GetxController {
       });
       rethrow;
     }
+  }
+
+  Future<void> loginOAuth({required String idToken}) async {
+    late LoginCertificate data;
+    final curServerKey = DataSp.getCurServerKey();
+    try {
+      data = await ClientApis.registerOAuth(
+        idToken: idToken,
+      );
+    } catch (e, s) {
+      myLogger.e({
+        "message": "chat登录失败",
+        "error": {"curServerKey": curServerKey, "error": e},
+        "stack": s
+      });
+      rethrow;
+    }
+    await DataSp.putLoginCertificate(data);
+    try {
+      await imCtrl.login(data.userID, data.imToken);
+      // 超时没有结果或者不是success
+      final completer = Completer();
+      StreamSubscription? sub;
+      sub = imCtrl.imSdkStatusSubject.listen((value) {
+        // [IMSdkStatus.connectionSucceeded, IMSdkStatus.syncEnded].contains(value)
+        if (![
+          IMSdkStatus.connecting,
+          IMSdkStatus.connectionFailed,
+          IMSdkStatus.syncFailed
+        ].contains(value)) {
+          if (!completer.isCompleted) {
+            completer.complete(true);
+          }
+          sub?.cancel();
+        }
+      });
+      Future.delayed(Duration(seconds: imTimeout)).then((_) {
+        if (!completer.isCompleted) {
+          completer.complete(false);
+        }
+        sub?.cancel();
+      });
+      final imOK = await completer.future;
+      if (!imOK) {
+        myLogger
+            .e({"message": "登录im超时, ${imCtrl.imSdkStatusSubject.valueOrNull}"});
+        throw Exception("登录im超时");
+      }
+    } catch (e, s) {
+      showToast(StrLibrary.fail);
+      myLogger.e({
+        "message": "im登录失败",
+        "error": {"curServerKey": curServerKey, "error": e},
+        "stack": s
+      });
+      rethrow;
+    }
+    Get.find<HiveCtrl>().resetCache();
+    // todo
+    await setAccountLoginInfo(
+        serverWithProtocol: curServerKey,
+        userID: data.userID,
+        imToken: data.imToken,
+        chatToken: data.chatToken,
+        email: "",
+        phoneNumber: "",
+        areaCode: "",
+        password: "",
+        faceURL: imCtrl.userInfo.value.faceURL,
+        nickname: imCtrl.userInfo.value.nickname);
+    final translateLogic = Get.find<TranslateLogic>();
+    final ttsLogic = Get.find<TtsLogic>();
+    translateLogic.init(data.userID);
+    ttsLogic.init(data.userID);
+    pushCtrl.login(data.userID);
   }
 
   // 切换服务器后调用

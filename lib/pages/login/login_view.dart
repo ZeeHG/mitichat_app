@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:miti/core/ctrl/app_ctrl.dart';
 import 'package:miti/routes/app_navigator.dart';
+import 'package:miti/utils/account_util.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:sprintf/sprintf.dart';
 
@@ -12,6 +14,8 @@ import 'login_logic.dart';
 
 class LoginPage extends StatelessWidget {
   final logic = Get.find<LoginLogic>();
+  final accountUtil = Get.find<AccountUtil>();
+  final appCtrl = Get.find<AppCtrl>();
 
   LoginPage({super.key});
 
@@ -24,7 +28,7 @@ class LoginPage extends StatelessWidget {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  90.verticalSpace,
+                  70.verticalSpace,
                   ImageLibrary.logo2.toImage
                     ..width = 89.w
                     ..height = 81.h,
@@ -131,12 +135,29 @@ class LoginPage extends StatelessWidget {
                                     )),
                               ],
                             ),
-                            30.verticalSpace,
+                            15.verticalSpace,
                             Button(
                               text: StrLibrary.login,
                               enabled: logic.enabled.value,
                               onTap: () => logic.login(context),
                             ),
+                            15.verticalSpace,
+                            Button(
+                              text: StrLibrary.googleOAuth2Login,
+                
+                              onTap: () => accountUtil.googleOAuth2(),
+                            ),
+                            15.verticalSpace,
+                            Button(
+                              text: StrLibrary.firebaseGoogleLogin,
+   
+                              onTap: () => accountUtil.signInWithGoogle(),
+                            ),
+                            15.verticalSpace,
+                            Button(
+                              text: StrLibrary.facebookLogin,
+                              onTap: () => accountUtil.signInWithFacebook(),
+                            )
                           ],
                         )),
                   ),
