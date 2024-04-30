@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:miti/utils/account_util.dart';
 import 'package:miti/utils/ai_util.dart';
 import 'package:miti/utils/conversation_util.dart';
+import 'package:miti/utils/message_util.dart';
 import 'package:miti_common/miti_common.dart';
 import 'core/ctrl/im_ctrl.dart';
 import 'core/ctrl/push_ctrl.dart';
@@ -83,6 +84,7 @@ class AppBinding extends Bindings {
     Get.put(ConversationUtil());
     Get.put(TranslateLogic());
     Get.put(TtsLogic());
+    Get.put(MessageUtil());
 
     final conversationUtil = Get.find<ConversationUtil>();
     conversationUtil.resetAllWaitingST();

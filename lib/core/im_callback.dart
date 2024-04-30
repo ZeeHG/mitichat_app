@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
+import 'package:miti/utils/message_util.dart';
 import 'package:miti_common/miti_common.dart';
 // import 'package:openim_meeting/openim_meeting.dart';
 import 'package:rxdart/rxdart.dart';
@@ -154,11 +155,19 @@ class IMCallback {
 
   void recvNewMessage(Message msg) {
     appCtrl.showNotification(msg);
+    if (Get.isRegistered<MessageUtil>()) {
+      final messageUtil = Get.find<MessageUtil>();
+      messageUtil.cacheVoiceMessageList([msg]);
+    } 
     onRecvNewMessage?.call(msg);
   }
 
   void recvOfflineMessage(Message msg) {
     appCtrl.showNotification(msg);
+    if (Get.isRegistered<MessageUtil>()) {
+      final messageUtil = Get.find<MessageUtil>();
+      messageUtil.cacheVoiceMessageList([msg]);
+    } 
     onRecvOfflineMessage?.call(msg);
   }
 
