@@ -29,47 +29,57 @@ class ConversationPage extends StatelessWidget {
           children: [
             Scaffold(
                 appBar: TitleBar.conversation(
-                  popCtrl: logic.popCtrl,
-                  onScan: logic.scan,
-                  onAddFriend: logic.addFriend,
-                  onAddGroup: logic.addGroup,
-                  onCreateGroup: logic.createGroup,
-                  onClickSearch: logic.globalSearch,
-                  onSwitchTab: logic.switchTab,
-                  tabIndex: logic.tabIndex,
-                  mq: mq,
-                  unhandledCount: homeLogic.unhandledFriendAndGroupCount,
-                  left: PopButton(
-                    popCtrl: logic.serverPopCtrl,
-                    cusMenus: List.generate(
-                      logic.loginInfoList.length,
-                      (i) => CusPopMenuInfo(
-                          child: _buildCusPopMenuInfo(
-                              info: logic.loginInfoList[i],
-                              showBorder: i != logic.loginInfoList.length - 1),
-                          onTap: () =>
-                              logic.switchAccount(logic.loginInfoList[i])),
-                    ),
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        AvatarView(
-                          width: 40.w,
-                          height: 40.h,
-                          text: im.userInfo.value.nickname,
-                          url: im.userInfo.value.faceURL,
-                          // onTap: () => switchHomeTab(2)
-                        ),
-                        Positioned(
-                            bottom: 0,
-                            right: -4.w,
-                            child: ImageLibrary.appSwitch.toImage
-                              ..width = 18.w
-                              ..height = 18.h)
-                      ],
-                    ),
-                  ),
-                ),
+                    popCtrl: logic.popCtrl,
+                    onScan: logic.scan,
+                    onAddFriend: logic.addFriend,
+                    onAddGroup: logic.addGroup,
+                    onCreateGroup: logic.createGroup,
+                    onClickSearch: logic.globalSearch,
+                    onSwitchTab: logic.switchTab,
+                    tabIndex: logic.tabIndex,
+                    mq: mq,
+                    unhandledCount: homeLogic.unhandledFriendAndGroupCount,
+                    // left: PopButton(
+                    //   popCtrl: logic.serverPopCtrl,
+                    //   cusMenus: List.generate(
+                    //     logic.loginInfoList.length,
+                    //     (i) => CusPopMenuInfo(
+                    //         child: _buildCusPopMenuInfo(
+                    //             info: logic.loginInfoList[i],
+                    //             showBorder: i != logic.loginInfoList.length - 1),
+                    //         onTap: () =>
+                    //             logic.switchAccount(logic.loginInfoList[i])),
+                    //   ),
+                    //   child: Stack(
+                    //     clipBehavior: Clip.none,
+                    //     children: [
+                    //       AvatarView(
+                    //         width: 40.w,
+                    //         height: 40.h,
+                    //         text: im.userInfo.value.nickname,
+                    //         url: im.userInfo.value.faceURL,
+                    //         // onTap: () => switchHomeTab(2)
+                    //       ),
+                    //       Positioned(
+                    //           bottom: 0,
+                    //           right: -4.w,
+                    //           child: ImageLibrary.appSwitch.toImage
+                    //             ..width = 18.w
+                    //             ..height = 18.h)
+                    //     ],
+                    //   ),
+                    // ),
+                    left: GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: logic.myQrcode,
+                      child: AvatarView(
+                        width: 40.w,
+                        height: 40.h,
+                        text: im.userInfo.value.nickname,
+                        url: im.userInfo.value.faceURL,
+                        // onTap: () => switchHomeTab(2)
+                      ),
+                    )),
                 backgroundColor: StylesLibrary.c_FFFFFF,
                 body: ConstrainedBox(
                     constraints: BoxConstraints(minHeight: 1.sh - 56.h),
@@ -222,36 +232,38 @@ class ConversationPage extends StatelessWidget {
                         5.verticalSpace,
                         Row(
                           children: [
-                            Expanded(child: MatchTextView(
-                              text: logic.getContent(info),
-                              textStyle: StylesLibrary.ts_999999_14sp,
-                              allAtMap: logic.getAtUserMap(info),
-                              prefixSpan: TextSpan(
-                                text: '',
-                                children: [
-                                  if (logic.isNotDisturb(info) &&
-                                      logic.getUnreadCount(info) > 0)
+                            Expanded(
+                              child: MatchTextView(
+                                text: logic.getContent(info),
+                                textStyle: StylesLibrary.ts_999999_14sp,
+                                allAtMap: logic.getAtUserMap(info),
+                                prefixSpan: TextSpan(
+                                  text: '',
+                                  children: [
+                                    if (logic.isNotDisturb(info) &&
+                                        logic.getUnreadCount(info) > 0)
+                                      TextSpan(
+                                        text: '[${sprintf(StrLibrary.nPieces, [
+                                              logic.getUnreadCount(info)
+                                            ])}] ',
+                                        style: StylesLibrary.ts_999999_14sp,
+                                      ),
                                     TextSpan(
-                                      text: '[${sprintf(StrLibrary.nPieces, [
-                                            logic.getUnreadCount(info)
-                                          ])}] ',
-                                      style: StylesLibrary.ts_999999_14sp,
+                                      text: logic.getPrefixTag(info),
+                                      style: StylesLibrary.ts_8443F8_14sp,
                                     ),
-                                  TextSpan(
-                                    text: logic.getPrefixTag(info),
-                                    style: StylesLibrary.ts_8443F8_14sp,
+                                  ],
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                patterns: <MatchPattern>[
+                                  MatchPattern(
+                                    type: PatternType.at,
+                                    style: StylesLibrary.ts_999999_14sp,
                                   ),
                                 ],
                               ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              patterns: <MatchPattern>[
-                                MatchPattern(
-                                  type: PatternType.at,
-                                  style: StylesLibrary.ts_999999_14sp,
-                                ),
-                              ],
-                            ),),
+                            ),
                             10.horizontalSpace,
                             if (logic.isNotDisturb(info))
                               ImageLibrary.notDisturb.toImage
