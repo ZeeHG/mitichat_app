@@ -50,6 +50,10 @@ class ConversationLogic extends GetxController {
     tabIndex.value = index;
   }
 
+  myQrcode() {
+    AppNavigator.startMyQrcode();
+  }
+
   List<AccountLoginInfo> get loginInfoList {
     final map = DataSp.getAccountLoginInfoMap();
     if (null == map) {
@@ -334,7 +338,7 @@ class ConversationLogic extends GetxController {
       } else {
         refreshController.loadComplete();
       }
-      if(refresh) refreshController.refreshCompleted();
+      if (refresh) refreshController.refreshCompleted();
     }
   }
 
