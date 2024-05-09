@@ -127,19 +127,20 @@
         <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
     </queries>
 
-    <meta-data
-           android:name="com.facebook.sdk.ApplicationId"
-           android:value="@string/facebook_app_id" />
-    <meta-data 
-        android:name="com.facebook.sdk.ClientToken" 
-        android:value="@string/facebook_client_token"/>
-
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="miti.chat"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
+
+        <meta-data
+           android:name="com.facebook.sdk.ApplicationId"
+           android:value="@string/facebook_app_id" />
+        <meta-data 
+            android:name="com.facebook.sdk.ClientToken" 
+            android:value="@string/facebook_client_token"/>
+
         <activity
             android:name="miti.chat.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -209,6 +210,23 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
+
+        <!-- Set up the Sign in with Apple activity, such that it's callable from the browser-redirect -->
+        <activity
+            android:name="com.aboutyou.dart_packages.sign_in_with_apple.SignInWithAppleCallback"
+            android:exported="true"
+        >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="signinwithapple" />
+                <data android:path="callback" />
+            </intent-filter>
+        </activity>
+
 
         <!-- If you want your foreground service to be stopped if
              your app is stopped, set android:stopWithTask to true.

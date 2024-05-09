@@ -28,12 +28,12 @@ class LoginPage extends StatelessWidget {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  70.verticalSpace,
+                  50.verticalSpace,
                   ImageLibrary.logo2.toImage
                     ..width = 89.w
                     ..height = 81.h,
                   // ..onDoubleTap = logic.configService,
-                  45.verticalSpace,
+                  20.verticalSpace,
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 36.w),
                     child: Obx(() => Column(
@@ -52,7 +52,7 @@ class LoginPage extends StatelessWidget {
                                       ? TextInputType.phone
                                       : TextInputType.text,
                             ),
-                            16.verticalSpace,
+                            15.verticalSpace,
                             Offstage(
                               offstage: !logic.isPasswordLogin.value,
                               child: InputBox.password(
@@ -71,7 +71,7 @@ class LoginPage extends StatelessWidget {
                                     logic.getVerificationCode,
                               ),
                             ),
-                            16.verticalSpace,
+                            15.verticalSpace,
                             InputBox(
                               readOnly: true,
                               controller: logic.onlyReadServerCtrl,
@@ -145,7 +145,7 @@ class LoginPage extends StatelessWidget {
                             Button(
                               text: StrLibrary.googleOAuth2Login,
                 
-                              onTap: () => accountUtil.googleOAuth2(),
+                              onTap: () => accountUtil.googleOauth(),
                             ),
                             15.verticalSpace,
                             Button(
@@ -157,6 +157,11 @@ class LoginPage extends StatelessWidget {
                             Button(
                               text: StrLibrary.facebookLogin,
                               onTap: () => accountUtil.signInWithFacebook(),
+                            ),
+                            15.verticalSpace,
+                            Button(
+                              text: StrLibrary.facebookLogin,
+                              onTap: () => accountUtil.signInWithApple(),
                             )
                           ],
                         )),

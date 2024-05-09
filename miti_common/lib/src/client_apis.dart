@@ -8,6 +8,27 @@ import 'package:miti_common/miti_common.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
+enum RegisterType {
+  google,
+  apple,
+  facebook,
+}
+
+extension RegisterTypeExtension on RegisterType {
+  int toNumber() {
+    switch (this) {
+      case RegisterType.google:
+        return 3;
+      case RegisterType.apple:
+        return 4;
+      case RegisterType.facebook:
+        return 5;
+      default:
+        return 3;
+    }
+  }
+}
+
 class ClientApis {
   static Options get imTokenOptions =>
       Options(headers: {'token': DataSp.imToken});
@@ -84,15 +105,25 @@ class ClientApis {
   }
 
   /// register
-  static Future<LoginCertificate> registerOAuth(
-      {required String idToken}) async {
+  static Future<LoginCertificate> registerOrLoginByOauth(
+      {required RegisterType registerType,
+      String? idToken,
+      String? accessToken,
+  }) async {
     try {
-      var data = await HttpUtil.post(ClientUrls.registerOAuth, data: {
+      var data = await HttpUtil.post(ClientUrls.oauth, data: {
         'deviceID': DataSp.getDeviceID(),
         'platform': MitiUtils.getPlatform(),
-        'clientId': Config.googleClientId,
-        'registerType': 3,
-        'idToken': idToken
+        'clientId': registerType == RegisterType.google
+            ? Config.googleClientId
+            : registerType == RegisterType.apple
+                ? Config.appleClientId
+                : registerType == RegisterType.facebook
+                    ? Config.facebookClientId
+                    : "",
+        'registerType': registerType.toNumber(),
+        'idToken': idToken,
+        'accessToken': accessToken
       });
       return LoginCertificate.fromJson(data!);
     } catch (e, s) {

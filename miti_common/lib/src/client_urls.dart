@@ -13,14 +13,14 @@ class ClientUrls {
   static String get searchUserFullInfo =>
       "${Config.appAuthUrl}/user/search/full";
   static String get updateEmail => "${Config.appAuthUrl}/account/update_email";
-  static String get updatePhone => "${Config.appAuthUrl}}/account/oauth";
+  static String get updatePhone => "${Config.appAuthUrl}/account/update_phone";
 
   static String get getVerificationCode =>
       "${Config.appAuthUrl}/account/code/send";
   static String get checkVerificationCode =>
       "${Config.appAuthUrl}/account/code/verify";
   static String get register => "${Config.appAuthUrl}/account/register";
-  static String get registerOAuth => "${Config.appAuthUrl}/account/oauth";
+  static String get oauth => "${Config.appAuthUrl}/account/oauth";
 
   static String get resetPwd => "${Config.appAuthUrl}/account/password/reset";
   static String get changePwd => "${Config.appAuthUrl}/account/password/change";

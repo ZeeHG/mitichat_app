@@ -63,10 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '431976415575',
     projectId: 'miti-2e347',
     storageBucket: 'miti-2e347.appspot.com',
-    androidClientId:
-        '431976415575-45i7ffficml1ckt8e5761su7bo6l0u5n.apps.googleusercontent.com',
-    iosClientId:
-        '431976415575-9ubb0tk0ftgc7e8qp16neholl9mpjt49.apps.googleusercontent.com',
+    androidClientId: '431976415575-45i7ffficml1ckt8e5761su7bo6l0u5n.apps.googleusercontent.com',
+    iosClientId: '431976415575-9ubb0tk0ftgc7e8qp16neholl9mpjt49.apps.googleusercontent.com',
     iosBundleId: 'chat.miti.ios.NotificationService',
   );
 }

@@ -1,13 +1,13 @@
 import 'package:miti_common/miti_common.dart';
 
 class ExternalApis {
-  static Future<dynamic> googleOAuth2({
+  static Future<dynamic> getGoogleOAuth({
     required String clientID,
     required String redirectUri,
     String grantType = 'authorization_code',
     required String code,
   }) async {
-    final data = await HttpUtil.post(ExternalUrls.googleOAuth2,
+    final data = await HttpUtil.post(ExternalUrls.googleAuth,
         returnOriginResp: true,
         data: {
           'client_id': clientID,

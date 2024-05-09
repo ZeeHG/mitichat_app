@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
@@ -181,8 +182,15 @@ class Config {
         : 'minio';
   }
 
-  static String googleClientId =
+  static String androidGoogleClientId =
       "46211409784-t1u24355vsibhbo3ce9g62v9t7rf54gc.apps.googleusercontent.com";
+  static String iosGoogleClientId =
+      "46211409784-t1u24355vsibhbo3ce9g62v9t7rf54gc.apps.googleusercontent.com";
+  static String googleClientId =
+      Platform.isIOS ? iosGoogleClientId : androidGoogleClientId;
+  static String facebookClientId = "422970893820284";
+  static String appleClientId =  Platform.isIOS ? "chat.miti.ios" : "chat.miti.service";
+  static String appleRedirectUri = "https://best-global-hare.glitch.me/callbacks/sign_in_with_apple";
   static String packageName = "miti.chat";
   static String webAuthPath = "web-auth";
 
