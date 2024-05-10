@@ -185,7 +185,7 @@ class Config {
   static String androidGoogleClientId =
       "46211409784-t1u24355vsibhbo3ce9g62v9t7rf54gc.apps.googleusercontent.com";
   static String iosGoogleClientId =
-      "46211409784-t1u24355vsibhbo3ce9g62v9t7rf54gc.apps.googleusercontent.com";
+      "940547054713-9oaa6sd4sr5mq31gb44ssskkr3fcjej0.apps.googleusercontent.com";
   static String googleClientId =
       Platform.isIOS ? iosGoogleClientId : androidGoogleClientId;
   static String facebookClientId = "422970893820284";
