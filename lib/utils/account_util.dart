@@ -31,12 +31,9 @@ class AccountUtil extends GetxController {
   final statusChangeCount = 0.obs;
   final imTimeout = 30;
   final appControllerLogic = Get.find<AppCtrl>();
-
-  // final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   // final GoogleSignIn googleSignIn = GoogleSignIn();
   var extraLoginInfo;
 
-  // User? get firebaseCurUser => FirebaseAuth.instance.currentUser;
 
   googleOauth() async {
     try {
@@ -44,7 +41,7 @@ class AccountUtil extends GetxController {
       final googleClientId = Config.googleClientId;
       final callbackUrlScheme = Platform.isIOS ? 'https' : Config.packageName;
       final redirectUri = Platform.isIOS
-          ? 'https://my-custom-app.com/connect'
+          ? Config.googleIOSRedirectUri
           : '${Config.packageName}:/${Config.webAuthPath}';
       final uri = Uri.https('accounts.google.com', '/o/oauth2/v2/auth', {
         'response_type': 'code',
@@ -75,11 +72,11 @@ class AccountUtil extends GetxController {
   }
 
   Future<void> signInWithGoogle(
-      {bool signOut = true, loginFirebase = false}) async {
-    if (!appControllerLogic.supportFirebase.value) return;
+      {bool signOut = true}) async {
+    // if (!appControllerLogic.supportFirebase.value) return;
     try {
       final GoogleSignIn googleSignIn =
-          GoogleSignIn(clientId: Config.googleClientId, scopes: [
+          GoogleSignIn(clientId: Config.webGoogleClientId, scopes: [
         'https://www.googleapis.com/auth/userinfo.email',
         'https://www.googleapis.com/auth/userinfo.profile'
       ]);
@@ -91,46 +88,28 @@ class AccountUtil extends GetxController {
       if (googleUser != null) {
         final GoogleSignInAuthentication googleAuth =
             await googleUser.authentication;
-        if (!loginFirebase) {
-          extraLoginInfo = {
-            "googleUser": googleUser,
-          };
-          if (null != googleAuth.idToken) {
-            myLogger.i({"message": "google授权成功", "data": googleAuth});
-            await loginOAuth(
-                registerType: RegisterType.google,
-                idToken: googleAuth.idToken!);
-            AppNavigator.startMain();
-          }
-        } else {
-          // final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-          // final AuthCredential googleAuthFirebaseCredential =
-          //     GoogleAuthProvider.credential(
-          //   accessToken: googleAuth.accessToken,
-          //   idToken: googleAuth.idToken,
-          // );
-          // final UserCredential firebaseCredential = await firebaseAuth
-          //     .signInWithCredential(googleAuthFirebaseCredential);
-          // extraLoginInfo = {
-          //   "googleUser": googleUser,
-          //   "googleAuth": googleAuth,
-          //   "firebaseCredential": firebaseCredential,
-          //   "firebaseCurUser": firebaseAuth.currentUser
-          // };
-          // myLogger.i({"message": "firebase登录成功", "data": extraLoginInfo});
-          // // todo 把firebase token传给后端
+        extraLoginInfo = {
+          "googleUser": googleUser,
+        };
+        if (null != googleAuth.idToken) {
+          myLogger.i({"message": "google授权成功", "data": googleAuth});
+          await loginOAuth(
+              registerType: RegisterType.google, idToken: googleAuth.idToken!);
+          AppNavigator.startMain();
+        }else{
+          myLogger.e({
+            "message": "google授权失败, 缺少idToken",
+          });
         }
       } else {
         myLogger.e({
           "message": "google授权失败",
-          "data": {"loginFirebase": loginFirebase}
         });
       }
     } catch (e, s) {
       showToast(e.toString());
       myLogger.e({
-        "message": "google授权或者firebase登录失败",
-        "data": {"loginFirebase": loginFirebase},
+        "message": "google授权失败",
         "error": e,
         "stack": s
       });
@@ -138,9 +117,6 @@ class AccountUtil extends GetxController {
   }
 
   Future<void> signInWithApple() async {
-    // final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    // final applerProvider = AppleAuthProvider();
-    // final auth = await firebaseAuth.signInWithProvider(applerProvider);
     final credential = await SignInWithApple.getAppleIDCredential(
       scopes: [
         AppleIDAuthorizationScopes.email,
@@ -160,8 +136,7 @@ class AccountUtil extends GetxController {
   }
 
   Future<void> signInWithFacebook(
-      {bool signOut = true, loginFirebase = false}) async {
-    if (!appControllerLogic.supportFirebase.value && loginFirebase) return;
+      {bool signOut = true}) async {
     try {
       if (signOut) {
         await FacebookAuth.instance.logOut();
@@ -174,40 +149,25 @@ class AccountUtil extends GetxController {
       if (result.status == LoginStatus.success) {
         Map<String, dynamic> facebookUser =
             await FacebookAuth.instance.getUserData();
-        // Map<String, dynamic> facebookUser = {};
         final accessToken = result.accessToken?.token;
         if (null == accessToken) {
           myLogger.e({"message": "facebook授权缺少accessToken", "data": result});
           return;
         }
-        if (!loginFirebase) {
-          extraLoginInfo = {
-            "facebookUser": facebookUser,
-          };
-          myLogger.i({"message": "facebook授权成功", "data": facebookUser});
-          await loginOAuth(
-              registerType: RegisterType.facebook, accessToken: accessToken);
-          AppNavigator.startMain();
-        } else {
-          // // todo
-          // final OAuthCredential facebookAuthFirebaseCredential =
-          //     FacebookAuthProvider.credential(accessToken);
-          // final UserCredential firebaseCredential = await FirebaseAuth.instance
-          //     .signInWithCredential(facebookAuthFirebaseCredential);
-          // extraLoginInfo = {
-          //   "facebookUser": facebookUser,
-          //   "firebaseCredential": firebaseCredential,
-          //   "firebaseCurUser": FirebaseAuth.instance.currentUser
-          // };
-          // myLogger.i({"message": "firebase登录成功", "data": extraLoginInfo});
-        }
+        extraLoginInfo = {
+          "facebookUser": facebookUser,
+        };
+        myLogger.i({"message": "facebook授权成功", "data": facebookUser});
+        await loginOAuth(
+            registerType: RegisterType.facebook, accessToken: accessToken);
+        AppNavigator.startMain();
       } else {
         myLogger.e({"message": "facebook授权失败", "data": result});
       }
     } catch (e, s) {
       showToast(e.toString());
       myLogger
-          .e({"message": "facebook授权或者firebase登录失败", "error": e, "stack": s});
+          .e({"message": "facebook授权失败", "error": e, "stack": s});
     }
   }
 

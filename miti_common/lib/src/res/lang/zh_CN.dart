@@ -1146,7 +1146,7 @@ const Map<String, String> zh_CN = {
   "oneByOneForwardHint": "[逐条转发]共%s条消息",
   "oneByOneForward": "逐条转发",
   "googleOAuth2Login": "谷歌网页登录",
-  "firebaseGoogleLogin": "谷歌登录",
+  "googleLogin": "谷歌登录",
   "facebookLogin": "facebook登录",
   "appleLogin": "apple登录",
 };

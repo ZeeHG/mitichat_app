@@ -187,11 +187,17 @@ class Config {
       "46211409784-t1u24355vsibhbo3ce9g62v9t7rf54gc.apps.googleusercontent.com";
   static String iosGoogleClientId =
       "940547054713-9oaa6sd4sr5mq31gb44ssskkr3fcjej0.apps.googleusercontent.com";
+  static String webGoogleClientId =
+      "46211409784-nphb3bu5emnhb7vdonck5scf59d40bsq.apps.googleusercontent.com";
   static String googleClientId =
       Platform.isIOS ? iosGoogleClientId : androidGoogleClientId;
+  static String googleIOSRedirectUri = 'https://my-custom-app.com/connect';
+
   static String facebookClientId = "422970893820284";
-  static String appleClientId =  Platform.isIOS ? "chat.miti.ios" : "chat.miti.service";
-  static String appleRedirectUri = "https://best-global-hare.glitch.me/callbacks/sign_in_with_apple";
+  static String appleClientId =
+      Platform.isIOS ? "chat.miti.ios" : "chat.miti.service";
+  static String appleRedirectUri =
+      "https://best-global-hare.glitch.me/callbacks/sign_in_with_apple";
   static String packageName = "miti.chat";
   static String webAuthPath = "web-auth";
 

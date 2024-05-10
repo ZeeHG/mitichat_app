@@ -95,6 +95,8 @@ class AppCtrl extends SuperController with AppControllerGetx {
     if (Platform.isIOS || availability?.value == 0) {
       supportFirebase.value = true;
     }
+    myLogger
+        .i({"message": supportFirebase.value ? "设备支持google" : "设备不支持google"});
   }
 
   @override

@@ -1664,7 +1664,7 @@ class StrLibrary {
   static String get oneByOneForward => 'oneByOneForward'.tr;
   static String get oneByOneForwardHint => 'oneByOneForwardHint'.tr;
   static String get googleOAuth2Login => 'googleOAuth2Login'.tr;
-  static String get firebaseGoogleLogin => 'firebaseGoogleLogin'.tr;
+  static String get googleLogin => 'googleLogin'.tr;
   static String get facebookLogin => 'facebookLogin'.tr;
   static String get appleLogin => 'appleLogin'.tr;
 }
