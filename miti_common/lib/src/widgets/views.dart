@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:common_utils/common_utils.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
@@ -429,5 +430,76 @@ class IMViews {
     if (confirm) {
       onConfirm?.call(picker.selecteds, picker.getSelectedValues());
     }
+  }
+
+  static void openChangeMitiIDSheet({
+    required String mitiID,
+    required RxBool agree,
+    required Function() onSubmit,
+    required Function() onTapRule,
+    required Function(bool? newValue) onChangeAgree,
+  }) {
+    Get.bottomSheet(
+      barrierColor: StylesLibrary.c_191919_opacity50,
+      backgroundColor: StylesLibrary.c_FFFFFF,
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
+        width: 1.sw,
+        child: Obx(() => Column(
+              children: [
+                StrLibrary.newMitiID.toText
+                  ..style = StylesLibrary.ts_333333_16sp
+                  ..textAlign = TextAlign.center,
+                10.verticalSpace,
+                mitiID.toText
+                  ..style = StylesLibrary.ts_333333_18sp_medium
+                  ..textAlign = TextAlign.center,
+                10.verticalSpace,
+                StrLibrary.newMitiIDRule.toText
+                  ..style = StylesLibrary.ts_333333_16sp
+                  ..textAlign = TextAlign.center,
+                Spacer(),
+                Row(
+                  children: [
+                    Checkbox(
+                      value: agree.value,
+                      onChanged: onChangeAgree,
+                    ),
+                    Expanded(child: RichText(
+                          // textAlign: TextAlign.center,
+                          text: TextSpan(children: [
+                            TextSpan(
+                                text: StrLibrary.agreeChangeMitiID1,
+                                style: StylesLibrary.ts_333333_16sp),
+                            TextSpan(
+                                text: StrLibrary.openAngleBracket,
+                                style: StylesLibrary.ts_333333_16sp),
+                            TextSpan(
+                                text: StrLibrary.agreeChangeMitiID2,
+                                style: StylesLibrary.ts_333333_16sp),
+                            TextSpan(
+                              text: StrLibrary.agreeChangeMitiID3,
+                              style: StylesLibrary.ts_8443F8_16sp,
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = onTapRule,
+                            ),
+                            TextSpan(
+                                text: StrLibrary.closeAngleBracket,
+                                style: StylesLibrary.ts_333333_16sp),
+                          ])),
+                    )
+                  ],
+                ),
+                10.verticalSpace,
+                Button(
+                  width: 150.w,
+                  text: StrLibrary.submit,
+                  onTap: onSubmit,
+                  enabled: agree.value,
+                )
+              ],
+            )),
+      ),
+    );
   }
 }

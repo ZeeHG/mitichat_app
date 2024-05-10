@@ -18,8 +18,14 @@ class MineLogic extends GetxController {
 
   void viewMyInfo() => AppNavigator.startMyInfo();
 
+  void viewInviteFriends() => AppNavigator.startInviteFriends();
+
+  void viewAccountActive() => AppNavigator.startActiveAccount();
+
   void copyID() {
-    MitiUtils.copy(text: imCtrl.userInfo.value.userID!);
+    if (null != imCtrl.userInfo.value.mitiID) {
+      MitiUtils.copy(text: imCtrl.userInfo.value.mitiID!);
+    }
   }
 
   void accountSetting() => AppNavigator.startAccountSetting();

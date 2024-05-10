@@ -109,5 +109,14 @@ Please tap "OK" to grant access. Without permission, you won't be able to send o
 		<string>fbapi</string>
 		<string>fb-messenger-share-api</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>miti</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

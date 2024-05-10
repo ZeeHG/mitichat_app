@@ -24,26 +24,39 @@ class MyProfilePage extends StatelessWidget {
             child: Column(
               children: [
                 12.verticalSpace,
-                buildItemGroup(
+                SettingItemGroup(
                   children: [
-                    buildItem(
+                    SettingItem(
                         label: StrLibrary.avatar,
-                        isAvatar: true,
                         value: imCtrl.userInfo.value.nickname,
-                        url: imCtrl.userInfo.value.faceURL,
+                        valueAvatarUrl: imCtrl.userInfo.value.faceURL,
+                        valueAvatarText: imCtrl.userInfo.value.showName,
                         onTap: logic.openPhotoSheet,
                         showBorder: false),
                   ],
                 ),
                 12.verticalSpace,
-                buildItemGroup(
+                SettingItemGroup(
                   children: [
-                    buildItem(
+                    SettingItem(
+                        label: StrLibrary.mitiID,
+                        value: imCtrl.userInfo.value.mitiID,
+                        showRightArrow: true,
+                        onTap: logic.mitiIDChangeEntry,
+                        onTapValue: () =>
+                            MitiUtils.copy(text: imCtrl.userInfo.value.mitiID!),
+                        showBorder: false),
+                  ],
+                ),
+                12.verticalSpace,
+                SettingItemGroup(
+                  children: [
+                    SettingItem(
                         label: StrLibrary.mobile,
                         value: imCtrl.userInfo.value.phoneNumber,
                         showRightArrow: false,
                         showBorder: false),
-                    buildItem(
+                    SettingItem(
                       label: StrLibrary.email,
                       value: imCtrl.userInfo.value.email,
                       showRightArrow: false,
@@ -51,21 +64,21 @@ class MyProfilePage extends StatelessWidget {
                   ],
                 ),
                 12.verticalSpace,
-                buildItemGroup(
+                SettingItemGroup(
                   children: [
-                    buildItem(
+                    SettingItem(
                         label: StrLibrary.name,
                         value: imCtrl.userInfo.value.nickname,
                         onTap: logic.editMyName,
                         showBorder: false),
-                    buildItem(
+                    SettingItem(
                       label: StrLibrary.gender,
                       value: imCtrl.userInfo.value.isMale
                           ? StrLibrary.man
                           : StrLibrary.woman,
                       onTap: logic.selectGender,
                     ),
-                    buildItem(
+                    SettingItem(
                       label: StrLibrary.birthDay,
                       value: DateUtil.formatDateMs(
                         imCtrl.userInfo.value.birth ?? 0,
@@ -80,61 +93,4 @@ class MyProfilePage extends StatelessWidget {
           )),
     );
   }
-
-  Widget buildItemGroup({required List<Widget> children}) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 12.w),
-        color: StylesLibrary.c_FFFFFF,
-        child: Column(children: children),
-      );
-
-  Widget buildItem({
-    required String label,
-    String? value,
-    String? url,
-    bool isAvatar = false,
-    bool showRightArrow = true,
-    bool showBorder = true,
-    Function()? onTap,
-  }) =>
-      GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: showRightArrow ? onTap : null,
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                color: StylesLibrary.c_F1F2F6,
-                width: showBorder ? 1.h : 0,
-              ),
-            ),
-          ),
-          height: 50.h,
-          child: Row(
-            children: [
-              label.toText..style = StylesLibrary.ts_333333_14sp,
-              const Spacer(),
-              if (isAvatar)
-                AvatarView(
-                  width: 38.w,
-                  height: 38.h,
-                  url: url,
-                  text: value,
-                  isCircle: true,
-                )
-              else
-                Expanded(
-                    flex: 3,
-                    child: (MitiUtils.emptyStrToNull(value) ?? '').toText
-                      ..style = StylesLibrary.ts_999999_14sp
-                      ..maxLines = 1
-                      ..overflow = TextOverflow.ellipsis
-                      ..textAlign = TextAlign.right),
-              if (showRightArrow)
-                ImageLibrary.appRightArrow.toImage
-                  ..width = 20.w
-                  ..height = 20.h,
-            ],
-          ),
-        ),
-      );
 }

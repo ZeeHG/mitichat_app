@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:miti/core/ctrl/app_ctrl.dart';
 import 'package:miti_common/miti_common.dart';
 
 import '../../core/ctrl/im_ctrl.dart';
@@ -13,6 +14,7 @@ class AppSplashLogic extends GetxController {
   final pushCtrl = Get.find<PushCtrl>();
   final translateLogic = Get.find<TranslateLogic>();
   final ttsLogic = Get.find<TtsLogic>();
+  final appCtrl = Get.find<AppCtrl>();
 
   String? get userID => DataSp.userID;
 
@@ -21,9 +23,15 @@ class AppSplashLogic extends GetxController {
   late StreamSubscription initializedSub;
 
   @override
-  void onInit() {
+  void onInit() async {
     initializedSub = imCtrl.initializedSubject.listen((value) async {
       myLogger.i({"message": "imSdk初始化完成", "data": value});
+      try {
+        final data = await ClientApis.querySupportRegistTypes();
+        appCtrl.supportLoginTypes.value = List<int>.from(data["types"]);
+      } catch (e) {
+        myLogger.e(e);
+      }
       await Future.delayed(const Duration(seconds: 2));
       if (null != userID && null != token) {
         await tryAutoLogin();

@@ -28,8 +28,24 @@ import 'package:miti/pages/mine/account_and_security/account_and_security_bindin
 import 'package:miti/pages/mine/account_and_security/account_and_security_view.dart';
 import 'package:miti/pages/mine/account_manage/account_manage_binding.dart';
 import 'package:miti/pages/mine/account_manage/account_manage_view.dart';
+import 'package:miti/pages/mine/active_account/active_account_binding.dart';
+import 'package:miti/pages/mine/active_account/active_account_view.dart';
 import 'package:miti/pages/mine/delete_user/delete_user_binding.dart';
 import 'package:miti/pages/mine/delete_user/delete_user_view.dart';
+import 'package:miti/pages/mine/invite/invite_friends/invite_friends_binding.dart';
+import 'package:miti/pages/mine/invite/invite_friends/invite_friends_view.dart';
+import 'package:miti/pages/mine/invite/invite_friends_detail/invite_friends_detail_binding.dart';
+import 'package:miti/pages/mine/invite/invite_friends_detail/invite_friends_detail_view.dart';
+import 'package:miti/pages/mine/invite/invite_friends_history/invite_friends_history_binding.dart';
+import 'package:miti/pages/mine/invite/invite_friends_history/invite_friends_history_view.dart';
+import 'package:miti/pages/mine/invite/inviting_friends/inviting_friends_binding.dart';
+import 'package:miti/pages/mine/invite/inviting_friends/inviting_friends_view.dart';
+import 'package:miti/pages/mine/miti_id_change/change_entry/miti_id_change_entry_binding.dart';
+import 'package:miti/pages/mine/miti_id_change/change_entry/miti_id_change_entry_view.dart';
+import 'package:miti/pages/mine/miti_id_change/change_rule/miti_id_change_rule_binding.dart';
+import 'package:miti/pages/mine/miti_id_change/change_rule/miti_id_change_rule_view.dart';
+import 'package:miti/pages/mine/miti_id_change/miti_id_change_binding.dart';
+import 'package:miti/pages/mine/miti_id_change/miti_id_change_view.dart';
 import 'package:miti/pages/mine/my_points/invite/invite_binding.dart';
 import 'package:miti/pages/mine/my_points/invite/invites_view.dart';
 import 'package:miti/pages/mine/my_points/invite_records/invite_records_binding.dart';
@@ -685,6 +701,46 @@ class AppPages {
       name: AppRoutes.xhsMomentDetail,
       page: () => XhsMomentDetailPage(),
       binding: XhsMomentDetailBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.mitiIDChange,
+      page: () => MitiIDChangePage(),
+      binding: MitiIDChangeBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.mitiIDChangeEntry,
+      page: () => MitiIDChangeEntryPage(),
+      binding: MitiIDChangeEntryBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.mitiIDChangeRule,
+      page: () => MitiIDChangeRulePage(),
+      binding: MitiIDChangeRuleBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.activeAccount,
+      page: () => ActiveAccountPage(),
+      binding: ActiveAccountBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.inviteFriends,
+      page: () => InviteFriendsPage(),
+      binding: InviteFriendsBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.inviteFriendsDetail,
+      page: () => InviteFriendsDetailPage(),
+      binding: InviteFriendsDetailBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.inviteFriendsHistory,
+      page: () => InviteFriendsHistoryPage(),
+      binding: InviteFriendsHistoryBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.invitingFriends,
+      page: () => InvitingFriendsPage(),
+      binding: InvitingFriendsBinding(),
     ),
     // ...OPages.pages, // 组织架构
     ...CirclePages.pages, // 工作圈

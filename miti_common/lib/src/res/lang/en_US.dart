@@ -1221,4 +1221,48 @@ const Map<String, String> en_US = {
   "selectFriends": "Select Friends",
   "oneByOneForwardHint": "[One-by-One Forward] item(%s)",
   "oneByOneForward": "One-by-One Forward",
+  "googleOAuth2Login": "Google Web Login",
+  "googleLogin": "Google Login",
+  "facebookLogin": "Facebook Login",
+  "appleLogin": "Apple Login",
+  "mitiID": "mitiID",
+  "changeMitiIDTips":
+      "mitiID is the unique identifier for users in miti, and it can only be changed once a year",
+  "changeMitiID": "Change mitiID",
+  "enterMitiID": "Enter new mitiID",
+  "mitiIDRules":
+      "Length limit is 6-20 characters, must start with a letter or underscore, and can use numbers, letters, underscores, hyphens, or their combination.",
+  "enterRightMitiID": "Please enter your new mitiID according to the rules",
+  "newMitiID": "New mitiID",
+  "newMitiIDRule": "mitiID can only be changed once a year",
+  "agreeChangeMitiID1": "I have read and agree to the",
+  "agreeChangeMitiID2": "mitiID change",
+  "agreeChangeMitiID3": "Important Notice",
+  "openAngleBracket": "<",
+  "closeAngleBracket": ">",
+  "changeMitiRule1": "Important Notice on Changing mitiID",
+  "changeMitiRule2":
+      "1. After changing the mitiID, other users on the platform will not be able to search for or add you via the old mitiID;",
+  "changeMitiRule3":
+      "2. mitiID can only be changed once a year, once changed, it cannot be reverted to the old mitiID, please confirm carefully;",
+  "changeMitiRule4":
+      "3. After changing the mitiID, the related data bound within the platform will not change due to the mitiID change, similarly, third-party services that use miti authorization for login and usage will also not be affected by the change;",
+  "changeMitiRule5":
+      "4. The modification of mitiID still needs to comply with the 'miti Service Agreement' and other relevant agreements and norms, your modified mitiID cannot be the same as other people's current or past mitiID.",
+  "changeMitiRule6": "miti Team",
+  "changeMitiRule7": "2024.05.08",
+  "myInviteRecords": "My Invitation Records",
+  "inviteNow": "Invite Now",
+  "empty": "No Data",
+  "invited": "Invited",
+  "waitingAgree": "Waiting for Approval",
+  "activeAccount": "Activate Account",
+  "changeInviter": "Change Inviter",
+  "activeAccountTips":
+      "Thank you for your patience, your friend %s has activated miti for you!",
+  "activeAccountTips2":
+      "Thank you for your patience, your friend has activated miti for you!",
+  "goHome": "Get Start",
+  "plsEnterRightInvitationCode": "Please enter the correct invitation code",
+
 };

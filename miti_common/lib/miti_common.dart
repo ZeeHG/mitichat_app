@@ -137,3 +137,4 @@ export 'src/widgets/chat/chat_text_with_prompt.dart';
 export 'src/external_apis.dart';
 export 'src/external_urls.dart';
 export 'src/models/google_auth.dart';
+export 'src/widgets/setting_item.dart';

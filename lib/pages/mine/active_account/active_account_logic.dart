@@ -1,0 +1,52 @@
+import 'dart:async';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:miti/core/ctrl/im_ctrl.dart';
+import 'package:miti_common/miti_common.dart';
+
+class ActiveAccountLogic extends GetxController {
+  final TextEditingController inputCtrl = TextEditingController(text: "");
+  // input, submitSuccess, waitingAgree, activeSuccess
+  final status = "".obs;
+  final imCtrl = Get.find<IMCtrl>();
+
+  get userID => imCtrl.userInfo.value.userID;
+
+  @override
+  void onInit() {
+    loadingData();
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    inputCtrl.dispose();
+    super.onClose();
+  }
+
+  loadingData() {
+    LoadingView.singleton.start(fn: () async {
+      await imCtrl.queryMyFullInfo();
+      final res = await ClientApis.querySelfApplyActive(userID: userID);
+      final total = res?["total"] ?? 0;
+      status.value = imCtrl.userInfo.value.isAlreadyActive == true
+          ? "activeSuccess"
+          : total > 0
+              ? "waitingAgree"
+              : "input";
+    });
+  }
+
+  confirm() {
+    if (inputCtrl.text.trim().isEmpty) {
+      showToast(StrLibrary.plsEnterRightInvitationCode);
+      return;
+    }
+    LoadingView.singleton.start(fn: () async {
+      await ClientApis.applyActive(
+          userID: userID, inviteMitiID: inputCtrl.text);
+      status.value = "submitSuccess";
+      showToast(StrLibrary.submitSuccess);
+    });
+  }
+}

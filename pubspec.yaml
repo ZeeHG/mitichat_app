@@ -132,6 +132,7 @@ dependencies:
   google_sign_in: ^6.2.1
   google_api_availability: ^5.0.0
   sign_in_with_apple: ^5.0.0
+  app_links: ^6.0.1
 
   #  flutter_openim_unimp:
   #    git:

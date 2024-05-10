@@ -9,6 +9,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart' as imSdk;
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:google_api_availability/google_api_availability.dart';
+import 'package:miti/pages/login/login_logic.dart';
 // import 'package:miti/firebase_options.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:sound_mode/sound_mode.dart';
@@ -19,8 +20,18 @@ import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 // import '../../utils/upgrade_manager.dart';
 import 'im_ctrl.dart';
 
+// enum LoginType {
+//     Email,
+//     Phone,
+//     Google,
+//     Apple,
+//     Facebook,
+//     LocalJwt,
+// }
+
 mixin AppControllerGetx on GetxController {
   final supportFirebase = false.obs;
+  final supportLoginTypes = [1,2].obs;
 }
 
 // 下载0, 后台1, 消息message.seq

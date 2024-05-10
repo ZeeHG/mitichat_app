@@ -45,6 +45,16 @@ class MinePage extends StatelessWidget {
                       label: StrLibrary.myInfo,
                       onTap: logic.viewMyInfo,
                     ),
+                    _buildItem(
+                      icon: ImageLibrary.invite,
+                      label: StrLibrary.inviteFriends,
+                      onTap: logic.viewInviteFriends,
+                    ),
+                    _buildItem(
+                      icon: ImageLibrary.appMyInfo,
+                      label: StrLibrary.activeAccount,
+                      onTap: logic.viewAccountActive,
+                    ),
                     // _buildItem(
                     //   icon: ImageLibrary.appMyPoints,
                     //   label: StrLibrary .myPoints,
@@ -95,18 +105,21 @@ class MinePage extends StatelessWidget {
                 children: [
                   (logic.imCtrl.userInfo.value.nickname ?? '').toText
                     ..style = StylesLibrary.ts_4B3230_18sp,
-                  11.verticalSpace,
-                  GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onTap: logic.copyID,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        (logic.imCtrl.userInfo.value.userID ?? '').toText
-                          ..style = StylesLibrary.ts_B3AAAA_14sp
-                      ],
+                  if(null != logic.imCtrl.userInfo.value.mitiID && logic.imCtrl.userInfo.value.mitiID!.isNotEmpty)
+                  ...[
+                    11.verticalSpace,
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: logic.copyID,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          (logic.imCtrl.userInfo.value.mitiID ?? '').toText
+                            ..style = StylesLibrary.ts_B3AAAA_14sp
+                        ],
+                      ),
                     ),
-                  ),
+                  ]
                 ],
               ),
               Expanded(

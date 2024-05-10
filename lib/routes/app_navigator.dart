@@ -545,4 +545,23 @@ class AppNavigator {
   static startXhsMomentDetail({required WorkMoments xhsMoment}) =>
       Get.toNamed(AppRoutes.xhsMomentDetail,
           arguments: {"xhsMoment": xhsMoment});
+
+  static startMitiIDChange() =>
+      Get.toNamed(AppRoutes.mitiIDChange);
+  
+  static startMitiIDChangeEntry() =>
+      Get.toNamed(AppRoutes.mitiIDChangeEntry);
+
+  static startMitiIDChangeRule() =>
+      Get.toNamed(AppRoutes.mitiIDChangeRule);
+
+  static startActiveAccount() => Get.toNamed(AppRoutes.activeAccount);
+
+  static startInviteFriends() => Get.toNamed(AppRoutes.inviteFriends);
+
+  static startInviteFriendsDetail() => Get.toNamed(AppRoutes.inviteFriendsDetail);
+
+  static startInviteFriendsHistory() => Get.toNamed(AppRoutes.inviteFriendsHistory);
+
+  static startInvitingFriends() => Get.toNamed(AppRoutes.invitingFriends);
 }

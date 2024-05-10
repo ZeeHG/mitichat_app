@@ -209,6 +209,8 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
         val?.email = data.email;
         val?.birth = data.birth;
         val?.gender = data.gender;
+        val?.mitiID = data.mitiID;
+        val?.isAlreadyActive = data.isAlreadyActive;
       });
     }
   }

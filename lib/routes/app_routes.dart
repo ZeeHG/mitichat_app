@@ -99,6 +99,14 @@ abstract class AppRoutes {
   static const trainAi = '/train_ai';
   static const knowledgeFiles = '/knowledge_files';
   static const xhsMomentDetail = '/xhs_moment_detail';
+  static const mitiIDChange = '/miti_id_change';
+  static const mitiIDChangeEntry = '/miti_id_change_entry';
+  static const mitiIDChangeRule = '/miti_id_change_rule';
+  static const activeAccount = '/active_account';
+  static const inviteFriends = '/invite_friends';
+  static const inviteFriendsDetail = '/invite_friends_detail';
+  static const inviteFriendsHistory = '/invite_friends_history';
+  static const invitingFriends = '/inviting_friends';
 }
 
 extension RoutesExtension on String {

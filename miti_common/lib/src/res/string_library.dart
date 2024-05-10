@@ -1667,4 +1667,36 @@ class StrLibrary {
   static String get googleLogin => 'googleLogin'.tr;
   static String get facebookLogin => 'facebookLogin'.tr;
   static String get appleLogin => 'appleLogin'.tr;
+  static String get mitiID => 'mitiID'.tr;
+  static String get changeMitiIDTips => 'changeMitiIDTips'.tr;
+  static String get changeMitiID => 'changeMitiID'.tr;
+  static String get enterMitiID => 'enterMitiID'.tr;
+  static String get mitiIDRules => 'mitiIDRules'.tr;
+  static String get enterRightMitiID => 'enterRightMitiID'.tr;
+  static String get newMitiID => 'enterRightMitiID'.tr;
+  static String get newMitiIDRule => 'newMitiIDRule'.tr;
+  static String get agreeChangeMitiID1 => 'agreeChangeMitiID1'.tr;
+  static String get agreeChangeMitiID2 => 'agreeChangeMitiID2'.tr;
+  static String get agreeChangeMitiID3 => 'agreeChangeMitiID3'.tr;
+  static String get openAngleBracket => 'openAngleBracket'.tr;
+  static String get closeAngleBracket => 'closeAngleBracket'.tr;
+  static String get changeMitiRule1 => 'changeMitiRule1'.tr;
+  static String get changeMitiRule2 => 'changeMitiRule2'.tr;
+  static String get changeMitiRule3 => 'changeMitiRule3'.tr;
+  static String get changeMitiRule4 => 'changeMitiRule4'.tr;
+  static String get changeMitiRule5 => 'changeMitiRule5'.tr;
+  static String get changeMitiRule6 => 'changeMitiRule6'.tr;
+  static String get changeMitiRule7 => 'changeMitiRule7'.tr;
+  static String get myInviteRecords => 'myInviteRecords'.tr;
+  static String get inviteNow => 'inviteNow'.tr;
+  static String get empty => 'empty'.tr;
+  static String get invited => 'invited'.tr;
+  static String get waitingAgree => 'waitingAgree'.tr;
+  static String get activeAccount => 'activeAccount'.tr;
+  static String get changeInviter => 'changeInviter'.tr;
+  static String get activeAccountTips => 'activeAccountTips'.tr;
+  static String get goHome => 'goHome'.tr;
+  static String get plsEnterRightInvitationCode => 'plsEnterRightInvitationCode'.tr;
+  static String get activeAccountTips2 =>
+      'activeAccountTips2'.tr;
 }

@@ -105,10 +105,10 @@ class ClientApis {
   }
 
   /// register
-  static Future<LoginCertificate> registerOrLoginByOauth(
-      {required RegisterType registerType,
-      String? idToken,
-      String? accessToken,
+  static Future<LoginCertificate> registerOrLoginByOauth({
+    required RegisterType registerType,
+    String? idToken,
+    String? accessToken,
   }) async {
     try {
       var data = await HttpUtil.post(ClientUrls.oauth, data: {
@@ -263,6 +263,7 @@ class ClientApis {
         },
         options: chatTokenOptions,
         cancelToken: cancelToken);
+    myLogger.i(data['users']);
     if (data['users'] is List) {
       return (data['users'] as List)
           .map((e) => UserFullInfo.fromJson(e))
@@ -973,6 +974,98 @@ class ClientApis {
       },
       ClientUrls.addActionRecord,
       options: chatTokenOptions,
+    );
+  }
+
+  static Future updateMitiID({
+    required String mitiID,
+    required String userID,
+  }) async {
+    return HttpUtil.post(
+      ClientUrls.updateMitiID,
+      data: {"mitiID": mitiID, "userID": userID},
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future queryUpdateMitiIDRecords({
+    required String userID,
+  }) async {
+    return HttpUtil.post(
+      ClientUrls.queryUpdateMitiIDRecords,
+      data: {"userID": userID},
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future applyActive(
+      {required String userID, required String inviteMitiID}) async {
+    return HttpUtil.post(
+      ClientUrls.applyActive,
+      data: {"userID": userID, "inviteMitiID": inviteMitiID},
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future responseApplyActive(
+      {required String invtedUserID,
+      required String userID,
+      required int result}) async {
+    return HttpUtil.post(
+      ClientUrls.responseApplyActive,
+      data: {"userID": userID, "invtedUserID": invtedUserID, "result": result},
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future directActive({
+    required String userID,
+    required String invteUserID,
+  }) async {
+    return HttpUtil.post(
+      ClientUrls.directActive,
+      data: {"userID": userID, "invteUserID": invteUserID},
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future queryApplyActiveList(
+      {required String userID, pageNumber = 1, showNumber = 999}) async {
+    return HttpUtil.post(
+      ClientUrls.queryApplyActiveList,
+      data: {
+        "userID": userID,
+        'pagination': {'pageNumber': pageNumber, 'showNumber': showNumber}
+      },
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future querySelfApplyActive({
+    required String userID,
+  }) async {
+    return HttpUtil.post(
+      ClientUrls.querySelfApplyActive,
+      data: {"userID": userID},
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future queryInvitedUsers(
+      {required String userID, pageNumber = 1, showNumber = 999}) async {
+    return HttpUtil.post(
+      ClientUrls.queryInvitedUsers,
+      data: {
+        "userID": userID,
+        'pagination': {'pageNumber': pageNumber, 'showNumber': showNumber},
+      },
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future querySupportRegistTypes() async {
+    return HttpUtil.post(
+      ClientUrls.querySupportRegistTypes,
     );
   }
 }

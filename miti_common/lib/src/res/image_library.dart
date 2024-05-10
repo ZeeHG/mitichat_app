@@ -293,4 +293,7 @@ class ImageLibrary {
   static const addFriendTobeGroup2 = "$_dir/ic_add_friend_tobe_group2.png";
   static const callVoice2 = "$_dir/ic_call_voice2.png";
   static const callVideo2 = "$_dir/ic_call_video2.png";
+  static const miti = "$_dir/miti.jpg";
+  static const invite = "$_dir/invite.png";
+  static const inviteBg = "$_dir/invite_bg.png";
 }
