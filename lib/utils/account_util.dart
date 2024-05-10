@@ -9,7 +9,7 @@ import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -36,7 +36,7 @@ class AccountUtil extends GetxController {
   // final GoogleSignIn googleSignIn = GoogleSignIn();
   var extraLoginInfo;
 
-  User? get firebaseCurUser => FirebaseAuth.instance.currentUser;
+  // User? get firebaseCurUser => FirebaseAuth.instance.currentUser;
 
   googleOauth() async {
     try {
@@ -44,7 +44,7 @@ class AccountUtil extends GetxController {
       final googleClientId = Config.googleClientId;
       final callbackUrlScheme = Platform.isIOS ? 'https' : Config.packageName;
       final redirectUri = Platform.isIOS
-          ? 'https'
+          ? 'https://my-custom-app.com/connect'
           : '${Config.packageName}:/${Config.webAuthPath}';
       final uri = Uri.https('accounts.google.com', '/o/oauth2/v2/auth', {
         'response_type': 'code',
@@ -78,13 +78,11 @@ class AccountUtil extends GetxController {
       {bool signOut = true, loginFirebase = false}) async {
     if (!appControllerLogic.supportFirebase.value) return;
     try {
-      final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-      final GoogleSignIn googleSignIn = GoogleSignIn(
-        clientId: Config.googleClientId,
-        //   scopes: [
-        //   'https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'
-        // ]
-      );
+      final GoogleSignIn googleSignIn =
+          GoogleSignIn(clientId: Config.googleClientId, scopes: [
+        'https://www.googleapis.com/auth/userinfo.email',
+        'https://www.googleapis.com/auth/userinfo.profile'
+      ]);
       // 每次重置账户
       if (signOut) {
         await googleSignIn.signOut();
@@ -105,21 +103,22 @@ class AccountUtil extends GetxController {
             AppNavigator.startMain();
           }
         } else {
-          final AuthCredential googleAuthFirebaseCredential =
-              GoogleAuthProvider.credential(
-            accessToken: googleAuth.accessToken,
-            idToken: googleAuth.idToken,
-          );
-          final UserCredential firebaseCredential = await firebaseAuth
-              .signInWithCredential(googleAuthFirebaseCredential);
-          extraLoginInfo = {
-            "googleUser": googleUser,
-            "googleAuth": googleAuth,
-            "firebaseCredential": firebaseCredential,
-            "firebaseCurUser": firebaseAuth.currentUser
-          };
-          myLogger.i({"message": "firebase登录成功", "data": extraLoginInfo});
-          // todo 把firebase token传给后端
+          // final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+          // final AuthCredential googleAuthFirebaseCredential =
+          //     GoogleAuthProvider.credential(
+          //   accessToken: googleAuth.accessToken,
+          //   idToken: googleAuth.idToken,
+          // );
+          // final UserCredential firebaseCredential = await firebaseAuth
+          //     .signInWithCredential(googleAuthFirebaseCredential);
+          // extraLoginInfo = {
+          //   "googleUser": googleUser,
+          //   "googleAuth": googleAuth,
+          //   "firebaseCredential": firebaseCredential,
+          //   "firebaseCurUser": firebaseAuth.currentUser
+          // };
+          // myLogger.i({"message": "firebase登录成功", "data": extraLoginInfo});
+          // // todo 把firebase token传给后端
         }
       } else {
         myLogger.e({
@@ -154,8 +153,9 @@ class AccountUtil extends GetxController {
       // nonce: 'example-nonce',
       // state: 'example-state',
     );
-
-    await loginOAuth(registerType: RegisterType.apple, idToken: credential.identityToken);
+    MitiUtils.copy(text: credential.identityToken ?? 'xx');
+    await loginOAuth(
+        registerType: RegisterType.apple, idToken: credential.identityToken);
     AppNavigator.startMain();
   }
 
@@ -189,17 +189,17 @@ class AccountUtil extends GetxController {
               registerType: RegisterType.facebook, accessToken: accessToken);
           AppNavigator.startMain();
         } else {
-          // todo
-          final OAuthCredential facebookAuthFirebaseCredential =
-              FacebookAuthProvider.credential(accessToken);
-          final UserCredential firebaseCredential = await FirebaseAuth.instance
-              .signInWithCredential(facebookAuthFirebaseCredential);
-          extraLoginInfo = {
-            "facebookUser": facebookUser,
-            "firebaseCredential": firebaseCredential,
-            "firebaseCurUser": FirebaseAuth.instance.currentUser
-          };
-          myLogger.i({"message": "firebase登录成功", "data": extraLoginInfo});
+          // // todo
+          // final OAuthCredential facebookAuthFirebaseCredential =
+          //     FacebookAuthProvider.credential(accessToken);
+          // final UserCredential firebaseCredential = await FirebaseAuth.instance
+          //     .signInWithCredential(facebookAuthFirebaseCredential);
+          // extraLoginInfo = {
+          //   "facebookUser": facebookUser,
+          //   "firebaseCredential": firebaseCredential,
+          //   "firebaseCurUser": FirebaseAuth.instance.currentUser
+          // };
+          // myLogger.i({"message": "firebase登录成功", "data": extraLoginInfo});
         }
       } else {
         myLogger.e({"message": "facebook授权失败", "data": result});
@@ -316,12 +316,12 @@ class AccountUtil extends GetxController {
   }
 
   // todo 多服务器情况
-  Future<void> loginOAuth(
-      {required RegisterType registerType,
-      String? idToken,
-      String? accessToken,
-      String? clientId,
-      }) async {
+  Future<void> loginOAuth({
+    required RegisterType registerType,
+    String? idToken,
+    String? accessToken,
+    String? clientId,
+  }) async {
     late LoginCertificate data;
     final curServerKey = DataSp.getCurServerKey();
     try {

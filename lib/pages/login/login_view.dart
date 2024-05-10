@@ -160,7 +160,7 @@ class LoginPage extends StatelessWidget {
                             ),
                             15.verticalSpace,
                             Button(
-                              text: StrLibrary.facebookLogin,
+                              text: StrLibrary.appleLogin,
                               onTap: () => accountUtil.signInWithApple(),
                             )
                           ],

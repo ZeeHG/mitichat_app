@@ -1148,4 +1148,5 @@ const Map<String, String> zh_CN = {
   "googleOAuth2Login": "谷歌网页登录",
   "firebaseGoogleLogin": "谷歌登录",
   "facebookLogin": "facebook登录",
+  "appleLogin": "apple登录",
 };

@@ -1666,4 +1666,5 @@ class StrLibrary {
   static String get googleOAuth2Login => 'googleOAuth2Login'.tr;
   static String get firebaseGoogleLogin => 'firebaseGoogleLogin'.tr;
   static String get facebookLogin => 'facebookLogin'.tr;
+  static String get appleLogin => 'appleLogin'.tr;
 }

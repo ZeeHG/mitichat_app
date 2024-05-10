@@ -127,7 +127,7 @@ dependencies:
   flutter_ringtone_player: ^4.0.0+2
   flutter_web_auth_2: ^4.0.0-alpha.0
   firebase_core: ^2.27.0
-  firebase_auth: ^4.17.8
+  # firebase_auth: ^4.17.8
   flutter_facebook_auth: ^6.2.0
   google_sign_in: ^6.2.1
   google_api_availability: ^5.0.0
