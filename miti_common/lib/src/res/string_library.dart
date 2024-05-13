@@ -1699,4 +1699,9 @@ class StrLibrary {
   static String get plsEnterRightInvitationCode => 'plsEnterRightInvitationCode'.tr;
   static String get activeAccountTips2 =>
       'activeAccountTips2'.tr;
+  static String get inviteSuccess => 'inviteSuccess'.tr;
+  static String get idInvite => 'idInvite'.tr;
+  static String get qrcodeInvite => 'qrcodeInvite'.tr;
+  static String get urlInvite => 'urlInvite'.tr;
+  static String get share => 'share'.tr;
 }

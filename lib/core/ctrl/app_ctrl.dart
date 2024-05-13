@@ -20,18 +20,10 @@ import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 // import '../../utils/upgrade_manager.dart';
 import 'im_ctrl.dart';
 
-// enum LoginType {
-//     Email,
-//     Phone,
-//     Google,
-//     Apple,
-//     Facebook,
-//     LocalJwt,
-// }
-
 mixin AppControllerGetx on GetxController {
   final supportFirebase = false.obs;
-  final supportLoginTypes = [1,2].obs;
+  final supportLoginTypes =
+      [SupportLoginType.email, SupportLoginType.phone].obs;
 }
 
 // 下载0, 后台1, 消息message.seq

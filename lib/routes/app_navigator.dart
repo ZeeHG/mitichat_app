@@ -181,6 +181,9 @@ class AppNavigator {
 
   static startMyInfo() => Get.toNamed(AppRoutes.myInfo);
 
+  static offUntilMyInfo() => Get.offNamedUntil(AppRoutes.myInfo, (route) => route.settings.name == AppRoutes.myInfo,
+      );
+
   static startEditMyProfile(
           {EditAttr attr = EditAttr.nickname, int? maxLength}) =>
       Get.toNamed(AppRoutes.editMyInfo,

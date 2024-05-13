@@ -17,50 +17,87 @@ class InviteFriendsDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: StrLibrary.newFriend),
+      appBar: TitleBar.back(title: ""),
       backgroundColor: StylesLibrary.c_F8F9FA,
       body: SingleChildScrollView(
         child: Obx(() => Container(
             width: 1.sw,
-            padding: EdgeInsets.all(12.w),
+            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
             child: Column(children: [
-              GestureDetector(
-                onTap: () {
-                  AppNavigator.startInviteFriendsHistory();
-                },
-                behavior: HitTestBehavior.translucent,
-                child: Container(
-                  width: 1.sw-24.w,
-                  decoration: BoxDecoration(
-                      color: StylesLibrary.c_FFFFFF,
-                      borderRadius: BorderRadius.circular(12.w)),
-                  padding: EdgeInsets.all(12.w),
-                  child: Column(
-                    children: [
-                      StrLibrary.invited.toText
-                        ..style = StylesLibrary.ts_333333_14sp,
-                      10.verticalSpace,
-                      logic.invitedTotal.toString().toText
-                        ..style = StylesLibrary.ts_333333_16sp,
-                    ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      AppNavigator.startInviteFriendsHistory();
+                    },
+                    behavior: HitTestBehavior.translucent,
+                    child: Container(
+                      width: 165.w,
+                      decoration: BoxDecoration(
+                          color: StylesLibrary.c_FFFFFF,
+                          borderRadius: BorderRadius.circular(10.w)),
+                      padding: EdgeInsets.all(12.w),
+                      child: Column(
+                        children: [
+                          logic.invitedTotal.toString().toText
+                            ..style = StylesLibrary.ts_333333_24sp_bold,
+                          8.verticalSpace,
+                          StrLibrary.invited.toText
+                            ..style =
+                                StylesLibrary.ts_333333_14sp_regular_opacity70,
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                  GestureDetector(
+                    onTap: () {
+                      AppNavigator.startInvitingFriends();
+                    },
+                    behavior: HitTestBehavior.translucent,
+                    child: Container(
+                      width: 165.w,
+                      decoration: BoxDecoration(
+                          color: StylesLibrary.c_FFFFFF,
+                          borderRadius: BorderRadius.circular(10.w)),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 15.w, vertical: 15.h),
+                      child: Column(
+                        children: [
+                          logic.invitingTotal.toString().toText
+                            ..style = StylesLibrary.ts_333333_24sp_bold,
+                          8.verticalSpace,
+                          StrLibrary.waitingAgree.toText
+                            ..style =
+                                StylesLibrary.ts_333333_14sp_regular_opacity70,
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              10.verticalSpace,
+              15.verticalSpace,
               _buildItemView(
-                  label: StrLibrary.invitationCode,
-                  value: iMCtrl.userInfo.value.mitiID,
+                  label: StrLibrary.idInvite,
+                  icon: ImageLibrary.iDinvite,
                   showRightArrow: false,
-                  onTap: () {
+                  buttonText: StrLibrary.copy,
+                  onTapButton: () {
                     MitiUtils.copy(text: iMCtrl.userInfo.value.mitiID ?? "");
                   }),
-              10.verticalSpace,
+              15.verticalSpace,
               _buildItemView(
-                  label: StrLibrary.waitingAgree,
-                  value: logic.invitingTotal.toString(),
-                  onTap: () {
-                    AppNavigator.startInvitingFriends();
-                  })
+                  label: StrLibrary.qrcodeInvite,
+                  icon: ImageLibrary.qrcodeInvite,
+                  showRightArrow: true,
+                  onTap: () {}),
+              15.verticalSpace,
+              _buildItemView(
+                  label: StrLibrary.urlInvite,
+                  icon: ImageLibrary.urlInvite,
+                  showRightArrow: false,
+                  buttonText: StrLibrary.share,
+                  onTapButton: () {}),
             ]))),
       ),
     );
@@ -68,13 +105,10 @@ class InviteFriendsDetailPage extends StatelessWidget {
 
   Widget _buildItemView({
     required String label,
-    TextStyle? textStyle,
-    String? value,
-    bool switchOn = false,
+    required String icon,
     bool showRightArrow = true,
-    bool showSwitchButton = false,
-    bool showBorder = false,
-    ValueChanged<bool>? onChanged,
+    String? buttonText,
+    Function()? onTapButton,
     Function()? onTap,
   }) =>
       GestureDetector(
@@ -83,31 +117,38 @@ class InviteFriendsDetailPage extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: StylesLibrary.c_FFFFFF,
+              borderRadius: BorderRadius.circular(10.r)
             ),
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
             child: Container(
-              height: 50.h,
+              height: 58.h,
               decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: StylesLibrary.c_F1F2F6,
-                    width: showBorder ? 1.h : 0,
-                  ),
-                ),
+                borderRadius: BorderRadius.circular(10.r),
               ),
               child: Row(
                 children: [
-                  label.toText
-                    ..style = textStyle ?? StylesLibrary.ts_333333_16sp,
+                  icon.toImage
+                    ..width = 20.w
+                    ..height = 20.h,
+                  8.horizontalSpace,
+                  label.toText..style = StylesLibrary.ts_333333_16sp_medium,
                   const Spacer(),
-                  if (null != value)
-                    value.toText..style = StylesLibrary.ts_333333_14sp,
-                  if (showSwitchButton)
-                    CupertinoSwitch(
-                      value: switchOn,
-                      activeColor: StylesLibrary.c_07C160,
-                      onChanged: onChanged,
-                    ),
+                  if (null != buttonText)
+                    GestureDetector(
+                        onTap: onTapButton,
+                        behavior: HitTestBehavior.translucent,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16.w, vertical: 4.h),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(26.r),
+                              border: Border.all(
+                                color: StylesLibrary.c_8443F8,
+                                width: 1.h,
+                              )),
+                          child: buttonText.toText
+                            ..style = StylesLibrary.ts_8443F8_12sp,
+                        )),
                   if (showRightArrow)
                     ImageLibrary.appRightArrow.toImage
                       ..width = 20.w

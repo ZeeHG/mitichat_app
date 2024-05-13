@@ -28,7 +28,8 @@ class AppSplashLogic extends GetxController {
       myLogger.i({"message": "imSdk初始化完成", "data": value});
       try {
         final data = await ClientApis.querySupportRegistTypes();
-        appCtrl.supportLoginTypes.value = List<int>.from(data["types"]);
+        appCtrl.supportLoginTypes.value = List<int>.from(data["types"]).map((value) => SupportLoginTypeMap[value])
+            .cast<SupportLoginType>().toList();
       } catch (e) {
         myLogger.e({"message": "获取支持的注册方式失败", "error": e});
       }

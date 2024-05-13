@@ -110,6 +110,7 @@ class StylesLibrary {
   static Color c_999999_opacity50 = c_999999.withOpacity(.5);
   static Color c_333333_opacity30 = c_333333.withOpacity(.3);
   static Color c_333333_opacity60 = c_333333.withOpacity(.6);
+  static Color c_333333_opacity70 = c_333333.withOpacity(.7);
   static Color c_333333_opacity85 = c_333333.withOpacity(.85);
   static Color c_333333_opacity80 = c_333333.withOpacity(.8);
   static Color c_FF4E4C_opacity70 = c_FF4E4C.withOpacity(.7);
@@ -426,6 +427,10 @@ class StylesLibrary {
     color: c_333333,
     fontSize: 14.sp,
   ).merge(en400);
+  static TextStyle ts_333333_14sp_regular_opacity70 = TextStyle(
+    color: c_333333_opacity70,
+    fontSize: 14.sp,
+  ).merge(en400);
   static TextStyle ts_333333_14sp_medium = TextStyle(
     color: c_333333,
     fontSize: 14.sp,
@@ -492,6 +497,11 @@ class StylesLibrary {
     color: c_333333,
     fontSize: 24.sp,
     fontWeight: FontWeight.w500,
+  ).merge(en500);
+  static TextStyle ts_333333_24sp_bold = TextStyle(
+    color: c_333333,
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w700,
   ).merge(en500);
   static TextStyle ts_333333_13sp = TextStyle(
     color: c_333333,

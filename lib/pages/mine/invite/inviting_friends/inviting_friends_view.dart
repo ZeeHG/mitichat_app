@@ -14,67 +14,69 @@ class InvitingFriendsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: ""),
+      appBar: TitleBar.back(title: StrLibrary.waitingAgree),
       backgroundColor: StylesLibrary.c_F8F9FA,
       body: Obx(() => SingleChildScrollView(
-            child: logic.users.isEmpty
-                ? Container()
+            child: logic.inviteInfos.isEmpty
+                ? Container(
+                  margin: EdgeInsets.only(top: 112.h),
+                  child: Center(
+                      child: ImageLibrary.inviteEmpty.toImage
+                        ..width = 224.w
+                        ..height = 224.h,
+                    ),
+                )
                 : Container(
                     width: 1.sw,
                     padding:
-                        EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-                    decoration: BoxDecoration(color: StylesLibrary.c_FFFFFF),
+                        EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
                     child: Column(
                         children: List.generate(
-                            logic.users.length,
+                            logic.inviteInfos.length,
                             (index) =>
-                                _buildItemView(user: logic.users[index]))),
+                                _buildItemView(
+                                inviteInfo: logic.inviteInfos[index]))),
                   ),
           )),
     );
   }
 
-  Widget _buildItemView({required dynamic user}) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 12.w),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-                child: Row(
-              children: [
-                Expanded(
-                  child: user["inviteUserID"].toString().toText
-                    ..maxLines = 1
-                    ..overflow = TextOverflow.ellipsis,
-                ),
-                10.horizontalSpace,
-                _buildTimeView(user["applyTime"])
-              ],
-            )),
-            10.horizontalSpace,
-            Button(
-              width: 50.w,
-              height: 30.h,
-              text: StrLibrary.accept,
-              onTap: () => logic.agreeOrReject(user, 1),
-              enabled: user["disabled"] != true,
-            ),
-            10.horizontalSpace,
-            Button(
-              width: 50.w,
-              height: 30.h,
-              text: StrLibrary.reject,
-              onTap: () => logic.agreeOrReject(user, 2),
-              enabled: user["disabled"] != true,
-            ),
-          ],
+  Widget _buildItemView({required InviteInfo inviteInfo}) => Container(
+        margin: EdgeInsets.only(bottom: 15.h),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.r),
+            color: StylesLibrary.c_FFFFFF,
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                  child: Row(
+                children: [
+                  AvatarView(
+                    width: 40.w,
+                    height: 40.h,
+                    url: inviteInfo.inviteUser.faceURL,
+                    text: inviteInfo.inviteUser.showName,
+                  ),
+                  8.horizontalSpace,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      inviteInfo.inviteUser.showName.toText
+                        ..style = StylesLibrary.ts_333333_16sp,
+                      TimelineUtil.formatB(inviteInfo.applyTime * 1000).toText
+                        ..style = StylesLibrary.ts_999999_12sp,
+                    ],
+                  )
+                ],
+              )),
+              10.horizontalSpace,
+              StrLibrary.waitingAgree.toText
+                ..style = StylesLibrary.ts_999999_12sp
+            ],
+          ),
         ),
       );
-
-  Widget _buildTimeView(int time) => TimelineUtil.format(
-        time*1000,
-        dayFormat: DayFormat.Full,
-        locale: Get.locale?.languageCode ?? 'zh',
-      ).toText
-        ..style = StylesLibrary.ts_999999_12sp;
 }

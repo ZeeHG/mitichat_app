@@ -1173,11 +1173,16 @@ const Map<String, String> zh_CN = {
   "inviteNow": "立即邀请",
   "empty": "暂无数据",
   "invited": "已邀请",
-  "waitingAgree": "待批准",
+  "waitingAgree": "待确认",
   "activeAccount": "激活账户",
   "changeInviter": "更换邀请人",
   "activeAccountTips": "感谢您的耐心等待好友%s已经为您激活了miti!",
   "activeAccountTips2": "感谢您的耐心等待好友已经为您激活了miti!",
   "goHome": "Get Start",
   "plsEnterRightInvitationCode": "请输入正确的邀请码",
+  "inviteSuccess": "邀请成功",
+  "idInvite": "用mitiID邀请",
+  "qrcodeInvite": "用二维码邀请",
+  "urlInvite": "分享链接邀请",
+  "share": "分享"
 };

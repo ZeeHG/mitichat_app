@@ -456,7 +456,7 @@ class IMViews {
                   ..textAlign = TextAlign.center,
                 10.verticalSpace,
                 StrLibrary.newMitiIDRule.toText
-                  ..style = StylesLibrary.ts_333333_16sp
+                  ..style = StylesLibrary.ts_333333_14sp
                   ..textAlign = TextAlign.center,
                 Spacer(),
                 Row(
@@ -470,22 +470,22 @@ class IMViews {
                           text: TextSpan(children: [
                             TextSpan(
                                 text: StrLibrary.agreeChangeMitiID1,
-                                style: StylesLibrary.ts_333333_16sp),
+                                style: StylesLibrary.ts_333333_14sp),
                             TextSpan(
                                 text: StrLibrary.openAngleBracket,
-                                style: StylesLibrary.ts_333333_16sp),
+                                style: StylesLibrary.ts_333333_14sp),
                             TextSpan(
                                 text: StrLibrary.agreeChangeMitiID2,
-                                style: StylesLibrary.ts_333333_16sp),
+                                style: StylesLibrary.ts_333333_14sp),
                             TextSpan(
                               text: StrLibrary.agreeChangeMitiID3,
-                              style: StylesLibrary.ts_8443F8_16sp,
+                              style: StylesLibrary.ts_8443F8_14sp,
                               recognizer: TapGestureRecognizer()
                                 ..onTap = onTapRule,
                             ),
                             TextSpan(
                                 text: StrLibrary.closeAngleBracket,
-                                style: StylesLibrary.ts_333333_16sp),
+                                style: StylesLibrary.ts_333333_14sp),
                           ])),
                     )
                   ],

@@ -19,27 +19,27 @@ class MitiIDChangePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           width: 1.sw,
-          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          padding: EdgeInsets.symmetric(horizontal: 15.w),
           child: Column(
             children: [
               30.verticalSpace,
               StrLibrary.enterMitiID.toText
-                ..style = StylesLibrary.ts_333333_16sp_medium
-                ..textAlign = TextAlign.center,
-              30.verticalSpace,
-              StrLibrary.mitiIDRules.toText
                 ..style = StylesLibrary.ts_333333_16sp
                 ..textAlign = TextAlign.center,
               30.verticalSpace,
+              StrLibrary.mitiIDRules.toText
+                ..style = StylesLibrary.ts_333333_14sp
+                ..textAlign = TextAlign.center,
+              30.verticalSpace,
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 12.w),
+                margin: EdgeInsets.symmetric(horizontal: 15.w),
                 decoration: BoxDecoration(
                   color: StylesLibrary.c_E8EAEF,
                   borderRadius: BorderRadius.circular(4.r),
                 ),
                 child: TextField(
                   controller: logic.inputCtrl,
-                  style: StylesLibrary.ts_333333_16sp,
+                  style: StylesLibrary.ts_333333_14sp,
                   autofocus: true,
                   inputFormatters: [LengthLimitingTextInputFormatter(20)],
                   decoration: InputDecoration(

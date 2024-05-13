@@ -20,13 +20,13 @@ class MitiIDChangeRulePage extends StatelessWidget {
           width: 1.sw,
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
           child: DefaultTextStyle(
-              style: StylesLibrary.ts_333333_13sp,
+              style: StylesLibrary.ts_333333_14sp,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Align(
                       alignment: Alignment.center,
-                      child: StrLibrary.changeMitiRule1.toText
+                      child: StrLibrary.changeMitiRule1.toText..style= StylesLibrary.ts_333333_16sp
                     ),
                     10.verticalSpace,
                     StrLibrary.changeMitiRule2.toText,

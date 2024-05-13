@@ -14,56 +14,95 @@ class InviteFriendsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.back(title: ""),
+      appBar: TitleBar.back(title: StrLibrary.inviteFriends),
       backgroundColor: StylesLibrary.c_F8F9FA,
       body: SingleChildScrollView(
-        child: Obx(() => Container(
+        child: Obx(() => SizedBox(
               width: 1.sw,
-              padding: EdgeInsets.all(12.w),
               child: Column(
                 children: [
-                  ImageLibrary.miti.toImage
-                    ..height = 100.h
-                    ..width = 100.w,
-                  20.verticalSpace,
-                  Button(
-                    width: 150.w,
-                    text: StrLibrary.inviteNow,
-                    onTap: logic.inviteDetail,
+                  Stack(
+                    children: [
+                      Container(
+                        height: 219.h,
+                      ),
+                      ImageLibrary.inviteBg.toImage
+                        ..width = 375.w
+                        ..height = 198.h,
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Center(
+                          child: Button(
+                            width: 289.w,
+                            text: StrLibrary.inviteNow,
+                            onTap: logic.inviteDetail,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                  20.verticalSpace,
+                  15.verticalSpace,
                   Container(
                     decoration: BoxDecoration(
                       color: StylesLibrary.c_FFFFFF,
-                      borderRadius: BorderRadius.circular(30.w),
+                      borderRadius: BorderRadius.circular(10.w),
                     ),
-                    padding: EdgeInsets.all(10.w),
+                    padding: EdgeInsets.symmetric(vertical: 15.h),
+                    margin: EdgeInsets.symmetric(horizontal: 15.h),
                     child: Column(
                       children: [
-                        Align(
-                          alignment: Alignment.center,
+                        Center(
+                          // alignment: Alignment.center,
                           child: StrLibrary.myInviteRecords.toText
-                            ..style = StylesLibrary.ts_333333_14sp,
+                            ..style = StylesLibrary.ts_333333_16sp_medium,
                         ),
-                        20.verticalSpace,
+                        15.verticalSpace,
                         if (logic.myInviteRecords.isEmpty)
-                          StrLibrary.empty.toText,
+                          StrLibrary.empty.toText
+                            ..style = StylesLibrary.ts_333333_14sp,
                         if (logic.myInviteRecords.isNotEmpty)
                           ...List.generate(
                               logic.myInviteRecords.length,
                               (index) => Container(
-                                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 15.w),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Expanded(child: logic.myInviteRecords[index]
-                                                ["inviteUserID"]
-                                            .toString()
-                                            .toText..maxLines=1..overflow=TextOverflow.ellipsis,),
-                                            10.horizontalSpace,
-                                        _buildTimeView(
-                                            logic.myInviteRecords[index]
-                                                ["applyTime"])
+                                        Expanded(
+                                            child: Row(
+                                          children: [
+                                            AvatarView(
+                                              width: 40.w,
+                                              height: 40.h,
+                                              url: logic.myInviteRecords[index]
+                                                  .inviteUser.faceURL,
+                                              text: logic.myInviteRecords[index]
+                                                  .inviteUser.showName,
+                                            ),
+                                            8.horizontalSpace,
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                logic.myInviteRecords[index]
+                                                    .inviteUser.showName.toText
+                                                  ..style = StylesLibrary
+                                                      .ts_333333_16sp,
+                                                TimelineUtil.formatB(logic
+                                                        .myInviteRecords[index]
+                                                        .applyTime * 1000)
+                                                    .toText
+                                                  ..style = StylesLibrary
+                                                      .ts_999999_12sp,
+                                              ],
+                                            )
+                                          ],
+                                        )),
+                                        10.horizontalSpace,
+                                        StrLibrary.inviteSuccess.toText
+                                          ..style = StylesLibrary.ts_999999_12sp
                                       ],
                                     ),
                                   ))
@@ -76,11 +115,4 @@ class InviteFriendsPage extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildTimeView(int time) => TimelineUtil.format(
-        time*1000,
-        dayFormat: DayFormat.Full,
-        locale: Get.locale?.languageCode ?? 'zh',
-      ).toText
-        ..style = StylesLibrary.ts_999999_12sp;
 }

@@ -1,5 +1,23 @@
 import 'dart:convert';
 
+enum SupportLoginType {
+  email,
+  phone,
+  google,
+  apple,
+  facebook,
+  localJwt,
+}
+
+Map<int, SupportLoginType> SupportLoginTypeMap = {
+  1: SupportLoginType.email,
+  2: SupportLoginType.phone,
+  3: SupportLoginType.google,
+  4: SupportLoginType.apple,
+  5: SupportLoginType.facebook,
+  6: SupportLoginType.localJwt,
+};
+
 // enum UserLoginType { emailWithPwd, phoneWithPwd }
 
 class AccountLoginInfo {

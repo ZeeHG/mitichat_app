@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:miti_common/miti_common.dart';
+import 'package:miti_common/src/models/invite.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -995,8 +996,7 @@ class ClientApis {
   }
 
   // 申请激活, inviteMitiID: 申请的邀请MitiID
-  static Future applyActive(
-      {required String inviteMitiID}) async {
+  static Future applyActive({required String inviteMitiID}) async {
     return HttpUtil.post(
       ClientUrls.applyActive,
       data: {"userID": OpenIM.iMManager.userID, "inviteMitiID": inviteMitiID},
@@ -1006,11 +1006,14 @@ class ClientApis {
 
   // 处理申请, 1同意, 2拒绝
   static Future responseApplyActive(
-      {required String invtedUserID,
-      required int result}) async {
+      {required String invtedUserID, required int result}) async {
     return HttpUtil.post(
       ClientUrls.responseApplyActive,
-      data: {"userID": OpenIM.iMManager.userID, "invtedUserID": invtedUserID, "result": result},
+      data: {
+        "userID": OpenIM.iMManager.userID,
+        "invtedUserID": invtedUserID,
+        "result": result
+      },
       options: chatTokenOptions,
     );
   }
@@ -1027,9 +1030,8 @@ class ClientApis {
   }
 
   // 查询申请等待我处理的
-  static Future queryApplyActiveList(
-      {pageNumber = 1, showNumber = 999}) async {
-    return HttpUtil.post(
+  static Future queryApplyActiveList({pageNumber = 1, showNumber = 999}) async {
+    final data = await HttpUtil.post(
       ClientUrls.queryApplyActiveList,
       data: {
         "userID": OpenIM.iMManager.userID,
@@ -1037,22 +1039,44 @@ class ClientApis {
       },
       options: chatTokenOptions,
     );
+    if (data?["applyList"] is List) {
+      return {
+        "total": data?["total"],
+        "applyList":
+            data["applyList"].map((e) => InviteInfo.fromJson({"inviteUser": e["user"], "userID": e["inviteUserID"], "applyTime": e["applyTime"]
+                })).toList()
+      };
+    } else if (null != data?["applyTime"]) {
+      return {
+        "total": data?["total"],
+        "applyList": [InviteInfo.fromJson(data)]
+      };
+    } else {
+      return {"total": 0, "applyList": []};
+    }
   }
 
   // 查询我申请的
-  static Future querySelfApplyActive() async {
-    return HttpUtil.post(
+  static Future<List<InviteInfo>> querySelfApplyActive() async {
+    final data = await HttpUtil.post(
       ClientUrls.querySelfApplyActive,
       data: {
         "userID": OpenIM.iMManager.userID,
       },
       options: chatTokenOptions,
     );
+
+    if (data is List) {
+      return data.map((e) => InviteInfo.fromJson(e)).toList();
+    } else if (null != data?["applyTime"]) {
+      return [InviteInfo.fromJson(data)];
+    } else {
+      return [];
+    }
   }
 
   // 查询邀请成功的
-  static Future queryInvitedUsers(
-      {pageNumber = 1, showNumber = 999}) async {
+  static Future queryInvitedUsers({pageNumber = 1, showNumber = 999}) async {
     return HttpUtil.post(
       ClientUrls.queryInvitedUsers,
       data: {

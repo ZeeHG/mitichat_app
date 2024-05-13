@@ -16,7 +16,7 @@ class ActiveAccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.back(title: ""),
-      backgroundColor: StylesLibrary.c_F8F9FA,
+      backgroundColor: StylesLibrary.c_FFFFFF,
       body: SingleChildScrollView(
         child: Obx(() => Container(
           width: 1.sw,
@@ -56,7 +56,7 @@ class ActiveAccountPage extends StatelessWidget {
                         ),
                         30.verticalSpace,
                         Button(
-                          width: 1.sw - 86.w,
+                          width: 1.sw - 80.w,
                           text: StrLibrary.submit,
                           onTap: logic.confirm,
                         )
@@ -71,12 +71,13 @@ class ActiveAccountPage extends StatelessWidget {
                           ]
                         : logic.status.value == "waitingAgree"
                             ? [
-                                ImageLibrary.miti.toImage
-                                  ..width = 60.w
-                                  ..height = 60.h,
-                                30.verticalSpace,
+                                100.verticalSpace,
+                                ImageLibrary.mitiidBg.toImage
+                                  ..width = 224.w
+                                  ..height = 224.h,
+                                15.verticalSpace,
                                 Button(
-                                  width: 1.sw - 86.w,
+                                  width: 1.sw - 80.w,
                                   text: StrLibrary.changeInviter,
                                   onTap: () {
                                     logic.status.value = "input";
@@ -84,13 +85,17 @@ class ActiveAccountPage extends StatelessWidget {
                                 )
                               ]
                             : logic.status.value == "activeSuccess"
-                                ? [
+                                ? [ 
+                                  45.verticalSpace,
+                                    ImageLibrary.appSuccess.toImage
+                                      ..width = 70.w
+                                      ..height = 70.h,
                                     StrLibrary.activeAccountTips2.toText
                                       ..style = StylesLibrary.ts_333333_14sp
                                       ..textAlign = TextAlign.center,
                                     30.verticalSpace,
                                     Button(
-                                      width: 1.sw - 86.w,
+                                      width: 1.sw - 80.w,
                                       text: StrLibrary.goHome,
                                       onTap: () {
                                         AppNavigator.startMain();

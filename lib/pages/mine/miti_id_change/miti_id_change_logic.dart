@@ -42,7 +42,7 @@ class MitiIDChangeLogic extends GetxController {
         val?.mitiID = inputCtrl.text;
       });
       showToast(StrLibrary.success);
-      AppNavigator.startMyInfo();
+      AppNavigator.offUntilMyInfo();
     });
   }
 }

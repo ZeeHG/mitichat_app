@@ -296,4 +296,9 @@ class ImageLibrary {
   static const miti = "$_dir/miti.jpg";
   static const invite = "$_dir/invite.png";
   static const inviteBg = "$_dir/invite_bg.png";
+  static const iDinvite = "$_dir/id_invite.png";
+  static const qrcodeInvite = "$_dir/qrcode_invite.png";
+  static const urlInvite = "$_dir/url_invite.png";
+  static const inviteEmpty = "$_dir/invite_empty.png";
+  static const mitiidBg = "$_dir/mitiid_bg.png";
 }

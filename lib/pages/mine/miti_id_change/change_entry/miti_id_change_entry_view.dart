@@ -20,17 +20,17 @@ class MitiIDChangeEntryPage extends StatelessWidget {
           width: 1.sw,
           child: Column(
             children: [
-              50.verticalSpace,
-              ImageLibrary.miti.toImage
-                ..height = 100.h
-                ..width = 100.w,
-              30.verticalSpace,
+              112.verticalSpace,
+              ImageLibrary.mitiidBg.toImage
+                ..width = 224.w
+                ..height = 224.h,
+              15.verticalSpace,
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.w),
-                child: StrLibrary.changeMitiIDTips.toText..style = StylesLibrary.ts_333333_16sp
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                child: StrLibrary.changeMitiIDTips.toText..style = StylesLibrary.ts_333333_14sp
                 ..textAlign = TextAlign.center,
               ),
-              30.verticalSpace,
+              15.verticalSpace,
               Button(
                 width: 1.sw - 86.w,
                 text: StrLibrary.changeMitiID,
