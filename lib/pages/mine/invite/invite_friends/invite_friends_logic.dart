@@ -16,8 +16,7 @@ class InviteFriendsLogic extends GetxController {
 
   loadingData() {
     LoadingView.singleton.start(fn: () async {
-      final res = await ClientApis.querySelfApplyActive(
-          userID: imCtrl.userInfo.value.userID!);
+      final res = await ClientApis.querySelfApplyActive();
       myInviteRecords.value =
           (res?["applyList"] is List) ? (res?["applyList"]) : res?["applyTime"] != null? [res] : [];
     });

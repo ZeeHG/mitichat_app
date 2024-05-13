@@ -37,7 +37,7 @@ class MitiIDChangeLogic extends GetxController {
 
   void save() async {
     await LoadingView.singleton.start(fn: () async {
-      await ClientApis.updateMitiID(mitiID: inputCtrl.text, userID: imCtrl.userInfo.value.userID!);
+      await ClientApis.updateMitiID(mitiID: inputCtrl.text);
       imCtrl.userInfo.update((val) {
         val?.mitiID = inputCtrl.text;
       });

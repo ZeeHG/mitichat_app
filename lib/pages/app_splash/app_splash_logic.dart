@@ -30,7 +30,7 @@ class AppSplashLogic extends GetxController {
         final data = await ClientApis.querySupportRegistTypes();
         appCtrl.supportLoginTypes.value = List<int>.from(data["types"]);
       } catch (e) {
-        myLogger.e(e);
+        myLogger.e({"message": "获取支持的注册方式失败", "error": e});
       }
       await Future.delayed(const Duration(seconds: 2));
       if (null != userID && null != token) {

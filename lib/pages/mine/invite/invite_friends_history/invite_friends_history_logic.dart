@@ -18,7 +18,7 @@ class InviteFriendsHistoryLogic extends GetxController {
 
   loadingData() {
     LoadingView.singleton.start(fn: () async {
-      final res1 = await ClientApis.queryInvitedUsers(userID: userID);
+      final res1 = await ClientApis.queryInvitedUsers();
       if (null != res1?["users"]) {
         users.value = List<UserFullInfo>.from(
             res1?["users"]!.map((e) => UserFullInfo.fromJson(e)).toList())

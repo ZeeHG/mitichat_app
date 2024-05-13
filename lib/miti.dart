@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:miti/core/ctrl/app_ctrl.dart';
-import 'package:miti/routes/app_navigator.dart';
 import 'package:miti/utils/account_util.dart';
 import 'package:miti/utils/ai_util.dart';
 import 'package:miti/utils/conversation_util.dart';
@@ -43,16 +42,14 @@ class _MitiState extends State<Miti> {
   Future<void> initDeepLinks() async {
     _appLinks = AppLinks();
 
-    // Handle links
     _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
-      myLogger.i(uri);
       openAppLink(uri);
     });
   }
 
   void openAppLink(Uri uri) {
-    myLogger.e(uri.path);
-    myLogger.e(uri.queryParameters);
+    myLogger.i({"message": "app link", "data": {"uri": uri.toString()}});
+    // todo 是否已经打开app, splash初始化, 是否以登录...
     Get.toNamed(uri.path, arguments: uri.queryParameters);
   }
 

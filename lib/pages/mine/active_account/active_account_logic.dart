@@ -27,7 +27,7 @@ class ActiveAccountLogic extends GetxController {
   loadingData() {
     LoadingView.singleton.start(fn: () async {
       await imCtrl.queryMyFullInfo();
-      final res = await ClientApis.querySelfApplyActive(userID: userID);
+      final res = await ClientApis.querySelfApplyActive();
       final total = res?["total"] ?? 0;
       status.value = imCtrl.userInfo.value.isAlreadyActive == true
           ? "activeSuccess"
@@ -44,7 +44,7 @@ class ActiveAccountLogic extends GetxController {
     }
     LoadingView.singleton.start(fn: () async {
       await ClientApis.applyActive(
-          userID: userID, inviteMitiID: inputCtrl.text);
+          inviteMitiID: inputCtrl.text);
       status.value = "submitSuccess";
       showToast(StrLibrary.submitSuccess);
     });

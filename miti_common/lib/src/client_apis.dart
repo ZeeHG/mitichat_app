@@ -263,7 +263,6 @@ class ClientApis {
         },
         options: chatTokenOptions,
         cancelToken: cancelToken);
-    myLogger.i(data['users']);
     if (data['users'] is List) {
       return (data['users'] as List)
           .map((e) => UserFullInfo.fromJson(e))
@@ -877,8 +876,8 @@ class ClientApis {
 
   static Future<bool> checkServerValid(
       {required String serverWithProtocol}) async {
-    var result = await HttpUtil.post(
-      "${serverWithProtocol}${Config.targetIsDomainWithProtocol(serverWithProtocol) ? '/chat' : ':10008'}${ClientUrls.checkServerValid}",
+    await HttpUtil.post(
+      "$serverWithProtocol${Config.targetIsDomainWithProtocol(serverWithProtocol) ? '/chat' : ':10008'}${ClientUrls.checkServerValid}",
       data: {},
       showErrorToast: false,
     );
@@ -979,90 +978,92 @@ class ClientApis {
 
   static Future updateMitiID({
     required String mitiID,
-    required String userID,
   }) async {
     return HttpUtil.post(
       ClientUrls.updateMitiID,
-      data: {"mitiID": mitiID, "userID": userID},
+      data: {"userID": OpenIM.iMManager.userID, "mitiID": mitiID},
       options: chatTokenOptions,
     );
   }
 
-  static Future queryUpdateMitiIDRecords({
-    required String userID,
-  }) async {
+  static Future queryUpdateMitiIDRecords() async {
     return HttpUtil.post(
       ClientUrls.queryUpdateMitiIDRecords,
-      data: {"userID": userID},
+      data: {"userID": OpenIM.iMManager.userID},
       options: chatTokenOptions,
     );
   }
 
+  // 申请激活, inviteMitiID: 申请的邀请MitiID
   static Future applyActive(
-      {required String userID, required String inviteMitiID}) async {
+      {required String inviteMitiID}) async {
     return HttpUtil.post(
       ClientUrls.applyActive,
-      data: {"userID": userID, "inviteMitiID": inviteMitiID},
+      data: {"userID": OpenIM.iMManager.userID, "inviteMitiID": inviteMitiID},
       options: chatTokenOptions,
     );
   }
 
+  // 处理申请, 1同意, 2拒绝
   static Future responseApplyActive(
       {required String invtedUserID,
-      required String userID,
       required int result}) async {
     return HttpUtil.post(
       ClientUrls.responseApplyActive,
-      data: {"userID": userID, "invtedUserID": invtedUserID, "result": result},
+      data: {"userID": OpenIM.iMManager.userID, "invtedUserID": invtedUserID, "result": result},
       options: chatTokenOptions,
     );
   }
 
+  // 直接激活
   static Future directActive({
-    required String userID,
     required String invteUserID,
   }) async {
     return HttpUtil.post(
       ClientUrls.directActive,
-      data: {"userID": userID, "invteUserID": invteUserID},
+      data: {"userID": OpenIM.iMManager.userID, "invteUserID": invteUserID},
       options: chatTokenOptions,
     );
   }
 
+  // 查询申请等待我处理的
   static Future queryApplyActiveList(
-      {required String userID, pageNumber = 1, showNumber = 999}) async {
+      {pageNumber = 1, showNumber = 999}) async {
     return HttpUtil.post(
       ClientUrls.queryApplyActiveList,
       data: {
-        "userID": userID,
+        "userID": OpenIM.iMManager.userID,
         'pagination': {'pageNumber': pageNumber, 'showNumber': showNumber}
       },
       options: chatTokenOptions,
     );
   }
 
-  static Future querySelfApplyActive({
-    required String userID,
-  }) async {
+  // 查询我申请的
+  static Future querySelfApplyActive() async {
     return HttpUtil.post(
       ClientUrls.querySelfApplyActive,
-      data: {"userID": userID},
+      data: {
+        "userID": OpenIM.iMManager.userID,
+      },
       options: chatTokenOptions,
     );
   }
 
+  // 查询邀请成功的
   static Future queryInvitedUsers(
-      {required String userID, pageNumber = 1, showNumber = 999}) async {
+      {pageNumber = 1, showNumber = 999}) async {
     return HttpUtil.post(
       ClientUrls.queryInvitedUsers,
       data: {
-        "userID": userID,
+        "userID": OpenIM.iMManager.userID,
         'pagination': {'pageNumber': pageNumber, 'showNumber': showNumber},
       },
       options: chatTokenOptions,
     );
   }
 
+  // 查询注册登录的支持方式
   static Future querySupportRegistTypes() async {
     return HttpUtil.post(
       ClientUrls.querySupportRegistTypes,

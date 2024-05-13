@@ -18,8 +18,8 @@ class InviteFriendsDetailLogic extends GetxController {
 
   loadingData() {
     LoadingView.singleton.start(fn: () async {
-      final res1 = await ClientApis.queryInvitedUsers(userID: userID);
-      final res2 = await ClientApis.queryApplyActiveList(userID: userID);
+      final res1 = await ClientApis.queryInvitedUsers();
+      final res2 = await ClientApis.queryApplyActiveList();
       invitedTotal.value = res1?["total"] ?? 0;
       invitingTotal.value = res2?["total"] ?? 0;
     });

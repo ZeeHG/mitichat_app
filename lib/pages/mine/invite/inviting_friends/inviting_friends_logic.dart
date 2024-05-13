@@ -17,7 +17,7 @@ class InvitingFriendsLogic extends GetxController {
 
   loadingData() {
     LoadingView.singleton.start(fn: () async {
-      final res = await ClientApis.queryApplyActiveList(userID: userID);
+      final res = await ClientApis.queryApplyActiveList();
       users.value = res?["applyList"] ?? [];
       // users.value = [
       //   {"applyTime": 12345678, "inviteUserID": "aaaa"}
@@ -28,7 +28,7 @@ class InvitingFriendsLogic extends GetxController {
   agreeOrReject(dynamic user, int result) {
     LoadingView.singleton.start(fn: () async {
       await ClientApis.responseApplyActive(
-          userID: userID, invtedUserID: user["inviteUserID"], result: result);
+          invtedUserID: user["inviteUserID"], result: result);
       user["disabled"] = true;
       users.refresh();
     });
