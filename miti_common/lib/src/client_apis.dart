@@ -13,6 +13,7 @@ enum RegisterType {
   google,
   apple,
   facebook,
+  temp
 }
 
 extension RegisterTypeExtension on RegisterType {
@@ -24,6 +25,8 @@ extension RegisterTypeExtension on RegisterType {
         return 4;
       case RegisterType.facebook:
         return 5;
+      case RegisterType.temp:
+        return 6;
       default:
         return 3;
     }

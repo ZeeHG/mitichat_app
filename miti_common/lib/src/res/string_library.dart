@@ -1704,4 +1704,10 @@ class StrLibrary {
   static String get qrcodeInvite => 'qrcodeInvite'.tr;
   static String get urlInvite => 'urlInvite'.tr;
   static String get share => 'share'.tr;
+  static String get submitMitiIDSuccess => 'submitMitiIDSuccess'.tr;
+  static String get enterInviterId => 'enterInviterId'.tr;
+  static String get inviteDialogTips => 'inviteDialogTips'.tr;
+  static String get inviteDialogSuccessTips => 'inviteDialogSuccessTips'.tr;
+  static String get goStart => 'goStart'.tr;
+  static String get submitError => 'submitError'.tr;
 }

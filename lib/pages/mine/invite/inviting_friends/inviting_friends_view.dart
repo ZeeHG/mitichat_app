@@ -66,7 +66,7 @@ class InvitingFriendsPage extends StatelessWidget {
                     children: [
                       inviteInfo.inviteUser.showName.toText
                         ..style = StylesLibrary.ts_333333_16sp,
-                      TimelineUtil.formatB(inviteInfo.applyTime * 1000).toText
+                      DateUtil.formatDateMs(inviteInfo.applyTime * 1000, format: "yyyy.MM.dd").toText
                         ..style = StylesLibrary.ts_999999_12sp,
                     ],
                   )
@@ -74,7 +74,7 @@ class InvitingFriendsPage extends StatelessWidget {
               )),
               10.horizontalSpace,
               StrLibrary.waitingAgree.toText
-                ..style = StylesLibrary.ts_999999_12sp
+                ..style = StylesLibrary.ts_999999_12sp..onTap=() => logic.agreeOrReject(inviteInfo, 1)
             ],
           ),
         ),

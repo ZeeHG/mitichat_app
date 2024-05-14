@@ -19,55 +19,48 @@ class ActiveAccountPage extends StatelessWidget {
       backgroundColor: StylesLibrary.c_FFFFFF,
       body: SingleChildScrollView(
         child: Obx(() => Container(
-          width: 1.sw,
+              width: 1.sw,
               padding: EdgeInsets.symmetric(vertical: 12.h),
               child: Column(
                 children: logic.status.value == "input"
-                    ? [ 
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12.w),
-                          child: StrLibrary.plsEnterInvitationCode2.toText..style=StylesLibrary.ts_333333_16sp,
-                        ),
-                        ),
+                    ? [
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 12.w),
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
                           decoration: BoxDecoration(
-                            color: StylesLibrary.c_E8EAEF,
-                            borderRadius: BorderRadius.circular(4.r),
+                            color: StylesLibrary.c_F7F8FA,
+                            borderRadius: BorderRadius.circular(46.r),
                           ),
-                          child: TextField(
-                            controller: logic.inputCtrl,
-                            style: StylesLibrary.ts_333333_16sp,
-                            
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(20)
-                            ],
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              isDense: true,
-                              contentPadding: EdgeInsets.symmetric(
-                                vertical: 10.h,
-                                horizontal: 12.w,
-                              ),
-                            ),
-                          ),
+                          child: Row(children: [
+                            Expanded(child: InputBox(
+                                hintText: StrLibrary.enterInviterId,
+                                controller: logic.inputCtrl,
+                                border: false),),
+                                10.horizontalSpace,
+                            ImageLibrary.appPopMenuScan.toImage..width=16.w..height=16.h..onTap=logic.scan
+                          ]),
                         ),
-                        30.verticalSpace,
+                        20.verticalSpace,
                         Button(
                           width: 1.sw - 80.w,
                           text: StrLibrary.submit,
                           onTap: logic.confirm,
+                          enabled: logic.isValid.value,
                         )
                       ]
                     : logic.status.value == "submitSuccess"
                         ? [
+                            180.verticalSpace,
                             ImageLibrary.appSuccess.toImage
                               ..width = 60.w
                               ..height = 60.h,
-                            30.verticalSpace,
+                            25.verticalSpace,
                             StrLibrary.submitSuccess.toText
+                              ..style = StylesLibrary.ts_333333_20sp_medium,
+                            7.verticalSpace,
+                            StrLibrary.submitMitiIDSuccess.toText
+                              ..style = StylesLibrary.ts_999999_16sp
+                              ..textAlign = TextAlign.center,
                           ]
                         : logic.status.value == "waitingAgree"
                             ? [
@@ -85,15 +78,16 @@ class ActiveAccountPage extends StatelessWidget {
                                 )
                               ]
                             : logic.status.value == "activeSuccess"
-                                ? [ 
-                                  45.verticalSpace,
+                                ? [
+                                    180.verticalSpace,
                                     ImageLibrary.appSuccess.toImage
-                                      ..width = 70.w
-                                      ..height = 70.h,
+                                      ..width = 60.w
+                                      ..height = 60.h,
+                                    25.verticalSpace,
                                     StrLibrary.activeAccountTips2.toText
-                                      ..style = StylesLibrary.ts_333333_14sp
+                                      ..style = StylesLibrary.ts_999999_16sp
                                       ..textAlign = TextAlign.center,
-                                    30.verticalSpace,
+                                    25.verticalSpace,
                                     Button(
                                       width: 1.sw - 80.w,
                                       text: StrLibrary.goHome,

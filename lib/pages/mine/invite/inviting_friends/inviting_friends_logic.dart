@@ -17,12 +17,11 @@ class InvitingFriendsLogic extends GetxController {
     });
   }
 
-  agreeOrReject(dynamic user, int result) {
+  agreeOrReject(InviteInfo inviteInfo, int result) {
     LoadingView.singleton.start(fn: () async {
       await ClientApis.responseApplyActive(
-          invtedUserID: user["inviteUserID"], result: result);
-      user["disabled"] = true;
-      inviteInfos.refresh();
+          invtedUserID: inviteInfo.inviteUser.userID!, result: result);
+      inviteInfos.remove(inviteInfo);
     });
   }
 }

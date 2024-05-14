@@ -124,6 +124,12 @@ class LoginLogic extends GetxController {
             verificationCodeCtrl.text.trim().isNotEmpty);
   }
 
+  devEntry() {
+    if (!Config.isProd) {
+      AppNavigator.startDevEntry();
+    }
+  }
+
   login(BuildContext context) {
     FocusScope.of(context).requestFocus(FocusNode());
     DataSp.putLoginType(loginType.value.rawValue);

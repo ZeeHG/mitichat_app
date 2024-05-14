@@ -1184,5 +1184,11 @@ const Map<String, String> zh_CN = {
   "idInvite": "用mitiID邀请",
   "qrcodeInvite": "用二维码邀请",
   "urlInvite": "分享链接邀请",
-  "share": "分享"
+  "share": "分享",
+  "submitMitiIDSuccess": "等待好友为您确认激活中，感谢您对miti的支持",
+  "enterInviterId": "请输入邀请人ID",
+  "inviteDialogTips": "用户%s使用了您的邀请码，想要加入miti，是否为TA激活账号，并默认添加其为好友？",
+  "inviteDialogSuccessTips": "感谢您的耐心等待， 好友%s已经为您激活了miti！",
+  "goStart": "开始使用",
+  "submitError": "提交失败",
 };

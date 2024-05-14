@@ -90,9 +90,10 @@ class InviteFriendsPage extends StatelessWidget {
                                                     .inviteUser.showName.toText
                                                   ..style = StylesLibrary
                                                       .ts_333333_16sp,
-                                                TimelineUtil.formatB(logic
+                                                DateUtil.formatDateMs(logic
                                                         .myInviteRecords[index]
-                                                        .applyTime * 1000)
+                                                        .applyTime * 1000,
+                                                        format: "yyyy.MM.dd")
                                                     .toText
                                                   ..style = StylesLibrary
                                                       .ts_999999_12sp,

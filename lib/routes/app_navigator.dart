@@ -2,6 +2,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:miti/pages/mine/phone_email_change/phone_email_change_logic.dart';
 import 'package:miti_common/miti_common.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../pages/chat/chat_setting/chat_history/media/media_logic.dart';
 import '../pages/chat/group_setting/edit_name/edit_name_logic.dart';
@@ -49,6 +50,12 @@ class AppNavigator {
     Get.until((route) => Get.currentRoute == AppRoutes.home);
   }
 
+  static void startDevEntry() {
+    Get.toNamed(
+      AppRoutes.devEntry,
+    );
+  }
+
   // static startOANtfList({required ConversationInfo info}) {
   //   return Get.toNamed(AppRoutes.oaNotificationList, arguments: info);
   // }
@@ -87,11 +94,22 @@ class AppNavigator {
 
   // static startAddContactsMethod() => Get.toNamed(AppRoutes.addContactsMethod);
 
-  static startScan() => Permissions.camera(() => Get.to(
+  // static startScan() => Permissions.camera(() => Get.to(
+  //       () => const QrcodeView(),
+  //       transition: Transition.cupertino,
+  //       popGesture: true,
+  //     ));
+
+  static startScan() async {
+    if (await Permissions.batchRequestAndCheckPermissions(
+        [Permission.camera])) {
+      return await Get.to(
         () => const QrcodeView(),
         transition: Transition.cupertino,
         popGesture: true,
-      ));
+      );
+    }
+  }
 
   static startSearchAddContacts(
           {required SearchType searchType, String? appBarTitle}) =>
@@ -181,7 +199,9 @@ class AppNavigator {
 
   static startMyInfo() => Get.toNamed(AppRoutes.myInfo);
 
-  static offUntilMyInfo() => Get.offNamedUntil(AppRoutes.myInfo, (route) => route.settings.name == AppRoutes.myInfo,
+  static offUntilMyInfo() => Get.offNamedUntil(
+        AppRoutes.myInfo,
+        (route) => route.settings.name == AppRoutes.myInfo,
       );
 
   static startEditMyProfile(
@@ -549,22 +569,21 @@ class AppNavigator {
       Get.toNamed(AppRoutes.xhsMomentDetail,
           arguments: {"xhsMoment": xhsMoment});
 
-  static startMitiIDChange() =>
-      Get.toNamed(AppRoutes.mitiIDChange);
-  
-  static startMitiIDChangeEntry() =>
-      Get.toNamed(AppRoutes.mitiIDChangeEntry);
+  static startMitiIDChange() => Get.toNamed(AppRoutes.mitiIDChange);
 
-  static startMitiIDChangeRule() =>
-      Get.toNamed(AppRoutes.mitiIDChangeRule);
+  static startMitiIDChangeEntry() => Get.toNamed(AppRoutes.mitiIDChangeEntry);
+
+  static startMitiIDChangeRule() => Get.toNamed(AppRoutes.mitiIDChangeRule);
 
   static startActiveAccount() => Get.toNamed(AppRoutes.activeAccount);
 
   static startInviteFriends() => Get.toNamed(AppRoutes.inviteFriends);
 
-  static startInviteFriendsDetail() => Get.toNamed(AppRoutes.inviteFriendsDetail);
+  static startInviteFriendsDetail() =>
+      Get.toNamed(AppRoutes.inviteFriendsDetail);
 
-  static startInviteFriendsHistory() => Get.toNamed(AppRoutes.inviteFriendsHistory);
+  static startInviteFriendsHistory() =>
+      Get.toNamed(AppRoutes.inviteFriendsHistory);
 
   static startInvitingFriends() => Get.toNamed(AppRoutes.invitingFriends);
 }

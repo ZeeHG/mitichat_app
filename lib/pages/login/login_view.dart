@@ -31,8 +31,8 @@ class LoginPage extends StatelessWidget {
                   50.verticalSpace,
                   ImageLibrary.logo2.toImage
                     ..width = 89.w
-                    ..height = 81.h,
-                  // ..onDoubleTap = logic.configService,
+                    ..height = 81.h
+                  ..onDoubleTap = logic.devEntry,
                   20.verticalSpace,
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 36.w),

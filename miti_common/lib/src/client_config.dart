@@ -7,9 +7,16 @@ import 'package:miti_common/miti_common.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Config {
+  static String ENV = "prod";
+  static bool isProd = false;
+
   //初始化全局信息
   static Future init(Function() runApp) async {
     WidgetsFlutterBinding.ensureInitialized();
+
+    ENV = String.fromEnvironment('ENV', defaultValue: 'prod');
+    isProd = bool.fromEnvironment("dart.vm.product");
+
     try {
       final path = (await getApplicationDocumentsDirectory()).path;
       cachePath = '$path/';
@@ -62,6 +69,7 @@ class Config {
   /// 二维码：scheme
   static const friendScheme = "miti.chat/addFriend/";
   static const groupScheme = "miti.chat/joinGroup/";
+  static const inviteUrl = "https://www.miti.chah/invite/";
 
   /// ip
   /// web.rentsoft.cn

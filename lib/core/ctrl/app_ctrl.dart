@@ -10,6 +10,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:google_api_availability/google_api_availability.dart';
 import 'package:miti/pages/login/login_logic.dart';
+import 'package:miti/routes/app_navigator.dart';
 // import 'package:miti/firebase_options.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:sound_mode/sound_mode.dart';
@@ -396,6 +397,33 @@ class AppCtrl extends SuperController with AppControllerGetx {
 
   Future<void> clearNotifications() async {
     await notificationPlugin.cancelAll();
+  }
+
+  Future<void> promptInviteNotification(InviteInfo inviteInfo) async {
+    await Get.dialog(CustomDialog(
+      bigTitle: "",
+      title: StrLibrary.inviteDialogTips,
+      leftText: StrLibrary.reject,
+      rightText: StrLibrary.accept,
+      onTapLeft: () => agreeOrReject(inviteInfo.inviteUser.userID!, 2),
+      onTapRight: () => agreeOrReject(inviteInfo.inviteUser.userID!, 1),
+    ));
+  }
+
+  Future<void> promptInviteResultNotification(InviteInfo inviteInfo) async {
+    await Get.dialog(CustomDialog(
+      bigTitle: "",
+      title: StrLibrary.inviteDialogSuccessTips,
+      centerBigText: StrLibrary.goStart,
+      onTapCenter: () => AppNavigator.startMain(),
+    ));
+  }
+
+  agreeOrReject(String invtedUserID, int result) {
+    LoadingView.singleton.start(fn: () async {
+      await ClientApis.responseApplyActive(
+          invtedUserID: invtedUserID, result: result);
+    });
   }
 
   // void showBadge(count) {

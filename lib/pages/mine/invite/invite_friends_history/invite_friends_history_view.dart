@@ -60,8 +60,8 @@ class InviteFriendsHistoryPage extends StatelessWidget {
                     children: [
                       user.showName.toText
                         ..style = StylesLibrary.ts_333333_16sp,
-                      TimelineUtil.formatB(
-                              0)
+                      DateUtil.formatDateMs(
+                              0, format: "yyyy.MM.dd")
                           .toText
                         ..style = StylesLibrary.ts_999999_12sp,
                     ],

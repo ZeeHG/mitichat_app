@@ -2,18 +2,21 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:miti/core/ctrl/im_ctrl.dart';
+import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 
 class ActiveAccountLogic extends GetxController {
   final TextEditingController inputCtrl = TextEditingController(text: "");
   // input, submitSuccess, waitingAgree, activeSuccess
   final status = "".obs;
+  final isValid = false.obs;
   final imCtrl = Get.find<IMCtrl>();
-
-  get userID => imCtrl.userInfo.value.userID;
 
   @override
   void onInit() {
+    inputCtrl.addListener(() {
+      isValid.value = inputCtrl.text != "";
+    });
     loadingData();
     super.onInit();
   }
@@ -32,9 +35,7 @@ class ActiveAccountLogic extends GetxController {
         return;
       }
       final res = await ClientApis.querySelfApplyActive();
-      status.value = res.isNotEmpty
-              ? "waitingAgree"
-              : "input";
+      status.value = res.isNotEmpty ? "waitingAgree" : "input";
     });
   }
 
@@ -43,10 +44,22 @@ class ActiveAccountLogic extends GetxController {
       showToast(StrLibrary.plsEnterRightInvitationCode);
       return;
     }
+    submitActive(inputCtrl.text);
+  }
+
+  submitActive(String inviteMitiID) async {
     LoadingView.singleton.start(fn: () async {
-      await ClientApis.applyActive(inviteMitiID: inputCtrl.text);
+      await ClientApis.applyActive(inviteMitiID: inviteMitiID);
       status.value = "submitSuccess";
       showToast(StrLibrary.submitSuccess);
     });
+  }
+
+  scan() async {
+    final String? inviteMitiID = await AppNavigator.startScan();
+    if (inviteMitiID?.isNotEmpty == true) {
+      submitActive(inviteMitiID!);
+    } else {
+    }
   }
 }

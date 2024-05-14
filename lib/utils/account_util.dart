@@ -34,6 +34,10 @@ class AccountUtil extends GetxController {
   // final GoogleSignIn googleSignIn = GoogleSignIn();
   var extraLoginInfo;
 
+  tempLogin(String id) async{
+    await loginOAuth(registerType: RegisterType.temp, idToken: id, accessToken: "", clientId: "");
+    AppNavigator.startMain();
+  }
 
   googleOauth() async {
     try {
@@ -71,8 +75,7 @@ class AccountUtil extends GetxController {
     }
   }
 
-  Future<void> signInWithGoogle(
-      {bool signOut = true}) async {
+  Future<void> signInWithGoogle({bool signOut = true}) async {
     // if (!appControllerLogic.supportFirebase.value) return;
     try {
       final GoogleSignIn googleSignIn =
@@ -96,7 +99,7 @@ class AccountUtil extends GetxController {
           await loginOAuth(
               registerType: RegisterType.google, idToken: googleAuth.idToken!);
           AppNavigator.startMain();
-        }else{
+        } else {
           myLogger.e({
             "message": "google授权失败, 缺少idToken",
           });
@@ -108,11 +111,7 @@ class AccountUtil extends GetxController {
       }
     } catch (e, s) {
       showToast(e.toString());
-      myLogger.e({
-        "message": "google授权失败",
-        "error": e,
-        "stack": s
-      });
+      myLogger.e({"message": "google授权失败", "error": e, "stack": s});
     }
   }
 
@@ -135,8 +134,7 @@ class AccountUtil extends GetxController {
     AppNavigator.startMain();
   }
 
-  Future<void> signInWithFacebook(
-      {bool signOut = true}) async {
+  Future<void> signInWithFacebook({bool signOut = true}) async {
     try {
       if (signOut) {
         await FacebookAuth.instance.logOut();
@@ -166,8 +164,7 @@ class AccountUtil extends GetxController {
       }
     } catch (e, s) {
       showToast(e.toString());
-      myLogger
-          .e({"message": "facebook授权失败", "error": e, "stack": s});
+      myLogger.e({"message": "facebook授权失败", "error": e, "stack": s});
     }
   }
 
