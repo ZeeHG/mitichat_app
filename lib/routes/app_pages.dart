@@ -50,6 +50,7 @@ import 'package:miti/pages/privacy_policy/privacy_policy_binding.dart';
 import 'package:miti/pages/privacy_policy/privacy_policy_view.dart';
 import 'package:miti/pages/terms_of_server/terms_of_server_binding.dart';
 import 'package:miti/pages/terms_of_server/terms_of_server_view.dart';
+import 'package:miti/pages/welcomePage/welcomePage_view.dart';
 import 'package:miti/pages/xhs/xhs_binding.dart';
 import 'package:miti/pages/xhs/xhs_moment_detail/xhs_moment_detail_binding.dart';
 import 'package:miti/pages/xhs/xhs_moment_detail/xhs_moment_detail_view.dart';
@@ -685,6 +686,11 @@ class AppPages {
       name: AppRoutes.xhsMomentDetail,
       page: () => XhsMomentDetailPage(),
       binding: XhsMomentDetailBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.welcomePage,
+      page: () => WelcomePage(),
+      // binding: WelcomePage(),
     ),
     // ...OPages.pages, // 组织架构
     ...CirclePages.pages, // 工作圈

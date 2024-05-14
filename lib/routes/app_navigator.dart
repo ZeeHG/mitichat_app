@@ -19,6 +19,10 @@ class AppNavigator {
     Get.offAllNamed(AppRoutes.login);
   }
 
+  static void welcome() {
+    Get.toNamed(AppRoutes.welcomePage);
+  }
+
   static void startLoginWithoutOff(
       {bool isAddAccount = false, String server = Config.host}) {
     Get.toNamed(

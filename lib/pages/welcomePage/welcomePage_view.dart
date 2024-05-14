@@ -4,24 +4,35 @@ import 'package:get/get.dart';
 import 'package:miti/pages/welcomePage/welcomePage_logic.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:sprintf/sprintf.dart';
-import 'package:flutter/material.dart';
-import 'package:card_swiper/card_swiper.dart';
+import '../../routes/app_navigator.dart';
 
-class SwiperPage extends StatelessWidget {
-  SwiperPage({super.key});
-  List<String> imgs = [
-    'assets/images/welcome1.png',
-    'assets/images/welcome2.png',
-    'assets/images/welcome3.png',
-    'assets/images/welcome4.png',
-    'assets/images/welcome5.png',
+class WelcomePage extends StatefulWidget {
+  WelcomePage({Key? key}) : super(key: key);
+
+  @override
+  _WelcomePageState createState() => _WelcomePageState();
+}
+
+class _WelcomePageState extends State<WelcomePage> {
+  final PageController _pageController = PageController();
+  final List<ImageView> pages = [
+    ImageLibrary.welcome1.toImage,
+    ImageLibrary.welcome2.toImage,
+    ImageLibrary.welcome3.toImage,
+    ImageLibrary.welcome4.toImage,
+    ImageLibrary.welcome5.toImage,
   ];
-  List<String> texts = [
+
+  final List<String> texts = [
     "Free Audio & Video Calls",
     "Thoughtful AI Assistant",
     "Across 60+ Languages",
-    "Comprehensive Social Interaction"
+    "Comprehensive Social Interaction",
+    "Multi-Server Support",
   ];
+
+  int _currentPage = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,36 +42,81 @@ class SwiperPage extends StatelessWidget {
             Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: Swiper(
-                itemBuilder: (BuildContext context, int index) {
-                  Column(
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: pages.length,
+                onPageChanged: (int page) {
+                  setState(() {
+                    _currentPage = page;
+                  });
+                },
+                itemBuilder: (context, index) {
+                  return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      18.verticalSpace,
                       Text(
                         texts[index],
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Image.asset(
-                        imgs[index],
-                        width: 200,
-                        height: 200,
-                        fit: BoxFit.cover,
+                      12.verticalSpace,
+                      pages[index],
+                      28.verticalSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 21.33.w, vertical: 10.h),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children:
+                                  List.generate(pages.length, (indexDots) {
+                                return AnimatedContainer(
+                                  duration: Duration(milliseconds: 200),
+                                  width: _currentPage == indexDots ? 24.w : 8.w,
+                                  height: 8.h,
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 2.0),
+                                  decoration: BoxDecoration(
+                                    color: _currentPage == indexDots
+                                        ? Colors.black
+                                        : Colors.black,
+                                    borderRadius: BorderRadius.circular(
+                                        _currentPage == indexDots ? 4.w : 4.h),
+                                  ),
+                                );
+                              }),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              if (_currentPage == pages.length - 1) {
+                                AppNavigator.startLogin();
+                              } else {
+                                _pageController.nextPage(
+                                    duration: Duration(milliseconds: 400),
+                                    curve: Curves.easeInOut);
+                              }
+                            },
+                            child: Text(
+                              _currentPage == pages.length - 1
+                                  ? 'Get Started'
+                                  : 'Next',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.purple,
+                            ),
+                          )
+                        ],
                       ),
                     ],
                   );
                 },
-                itemCount: imgs.length,
-                autoplay: false,
-                pagination: SwiperPagination(
-                    builder: DotSwiperPaginationBuilder(
-                  color: Colors.black,
-                  activeColor: Colors.black,
-                  size: 8.0,
-                  activeSize: 12.0,
-                )),
               ),
             ),
           ],

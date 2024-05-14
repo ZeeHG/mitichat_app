@@ -14,6 +14,7 @@ class AppSplashLogic extends GetxController {
   final translateLogic = Get.find<TranslateLogic>();
   final ttsLogic = Get.find<TtsLogic>();
 
+//getxxx
   String? get userID => DataSp.userID;
 
   String? get token => DataSp.imToken;
@@ -28,7 +29,12 @@ class AppSplashLogic extends GetxController {
       if (null != userID && null != token) {
         await tryAutoLogin();
       } else {
-        AppNavigator.startLogin();
+        bool? isFirstUse = await DataSp.getfirstUse();
+        if (true) {
+          AppNavigator.welcome();
+        } else {
+          AppNavigator.startLogin();
+        }
       }
       // autoCheckVersionUpgrade();
     });
