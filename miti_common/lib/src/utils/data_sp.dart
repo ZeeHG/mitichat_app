@@ -89,7 +89,7 @@ class DataSp {
   }
 
   static bool? getfirstUse() {
-    return SpUtil().getBool(firstUse);
+    return SpUtil().getBool(firstUse, defValue: true);
   }
 
   static String? getServerIP() {

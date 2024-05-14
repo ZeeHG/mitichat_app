@@ -10,7 +10,10 @@ class WelcomePage extends StatefulWidget {
   WelcomePage({Key? key}) : super(key: key);
 
   @override
-  _WelcomePageState createState() => _WelcomePageState();
+  _WelcomePageState createState() {
+    DataSp.putfirstUse(false);
+    return _WelcomePageState();
+  }
 }
 
 class _WelcomePageState extends State<WelcomePage> {
