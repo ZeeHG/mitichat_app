@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:sprintf/sprintf.dart';
@@ -26,6 +28,7 @@ class DataSp {
   static const _mainLoginAccount = 'mainLoginAccount';
   static const _conversationStore = 'conversationStore';
   static const _aiStore = 'aiStore';
+  static const firstUse = 'firstUse';
 
   DataSp._();
 
@@ -79,6 +82,14 @@ class DataSp {
 
   static Future<bool>? putServerIP(String ip) {
     return SpUtil().putString(ip, ip);
+  }
+
+  static Future<bool>? putfirstUse(bool value) {
+    return SpUtil().putBool(firstUse, value);
+  }
+
+  static bool? getfirstUse() {
+    return SpUtil().getBool(firstUse);
   }
 
   static String? getServerIP() {
