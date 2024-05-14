@@ -1708,6 +1708,11 @@ class StrLibrary {
   static String get enterInviterId => 'enterInviterId'.tr;
   static String get inviteDialogTips => 'inviteDialogTips'.tr;
   static String get inviteDialogSuccessTips => 'inviteDialogSuccessTips'.tr;
+  static String get inviteDialogFailTips => 'inviteDialogFailTips'.tr;
   static String get goStart => 'goStart'.tr;
   static String get submitError => 'submitError'.tr;
+  static String get waitingActive => 'waitingActive'.tr;
+  static String get activeTips => 'activeTips'.tr;
+  static String get goActive => 'goActive'.tr;
+  static String get submitActiveSuccess => 'submitActiveSuccess'.tr;
 }

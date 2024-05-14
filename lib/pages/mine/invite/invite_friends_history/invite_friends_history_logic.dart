@@ -3,6 +3,7 @@ import 'package:miti_common/miti_common.dart';
 
 class InviteFriendsHistoryLogic extends GetxController {
   final users = <UserFullInfo>[].obs;
+  final applyTimes = <int>[].obs;
 
   @override
   void onInit() {
@@ -16,6 +17,9 @@ class InviteFriendsHistoryLogic extends GetxController {
       if (null != res?["users"]) {
         users.value = List<UserFullInfo>.from(
             res?["users"]!.map((e) => UserFullInfo.fromJson(e)).toList());
+      }
+      if (null != res?["applyTimes"]) {
+        applyTimes.value = List<int>.from(res?["applyTimes"]);
       }
     });
   }

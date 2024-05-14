@@ -108,6 +108,7 @@ abstract class AppRoutes {
   static const inviteFriendsHistory = '/invite_friends_history';
   static const invitingFriends = '/inviting_friends';
   static const devEntry = '/dev_entry';
+  static const activeAccountEntry = '/active_account_entry';
 }
 
 extension RoutesExtension on String {

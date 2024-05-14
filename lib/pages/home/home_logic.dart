@@ -200,6 +200,14 @@ class HomeLogic extends SuperController with FriendCircleBridge {
       onRecvNewMessageForWorkingCircle?.call(value);
       getUnreadMomentsCount();
     });
+
+    imCtrl.inviteApplySubject.listen((value) {
+      appCtrl.promptInviteNotification(value);
+    });
+
+    imCtrl.inviteApplyHandleSubject.listen((value) {
+      appCtrl.promptInviteHandleNotification(value);
+    });
   }
 
   @override

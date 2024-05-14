@@ -577,6 +577,8 @@ class AppNavigator {
 
   static startActiveAccount() => Get.toNamed(AppRoutes.activeAccount);
 
+  static startActiveAccountEntry() => Get.toNamed(AppRoutes.activeAccountEntry);
+
   static startInviteFriends() => Get.toNamed(AppRoutes.inviteFriends);
 
   static startInviteFriendsDetail() =>

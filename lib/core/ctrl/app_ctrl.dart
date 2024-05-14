@@ -15,6 +15,7 @@ import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:sound_mode/sound_mode.dart';
 import 'package:sound_mode/utils/ringer_mode_statuses.dart';
+import 'package:sprintf/sprintf.dart';
 import 'package:vibration/vibration.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
@@ -25,6 +26,7 @@ mixin AppControllerGetx on GetxController {
   final supportFirebase = false.obs;
   final supportLoginTypes =
       [SupportLoginType.email, SupportLoginType.phone].obs;
+  final Rx<String?> inviteMitiID = null.obs;
 }
 
 // 下载0, 后台1, 消息message.seq
@@ -399,21 +401,24 @@ class AppCtrl extends SuperController with AppControllerGetx {
     await notificationPlugin.cancelAll();
   }
 
-  Future<void> promptInviteNotification(InviteInfo inviteInfo) async {
+  Future<void> promptInviteNotification(Map<String, dynamic> data) async {
     await Get.dialog(CustomDialog(
-      bigTitle: "",
-      title: StrLibrary.inviteDialogTips,
+      title: sprintf(
+          StrLibrary.inviteDialogTips, [data["inviteUser"]["nickname"]]),
       leftText: StrLibrary.reject,
       rightText: StrLibrary.accept,
-      onTapLeft: () => agreeOrReject(inviteInfo.inviteUser.userID!, 2),
-      onTapRight: () => agreeOrReject(inviteInfo.inviteUser.userID!, 1),
+      onTapLeft: () => agreeOrReject(data["inviteUser"]["userID"], 2),
+      onTapRight: () => agreeOrReject(data["inviteUser"]["userID"], 1),
     ));
   }
 
-  Future<void> promptInviteResultNotification(InviteInfo inviteInfo) async {
+  Future<void> promptInviteHandleNotification(Map<String, dynamic> data) async {
     await Get.dialog(CustomDialog(
-      bigTitle: "",
-      title: StrLibrary.inviteDialogSuccessTips,
+      title: data["handleResult"] != 2
+          ? sprintf(StrLibrary.inviteDialogSuccessTips,
+              [data["inviteUser"]["nickname"]])
+          : sprintf(StrLibrary.inviteDialogFailTips,
+              [data["inviteUser"]["nickname"]]),
       centerBigText: StrLibrary.goStart,
       onTapCenter: () => AppNavigator.startMain(),
     ));
@@ -423,6 +428,7 @@ class AppCtrl extends SuperController with AppControllerGetx {
     LoadingView.singleton.start(fn: () async {
       await ClientApis.responseApplyActive(
           invtedUserID: invtedUserID, result: result);
+      Get.back();
     });
   }
 

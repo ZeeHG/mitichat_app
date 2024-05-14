@@ -16,89 +16,92 @@ class InviteFriendsDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: TitleBar.back(title: ""),
-      backgroundColor: StylesLibrary.c_F8F9FA,
-      body: SingleChildScrollView(
-        child: Obx(() => Container(
-            width: 1.sw,
-            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
-            child: Column(children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      AppNavigator.startInviteFriendsHistory();
-                    },
-                    behavior: HitTestBehavior.translucent,
-                    child: Container(
-                      width: 165.w,
-                      decoration: BoxDecoration(
-                          color: StylesLibrary.c_FFFFFF,
-                          borderRadius: BorderRadius.circular(10.w)),
-                      padding: EdgeInsets.all(12.w),
-                      child: Column(
-                        children: [
-                          logic.invitedTotal.toString().toText
-                            ..style = StylesLibrary.ts_333333_24sp_bold,
-                          8.verticalSpace,
-                          StrLibrary.invited.toText
-                            ..style =
-                                StylesLibrary.ts_333333_14sp_regular_opacity70,
-                        ],
+    return Obx(
+      () => Scaffold(
+        appBar: TitleBar.back(
+          title: "",
+          result: logic.hadHandle.value,
+        ),
+        backgroundColor: StylesLibrary.c_F8F9FA,
+        body: SingleChildScrollView(
+            child: Container(
+                width: 1.sw,
+                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+                child: Column(children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          AppNavigator.startInviteFriendsHistory();
+                        },
+                        behavior: HitTestBehavior.translucent,
+                        child: Container(
+                          width: 165.w,
+                          decoration: BoxDecoration(
+                              color: StylesLibrary.c_FFFFFF,
+                              borderRadius: BorderRadius.circular(10.w)),
+                          padding: EdgeInsets.all(12.w),
+                          child: Column(
+                            children: [
+                              logic.invitedTotal.toString().toText
+                                ..style = StylesLibrary.ts_333333_24sp_bold,
+                              8.verticalSpace,
+                              StrLibrary.invited.toText
+                                ..style = StylesLibrary
+                                    .ts_333333_14sp_regular_opacity70,
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      AppNavigator.startInvitingFriends();
-                    },
-                    behavior: HitTestBehavior.translucent,
-                    child: Container(
-                      width: 165.w,
-                      decoration: BoxDecoration(
-                          color: StylesLibrary.c_FFFFFF,
-                          borderRadius: BorderRadius.circular(10.w)),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 15.w, vertical: 15.h),
-                      child: Column(
-                        children: [
-                          logic.invitingTotal.toString().toText
-                            ..style = StylesLibrary.ts_333333_24sp_bold,
-                          8.verticalSpace,
-                          StrLibrary.waitingAgree.toText
-                            ..style =
-                                StylesLibrary.ts_333333_14sp_regular_opacity70,
-                        ],
+                      GestureDetector(
+                        onTap: logic.startInviteFriends,
+                        behavior: HitTestBehavior.translucent,
+                        child: Container(
+                          width: 165.w,
+                          decoration: BoxDecoration(
+                              color: StylesLibrary.c_FFFFFF,
+                              borderRadius: BorderRadius.circular(10.w)),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.w, vertical: 15.h),
+                          child: Column(
+                            children: [
+                              logic.invitingTotal.toString().toText
+                                ..style = StylesLibrary.ts_333333_24sp_bold,
+                              8.verticalSpace,
+                              StrLibrary.waitingAgree.toText
+                                ..style = StylesLibrary
+                                    .ts_333333_14sp_regular_opacity70,
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-              15.verticalSpace,
-              _buildItemView(
-                  label: StrLibrary.idInvite,
-                  icon: ImageLibrary.iDinvite,
-                  showRightArrow: false,
-                  buttonText: StrLibrary.copy,
-                  onTapButton: () {
-                    MitiUtils.copy(text: iMCtrl.userInfo.value.mitiID ?? "");
-                  }),
-              15.verticalSpace,
-              _buildItemView(
-                  label: StrLibrary.qrcodeInvite,
-                  icon: ImageLibrary.qrcodeInvite,
-                  showRightArrow: true,
-                  onTap: () {}),
-              15.verticalSpace,
-              _buildItemView(
-                  label: StrLibrary.urlInvite,
-                  icon: ImageLibrary.urlInvite,
-                  showRightArrow: false,
-                  buttonText: StrLibrary.share,
-                  onTapButton: () {}),
-            ]))),
+                  15.verticalSpace,
+                  _buildItemView(
+                      label: StrLibrary.idInvite,
+                      icon: ImageLibrary.iDinvite,
+                      showRightArrow: false,
+                      buttonText: StrLibrary.copy,
+                      onTapButton: () {
+                        MitiUtils.copy(
+                            text: iMCtrl.userInfo.value.mitiID ?? "");
+                      }),
+                  15.verticalSpace,
+                  _buildItemView(
+                      label: StrLibrary.qrcodeInvite,
+                      icon: ImageLibrary.qrcodeInvite,
+                      showRightArrow: true,
+                      onTap: () {}),
+                  15.verticalSpace,
+                  _buildItemView(
+                      label: StrLibrary.urlInvite,
+                      icon: ImageLibrary.urlInvite,
+                      showRightArrow: false,
+                      buttonText: StrLibrary.share,
+                      onTapButton: logic.share),
+                ]))),
       ),
     );
   }
@@ -116,9 +119,8 @@ class InviteFriendsDetailPage extends StatelessWidget {
           behavior: HitTestBehavior.translucent,
           child: Container(
             decoration: BoxDecoration(
-              color: StylesLibrary.c_FFFFFF,
-              borderRadius: BorderRadius.circular(10.r)
-            ),
+                color: StylesLibrary.c_FFFFFF,
+                borderRadius: BorderRadius.circular(10.r)),
             padding: EdgeInsets.symmetric(horizontal: 15.w),
             child: Container(
               height: 58.h,

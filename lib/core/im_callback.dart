@@ -112,6 +112,10 @@ class IMCallback {
 
   var momentsSubject = PublishSubject<WorkMomentsNotification>();
 
+  var inviteApplySubject = PublishSubject<Map<String, dynamic>>();
+
+  var inviteApplyHandleSubject = PublishSubject<Map<String, dynamic>>();
+
   // var customBusinessSubject = PublishSubject();
 
   // var meetingSteamChangedSubject = PublishSubject<dynamic>();
@@ -158,7 +162,7 @@ class IMCallback {
     if (Get.isRegistered<MessageUtil>()) {
       final messageUtil = Get.find<MessageUtil>();
       messageUtil.cacheVoiceMessageList([msg]);
-    } 
+    }
     onRecvNewMessage?.call(msg);
   }
 
@@ -167,7 +171,7 @@ class IMCallback {
     if (Get.isRegistered<MessageUtil>()) {
       final messageUtil = Get.find<MessageUtil>();
       messageUtil.cacheVoiceMessageList([msg]);
-    } 
+    }
     onRecvOfflineMessage?.call(msg);
   }
 
@@ -183,6 +187,32 @@ class IMCallback {
       final json = jsonDecode(data);
       json["key"] = key;
       momentsSubject.add(WorkMomentsNotification.fromJson(json));
+    }
+
+    if (["invite_apply", "invite_apply_handle"].contains(key)) {
+      // final invite_apply = {
+      //   "invitedUser": "4147782393",
+      //   "inviteUser": {"userID": "xxxx", "nickname": "hello"},
+      //   "handleResult": 1,
+      //   "handleTime": 1715673188,
+      //   "key": "invite_apply"
+      // };
+
+      // final invite_apply_handle = {
+      //   "invitedUser": "4147782393",
+      //   "inviteUser": {"userID": "xxxx", "nickname": "hello"},
+      //   "handleResult": 1,
+      //   "handleTime": 1715673188,
+      //   "key": "invite_apply_handle"
+      // };
+
+      final json = jsonDecode(data);
+      json["key"] = key;
+      if ("invite_apply" == key) {
+        inviteApplySubject.add(json);
+      } else if ("invite_apply_handle" == key) {
+        inviteApplyHandleSubject.add(json);
+      }
     }
   }
 
@@ -311,6 +341,8 @@ class IMCallback {
     onKickedOfflineSubject.close();
     groupApplicationChangedSubject.close();
     momentsSubject.close();
+    inviteApplySubject.close();
+    inviteApplyHandleSubject.close();
     imSdkStatusSubject.close();
     roomParticipantConnectedSubject.close();
     roomParticipantDisconnectedSubject.close();
@@ -387,6 +419,10 @@ class IMCallback {
     roomParticipantConnectedSubject = PublishSubject<RoomCallingInfo>();
 
     momentsSubject = PublishSubject<WorkMomentsNotification>();
+
+    inviteApplySubject = PublishSubject<Map<String, dynamic>>();
+
+    inviteApplyHandleSubject = PublishSubject<Map<String, dynamic>>();
 
     // customBusinessSubject = PublishSubject();
 

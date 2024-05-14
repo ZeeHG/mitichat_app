@@ -337,7 +337,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
       String? leftTitle,
       TextStyle? titleStyle,
       TextStyle? leftTitleStyle,
-      String? result,
+      dynamic result,
       Color? backgroundColor,
       bool hideBack = false,
       this.overBottomBg,

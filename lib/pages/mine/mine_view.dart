@@ -50,11 +50,11 @@ class MinePage extends StatelessWidget {
                       label: StrLibrary.inviteFriends,
                       onTap: logic.viewInviteFriends,
                     ),
-                    _buildItem(
-                      icon: ImageLibrary.appMyInfo,
-                      label: StrLibrary.activeAccount,
-                      onTap: logic.viewAccountActive,
-                    ),
+                    // _buildItem(
+                    //   icon: ImageLibrary.appMyInfo,
+                    //   label: StrLibrary.activeAccount,
+                    //   onTap: logic.viewAccountActive,
+                    // ),
                     // _buildItem(
                     //   icon: ImageLibrary.appMyPoints,
                     //   label: StrLibrary .myPoints,
@@ -99,14 +99,40 @@ class MinePage extends StatelessWidget {
                   width: 58.w,
                   height: 58.h),
               16.horizontalSpace,
-              Column(
+              
+              Expanded(
+                child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  (logic.imCtrl.userInfo.value.nickname ?? '').toText
-                    ..style = StylesLibrary.ts_4B3230_18sp,
-                  if(null != logic.imCtrl.userInfo.value.mitiID && logic.imCtrl.userInfo.value.mitiID!.isNotEmpty)
-                  ...[
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Flexible(child: (logic.imCtrl.userInfo.value.nickname ?? '')
+                                .toText
+                              ..style = StylesLibrary.ts_4B3230_18sp
+                              ..maxLines = 1
+                              ..overflow = TextOverflow.ellipsis),
+                      8.horizontalSpace,
+                      if(!logic.isAlreadyActive)
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: logic.viewAccountActiveEntry,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: StylesLibrary.c_969292,
+                            borderRadius: BorderRadius.circular(50.r)
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 5.w, vertical: 2.h),
+                          child: StrLibrary.waitingActive.toText
+                            ..style = StylesLibrary.ts_CCCCCC_12sp,
+                        ),
+                      )
+                    ],
+                  ),
+                  if (null != logic.imCtrl.userInfo.value.mitiID &&
+                      logic.imCtrl.userInfo.value.mitiID!.isNotEmpty) ...[
                     11.verticalSpace,
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
@@ -122,8 +148,8 @@ class MinePage extends StatelessWidget {
                   ]
                 ],
               ),
-              Expanded(
-                child: Row(
+              ),
+              Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -134,8 +160,7 @@ class MinePage extends StatelessWidget {
                       ..width = 20.w
                       ..height = 20.h,
                   ],
-                ),
-              )
+                )
             ],
           ),
         ),

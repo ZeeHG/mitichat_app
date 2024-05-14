@@ -24,6 +24,7 @@ class Miti extends StatefulWidget {
 
 class _MitiState extends State<Miti> {
   final appCommonLogic = Get.put(AppCommonLogic());
+  final appCtrl = Get.put(AppCtrl());
   late AppLinks _appLinks;
   StreamSubscription<Uri>? _linkSubscription;
 
@@ -47,10 +48,27 @@ class _MitiState extends State<Miti> {
     });
   }
 
-  void openAppLink(Uri uri) {
-    myLogger.i({"message": "app link", "data": {"uri": uri.toString()}});
+  void openAppLink(Uri uri) async {
+    myLogger.i({
+      "message": "app link",
+      "data": {"uri": uri.toString()}
+    });
     // todo 是否已经打开app, splash初始化, 是否以登录...
-    Get.toNamed(uri.path, arguments: uri.queryParameters);
+    if (uri.path == AppRoutes.activeAccount &&
+        uri.queryParameters["mitiID"] != null) {
+      final String inviteMitiID = uri.queryParameters["mitiID"]!.toString();
+      if (Get.isRegistered<IMCtrl>()) {
+        final imCtrl = Get.find<IMCtrl>();
+        if (imCtrl.userInfo.value.isAlreadyActive != true) {
+          await ClientApis.applyActive(inviteMitiID: inviteMitiID);
+          showToast(StrLibrary.submitActiveSuccess);
+        }
+      } else {
+        appCtrl.inviteMitiID.value = inviteMitiID;
+      }
+    } else {
+      Get.toNamed(uri.path, arguments: uri.queryParameters);
+    }
   }
 
   @override
@@ -108,7 +126,7 @@ class _MitiState extends State<Miti> {
 class AppBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(AppCtrl());
+    // Get.put(AppCtrl());
     Get.put<IMCtrl>(IMCtrl());
     Get.put<PushCtrl>(PushCtrl());
     Get.put<HiveCtrl>(HiveCtrl());
@@ -121,7 +139,17 @@ class AppBinding extends Bindings {
     Get.put(TtsLogic());
     Get.put(MessageUtil());
 
+    // final appCtrl = Get.find<AppCtrl>();
+    // final imCtrl = Get.find<IMCtrl>();
     final conversationUtil = Get.find<ConversationUtil>();
     conversationUtil.resetAllWaitingST();
+
+    // imCtrl.inviteApplySubject.listen((value) {
+    //   appCtrl.promptInviteNotification(value);
+    // });
+
+    // imCtrl.inviteApplyHandleSubject.listen((value) {
+    //   appCtrl.promptInviteHandleNotification(value);
+    // });
   }
 }

@@ -29,6 +29,8 @@ import 'package:miti/pages/mine/account_and_security/account_and_security_view.d
 import 'package:miti/pages/mine/account_manage/account_manage_binding.dart';
 import 'package:miti/pages/mine/account_manage/account_manage_view.dart';
 import 'package:miti/pages/mine/active_account/active_account_binding.dart';
+import 'package:miti/pages/mine/active_account/active_account_entry/active_account_entry_binding.dart';
+import 'package:miti/pages/mine/active_account/active_account_entry/active_account_entry_view.dart';
 import 'package:miti/pages/mine/active_account/active_account_view.dart';
 import 'package:miti/pages/mine/delete_user/delete_user_binding.dart';
 import 'package:miti/pages/mine/delete_user/delete_user_view.dart';
@@ -748,6 +750,11 @@ class AppPages {
       name: AppRoutes.devEntry,
       page: () => DevEntryPage(),
       binding: DevEntryBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.activeAccountEntry,
+      page: () => ActiveAccountEntryPage(),
+      binding: ActiveAccountEntryBinding(),
     ),
     // ...OPages.pages, // 组织架构
     ...CirclePages.pages, // 工作圈

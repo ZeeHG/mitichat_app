@@ -59,15 +59,17 @@ class InviteFriendsPage extends StatelessWidget {
                             ..style = StylesLibrary.ts_333333_16sp_medium,
                         ),
                         15.verticalSpace,
-                        if (logic.myInviteRecords.isEmpty)
+                        if (logic.users.isEmpty)
                           StrLibrary.empty.toText
                             ..style = StylesLibrary.ts_333333_14sp,
-                        if (logic.myInviteRecords.isNotEmpty)
+                        if (logic.users.isNotEmpty)
                           ...List.generate(
-                              logic.myInviteRecords.length,
+                              logic.users.length,
                               (index) => Container(
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 15.w),
+                                    margin: EdgeInsets.only(
+                                        top: index > 0 ? 15.h : 0),
                                     child: Row(
                                       children: [
                                         Expanded(
@@ -76,23 +78,22 @@ class InviteFriendsPage extends StatelessWidget {
                                             AvatarView(
                                               width: 40.w,
                                               height: 40.h,
-                                              url: logic.myInviteRecords[index]
-                                                  .inviteUser.faceURL,
-                                              text: logic.myInviteRecords[index]
-                                                  .inviteUser.showName,
+                                              url: logic.users[index].faceURL,
+                                              text: logic.users[index].showName,
                                             ),
                                             8.horizontalSpace,
                                             Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                logic.myInviteRecords[index]
-                                                    .inviteUser.showName.toText
+                                                logic.users[index].showName
+                                                    .toText
                                                   ..style = StylesLibrary
                                                       .ts_333333_16sp,
-                                                DateUtil.formatDateMs(logic
-                                                        .myInviteRecords[index]
-                                                        .applyTime * 1000,
+                                                DateUtil.formatDateMs(
+                                                        logic.applyTimes[
+                                                                index] *
+                                                            1000,
                                                         format: "yyyy.MM.dd")
                                                     .toText
                                                   ..style = StylesLibrary

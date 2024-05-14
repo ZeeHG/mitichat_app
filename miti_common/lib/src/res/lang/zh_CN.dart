@@ -1158,15 +1158,17 @@ const Map<String, String> zh_CN = {
   "newMitiID": "新的mitiID",
   "newMitiIDRule": "mitiID一年只能修改1次",
   "agreeChangeMitiID1": "我已阅读并同意关于",
-   "agreeChangeMitiID2": "修改mitiID的",
+  "agreeChangeMitiID2": "修改mitiID的",
   "agreeChangeMitiID3": "重要提醒",
   "openAngleBracket": "《",
   "closeAngleBracket": "》",
   "changeMitiRule1": "关于修改mitiID重要提醒",
   "changeMitiRule2": "1.修改mitiID后，平台内其余用户将无法通过旧的mitiID搜索及添加你；",
   "changeMitiRule3": "2.mtiID一年只能修改1次，一经修改，无法回退到旧的mitiID，请谨慎确认；",
-  "changeMitiRule4": "3.mitiID修改后，平台内绑定的相关数据不会因mitiID的修改而发生变化，同样地，通过miti授权登录及使用的第三方服务也不会因修改而受到影响；",
-  "changeMitiRule5": "4.mitiID的修改仍需遵守《miti服务协议》等相关协议、规范，你修改后的mitiID不能与其他人在用或曾用的mitiID相同。",
+  "changeMitiRule4":
+      "3.mitiID修改后，平台内绑定的相关数据不会因mitiID的修改而发生变化，同样地，通过miti授权登录及使用的第三方服务也不会因修改而受到影响；",
+  "changeMitiRule5":
+      "4.mitiID的修改仍需遵守《miti服务协议》等相关协议、规范，你修改后的mitiID不能与其他人在用或曾用的mitiID相同。",
   "changeMitiRule6": "miti团队",
   "changeMitiRule7": "2024.05.08",
   "myInviteRecords": "我的邀请记录",
@@ -1189,6 +1191,12 @@ const Map<String, String> zh_CN = {
   "enterInviterId": "请输入邀请人ID",
   "inviteDialogTips": "用户%s使用了您的邀请码，想要加入miti，是否为TA激活账号，并默认添加其为好友？",
   "inviteDialogSuccessTips": "感谢您的耐心等待， 好友%s已经为您激活了miti！",
+  "inviteDialogFailTips": "好友%s已拒绝你的激活请求",
   "goStart": "开始使用",
   "submitError": "提交失败",
+  "waitingActive": "待激活",
+  "activeTips":
+      "您的 miti账号目前处于未激活状态，还无法使用miti平台中的AI功能模块，快去激活 miti账号开启完整的 miti之旅吧!",
+  "goActive": "去激活",
+  "submitActiveSuccess": "提交申请激活成功",
 };

@@ -91,7 +91,7 @@ class CustomDialog extends StatelessWidget {
                             _button(
                               bgColor: StylesLibrary.c_FFFFFF,
                               text: leftText ?? StrLibrary.cancel,
-                              textStyle: StylesLibrary.ts_999999_14sp,
+                              textStyle: StylesLibrary.ts_8443F8_14sp,
                               onTap: onTapLeft ?? () => Get.back(result: false),
                             ),
                             Container(

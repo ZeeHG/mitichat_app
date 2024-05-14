@@ -13,19 +13,20 @@ class InvitingFriendsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: TitleBar.back(title: StrLibrary.waitingAgree),
-      backgroundColor: StylesLibrary.c_F8F9FA,
-      body: Obx(() => SingleChildScrollView(
+    return Obx(() => Scaffold(
+          appBar: TitleBar.back(
+              title: StrLibrary.waitingAgree, result: logic.hadHandle.value),
+          backgroundColor: StylesLibrary.c_F8F9FA,
+          body: SingleChildScrollView(
             child: logic.inviteInfos.isEmpty
                 ? Container(
-                  margin: EdgeInsets.only(top: 112.h),
-                  child: Center(
+                    margin: EdgeInsets.only(top: 112.h),
+                    child: Center(
                       child: ImageLibrary.inviteEmpty.toImage
                         ..width = 224.w
                         ..height = 224.h,
                     ),
-                )
+                  )
                 : Container(
                     width: 1.sw,
                     padding:
@@ -33,12 +34,11 @@ class InvitingFriendsPage extends StatelessWidget {
                     child: Column(
                         children: List.generate(
                             logic.inviteInfos.length,
-                            (index) =>
-                                _buildItemView(
+                            (index) => _buildItemView(
                                 inviteInfo: logic.inviteInfos[index]))),
                   ),
-          )),
-    );
+          ),
+        ));
   }
 
   Widget _buildItemView({required InviteInfo inviteInfo}) => Container(
@@ -66,15 +66,29 @@ class InvitingFriendsPage extends StatelessWidget {
                     children: [
                       inviteInfo.inviteUser.showName.toText
                         ..style = StylesLibrary.ts_333333_16sp,
-                      DateUtil.formatDateMs(inviteInfo.applyTime * 1000, format: "yyyy.MM.dd").toText
+                      DateUtil.formatDateMs(inviteInfo.applyTime * 1000,
+                              format: "yyyy.MM.dd")
+                          .toText
                         ..style = StylesLibrary.ts_999999_12sp,
                     ],
                   )
                 ],
               )),
               10.horizontalSpace,
-              StrLibrary.waitingAgree.toText
-                ..style = StylesLibrary.ts_999999_12sp..onTap=() => logic.agreeOrReject(inviteInfo, 1)
+              GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () => logic.showModal(inviteInfo),
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50.r),
+                      border:
+                          Border.all(color: StylesLibrary.c_8443F8, width: 1.w),
+                    ),
+                    child: StrLibrary.waitingAgree.toText
+                      ..style = StylesLibrary.ts_8443F8_12sp,
+                  ))
             ],
           ),
         ),

@@ -14,13 +14,15 @@ class MineLogic extends GetxController {
   late StreamSubscription kickedSub;
   final accountUtil = Get.find<AccountUtil>();
 
+  bool get isAlreadyActive => imCtrl.userInfo.value.isAlreadyActive == true;
+
   void viewMyQrcode() => AppNavigator.startMyQrcode();
 
   void viewMyInfo() => AppNavigator.startMyInfo();
 
   void viewInviteFriends() => AppNavigator.startInviteFriends();
 
-  void viewAccountActive() => AppNavigator.startActiveAccount();
+  void viewAccountActiveEntry() => AppNavigator.startActiveAccountEntry();
 
   void copyID() {
     if (null != imCtrl.userInfo.value.mitiID) {
@@ -69,6 +71,7 @@ class MineLogic extends GetxController {
   @override
   void onInit() {
     kickedSubInit();
+    imCtrl.queryMyFullInfo();
     super.onInit();
   }
 
