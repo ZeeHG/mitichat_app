@@ -5,8 +5,10 @@ import 'package:get/get.dart';
 import 'package:miti/utils/account_util.dart';
 import 'package:miti_common/miti_common.dart';
 import '../../core/ctrl/im_ctrl.dart';
+import 'package:miti_common/src/utils/data_sp.dart';
 import '../../core/ctrl/push_ctrl.dart';
 import '../../routes/app_navigator.dart';
+import 'package:flutter_openim_sdk/src/models/login_AccountInfo.dart';
 
 enum LoginType {
   phone,
@@ -71,6 +73,9 @@ class LoginLogic extends GetxController {
       loginType.value == LoginType.phone ? phoneEmailCtrl.text.trim() : null;
   LoginType operateType = LoginType.phone;
   final agree = false.obs;
+  final rememberPassword = false.obs;
+  final isDropdownExpanded = false.obs;
+  final historyAccounts = <AccountInfo>[].obs;
   final translateLogic = Get.find<TranslateLogic>();
   final ttsLogic = Get.find<TtsLogic>();
   final accountUtil = Get.find<AccountUtil>();
@@ -82,6 +87,8 @@ class LoginLogic extends GetxController {
     isAddAccount.value = Get.arguments?['isAddAccount'] ?? false;
     server.value = Get.arguments?['server'] ?? server.value;
     curStatusChangeCount = accountUtil.statusChangeCount.value;
+
+    loadHistoryAccountsFromStorage();
 
     onlyReadServerCtrl.text = DataSp.getCurServerKey().isNotEmpty
         ? DataSp.getCurServerKey()
@@ -284,6 +291,23 @@ class LoginLogic extends GetxController {
       ttsLogic.init(data.userID);
       pushCtrl.login(data.userID);
       AppNavigator.startMain();
+
+      // 登录成功后判断是否需要记住密码
+      if (rememberPassword.value) {
+        String username;
+        if (loginType.value == LoginType.phone) {
+          username = phone ?? '';
+        } else {
+          username = email ?? '';
+        }
+        AccountInfo accountInfo = AccountInfo(
+          username: username,
+          password: password ?? '',
+        );
+        await DataSp.putRememberAccount(accountInfo);
+        loadHistoryAccountsFromStorage();
+      }
+
       return true;
     } catch (e, s) {
       myLogger.e({"message": "登录失败", "error": e, "stack": s});
@@ -336,5 +360,34 @@ class LoginLogic extends GetxController {
   void changeAgree(bool? bool) {
     agree.value = bool!;
     handleFormChange();
+  }
+
+  void changeRememberPassword(bool? bool) {
+    rememberPassword.value = bool!;
+    handleFormChange();
+  }
+
+  void toggleDropdown() {
+    isDropdownExpanded.value = !isDropdownExpanded.value;
+  }
+
+  void selectAccount(AccountInfo account) {
+    phoneEmailCtrl.text = account.username;
+    pwdCtrl.text = account.password;
+    toggleDropdown();
+  }
+
+  void loadHistoryAccountsFromStorage() async {
+    AccountInfo? accountInfo = DataSp.getRememberAccount();
+    if (accountInfo != null) {
+      historyAccounts.assignAll([accountInfo]);
+    }
+  }
+
+  void saveHistoryAccountsToStorage() async {
+    if (historyAccounts.isNotEmpty) {
+      AccountInfo accountInfo = historyAccounts.first;
+      await DataSp.putRememberAccount(accountInfo);
+    }
   }
 }

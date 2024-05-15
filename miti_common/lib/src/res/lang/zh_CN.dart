@@ -8,6 +8,7 @@ const Map<String, String> zh_CN = {
   "account": "账号",
   "plsEnterAccount": "请输入您的账号",
   "forgetPassword": "忘记密码",
+  "rememberPassword": "记住密码",
   "verificationCodeLogin": "验证码登录",
   "login": "登录",
   "noAccountYet": "还没有账号？",

@@ -1119,6 +1119,7 @@ class StrLibrary {
   static String get chatEncryption => 'chatEncryption'.tr;
   static String get showGroupMemberNickname => 'showGroupMemberNickname'.tr;
   static String get complaint => 'complaint'.tr;
+  static String get rememberPassword => 'rememberPassword'.tr;
   static String get privacyPolicyDescriptionP1 =>
       'privacyPolicyDescriptionP1'.tr;
   static String get privacyPolicyDescriptionP2 =>

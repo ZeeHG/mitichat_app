@@ -4,6 +4,8 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:uuid/uuid.dart';
+import 'dart:convert';
+import 'package:flutter_openim_sdk/src/models/login_AccountInfo.dart';
 
 class DataSp {
   static const _loginCertificate = 'loginCertificate';
@@ -29,7 +31,7 @@ class DataSp {
   static const _conversationStore = 'conversationStore';
   static const _aiStore = 'aiStore';
   static const firstUse = 'firstUse';
-
+  static final _rememberAccount = "rememberAccount";
   DataSp._();
 
   static init() async {
@@ -201,6 +203,19 @@ class DataSp {
   // 登录和切换服务器时修改
   static Future<bool>? putCurServerKey(String key) {
     return SpUtil().putString(_curServerKey, key);
+  }
+
+  static Future<bool> putRememberAccount(AccountInfo accountInfo) async {
+    String jsonString = json.encode(accountInfo.toJson());
+    return await SpUtil().putString(_rememberAccount, jsonString) ?? false;
+  }
+
+  static AccountInfo? getRememberAccount() {
+    String? jsonString = SpUtil().getString(_rememberAccount);
+    if (jsonString != null) {
+      return AccountInfo.fromJson(json.decode(jsonString));
+    }
+    return null;
   }
 
   static String getCurAccountLoginInfoKey() {
