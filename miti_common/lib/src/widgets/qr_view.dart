@@ -220,7 +220,7 @@ class _QrcodeViewState extends State<QrcodeView> with TickerProviderStateMixin {
         MitiBridge.scanBridge?.scanOutGroupID(groupID);
         // AppNavigator.startSearchAddGroupFromScan(info: GroupInfo(groupID: gid));
       } else if (result.startsWith(Config.inviteUrl)) {
-        var inviteMitiID = result.substring(Config.inviteUrl.length);
+        var inviteMitiID = Uri.parse(result).queryParameters["mitiID"];
         Get.back(result: inviteMitiID);
       } else if (MitiUtils.isUrlValid(result)) {
         final uri = Uri.parse(Uri.encodeFull(result));

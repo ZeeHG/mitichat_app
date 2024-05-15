@@ -27,15 +27,7 @@ class AppSplashLogic extends GetxController {
   void onInit() async {
     initializedSub = imCtrl.initializedSubject.listen((value) async {
       myLogger.i({"message": "imSdk初始化完成", "data": value});
-      try {
-        final data = await ClientApis.querySupportRegistTypes();
-        appCtrl.supportLoginTypes.value = List<int>.from(data["types"])
-            .map((value) => SupportLoginTypeMap[value])
-            .cast<SupportLoginType>()
-            .toList();
-      } catch (e) {
-        myLogger.e({"message": "获取支持的注册方式失败", "error": e});
-      }
+      await appCtrl.updateSupportRegistTypes();
       await Future.delayed(const Duration(seconds: 2));
       bool? isFirstUse = await DataSp.getfirstUse();
       if (null != userID && null != token) {

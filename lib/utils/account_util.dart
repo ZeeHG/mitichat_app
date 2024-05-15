@@ -192,7 +192,7 @@ class AccountUtil extends GetxController {
     }
   }
 
-  Future<void> tryLogout({bool needLogoutIm = true}) async {
+  Future<void> tryLogout({bool needLogoutIm = true, bool forceLogout = true}) async {
     try {
       if (DataSp.getCurAccountLoginInfoKey().isNotEmpty) {
         if (needLogoutIm && imCtrl.isLogined()) {
@@ -206,6 +206,11 @@ class AccountUtil extends GetxController {
         pushCtrl.logout();
       }
     } catch (e, s) {
+      if(forceLogout){
+        await DataSp.removeLoginCertificate();
+        imCtrl.reBuildSubject();
+        pushCtrl.logout();
+      }
       myLogger.e({"message": "tryLogout失败", "error": e, "stack": s});
     }
   }
@@ -250,6 +255,7 @@ class AccountUtil extends GetxController {
       // FIXME initOpenIM不会出现超时, 只有login im后才会出现
       await imCtrl.initIMSdk();
       await appCtrl.getClientConfig();
+      await appCtrl.updateSupportRegistTypes();
     }
   }
 

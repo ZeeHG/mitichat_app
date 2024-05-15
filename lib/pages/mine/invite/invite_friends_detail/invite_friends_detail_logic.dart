@@ -28,7 +28,7 @@ class InviteFriendsDetailLogic extends GetxController {
   }
 
   share() {
-    Share.share(Config.inviteUrl + mitiID);
+    Share.share("${Config.inviteUrl}?mitiID=$mitiID");
   }
 
   startInviteFriends() async {

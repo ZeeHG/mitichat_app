@@ -44,6 +44,10 @@ class AppCtrl extends SuperController with AppControllerGetx {
           requestBadgePermission: false,
           requestSoundPermission: true);
 
+  late AndroidNotificationDetails androidSpecificsInPush;
+
+  late NotificationDetails platformSpecificsInPush;
+
   // MeetingBridge? meetingBridge = MitiBridge.meetingBridge;
 
   RTCBridge? rtcBridge = MitiBridge.rtcBridge;
@@ -110,8 +114,42 @@ class AppCtrl extends SuperController with AppControllerGetx {
     getDeviceInfo();
     getClientConfig();
     await initNotificationPlugin();
+    initAndroidNotificationConfig();
     // isAppBadgeSupported = await FlutterAppBadger.isAppBadgeSupported();
     super.onInit();
+  }
+
+  initAndroidNotificationConfig() {
+    androidSpecificsInPush = const AndroidNotificationDetails('push', 'push',
+        channelDescription: 'message push',
+        importance: Importance.max,
+        priority: Priority.max,
+        playSound: true,
+        enableVibration: true,
+        // 启动后通知要很久才消失
+        // fullScreenIntent: true,
+        silent: false,
+        // 无效
+        channelShowBadge: false,
+        category: AndroidNotificationCategory.message,
+        visibility: NotificationVisibility.public,
+        // 无效
+        number: 0,
+        ticker: 'one message');
+    platformSpecificsInPush =
+        NotificationDetails(android: androidSpecificsInPush);
+  }
+
+  Future<void> updateSupportRegistTypes() async {
+    try {
+      final data = await ClientApis.querySupportRegistTypes();
+      supportLoginTypes.value = List<int>.from(data["types"])
+          .map((value) => SupportLoginTypeMap[value])
+          .cast<SupportLoginType>()
+          .toList();
+    } catch (e) {
+      myLogger.e({"message": "获取支持的注册方式失败", "error": e});
+    }
   }
 
   Future<void> initNotificationPlugin() async {
@@ -402,26 +440,39 @@ class AppCtrl extends SuperController with AppControllerGetx {
   }
 
   Future<void> promptInviteNotification(Map<String, dynamic> data) async {
-    await Get.dialog(CustomDialog(
-      title: sprintf(
-          StrLibrary.inviteDialogTips, [data["inviteUser"]["nickname"]]),
+    final content =
+        sprintf(StrLibrary.inviteDialogTips, [data["inviteUser"]["nickname"]]);
+    Get.dialog(CustomDialog(
+      title: content,
       leftText: StrLibrary.reject,
       rightText: StrLibrary.accept,
       onTapLeft: () => agreeOrReject(data["inviteUser"]["userID"], 2),
       onTapRight: () => agreeOrReject(data["inviteUser"]["userID"], 1),
     ));
+
+    promptAndroidNotification(
+        platformSpecifics: platformSpecificsInPush,
+        title: StrLibrary.activeAccountNotificationTitle,
+        content: content,
+        payload: json.encode(data));
   }
 
   Future<void> promptInviteHandleNotification(Map<String, dynamic> data) async {
-    await Get.dialog(CustomDialog(
-      title: data["handleResult"] != 2
-          ? sprintf(StrLibrary.inviteDialogSuccessTips,
-              [data["inviteUser"]["nickname"]])
-          : sprintf(StrLibrary.inviteDialogFailTips,
-              [data["inviteUser"]["nickname"]]),
+    final content = data["handleResult"] != 2
+        ? sprintf(StrLibrary.inviteDialogSuccessTips,
+            [data["inviteUser"]["nickname"]])
+        : sprintf(
+            StrLibrary.inviteDialogFailTips, [data["inviteUser"]["nickname"]]);
+    Get.dialog(CustomDialog(
+      title: content,
       centerBigText: StrLibrary.goStart,
       onTapCenter: () => AppNavigator.startMain(),
     ));
+    promptAndroidNotification(
+        platformSpecifics: platformSpecificsInPush,
+        title: StrLibrary.activeAccountResultNotificationTitle,
+        content: content,
+        payload: json.encode(data));
   }
 
   agreeOrReject(String invtedUserID, int result) {
@@ -430,6 +481,25 @@ class AppCtrl extends SuperController with AppControllerGetx {
           invtedUserID: invtedUserID, result: result);
       Get.back();
     });
+  }
+
+  promptAndroidNotification({
+    required NotificationDetails platformSpecifics,
+    String? title,
+    String? content,
+    String? payload,
+  }) {
+    if (Platform.isAndroid) {
+      title = title ?? StrLibrary.defaultNotificationTitle;
+      if (!onBackground) {
+        beepAndVibrate();
+      } else {
+        notificationSeq = notificationSeq + 1;
+        notificationPlugin.show(
+            notificationSeq, title, content, platformSpecifics,
+            payload: payload);
+      }
+    }
   }
 
   // void showBadge(count) {

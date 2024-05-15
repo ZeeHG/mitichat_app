@@ -69,7 +69,7 @@ class Config {
   /// 二维码：scheme
   static const friendScheme = "miti.chat/addFriend/";
   static const groupScheme = "miti.chat/joinGroup/";
-  static const inviteUrl = "https://www.miti.chah/invite/";
+  static const inviteUrl = "https://www.miti.chat/invite";
 
   /// ip
   /// web.rentsoft.cn

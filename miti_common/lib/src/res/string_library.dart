@@ -1715,4 +1715,6 @@ class StrLibrary {
   static String get activeTips => 'activeTips'.tr;
   static String get goActive => 'goActive'.tr;
   static String get submitActiveSuccess => 'submitActiveSuccess'.tr;
+  static String get activeAccountNotificationTitle => 'activeAccountNotificationTitle'.tr;
+  static String get activeAccountResultNotificationTitle => 'activeAccountResultNotificationTitle'.tr;
 }

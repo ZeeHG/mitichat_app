@@ -1198,5 +1198,6 @@ const Map<String, String> zh_CN = {
   "activeTips":
       "您的 miti账号目前处于未激活状态，还无法使用miti平台中的AI功能模块，快去激活 miti账号开启完整的 miti之旅吧!",
   "goActive": "去激活",
-  "submitActiveSuccess": "提交申请激活成功",
+  "activeAccountNotificationTitle": "收到一条激活申请",
+  "activeAccountResultNotificationTitle": "收到一条激活结果",
 };

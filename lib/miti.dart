@@ -57,6 +57,7 @@ class _MitiState extends State<Miti> {
     if (uri.path == AppRoutes.activeAccount &&
         uri.queryParameters["mitiID"] != null) {
       final String inviteMitiID = uri.queryParameters["mitiID"]!.toString();
+
       if (Get.isRegistered<IMCtrl>()) {
         final imCtrl = Get.find<IMCtrl>();
         if (imCtrl.userInfo.value.isAlreadyActive != true) {
