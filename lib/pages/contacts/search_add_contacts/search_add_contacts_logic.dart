@@ -69,6 +69,7 @@ class SearchAddContactsLogic extends GetxController {
     // todo, 暂时本地精确匹配id 和手机
     var filterList = (list ?? []).where((element) =>
         element.userID! == searchKey.toLowerCase() ||
+        element.mitiID! == searchKey.toLowerCase() ||
         element.phoneNumber == searchKey);
     userInfoList.assignAll(filterList);
     // userInfoList.assignAll(list ?? []);
@@ -88,7 +89,11 @@ class SearchAddContactsLogic extends GetxController {
         showNumber: 20,
       ),
     );
-    userInfoList.addAll(list ?? []);
+    var filterList = (list ?? []).where((element) =>
+        element.userID! == searchKey.toLowerCase() ||
+        element.mitiID! == searchKey.toLowerCase() ||
+        element.phoneNumber == searchKey);
+    userInfoList.addAll(filterList ?? []);
     refreshCtrl.refreshCompleted();
     if (null == list || list.isEmpty || list.length < 20) {
       refreshCtrl.loadNoData();
@@ -164,6 +169,7 @@ class SearchAddContactsLogic extends GetxController {
       tips = StrLibrary.searchNicknameIs;
       content = getShowName(info);
     }
-    return "$tips:$content";
+    // return "$tips:$content";
+    return "$content";
   }
 }
