@@ -58,7 +58,10 @@ class BottomBar extends StatelessWidget {
                     right: 0,
                     child: Transform.translate(
                       offset: const Offset(2, -2),
-                      child: UnreadCountView(count: item.count ?? 0),
+                      child: UnreadCountView(
+                        count: item.count ?? 0,
+                        showCount: item.showCount,
+                      ),
                     ),
                   ),
                 ],
@@ -87,18 +90,21 @@ class BottomBarItem {
   final Stream<int>? steam;
   final int? count;
   final int itemIndex;
+  final bool showCount;
 
-  BottomBarItem(
-      {required this.selectedImgRes,
-      required this.unselectedImgRes,
-      required this.label,
-      required this.itemIndex,
-      this.selectedStyle,
-      this.unselectedStyle,
-      required this.imgWidth,
-      required this.imgHeight,
-      this.onClick,
-      this.onDoubleClick,
-      this.steam,
-      this.count});
+  BottomBarItem({
+    required this.selectedImgRes,
+    required this.unselectedImgRes,
+    required this.label,
+    required this.itemIndex,
+    this.selectedStyle,
+    this.unselectedStyle,
+    required this.imgWidth,
+    required this.imgHeight,
+    this.onClick,
+    this.onDoubleClick,
+    this.steam,
+    this.count,
+    this.showCount = true,
+  });
 }

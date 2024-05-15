@@ -34,8 +34,12 @@ class AccountUtil extends GetxController {
   // final GoogleSignIn googleSignIn = GoogleSignIn();
   var extraLoginInfo;
 
-  tempLogin(String id) async{
-    await loginOAuth(registerType: RegisterType.temp, idToken: id, accessToken: "", clientId: "");
+  tempLogin(String id) async {
+    await loginOAuth(
+        registerType: RegisterType.temp,
+        idToken: id,
+        accessToken: "",
+        clientId: "");
     AppNavigator.startMain();
   }
 
@@ -192,7 +196,8 @@ class AccountUtil extends GetxController {
     }
   }
 
-  Future<void> tryLogout({bool needLogoutIm = true, bool forceLogout = true}) async {
+  Future<void> tryLogout(
+      {bool needLogoutIm = true, bool forceLogout = true}) async {
     try {
       if (DataSp.getCurAccountLoginInfoKey().isNotEmpty) {
         if (needLogoutIm && imCtrl.isLogined()) {
@@ -206,7 +211,7 @@ class AccountUtil extends GetxController {
         pushCtrl.logout();
       }
     } catch (e, s) {
-      if(forceLogout){
+      if (forceLogout) {
         await DataSp.removeLoginCertificate();
         imCtrl.reBuildSubject();
         pushCtrl.logout();
@@ -286,7 +291,9 @@ class AccountUtil extends GetxController {
     String? clientId,
   }) async {
     late LoginCertificate data;
-    final curServerKey = DataSp.getCurServerKey();
+    final curServerKey = DataSp.getCurServerKey().isNotEmpty
+        ? DataSp.getCurServerKey()
+        : null;
     try {
       data = await ClientApis.registerOrLoginByOauth(
           registerType: registerType,

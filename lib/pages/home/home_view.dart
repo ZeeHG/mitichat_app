@@ -82,6 +82,8 @@ class HomePage extends StatelessWidget {
                     imgWidth: 22.w,
                     imgHeight: 22.h,
                     onClick: (int index) => logic.switchTab(2),
+                    count: logic.unHandleInviteCount.value,
+                    showCount: false
                   ),
                 ],
               ),

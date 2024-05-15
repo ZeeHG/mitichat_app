@@ -93,7 +93,7 @@ class InviteFriendsDetailPage extends StatelessWidget {
                       label: StrLibrary.qrcodeInvite,
                       icon: ImageLibrary.qrcodeInvite,
                       showRightArrow: true,
-                      onTap: () {}),
+                      onTap: logic.startInviteFriendsQrcode),
                   15.verticalSpace,
                   _buildItemView(
                       label: StrLibrary.urlInvite,

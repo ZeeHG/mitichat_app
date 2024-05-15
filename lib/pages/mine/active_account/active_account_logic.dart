@@ -56,10 +56,13 @@ class ActiveAccountLogic extends GetxController {
   }
 
   scan() async {
-    final String? inviteMitiID = await AppNavigator.startScan();
-    if (inviteMitiID?.isNotEmpty == true) {
-      submitActive(inviteMitiID!);
-    } else {
+    final bool? submitSuccess = await AppNavigator.startScan();
+    // if (inviteMitiID?.isNotEmpty == true) {
+    //   submitActive(inviteMitiID!);
+    // } else {
+    // }
+    if (submitSuccess == true) {
+      status.value = "submitSuccess";
     }
   }
 }

@@ -105,6 +105,7 @@ abstract class AppRoutes {
   static const mitiIDChangeRule = '/miti_id_change_rule';
   static const activeAccount = '/active_account';
   static const inviteFriends = '/invite_friends';
+  static const inviteFriendsQrcode = '/invite_friends_qrcode';
   static const inviteFriendsDetail = '/invite_friends_detail';
   static const inviteFriendsHistory = '/invite_friends_history';
   static const invitingFriends = '/inviting_friends';

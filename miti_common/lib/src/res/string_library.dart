@@ -1717,4 +1717,11 @@ class StrLibrary {
   static String get submitActiveSuccess => 'submitActiveSuccess'.tr;
   static String get activeAccountNotificationTitle => 'activeAccountNotificationTitle'.tr;
   static String get activeAccountResultNotificationTitle => 'activeAccountResultNotificationTitle'.tr;
+
+  static String get inviteInstructions1 => 'inviteInstructions1'.tr;
+  static String get inviteInstructions2 => 'inviteInstructions2'.tr;
+  static String get inviteInstructions3 => 'inviteInstructions3'.tr;
+  static String get inviteInstructions4 => 'inviteInstructions4'.tr;
+  static String get inviteInstructions5 => 'inviteInstructions5'.tr;
+  static String get inviteInstructions6 => 'inviteInstructions6'.tr;
 }

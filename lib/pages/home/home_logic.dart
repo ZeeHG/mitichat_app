@@ -37,6 +37,7 @@ class HomeLogic extends SuperController with FriendCircleBridge {
   final aiUtil = Get.find<AiUtil>();
   final xhsLogic = Get.find<XhsLogic>();
   final accountUtil = Get.find<AccountUtil>();
+  final unHandleInviteCount = 0.obs;
 
   Function()? onscrollToUnreadConversation;
 
@@ -65,6 +66,12 @@ class HomeLogic extends SuperController with FriendCircleBridge {
   getUnreadMomentsCount() {
     CircleApis.getUnreadCount()
         .then((value) => unreadMomentsCount.value = value);
+  }
+
+  getUnHandleInviteCount() async {
+    final result = await ClientApis.queryApplyActiveList();
+    unHandleInviteCount.value =
+        (null == result?["total"] || result?["total"] == 0) ? 0 : 1;
   }
 
   getUnreadMsgCount() {
@@ -186,6 +193,7 @@ class HomeLogic extends SuperController with FriendCircleBridge {
     getUnhandledFriendApplicationCount();
     getUnhandledGroupApplicationCount();
     getUnreadMomentsCount();
+    getUnHandleInviteCount();
 
     imCtrl.unreadMsgCountEventSubject.listen((value) {
       unreadMsgCount.value = value;
@@ -201,11 +209,20 @@ class HomeLogic extends SuperController with FriendCircleBridge {
       getUnreadMomentsCount();
     });
 
-    imCtrl.inviteApplySubject.listen((value) {
+    imCtrl.inviteApplySubject.listen((json) {
+      if ("invite_apply" == json["key"] &&
+          json["inviteUser"]?["userID"] == imCtrl.userInfo.value.userID) {
+        return;
+      }
+      unHandleInviteCount.value = 1;
       appCtrl.promptInviteNotification(value);
     });
 
-    imCtrl.inviteApplyHandleSubject.listen((value) {
+    imCtrl.inviteApplyHandleSubject.listen((json) {
+      if ("invite_apply_handle" == json["key"] &&
+          json["inviteUser"]?["userID"] == imCtrl.userInfo.value.userID) {
+        return;
+      }
       appCtrl.promptInviteHandleNotification(value);
     });
   }

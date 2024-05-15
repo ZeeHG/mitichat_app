@@ -17,6 +17,8 @@ abstract class ScanBridge {
   scanOutUserID(String userID);
 
   scanOutGroupID(String groupID);
+
+  Future scanActiveAccount({required String useInviteMitiID});
 }
 
 // abstract class OrganizationMultiSelBridge {

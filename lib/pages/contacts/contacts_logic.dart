@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
+import 'package:miti/core/ctrl/app_ctrl.dart';
 import 'package:miti/pages/contacts/group_profile/group_profile_logic.dart';
 import 'package:miti/routes/app_navigator.dart';
 import 'package:miti_common/miti_common.dart';
@@ -21,6 +22,7 @@ class ContactsLogic extends GetxController
   final friendList = <ISUserInfo>[].obs;
   final userIDList = <String>[];
   final popCtrl = CustomPopupMenuController();
+  final appCtrl = Get.find<AppCtrl>();
   late StreamSubscription delSub;
   late StreamSubscription addSub;
   late StreamSubscription infoChangedSub;
@@ -255,4 +257,8 @@ class ContactsLogic extends GetxController
   @override
   scanOutUserID(String userID) =>
       AppNavigator.startUserProfilePane(userID: userID, offAndToNamed: true);
+
+  @override
+  scanActiveAccount({required String useInviteMitiID}) =>
+      appCtrl.requestActiveAccount(useInviteMitiID: useInviteMitiID);
 }

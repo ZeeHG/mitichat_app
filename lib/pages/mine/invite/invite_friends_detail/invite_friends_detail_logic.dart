@@ -32,10 +32,12 @@ class InviteFriendsDetailLogic extends GetxController {
   }
 
   startInviteFriends() async {
-    final result = await AppNavigator.startInvitingFriends();
-    if (result) {
-      loadingData();
-      hadHandle.value = true;
-    }
+    await AppNavigator.startInvitingFriends();
+    loadingData();
+    hadHandle.value = true;
+  }
+
+  startInviteFriendsQrcode(){
+    AppNavigator.startInviteFriendsQrcode();
   }
 }

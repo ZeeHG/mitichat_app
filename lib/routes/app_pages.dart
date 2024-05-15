@@ -36,6 +36,8 @@ import 'package:miti/pages/mine/delete_user/delete_user_binding.dart';
 import 'package:miti/pages/mine/delete_user/delete_user_view.dart';
 import 'package:miti/pages/mine/dev_entry/dev_entry_binding.dart';
 import 'package:miti/pages/mine/dev_entry/dev_entry_view.dart';
+import 'package:miti/pages/mine/invite/invite_friends%20_qrcode/invite_friends%20_qrcode_binding.dart';
+import 'package:miti/pages/mine/invite/invite_friends%20_qrcode/invite_friends%20_qrcode_view.dart';
 import 'package:miti/pages/mine/invite/invite_friends/invite_friends_binding.dart';
 import 'package:miti/pages/mine/invite/invite_friends/invite_friends_view.dart';
 import 'package:miti/pages/mine/invite/invite_friends_detail/invite_friends_detail_binding.dart';
@@ -731,6 +733,11 @@ class AppPages {
       name: AppRoutes.inviteFriends,
       page: () => InviteFriendsPage(),
       binding: InviteFriendsBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.inviteFriendsQrcode,
+      page: () => InviteFriendsQrcodePage(),
+      binding: InviteFriendsQrcodeBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.inviteFriendsDetail,

@@ -309,4 +309,5 @@ class ImageLibrary {
   static const inviteEmpty = "$_dir/invite_empty.png";
   static const mitiidBg = "$_dir/mitiid_bg.png";
   static const activeAccountEntry = "$_dir/active_account_entry.png";
+  static const inviteQrBg = "$_dir/invite_qr_bg.png";
 }

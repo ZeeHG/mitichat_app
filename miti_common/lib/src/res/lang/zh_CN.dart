@@ -1200,4 +1200,11 @@ const Map<String, String> zh_CN = {
   "goActive": "去激活",
   "activeAccountNotificationTitle": "收到一条激活申请",
   "activeAccountResultNotificationTitle": "收到一条激活结果",
+  "submitActiveSuccess": "提交激活申请成功",
+  "inviteInstructions1": "邀请流程说明",
+  "inviteInstructions2": "1.邀请链接生成",
+  "inviteInstructions3": "·用户登录应用软件后，可以在个人账户页面或特定活动页面找到邀请好友的选项。",
+  "inviteInstructions4": "·点击“邀请好友”后，系统将生成一个唯一的邀请链接或邀请码。",
+  "inviteInstructions5": "2.分享邀请链接",
+  "inviteInstructions6": "用户可以通过多种方式分享邀请链接，包括但不限于社交媒体、短信、邮件等。",
 };

@@ -585,6 +585,8 @@ class AppNavigator {
 
   static startInviteFriends() => Get.toNamed(AppRoutes.inviteFriends);
 
+  static startInviteFriendsQrcode() => Get.toNamed(AppRoutes.inviteFriendsQrcode);
+
   static startInviteFriendsDetail() =>
       Get.toNamed(AppRoutes.inviteFriendsDetail);
 

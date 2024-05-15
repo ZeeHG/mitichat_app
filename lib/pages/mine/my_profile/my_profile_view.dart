@@ -43,8 +43,6 @@ class MyProfilePage extends StatelessWidget {
                         value: imCtrl.userInfo.value.mitiID,
                         showRightArrow: true,
                         onTap: logic.mitiIDChangeEntry,
-                        onTapValue: () =>
-                            MitiUtils.copy(text: imCtrl.userInfo.value.mitiID!),
                         showBorder: false),
                   ],
                 ),

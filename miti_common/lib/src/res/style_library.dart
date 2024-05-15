@@ -32,6 +32,7 @@ class StylesLibrary {
   static Color c_D8D8D8 = const Color(0xFFD8D8D8);
   static Color c_FCC307 = const Color(0xFFFCC307);
   static Color c_969292 = const Color(0xFF969292);
+  static Color c_E7E4F5 = const Color(0xFFE7E4F5);
 
   static Color c_92B3E0_opacity50 = c_92B3E0.withOpacity(.5); // 气泡背景
   static Color c_E8EAEF_opacity50 = c_E8EAEF.withOpacity(.5);
@@ -94,6 +95,8 @@ class StylesLibrary {
   static Color c_0C1C33_opacity80 = c_0C1C33.withOpacity(.8);
   static Color c_FF381F_opacity70 = c_FF381F.withOpacity(.7);
   static Color c_000000_opacity70 = c_000000.withOpacity(.7);
+  static Color c_000000_opacity16 = c_000000.withOpacity(.16);
+  static Color c_000000_opacity40 = c_000000.withOpacity(.4);
   static Color c_000000_opacity15 = c_000000.withOpacity(.15);
   static Color c_000000_opacity12 = c_000000.withOpacity(.12);
   static Color c_000000_opacity4 = c_000000.withOpacity(.04);
@@ -121,6 +124,11 @@ class StylesLibrary {
   static Color c_B620E0_opacity10 = c_B620E0.withOpacity(0.1);
   static Color c_32C5FF_opacity10 = c_32C5FF.withOpacity(0.1);
   static Color c_191919_opacity50 = c_191919.withOpacity(0.5);
+
+  static TextStyle ts_000000_opacity40_12sp = TextStyle(
+    color: c_000000_opacity40,
+    fontSize: 12.sp,
+  ).merge(en400);
 
   /// FFFFFF
   static TextStyle ts_FFFFFF_11sp = TextStyle(

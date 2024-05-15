@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:miti/pages/home/home_logic.dart';
 import 'package:miti/utils/account_util.dart';
 import 'package:miti_common/miti_common.dart';
 
@@ -13,6 +14,7 @@ class MineLogic extends GetxController {
   final pushCtrl = Get.find<PushCtrl>();
   late StreamSubscription kickedSub;
   final accountUtil = Get.find<AccountUtil>();
+  final homeLogic = Get.find<HomeLogic>();
 
   bool get isAlreadyActive => imCtrl.userInfo.value.isAlreadyActive == true;
 
@@ -20,7 +22,10 @@ class MineLogic extends GetxController {
 
   void viewMyInfo() => AppNavigator.startMyInfo();
 
-  void viewInviteFriends() => AppNavigator.startInviteFriends();
+  void viewInviteFriends() async {
+    await AppNavigator.startInviteFriends();
+    homeLogic.getUnHandleInviteCount();
+  }
 
   void viewAccountActiveEntry() => AppNavigator.startActiveAccountEntry();
 

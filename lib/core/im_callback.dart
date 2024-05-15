@@ -191,22 +191,33 @@ class IMCallback {
 
     if (["invite_apply", "invite_apply_handle"].contains(key)) {
       // final invite_apply = {
-      //   "invitedUser": "4147782393",
-      //   "inviteUser": {"userID": "xxxx", "nickname": "hello"},
-      //   "handleResult": 1,
-      //   "handleTime": 1715673188,
+      //   "user": {
+      //     "userID": "3257074535",
+      //     "account": "ffdd",
+      //     "nickname": "ffdd",
+      //     "level": 1,
+      //     "mitiID": "3257074535"
+      //   },
+      //   "inviteUserID": "2770111344",
+      //   "inviteTime": 1715771089,
       //   "key": "invite_apply"
       // };
 
       // final invite_apply_handle = {
-      //   "invitedUser": "4147782393",
-      //   "inviteUser": {"userID": "xxxx", "nickname": "hello"},
+      //   "invitedUser": "3257074535",
+      //   "inviteUser": {
+      //     "userID": "2770111344",
+      //     "account": "aaa",
+      //     "nickname": "aaa",
+      //     "level": 1,
+      //     "mitiID": "a11111"
+      //   },
       //   "handleResult": 1,
-      //   "handleTime": 1715673188,
+      //   "handleTime": 1715771155,
       //   "key": "invite_apply_handle"
       // };
-
-      final json = jsonDecode(data);
+      var json = jsonDecode(data);
+      json = json["body"];
       json["key"] = key;
       if ("invite_apply" == key) {
         inviteApplySubject.add(json);

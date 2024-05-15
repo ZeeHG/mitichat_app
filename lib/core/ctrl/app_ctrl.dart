@@ -9,7 +9,6 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart' as imSdk;
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:google_api_availability/google_api_availability.dart';
-import 'package:miti/pages/login/login_logic.dart';
 import 'package:miti/routes/app_navigator.dart';
 // import 'package:miti/firebase_options.dart';
 import 'package:miti_common/miti_common.dart';
@@ -441,14 +440,14 @@ class AppCtrl extends SuperController with AppControllerGetx {
 
   Future<void> promptInviteNotification(Map<String, dynamic> data) async {
     final content =
-        sprintf(StrLibrary.inviteDialogTips, [data["inviteUser"]["nickname"]]);
-    Get.dialog(CustomDialog(
-      title: content,
-      leftText: StrLibrary.reject,
-      rightText: StrLibrary.accept,
-      onTapLeft: () => agreeOrReject(data["inviteUser"]["userID"], 2),
-      onTapRight: () => agreeOrReject(data["inviteUser"]["userID"], 1),
-    ));
+        sprintf(StrLibrary.inviteDialogTips, [data["user"]["nickname"]]);
+    // Get.dialog(CustomDialog(
+    //   title: content,
+    //   leftText: StrLibrary.reject,
+    //   rightText: StrLibrary.accept,
+    //   onTapLeft: () => agreeOrReject(data["user"]["userID"], 2),
+    //   onTapRight: () => agreeOrReject(data["user"]["userID"], 1),
+    // ));
 
     promptAndroidNotification(
         platformSpecifics: platformSpecificsInPush,
@@ -500,6 +499,19 @@ class AppCtrl extends SuperController with AppControllerGetx {
             payload: payload);
       }
     }
+  }
+
+  Future requestActiveAccount({required String useInviteMitiID}) async{
+    if (Get.isRegistered<IMCtrl>()) {
+        final imCtrl = Get.find<IMCtrl>();
+        if (imCtrl.userInfo.value.isAlreadyActive != true) {
+          await ClientApis.applyActive(inviteMitiID: useInviteMitiID);
+          showToast(StrLibrary.submitActiveSuccess);
+        }
+      } else {
+        // 重新启动时, 先记录
+        inviteMitiID.value = useInviteMitiID;
+      }
   }
 
   // void showBadge(count) {
