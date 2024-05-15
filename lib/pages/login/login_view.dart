@@ -79,7 +79,7 @@ class LoginPage extends StatelessWidget {
                                         var account =
                                             logic.historyAccounts[index];
                                         return ListTile(
-                                          title: Text(jsonEncode(account)),
+                                          title: Text(account.username),
                                           onTap: () {
                                             logic.selectAccount(account);
                                           },
