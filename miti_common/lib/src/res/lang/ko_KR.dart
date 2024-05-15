@@ -7,6 +7,7 @@ const Map<String, String> ko_KR = {
   "account": "계정",
   "plsEnterAccount": "계정을 입력해주세요",
   "forgetPassword": "비밀번호를 잊으셨나요",
+  "rememberPassword": "비밀번호 기억",
   "verificationCodeLogin": "인증 코드 로그인",
   "login": "로그인",
   "noAccountYet": "아직 계정이 없으신가요?",

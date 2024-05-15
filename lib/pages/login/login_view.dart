@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -38,20 +40,54 @@ class LoginPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 36.w),
                     child: Obx(() => Column(
                           children: [
-                            InputBox.account(
-                              autofocus: false,
-                              hintText: logic.loginType.value.hintText,
-                              code: logic.areaCode.value,
-                              onAreaCode:
-                                  logic.loginType.value == LoginType.phone
-                                      ? logic.openCountryCodePicker
-                                      : null,
-                              controller: logic.phoneEmailCtrl,
-                              keyBoardType:
-                                  logic.loginType.value == LoginType.phone
-                                      ? TextInputType.phone
-                                      : TextInputType.text,
+                            Stack(
+                              alignment: Alignment.centerRight,
+                              children: [
+                                InputBox.account(
+                                  autofocus: false,
+                                  hintText: logic.loginType.value.hintText,
+                                  code: logic.areaCode.value,
+                                  onAreaCode:
+                                      logic.loginType.value == LoginType.phone
+                                          ? logic.openCountryCodePicker
+                                          : null,
+                                  controller: logic.phoneEmailCtrl,
+                                  keyBoardType:
+                                      logic.loginType.value == LoginType.phone
+                                          ? TextInputType.phone
+                                          : TextInputType.text,
+                                ),
+                                Positioned(
+                                  right: 0,
+                                  child: IconButton(
+                                    icon: Icon(logic.isDropdownExpanded.value
+                                        ? Icons.arrow_drop_up
+                                        : Icons.arrow_drop_down),
+                                    onPressed: () => logic.toggleDropdown(),
+                                  ),
+                                ),
+                              ],
                             ),
+                            Obx(() => Offstage(
+                                  offstage: !logic.isDropdownExpanded.value,
+                                  child: Container(
+                                    width: double.infinity,
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: logic.historyAccounts.length,
+                                      itemBuilder: (context, index) {
+                                        var account =
+                                            logic.historyAccounts[index];
+                                        return ListTile(
+                                          title: Text(jsonEncode(account)),
+                                          onTap: () {
+                                            logic.selectAccount(account);
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                )),
                             15.verticalSpace,
                             Offstage(
                               offstage: !logic.isPasswordLogin.value,
@@ -72,47 +108,71 @@ class LoginPage extends StatelessWidget {
                               ),
                             ),
                             15.verticalSpace,
-                            InputBox(
-                              readOnly: true,
-                              controller: logic.onlyReadServerCtrl,
-                              showClearBtn: false,
-                            ),
-                            // 10.verticalSpace,
-                            // Row(
-                            //   children: [
-                            //     StrLibrary .forgetPassword.toText
-                            //       ..style = StylesLibrary.ts_8443F8_12sp
-                            //       ..onTap = _showForgetPwdBottomSheet,
-                            //     const Spacer(),
-                            //     // (logic.isPasswordLogin.value
-                            //     //         ? StrLibrary .verificationCodeLogin
-                            //     //         : StrLibrary .passwordLogin)
-                            //     //     .toText
-                            //     //   ..style = StylesLibrary.ts_8443F8_12sp
-                            //     //   ..onTap = logic.togglePasswordType,
-                            //   ],
-                            // ),
-                            10.verticalSpace,
                             Row(
                               children: [
                                 Expanded(
-                                    flex: 1,
-                                    child: Container(
-                                      alignment: Alignment.topLeft,
+                                  flex: 3,
+                                  child: InputBox(
+                                    readOnly: true,
+                                    controller: logic.onlyReadServerCtrl,
+                                    showClearBtn: false,
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: GestureDetector(
+                                    onTap: logic.switchServer,
+                                    child: Text(
+                                      StrLibrary.switchServer,
+                                      style: StylesLibrary.ts_8443F8_14sp,
+                                      textAlign: TextAlign.right,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            10.verticalSpace,
+                            Row(
+                              children: [
+                                Row(
+                                  children: [
+                                    Transform.translate(
+                                      offset: Offset(0, 0),
+                                      child: Transform.scale(
+                                        scale: 0.75,
+                                        child: Checkbox(
+                                          visualDensity: VisualDensity.compact,
+                                          fillColor:
+                                              MaterialStateProperty.resolveWith(
+                                            (Set<MaterialState> states) =>
+                                                states.contains(
+                                                        MaterialState.selected)
+                                                    ? StylesLibrary.c_8443F8
+                                                    : null,
+                                          ),
+                                          value: logic.rememberPassword.value,
+                                          onChanged:
+                                              logic.changeRememberPassword,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      constraints:
+                                          BoxConstraints(maxWidth: 270.w),
                                       child: RichText(
                                         text: TextSpan(
                                           children: [
                                             TextSpan(
-                                              text: StrLibrary.switchServer,
+                                              text: StrLibrary.rememberPassword,
                                               style:
                                                   StylesLibrary.ts_8443F8_14sp,
-                                              recognizer: TapGestureRecognizer()
-                                                ..onTap = logic.switchServer,
-                                            )
+                                            ),
                                           ],
                                         ),
                                       ),
-                                    )),
+                                    )
+                                  ],
+                                ),
                                 10.horizontalSpace,
                                 Expanded(
                                     flex: 1,
@@ -142,20 +202,17 @@ class LoginPage extends StatelessWidget {
                               onTap: () => logic.login(context),
                             ),
                             15.verticalSpace,
-                            if(appCtrl.supportLoginTypes.contains(SupportLoginType.google) && !appCtrl.supportFirebase.value)
-                            Button(
-                              text: StrLibrary.googleOAuth2Login,
-                              onTap: () => accountUtil.googleOauth(),
-                            ),
-                            if (appCtrl.supportLoginTypes.contains(SupportLoginType.google) &&
-                                appCtrl.supportFirebase.value)
-                            Button(
-                              text: StrLibrary.googleLogin,
-                              onTap: () => accountUtil.signInWithGoogle(),
-                            ),
-                            
-                            if (appCtrl.supportLoginTypes.contains(SupportLoginType.facebook))
-                                ...[15.verticalSpace,
+                            if (!appCtrl.supportFirebase.value)
+                              Button(
+                                text: StrLibrary.googleOAuth2Login,
+                                onTap: () => accountUtil.googleOauth(),
+                              ),
+                            if (appCtrl.supportFirebase.value)
+                              Button(
+                                text: StrLibrary.googleLogin,
+                                onTap: () => accountUtil.signInWithGoogle(),
+                              ),
+                            15.verticalSpace,
                             Button(
                               text: StrLibrary.facebookLogin,
                               onTap: () => accountUtil.signInWithFacebook(),
@@ -169,10 +226,6 @@ class LoginPage extends StatelessWidget {
                           ],
                         )),
                   ),
-                  // Divider(
-                  //   color: StylesLibrary.c_707070.withOpacity(0.12),
-                  //   height: 56,
-                  // ),
                   10.verticalSpace,
                   Obx(() => Padding(
                       padding: EdgeInsets.symmetric(horizontal: 36.w),

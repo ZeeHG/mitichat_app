@@ -60,9 +60,11 @@ class _WelcomePageState extends State<WelcomePage> {
                       18.verticalSpace,
                       Text(
                         texts[index],
+                        textAlign: TextAlign.left,
                         style: TextStyle(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'HelveticaNowText',
                         ),
                       ),
                       12.verticalSpace,
@@ -72,8 +74,8 @@ class _WelcomePageState extends State<WelcomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 21.33.w, vertical: 10.h),
+                            padding: EdgeInsets.fromLTRB(
+                                10.67.w, 21.33.h, 10.67.w, 21.33.h),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children:
