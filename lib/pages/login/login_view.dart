@@ -202,17 +202,20 @@ class LoginPage extends StatelessWidget {
                               onTap: () => logic.login(context),
                             ),
                             15.verticalSpace,
-                            if (!appCtrl.supportFirebase.value)
-                              Button(
-                                text: StrLibrary.googleOAuth2Login,
-                                onTap: () => accountUtil.googleOauth(),
-                              ),
-                            if (appCtrl.supportFirebase.value)
-                              Button(
-                                text: StrLibrary.googleLogin,
-                                onTap: () => accountUtil.signInWithGoogle(),
-                              ),
-                            15.verticalSpace,
+                            if(appCtrl.supportLoginTypes.contains(SupportLoginType.google) && !appCtrl.supportFirebase.value)
+                            Button(
+                              text: StrLibrary.googleOAuth2Login,
+                              onTap: () => accountUtil.googleOauth(),
+                            ),
+                            if (appCtrl.supportLoginTypes.contains(SupportLoginType.google) &&
+                                appCtrl.supportFirebase.value)
+                            Button(
+                              text: StrLibrary.googleLogin,
+                              onTap: () => accountUtil.signInWithGoogle(),
+                            ),
+                            
+                            if (appCtrl.supportLoginTypes.contains(SupportLoginType.facebook))
+                                ...[15.verticalSpace,
                             Button(
                               text: StrLibrary.facebookLogin,
                               onTap: () => accountUtil.signInWithFacebook(),
