@@ -125,7 +125,7 @@ dependencies:
   flutter_background: ^1.2.0
   flutter_keyboard_visibility: ^6.0.0
   flutter_ringtone_player: ^4.0.0+2
-  flutter_web_auth_2: ^4.0.0-alpha.5
+  flutter_web_auth_2: ^4.0.0-alpha.1
   # firebase_core: ^2.27.0
   # firebase_auth: ^4.17.8
   flutter_facebook_auth: ^6.2.0
