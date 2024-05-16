@@ -115,6 +115,7 @@ Please tap "OK" to grant access. Without permission, you won't be able to send o
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>miti</string>
+				<string>fb424578110190927</string>
 			</array>
 		</dict>
 	</array>
