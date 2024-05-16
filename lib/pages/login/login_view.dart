@@ -44,50 +44,32 @@ class LoginPage extends StatelessWidget {
                               alignment: Alignment.centerRight,
                               children: [
                                 InputBox.account(
-                                  autofocus: false,
-                                  hintText: logic.loginType.value.hintText,
-                                  code: logic.areaCode.value,
-                                  onAreaCode:
-                                      logic.loginType.value == LoginType.phone
-                                          ? logic.openCountryCodePicker
-                                          : null,
-                                  controller: logic.phoneEmailCtrl,
-                                  keyBoardType:
-                                      logic.loginType.value == LoginType.phone
-                                          ? TextInputType.phone
-                                          : TextInputType.text,
-                                ),
-                                Positioned(
-                                  right: 0,
-                                  child: IconButton(
-                                    icon: Icon(logic.isDropdownExpanded.value
-                                        ? Icons.arrow_drop_up
-                                        : Icons.arrow_drop_down),
-                                    onPressed: () => logic.toggleDropdown(),
-                                  ),
-                                ),
+                                    autofocus: false,
+                                    hintText: logic.loginType.value.hintText,
+                                    code: logic.areaCode.value,
+                                    onAreaCode:
+                                        logic.loginType.value == LoginType.phone
+                                            ? logic.openCountryCodePicker
+                                            : null,
+                                    controller: logic.phoneEmailCtrl,
+                                    focusNode: logic.phoneEmailFocusNode,
+                                    onFocusChanged: (isFocused) {
+                                      if (isFocused) {
+                                        logic.filteredAccounts
+                                            .assignAll(logic.historyAccounts);
+                                        logic.showOverlay();
+                                      } else {
+                                        logic.hideOverlay();
+                                      }
+                                    },
+                                    keyBoardType:
+                                        logic.loginType.value == LoginType.phone
+                                            ? TextInputType.phone
+                                            : TextInputType.text,
+                                    onChanged: (text) =>
+                                        logic.filterHistoryAccounts(text)),
                               ],
                             ),
-                            Obx(() => Offstage(
-                                  offstage: !logic.isDropdownExpanded.value,
-                                  child: Container(
-                                    width: double.infinity,
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: logic.historyAccounts.length,
-                                      itemBuilder: (context, index) {
-                                        var account =
-                                            logic.historyAccounts[index];
-                                        return ListTile(
-                                          title: Text(jsonEncode(account)),
-                                          onTap: () {
-                                            logic.selectAccount(account);
-                                          },
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                )),
                             15.verticalSpace,
                             Offstage(
                               offstage: !logic.isPasswordLogin.value,
@@ -137,40 +119,48 @@ class LoginPage extends StatelessWidget {
                                 Row(
                                   children: [
                                     Transform.translate(
-                                      offset: Offset(0, 0),
-                                      child: Transform.scale(
-                                        scale: 0.75,
-                                        child: Checkbox(
-                                          visualDensity: VisualDensity.compact,
-                                          fillColor:
-                                              MaterialStateProperty.resolveWith(
-                                            (Set<MaterialState> states) =>
-                                                states.contains(
-                                                        MaterialState.selected)
-                                                    ? StylesLibrary.c_8443F8
-                                                    : null,
+                                      offset: Offset(-11.w, 0),
+                                      child: Transform.translate(
+                                        offset: Offset(0, 0),
+                                        child: Transform.scale(
+                                          scale: 0.75,
+                                          child: Checkbox(
+                                            visualDensity:
+                                                VisualDensity.compact,
+                                            fillColor: MaterialStateProperty
+                                                .resolveWith(
+                                              (Set<MaterialState> states) =>
+                                                  states.contains(MaterialState
+                                                          .selected)
+                                                      ? StylesLibrary.c_8443F8
+                                                      : null,
+                                            ),
+                                            value: logic.rememberPassword.value,
+                                            onChanged:
+                                                logic.changeRememberPassword,
                                           ),
-                                          value: logic.rememberPassword.value,
-                                          onChanged:
-                                              logic.changeRememberPassword,
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      constraints:
-                                          BoxConstraints(maxWidth: 270.w),
-                                      child: RichText(
-                                        text: TextSpan(
-                                          children: [
-                                            TextSpan(
-                                              text: StrLibrary.rememberPassword,
-                                              style:
-                                                  StylesLibrary.ts_8443F8_14sp,
-                                            ),
-                                          ],
+                                    Transform.translate(
+                                      offset: Offset(-7.w, 0),
+                                      child: Container(
+                                        constraints:
+                                            BoxConstraints(maxWidth: 270.w),
+                                        child: RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text:
+                                                    StrLibrary.rememberPassword,
+                                                style: StylesLibrary
+                                                    .ts_8443F8_14sp,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                                 10.horizontalSpace,

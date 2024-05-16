@@ -6,6 +6,7 @@ import 'package:sprintf/sprintf.dart';
 import 'package:uuid/uuid.dart';
 import 'dart:convert';
 import 'package:flutter_openim_sdk/src/models/login_AccountInfo.dart';
+import 'package:flutter_openim_sdk/src/models/login_serverInfo.dart';
 
 class DataSp {
   static const _loginCertificate = 'loginCertificate';
@@ -31,7 +32,8 @@ class DataSp {
   static const _conversationStore = 'conversationStore';
   static const _aiStore = 'aiStore';
   static const firstUse = 'firstUse';
-  static final _rememberAccount = "rememberAccount";
+  static const _rememberAccount = "rememberAccount";
+  static const _rememberServer = "rememberServer";
   DataSp._();
 
   static init() async {
@@ -205,17 +207,41 @@ class DataSp {
     return SpUtil().putString(_curServerKey, key);
   }
 
-  static Future<bool> putRememberAccount(AccountInfo accountInfo) async {
-    String jsonString = json.encode(accountInfo.toJson());
+  static Future<bool>? putRememberServer(ServerInfo serverInfo) {
+    String jsonString = json.encode(serverInfo.toJson());
+    return SpUtil().putString(_rememberServer, jsonString);
+  }
+
+  static ServerInfo? getRememberServer() {
+    String? jsonString = SpUtil().getString(_rememberServer);
+    if (jsonString != null) {
+      return ServerInfo.fromJson(json.decode(jsonString));
+    }
+    return null;
+  }
+
+ // 获取所有记住的账号
+  static List<AccountInfo>? getRememberedAccounts() {
+    String? jsonString = SpUtil().getString(_rememberAccount);
+    if (jsonString != null) {
+      List<dynamic> jsonList = json.decode(jsonString);
+      return jsonList
+          .map((jsonItem) => AccountInfo.fromJson(jsonItem))
+          .toList();
+    }
+    return null;
+  }
+
+// 保存所有记住的账号
+  static Future<bool> putRememberedAccounts(List<AccountInfo> accounts) async {
+    String jsonString =
+        json.encode(accounts.map((account) => account.toJson()).toList());
     return await SpUtil().putString(_rememberAccount, jsonString) ?? false;
   }
 
-  static AccountInfo? getRememberAccount() {
-    String? jsonString = SpUtil().getString(_rememberAccount);
-    if (jsonString != null) {
-      return AccountInfo.fromJson(json.decode(jsonString));
-    }
-    return null;
+
+  static Future<bool>? removeRememberAccount(String key) async {
+    return await SpUtil().remove(key) ?? false;
   }
 
   static String getCurAccountLoginInfoKey() {
