@@ -36,6 +36,8 @@ class InputBox extends StatefulWidget {
       this.autofocus = false,
       this.readOnly = false,
       this.enabled = true,
+      this.showScanIcon = false,
+      this.scan,
       this.showClearBtn = true})
       : obscureText = false,
         type = InputBoxType.phone,
@@ -64,6 +66,8 @@ class InputBox extends StatefulWidget {
       this.autofocus = false,
       this.readOnly = false,
       this.enabled = true,
+      this.showScanIcon = false,
+      this.scan,
       this.showClearBtn = true})
       : obscureText = false,
         type = InputBoxType.account,
@@ -89,6 +93,8 @@ class InputBox extends StatefulWidget {
       this.autofocus = false,
       this.readOnly = false,
       this.enabled = true,
+      this.showScanIcon = false,
+      this.scan,
       this.showClearBtn = true})
       : obscureText = true,
         type = InputBoxType.password,
@@ -118,6 +124,8 @@ class InputBox extends StatefulWidget {
       this.autofocus = false,
       this.readOnly = false,
       this.enabled = true,
+      this.showScanIcon = false,
+      this.scan,
       this.showClearBtn = true})
       : obscureText = false,
         type = InputBoxType.verificationCode,
@@ -145,6 +153,8 @@ class InputBox extends StatefulWidget {
       this.autofocus = false,
       this.readOnly = false,
       this.enabled = true,
+      this.showScanIcon = false,
+      this.scan,
       this.showClearBtn = true})
       : obscureText = false,
         type = InputBoxType.invitationCode,
@@ -181,7 +191,10 @@ class InputBox extends StatefulWidget {
       this.autofocus = false,
       this.readOnly = false,
       this.enabled = true,
-      this.showClearBtn = true})
+      this.showClearBtn = true,
+      this.showScanIcon = false,
+      this.scan
+      })
       : super(key: key);
   final TextStyle? labelStyle;
   final TextStyle? textStyle;
@@ -208,6 +221,8 @@ class InputBox extends StatefulWidget {
   final bool readOnly;
   final bool enabled;
   final bool showClearBtn;
+  final bool showScanIcon;
+  final Function()? scan;
 
   @override
   State<InputBox> createState() => _InputBoxState();
@@ -270,6 +285,7 @@ class _InputBoxState extends State<InputBox> {
                 _textField,
                 if (widget.showClearBtn) _clearBtn,
                 _eyeBtn,
+                _scanBtn,
                 if (widget.type == InputBoxType.verificationCode)
                   VerifyCodedButton(
                     onTapCallback: widget.onSendVerificationCode,
@@ -366,6 +382,17 @@ class _InputBoxState extends State<InputBox> {
               : ImageLibrary.eyeOpen.toImage)
             ..width = 24.w
             ..height = 24.h,
+        ),
+      );
+
+  Widget get _scanBtn => Visibility(
+        visible: widget.showScanIcon,
+        child: GestureDetector(
+          onTap: widget.scan,
+          behavior: HitTestBehavior.translucent,
+          child: ImageLibrary.appPopMenuScan.toImage
+            ..width = 20.w
+            ..height = 20.h,
         ),
       );
 
