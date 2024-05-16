@@ -191,21 +191,38 @@ class Config {
         : 'minio';
   }
 
+  // me
+  // static String androidGoogleClientId =
+  //     "46211409784-t1u24355vsibhbo3ce9g62v9t7rf54gc.apps.googleusercontent.com";
+  // static String iosGoogleClientId =
+  //     "";
+  // static String webGoogleClientId =
+  //     "46211409784-nphb3bu5emnhb7vdonck5scf59d40bsq.apps.googleusercontent.com";
+
+  // bopu
   static String androidGoogleClientId =
-      "46211409784-t1u24355vsibhbo3ce9g62v9t7rf54gc.apps.googleusercontent.com";
+      "";
   static String iosGoogleClientId =
       "940547054713-9oaa6sd4sr5mq31gb44ssskkr3fcjej0.apps.googleusercontent.com";
   static String webGoogleClientId =
-      "46211409784-nphb3bu5emnhb7vdonck5scf59d40bsq.apps.googleusercontent.com";
+      "940547054713-9n4cgc7psl79di4ru3osa4amnll6h6u1.apps.googleusercontent.com";
+  
   static String googleClientId =
       Platform.isIOS ? iosGoogleClientId : androidGoogleClientId;
   static String googleIOSRedirectUri = 'https://my-custom-app.com/connect';
 
-  static String facebookClientId = "422970893820284";
-  static String appleClientId =
-      Platform.isIOS ? "chat.miti.ios" : "chat.miti.service";
-  static String appleRedirectUri =
-      "https://best-global-hare.glitch.me/callbacks/sign_in_with_apple";
+
+  // me
+  // static String facebookClientId = "422970893820284";
+  // bopu
+  static String facebookClientId = "424578110190927";
+
+
+  // bopu
+  static String appleClientId = Platform.isIOS ? "chat.miti.ios" : "chat.miti.service";
+  static String appleRedirectUri = "https://best-global-hare.glitch.me/callbacks/sign_in_with_apple";
+
+
   static String packageName = "miti.chat";
   static String webAuthPath = "web-auth";
 
