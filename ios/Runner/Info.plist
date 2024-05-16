@@ -99,9 +99,9 @@ Please tap "OK" to grant access. Without permission, you won't be able to send o
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
 	<key>FacebookAppID</key>
-	<string>424578110190927</string>
+	<string>1925828444537404</string>
 	<key>FacebookClientToken</key>
-	<string>c7d5b0acebf90563911c81cc96a39b88</string>
+	<string>6bd117912ae41a944082750edec3eb57</string>
 	<key>FacebookDisplayName</key>
 	<string>miti</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -115,7 +115,7 @@ Please tap "OK" to grant access. Without permission, you won't be able to send o
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>miti</string>
-				<string>fb424578110190927</string>
+				<string>fb1925828444537404</string>
 			</array>
 		</dict>
 	</array>

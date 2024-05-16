@@ -202,6 +202,10 @@ class RegisterLogic extends GetxController {
     );
   }
 
+  scan() async {
+    final bool? submitSuccess = await AppNavigator.startScan();
+  }
+
   void switchType() {
     phoneCtrl.text = "";
     emailCtrl.text = "";
