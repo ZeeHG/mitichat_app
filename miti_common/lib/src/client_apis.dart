@@ -9,12 +9,7 @@ import 'package:miti_common/src/models/invite.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
-enum RegisterType {
-  google,
-  apple,
-  facebook,
-  temp
-}
+enum RegisterType { google, apple, facebook, temp }
 
 extension RegisterTypeExtension on RegisterType {
   int toNumber() {
@@ -990,12 +985,18 @@ class ClientApis {
     );
   }
 
-  static Future queryUpdateMitiIDRecords() async {
-    return HttpUtil.post(
+  static Future<List<MitiIDChangeRecord>> queryUpdateMitiIDRecords() async {
+    final result = await HttpUtil.post(
       ClientUrls.queryUpdateMitiIDRecords,
       data: {"userID": OpenIM.iMManager.userID},
       options: chatTokenOptions,
     );
+    if (result?["datas"] is List) {
+      return result!["datas"]
+          .map((e) => MitiIDChangeRecord.fromJson(e)).toList().cast<MitiIDChangeRecord>();
+    } else {
+      return [];
+    }
   }
 
   // 申请激活, inviteMitiID: 申请的邀请MitiID
@@ -1045,9 +1046,13 @@ class ClientApis {
     if (data?["applyList"] is List) {
       return {
         "total": data?["total"],
-        "applyList":
-            data["applyList"].map((e) => InviteInfo.fromJson({"inviteUser": e["user"], "userID": e["inviteUserID"], "applyTime": e["applyTime"]
-                })).toList()
+        "applyList": data["applyList"]
+            .map((e) => InviteInfo.fromJson({
+                  "inviteUser": e["user"],
+                  "userID": e["inviteUserID"],
+                  "applyTime": e["applyTime"]
+                }))
+            .toList()
       };
     } else if (null != data?["applyTime"]) {
       return {

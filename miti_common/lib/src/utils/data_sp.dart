@@ -211,11 +211,15 @@ class DataSp {
   }
 
   static AccountInfo? getRememberAccount() {
-    String? jsonString = SpUtil().getString(_rememberAccount);
-    if (jsonString != null) {
-      return AccountInfo.fromJson(json.decode(jsonString));
+    try {
+      String? jsonString = SpUtil().getString(_rememberAccount);
+      if (jsonString != null || jsonString!.isNotEmpty) {
+        return AccountInfo.fromJson(json.decode(jsonString));
+      }
+      return null;
+    } catch (e) {
+      return null;
     }
-    return null;
   }
 
   static String getCurAccountLoginInfoKey() {

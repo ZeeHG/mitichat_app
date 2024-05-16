@@ -1208,4 +1208,5 @@ const Map<String, String> zh_CN = {
   "inviteInstructions4": "·点击“邀请好友”后，系统将生成一个唯一的邀请链接或邀请码。",
   "inviteInstructions5": "2.分享邀请链接",
   "inviteInstructions6": "用户可以通过多种方式分享邀请链接，包括但不限于社交媒体、短信、邮件等。",
+  "changeMitiIDDateTips": "您上次修改时间为:%s，请在%s之后再来修改",
 };

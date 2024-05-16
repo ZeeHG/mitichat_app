@@ -139,3 +139,4 @@ export 'src/external_urls.dart';
 export 'src/models/google_auth.dart';
 export 'src/widgets/setting_item.dart';
 export 'src/models/invite.dart';
+export 'src/models/mitiid_change_record.dart';

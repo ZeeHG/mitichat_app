@@ -25,7 +25,7 @@ mixin AppControllerGetx on GetxController {
   final supportFirebase = false.obs;
   final supportLoginTypes =
       [SupportLoginType.email, SupportLoginType.phone].obs;
-  final Rx<String?> inviteMitiID = null.obs;
+  final Rx<String?> inviteMitiID = Rx<String?>(null);
 }
 
 // 下载0, 后台1, 消息message.seq
