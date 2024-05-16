@@ -203,7 +203,8 @@ class RegisterLogic extends GetxController {
   }
 
   scan() async {
-    final bool? submitSuccess = await AppNavigator.startScan();
+    final Map<String, dynamic> result = await AppNavigator.startScan();
+    invitationCodeCtrl.text = result["inviteMitiID"];
   }
 
   void switchType() {

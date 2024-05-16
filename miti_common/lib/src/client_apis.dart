@@ -993,7 +993,9 @@ class ClientApis {
     );
     if (result?["datas"] is List) {
       return result!["datas"]
-          .map((e) => MitiIDChangeRecord.fromJson(e)).toList().cast<MitiIDChangeRecord>();
+          .map((e) => MitiIDChangeRecord.fromJson(e))
+          .toList()
+          .cast<MitiIDChangeRecord>();
     } else {
       return [];
     }
@@ -1065,7 +1067,7 @@ class ClientApis {
   }
 
   // 查询我申请的
-  static Future<List<InviteInfo>> querySelfApplyActive() async {
+  static Future<InviteInfo?> querySelfApplyActive() async {
     final data = await HttpUtil.post(
       ClientUrls.querySelfApplyActive,
       data: {
@@ -1073,14 +1075,7 @@ class ClientApis {
       },
       options: chatTokenOptions,
     );
-
-    if (data is List) {
-      return data.map((e) => InviteInfo.fromJson(e)).toList();
-    } else if (null != data?["applyTime"]) {
-      return [InviteInfo.fromJson(data)];
-    } else {
-      return [];
-    }
+    return null != data?["applyTime"] ? InviteInfo.fromJson(data) : null;
   }
 
   // 查询邀请成功的

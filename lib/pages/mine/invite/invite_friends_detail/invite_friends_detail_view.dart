@@ -95,12 +95,12 @@ class InviteFriendsDetailPage extends StatelessWidget {
                       showRightArrow: true,
                       onTap: logic.startInviteFriendsQrcode),
                   15.verticalSpace,
-                  _buildItemView(
-                      label: StrLibrary.urlInvite,
-                      icon: ImageLibrary.urlInvite,
-                      showRightArrow: false,
-                      buttonText: StrLibrary.share,
-                      onTapButton: logic.share),
+                  // _buildItemView(
+                  //     label: StrLibrary.urlInvite,
+                  //     icon: ImageLibrary.urlInvite,
+                  //     showRightArrow: false,
+                  //     buttonText: StrLibrary.share,
+                  //     onTapButton: logic.share),
                 ]))),
       ),
     );

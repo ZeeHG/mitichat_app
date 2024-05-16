@@ -12,8 +12,17 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'qr_scan_box.dart';
 
+enum QrFuture { inviteCode }
+
 class QrcodeView extends StatefulWidget {
-  const QrcodeView({Key? key}) : super(key: key);
+  const QrcodeView(
+      {Key? key,
+      List<QrFuture>? this.qrFutureList,
+      bool this.autoUseInviteCode = true})
+      : super(key: key);
+
+  final List<QrFuture>? qrFutureList;
+  final bool autoUseInviteCode;
 
   @override
   State<QrcodeView> createState() => _QrcodeViewState();
@@ -221,16 +230,16 @@ class _QrcodeViewState extends State<QrcodeView> with TickerProviderStateMixin {
         // AppNavigator.startSearchAddGroupFromScan(info: GroupInfo(groupID: gid));
       } else if (result.startsWith(Config.inviteUrl)) {
         var inviteMitiID = Uri.parse(result).queryParameters["mitiID"];
-        if (null != inviteMitiID && inviteMitiID.toString().isNotEmpty) {
+        if (null != inviteMitiID && inviteMitiID.toString().isNotEmpty && widget.autoUseInviteCode) {
           try {
             await MitiBridge.scanBridge
                 ?.scanActiveAccount(useInviteMitiID: inviteMitiID);
-            Get.back(result: true);
+            Get.back(result:  {"inviteMitiID": inviteMitiID, "autoHandle": true});
           } catch (e) {
-            Get.back(result: false);
+            Get.back(result: {"inviteMitiID": inviteMitiID, "autoHandle": false});
           }
         } else {
-          Get.back(result: false);
+          Get.back(result: {"inviteMitiID": "", "autoHandle": false});
         }
       } else if (MitiUtils.isUrlValid(result)) {
         final uri = Uri.parse(Uri.encodeFull(result));

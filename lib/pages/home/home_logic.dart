@@ -211,11 +211,11 @@ class HomeLogic extends SuperController with FriendCircleBridge {
 
     imCtrl.inviteApplySubject.listen((json) {
       if ("invite_apply" == json["key"] &&
-          json["inviteUser"]?["userID"] == imCtrl.userInfo.value.userID) {
+          json["user"]?["userID"] == imCtrl.userInfo.value.userID) {
         return;
       }
       unHandleInviteCount.value = 1;
-      appCtrl.promptInviteNotification(value);
+      appCtrl.promptInviteNotification(json);
     });
 
     imCtrl.inviteApplyHandleSubject.listen((json) {
@@ -223,7 +223,7 @@ class HomeLogic extends SuperController with FriendCircleBridge {
           json["inviteUser"]?["userID"] == imCtrl.userInfo.value.userID) {
         return;
       }
-      appCtrl.promptInviteHandleNotification(value);
+      appCtrl.promptInviteHandleNotification(json);
     });
   }
 

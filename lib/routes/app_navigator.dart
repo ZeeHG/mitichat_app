@@ -104,11 +104,11 @@ class AppNavigator {
   //       popGesture: true,
   //     ));
 
-  static startScan() async {
+  static startScan({List<QrFuture>? qrFutureList, bool autoUseInviteCode = true}) async {
     if (await Permissions.batchRequestAndCheckPermissions(
         [Permission.camera])) {
       return await Get.to(
-        () => const QrcodeView(),
+        () => QrcodeView(qrFutureList: qrFutureList, autoUseInviteCode: autoUseInviteCode),
         transition: Transition.cupertino,
         popGesture: true,
       );
@@ -585,7 +585,8 @@ class AppNavigator {
 
   static startInviteFriends() => Get.toNamed(AppRoutes.inviteFriends);
 
-  static startInviteFriendsQrcode() => Get.toNamed(AppRoutes.inviteFriendsQrcode);
+  static startInviteFriendsQrcode() =>
+      Get.toNamed(AppRoutes.inviteFriendsQrcode);
 
   static startInviteFriendsDetail() =>
       Get.toNamed(AppRoutes.inviteFriendsDetail);

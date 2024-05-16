@@ -28,8 +28,7 @@ class MyProfilePage extends StatelessWidget {
                   children: [
                     SettingItem(
                         label: StrLibrary.avatar,
-                        value: imCtrl.userInfo.value.nickname,
-                        valueAvatarUrl: imCtrl.userInfo.value.faceURL,
+                        valueAvatarUrl: imCtrl.userInfo.value.faceURL ?? "",
                         valueAvatarText: imCtrl.userInfo.value.showName,
                         onTap: logic.openPhotoSheet,
                         showBorder: false),
