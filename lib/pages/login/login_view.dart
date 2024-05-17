@@ -33,8 +33,8 @@ class LoginPage extends StatelessWidget {
                   50.verticalSpace,
                   ImageLibrary.logo2.toImage
                     ..width = 89.w
-                    ..height = 81.h
-                  ..onDoubleTap = logic.devEntry,
+                    ..height = 81.h,
+                  // ..onDoubleTap = logic.configService,
                   20.verticalSpace,
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 36.w),
@@ -44,50 +44,34 @@ class LoginPage extends StatelessWidget {
                               alignment: Alignment.centerRight,
                               children: [
                                 InputBox.account(
-                                  autofocus: false,
-                                  hintText: logic.loginType.value.hintText,
-                                  code: logic.areaCode.value,
-                                  onAreaCode:
-                                      logic.loginType.value == LoginType.phone
-                                          ? logic.openCountryCodePicker
-                                          : null,
-                                  controller: logic.phoneEmailCtrl,
-                                  keyBoardType:
-                                      logic.loginType.value == LoginType.phone
-                                          ? TextInputType.phone
-                                          : TextInputType.text,
-                                ),
-                                Positioned(
-                                  right: 0,
-                                  child: IconButton(
-                                    icon: Icon(logic.isDropdownExpanded.value
-                                        ? Icons.arrow_drop_up
-                                        : Icons.arrow_drop_down),
-                                    onPressed: () => logic.toggleDropdown(),
-                                  ),
-                                ),
+                                    autofocus: false,
+                                    hintText: logic.loginType.value.hintText,
+                                    code: logic.areaCode.value,
+                                    onAreaCode:
+                                        logic.loginType.value == LoginType.phone
+                                            ? logic.openCountryCodePicker
+                                            : null,
+                                    controller: logic.phoneEmailCtrl,
+                                    focusNode: logic.phoneEmailFocusNode,
+                                    onFocusChanged: (isFocused) {
+                                      if (isFocused) {
+                                        // logic.filteredAccounts
+                                        //     .assignAll(logic.historyAccounts);
+                                        // print(
+                                        //     "view中更新后的账户列表: ${logic.filteredAccounts.map((acc) => acc.username).toList()}");
+                                        logic.showOverlay();
+                                      } else {
+                                        logic.hideOverlay();
+                                      }
+                                    },
+                                    keyBoardType:
+                                        logic.loginType.value == LoginType.phone
+                                            ? TextInputType.phone
+                                            : TextInputType.text,
+                                    onChanged: (text) =>
+                                        logic.filterHistoryAccounts(text)),
                               ],
                             ),
-                            Obx(() => Offstage(
-                                  offstage: !logic.isDropdownExpanded.value,
-                                  child: Container(
-                                    width: double.infinity,
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: logic.historyAccounts.length,
-                                      itemBuilder: (context, index) {
-                                        var account =
-                                            logic.historyAccounts[index];
-                                        return ListTile(
-                                          title: Text(account.username),
-                                          onTap: () {
-                                            logic.selectAccount(account);
-                                          },
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                )),
                             15.verticalSpace,
                             Offstage(
                               offstage: !logic.isPasswordLogin.value,
@@ -137,40 +121,48 @@ class LoginPage extends StatelessWidget {
                                 Row(
                                   children: [
                                     Transform.translate(
-                                      offset: Offset(0, 0),
-                                      child: Transform.scale(
-                                        scale: 0.75,
-                                        child: Checkbox(
-                                          visualDensity: VisualDensity.compact,
-                                          fillColor:
-                                              MaterialStateProperty.resolveWith(
-                                            (Set<MaterialState> states) =>
-                                                states.contains(
-                                                        MaterialState.selected)
-                                                    ? StylesLibrary.c_8443F8
-                                                    : null,
+                                      offset: Offset(-11.w, 0),
+                                      child: Transform.translate(
+                                        offset: Offset(0, 0),
+                                        child: Transform.scale(
+                                          scale: 0.75,
+                                          child: Checkbox(
+                                            visualDensity:
+                                                VisualDensity.compact,
+                                            fillColor: MaterialStateProperty
+                                                .resolveWith(
+                                              (Set<MaterialState> states) =>
+                                                  states.contains(MaterialState
+                                                          .selected)
+                                                      ? StylesLibrary.c_8443F8
+                                                      : null,
+                                            ),
+                                            value: logic.rememberPassword.value,
+                                            onChanged:
+                                                logic.changeRememberPassword,
                                           ),
-                                          value: logic.rememberPassword.value,
-                                          onChanged:
-                                              logic.changeRememberPassword,
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      constraints:
-                                          BoxConstraints(maxWidth: 270.w),
-                                      child: RichText(
-                                        text: TextSpan(
-                                          children: [
-                                            TextSpan(
-                                              text: StrLibrary.rememberPassword,
-                                              style:
-                                                  StylesLibrary.ts_8443F8_14sp,
-                                            ),
-                                          ],
+                                    Transform.translate(
+                                      offset: Offset(-7.w, 0),
+                                      child: Container(
+                                        constraints:
+                                            BoxConstraints(maxWidth: 270.w),
+                                        child: RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text:
+                                                    StrLibrary.rememberPassword,
+                                                style: StylesLibrary
+                                                    .ts_8443F8_14sp,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                                 10.horizontalSpace,
@@ -202,30 +194,26 @@ class LoginPage extends StatelessWidget {
                               onTap: () => logic.login(context),
                             ),
                             15.verticalSpace,
-                            // if(appCtrl.supportLoginTypes.contains(SupportLoginType.google) && !appCtrl.supportFirebase.value)
-                            Button(
-                              text: StrLibrary.googleOAuth2Login,
-                              onTap: () => accountUtil.googleOauth(),
-                            ),
-                            // if (appCtrl.supportLoginTypes.contains(SupportLoginType.google) &&
-                            //     appCtrl.supportFirebase.value)
-                            Button(
-                              text: StrLibrary.googleLogin,
-                              onTap: () => accountUtil.signInWithGoogle(),
-                            ),
-                            
-                            if (appCtrl.supportLoginTypes.contains(SupportLoginType.facebook))
-                                ...[15.verticalSpace,
+                            if (!appCtrl.supportFirebase.value)
+                              Button(
+                                text: StrLibrary.googleOAuth2Login,
+                                onTap: () => accountUtil.googleOauth(),
+                              ),
+                            if (appCtrl.supportFirebase.value)
+                              Button(
+                                text: StrLibrary.googleLogin,
+                                onTap: () => accountUtil.signInWithGoogle(),
+                              ),
+                            15.verticalSpace,
                             Button(
                               text: StrLibrary.facebookLogin,
                               onTap: () => accountUtil.signInWithFacebook(),
-                            ),],
-                            if (appCtrl.supportLoginTypes.contains(SupportLoginType.apple))
-                            ...[15.verticalSpace,
+                            ),
+                            15.verticalSpace,
                             Button(
                               text: StrLibrary.appleLogin,
                               onTap: () => accountUtil.signInWithApple(),
-                            )]
+                            )
                           ],
                         )),
                   ),

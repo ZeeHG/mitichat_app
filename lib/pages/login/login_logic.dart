@@ -7,8 +7,10 @@ import 'package:miti_common/miti_common.dart';
 import '../../core/ctrl/im_ctrl.dart';
 import 'package:miti_common/src/utils/data_sp.dart';
 import '../../core/ctrl/push_ctrl.dart';
+import 'dart:convert';
 import '../../routes/app_navigator.dart';
 import 'package:flutter_openim_sdk/src/models/login_AccountInfo.dart';
+import 'package:flutter_openim_sdk/src/models/login_serverInfo.dart';
 
 enum LoginType {
   phone,
@@ -73,23 +75,29 @@ class LoginLogic extends GetxController {
       loginType.value == LoginType.phone ? phoneEmailCtrl.text.trim() : null;
   LoginType operateType = LoginType.phone;
   final agree = false.obs;
-  final rememberPassword = false.obs;
+  final rememberPassword = true.obs;
   final isDropdownExpanded = false.obs;
   final historyAccounts = <AccountInfo>[].obs;
+  final filteredAccounts = <AccountInfo>[].obs;
+  final historyServer = <ServerInfo>[].obs;
+  final isServerDropdownExpanded = false.obs;
   final translateLogic = Get.find<TranslateLogic>();
   final ttsLogic = Get.find<TtsLogic>();
   final accountUtil = Get.find<AccountUtil>();
   final isAddAccount = false.obs;
   final server = Config.hostWithProtocol.obs;
+  final FocusNode phoneEmailFocusNode = FocusNode();
+  final FocusNode serverFocusNode = FocusNode();
   int curStatusChangeCount = 0;
-
+  OverlayEntry? overlayEntry;
+  OverlayEntry? serverOverlayEntry;
   _init() async {
     isAddAccount.value = Get.arguments?['isAddAccount'] ?? false;
     server.value = Get.arguments?['server'] ?? server.value;
     curStatusChangeCount = accountUtil.statusChangeCount.value;
 
     loadHistoryAccountsFromStorage();
-
+    loadHistoryServersFromStorage();
     onlyReadServerCtrl.text = DataSp.getCurServerKey().isNotEmpty
         ? DataSp.getCurServerKey()
         : Config.hostWithProtocol;
@@ -110,6 +118,7 @@ class LoginLogic extends GetxController {
     phoneEmailCtrl.dispose();
     pwdCtrl.dispose();
     verificationCodeCtrl.dispose();
+    phoneEmailFocusNode.dispose();
     super.onClose();
   }
 
@@ -119,6 +128,13 @@ class LoginLogic extends GetxController {
     phoneEmailCtrl.addListener(handleFormChange);
     pwdCtrl.addListener(handleFormChange);
     verificationCodeCtrl.addListener(handleFormChange);
+    serverFocusNode.addListener(() {
+      if (serverFocusNode.hasFocus) {
+        showServerOverlay();
+      } else {
+        hideServerOverlay();
+      }
+    });
     super.onInit();
   }
 
@@ -202,6 +218,7 @@ class LoginLogic extends GetxController {
                 hintStyle: StylesLibrary.ts_CCCCCC_14sp,
                 border: false,
                 controller: serverCtrl,
+                focusNode: serverFocusNode,
               ),
             ),
             31.verticalSpace
@@ -306,11 +323,11 @@ class LoginLogic extends GetxController {
         } else {
           username = email ?? '';
         }
-        AccountInfo accountInfo = AccountInfo(
+        AccountInfo newAccountInfo = AccountInfo(
           username: username,
           password: password ?? '',
         );
-        await DataSp.putRememberAccount(accountInfo);
+        saveHistoryAccountsToStorage(newAccountInfo);
         loadHistoryAccountsFromStorage();
       }
 
@@ -370,11 +387,18 @@ class LoginLogic extends GetxController {
 
   void changeRememberPassword(bool? bool) {
     rememberPassword.value = bool!;
-    handleFormChange();
   }
 
   void toggleDropdown() {
-    isDropdownExpanded.value = !isDropdownExpanded.value;
+    if (isDropdownExpanded.value) {
+      overlayEntry?.remove();
+      overlayEntry = null;
+      isDropdownExpanded.value = false;
+    } else {
+      overlayEntry = _createOverlayEntry();
+      Overlay.of(Get.context!)?.insert(overlayEntry!);
+      isDropdownExpanded.value = true;
+    }
   }
 
   void selectAccount(AccountInfo account) {
@@ -384,16 +408,197 @@ class LoginLogic extends GetxController {
   }
 
   void loadHistoryAccountsFromStorage() async {
-    AccountInfo? accountInfo = DataSp.getRememberAccount();
-    if (accountInfo != null) {
-      historyAccounts.assignAll([accountInfo]);
+    List<AccountInfo>? accounts = DataSp.getRememberedAccounts();
+    if (accounts != null) {
+      historyAccounts.assignAll(accounts);
     }
   }
 
-  void saveHistoryAccountsToStorage() async {
-    if (historyAccounts.isNotEmpty) {
-      AccountInfo accountInfo = historyAccounts.first;
-      await DataSp.putRememberAccount(accountInfo);
+  void saveHistoryAccountsToStorage(AccountInfo newAccount) async {
+    // 从存储中获取当前的账户列表
+    List<AccountInfo>? accounts = await DataSp.getRememberedAccounts() ?? [];
+
+    if (accounts.contains(newAccount)) {
+      accounts.remove(newAccount);
     }
+
+    accounts.insert(0, newAccount);
+
+    await DataSp.putRememberedAccounts(accounts);
+  }
+
+  void handleInputFocusChange(bool isFocused, String text) {
+    if (isFocused) {
+      filteredAccounts.assignAll(historyAccounts);
+
+      if (!isDropdownExpanded.value) {
+        isDropdownExpanded.value = true;
+        showOverlay();
+      }
+    } else {
+      hideOverlay();
+    }
+  }
+
+  void filterHistoryAccounts(String input) {
+    if (input.isEmpty) {
+      filteredAccounts.clear();
+      hideOverlay();
+      isDropdownExpanded.value = false;
+      return;
+    }
+
+    List<AccountInfo> matches = [];
+    if (loginType.value == LoginType.phone) {
+      matches = historyAccounts
+          .where((account) => account.username.startsWith(input))
+          .toList();
+    } else if (loginType.value == LoginType.email) {
+      matches = historyAccounts
+          .where((account) =>
+              account.username.toLowerCase().startsWith(input.toLowerCase()))
+          .toList();
+    }
+
+    filteredAccounts.assignAll(matches);
+    if (filteredAccounts.isNotEmpty) {
+      showOverlay();
+    } else {
+      hideOverlay();
+    }
+  }
+
+  void showOverlay() {
+    if (!filteredAccounts.isNotEmpty) {
+      return;
+    }
+    isDropdownExpanded.value = true;
+    if (overlayEntry == null) {
+      overlayEntry = _createOverlayEntry();
+      Overlay.of(Get.context!)?.insert(overlayEntry!);
+    }
+  }
+
+  void hideOverlay() {
+    overlayEntry?.remove();
+    overlayEntry = null;
+    isDropdownExpanded.value = false;
+  }
+
+  void removeAccount(int index) async {
+    bool success = await DataSp.removeRememberedAccount(index);
+    if (success) {
+      print("账号删除成功");
+      AccountInfo removedAccount = filteredAccounts[index];
+      filteredAccounts.removeAt(index);
+      historyAccounts.remove(removedAccount); // 同样从 historyAccounts 中移除
+
+      update(); // 通知 GetX 更新相关的 UI 组件
+
+      // 重新插入 OverlayEntry
+      overlayEntry?.remove();
+      overlayEntry = _createOverlayEntry();
+      Overlay.of(Get.context!)?.insert(overlayEntry!);
+
+      print(
+          "更新后的账户列表: ${filteredAccounts.map((acc) => acc.username).toList()}");
+    } else {
+      print("账号删除失败");
+    }
+  }
+
+  OverlayEntry _createOverlayEntry() {
+    return OverlayEntry(
+      builder: (context) => Positioned(
+        left: 10,
+        right: 10,
+        top: 200,
+        child: Material(
+          elevation: 3.0,
+          child: GetBuilder<LoginLogic>(
+            // 使用 GetBuilder
+            builder: (LoginLogic controller) {
+              // 确保在这里定义 controller
+              return Obx(() => ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: controller.filteredAccounts.length,
+                    itemBuilder: (context, index) {
+                      final account = controller.filteredAccounts[index];
+                      return ListTile(
+                        title: Text(account.username),
+                        trailing: IconButton(
+                          icon: Icon(Icons.close, color: Colors.grey),
+                          onPressed: () {
+                            controller.removeAccount(index); // 调用 GetX 控制器的方法
+                          },
+                        ),
+                        onTap: () {
+                          // 确保 selectAccount 和 hideOverlay 被正确定义
+                          controller.selectAccount(account);
+                          controller.hideOverlay();
+                        },
+                      );
+                    },
+                  ));
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  void showServerOverlay() {
+    isServerDropdownExpanded.value = true;
+    if (serverOverlayEntry == null) {
+      serverOverlayEntry = _createServerOverlayEntry();
+      Overlay.of(Get.context!)?.insert(serverOverlayEntry!);
+    }
+  }
+
+  void hideServerOverlay() {
+    serverOverlayEntry?.remove();
+    serverOverlayEntry = null;
+    isServerDropdownExpanded.value = false;
+  }
+
+  void loadHistoryServersFromStorage() async {
+    ServerInfo? serverInfo = DataSp.getRememberServer();
+    if (serverInfo != null) {
+      historyServer.assignAll([serverInfo]);
+    }
+  }
+
+  void saveHistoryServersToStorage() async {
+    if (historyServer.isNotEmpty) {
+      ServerInfo serverInfo = historyServer.first;
+      await DataSp.putRememberServer(serverInfo);
+    }
+  }
+
+  OverlayEntry _createServerOverlayEntry() {
+    return OverlayEntry(
+      builder: (context) => Positioned(
+        left: 72,
+        right: 72,
+        top: 485, // Adjust position as needed
+        child: Material(
+          elevation: 2.0,
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: historyServer.length,
+            itemBuilder: (BuildContext context, int index) {
+              final server = historyServer[index];
+              return ListTile(
+                title: Text(server.url),
+                onTap: () {
+                  // Implement action on select
+                  hideServerOverlay();
+                },
+              );
+            },
+          ),
+        ),
+      ),
+    );
   }
 }

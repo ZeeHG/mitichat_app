@@ -26,12 +26,12 @@ class _WelcomePageState extends State<WelcomePage> {
     ImageLibrary.welcome5.toImage,
   ];
 
-  final List<String> texts = [
-    "Free Audio & Video Calls",
-    "Thoughtful AI Assistant",
-    "Across 60+ Languages",
-    "Comprehensive Social Interaction",
-    "Multi-Server Support",
+  final List<List<String>> texts = [
+    ["Free Audio &", "Video Calls"],
+    ["Thoughtful", "AI Assistant"],
+    ["Across 60+", "Languages"],
+    ["Comprehensive", "Social Interaction"],
+    ["Multi-Server", "Support"],
   ];
 
   int _currentPage = 0;
@@ -56,69 +56,105 @@ class _WelcomePageState extends State<WelcomePage> {
                 itemBuilder: (context, index) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      18.verticalSpace,
-                      Text(
-                        texts[index],
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'HelveticaNowText',
+                      96.05.verticalSpace,
+                      Padding(
+                        padding: EdgeInsets.only(left: 28.63.w, right: 70.61.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              texts[index][0],
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 34.sp,
+                                fontWeight: FontWeight.normal,
+                                fontFamily: 'HelveticaNowText',
+                                letterSpacing: 0.0,
+                                height: 36 / 34,
+                                color: Color(0xFF212121),
+                              ),
+                            ),
+                            Text(
+                              texts[index][1], // Second part of the text
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 34.sp,
+                                fontWeight: FontWeight.normal,
+                                fontFamily: 'HelveticaNowText',
+                                letterSpacing: 0.0,
+                                height: 36 / 34,
+                                color: Color(0xFF212121),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      12.verticalSpace,
-                      pages[index],
-                      28.verticalSpace,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(
-                                10.67.w, 21.33.h, 10.67.w, 21.33.h),
-                            child: Row(
+                      34.35.verticalSpace,
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: pages[index],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                            30.53.w, 61.07.h, 30.53.w, 62.02.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children:
                                   List.generate(pages.length, (indexDots) {
                                 return AnimatedContainer(
                                   duration: Duration(milliseconds: 200),
-                                  width: _currentPage == indexDots ? 24.w : 8.w,
-                                  height: 8.h,
+                                  width: _currentPage == indexDots ? 26.w : 9.w,
+                                  height: 9.h,
                                   margin: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 2.0),
+                                      vertical: 8.59.w, horizontal: 2.0),
                                   decoration: BoxDecoration(
                                     color: _currentPage == indexDots
-                                        ? Colors.black
-                                        : Colors.black,
+                                        ? Color(0xFF212121)
+                                        : Color(0xFF212121),
                                     borderRadius: BorderRadius.circular(
                                         _currentPage == indexDots ? 4.w : 4.h),
                                   ),
                                 );
                               }),
                             ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              if (_currentPage == pages.length - 1) {
-                                AppNavigator.startLogin();
-                              } else {
-                                _pageController.nextPage(
-                                    duration: Duration(milliseconds: 400),
-                                    curve: Curves.easeInOut);
-                              }
-                            },
-                            child: Text(
-                              _currentPage == pages.length - 1
-                                  ? 'Get Started'
-                                  : 'Next',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            style: TextButton.styleFrom(
-                              backgroundColor: Colors.purple,
-                            ),
-                          )
-                        ],
-                      ),
+                            SizedBox(
+                              width: 88.w, // 使用 .w 适配屏幕宽度
+                              height: 38.h, // 使用 .h 适配屏幕高度
+                              child: TextButton(
+                                onPressed: () {
+                                  if (_currentPage == pages.length - 1) {
+                                    AppNavigator.startLogin();
+                                  } else {
+                                    _pageController.nextPage(
+                                        duration: Duration(milliseconds: 400),
+                                        curve: Curves.easeInOut);
+                                  }
+                                },
+                                child: Text(
+                                  _currentPage == pages.length - 1
+                                      ? 'Get Started'
+                                      : 'Next',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Color(0xFF7A27FD),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.r),
+                                  ),
+                                  minimumSize: Size(88.w, 38.h), // 设置按钮的最小尺寸
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 0), // 设置内部文本的水平填充为0
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
                     ],
                   );
                 },
