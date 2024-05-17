@@ -463,6 +463,9 @@ class LoginLogic extends GetxController {
   }
 
   void showOverlay() {
+    if (!filteredAccounts.isNotEmpty) {
+      return;
+    }
     isDropdownExpanded.value = true;
     if (overlayEntry == null) {
       overlayEntry = _createOverlayEntry();
@@ -480,6 +483,19 @@ class LoginLogic extends GetxController {
     bool success = await DataSp.removeRememberedAccount(index);
     if (success) {
       print("账号删除成功");
+      AccountInfo removedAccount = filteredAccounts[index];
+      filteredAccounts.removeAt(index);
+      historyAccounts.remove(removedAccount); // 同样从 historyAccounts 中移除
+
+      update(); // 通知 GetX 更新相关的 UI 组件
+
+      // 重新插入 OverlayEntry
+      overlayEntry?.remove();
+      overlayEntry = _createOverlayEntry();
+      Overlay.of(Get.context!)?.insert(overlayEntry!);
+
+      print(
+          "更新后的账户列表: ${filteredAccounts.map((acc) => acc.username).toList()}");
     } else {
       print("账号删除失败");
     }
@@ -493,24 +509,31 @@ class LoginLogic extends GetxController {
         top: 200,
         child: Material(
           elevation: 3.0,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: filteredAccounts.length,
-            itemBuilder: (BuildContext context, int index) {
-              final account = filteredAccounts[index];
-              return ListTile(
-                title: Text(account.username),
-                trailing: IconButton(
-                  icon: Icon(Icons.close, color: Colors.grey),
-                  onPressed: () {
-                    removeAccount(index);
-                  },
-                ),
-                onTap: () {
-                  selectAccount(account);
-                  hideOverlay();
-                },
-              );
+          child: GetBuilder<LoginLogic>(
+            // 使用 GetBuilder
+            builder: (LoginLogic controller) {
+              // 确保在这里定义 controller
+              return Obx(() => ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: controller.filteredAccounts.length,
+                    itemBuilder: (context, index) {
+                      final account = controller.filteredAccounts[index];
+                      return ListTile(
+                        title: Text(account.username),
+                        trailing: IconButton(
+                          icon: Icon(Icons.close, color: Colors.grey),
+                          onPressed: () {
+                            controller.removeAccount(index); // 调用 GetX 控制器的方法
+                          },
+                        ),
+                        onTap: () {
+                          // 确保 selectAccount 和 hideOverlay 被正确定义
+                          controller.selectAccount(account);
+                          controller.hideOverlay();
+                        },
+                      );
+                    },
+                  ));
             },
           ),
         ),

@@ -55,8 +55,10 @@ class LoginPage extends StatelessWidget {
                                     focusNode: logic.phoneEmailFocusNode,
                                     onFocusChanged: (isFocused) {
                                       if (isFocused) {
-                                        logic.filteredAccounts
-                                            .assignAll(logic.historyAccounts);
+                                        // logic.filteredAccounts
+                                        //     .assignAll(logic.historyAccounts);
+                                        // print(
+                                        //     "view中更新后的账户列表: ${logic.filteredAccounts.map((acc) => acc.username).toList()}");
                                         logic.showOverlay();
                                       } else {
                                         logic.hideOverlay();

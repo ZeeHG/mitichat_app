@@ -238,14 +238,26 @@ class DataSp {
   }
 
   static Future<bool> removeRememberedAccount(int index) async {
+    // 获取账户列表
     List<AccountInfo>? accounts = await getRememberedAccounts();
+    print("获取账户列表: ${accounts != null ? '成功' : '失败'}");
 
     if (accounts != null && index >= 0 && index < accounts.length) {
+      // 打印要删除的账户索引和信息
+      print("尝试删除索引为 $index 的账户: ${accounts[index].username}");
+
+      // 执行删除操作
       accounts.removeAt(index);
       bool success = await putRememberedAccounts(accounts) ?? false;
+
+      // 根据操作结果打印成功或失败的消息
+      print(success ? "账户删除成功" : "账户删除失败");
       return success;
+    } else {
+      // 如果索引无效或账户列表为空，则打印错误消息
+      print("无效的索引或空的账户列表: 索引 $index, 账户列表长度 ${accounts?.length}");
+      return false;
     }
-    return false;
   }
 
   static String getCurAccountLoginInfoKey() {
