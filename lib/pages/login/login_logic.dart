@@ -317,15 +317,11 @@ class LoginLogic extends GetxController {
         } else {
           username = email ?? '';
         }
-        AccountInfo accountInfo = AccountInfo(
+        AccountInfo newAccountInfo = AccountInfo(
           username: username,
           password: password ?? '',
         );
-        List<AccountInfo>? accounts = DataSp.getRememberedAccounts() ?? [];
-
-        accounts.add(accountInfo);
-
-        await DataSp.putRememberedAccounts(accounts);
+        saveHistoryAccountsToStorage(newAccountInfo);
         loadHistoryAccountsFromStorage();
       }
 
@@ -412,10 +408,17 @@ class LoginLogic extends GetxController {
     }
   }
 
-  void saveHistoryAccountsToStorage() async {
-    if (historyAccounts.isNotEmpty) {
-      await DataSp.putRememberedAccounts(historyAccounts.toList());
+  void saveHistoryAccountsToStorage(AccountInfo newAccount) async {
+    // 从存储中获取当前的账户列表
+    List<AccountInfo>? accounts = await DataSp.getRememberedAccounts() ?? [];
+
+    if (accounts.contains(newAccount)) {
+      accounts.remove(newAccount);
     }
+
+    accounts.insert(0, newAccount);
+
+    await DataSp.putRememberedAccounts(accounts);
   }
 
   void handleInputFocusChange(bool isFocused, String text) {
@@ -474,23 +477,11 @@ class LoginLogic extends GetxController {
   }
 
   void removeAccount(int index) async {
-    List<AccountInfo>? accounts = DataSp.getRememberedAccounts();
-
-    if (accounts != null && index >= 0 && index < accounts.length) {
-      accounts.removeAt(index);
-
-      bool? result = await DataSp.putRememberedAccounts(accounts) ?? true;
-
-      if (result) {
-        filteredAccounts.removeAt(index);
-        overlayEntry!.markNeedsBuild();
-
-        if (filteredAccounts.isEmpty) {
-          hideOverlay();
-        }
-      } else {
-        print("Failed to remove account from storage");
-      }
+    bool success = await DataSp.removeRememberedAccount(index);
+    if (success) {
+      print("账号删除成功");
+    } else {
+      print("账号删除失败");
     }
   }
 
@@ -512,7 +503,6 @@ class LoginLogic extends GetxController {
                 trailing: IconButton(
                   icon: Icon(Icons.close, color: Colors.grey),
                   onPressed: () {
-                    // 调用函数来删除这个账号
                     removeAccount(index);
                   },
                 ),

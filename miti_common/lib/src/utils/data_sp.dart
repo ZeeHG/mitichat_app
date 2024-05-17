@@ -237,10 +237,16 @@ class DataSp {
     return SpUtil().putObjectList(_rememberAccount, dataList);
   }
 
-  static Future<bool> removeRememberAccount(String key) async {
-    return await SpUtil().remove(key) ?? false;
-  }
+  static Future<bool> removeRememberedAccount(int index) async {
+    List<AccountInfo>? accounts = await getRememberedAccounts();
 
+    if (accounts != null && index >= 0 && index < accounts.length) {
+      accounts.removeAt(index);
+      bool success = await putRememberedAccounts(accounts) ?? false;
+      return success;
+    }
+    return false;
+  }
 
   static String getCurAccountLoginInfoKey() {
     return SpUtil().getString(_curAccountLoginInfoKey) ?? "";
