@@ -214,35 +214,33 @@ class DataSp {
 
   static ServerInfo? getRememberServer() {
     String? jsonString = SpUtil().getString(_rememberServer);
-    if (jsonString != null) {
+    if (jsonString != null && jsonString.isNotEmpty) {
       return ServerInfo.fromJson(json.decode(jsonString));
     }
     return null;
   }
 
- // 获取所有记住的账号
   static List<AccountInfo>? getRememberedAccounts() {
-    String? jsonString = SpUtil().getString(_rememberAccount);
-    if (jsonString != null) {
-      List<dynamic> jsonList = json.decode(jsonString);
-      return jsonList
-          .map((jsonItem) => AccountInfo.fromJson(jsonItem))
+    List<Map>? dataList = SpUtil().getObjectList(_rememberAccount);
+    if (dataList != null) {
+      return dataList
+          .map((dataMap) =>
+              AccountInfo.fromJson(dataMap as Map<String, dynamic>))
           .toList();
     }
     return null;
   }
 
-// 保存所有记住的账号
-  static Future<bool> putRememberedAccounts(List<AccountInfo> accounts) async {
-    String jsonString =
-        json.encode(accounts.map((account) => account.toJson()).toList());
-    return await SpUtil().putString(_rememberAccount, jsonString) ?? false;
+  static Future<bool>? putRememberedAccounts(List<AccountInfo> accounts) {
+    List<Map<String, dynamic>> dataList =
+        accounts.map((account) => account.toJson()).toList();
+    return SpUtil().putObjectList(_rememberAccount, dataList);
   }
 
-
-  static Future<bool>? removeRememberAccount(String key) async {
+  static Future<bool> removeRememberAccount(String key) async {
     return await SpUtil().remove(key) ?? false;
   }
+
 
   static String getCurAccountLoginInfoKey() {
     return SpUtil().getString(_curAccountLoginInfoKey) ?? "";

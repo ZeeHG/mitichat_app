@@ -385,7 +385,6 @@ class LoginLogic extends GetxController {
 
   void changeRememberPassword(bool? bool) {
     rememberPassword.value = bool!;
-    handleFormChange();
   }
 
   void toggleDropdown() {
@@ -480,7 +479,7 @@ class LoginLogic extends GetxController {
     if (accounts != null && index >= 0 && index < accounts.length) {
       accounts.removeAt(index);
 
-      bool result = await DataSp.putRememberedAccounts(accounts);
+      bool? result = await DataSp.putRememberedAccounts(accounts) ?? true;
 
       if (result) {
         filteredAccounts.removeAt(index);
