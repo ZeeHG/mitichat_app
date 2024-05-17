@@ -46,7 +46,8 @@ class AccountUtil extends GetxController {
   googleOauth() async {
     try {
       GoogleAuth? googleAuth;
-      final googleClientId = Config.googleClientId;
+      // final googleClientId = Config.googleClientId;
+      final googleClientId = appCtrl.googleClientId;
       final callbackUrlScheme = Platform.isIOS ? 'https' : Config.packageName;
       final redirectUri = Platform.isIOS
           ? Config.googleIOSRedirectUri
@@ -82,8 +83,13 @@ class AccountUtil extends GetxController {
   Future<void> signInWithGoogle({bool signOut = true}) async {
     // if (!appControllerLogic.supportFirebase.value) return;
     try {
+      // final GoogleSignIn googleSignIn =
+      //     GoogleSignIn(clientId: Config.webGoogleClientId, scopes: [
+      //   'https://www.googleapis.com/auth/userinfo.email',
+      //   'https://www.googleapis.com/auth/userinfo.profile'
+      // ]);
       final GoogleSignIn googleSignIn =
-          GoogleSignIn(clientId: Config.webGoogleClientId, scopes: [
+          GoogleSignIn(clientId: appCtrl.webGoogleClientId, scopes: [
         'https://www.googleapis.com/auth/userinfo.email',
         'https://www.googleapis.com/auth/userinfo.profile'
       ]);
@@ -126,7 +132,8 @@ class AccountUtil extends GetxController {
         AppleIDAuthorizationScopes.fullName,
       ],
       webAuthenticationOptions: WebAuthenticationOptions(
-        clientId: Config.appleClientId,
+        // clientId: Config.appleClientId,
+        clientId: appCtrl.requestAppleClientId,
         redirectUri: Uri.parse(Config.appleRedirectUri),
       ),
       // nonce: 'example-nonce',
@@ -260,7 +267,7 @@ class AccountUtil extends GetxController {
       // FIXME initOpenIM不会出现超时, 只有login im后才会出现
       await imCtrl.initIMSdk();
       await appCtrl.getClientConfig();
-      await appCtrl.updateSupportRegistTypes();
+      await appCtrl.updateThirdConfig();
     }
   }
 
@@ -291,9 +298,8 @@ class AccountUtil extends GetxController {
     String? clientId,
   }) async {
     late LoginCertificate data;
-    final curServerKey = DataSp.getCurServerKey().isNotEmpty
-        ? DataSp.getCurServerKey()
-        : null;
+    final curServerKey =
+        DataSp.getCurServerKey().isNotEmpty ? DataSp.getCurServerKey() : null;
     try {
       data = await ClientApis.registerOrLoginByOauth(
           registerType: registerType,

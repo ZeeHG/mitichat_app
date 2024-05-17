@@ -25,7 +25,54 @@ mixin AppControllerGetx on GetxController {
   final supportFirebase = false.obs;
   final supportLoginTypes =
       [SupportLoginType.email, SupportLoginType.phone].obs;
+  final thirdAppInfoMap = ThirdAppInfoMap().obs;
   final Rx<String?> inviteMitiID = Rx<String?>(null);
+
+  get useGoogleLogin =>
+      supportLoginTypes.contains(SupportLoginType.google) &&
+      ((Platform.isIOS &&
+              thirdAppInfoMap.value.ios?.googleApp?["appGoolgeID"] != null) ||
+          (!Platform.isIOS &&
+              thirdAppInfoMap.value.android?.googleApp?["appGoolgeID"] !=
+                  null &&
+              thirdAppInfoMap.value.android?.googleApp?["webGoolgeID"] !=
+                  null));
+
+  get useAppleLogin =>
+      supportLoginTypes.contains(SupportLoginType.apple) &&
+      ((Platform.isIOS &&
+              thirdAppInfoMap.value.ios?.appleApp?["clientID"] != null) ||
+          (!Platform.isIOS &&
+              thirdAppInfoMap.value.android?.appleApp?["serviceID"] != null));
+
+  get useFacebookLogin => supportLoginTypes.contains(SupportLoginType.facebook);
+
+  String get googleClientId =>
+      (Platform.isIOS
+          ? thirdAppInfoMap.value.ios?.googleApp
+          : thirdAppInfoMap.value.android?.googleApp)?["appGoolgeID"] ??
+      "";
+
+  String get webGoogleClientId =>
+      (Platform.isIOS
+          ? thirdAppInfoMap.value.ios?.googleApp
+          : thirdAppInfoMap.value.android?.googleApp)?["webGoolgeID"] ??
+      "";
+
+  String get appleClientId =>
+      (Platform.isIOS
+          ? thirdAppInfoMap.value.ios?.appleApp
+          : thirdAppInfoMap.value.android?.appleApp)?["clientID"] ??
+      "";
+
+  String get appleServiceId =>
+      (Platform.isIOS
+          ? thirdAppInfoMap.value.ios?.appleApp
+          : thirdAppInfoMap.value.android?.appleApp)?["serviceID"] ??
+      "";
+
+  String get requestAppleClientId =>
+      Platform.isIOS ? appleClientId : appleServiceId;
 }
 
 // 下载0, 后台1, 消息message.seq
@@ -149,6 +196,37 @@ class AppCtrl extends SuperController with AppControllerGetx {
     } catch (e) {
       myLogger.e({"message": "获取支持的注册方式失败", "error": e});
     }
+  }
+
+  Future<void> updateThirdAppInfo() async {
+    try {
+      final data = await ClientApis.queryThirdAppInfo();
+      var android = (List.from(data?["platforms"] ?? []))
+          .firstWhereOrNull((element) => element["platformId"] == 2);
+      var ios = (List.from(data?["platforms"] ?? []))
+          .firstWhereOrNull((element) => element["platformId"] == 1);
+      var web = (List.from(data?["platforms"] ?? []))
+          .firstWhereOrNull((element) => element["platformId"] == 5);
+
+      thirdAppInfoMap.value = ThirdAppInfoMap(
+          android: null != android ? ThirdAppInfo.fromJson(android) : null,
+          ios: null != ios ? ThirdAppInfo.fromJson(ios) : null,
+          web: null != web ? ThirdAppInfo.fromJson(web) : null);
+      myLogger.i(
+          "useAppleLogin: $useAppleLogin, useGoogleLogin: $useGoogleLogin, useFacebookLogin: $useFacebookLogin");
+      // myLogger.e(googleClientId);
+      // myLogger.e(webGoogleClientId);
+      // myLogger.e(appleClientId);
+      // myLogger.e(appleServiceId);
+      // myLogger.e(requestAppleClientId);
+    } catch (e) {
+      myLogger.e({"message": "获取ThirdAppInfo异常", "error": e});
+    }
+  }
+
+  Future updateThirdConfig() async {
+    return await Future.wait(
+        [updateSupportRegistTypes(), updateThirdAppInfo()]);
   }
 
   Future<void> initNotificationPlugin() async {
@@ -464,7 +542,8 @@ class AppCtrl extends SuperController with AppControllerGetx {
             StrLibrary.inviteDialogFailTips, [data["inviteUser"]["nickname"]]);
     Get.dialog(CustomDialog(
       title: content,
-      centerBigText: StrLibrary.goStart,
+      centerBigText:
+          data["handleResult"] != 2 ? StrLibrary.goStart : StrLibrary.confirm,
       onTapCenter: () => AppNavigator.startMain(),
     ));
     promptAndroidNotification(
@@ -501,17 +580,17 @@ class AppCtrl extends SuperController with AppControllerGetx {
     }
   }
 
-  Future requestActiveAccount({required String useInviteMitiID}) async{
+  Future requestActiveAccount({required String useInviteMitiID}) async {
     if (Get.isRegistered<IMCtrl>()) {
-        final imCtrl = Get.find<IMCtrl>();
-        if (imCtrl.userInfo.value.isAlreadyActive != true) {
-          await ClientApis.applyActive(inviteMitiID: useInviteMitiID);
-          showToast(StrLibrary.submitActiveSuccess);
-        }
-      } else {
-        // 重新启动时, 先记录
-        inviteMitiID.value = useInviteMitiID;
+      final imCtrl = Get.find<IMCtrl>();
+      if (imCtrl.userInfo.value.isAlreadyActive != true) {
+        await ClientApis.applyActive(inviteMitiID: useInviteMitiID);
+        showToast(StrLibrary.submitActiveSuccess);
       }
+    } else {
+      // 重新启动时, 先记录
+      inviteMitiID.value = useInviteMitiID;
+    }
   }
 
   // void showBadge(count) {

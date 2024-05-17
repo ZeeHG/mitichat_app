@@ -310,4 +310,8 @@ class ImageLibrary {
   static const mitiidBg = "$_dir/mitiid_bg.png";
   static const activeAccountEntry = "$_dir/active_account_entry.png";
   static const inviteQrBg = "$_dir/invite_qr_bg.png";
+  static const apple = "$_dir/apple.png";
+  static const google = "$_dir/google.png";
+  static const fb = "$_dir/fb.png";
+  static const appSplashLogo = "$_dir/splash_logo.png";
 }

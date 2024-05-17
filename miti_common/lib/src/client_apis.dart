@@ -1096,4 +1096,10 @@ class ClientApis {
       ClientUrls.querySupportRegistTypes,
     );
   }
+
+  static Future queryThirdAppInfo() async {
+    return HttpUtil.post(
+      ClientUrls.queryThirdAppInfo,
+    );
+  }
 }

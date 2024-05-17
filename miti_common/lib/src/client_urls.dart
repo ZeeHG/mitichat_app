@@ -115,4 +115,7 @@ class ClientUrls {
 
   static String get querySupportRegistTypes =>
       '${Config.appAuthUrl}/account/query_support_regist_types';
+
+  static String get queryThirdAppInfo =>
+      '${Config.appAuthUrl}/account/query_third_app_info';
 }

@@ -11,6 +11,7 @@ import 'dart:convert';
 import '../../routes/app_navigator.dart';
 import 'package:flutter_openim_sdk/src/models/login_AccountInfo.dart';
 import 'package:flutter_openim_sdk/src/models/login_serverInfo.dart';
+import 'package:miti/core/ctrl/app_ctrl.dart';
 
 enum LoginType {
   phone,
@@ -88,6 +89,7 @@ class LoginLogic extends GetxController {
   final server = Config.hostWithProtocol.obs;
   final FocusNode phoneEmailFocusNode = FocusNode();
   final FocusNode serverFocusNode = FocusNode();
+  final appCtrl = Get.find<AppCtrl>();
   int curStatusChangeCount = 0;
   OverlayEntry? overlayEntry;
   OverlayEntry? serverOverlayEntry;
@@ -151,6 +153,34 @@ class LoginLogic extends GetxController {
     if (!Config.isProd) {
       AppNavigator.startDevEntry();
     }
+  }
+
+  loginGoogle() {
+    if (!agree.value) {
+      showToast(StrLibrary.plsAgree);
+      return;
+    }
+    if (!appCtrl.supportFirebase.value) {
+      accountUtil.googleOauth();
+    } else {
+      accountUtil.signInWithGoogle();
+    }
+  }
+
+  loginFb() {
+    if (!agree.value) {
+      showToast(StrLibrary.plsAgree);
+      return;
+    }
+    accountUtil.signInWithFacebook();
+  }
+
+  loginApple() {
+    if (!agree.value) {
+      showToast(StrLibrary.plsAgree);
+      return;
+    }
+    accountUtil.signInWithApple();
   }
 
   login(BuildContext context) {

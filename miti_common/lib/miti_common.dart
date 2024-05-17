@@ -140,3 +140,4 @@ export 'src/models/google_auth.dart';
 export 'src/widgets/setting_item.dart';
 export 'src/models/invite.dart';
 export 'src/models/mitiid_change_record.dart';
+export 'src/models/thirdAppInfo.dart';
