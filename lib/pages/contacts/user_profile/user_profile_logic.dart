@@ -318,7 +318,7 @@ class UserProfileLogic extends GetxController {
       );
 
   void copyID() {
-    MitiUtils.copy(text: userInfo.value.userID!);
+    MitiUtils.copy(text: userInfo.value.mitiID! ?? userInfo.value.userID!);
   }
 
   void addFriend() => AppNavigator.startSendApplication(

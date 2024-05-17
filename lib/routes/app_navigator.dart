@@ -21,7 +21,7 @@ class AppNavigator {
   }
 
   static void welcome() {
-    Get.toNamed(AppRoutes.welcomePage);
+    Get.offAndToNamed(AppRoutes.welcomePage);
   }
 
   static void startLoginWithoutOff(
