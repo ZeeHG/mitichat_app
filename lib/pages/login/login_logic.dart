@@ -248,7 +248,7 @@ class LoginLogic extends GetxController {
                 hintStyle: StylesLibrary.ts_CCCCCC_14sp,
                 border: false,
                 controller: serverCtrl,
-                focusNode: serverFocusNode,
+                // focusNode: serverFocusNode,
               ),
             ),
             31.verticalSpace
@@ -551,6 +551,7 @@ class LoginLogic extends GetxController {
               // 确保在这里定义 controller
               return Obx(() => ListView.builder(
                     shrinkWrap: true,
+                    padding: EdgeInsets.all(0),
                     itemCount: controller.filteredAccounts.length,
                     itemBuilder: (context, index) {
                       final account = controller.filteredAccounts[index];
