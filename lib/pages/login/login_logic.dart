@@ -504,8 +504,8 @@ class LoginLogic extends GetxController {
   OverlayEntry _createOverlayEntry() {
     return OverlayEntry(
       builder: (context) => Positioned(
-        left: 10,
-        right: 10,
+        left: 30,
+        right: 30,
         top: 200,
         child: Material(
           elevation: 3.0,
@@ -514,6 +514,7 @@ class LoginLogic extends GetxController {
             builder: (LoginLogic controller) {
               // 确保在这里定义 controller
               return Obx(() => ListView.builder(
+                    padding: EdgeInsets.zero, // 设置 padding 为 zero
                     shrinkWrap: true,
                     itemCount: controller.filteredAccounts.length,
                     itemBuilder: (context, index) {
@@ -523,8 +524,10 @@ class LoginLogic extends GetxController {
                         trailing: IconButton(
                           icon: Icon(Icons.close, color: Colors.grey),
                           onPressed: () {
-                            controller.removeAccount(index); // 调用 GetX 控制器的方法
+                            controller.removeAccount(index);
                           },
+                          padding: EdgeInsets.zero,
+                          constraints: BoxConstraints(),
                         ),
                         onTap: () {
                           // 确保 selectAccount 和 hideOverlay 被正确定义
