@@ -50,6 +50,7 @@ class UserProfileLogic extends GetxController {
   void onInit() {
     userInfo = (UserFullInfo()
           ..userID = Get.arguments['userID']
+          ..mitiID = Get.arguments['mitiID']
           ..nickname = Get.arguments['nickname']
           ..faceURL = Get.arguments['faceURL'])
         .obs;
@@ -137,6 +138,7 @@ class UserProfileLogic extends GetxController {
         val?.isFriendship = isFriendship;
         val?.allowAddFriend = fullInfo.allowAddFriend;
         val?.gender = fullInfo.gender;
+        val?.mitiID = fullInfo.mitiID;
       });
     }
 

@@ -127,6 +127,7 @@ class AppNavigator {
     String? groupID,
     String? nickname,
     String? faceURL,
+    String? mitiID,
     bool offAllWhenDelFriend = false,
     bool offAndToNamed = false,
   }) {
@@ -137,6 +138,7 @@ class AppNavigator {
       'userID': userID,
       'nickname': nickname,
       'faceURL': faceURL,
+      'mitiID': mitiID,
       'offAllWhenDelFriend': offAllWhenDelFriend,
     };
 
