@@ -20,8 +20,8 @@ class ImageLibrary {
   static const eyeClose = "$_dir/ic_eye_close.png";
   static const clearText = "$_dir/ic_clear_text.png";
   static const searchGrey = "$_dir/ic_search_gery.png";
-  static const callBack = "$_dir/ic_call_black.png";
-  static const addBlack = "$_dir/ic_add_black.png";
+  // static const callBack = "$_dir/ic_call_black.png";
+  // static const addBlack = "$_dir/ic_add_black.png";
   static const syncFailed = "$_dir/ic_sync_failed.png";
   static const notDisturb = "$_dir/ic_not_disturb.png";
   static const backBlack = "$_dir/ic_back_black.png";
@@ -121,7 +121,7 @@ class ImageLibrary {
   static const moreOp = "$_dir/ic_more_op.png";
   static const whoCanWatch = "$_dir/ic_who_can_watch.png";
   static const remindWhoToWatch = "$_dir/ic_remind_who_to_watch.png";
-  static const circle = "$_dir/ic_circle.png";
+  static const circle = "$_dir/moment_refresh_circle.png";
   static const liveClose = "$_dir/ic_live_close.png";
   static const liveHangUp = "$_dir/ic_live_hang_up.png";
   static const liveMicOff = "$_dir/ic_live_mic_off.png";

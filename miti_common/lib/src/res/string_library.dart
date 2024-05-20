@@ -1726,4 +1726,5 @@ class StrLibrary {
   static String get inviteInstructions5 => 'inviteInstructions5'.tr;
   static String get inviteInstructions6 => 'inviteInstructions6'.tr;
   static String get changeMitiIDDateTips => 'changeMitiIDDateTips'.tr;
+  static String get scanFail => 'scanFail'.tr;
 }

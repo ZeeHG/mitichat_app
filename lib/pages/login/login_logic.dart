@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti/utils/account_util.dart';
 import 'package:miti_common/miti_common.dart';
 import '../../core/ctrl/im_ctrl.dart';
 import 'package:miti_common/src/utils/data_sp.dart';
 import '../../core/ctrl/push_ctrl.dart';
-import 'dart:convert';
 import '../../routes/app_navigator.dart';
 import 'package:flutter_openim_sdk/src/models/login_AccountInfo.dart';
 import 'package:flutter_openim_sdk/src/models/login_serverInfo.dart';
@@ -62,7 +59,6 @@ class LoginLogic extends GetxController {
   final phoneEmailCtrl = TextEditingController();
   final pwdCtrl = TextEditingController();
   final serverCtrl = TextEditingController();
-  final onlyReadServerCtrl = TextEditingController();
   final verificationCodeCtrl = TextEditingController();
   final obscureText = true.obs;
   final enabled = false.obs;
@@ -70,6 +66,7 @@ class LoginLogic extends GetxController {
   final isPasswordLogin = true.obs;
   final versionInfo = ''.obs;
   final loginType = LoginType.phone.obs;
+  final readOnlyServer = true.obs;
   String? get email =>
       loginType.value == LoginType.email ? phoneEmailCtrl.text.trim() : null;
   String? get phone =>
@@ -90,17 +87,20 @@ class LoginLogic extends GetxController {
   final FocusNode phoneEmailFocusNode = FocusNode();
   final FocusNode serverFocusNode = FocusNode();
   final appCtrl = Get.find<AppCtrl>();
+  final serverHistory = <String>[Config.hostWithProtocol].obs;
   int curStatusChangeCount = 0;
   OverlayEntry? overlayEntry;
   OverlayEntry? serverOverlayEntry;
+  final serverInputFocusNode = FocusNode();
+
   _init() async {
     isAddAccount.value = Get.arguments?['isAddAccount'] ?? false;
     server.value = Get.arguments?['server'] ?? server.value;
     curStatusChangeCount = accountUtil.statusChangeCount.value;
-
+    serverHistory.addAll(DataSp.getServerHistory());
     loadHistoryAccountsFromStorage();
     loadHistoryServersFromStorage();
-    onlyReadServerCtrl.text = DataSp.getCurServerKey().isNotEmpty
+    serverCtrl.text = DataSp.getCurServerKey().isNotEmpty
         ? DataSp.getCurServerKey()
         : Config.hostWithProtocol;
     var map = DataSp.getMainLoginAccount();
@@ -138,6 +138,13 @@ class LoginLogic extends GetxController {
       }
     });
     super.onInit();
+  }
+
+  @override
+  onReady() {
+    filteredAccounts.assignAll(historyAccounts);
+    showOverlay();
+    super.onReady();
   }
 
   handleFormChange() {
@@ -219,74 +226,37 @@ class LoginLogic extends GetxController {
   }
 
   switchServer() async {
-    await Get.dialog(CustomDialog(
-      // bigTitle: "",
-      body: Container(
-        padding: EdgeInsets.only(
-          top: 16.w,
-          left: 20.w,
-          right: 20.w,
-        ),
-        child: Column(
-          children: [
-            Text(
-              StrLibrary.switchServer,
-              textAlign: TextAlign.center,
-              style: StylesLibrary.ts_333333_16sp_medium,
-            ),
-            31.verticalSpace,
-            Container(
-              height: 46.h,
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
-              decoration: BoxDecoration(
-                color: StylesLibrary.c_F7F8FA,
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              child: InputBox(
-                autofocus: false,
-                hintText: StrLibrary.addAccountServerTips,
-                hintStyle: StylesLibrary.ts_CCCCCC_14sp,
-                border: false,
-                controller: serverCtrl,
-                // focusNode: serverFocusNode,
-              ),
-            ),
-            31.verticalSpace
-          ],
-        ),
-      ),
-      onTapLeft: () {
-        serverCtrl.text = "";
-        Get.back(result: true);
-      },
-      onTapRight: () async {
-        // http://xx
-        if (!Config.targetIsDomainOrIPWithProtocol(serverCtrl.text)) {
-          showToast(StrLibrary.serverFormatErr);
-        } else {
-          LoadingView.singleton.start(
-              topBarHeight: 0,
-              fn: () async {
-                try {
-                  await accountUtil.checkServerValid(
-                      serverWithProtocol: serverCtrl.text);
-                  await accountUtil.switchServer(serverCtrl.text);
-                  Get.back(result: true);
-                  if (isAddAccount.value) {
-                    AppNavigator.startLoginWithoutOff(
-                        isAddAccount: true, server: serverCtrl.text);
-                  }
-                  serverCtrl.text = "";
-                } catch (e) {
-                  showToast(StrLibrary.serverErr);
+    // readOnlyServer.value = !readOnlyServer.value;
+    if (readOnlyServer.value) {
+      serverInputFocusNode.requestFocus();
+      readOnlyServer.value = false;
+      showOverlay();
+    } else {
+      if (!Config.targetIsDomainOrIPWithProtocol(serverCtrl.text)) {
+        showToast(StrLibrary.serverFormatErr);
+      } else {
+        LoadingView.singleton.start(
+            topBarHeight: 0,
+            fn: () async {
+              try {
+                await accountUtil.checkServerValid(
+                    serverWithProtocol: serverCtrl.text);
+                await accountUtil.switchServer(serverCtrl.text);
+                if (isAddAccount.value) {
+                  AppNavigator.startLoginWithoutOff(
+                      isAddAccount: true, server: serverCtrl.text);
                 }
-                onlyReadServerCtrl.text = DataSp.getCurServerKey().isNotEmpty
-                    ? DataSp.getCurServerKey()
-                    : Config.hostWithProtocol;
-              });
-        }
-      },
-    ));
+                readOnlyServer.value = true;
+                serverHistory.addIf(
+                    !serverHistory.contains(serverCtrl.text), serverCtrl.text);
+                DataSp.putServerHistory(serverHistory.value);
+                hideOverlay();
+              } catch (e) {
+                showToast(StrLibrary.serverErr);
+              }
+            });
+      }
+    }
   }
 
   bool checkForm() {
@@ -324,7 +294,7 @@ class LoginLogic extends GetxController {
         "areaCode": areaCode.value,
         "phoneNumber": phone,
         'email': email,
-        "server": onlyReadServerCtrl.text
+        "server": serverCtrl.text
       };
       await DataSp.putLoginCertificate(data);
       await DataSp.putMainLoginAccount(account);
@@ -441,6 +411,9 @@ class LoginLogic extends GetxController {
     List<AccountInfo>? accounts = DataSp.getRememberedAccounts();
     if (accounts != null) {
       historyAccounts.assignAll(accounts);
+      for (var account in historyAccounts) {
+        account.password = decrypt(account.password);
+      }
     }
   }
 
@@ -448,11 +421,14 @@ class LoginLogic extends GetxController {
     // 从存储中获取当前的账户列表
     List<AccountInfo>? accounts = await DataSp.getRememberedAccounts() ?? [];
 
-    if (accounts.contains(newAccount)) {
+    if (null != accounts.firstWhereOrNull((element) => element.username == newAccount.username)) {
       accounts.remove(newAccount);
     }
 
-    accounts.insert(0, newAccount);
+    final accountMap = newAccount.toJson();
+    accountMap["password"] = encrypt(accountMap["password"]);
+
+    accounts.insert(0, AccountInfo.fromJson(accountMap));
 
     await DataSp.putRememberedAccounts(accounts);
   }

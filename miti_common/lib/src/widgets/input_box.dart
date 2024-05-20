@@ -40,6 +40,7 @@ class InputBox extends StatefulWidget {
       this.enabled = true,
       this.showScanIcon = false,
       this.scan,
+      this.rightButton,
       this.showClearBtn = true})
       : obscureText = false,
         type = InputBoxType.phone,
@@ -72,6 +73,7 @@ class InputBox extends StatefulWidget {
       this.showScanIcon = false,
       this.scan,
       this.onChanged,
+      this.rightButton,
       this.showClearBtn = true})
       : obscureText = false,
         type = InputBoxType.account,
@@ -79,11 +81,11 @@ class InputBox extends StatefulWidget {
         clearBtnColor = null,
         onSendVerificationCode = null;
 
-  const InputBox.password(
+  InputBox.password(
       {super.key,
       // this.label,,
       this.controller,
-      this.focusNode,
+      FocusNode? focusNode,
       this.labelStyle,
       this.textStyle,
       this.hintStyle,
@@ -101,6 +103,7 @@ class InputBox extends StatefulWidget {
       this.showScanIcon = false,
       this.scan,
       this.onChanged,
+      this.rightButton,
       this.showClearBtn = true})
       : obscureText = true,
         type = InputBoxType.password,
@@ -109,7 +112,8 @@ class InputBox extends StatefulWidget {
         arrowColor = null,
         clearBtnColor = null,
         onSendVerificationCode = null,
-        onAreaCode = null;
+        onAreaCode = null,
+        focusNode = focusNode ?? FocusNode();
 
   const InputBox.verificationCode(
       {super.key,
@@ -129,6 +133,7 @@ class InputBox extends StatefulWidget {
       this.border = true,
       this.keyBoardType,
       this.autofocus = false,
+      this.rightButton,
       this.onChanged,
       this.readOnly = false,
       this.enabled = true,
@@ -165,6 +170,7 @@ class InputBox extends StatefulWidget {
       this.enabled = true,
       this.showScanIcon = false,
       this.scan,
+      this.rightButton,
       this.showClearBtn = true})
       : obscureText = false,
         type = InputBoxType.invitationCode,
@@ -205,8 +211,8 @@ class InputBox extends StatefulWidget {
       this.enabled = true,
       this.showClearBtn = true,
       this.showScanIcon = false,
-      this.scan
-      })
+      this.rightButton,
+      this.scan})
       : super(key: key);
   final TextStyle? labelStyle;
   final TextStyle? textStyle;
@@ -235,6 +241,7 @@ class InputBox extends StatefulWidget {
   final bool showClearBtn;
   final bool showScanIcon;
   final Function()? scan;
+  final Widget? rightButton;
 
   final Function(String)? onChanged;
   final Function(bool)? onFocusChanged;
@@ -313,6 +320,10 @@ class _InputBoxState extends State<InputBox> {
                   VerifyCodedButton(
                     onTapCallback: widget.onSendVerificationCode,
                   ),
+                if (widget.rightButton != null) ...[
+                  10.horizontalSpace,
+                  widget.rightButton!
+                ]
               ],
             ),
           ),
@@ -329,6 +340,13 @@ class _InputBoxState extends State<InputBox> {
   }
 
   Widget get _textField => Expanded(
+          child: Listener(
+        onPointerDown: (e) {
+          if (widget.type == InputBoxType.password &&
+              null != widget.focusNode) {
+            FocusScope.of(context).requestFocus(widget.focusNode);
+          }
+        },
         child: TextField(
             readOnly: widget.readOnly,
             enabled: widget.enabled,
@@ -353,7 +371,7 @@ class _InputBoxState extends State<InputBox> {
               border: InputBorder.none,
             ),
             onChanged: widget.onChanged),
-      );
+      ));
 
   Widget get _areaCodeView => GestureDetector(
         onTap: widget.onAreaCode,

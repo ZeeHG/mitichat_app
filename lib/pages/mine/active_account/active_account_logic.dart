@@ -58,7 +58,7 @@ class ActiveAccountLogic extends GetxController {
   }
 
   scan() async {
-    final Map<String, dynamic> result = await AppNavigator.startScan();
+    final Map<String, dynamic> result = await AppNavigator.startScan(qrFutureList: [QrFuture.invite]);
     if (result["autoHandle"] == true) {
       status.value = "submitSuccess";
     }

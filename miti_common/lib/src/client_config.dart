@@ -116,6 +116,10 @@ class Config {
   static String get hostWithProtocol =>
       _isIP ? "http://$host" : "https://$host";
 
+  static String get aesKey => "yiToGki3y1wSlEppyphSKeNeBzkmXhrs";
+
+  static String get aesIv => "rHi7oauq7wijMEdQ";
+
   /// 服务器IP
   static String get serverIp {
     String? ip;

@@ -34,6 +34,7 @@ class DataSp {
   static const firstUse = 'firstUse';
   static const _rememberAccount = "rememberAccount";
   static const _rememberServer = "rememberServer";
+  static const _serverHistory = "serverHistory";
   DataSp._();
 
   static init() async {
@@ -346,5 +347,13 @@ class DataSp {
   static List<String>? getAiKeys() {
     final store = getAiStore();
     return null == store ? [] : store.keys.toList();
+  }
+
+  static Future<bool>? putServerHistory(List<String> list) {
+    return SpUtil().putStringList(_serverHistory, list);
+  }
+
+  static List<String> getServerHistory() {
+    return SpUtil().getStringList(_serverHistory)!;
   }
 }

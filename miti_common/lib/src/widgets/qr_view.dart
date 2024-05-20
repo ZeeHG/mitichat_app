@@ -12,7 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'qr_scan_box.dart';
 
-enum QrFuture { inviteCode }
+enum QrFuture { user, group, invite, url }
 
 class QrcodeView extends StatefulWidget {
   const QrcodeView(
@@ -220,42 +220,54 @@ class _QrcodeViewState extends State<QrcodeView> with TickerProviderStateMixin {
   void _parse(String? result) async {
     if (null != result) {
       controller.stop();
-      if (result.startsWith(Config.friendScheme)) {
+      final qrFutureListIsNull = null == widget.qrFutureList;
+      if ((qrFutureListIsNull || widget.qrFutureList!.contains(QrFuture.user)) &&
+          result.startsWith(Config.friendScheme)) {
         var userID = result.substring(Config.friendScheme.length);
         MitiBridge.scanBridge?.scanOutUserID(userID);
         // AppNavigator.startFriendInfoFromScan(info: UserInfo(userID: uid));
-      } else if (result.startsWith(Config.groupScheme)) {
+      } else if ((qrFutureListIsNull ||
+              widget.qrFutureList!.contains(QrFuture.group)) &&
+          result.startsWith(Config.groupScheme)) {
         var groupID = result.substring(Config.groupScheme.length);
         MitiBridge.scanBridge?.scanOutGroupID(groupID);
         // AppNavigator.startSearchAddGroupFromScan(info: GroupInfo(groupID: gid));
-      } else if (result.startsWith(Config.inviteUrl)) {
+      } else if ((qrFutureListIsNull ||
+              widget.qrFutureList!.contains(QrFuture.invite)) &&
+          result.startsWith(Config.inviteUrl)) {
         var inviteMitiID = Uri.parse(result).queryParameters["mitiID"];
-        if (null != inviteMitiID && inviteMitiID.toString().isNotEmpty && widget.autoUseInviteCode) {
+        if (null != inviteMitiID &&
+            inviteMitiID.toString().isNotEmpty &&
+            widget.autoUseInviteCode) {
           try {
             await MitiBridge.scanBridge
                 ?.scanActiveAccount(useInviteMitiID: inviteMitiID);
-            Get.back(result:  {"inviteMitiID": inviteMitiID, "autoHandle": true});
+            Get.back(
+                result: {"inviteMitiID": inviteMitiID, "autoHandle": true});
           } catch (e) {
-            Get.back(result: {"inviteMitiID": inviteMitiID, "autoHandle": false});
+            Get.back(
+                result: {"inviteMitiID": inviteMitiID, "autoHandle": false});
           }
         } else {
           Get.back(result: {"inviteMitiID": "", "autoHandle": false});
         }
-      } else if (MitiUtils.isUrlValid(result)) {
+      } else if ((qrFutureListIsNull ||
+              widget.qrFutureList!.contains(QrFuture.url)) &&
+          MitiUtils.isUrlValid(result)) {
         final uri = Uri.parse(Uri.encodeFull(result));
         if (!await launchUrl(uri)) {
           // throw Exception('Could not launch $uri');
-          showToast('无法识别!');
+          showToast(StrLibrary.scanFail);
           // controller?.resumeCamera();
           controller.start();
         }
       } else {
         Get.back(result: result);
-        showToast('扫码结果：$result');
+        // showToast(result);
       }
     } else {
       Get.back();
-      showToast('无法识别');
+      showToast(StrLibrary.scanFail);
     }
   }
 }

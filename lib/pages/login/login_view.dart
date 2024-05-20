@@ -44,7 +44,7 @@ class LoginPage extends StatelessWidget {
                                   alignment: Alignment.centerRight,
                                   children: [
                                     InputBox.account(
-                                        autofocus: false,
+                                        autofocus: true,
                                         hintText:
                                             logic.loginType.value.hintText,
                                         code: logic.areaCode.value,
@@ -97,24 +97,35 @@ class LoginPage extends StatelessWidget {
                                 Row(
                                   children: [
                                     Expanded(
-                                      flex: 3,
+                                      // flex: 3,
                                       child: InputBox(
-                                        readOnly: true,
-                                        controller: logic.onlyReadServerCtrl,
-                                        showClearBtn: false,
-                                      ),
+                                          readOnly: logic.readOnlyServer.value,
+                                          controller: logic.serverCtrl,
+                                          showClearBtn: false,
+                                          focusNode: logic.serverInputFocusNode,
+                                          rightButton:
+                                              (logic.readOnlyServer.value
+                                                      ? StrLibrary.switchServer
+                                                      : StrLibrary.confirm)
+                                                  .toText
+                                                ..style =
+                                                    StylesLibrary.ts_8443F8_16sp
+                                                ..onTap = logic.switchServer),
                                     ),
-                                    Expanded(
-                                      flex: 2,
-                                      child: GestureDetector(
-                                        onTap: logic.switchServer,
-                                        child: Text(
-                                          StrLibrary.switchServer,
-                                          style: StylesLibrary.ts_8443F8_14sp,
-                                          textAlign: TextAlign.right,
-                                        ),
-                                      ),
-                                    ),
+                                    // Expanded(
+                                    //   flex: 2,
+                                    //   child: GestureDetector(
+                                    //     onTap: logic.switchServer,
+
+                                    //     child: Text(
+                                    //       logic.readOnlyServer.value
+                                    //           ? StrLibrary.switchServer
+                                    //           : StrLibrary.confirm,
+                                    //       style: StylesLibrary.ts_8443F8_14sp,
+                                    //       textAlign: TextAlign.right,
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                                 10.verticalSpace,
@@ -248,7 +259,7 @@ class LoginPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                       20.verticalSpace,
+                      20.verticalSpace,
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 36.w),
                         child: Row(
@@ -346,7 +357,7 @@ class LoginPage extends StatelessWidget {
               ],
             ),
           ),
-        )) ;
+        ));
   }
 
   void _showForgetPwdBottomSheet() {

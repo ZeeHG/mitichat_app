@@ -23,8 +23,8 @@ class AppSplashPage extends StatelessWidget {
             extendBodyBehindAppBar: true,
             body: Center(
               child: ImageLibrary.appSplashLogo.toImage
-                  ..width = 1.sw / 2.5
-                  ..height = 1.sw / 2.5
+                  ..width = 150.w
+                  ..height = 150.w
             )));
   }
 }

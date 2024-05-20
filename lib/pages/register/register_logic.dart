@@ -203,7 +203,7 @@ class RegisterLogic extends GetxController {
   }
 
   scan() async {
-    final Map<String, dynamic> result = await AppNavigator.startScan();
+    final Map<String, dynamic> result = await AppNavigator.startScan(qrFutureList: [QrFuture.invite]);
     invitationCodeCtrl.text = result["inviteMitiID"];
   }
 

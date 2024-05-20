@@ -135,6 +135,7 @@ dependencies:
   app_links: ^6.0.1
   share_plus: ^7.2.2
   dotted_border: ^2.1.0
+  encrypt: ^5.0.3
 
   #  flutter_openim_unimp:
   #    git:

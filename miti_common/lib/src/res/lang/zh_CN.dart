@@ -1209,4 +1209,5 @@ const Map<String, String> zh_CN = {
   "inviteInstructions5": "2.分享邀请链接",
   "inviteInstructions6": "用户可以通过多种方式分享邀请链接，包括但不限于社交媒体、短信、邮件等。",
   "changeMitiIDDateTips": "您上次修改时间为:%s，请在%s之后再来修改",
+  "scanFail": "无法识别",
 };
