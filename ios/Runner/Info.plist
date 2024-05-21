@@ -106,14 +106,22 @@
 		<key>CFBundleURLTypes</key>
 		<array>
 			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
 				<key>CFBundleURLSchemes</key>
 				<array>
 					<string>miti</string>
+					<string>miti.chat</string>
+					<string>chat.miti.ios</string>
 					<string>fb424578110190927</string>
 					<string>940547054713-9oaa6sd4sr5mq31gb44ssskkr3fcjej0.apps.googleusercontent.com</string>
 					<string>940547054713-9n4cgc7psl79di4ru3osa4amnll6h6u1.apps.googleusercontent.com</string>
+					<string>com.googleusercontent.apps.940547054713-9oaa6sd4sr5mq31gb44ssskkr3fcjej0</string>
+					<string>com.googleusercontent.apps.940547054713-9n4cgc7psl79di4ru3osa4amnll6h6u1</string>
 				</array>
 			</dict>
 		</array>
+		<key>GIDClientID</key>
+		<string>940547054713-9oaa6sd4sr5mq31gb44ssskkr3fcjej0.apps.googleusercontent.com</string>
 	</dict>
 </plist>

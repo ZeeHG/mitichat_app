@@ -177,11 +177,25 @@ class LoginLogic extends GetxController {
       showToast(StrLibrary.plsAgree);
       return;
     }
-    if (!appCtrl.supportFirebase.value) {
-      accountUtil.googleOauth();
-    } else {
-      accountUtil.signInWithGoogle();
+    accountUtil.googleOauth();
+    // if (!appCtrl.supportFirebase.value) {
+    //   accountUtil.googleOauth();
+    // } else {
+    //   accountUtil.signInWithGoogle();
+    // }
+  }
+
+  loginGoogle2() {
+    if (!agree.value) {
+      showToast(StrLibrary.plsAgree);
+      return;
     }
+    accountUtil.signInWithGoogle();
+    // if (!appCtrl.supportFirebase.value) {
+    //   accountUtil.googleOauth();
+    // } else {
+    //   accountUtil.signInWithGoogle();
+    // }
   }
 
   loginFb() {
@@ -192,13 +206,13 @@ class LoginLogic extends GetxController {
     accountUtil.signInWithFacebook();
   }
 
-  loginFb2() {
-    if (!agree.value) {
-      showToast(StrLibrary.plsAgree);
-      return;
-    }
-    accountUtil.signInWithFacebook2();
-  }
+  // loginFb2() {
+  //   if (!agree.value) {
+  //     showToast(StrLibrary.plsAgree);
+  //     return;
+  //   }
+  //   accountUtil.signInWithFacebook2();
+  // }
 
   loginApple() {
     if (!agree.value) {

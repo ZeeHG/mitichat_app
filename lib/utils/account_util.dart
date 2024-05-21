@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+// import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:get/get.dart';
 import 'package:miti/core/ctrl/app_ctrl.dart';
 import 'package:miti/core/ctrl/im_ctrl.dart';
@@ -96,7 +96,12 @@ class AccountUtil extends GetxController {
       ]);
       // 每次重置账户
       if (signOut) {
-        await googleSignIn.signOut();
+        try{
+await googleSignIn.signOut();
+        }catch(e){
+          showToast(e.toString());
+        }
+        
       }
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
       if (googleUser != null) {
@@ -145,36 +150,36 @@ class AccountUtil extends GetxController {
     AppNavigator.startMain();
   }
 
-  Future<void> signInWithFacebook2({bool signOut = true}) async {
-// Create an instance of FacebookLogin
-    final fb = FacebookLogin();
+//   Future<void> signInWithFacebook2({bool signOut = true}) async {
+// // Create an instance of FacebookLogin
+//     final fb = FacebookLogin();
 
-// Log in
-    final res = await fb.logIn(permissions: [
-      FacebookPermission.publicProfile,
-      FacebookPermission.email,
-    ]);
+// // Log in
+//     final res = await fb.logIn(permissions: [
+//       FacebookPermission.publicProfile,
+//       FacebookPermission.email,
+//     ]);
 
-// Check result status
-    switch (res.status) {
-      case FacebookLoginStatus.success:
-        // Logged in
+// // Check result status
+//     switch (res.status) {
+//       case FacebookLoginStatus.success:
+//         // Logged in
 
-        // Send access token to server for validation and auth
-        final FacebookAccessToken accessToken = res.accessToken!;
-        print('Access token: ${accessToken.token}');
-        showToast(accessToken.token);
-        MitiUtils.copy(text: accessToken.token);
-        break;
-      case FacebookLoginStatus.cancel:
-        // User cancel log in
-        break;
-      case FacebookLoginStatus.error:
-        // Log in failed
-        print('Error while log in: ${res.error}');
-        break;
-    }
-  }
+//         // Send access token to server for validation and auth
+//         final FacebookAccessToken accessToken = res.accessToken!;
+//         print('Access token: ${accessToken.token}');
+//         showToast(accessToken.token);
+//         MitiUtils.copy(text: accessToken.token);
+//         break;
+//       case FacebookLoginStatus.cancel:
+//         // User cancel log in
+//         break;
+//       case FacebookLoginStatus.error:
+//         // Log in failed
+//         print('Error while log in: ${res.error}');
+//         break;
+//     }
+//   }
 
   Future<void> signInWithFacebook({bool signOut = true}) async {
     try {

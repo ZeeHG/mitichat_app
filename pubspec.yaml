@@ -136,7 +136,7 @@ dependencies:
   share_plus: ^7.2.2
   dotted_border: ^2.1.0
   encrypt: ^5.0.3
-  flutter_login_facebook: ^2.0.0
+  # flutter_login_facebook: ^2.0.0
 
   #  flutter_openim_unimp:
   #    git:
