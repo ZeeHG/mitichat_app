@@ -22,7 +22,7 @@ import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'im_ctrl.dart';
 
 mixin AppControllerGetx on GetxController {
-  final supportFirebase = false.obs;
+  final isGoogleServerRunning = false.obs;
   final supportLoginTypes =
       [SupportLoginType.email, SupportLoginType.phone].obs;
   final thirdAppInfoMap = ThirdAppInfoMap().obs;
@@ -136,7 +136,7 @@ class AppCtrl extends SuperController with AppControllerGetx {
     //   try {
     //     await Firebase.initializeApp(
     //         options: DefaultFirebaseOptions.currentPlatform);
-    //     supportFirebase.value = true;
+    //     isGoogleServerRunning.value = true;
     //     myLogger.i({"message": "Firebase初始化成功"});
     //   } catch (e, s) {
     //     myLogger.e({"message": "google服务不可用", "error": e, "stack": s});
@@ -149,10 +149,11 @@ class AppCtrl extends SuperController with AppControllerGetx {
           .checkGooglePlayServicesAvailability();
     }
     if (Platform.isIOS || availability?.value == 0) {
-      supportFirebase.value = true;
+      isGoogleServerRunning.value = true;
     }
-    myLogger
-        .i({"message": supportFirebase.value ? "设备支持google" : "设备不支持google"});
+    myLogger.i({
+      "message": isGoogleServerRunning.value ? "设备支持google" : "设备不支持google"
+    });
   }
 
   @override

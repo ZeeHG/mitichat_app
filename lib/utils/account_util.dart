@@ -81,7 +81,7 @@ class AccountUtil extends GetxController {
   }
 
   Future<void> signInWithGoogle({bool signOut = true}) async {
-    // if (!appControllerLogic.supportFirebase.value) return;
+    // if (!appControllerLogic.isGoogleServerRunning.value) return;
     try {
       // final GoogleSignIn googleSignIn =
       //     GoogleSignIn(clientId: Config.webGoogleClientId, scopes: [
@@ -89,7 +89,7 @@ class AccountUtil extends GetxController {
       //   'https://www.googleapis.com/auth/userinfo.profile'
       // ]);
       final GoogleSignIn googleSignIn =
-          GoogleSignIn(clientId: appCtrl.googleClientId, scopes: [
+          GoogleSignIn(clientId: Platform.isIOS? appCtrl.googleClientId : appCtrl.webGoogleClientId, scopes: [
         'https://www.googleapis.com/auth/userinfo.email',
         'https://www.googleapis.com/auth/userinfo.profile'
       ]);

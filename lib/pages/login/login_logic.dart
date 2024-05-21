@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -182,12 +184,16 @@ class LoginLogic extends GetxController {
       showToast(StrLibrary.plsAgree);
       return;
     }
-    accountUtil.signInWithGoogle();
-    // if (!appCtrl.supportFirebase.value) {
-    //   accountUtil.googleOauth();
-    // } else {
-    //   accountUtil.signInWithGoogle();
-    // }
+    if (Platform.isIOS) {
+      accountUtil.signInWithGoogle();
+    } else {
+      accountUtil.signInWithGoogle();
+      // if (!appCtrl.isGoogleServerRunning.value) {
+      //   accountUtil.googleOauth();
+      // } else {
+      //   accountUtil.signInWithGoogle();
+      // }
+    }
   }
 
   loginFb() {
