@@ -219,9 +219,9 @@ class Config {
   // me
   // static String facebookClientId = "422970893820284";
   // bopu
-  // static String facebookClientId = "424578110190927";
+  static String facebookClientId = "424578110190927";
   // bopu test
-  static String facebookClientId = "1925828444537404";
+  // static String facebookClientId = "1925828444537404";
 
 
   // bopu
