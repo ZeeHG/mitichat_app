@@ -32,7 +32,7 @@ class MyQrcodePage extends StatelessWidget {
                     height: 121.h,
                   ),
                   SizedBox(
-                    width: 213.w,
+                    width: 240.w,
                     child: Row(children: [
                       AvatarView(
                         width: 42.w,
@@ -44,8 +44,7 @@ class MyQrcodePage extends StatelessWidget {
                       SizedBox(
                         width: 12.w,
                       ),
-                      Text(logic.imCtrl.userInfo.value.nickname ?? "",
-                          style: StylesLibrary.ts_4B3230_18sp)
+                      Expanded(child: (logic.imCtrl.userInfo.value.nickname ?? "").toText..style=StylesLibrary.ts_4B3230_18sp..maxLines=1..overflow=TextOverflow.ellipsis)
                     ]),
                   ),
                   SizedBox(
@@ -53,7 +52,7 @@ class MyQrcodePage extends StatelessWidget {
                   ),
                   QrImageView(
                     data: logic.qrcodeData,
-                    size: 213.w,
+                    size: 240.w,
                     backgroundColor: StylesLibrary.c_FFFFFF,
                     padding: EdgeInsets.all(6.r),
                   ),
