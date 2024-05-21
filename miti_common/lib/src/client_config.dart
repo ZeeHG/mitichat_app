@@ -213,7 +213,7 @@ class Config {
   
   static String googleClientId =
       Platform.isIOS ? iosGoogleClientId : androidGoogleClientId;
-  static String googleIOSRedirectUri = 'https://my-custom-app.com/connect';
+  static String googleIOSRedirectUri = '940547054713-9n4cgc7psl79di4ru3osa4amnll6h6u1.apps.googleusercontent.com://xxx/xxx';
 
 
   // me

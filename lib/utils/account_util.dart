@@ -60,6 +60,7 @@ class AccountUtil extends GetxController {
         'scope':
             'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
       }).toString();
+      MitiUtils.copy(text: uri.toString());
       final result = await FlutterWebAuth2.authenticate(
           url: uri, callbackUrlScheme: callbackUrlScheme);
       final code = Uri.parse(result).queryParameters['code'];
@@ -90,18 +91,17 @@ class AccountUtil extends GetxController {
       //   'https://www.googleapis.com/auth/userinfo.profile'
       // ]);
       final GoogleSignIn googleSignIn =
-          GoogleSignIn(clientId: appCtrl.webGoogleClientId, scopes: [
+          GoogleSignIn(clientId: "940547054713-9oaa6sd4sr5mq31gb44ssskkr3fcjej0.apps.googleusercontent.com", scopes: [
         'https://www.googleapis.com/auth/userinfo.email',
         'https://www.googleapis.com/auth/userinfo.profile'
       ]);
       // 每次重置账户
       if (signOut) {
-        try{
-await googleSignIn.signOut();
-        }catch(e){
+        try {
+          await googleSignIn.signOut();
+        } catch (e) {
           showToast(e.toString());
         }
-        
       }
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
       if (googleUser != null) {
