@@ -103,7 +103,9 @@ class LoginLogic extends GetxController {
     isAddAccount.value = Get.arguments?['isAddAccount'] ?? false;
     server.value = Get.arguments?['server'] ?? server.value;
     curStatusChangeCount = accountUtil.statusChangeCount.value;
-    serverHistory.assignAll(DataSp.getServerHistory().isNotEmpty? DataSp.getServerHistory() : [Config.hostWithProtocol]);
+    serverHistory.assignAll(DataSp.getServerHistory().isNotEmpty
+        ? DataSp.getServerHistory()
+        : [Config.hostWithProtocol]);
     loadHistoryAccountsFromStorage();
     loadHistoryServersFromStorage();
     serverCtrl.text = DataSp.getCurServerKey().isNotEmpty
@@ -129,6 +131,7 @@ class LoginLogic extends GetxController {
     serverCtrl.dispose();
     phoneEmailFocusNode.dispose();
     serverFocusNode.dispose();
+    passwordFocusNode.dispose();
     super.onClose();
   }
 
@@ -207,13 +210,6 @@ class LoginLogic extends GetxController {
     accountUtil.signInWithFacebook();
   }
 
-  // loginFb2() {
-  //   if (!agree.value) {
-  //     showToast(StrLibrary.plsAgree);
-  //     return;
-  //   }
-  //   accountUtil.signInWithFacebook2();
-  // }
 
   loginApple() {
     if (!agree.value) {
@@ -280,8 +276,9 @@ class LoginLogic extends GetxController {
                       isAddAccount: true, server: serverCtrl.text);
                 }
                 readOnlyServer.value = true;
-                if(serverHistory.contains(serverCtrl.text)){
-                  serverHistory.removeAt(serverHistory.indexWhere((element) => element == serverCtrl.text));
+                if (serverHistory.contains(serverCtrl.text)) {
+                  serverHistory.removeAt(serverHistory
+                      .indexWhere((element) => element == serverCtrl.text));
                 }
                 serverHistory.insert(0, serverCtrl.text);
                 DataSp.putServerHistory(serverHistory.value);

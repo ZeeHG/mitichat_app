@@ -53,7 +53,7 @@ class LoginPage extends StatelessWidget {
                                             ? logic.openCountryCodePicker
                                             : null,
                                         controller: logic.phoneEmailCtrl,
-                                        // focusNode: logic.phoneEmailFocusNode,
+                                        focusNode: logic.phoneEmailFocusNode,
                                         onFocusChanged: (isFocused) {
                                           if (isFocused) {
                                             // logic.filteredAccounts
@@ -275,21 +275,11 @@ class LoginPage extends StatelessWidget {
                                 ..width = 56.w
                                 ..height = 56.h
                                 ..onTap = logic.loginFb,
-
-                                // ImageLibrary.fb.toImage
-                                // ..width = 56.w
-                                // ..height = 56.h
-                                // ..onTap = logic.loginFb2,
-                            // if (appCtrl.useGoogleLogin)
+                            if (appCtrl.useGoogleLogin)
                               ImageLibrary.google.toImage
                                 ..width = 56.w
                                 ..height = 56.h
                                 ..onTap = logic.loginGoogle,
-
-                                ImageLibrary.google.toImage
-                                ..width = 56.w
-                                ..height = 56.h
-                                ..onTap = logic.loginGoogle2,
                             if (appCtrl.useAppleLogin)
                               ImageLibrary.apple.toImage
                                 ..width = 56.w

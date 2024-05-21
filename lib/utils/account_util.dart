@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-// import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:get/get.dart';
 import 'package:miti/core/ctrl/app_ctrl.dart';
 import 'package:miti/core/ctrl/im_ctrl.dart';
@@ -60,7 +59,6 @@ class AccountUtil extends GetxController {
         'scope':
             'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
       }).toString();
-      MitiUtils.copy(text: uri.toString());
       final result = await FlutterWebAuth2.authenticate(
           url: uri, callbackUrlScheme: callbackUrlScheme);
       final code = Uri.parse(result).queryParameters['code'];
@@ -91,7 +89,7 @@ class AccountUtil extends GetxController {
       //   'https://www.googleapis.com/auth/userinfo.profile'
       // ]);
       final GoogleSignIn googleSignIn =
-          GoogleSignIn(clientId: "940547054713-9oaa6sd4sr5mq31gb44ssskkr3fcjej0.apps.googleusercontent.com", scopes: [
+          GoogleSignIn(clientId: appCtrl.googleClientId, scopes: [
         'https://www.googleapis.com/auth/userinfo.email',
         'https://www.googleapis.com/auth/userinfo.profile'
       ]);
@@ -150,37 +148,6 @@ class AccountUtil extends GetxController {
     AppNavigator.startMain();
   }
 
-//   Future<void> signInWithFacebook2({bool signOut = true}) async {
-// // Create an instance of FacebookLogin
-//     final fb = FacebookLogin();
-
-// // Log in
-//     final res = await fb.logIn(permissions: [
-//       FacebookPermission.publicProfile,
-//       FacebookPermission.email,
-//     ]);
-
-// // Check result status
-//     switch (res.status) {
-//       case FacebookLoginStatus.success:
-//         // Logged in
-
-//         // Send access token to server for validation and auth
-//         final FacebookAccessToken accessToken = res.accessToken!;
-//         print('Access token: ${accessToken.token}');
-//         showToast(accessToken.token);
-//         MitiUtils.copy(text: accessToken.token);
-//         break;
-//       case FacebookLoginStatus.cancel:
-//         // User cancel log in
-//         break;
-//       case FacebookLoginStatus.error:
-//         // Log in failed
-//         print('Error while log in: ${res.error}');
-//         break;
-//     }
-//   }
-
   Future<void> signInWithFacebook({bool signOut = true}) async {
     try {
       if (signOut) {
@@ -195,7 +162,6 @@ class AccountUtil extends GetxController {
         Map<String, dynamic> facebookUser =
             await FacebookAuth.instance.getUserData();
         final accessToken = result.accessToken?.tokenString;
-        MitiUtils.copy(text: accessToken!);
         if (null == accessToken) {
           myLogger.e({"message": "facebook授权缺少accessToken", "data": result});
           return;
