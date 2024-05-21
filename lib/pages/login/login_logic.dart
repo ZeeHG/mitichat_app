@@ -87,6 +87,7 @@ class LoginLogic extends GetxController {
   final server = Config.hostWithProtocol.obs;
   final FocusNode phoneEmailFocusNode = FocusNode();
   final FocusNode serverFocusNode = FocusNode();
+  final FocusNode passwordFocusNode = FocusNode();
   final appCtrl = Get.find<AppCtrl>();
   final serverHistory = <String>[Config.hostWithProtocol].obs;
   final serverInput = "".obs;

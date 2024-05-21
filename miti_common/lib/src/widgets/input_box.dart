@@ -81,11 +81,11 @@ class InputBox extends StatefulWidget {
         clearBtnColor = null,
         onSendVerificationCode = null;
 
-  InputBox.password(
+  const InputBox.password(
       {super.key,
       // this.label,,
       this.controller,
-      FocusNode? focusNode,
+      this.focusNode,
       this.labelStyle,
       this.textStyle,
       this.hintStyle,
@@ -112,8 +112,7 @@ class InputBox extends StatefulWidget {
         arrowColor = null,
         clearBtnColor = null,
         onSendVerificationCode = null,
-        onAreaCode = null,
-        focusNode = focusNode ?? FocusNode();
+        onAreaCode = null;
 
   const InputBox.verificationCode(
       {super.key,

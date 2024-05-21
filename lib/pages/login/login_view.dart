@@ -53,7 +53,7 @@ class LoginPage extends StatelessWidget {
                                             ? logic.openCountryCodePicker
                                             : null,
                                         controller: logic.phoneEmailCtrl,
-                                        focusNode: logic.phoneEmailFocusNode,
+                                        // focusNode: logic.phoneEmailFocusNode,
                                         onFocusChanged: (isFocused) {
                                           if (isFocused) {
                                             // logic.filteredAccounts
@@ -80,6 +80,7 @@ class LoginPage extends StatelessWidget {
                                     autofocus: false,
                                     hintText: StrLibrary.plsEnterPassword,
                                     controller: logic.pwdCtrl,
+                                    focusNode: logic.passwordFocusNode,
                                   ),
                                 ),
                                 Offstage(
