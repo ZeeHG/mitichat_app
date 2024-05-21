@@ -143,6 +143,7 @@ class LoginLogic extends GetxController {
     verificationCodeCtrl.addListener(handleFormChange);
     serverCtrl.addListener(() {
       serverInput.value = serverCtrl.text;
+      showServerOverlay();
     });
     serverFocusNode.addListener(() {
       if (serverFocusNode.hasFocus && !readOnlyServer.value) {
@@ -196,7 +197,6 @@ class LoginLogic extends GetxController {
     }
     accountUtil.signInWithFacebook();
   }
-
 
   loginApple() {
     if (!agree.value) {
