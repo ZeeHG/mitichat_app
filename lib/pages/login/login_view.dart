@@ -102,7 +102,7 @@ class LoginPage extends StatelessWidget {
                                           readOnly: logic.readOnlyServer.value,
                                           controller: logic.serverCtrl,
                                           showClearBtn: false,
-                                          focusNode: logic.serverInputFocusNode,
+                                          focusNode: logic.serverFocusNode,
                                           rightButton:
                                               (logic.readOnlyServer.value
                                                       ? StrLibrary.switchServer

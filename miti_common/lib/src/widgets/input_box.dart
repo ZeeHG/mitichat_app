@@ -268,6 +268,7 @@ class _InputBoxState extends State<InputBox> {
   }
 
   void _handleFocusChange() {
+    if (widget.onFocusChanged == null) return;
     if (widget.focusNode?.hasFocus ?? false) {
       widget.onFocusChanged?.call(true);
     } else {

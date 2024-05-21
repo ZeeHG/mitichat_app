@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miti/utils/account_util.dart';
 import 'package:miti_common/miti_common.dart';
@@ -88,16 +89,20 @@ class LoginLogic extends GetxController {
   final FocusNode serverFocusNode = FocusNode();
   final appCtrl = Get.find<AppCtrl>();
   final serverHistory = <String>[Config.hostWithProtocol].obs;
+  final serverInput = "".obs;
   int curStatusChangeCount = 0;
   OverlayEntry? overlayEntry;
   OverlayEntry? serverOverlayEntry;
-  final serverInputFocusNode = FocusNode();
+
+  List<String> get filterServerHistory => serverInput.value == ""
+      ? serverHistory
+      : serverHistory.where((e) => e.startsWith(serverInput.value)).toList();
 
   _init() async {
     isAddAccount.value = Get.arguments?['isAddAccount'] ?? false;
     server.value = Get.arguments?['server'] ?? server.value;
     curStatusChangeCount = accountUtil.statusChangeCount.value;
-    serverHistory.addAll(DataSp.getServerHistory());
+    serverHistory.assignAll(DataSp.getServerHistory().isNotEmpty? DataSp.getServerHistory() : [Config.hostWithProtocol]);
     loadHistoryAccountsFromStorage();
     loadHistoryServersFromStorage();
     serverCtrl.text = DataSp.getCurServerKey().isNotEmpty
@@ -120,7 +125,9 @@ class LoginLogic extends GetxController {
     phoneEmailCtrl.dispose();
     pwdCtrl.dispose();
     verificationCodeCtrl.dispose();
+    serverCtrl.dispose();
     phoneEmailFocusNode.dispose();
+    serverFocusNode.dispose();
     super.onClose();
   }
 
@@ -130,8 +137,11 @@ class LoginLogic extends GetxController {
     phoneEmailCtrl.addListener(handleFormChange);
     pwdCtrl.addListener(handleFormChange);
     verificationCodeCtrl.addListener(handleFormChange);
+    serverCtrl.addListener(() {
+      serverInput.value = serverCtrl.text;
+    });
     serverFocusNode.addListener(() {
-      if (serverFocusNode.hasFocus) {
+      if (serverFocusNode.hasFocus && !readOnlyServer.value) {
         showServerOverlay();
       } else {
         hideServerOverlay();
@@ -228,10 +238,10 @@ class LoginLogic extends GetxController {
   switchServer() async {
     // readOnlyServer.value = !readOnlyServer.value;
     if (readOnlyServer.value) {
-      serverInputFocusNode.requestFocus();
+      serverFocusNode.requestFocus();
       readOnlyServer.value = false;
-      showOverlay();
     } else {
+      serverFocusNode.unfocus();
       if (!Config.targetIsDomainOrIPWithProtocol(serverCtrl.text)) {
         showToast(StrLibrary.serverFormatErr);
       } else {
@@ -247,9 +257,12 @@ class LoginLogic extends GetxController {
                       isAddAccount: true, server: serverCtrl.text);
                 }
                 readOnlyServer.value = true;
-                serverHistory.addIf(
-                    !serverHistory.contains(serverCtrl.text), serverCtrl.text);
+                if(serverHistory.contains(serverCtrl.text)){
+                  serverHistory.removeAt(serverHistory.indexWhere((element) => element == serverCtrl.text));
+                }
+                serverHistory.insert(0, serverCtrl.text);
                 DataSp.putServerHistory(serverHistory.value);
+                update();
                 hideOverlay();
               } catch (e) {
                 showToast(StrLibrary.serverErr);
@@ -325,10 +338,9 @@ class LoginLogic extends GetxController {
         }
         AccountInfo newAccountInfo = AccountInfo(
           username: username,
-          password: password ?? '',
+          password: encrypt(password ?? ''),
         );
         saveHistoryAccountsToStorage(newAccountInfo);
-        loadHistoryAccountsFromStorage();
       }
 
       return true;
@@ -401,10 +413,27 @@ class LoginLogic extends GetxController {
     }
   }
 
+  void toggleServerDropdown() {
+    if (isServerDropdownExpanded.value) {
+      serverOverlayEntry?.remove();
+      serverOverlayEntry = null;
+      isServerDropdownExpanded.value = false;
+    } else {
+      serverOverlayEntry = _createServerOverlayEntry();
+      Overlay.of(Get.context!)?.insert(serverOverlayEntry!);
+      isServerDropdownExpanded.value = true;
+    }
+  }
+
   void selectAccount(AccountInfo account) {
     phoneEmailCtrl.text = account.username;
     pwdCtrl.text = account.password;
     toggleDropdown();
+  }
+
+  void selectServer(String server) {
+    serverCtrl.text = server;
+    toggleServerDropdown();
   }
 
   void loadHistoryAccountsFromStorage() async {
@@ -421,30 +450,29 @@ class LoginLogic extends GetxController {
     // 从存储中获取当前的账户列表
     List<AccountInfo>? accounts = await DataSp.getRememberedAccounts() ?? [];
 
-    if (null != accounts.firstWhereOrNull((element) => element.username == newAccount.username)) {
-      accounts.remove(newAccount);
+    final index = accounts
+        .indexWhere((element) => element.username == newAccount.username);
+    if (index != -1) {
+      accounts.removeAt(index);
     }
 
-    final accountMap = newAccount.toJson();
-    accountMap["password"] = encrypt(accountMap["password"]);
-
-    accounts.insert(0, AccountInfo.fromJson(accountMap));
+    accounts.insert(0, newAccount);
 
     await DataSp.putRememberedAccounts(accounts);
   }
 
-  void handleInputFocusChange(bool isFocused, String text) {
-    if (isFocused) {
-      filteredAccounts.assignAll(historyAccounts);
+  // void handleInputFocusChange(bool isFocused, String text) {
+  //   if (isFocused) {
+  //     filteredAccounts.assignAll(historyAccounts);
 
-      if (!isDropdownExpanded.value) {
-        isDropdownExpanded.value = true;
-        showOverlay();
-      }
-    } else {
-      hideOverlay();
-    }
-  }
+  //     if (!isDropdownExpanded.value) {
+  //       isDropdownExpanded.value = true;
+  //       showOverlay();
+  //     }
+  //   } else {
+  //     hideOverlay();
+  //   }
+  // }
 
   void filterHistoryAccounts(String input) {
     if (input.isEmpty) {
@@ -513,12 +541,24 @@ class LoginLogic extends GetxController {
     }
   }
 
+  void removeServer(int index) async {
+    serverHistory.removeAt(index);
+    DataSp.putServerHistory(serverHistory.value);
+
+    update(); // 通知 GetX 更新相关的 UI 组件
+
+    // 重新插入 OverlayEntry
+    serverOverlayEntry?.remove();
+    serverOverlayEntry = _createServerOverlayEntry();
+    Overlay.of(Get.context!)?.insert(serverOverlayEntry!);
+  }
+
   OverlayEntry _createOverlayEntry() {
     return OverlayEntry(
       builder: (context) => Positioned(
-        left: 10,
-        right: 10,
-        top: 200,
+        left: 36.w,
+        right: 36.w,
+        top: 200.h,
         child: Material(
           elevation: 3.0,
           child: GetBuilder<LoginLogic>(
@@ -585,26 +625,41 @@ class LoginLogic extends GetxController {
   OverlayEntry _createServerOverlayEntry() {
     return OverlayEntry(
       builder: (context) => Positioned(
-        left: 72,
-        right: 72,
-        top: 485, // Adjust position as needed
+        left: 36.w,
+        right: 36.w,
+        top: 315.h,
         child: Material(
-          elevation: 2.0,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: historyServer.length,
-            itemBuilder: (BuildContext context, int index) {
-              final server = historyServer[index];
-              return ListTile(
-                title: Text(server.url),
-                onTap: () {
-                  // Implement action on select
-                  hideServerOverlay();
-                },
-              );
-            },
-          ),
-        ),
+            elevation: 2.0,
+            child: GetBuilder<LoginLogic>(
+                // 使用 GetBuilder
+                builder: (LoginLogic controller) {
+              // 确保在这里定义 controller
+              return Obx(() => ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: filterServerHistory.length,
+                    padding: EdgeInsets.all(0),
+                    itemBuilder: (BuildContext context, int index) {
+                      final server = filterServerHistory[index];
+                      return ListTile(
+                        title: Text(server),
+                        trailing: server == Config.hostWithProtocol
+                            ? null
+                            : IconButton(
+                                icon: Icon(Icons.close, color: Colors.grey),
+                                onPressed: () {
+                                  controller
+                                      .removeServer(index); // 调用 GetX 控制器的方法
+                                },
+                              ),
+                        onTap: () {
+                          // Implement action on select
+                          controller.selectServer(server);
+                          hideServerOverlay();
+                        },
+                      );
+                    },
+                  ));
+            })),
       ),
     );
   }
