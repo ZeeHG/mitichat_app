@@ -181,19 +181,6 @@ class LoginLogic extends GetxController {
       showToast(StrLibrary.plsAgree);
       return;
     }
-    accountUtil.googleOauth();
-    // if (!appCtrl.supportFirebase.value) {
-    //   accountUtil.googleOauth();
-    // } else {
-    //   accountUtil.signInWithGoogle();
-    // }
-  }
-
-  loginGoogle2() {
-    if (!agree.value) {
-      showToast(StrLibrary.plsAgree);
-      return;
-    }
     accountUtil.signInWithGoogle();
     // if (!appCtrl.supportFirebase.value) {
     //   accountUtil.googleOauth();
