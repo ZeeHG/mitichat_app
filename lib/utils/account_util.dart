@@ -154,7 +154,7 @@ class AccountUtil extends GetxController {
           await FacebookAuth.instance.login(permissions: [
         'email',
         'public_profile',
-      ]);
+      ], loginTracking: LoginTracking.enabled);
       if (result.status == LoginStatus.success) {
         Map<String, dynamic> facebookUser =
             await FacebookAuth.instance.getUserData();
