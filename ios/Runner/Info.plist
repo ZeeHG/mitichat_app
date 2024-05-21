@@ -41,6 +41,8 @@
 			<string>dgis</string>
 			<string>qqmap</string>
 			<string>here-location</string>
+			<string>fbapi</string>
+  		<string>fbauth2</string>
 		</array>
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
@@ -107,6 +109,8 @@
 				<array>
 					<string>miti</string>
 					<string>fb424578110190927</string>
+					<string>940547054713-9oaa6sd4sr5mq31gb44ssskkr3fcjej0.apps.googleusercontent.com</string>
+					<string>940547054713-9n4cgc7psl79di4ru3osa4amnll6h6u1.apps.googleusercontent.com</string>
 				</array>
 			</dict>
 		</array>

@@ -158,7 +158,7 @@ class AccountUtil extends GetxController {
       if (result.status == LoginStatus.success) {
         Map<String, dynamic> facebookUser =
             await FacebookAuth.instance.getUserData();
-        final accessToken = result.accessToken?.token;
+        final accessToken = result.accessToken?.tokenString;
         if (null == accessToken) {
           myLogger.e({"message": "facebook授权缺少accessToken", "data": result});
           return;
