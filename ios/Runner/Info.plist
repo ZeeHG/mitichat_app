@@ -43,6 +43,7 @@
 			<string>here-location</string>
 			<string>fbapi</string>
   		<string>fbauth2</string>
+			<string>fb-messenger-share-api</string>
 		</array>
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
@@ -96,7 +97,7 @@
 		<key>FacebookClientToken</key>
 		<string>c7d5b0acebf90563911c81cc96a39b88</string>
 		<key>FacebookDisplayName</key>
-		<string>miti</string>
+		<string>miti.chat</string>
 		<key>LSApplicationQueriesSchemes</key>
 		<array>
 			<string>fbapi</string>

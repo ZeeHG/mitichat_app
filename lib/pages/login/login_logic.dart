@@ -192,6 +192,14 @@ class LoginLogic extends GetxController {
     accountUtil.signInWithFacebook();
   }
 
+  loginFb2() {
+    if (!agree.value) {
+      showToast(StrLibrary.plsAgree);
+      return;
+    }
+    accountUtil.signInWithFacebook2();
+  }
+
   loginApple() {
     if (!agree.value) {
       showToast(StrLibrary.plsAgree);

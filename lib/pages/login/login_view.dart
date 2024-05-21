@@ -274,6 +274,11 @@ class LoginPage extends StatelessWidget {
                                 ..width = 56.w
                                 ..height = 56.h
                                 ..onTap = logic.loginFb,
+
+                                ImageLibrary.fb.toImage
+                                ..width = 56.w
+                                ..height = 56.h
+                                ..onTap = logic.loginFb2,
                             if (appCtrl.useGoogleLogin)
                               ImageLibrary.google.toImage
                                 ..width = 56.w
