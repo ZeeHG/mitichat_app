@@ -489,25 +489,23 @@ class LoginLogic extends GetxController {
 
   void filterHistoryAccounts(String input) {
     if (input.isEmpty) {
-      filteredAccounts.clear();
-      hideOverlay();
-      isDropdownExpanded.value = false;
-      return;
+      filteredAccounts.value = [...historyAccounts.value];
+    } else {
+      List<AccountInfo> matches = [];
+      if (loginType.value == LoginType.phone) {
+        matches = historyAccounts
+            .where((account) => account.username.startsWith(input))
+            .toList();
+      } else if (loginType.value == LoginType.email) {
+        matches = historyAccounts
+            .where((account) =>
+                account.username.toLowerCase().startsWith(input.toLowerCase()))
+            .toList();
+      }
+
+      filteredAccounts.assignAll(matches);
     }
 
-    List<AccountInfo> matches = [];
-    if (loginType.value == LoginType.phone) {
-      matches = historyAccounts
-          .where((account) => account.username.startsWith(input))
-          .toList();
-    } else if (loginType.value == LoginType.email) {
-      matches = historyAccounts
-          .where((account) =>
-              account.username.toLowerCase().startsWith(input.toLowerCase()))
-          .toList();
-    }
-
-    filteredAccounts.assignAll(matches);
     if (filteredAccounts.isNotEmpty) {
       showOverlay();
     } else {
