@@ -1727,4 +1727,5 @@ class StrLibrary {
   static String get inviteInstructions6 => 'inviteInstructions6'.tr;
   static String get changeMitiIDDateTips => 'changeMitiIDDateTips'.tr;
   static String get scanFail => 'scanFail'.tr;
+  static String get plsConfirmServer => 'plsConfirmServer'.tr;
 }

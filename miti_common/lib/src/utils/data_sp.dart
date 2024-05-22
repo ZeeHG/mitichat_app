@@ -32,7 +32,7 @@ class DataSp {
   static const _conversationStore = 'conversationStore';
   static const _aiStore = 'aiStore';
   static const firstUse = 'firstUse';
-  static const _rememberAccount = "rememberAccount";
+  static const _rememberAccount = "rememberAccountWithEncrypt";
   static const _rememberServer = "rememberServer";
   static const _serverHistory = "serverHistory";
   DataSp._();

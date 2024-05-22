@@ -302,6 +302,11 @@ class LoginLogic extends GetxController {
       return false;
     }
 
+    if(!readOnlyServer.value){
+      showToast(StrLibrary.plsConfirmServer);
+      return false;
+    }
+
     return true;
   }
 
