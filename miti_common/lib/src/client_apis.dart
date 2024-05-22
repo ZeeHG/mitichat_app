@@ -108,18 +108,20 @@ class ClientApis {
     required RegisterType registerType,
     String? idToken,
     String? accessToken,
+    String? clientId = "",
   }) async {
     try {
       var data = await HttpUtil.post(ClientUrls.oauth, data: {
         'deviceID': DataSp.getDeviceID(),
         'platform': MitiUtils.getPlatform(),
-        'clientId': registerType == RegisterType.google
-            ? Config.googleClientId
-            : registerType == RegisterType.apple
-                ? Config.appleClientId
-                : registerType == RegisterType.facebook
-                    ? Config.facebookClientId
-                    : "",
+        // 'clientId': registerType == RegisterType.google
+        //     ? Config.googleClientId
+        //     : registerType == RegisterType.apple
+        //         ? Config.appleClientId
+        //         : registerType == RegisterType.facebook
+        //             ? Config.facebookClientId
+        //             : "",
+        'clientId': clientId,
         'registerType': registerType.toNumber(),
         'idToken': idToken,
         'accessToken': accessToken

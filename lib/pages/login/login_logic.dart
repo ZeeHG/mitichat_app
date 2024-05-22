@@ -187,7 +187,7 @@ class LoginLogic extends GetxController {
     if (Platform.isIOS) {
       accountUtil.signInWithGoogle();
     } else {
-      accountUtil.signInWithGoogle();
+      accountUtil.googleOauth();
       // if (!appCtrl.isGoogleServerRunning.value) {
       //   accountUtil.googleOauth();
       // } else {

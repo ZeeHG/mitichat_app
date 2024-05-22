@@ -88,11 +88,14 @@ class AccountUtil extends GetxController {
       //   'https://www.googleapis.com/auth/userinfo.email',
       //   'https://www.googleapis.com/auth/userinfo.profile'
       // ]);
-      final GoogleSignIn googleSignIn =
-          GoogleSignIn(clientId: Platform.isIOS? appCtrl.googleClientId : appCtrl.webGoogleClientId, scopes: [
-        'https://www.googleapis.com/auth/userinfo.email',
-        'https://www.googleapis.com/auth/userinfo.profile'
-      ]);
+      final GoogleSignIn googleSignIn = GoogleSignIn(
+          clientId: Platform.isIOS
+              ? appCtrl.googleClientId
+              : appCtrl.webGoogleClientId,
+          scopes: [
+            'https://www.googleapis.com/auth/userinfo.email',
+            'https://www.googleapis.com/auth/userinfo.profile'
+          ]);
       // 每次重置账户
       if (signOut) {
         try {
@@ -303,11 +306,24 @@ class AccountUtil extends GetxController {
     late LoginCertificate data;
     final curServerKey =
         DataSp.getCurServerKey().isNotEmpty ? DataSp.getCurServerKey() : null;
+    final appCtrl = Get.find<AppCtrl>();
     try {
       data = await ClientApis.registerOrLoginByOauth(
           registerType: registerType,
           idToken: idToken,
-          accessToken: accessToken);
+          accessToken: accessToken,
+          clientId: registerType == RegisterType.google
+            ? Platform.isIOS
+                ? appCtrl.googleClientId
+                : appCtrl.webGoogleClientId
+            : registerType == RegisterType.apple
+                ? Platform.isIOS
+                    ? appCtrl.appleClientId
+                    : appCtrl.appleServiceId
+                : registerType == RegisterType.facebook
+                    ? Config.facebookClientId
+                    : "",
+      );
     } catch (e, s) {
       myLogger.e({
         "message": "chat登录失败",
