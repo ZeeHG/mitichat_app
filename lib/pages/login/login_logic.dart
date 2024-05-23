@@ -187,12 +187,13 @@ class LoginLogic extends GetxController {
     if (Platform.isIOS) {
       accountUtil.signInWithGoogle();
     } else {
-      accountUtil.googleOauth();
-      // if (!appCtrl.isGoogleServerRunning.value) {
-      //   accountUtil.googleOauth();
-      // } else {
-      //   accountUtil.signInWithGoogle();
-      // }
+      // accountUtil.signInWithGoogle();
+      // accountUtil.signInWithGoogleByBrowser();
+      if (!appCtrl.isGoogleServerRunning.value) {
+        accountUtil.signInWithGoogleByBrowser();
+      } else {
+        accountUtil.signInWithGoogle();
+      }
     }
   }
 
@@ -302,7 +303,7 @@ class LoginLogic extends GetxController {
       return false;
     }
 
-    if(!readOnlyServer.value){
+    if (!readOnlyServer.value) {
       showToast(StrLibrary.plsConfirmServer);
       return false;
     }

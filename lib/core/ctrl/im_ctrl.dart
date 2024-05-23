@@ -15,6 +15,7 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
   late Rx<UserFullInfo> userInfo;
   // 默认 AtAllTag
   late String atAllTag;
+  bool requestedSystemAlertWindow = false;
 
   @override
   void onClose() {
@@ -123,7 +124,8 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
         },
         onSyncServerFinish: () async {
           imSdkStatus(IMSdkStatus.syncEnded);
-          if (Platform.isAndroid) {
+          if (Platform.isAndroid && !requestedSystemAlertWindow) {
+            requestedSystemAlertWindow = true;
             await requestBackgroundPermission();
             Permissions.request([Permission.systemAlertWindow]);
           }

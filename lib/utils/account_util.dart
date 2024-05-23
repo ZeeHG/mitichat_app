@@ -43,7 +43,7 @@ class AccountUtil extends GetxController {
     AppNavigator.startMain();
   }
 
-  googleOauth() async {
+  signInWithGoogleByBrowser() async {
     try {
       GoogleAuth? googleAuth;
       // final googleClientId = Config.googleClientId;
@@ -59,8 +59,11 @@ class AccountUtil extends GetxController {
         'scope':
             'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
       }).toString();
-      final result = await FlutterWebAuth2.authenticate(
-          url: uri, callbackUrlScheme: callbackUrlScheme);
+      var result;
+      await LoadingView.singleton.start(fn: () async {
+        result = await FlutterWebAuth2.authenticate(
+            url: uri, callbackUrlScheme: callbackUrlScheme);
+      });
       final code = Uri.parse(result).queryParameters['code'];
       if (null != code) {
         googleAuth = await ExternalApis.getGoogleOAuth(
@@ -89,9 +92,11 @@ class AccountUtil extends GetxController {
       //   'https://www.googleapis.com/auth/userinfo.profile'
       // ]);
       final GoogleSignIn googleSignIn = GoogleSignIn(
-          clientId: Platform.isIOS
-              ? appCtrl.googleClientId
-              : appCtrl.webGoogleClientId,
+          // clientId: Platform.isIOS
+          //     ? appCtrl.googleClientId
+          //     : appCtrl.webGoogleClientId,
+          clientId: appCtrl.googleClientId,
+          serverClientId: appCtrl.webGoogleClientId,
           scopes: [
             'https://www.googleapis.com/auth/userinfo.email',
             'https://www.googleapis.com/auth/userinfo.profile'
@@ -114,7 +119,9 @@ class AccountUtil extends GetxController {
         if (null != googleAuth.idToken) {
           myLogger.i({"message": "google授权成功", "data": googleAuth});
           await loginOAuth(
-              registerType: RegisterType.google, idToken: googleAuth.idToken!);
+              registerType: RegisterType.google,
+              idToken: googleAuth.idToken!,
+              useGoogleWebClientId: !Platform.isIOS);
           AppNavigator.startMain();
         } else {
           myLogger.e({
@@ -297,99 +304,103 @@ class AccountUtil extends GetxController {
   }
 
   // todo 多服务器情况
-  Future<void> loginOAuth({
-    required RegisterType registerType,
-    String? idToken,
-    String? accessToken,
-    String? clientId,
-  }) async {
-    late LoginCertificate data;
-    final curServerKey =
-        DataSp.getCurServerKey().isNotEmpty ? DataSp.getCurServerKey() : null;
-    final appCtrl = Get.find<AppCtrl>();
-    try {
-      data = await ClientApis.registerOrLoginByOauth(
+  Future<void> loginOAuth(
+      {required RegisterType registerType,
+      String? idToken,
+      String? accessToken,
+      String? clientId,
+      bool? useGoogleWebClientId = false}) async {
+    await LoadingView.singleton.start(fn: () async {
+      late LoginCertificate data;
+      final curServerKey =
+          DataSp.getCurServerKey().isNotEmpty ? DataSp.getCurServerKey() : null;
+      final appCtrl = Get.find<AppCtrl>();
+      try {
+        data = await ClientApis.registerOrLoginByOauth(
           registerType: registerType,
           idToken: idToken,
           accessToken: accessToken,
-          clientId: registerType == RegisterType.google
-            ? Platform.isIOS
-                ? appCtrl.googleClientId
-                : appCtrl.webGoogleClientId
-            : registerType == RegisterType.apple
-                ? Platform.isIOS
-                    ? appCtrl.appleClientId
-                    : appCtrl.appleServiceId
-                : registerType == RegisterType.facebook
-                    ? Config.facebookClientId
-                    : "",
-      );
-    } catch (e, s) {
-      myLogger.e({
-        "message": "chat登录失败",
-        "error": {"curServerKey": curServerKey, "error": e},
-        "stack": s
-      });
-      rethrow;
-    }
-    await DataSp.putLoginCertificate(data);
-    try {
-      await imCtrl.login(data.userID, data.imToken);
-      // 超时没有结果或者不是success
-      final completer = Completer();
-      StreamSubscription? sub;
-      sub = imCtrl.imSdkStatusSubject.listen((value) {
-        // [IMSdkStatus.connectionSucceeded, IMSdkStatus.syncEnded].contains(value)
-        if (![
-          IMSdkStatus.connecting,
-          IMSdkStatus.connectionFailed,
-          IMSdkStatus.syncFailed
-        ].contains(value)) {
+          clientId: registerType == RegisterType.google &&
+                  useGoogleWebClientId == false
+              ? appCtrl.googleClientId
+              : registerType == RegisterType.google &&
+                      useGoogleWebClientId == true
+                  ? appCtrl.webGoogleClientId
+                  : registerType == RegisterType.apple
+                      ? Platform.isIOS
+                          ? appCtrl.appleClientId
+                          : appCtrl.appleServiceId
+                      : registerType == RegisterType.facebook
+                          ? Config.facebookClientId
+                          : "",
+        );
+      } catch (e, s) {
+        myLogger.e({
+          "message": "chat登录失败",
+          "error": {"curServerKey": curServerKey, "error": e},
+          "stack": s
+        });
+        rethrow;
+      }
+      await DataSp.putLoginCertificate(data);
+      try {
+        await imCtrl.login(data.userID, data.imToken);
+        // 超时没有结果或者不是success
+        final completer = Completer();
+        StreamSubscription? sub;
+        sub = imCtrl.imSdkStatusSubject.listen((value) {
+          // [IMSdkStatus.connectionSucceeded, IMSdkStatus.syncEnded].contains(value)
+          if (![
+            IMSdkStatus.connecting,
+            IMSdkStatus.connectionFailed,
+            IMSdkStatus.syncFailed
+          ].contains(value)) {
+            if (!completer.isCompleted) {
+              completer.complete(true);
+            }
+            sub?.cancel();
+          }
+        });
+        Future.delayed(Duration(seconds: imTimeout)).then((_) {
           if (!completer.isCompleted) {
-            completer.complete(true);
+            completer.complete(false);
           }
           sub?.cancel();
+        });
+        final imOK = await completer.future;
+        if (!imOK) {
+          myLogger.e(
+              {"message": "登录im超时, ${imCtrl.imSdkStatusSubject.valueOrNull}"});
+          throw Exception("登录im超时");
         }
-      });
-      Future.delayed(Duration(seconds: imTimeout)).then((_) {
-        if (!completer.isCompleted) {
-          completer.complete(false);
-        }
-        sub?.cancel();
-      });
-      final imOK = await completer.future;
-      if (!imOK) {
-        myLogger
-            .e({"message": "登录im超时, ${imCtrl.imSdkStatusSubject.valueOrNull}"});
-        throw Exception("登录im超时");
+      } catch (e, s) {
+        showToast(StrLibrary.fail);
+        myLogger.e({
+          "message": "im登录失败",
+          "error": {"curServerKey": curServerKey, "error": e},
+          "stack": s
+        });
+        rethrow;
       }
-    } catch (e, s) {
-      showToast(StrLibrary.fail);
-      myLogger.e({
-        "message": "im登录失败",
-        "error": {"curServerKey": curServerKey, "error": e},
-        "stack": s
-      });
-      rethrow;
-    }
-    // todo
-    Get.find<HiveCtrl>().resetCache();
-    await setAccountLoginInfo(
-        serverWithProtocol: curServerKey,
-        userID: data.userID,
-        imToken: data.imToken,
-        chatToken: data.chatToken,
-        email: "",
-        phoneNumber: "",
-        areaCode: "",
-        password: "",
-        faceURL: imCtrl.userInfo.value.faceURL,
-        nickname: imCtrl.userInfo.value.nickname);
-    final translateLogic = Get.find<TranslateLogic>();
-    final ttsLogic = Get.find<TtsLogic>();
-    translateLogic.init(data.userID);
-    ttsLogic.init(data.userID);
-    pushCtrl.login(data.userID);
+      // todo
+      Get.find<HiveCtrl>().resetCache();
+      await setAccountLoginInfo(
+          serverWithProtocol: curServerKey,
+          userID: data.userID,
+          imToken: data.imToken,
+          chatToken: data.chatToken,
+          email: "",
+          phoneNumber: "",
+          areaCode: "",
+          password: "",
+          faceURL: imCtrl.userInfo.value.faceURL,
+          nickname: imCtrl.userInfo.value.nickname);
+      final translateLogic = Get.find<TranslateLogic>();
+      final ttsLogic = Get.find<TtsLogic>();
+      translateLogic.init(data.userID);
+      ttsLogic.init(data.userID);
+      pushCtrl.login(data.userID);
+    });
   }
 
   // 切换服务器后调用
