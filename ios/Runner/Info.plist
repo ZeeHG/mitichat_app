@@ -114,14 +114,12 @@
 					<string>miti.chat</string>
 					<string>chat.miti.ios</string>
 					<string>fb424578110190927</string>
-					<string>940547054713-9oaa6sd4sr5mq31gb44ssskkr3fcjej0.apps.googleusercontent.com</string>
-					<string>940547054713-9n4cgc7psl79di4ru3osa4amnll6h6u1.apps.googleusercontent.com</string>
 					<string>com.googleusercontent.apps.940547054713-9oaa6sd4sr5mq31gb44ssskkr3fcjej0</string>
-					<string>com.googleusercontent.apps.940547054713-9n4cgc7psl79di4ru3osa4amnll6h6u1</string>
+					<string>com.googleusercontent.apps.883567962925-es67f55j7jv43jvm01kql0pc87tot2t5</string>
 				</array>
 			</dict>
 		</array>
 		<key>GIDClientID</key>
-		<string>940547054713-9oaa6sd4sr5mq31gb44ssskkr3fcjej0.apps.googleusercontent.com</string>
+		<string>883567962925-es67f55j7jv43jvm01kql0pc87tot2t5.apps.googleusercontent.com</string>
 	</dict>
 </plist>
