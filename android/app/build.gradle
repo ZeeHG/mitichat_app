@@ -103,9 +103,9 @@ android {
     signingConfigs {
         release {
             keyAlias 'miti'
-            keyPassword 'miti123'
-            storeFile file('./miti.keystore')
-            storePassword 'miti123'
+            keyPassword 'mitichat'
+            storeFile file('./mitichat.keystore')
+            storePassword 'mitichat'
         }
     }
 
