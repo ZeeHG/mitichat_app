@@ -1298,5 +1298,7 @@ const Map<String, String> en_US = {
   "inviteInstructions6":
       "Users can share the invitation link through various methods, including but not limited to social media, text messages, and emails.",
   "changeMitiIDDateTips":
-      "Your last modification was on: %s. Please come back to modify after %s."
+      "Your last modification was on: %s. Please come back to modify after %s.",
+  "scanFail": "Unable to recognize",
+  "plsConfirmServer": "Please confirm the server"
 };
