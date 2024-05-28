@@ -1,0 +1,45 @@
+default:
+  image: registry.miti.chat/miti/miti-go:1.0.1
+  before_script:
+    - export BRANCH_NAME="${CI_COMMIT_REF_NAME//\//_}"
+    - export OUT_PUT_FILE="${CI_PROJECT_NAME}.${BRANCH_NAME}"
+    - echo "before script"
+    - echo ${BRANCH_NAME}
+    - echo ${REMOTE_MACHINE}
+    - echo ${OUT_PUT_FILE}
+    - git config --global url."https://oauth2:${GITLAB_ACCESS_TOKEN}@repo.miti.chat".insteadOf "https://repo.miti.chat"
+    - eval $(ssh-agent -s)
+    - chmod 400 "$SSH_PRIVATE_KEY"
+    - ssh-add "$SSH_PRIVATE_KEY"        
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - cp -rf "$SSH_PRIVATE_KEY" ~/.ssh/id_rsa
+    - ls -l ~/.ssh
+    - ssh-keyscan -H 10.25.2.24 >> ~/.ssh/known_hosts
+
+  cache:
+    paths:
+      - build/app/outputs/flutter-apk/
+
+stages:
+  - build
+  - deploy
+
+compile:
+  stage: build
+  script:
+    - flutter build apk
+  artifacts:
+    name: "${OUT_PUT_FILE}"
+    paths:
+      - build/app/outputs/flutter-apk/
+
+deploy:
+  stage: deploy
+  script: 
+    # 传输文件
+    - rsync -avz build/app/outputs/flutter-apk/*.apkr ${REMOTE_MACHINE}:/home/ubuntu/download/apks    
+    
+  when: manual
+  environment: test
+
