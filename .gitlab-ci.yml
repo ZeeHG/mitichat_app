@@ -1,0 +1,35 @@
+default:
+  before_script:
+    - $branchName=$env:CI_COMMIT_REF_NAME; $env:NEW_BRANCH_NAME=$branchName -replace "/", "_";
+    - echo ${REMOTE_MACHINE}
+    - echo ${NEW_BRANCH_NAME}
+    - echo ${env:NEW_BRANCH_NAME}
+    - git config --global url."https://oauth2:${GITLAB_ACCESS_TOKEN}@repo.miti.chat".insteadOf "https://repo.miti.chat"
+    
+  cache:
+    paths:
+      - build/app/outputs/flutter-apk/
+
+stages:
+  - build
+  - deploy
+
+compile:
+  stage: build
+  script:
+    - echo start build
+    - Remove-Item -Path "build/app/outputs/flutter-apk/*apk*"
+    - flutter build apk
+    - Rename-Item -Path "build/app/outputs/flutter-apk/app-release.apk" -NewName "${env:NEW_BRANCH_NAME}.apk"
+    - dir build/app/outputs/flutter-apk/
+  artifacts:
+    name: "${env:NEW_BRANCH_NAME}"
+    paths:
+      - build/app/outputs/flutter-apk/${env:NEW_BRANCH_NAME}.apk
+
+deploy:
+  stage: deploy
+  script: 
+    # 传输文件
+    - scp build/app/outputs/flutter-apk/${env:NEW_BRANCH_NAME}.apk ${REMOTE_MACHINE}:/home/ubuntu/download/apks
+
