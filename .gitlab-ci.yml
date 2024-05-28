@@ -1,7 +1,7 @@
 default:
   before_script:
-    - 'pwsh -Command "$branchName = $env:CI_COMMIT_REF_NAME; $env:NEW_BRANCH_NAME=$branchName -replace "/"", "_"; Write-Output ""New environment variable set: NEW_BRANCH_NAME=$env:NEW_BRANCH_NAME"""'  
-    - echo ${REMOTE_MACHINE}    
+    - $branchName = $env:CI_COMMIT_REF_NAME; $env:NEW_BRANCH_NAME=$branchName -replace "/"", "_";
+    - echo ${REMOTE_MACHINE}
     - git config --global url."https://oauth2:${GITLAB_ACCESS_TOKEN}@repo.miti.chat".insteadOf "https://repo.miti.chat"
     
   cache:
@@ -15,6 +15,7 @@ stages:
 compile:
   stage: build
   script:
+    - echo start build
     - flutter build apk
   artifacts:
     name: "${NEW_BRANCH_NAME}"
