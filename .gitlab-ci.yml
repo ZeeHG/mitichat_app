@@ -27,5 +27,5 @@ deploy:
   stage: deploy
   script: 
     # 传输文件
-    - scp -rv build/app/outputs/flutter-apk/*.apk ${REMOTE_MACHINE}:/home/ubuntu/download/apks
+    - scp build/app/outputs/flutter-apk/*.apk ${REMOTE_MACHINE}:/home/ubuntu/download/apks
 
