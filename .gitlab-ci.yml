@@ -17,6 +17,7 @@ compile:
   script:
     - echo start build
     - flutter build apk
+    - Rename-Item -Path "build/app/outputs/flutter-apk/app-release.apk" -NewName "${NEW_BRANCH_NAME}.apk"
   artifacts:
     name: "${NEW_BRANCH_NAME}"
     paths:
