@@ -18,8 +18,10 @@ compile:
   stage: build
   script:
     - echo start build
+    - Remove-Item -Path "build/app/outputs/flutter-apk/*apk*"
     - flutter build apk
     - Rename-Item -Path "build/app/outputs/flutter-apk/app-release.apk" -NewName "${env:NEW_BRANCH_NAME}.apk"
+    - dir build/app/outputs/flutter-apk/
   artifacts:
     name: "${env:NEW_BRANCH_NAME}"
     paths:
