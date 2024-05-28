@@ -1,6 +1,6 @@
 default:
   before_script:
-    - $branchName = $env:CI_COMMIT_REF_NAME; $env:NEW_BRANCH_NAME=$branchName -replace "/"", "_";
+    - $branchName=$env:CI_COMMIT_REF_NAME; $env:NEW_BRANCH_NAME=$branchName -replace "/", "_";
     - echo ${REMOTE_MACHINE}
     - git config --global url."https://oauth2:${GITLAB_ACCESS_TOKEN}@repo.miti.chat".insteadOf "https://repo.miti.chat"
     
