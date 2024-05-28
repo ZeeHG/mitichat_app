@@ -17,8 +17,10 @@ class CustomDialog extends StatelessWidget {
     this.content,
     this.rightText,
     this.leftText,
+    this.centerBigText,
     this.onTapLeft,
     this.onTapRight,
+    this.onTapCenter,
     this.body,
   }) : super(key: key);
   final String? bigTitle;
@@ -27,9 +29,11 @@ class CustomDialog extends StatelessWidget {
   final Widget? content;
   final String? rightText;
   final String? leftText;
+  final String? centerBigText;
   final Widget? body;
   final Function()? onTapLeft;
   final Function()? onTapRight;
+  final Function()? onTapCenter;
 
   @override
   Widget build(BuildContext context) {
@@ -82,25 +86,35 @@ class CustomDialog extends StatelessWidget {
                     height: 1.h,
                   ),
                   Row(
-                    children: [
-                      _button(
-                        bgColor: StylesLibrary.c_FFFFFF,
-                        text: leftText ?? StrLibrary.cancel,
-                        textStyle: StylesLibrary.ts_999999_14sp,
-                        onTap: onTapLeft ?? () => Get.back(result: false),
-                      ),
-                      Container(
-                        color: StylesLibrary.c_EDEDED,
-                        width: 1.w,
-                        height: 43.h,
-                      ),
-                      _button(
-                        bgColor: StylesLibrary.c_FFFFFF,
-                        text: rightText ?? StrLibrary.determine,
-                        textStyle: StylesLibrary.ts_8443F8_14sp,
-                        onTap: onTapRight ?? () => Get.back(result: true),
-                      ),
-                    ],
+                    children: null == centerBigText
+                        ? [
+                            _button(
+                              bgColor: StylesLibrary.c_FFFFFF,
+                              text: leftText ?? StrLibrary.cancel,
+                              textStyle: StylesLibrary.ts_8443F8_14sp,
+                              onTap: onTapLeft ?? () => Get.back(result: false),
+                            ),
+                            Container(
+                              color: StylesLibrary.c_EDEDED,
+                              width: 1.w,
+                              height: 43.h,
+                            ),
+                            _button(
+                              bgColor: StylesLibrary.c_FFFFFF,
+                              text: rightText ?? StrLibrary.determine,
+                              textStyle: StylesLibrary.ts_8443F8_14sp,
+                              onTap: onTapRight ?? () => Get.back(result: true),
+                            ),
+                          ]
+                        : [
+                            _button(
+                              bgColor: StylesLibrary.c_FFFFFF,
+                              text: centerBigText!,
+                              textStyle: StylesLibrary.ts_999999_14sp,
+                              onTap:
+                                  onTapCenter ?? () => Get.back(result: false),
+                            )
+                          ],
                   )
                 ],
               ),

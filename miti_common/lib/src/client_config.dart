@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
@@ -6,9 +7,16 @@ import 'package:miti_common/miti_common.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Config {
+  static String ENV = "prod";
+  static bool isProd = false;
+
   //初始化全局信息
   static Future init(Function() runApp) async {
     WidgetsFlutterBinding.ensureInitialized();
+
+    ENV = String.fromEnvironment('ENV', defaultValue: 'prod');
+    isProd = bool.fromEnvironment("dart.vm.product");
+
     try {
       final path = (await getApplicationDocumentsDirectory()).path;
       cachePath = '$path/';
@@ -61,12 +69,14 @@ class Config {
   /// 二维码：scheme
   static const friendScheme = "miti.chat/addFriend/";
   static const groupScheme = "miti.chat/joinGroup/";
+  static const inviteUrl = "https://www.miti.chat/invite";
 
   /// ip
   /// web.rentsoft.cn
   /// 203.56.175.233
   /// static const host = "www.bopufund.com";
-  /// static const host = "10.25.2.24";
+  // static const host = "10.25.2.24";
+  // static const host = "10.25.12.145";
   static const host = "www.miti.chat";
 
   // static const _ipRegex = '((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)';
@@ -105,6 +115,10 @@ class Config {
 
   static String get hostWithProtocol =>
       _isIP ? "http://$host" : "https://$host";
+
+  static String get aesKey => "yiToGki3y1wSlEppyphSKeNeBzkmXhrs";
+
+  static String get aesIv => "rHi7oauq7wijMEdQ";
 
   /// 服务器IP
   static String get serverIp {
@@ -176,8 +190,47 @@ class Config {
   /// 图片存储
   static String get objectStorage {
     var server = DataSp.getServerConfig();
-    return null != server && null !=server['objectStorage'] ? server['objectStorage'] : 'minio';
+    return null != server && null != server['objectStorage']
+        ? server['objectStorage']
+        : 'minio';
   }
+
+  // me
+  // static String androidGoogleClientId =
+  //     "46211409784-t1u24355vsibhbo3ce9g62v9t7rf54gc.apps.googleusercontent.com";
+  // static String iosGoogleClientId =
+  //     "";
+  // static String webGoogleClientId =
+  //     "46211409784-nphb3bu5emnhb7vdonck5scf59d40bsq.apps.googleusercontent.com";
+
+  // bopu
+  static String androidGoogleClientId =
+      "";
+  static String iosGoogleClientId =
+      "940547054713-9oaa6sd4sr5mq31gb44ssskkr3fcjej0.apps.googleusercontent.com";
+  static String webGoogleClientId =
+      "940547054713-9n4cgc7psl79di4ru3osa4amnll6h6u1.apps.googleusercontent.com";
+  
+  static String googleClientId =
+      Platform.isIOS ? iosGoogleClientId : androidGoogleClientId;
+  static String googleIOSRedirectUri = 'https://www.miti.chat';
+
+
+  // me
+  // static String facebookClientId = "422970893820284";
+  // bopu
+  static String facebookClientId = "424578110190927";
+  // bopu test
+  // static String facebookClientId = "1925828444537404";
+
+
+  // bopu
+  static String appleClientId = Platform.isIOS ? "chat.miti.ios" : "chat.miti.service";
+  static String appleRedirectUri = "https://best-global-hare.glitch.me/callbacks/sign_in_with_apple";
+
+
+  static String packageName = "miti.chat";
+  static String webAuthPath = "web-auth";
 
   // 用户id, 隐藏开关
   static const testUserIds = [

@@ -14,6 +14,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:mime/mime.dart';
 import 'package:miti/utils/ai_util.dart';
 import 'package:miti/utils/conversation_util.dart';
+import 'package:miti/utils/message_util.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:miti_live/miti_live.dart';
 // import 'package:openim_meeting/openim_meeting.dart';
@@ -34,9 +35,9 @@ import '../contacts/select_contacts/select_contacts_logic.dart';
 import '../conversation/conversation_logic.dart';
 import 'group_setting/group_member_list/group_member_list_logic.dart';
 
-import 'package:easy_debounce/easy_debounce.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart'
-    as cacheManager;
+// import 'package:easy_debounce/easy_debounce.dart';
+// import 'package:flutter_cache_manager/flutter_cache_manager.dart'
+//     as cacheManager;
 
 class ChatLogic extends GetxController {
   final imCtrl = Get.find<IMCtrl>();
@@ -44,6 +45,7 @@ class ChatLogic extends GetxController {
   final conversationLogic = Get.find<ConversationLogic>();
   final cacheLogic = Get.find<HiveCtrl>();
   final downloadLogic = Get.find<DownloadCtrl>();
+  final messageUtil = Get.find<MessageUtil>();
 
   final inputCtrl = TextEditingController();
   final focusNode = FocusNode();
@@ -300,6 +302,7 @@ class ChatLogic extends GetxController {
                 message.sendID != OpenIM.iMManager.userID) {
               translate(message, useFilter: true);
             }
+            messageUtil.cacheVoiceMessageList([message]);
             _isReceivedMessageWhenSyncing = true;
             _parseAnnouncement(message);
             if (isShowPopMenu.value || scrollController.offset != 0) {
@@ -2910,6 +2913,7 @@ class ChatLogic extends GetxController {
     if (_isFirstLoad) {
       _isFirstLoad = false;
       messageList.assignAll(list);
+      messageUtil.cacheVoiceMessageList(list);
       scrollBottom();
     } else {
       // There is currently a bug on the server side. If the number obtained once is less than one page, get it again.
@@ -2922,6 +2926,7 @@ class ChatLogic extends GetxController {
         }
       }
       messageList.insertAll(0, list);
+      messageUtil.cacheVoiceMessageList(list);
     }
     bool isMore = list.length >= 20;
     if (!isMore) showEncryptTips.value = true;

@@ -27,6 +27,8 @@ class RegisterPage extends StatelessWidget {
               ..style = StylesLibrary.ts_333333_24sp_medium,
             21.verticalSpace,
             InputBox.invitationCode(
+              showScanIcon: true,
+              scan: logic.scan,
               hintText: sprintf(StrLibrary.plsEnterInvitationCode, [
                 logic.needInvitationCode
                     ? '(${StrLibrary.required})'

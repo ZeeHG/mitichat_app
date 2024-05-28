@@ -1,102 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
-	<key>CFBundleDevelopmentRegion</key>
-	<array>
-		<string>zh-CN</string>
-		<string>en-US</string>
-	</array>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>miti.chat</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>comgooglemaps</string>
-		<string>baidumap</string>
-		<string>iosamap</string>
-		<string>waze</string>
-		<string>yandexmaps</string>
-		<string>yandexnavi</string>
-		<string>citymapper</string>
-		<string>mapswithme</string>
-		<string>osmandmaps</string>
-		<string>dgis</string>
-		<string>qqmap</string>
-		<string>here-location</string>
-	</array>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<true/>
-	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>NSAllowsArbitraryLoads</key>
+		<key>CADisableMinimumFrameDurationOnPhone</key>
 		<true/>
+		<key>CFBundleDevelopmentRegion</key>
+		<array>
+			<string>zh-CN</string>
+			<string>en-US</string>
+		</array>
+		<key>CFBundleExecutable</key>
+		<string>$(EXECUTABLE_NAME)</string>
+		<key>CFBundleIdentifier</key>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+		<key>CFBundleInfoDictionaryVersion</key>
+		<string>6.0</string>
+		<key>CFBundleName</key>
+		<string>miti.chat</string>
+		<key>CFBundlePackageType</key>
+		<string>APPL</string>
+		<key>CFBundleShortVersionString</key>
+		<string>$(FLUTTER_BUILD_NAME)</string>
+		<key>CFBundleSignature</key>
+		<string>????</string>
+		<key>CFBundleVersion</key>
+		<string>$(FLUTTER_BUILD_NUMBER)</string>
+		<key>ITSAppUsesNonExemptEncryption</key>
+		<false/>
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>comgooglemaps</string>
+			<string>baidumap</string>
+			<string>iosamap</string>
+			<string>waze</string>
+			<string>yandexmaps</string>
+			<string>yandexnavi</string>
+			<string>citymapper</string>
+			<string>mapswithme</string>
+			<string>osmandmaps</string>
+			<string>dgis</string>
+			<string>qqmap</string>
+			<string>here-location</string>
+			<string>fbapi</string>
+			<string>fbauth2</string>
+			<string>fb-messenger-share-api</string>
+		</array>
+		<key>LSRequiresIPhoneOS</key>
+		<true/>
+		<key>LSSupportsOpeningDocumentsInPlace</key>
+		<true/>
+		<key>NSAppTransportSecurity</key>
+		<dict>
+			<key>NSAllowsArbitraryLoads</key>
+			<true/>
+		</dict>
+		<key>NSAppleMusicUsageDescription</key>
+		<string>Please tap "OK" to grant access. Without permission, you won't be able to send or upload local photos and videos to your friends. Please tap "OK" to grant access. Without permission, you won't be able to send or upload local photos and videos to your friends.</string>
+		<key>NSCameraUsageDescription</key>
+		<string>Please tap "OK" to grant access. Without permission, you won't be able to use features like taking photos, recording videos, or scanning.</string>
+		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+		<string>Please tap "OK" to grant access. Without permission, you won't be able to use features like sharing your location during chats.</string>
+		<key>NSLocationAlwaysUsageDescription</key>
+		<string>Please tap "OK" to grant access. Without permission, you won't be able to use features like sharing your location during chats.</string>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>Please tap "OK" to grant access. Without permission, you won't be able to use features like sharing your location during chats.</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>Please tap "OK" to grant access. Without permission, you won't be able to use video calls, send voice messages, or record videos.</string>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>Please tap "OK" to grant access. Without permission, you won't be able to send or upload local photos and videos to your friends.</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Please tap "OK" to grant access. Without permission, you won't be able to send or upload local photos and videos to your friends.</string>
+		<key>RTCAppGroupIdentifier</key>
+		<string>group.cn.rentsoft.openim.flutter.rtc</string>
+		<key>UIApplicationSupportsIndirectInputEvents</key>
+		<true/>
+		<key>UILaunchStoryboardName</key>
+		<string>LaunchScreen</string>
+		<key>UIMainStoryboardFile</key>
+		<string>Main</string>
+		<key>UIRequiresFullScreen</key>
+		<true/>
+		<key>UIStatusBarHidden</key>
+		<false/>
+		<key>UISupportedInterfaceOrientations</key>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+		</array>
+		<key>UISupportsDocumentBrowser</key>
+		<true/>
+		<key>UIViewControllerBasedStatusBarAppearance</key>
+		<false/>
+		<key>io.flutter.embedded_views_preview</key>
+		<true/>
+		<key>FacebookAppID</key>
+		<string>424578110190927</string>
+		<key>FacebookClientToken</key>
+		<string>c7d5b0acebf90563911c81cc96a39b88</string>
+		<key>FacebookDisplayName</key>
+		<string>miti.chat</string>
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>fbapi</string>
+			<string>fb-messenger-share-api</string>
+		</array>
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>miti</string>
+					<string>miti.chat</string>
+					<string>chat.miti.ios</string>
+					<string>fb424578110190927</string>
+					<string>com.googleusercontent.apps.940547054713-9oaa6sd4sr5mq31gb44ssskkr3fcjej0</string>
+					<string>com.googleusercontent.apps.883567962925-es67f55j7jv43jvm01kql0pc87tot2t5</string>
+				</array>
+			</dict>
+		</array>
+		<key>GIDClientID</key>
+		<string>883567962925-es67f55j7jv43jvm01kql0pc87tot2t5.apps.googleusercontent.com</string>
 	</dict>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>Please tap "OK" to grant access. Without permission, you won't be able to send or upload local photos and videos to your friends.
-Please tap "OK" to grant access. Without permission, you won't be able to send or upload local photos and videos to your friends.
-</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Please tap "OK" to grant access. Without permission, you won't be able to use features like taking photos, recording videos, or scanning.
-</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Please tap "OK" to grant access. Without permission, you won't be able to use features like sharing your location during chats.
-</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Please tap "OK" to grant access. Without permission, you won't be able to use features like sharing your location during chats.
-</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Please tap "OK" to grant access. Without permission, you won't be able to use features like sharing your location during chats.
-</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Please tap "OK" to grant access. Without permission, you won't be able to use video calls, send voice messages, or record videos.
-</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Please tap "OK" to grant access. Without permission, you won't be able to send or upload local photos and videos to your friends.
-</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Please tap "OK" to grant access. Without permission, you won't be able to send or upload local photos and videos to your friends.
-</string>
-	<key>RTCAppGroupIdentifier</key>
-	<string>group.cn.rentsoft.openim.flutter.rtc</string>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
-	<key>UIRequiresFullScreen</key>
-	<true/>
-	<key>UIStatusBarHidden</key>
-	<false/>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>UISupportsDocumentBrowser</key>
-	<true/>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
-	<key>io.flutter.embedded_views_preview</key>
-	<true/>
-</dict>
 </plist>

@@ -8,10 +8,12 @@ class UnreadCountView extends StatelessWidget {
     this.count = 0,
     this.size = 13,
     this.margin,
+    this.showCount = true,
   }) : super(key: key);
   final int count;
   final double size;
   final EdgeInsetsGeometry? margin;
+  final bool showCount;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class UnreadCountView extends StatelessWidget {
         padding: count > 99 ? EdgeInsets.symmetric(horizontal: 4.w) : null,
         constraints: BoxConstraints(maxHeight: size, minWidth: size),
         decoration: _decoration,
-        child: _text,
+        child: showCount? _text : Container(),
       ),
     );
   }

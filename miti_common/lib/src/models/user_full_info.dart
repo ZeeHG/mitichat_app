@@ -28,41 +28,46 @@ class UserFullInfo {
   bool isFriendship = true;
   bool isBlacklist = false;
   List<DepartmentInfo>? departmentList;
+  String? mitiID;
+  bool? isAlreadyActive;
 
   bool get isMale => gender == 1;
 
-  String get showName => remark?.isNotEmpty == true ? remark! : (nickname?.isNotEmpty == true ? nickname! : userID!);
+  String get showName => remark?.isNotEmpty == true
+      ? remark!
+      : (nickname?.isNotEmpty == true ? nickname! : userID!);
 
-  UserFullInfo({
-    this.userID,
-    this.password,
-    this.account,
-    this.phoneNumber,
-    this.areaCode,
-    this.nickname,
-    this.remark,
-    this.englishName,
-    this.faceURL,
-    this.gender,
-    this.mobileAreaCode,
-    this.mobile,
-    this.telephone,
-    this.level,
-    this.birth,
-    this.email,
-    this.order,
-    this.status,
-    this.allowAddFriend,
-    this.allowBeep,
-    this.allowVibration,
-    this.forbidden,
-    this.station,
-    this.ex,
-    this.globalRecvMsgOpt,
-    this.isFriendship = true,
-    this.isBlacklist = false,
-    this.departmentList,
-  });
+  UserFullInfo(
+      {this.userID,
+      this.password,
+      this.account,
+      this.phoneNumber,
+      this.areaCode,
+      this.nickname,
+      this.remark,
+      this.englishName,
+      this.faceURL,
+      this.gender,
+      this.mobileAreaCode,
+      this.mobile,
+      this.telephone,
+      this.level,
+      this.birth,
+      this.email,
+      this.order,
+      this.status,
+      this.allowAddFriend,
+      this.allowBeep,
+      this.allowVibration,
+      this.forbidden,
+      this.station,
+      this.ex,
+      this.globalRecvMsgOpt,
+      this.isFriendship = true,
+      this.isBlacklist = false,
+      this.departmentList,
+      this.mitiID,
+      this.isAlreadyActive});
 
   UserFullInfo.fromJson(Map<String, dynamic> json) {
     userID = json['userID'];
@@ -92,7 +97,13 @@ class UserFullInfo {
     globalRecvMsgOpt = json['globalRecvMsgOpt'];
     isFriendship = json['isFriendship'] ?? true;
     isBlacklist = json['isBlacklist'] ?? false;
-    departmentList = json['departmentList'] == null ? null : (json['departmentList'] as List).map((e) => DepartmentInfo.fromJson(e)).toList();
+    departmentList = json['departmentList'] == null
+        ? null
+        : (json['departmentList'] as List)
+            .map((e) => DepartmentInfo.fromJson(e))
+            .toList();
+    mitiID = json['mitiID'];
+    isAlreadyActive = json['isAlreadyActive'];
   }
 
   Map<String, dynamic> toJson() {
@@ -124,6 +135,8 @@ class UserFullInfo {
     data['isFriendship'] = isFriendship;
     data['isBlacklist'] = isBlacklist;
     data['departmentList'] = departmentList?.map((e) => e.toJson()).toList();
+    data['mitiID'] = mitiID;
+    data['isAlreadyActive'] = isAlreadyActive;
     return data;
   }
 }

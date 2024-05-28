@@ -153,7 +153,7 @@ class UserProfilePage extends StatelessWidget {
                       logic.isGroupMemberPage &&
                           !logic.notAllowAddGroupMemberFriend.value) ...[
                     5.verticalSpace,
-                    (logic.userInfo.value.userID ?? '').toText
+                    (logic.userInfo.value.mitiID ?? logic.userInfo.value.userID ?? '').toText
                       ..style = StylesLibrary.ts_B3AAAA_14sp
                       ..onTap = logic.copyID
                   ]

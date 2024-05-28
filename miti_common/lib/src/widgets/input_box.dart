@@ -27,6 +27,8 @@ class InputBox extends StatefulWidget {
       this.codeStyle,
       this.hintStyle,
       this.formatHintStyle,
+      this.onFocusChanged,
+      this.onChanged,
       this.hintText,
       this.formatHintText,
       this.margin,
@@ -36,6 +38,9 @@ class InputBox extends StatefulWidget {
       this.autofocus = false,
       this.readOnly = false,
       this.enabled = true,
+      this.showScanIcon = false,
+      this.scan,
+      this.rightButton,
       this.showClearBtn = true})
       : obscureText = false,
         type = InputBoxType.phone,
@@ -60,10 +65,15 @@ class InputBox extends StatefulWidget {
       this.margin,
       this.inputFormatters,
       this.border = true,
+      this.onFocusChanged,
       this.keyBoardType,
       this.autofocus = false,
       this.readOnly = false,
       this.enabled = true,
+      this.showScanIcon = false,
+      this.scan,
+      this.onChanged,
+      this.rightButton,
       this.showClearBtn = true})
       : obscureText = false,
         type = InputBoxType.account,
@@ -79,6 +89,7 @@ class InputBox extends StatefulWidget {
       this.labelStyle,
       this.textStyle,
       this.hintStyle,
+      this.onFocusChanged,
       this.formatHintStyle,
       this.hintText,
       this.formatHintText,
@@ -89,6 +100,10 @@ class InputBox extends StatefulWidget {
       this.autofocus = false,
       this.readOnly = false,
       this.enabled = true,
+      this.showScanIcon = false,
+      this.scan,
+      this.onChanged,
+      this.rightButton,
       this.showClearBtn = true})
       : obscureText = true,
         type = InputBoxType.password,
@@ -108,6 +123,7 @@ class InputBox extends StatefulWidget {
       this.labelStyle,
       this.textStyle,
       this.hintStyle,
+      this.onFocusChanged,
       this.formatHintStyle,
       this.hintText,
       this.formatHintText,
@@ -116,8 +132,12 @@ class InputBox extends StatefulWidget {
       this.border = true,
       this.keyBoardType,
       this.autofocus = false,
+      this.rightButton,
+      this.onChanged,
       this.readOnly = false,
       this.enabled = true,
+      this.showScanIcon = false,
+      this.scan,
       this.showClearBtn = true})
       : obscureText = false,
         type = InputBoxType.verificationCode,
@@ -137,14 +157,19 @@ class InputBox extends StatefulWidget {
       this.formatHintStyle,
       this.hintStyle,
       this.hintText,
+      this.onFocusChanged,
       this.formatHintText,
       this.margin,
       this.inputFormatters,
       this.border = true,
       this.keyBoardType,
       this.autofocus = false,
+      this.onChanged,
       this.readOnly = false,
       this.enabled = true,
+      this.showScanIcon = false,
+      this.scan,
+      this.rightButton,
       this.showClearBtn = true})
       : obscureText = false,
         type = InputBoxType.invitationCode,
@@ -169,6 +194,8 @@ class InputBox extends StatefulWidget {
       this.hintText,
       this.formatHintText,
       this.arrowColor,
+      this.onChanged,
+      this.onFocusChanged,
       this.clearBtnColor,
       this.obscureText = false,
       this.type = InputBoxType.account,
@@ -181,7 +208,10 @@ class InputBox extends StatefulWidget {
       this.autofocus = false,
       this.readOnly = false,
       this.enabled = true,
-      this.showClearBtn = true})
+      this.showClearBtn = true,
+      this.showScanIcon = false,
+      this.rightButton,
+      this.scan})
       : super(key: key);
   final TextStyle? labelStyle;
   final TextStyle? textStyle;
@@ -208,7 +238,12 @@ class InputBox extends StatefulWidget {
   final bool readOnly;
   final bool enabled;
   final bool showClearBtn;
+  final bool showScanIcon;
+  final Function()? scan;
+  final Widget? rightButton;
 
+  final Function(String)? onChanged;
+  final Function(bool)? onFocusChanged;
   @override
   State<InputBox> createState() => _InputBoxState();
 }
@@ -221,6 +256,7 @@ class _InputBoxState extends State<InputBox> {
   void initState() {
     _obscureText = widget.obscureText;
     widget.controller?.addListener(_onChanged);
+    widget.focusNode?.addListener(_handleFocusChange);
     super.initState();
   }
 
@@ -228,6 +264,15 @@ class _InputBoxState extends State<InputBox> {
     setState(() {
       _showClearBtn = widget.controller!.text.isNotEmpty;
     });
+  }
+
+  void _handleFocusChange() {
+    if (widget.onFocusChanged == null) return;
+    if (widget.focusNode?.hasFocus ?? false) {
+      widget.onFocusChanged?.call(true);
+    } else {
+      widget.onFocusChanged?.call(false);
+    }
   }
 
   void _toggleEye() {
@@ -270,10 +315,15 @@ class _InputBoxState extends State<InputBox> {
                 _textField,
                 if (widget.showClearBtn) _clearBtn,
                 _eyeBtn,
+                _scanBtn,
                 if (widget.type == InputBoxType.verificationCode)
                   VerifyCodedButton(
                     onTapCallback: widget.onSendVerificationCode,
                   ),
+                if (widget.rightButton != null) ...[
+                  10.horizontalSpace,
+                  widget.rightButton!
+                ]
               ],
             ),
           ),
@@ -290,30 +340,38 @@ class _InputBoxState extends State<InputBox> {
   }
 
   Widget get _textField => Expanded(
+          child: Listener(
+        onPointerDown: (e) {
+          if (widget.type == InputBoxType.password &&
+              null != widget.focusNode) {
+            FocusScope.of(context).requestFocus(widget.focusNode);
+          }
+        },
         child: TextField(
-          readOnly: widget.readOnly,
-          enabled: widget.enabled,
-          controller: widget.controller,
-          keyboardType: _textInputType,
-          textInputAction: TextInputAction.next,
-          style: widget.textStyle ?? StylesLibrary.ts_333333_16sp,
-          autofocus: widget.autofocus,
-          obscureText: _obscureText,
-          inputFormatters: [
-            if (widget.type == InputBoxType.phone ||
-                widget.type == InputBoxType.verificationCode)
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-            if (null != widget.inputFormatters) ...widget.inputFormatters!,
-          ],
-          decoration: InputDecoration(
-            hintText: widget.hintText,
-            hintStyle: widget.hintStyle ?? StylesLibrary.ts_CCCCCC_16sp,
-            isDense: true,
-            contentPadding: EdgeInsets.zero,
-            border: InputBorder.none,
-          ),
-        ),
-      );
+            readOnly: widget.readOnly,
+            enabled: widget.enabled,
+            focusNode: widget.focusNode,
+            controller: widget.controller,
+            keyboardType: _textInputType,
+            textInputAction: TextInputAction.next,
+            style: widget.textStyle ?? StylesLibrary.ts_333333_16sp,
+            autofocus: widget.autofocus,
+            obscureText: _obscureText,
+            inputFormatters: [
+              if (widget.type == InputBoxType.phone ||
+                  widget.type == InputBoxType.verificationCode)
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+              if (null != widget.inputFormatters) ...widget.inputFormatters!,
+            ],
+            decoration: InputDecoration(
+              hintText: widget.hintText,
+              hintStyle: widget.hintStyle ?? StylesLibrary.ts_CCCCCC_16sp,
+              isDense: true,
+              contentPadding: EdgeInsets.zero,
+              border: InputBorder.none,
+            ),
+            onChanged: widget.onChanged),
+      ));
 
   Widget get _areaCodeView => GestureDetector(
         onTap: widget.onAreaCode,
@@ -366,6 +424,17 @@ class _InputBoxState extends State<InputBox> {
               : ImageLibrary.eyeOpen.toImage)
             ..width = 24.w
             ..height = 24.h,
+        ),
+      );
+
+  Widget get _scanBtn => Visibility(
+        visible: widget.showScanIcon,
+        child: GestureDetector(
+          onTap: widget.scan,
+          behavior: HitTestBehavior.translucent,
+          child: ImageLibrary.appPopMenuScan.toImage
+            ..width = 20.w
+            ..height = 20.h,
         ),
       );
 

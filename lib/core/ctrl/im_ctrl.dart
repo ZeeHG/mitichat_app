@@ -15,6 +15,7 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
   late Rx<UserFullInfo> userInfo;
   // 默认 AtAllTag
   late String atAllTag;
+  bool requestedSystemAlertWindow = false;
 
   @override
   void onClose() {
@@ -81,6 +82,7 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
               val?.ex = u.ex;
               val?.globalRecvMsgOpt = u.globalRecvMsgOpt;
             });
+            myLogger.e(u.toJson());
             queryMyFullInfo();
           },
           onUserStatusChanged: userStatusChanged))
@@ -122,7 +124,8 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
         },
         onSyncServerFinish: () async {
           imSdkStatus(IMSdkStatus.syncEnded);
-          if (Platform.isAndroid) {
+          if (Platform.isAndroid && !requestedSystemAlertWindow) {
+            requestedSystemAlertWindow = true;
             await requestBackgroundPermission();
             Permissions.request([Permission.systemAlertWindow]);
           }
@@ -198,6 +201,7 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
   // im+server整合信息
   Future<void> queryMyFullInfo() async {
     final data = await ClientApis.queryMyFullInfo();
+
     if (data is UserFullInfo) {
       userInfo.update((val) {
         val?.allowAddFriend = data.allowAddFriend;
@@ -209,7 +213,10 @@ class IMCtrl extends GetxController with IMCallback, MitiLive {
         val?.email = data.email;
         val?.birth = data.birth;
         val?.gender = data.gender;
+        val?.mitiID = data.mitiID;
+        val?.isAlreadyActive = data.isAlreadyActive;
       });
+      myLogger.i(data.toJson());
     }
   }
 

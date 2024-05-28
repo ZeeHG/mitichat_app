@@ -8,6 +8,7 @@ const Map<String, String> ja_JP = {
   "plsEnterAccount": "アカウントを入力してください",
   "forgetPassword": "パスワードをお忘れですか",
   "verificationCodeLogin": "認証コードでログイン",
+  "rememberPassword": "パスワードを記憶",
   "login": "ログイン",
   "noAccountYet": "まだアカウントをお持ちでないですか？",
   "loginNow": "今すぐログイン",

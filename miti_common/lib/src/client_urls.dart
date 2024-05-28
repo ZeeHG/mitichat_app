@@ -20,6 +20,7 @@ class ClientUrls {
   static String get checkVerificationCode =>
       "${Config.appAuthUrl}/account/code/verify";
   static String get register => "${Config.appAuthUrl}/account/register";
+  static String get oauth => "${Config.appAuthUrl}/account/oauth";
 
   static String get resetPwd => "${Config.appAuthUrl}/account/password/reset";
   static String get changePwd => "${Config.appAuthUrl}/account/password/change";
@@ -88,4 +89,33 @@ class ClientUrls {
       '${Config.appAuthUrl}/knowledgebase/get_bot_knowledgebases';
 
   static String get addActionRecord => '${Config.appAuthUrl}/action_record/add';
+
+  static String get updateMitiID => '${Config.appAuthUrl}/account/update_mitiid';
+
+  static String get queryUpdateMitiIDRecords =>
+      '${Config.appAuthUrl}/account/query_update_mitiid_records';
+
+  static String get applyActive =>
+      '${Config.appAuthUrl}/invite/apply_active';
+
+  static String get responseApplyActive =>
+      '${Config.appAuthUrl}/invite/response_apply_active';
+
+  static String get directActive =>
+      '${Config.appAuthUrl}/invite/direct_active';
+
+  static String get queryApplyActiveList =>
+      '${Config.appAuthUrl}/invite/query_apply_active_list';
+
+  static String get querySelfApplyActive =>
+      '${Config.appAuthUrl}/invite/query_self_apply_active';
+
+  static String get queryInvitedUsers =>
+      '${Config.appAuthUrl}/invite/query_invited_users';
+
+  static String get querySupportRegistTypes =>
+      '${Config.appAuthUrl}/account/query_support_regist_types';
+
+  static String get queryThirdAppInfo =>
+      '${Config.appAuthUrl}/account/query_third_app_info';
 }

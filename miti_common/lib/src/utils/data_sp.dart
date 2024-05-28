@@ -1,7 +1,12 @@
+import 'dart:ffi';
+
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:uuid/uuid.dart';
+import 'dart:convert';
+import 'package:flutter_openim_sdk/src/models/login_AccountInfo.dart';
+import 'package:flutter_openim_sdk/src/models/login_serverInfo.dart';
 
 class DataSp {
   static const _loginCertificate = 'loginCertificate';
@@ -26,7 +31,10 @@ class DataSp {
   static const _mainLoginAccount = 'mainLoginAccount';
   static const _conversationStore = 'conversationStore';
   static const _aiStore = 'aiStore';
-
+  static const firstUse = 'firstUse';
+  static const _rememberAccount = "rememberAccountWithEncrypt";
+  static const _rememberServer = "rememberServer";
+  static const _serverHistory = "serverHistory";
   DataSp._();
 
   static init() async {
@@ -79,6 +87,14 @@ class DataSp {
 
   static Future<bool>? putServerIP(String ip) {
     return SpUtil().putString(ip, ip);
+  }
+
+  static Future<bool>? putfirstUse(bool value) {
+    return SpUtil().putBool(firstUse, value);
+  }
+
+  static bool? getfirstUse() {
+    return SpUtil().getBool(firstUse, defValue: true);
   }
 
   static String? getServerIP() {
@@ -192,6 +208,59 @@ class DataSp {
     return SpUtil().putString(_curServerKey, key);
   }
 
+  static Future<bool>? putRememberServer(ServerInfo serverInfo) {
+    String jsonString = json.encode(serverInfo.toJson());
+    return SpUtil().putString(_rememberServer, jsonString);
+  }
+
+  static ServerInfo? getRememberServer() {
+    String? jsonString = SpUtil().getString(_rememberServer);
+    if (jsonString != null && jsonString.isNotEmpty) {
+      return ServerInfo.fromJson(json.decode(jsonString));
+    }
+    return null;
+  }
+
+  static List<AccountInfo>? getRememberedAccounts() {
+    List<Map>? dataList = SpUtil().getObjectList(_rememberAccount);
+    if (dataList != null) {
+      return dataList
+          .map((dataMap) =>
+              AccountInfo.fromJson(dataMap as Map<String, dynamic>))
+          .toList();
+    }
+    return null;
+  }
+
+  static Future<bool>? putRememberedAccounts(List<AccountInfo> accounts) {
+    List<Map<String, dynamic>> dataList =
+        accounts.map((account) => account.toJson()).toList();
+    return SpUtil().putObjectList(_rememberAccount, dataList);
+  }
+
+  static Future<bool> removeRememberedAccount(int index) async {
+    // 获取账户列表
+    List<AccountInfo>? accounts = await getRememberedAccounts();
+    print("获取账户列表: ${accounts != null ? '成功' : '失败'}");
+
+    if (accounts != null && index >= 0 && index < accounts.length) {
+      // 打印要删除的账户索引和信息
+      print("尝试删除索引为 $index 的账户: ${accounts[index].username}");
+
+      // 执行删除操作
+      accounts.removeAt(index);
+      bool success = await putRememberedAccounts(accounts) ?? false;
+
+      // 根据操作结果打印成功或失败的消息
+      print(success ? "账户删除成功" : "账户删除失败");
+      return success;
+    } else {
+      // 如果索引无效或账户列表为空，则打印错误消息
+      print("无效的索引或空的账户列表: 索引 $index, 账户列表长度 ${accounts?.length}");
+      return false;
+    }
+  }
+
   static String getCurAccountLoginInfoKey() {
     return SpUtil().getString(_curAccountLoginInfoKey) ?? "";
   }
@@ -278,5 +347,13 @@ class DataSp {
   static List<String>? getAiKeys() {
     final store = getAiStore();
     return null == store ? [] : store.keys.toList();
+  }
+
+  static Future<bool>? putServerHistory(List<String> list) {
+    return SpUtil().putStringList(_serverHistory, list);
+  }
+
+  static List<String> getServerHistory() {
+    return SpUtil().getStringList(_serverHistory)!;
   }
 }

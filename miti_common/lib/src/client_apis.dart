@@ -4,9 +4,29 @@ import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:miti_common/miti_common.dart';
+import 'package:miti_common/src/models/invite.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+
+enum RegisterType { google, apple, facebook, temp }
+
+extension RegisterTypeExtension on RegisterType {
+  int toNumber() {
+    switch (this) {
+      case RegisterType.google:
+        return 3;
+      case RegisterType.apple:
+        return 4;
+      case RegisterType.facebook:
+        return 5;
+      case RegisterType.temp:
+        return 6;
+      default:
+        return 3;
+    }
+  }
+}
 
 class ClientApis {
   static Options get imTokenOptions =>
@@ -75,6 +95,36 @@ class ClientApis {
           'password':
               encryptPwdRequest ? MitiUtils.generateMD5(password) : password,
         },
+      });
+      return LoginCertificate.fromJson(data!);
+    } catch (e, s) {
+      myLogger.e({"error": e, "stack": s});
+      return Future.error(e);
+    }
+  }
+
+  /// register
+  static Future<LoginCertificate> registerOrLoginByOauth({
+    required RegisterType registerType,
+    String? idToken,
+    String? accessToken,
+    String? clientId = "",
+  }) async {
+    try {
+      var data = await HttpUtil.post(ClientUrls.oauth, data: {
+        'deviceID': DataSp.getDeviceID(),
+        'platform': MitiUtils.getPlatform(),
+        // 'clientId': registerType == RegisterType.google
+        //     ? Config.googleClientId
+        //     : registerType == RegisterType.apple
+        //         ? Config.appleClientId
+        //         : registerType == RegisterType.facebook
+        //             ? Config.facebookClientId
+        //             : "",
+        'clientId': clientId,
+        'registerType': registerType.toNumber(),
+        'idToken': idToken,
+        'accessToken': accessToken
       });
       return LoginCertificate.fromJson(data!);
     } catch (e, s) {
@@ -827,8 +877,8 @@ class ClientApis {
 
   static Future<bool> checkServerValid(
       {required String serverWithProtocol}) async {
-    var result = await HttpUtil.post(
-      "${serverWithProtocol}${Config.targetIsDomainWithProtocol(serverWithProtocol) ? '/chat' : ':10008'}${ClientUrls.checkServerValid}",
+    await HttpUtil.post(
+      "$serverWithProtocol${Config.targetIsDomainWithProtocol(serverWithProtocol) ? '/chat' : ':10008'}${ClientUrls.checkServerValid}",
       data: {},
       showErrorToast: false,
     );
@@ -924,6 +974,134 @@ class ClientApis {
       },
       ClientUrls.addActionRecord,
       options: chatTokenOptions,
+    );
+  }
+
+  static Future updateMitiID({
+    required String mitiID,
+  }) async {
+    return HttpUtil.post(
+      ClientUrls.updateMitiID,
+      data: {"userID": OpenIM.iMManager.userID, "mitiID": mitiID},
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future<List<MitiIDChangeRecord>> queryUpdateMitiIDRecords() async {
+    final result = await HttpUtil.post(
+      ClientUrls.queryUpdateMitiIDRecords,
+      data: {"userID": OpenIM.iMManager.userID},
+      options: chatTokenOptions,
+    );
+    if (result?["datas"] is List) {
+      return result!["datas"]
+          .map((e) => MitiIDChangeRecord.fromJson(e))
+          .toList()
+          .cast<MitiIDChangeRecord>();
+    } else {
+      return [];
+    }
+  }
+
+  // 申请激活, inviteMitiID: 申请的邀请MitiID
+  static Future applyActive({required String inviteMitiID}) async {
+    return HttpUtil.post(
+      ClientUrls.applyActive,
+      data: {"userID": OpenIM.iMManager.userID, "inviteMitiID": inviteMitiID},
+      options: chatTokenOptions,
+    );
+  }
+
+  // 处理申请, 1同意, 2拒绝
+  static Future responseApplyActive(
+      {required String invtedUserID, required int result}) async {
+    return HttpUtil.post(
+      ClientUrls.responseApplyActive,
+      data: {
+        "userID": OpenIM.iMManager.userID,
+        "invtedUserID": invtedUserID,
+        "result": result
+      },
+      options: chatTokenOptions,
+    );
+  }
+
+  // 直接激活
+  static Future directActive({
+    required String invteUserID,
+  }) async {
+    return HttpUtil.post(
+      ClientUrls.directActive,
+      data: {"userID": OpenIM.iMManager.userID, "invteUserID": invteUserID},
+      options: chatTokenOptions,
+    );
+  }
+
+  // 查询申请等待我处理的
+  static Future queryApplyActiveList({pageNumber = 1, showNumber = 999}) async {
+    final data = await HttpUtil.post(
+      ClientUrls.queryApplyActiveList,
+      data: {
+        "userID": OpenIM.iMManager.userID,
+        'pagination': {'pageNumber': pageNumber, 'showNumber': showNumber}
+      },
+      options: chatTokenOptions,
+    );
+    if (data?["applyList"] is List) {
+      return {
+        "total": data?["total"],
+        "applyList": data["applyList"]
+            .map((e) => InviteInfo.fromJson({
+                  "inviteUser": e["user"],
+                  "userID": e["inviteUserID"],
+                  "applyTime": e["applyTime"]
+                }))
+            .toList()
+      };
+    } else if (null != data?["applyTime"]) {
+      return {
+        "total": data?["total"],
+        "applyList": [InviteInfo.fromJson(data)]
+      };
+    } else {
+      return {"total": 0, "applyList": []};
+    }
+  }
+
+  // 查询我申请的
+  static Future<InviteInfo?> querySelfApplyActive() async {
+    final data = await HttpUtil.post(
+      ClientUrls.querySelfApplyActive,
+      data: {
+        "userID": OpenIM.iMManager.userID,
+      },
+      options: chatTokenOptions,
+    );
+    return null != data?["applyTime"] ? InviteInfo.fromJson(data) : null;
+  }
+
+  // 查询邀请成功的
+  static Future queryInvitedUsers({pageNumber = 1, showNumber = 999}) async {
+    return HttpUtil.post(
+      ClientUrls.queryInvitedUsers,
+      data: {
+        "userID": OpenIM.iMManager.userID,
+        'pagination': {'pageNumber': pageNumber, 'showNumber': showNumber},
+      },
+      options: chatTokenOptions,
+    );
+  }
+
+  // 查询注册登录的支持方式
+  static Future querySupportRegistTypes() async {
+    return HttpUtil.post(
+      ClientUrls.querySupportRegistTypes,
+    );
+  }
+
+  static Future queryThirdAppInfo() async {
+    return HttpUtil.post(
+      ClientUrls.queryThirdAppInfo,
     );
   }
 }

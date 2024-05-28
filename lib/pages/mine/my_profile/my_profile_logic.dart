@@ -54,6 +54,10 @@ class MyProfileLogic extends GetxController {
     );
   }
 
+  void mitiIDChangeEntry() {
+    AppNavigator.startMitiIDChangeEntry();
+  }
+
   void selectGender() {
     Get.bottomSheet(
       barrierColor: StylesLibrary.c_191919_opacity50,
@@ -112,6 +116,7 @@ class MyProfileLogic extends GetxController {
         val?.phoneNumber = info.phoneNumber;
         val?.birth = info.birth;
         val?.email = info.email;
+        val?.mitiID = info.mitiID;
       });
     }
   }

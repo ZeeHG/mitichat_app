@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:miti/core/ctrl/app_ctrl.dart';
 import 'package:miti_common/miti_common.dart';
 
 import '../../core/ctrl/im_ctrl.dart';
@@ -13,7 +14,9 @@ class AppSplashLogic extends GetxController {
   final pushCtrl = Get.find<PushCtrl>();
   final translateLogic = Get.find<TranslateLogic>();
   final ttsLogic = Get.find<TtsLogic>();
+  final appCtrl = Get.find<AppCtrl>();
 
+//getxxx
   String? get userID => DataSp.userID;
 
   String? get token => DataSp.imToken;
@@ -21,14 +24,23 @@ class AppSplashLogic extends GetxController {
   late StreamSubscription initializedSub;
 
   @override
-  void onInit() {
+  void onInit() async {
     initializedSub = imCtrl.initializedSubject.listen((value) async {
       myLogger.i({"message": "imSdk初始化完成", "data": value});
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.wait([
+        appCtrl.updateThirdConfig(),
+        Future.delayed(const Duration(seconds: 2))
+      ]);
+      bool? isFirstUse = await DataSp.getfirstUse();
       if (null != userID && null != token) {
         await tryAutoLogin();
       } else {
-        AppNavigator.startLogin();
+        bool? isFirstUse = await DataSp.getfirstUse();
+        if (null == isFirstUse || isFirstUse == true) {
+          AppNavigator.welcome();
+        } else {
+          AppNavigator.startLogin();
+        }
       }
       // autoCheckVersionUpgrade();
     });

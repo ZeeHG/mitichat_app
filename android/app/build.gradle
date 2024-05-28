@@ -1,3 +1,10 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'com.huawei.agconnect'
+    // id 'com.google.gms.google-services'
+}
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -21,8 +28,7 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
+
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
@@ -54,13 +60,13 @@ android {
         minSdkVersion 29
         targetSdkVersion 33
         // 351, alpha-v1.0.1开始, play上架versionName+1
-        versionCode 368
-        versionName "alpha-v1.0.5"
+        versionCode 376
+        versionName "alpha-v1.0.8"
 
         multiDexEnabled true
 
         ndk {
-            abiFilters "arm64-v8a"//, "armeabi-v7a", "armeabi", "x86", "x86_64", "mips", "mips64"
+            abiFilters "arm64-v8a"//, "armeabi-v7a", "armeabi", "x86", "arm64-v8a", "mips", "mips64"
         }
 
         lintOptions {
@@ -97,9 +103,9 @@ android {
     signingConfigs {
         release {
             keyAlias 'miti'
-            keyPassword 'miti123'
-            storeFile file('./miti.keystore')
-            storePassword 'miti123'
+            keyPassword 'mitichat'
+            storeFile file('./mitichat.keystore')
+            storePassword 'mitichat'
         }
     }
 
@@ -208,6 +214,11 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
     implementation 'androidx.window:window:1.0.0'
     implementation 'androidx.window:window-java:1.0.0'
+
+    // implementation platform('com.google.firebase:firebase-bom:32.3.1')
+    // implementation 'com.google.firebase:firebase-analytics'
+
+    implementation 'com.facebook.android:facebook-login:latest.release'
 }
 
 apply plugin: 'com.huawei.agconnect'

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
+import 'package:miti/utils/message_util.dart';
 import 'package:miti_common/miti_common.dart';
 // import 'package:openim_meeting/openim_meeting.dart';
 import 'package:rxdart/rxdart.dart';
@@ -111,6 +112,10 @@ class IMCallback {
 
   var momentsSubject = PublishSubject<WorkMomentsNotification>();
 
+  var inviteApplySubject = PublishSubject<Map<String, dynamic>>();
+
+  var inviteApplyHandleSubject = PublishSubject<Map<String, dynamic>>();
+
   // var customBusinessSubject = PublishSubject();
 
   // var meetingSteamChangedSubject = PublishSubject<dynamic>();
@@ -154,11 +159,19 @@ class IMCallback {
 
   void recvNewMessage(Message msg) {
     appCtrl.showNotification(msg);
+    if (Get.isRegistered<MessageUtil>()) {
+      final messageUtil = Get.find<MessageUtil>();
+      messageUtil.cacheVoiceMessageList([msg]);
+    }
     onRecvNewMessage?.call(msg);
   }
 
   void recvOfflineMessage(Message msg) {
     appCtrl.showNotification(msg);
+    if (Get.isRegistered<MessageUtil>()) {
+      final messageUtil = Get.find<MessageUtil>();
+      messageUtil.cacheVoiceMessageList([msg]);
+    }
     onRecvOfflineMessage?.call(msg);
   }
 
@@ -174,6 +187,44 @@ class IMCallback {
       final json = jsonDecode(data);
       json["key"] = key;
       momentsSubject.add(WorkMomentsNotification.fromJson(json));
+    }
+
+    if (["invite_apply", "invite_apply_handle"].contains(key)) {
+      // final invite_apply = {
+      //   "user": {
+      //     "userID": "3257074535",
+      //     "account": "ffdd",
+      //     "nickname": "ffdd",
+      //     "level": 1,
+      //     "mitiID": "3257074535"
+      //   },
+      //   "inviteUserID": "2770111344",
+      //   "inviteTime": 1715771089,
+      //   "key": "invite_apply"
+      // };
+
+      // final invite_apply_handle = {
+      //   "invitedUser": "3257074535",
+      //   "inviteUser": {
+      //     "userID": "2770111344",
+      //     "account": "aaa",
+      //     "nickname": "aaa",
+      //     "level": 1,
+      //     "mitiID": "a11111"
+      //   },
+      //   "handleResult": 1,
+      //   "handleTime": 1715771155,
+      //   "key": "invite_apply_handle"
+      // };
+      
+      var json = jsonDecode(data);
+      json = json["body"];
+      json["key"] = key;
+      if ("invite_apply" == key) {
+        inviteApplySubject.add(json);
+      } else if ("invite_apply_handle" == key) {
+        inviteApplyHandleSubject.add(json);
+      }
     }
   }
 
@@ -302,6 +353,8 @@ class IMCallback {
     onKickedOfflineSubject.close();
     groupApplicationChangedSubject.close();
     momentsSubject.close();
+    inviteApplySubject.close();
+    inviteApplyHandleSubject.close();
     imSdkStatusSubject.close();
     roomParticipantConnectedSubject.close();
     roomParticipantDisconnectedSubject.close();
@@ -378,6 +431,10 @@ class IMCallback {
     roomParticipantConnectedSubject = PublishSubject<RoomCallingInfo>();
 
     momentsSubject = PublishSubject<WorkMomentsNotification>();
+
+    inviteApplySubject = PublishSubject<Map<String, dynamic>>();
+
+    inviteApplyHandleSubject = PublishSubject<Map<String, dynamic>>();
 
     // customBusinessSubject = PublishSubject();
 

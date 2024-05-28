@@ -134,3 +134,11 @@ export 'src/models/action_record.dart';
 export 'src/models/complaint.dart';
 
 export 'src/widgets/chat/chat_text_with_prompt.dart';
+export 'src/external_apis.dart';
+export 'src/external_urls.dart';
+export 'src/models/google_auth.dart';
+export 'src/widgets/setting_item.dart';
+export 'src/models/invite.dart';
+export 'src/models/mitiid_change_record.dart';
+export 'src/models/thirdAppInfo.dart';
+export 'src/utils/encrypt.dart';

@@ -6,6 +6,7 @@ abstract class AppRoutes {
   static const login = '/login';
   static const home = '/home';
   static const chat = '/chat';
+  static const welcomePage = '/welcomePage';
   static const myQrcode = '/my_qrcode';
   static const chatSetting = '/chat_setting';
   static const favoriteManage = '/emoji_favorite_manage';
@@ -99,6 +100,17 @@ abstract class AppRoutes {
   static const trainAi = '/train_ai';
   static const knowledgeFiles = '/knowledge_files';
   static const xhsMomentDetail = '/xhs_moment_detail';
+  static const mitiIDChange = '/miti_id_change';
+  static const mitiIDChangeEntry = '/miti_id_change_entry';
+  static const mitiIDChangeRule = '/miti_id_change_rule';
+  static const activeAccount = '/active_account';
+  static const inviteFriends = '/invite_friends';
+  static const inviteFriendsQrcode = '/invite_friends_qrcode';
+  static const inviteFriendsDetail = '/invite_friends_detail';
+  static const inviteFriendsHistory = '/invite_friends_history';
+  static const invitingFriends = '/inviting_friends';
+  static const devEntry = '/dev_entry';
+  static const activeAccountEntry = '/active_account_entry';
 }
 
 extension RoutesExtension on String {

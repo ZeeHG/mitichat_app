@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:miti/pages/home/home_logic.dart';
 import 'package:miti/utils/account_util.dart';
 import 'package:miti_common/miti_common.dart';
 
@@ -13,13 +14,25 @@ class MineLogic extends GetxController {
   final pushCtrl = Get.find<PushCtrl>();
   late StreamSubscription kickedSub;
   final accountUtil = Get.find<AccountUtil>();
+  final homeLogic = Get.find<HomeLogic>();
+
+  bool get isAlreadyActive => imCtrl.userInfo.value.isAlreadyActive == true;
 
   void viewMyQrcode() => AppNavigator.startMyQrcode();
 
   void viewMyInfo() => AppNavigator.startMyInfo();
 
+  void viewInviteFriends() async {
+    await AppNavigator.startInviteFriends();
+    homeLogic.getUnHandleInviteCount();
+  }
+
+  void viewAccountActiveEntry() => AppNavigator.startActiveAccountEntry();
+
   void copyID() {
-    MitiUtils.copy(text: imCtrl.userInfo.value.userID!);
+    if (null != imCtrl.userInfo.value.mitiID) {
+      MitiUtils.copy(text: imCtrl.userInfo.value.mitiID!);
+    }
   }
 
   void accountSetting() => AppNavigator.startAccountSetting();
@@ -63,6 +76,7 @@ class MineLogic extends GetxController {
   @override
   void onInit() {
     kickedSubInit();
+    imCtrl.queryMyFullInfo();
     super.onInit();
   }
 

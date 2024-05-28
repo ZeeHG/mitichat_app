@@ -2,22 +2,81 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dart_date/dart_date.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart' as imSdk;
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
+import 'package:google_api_availability/google_api_availability.dart';
+import 'package:miti/routes/app_navigator.dart';
+// import 'package:miti/firebase_options.dart';
 import 'package:miti_common/miti_common.dart';
 import 'package:sound_mode/sound_mode.dart';
 import 'package:sound_mode/utils/ringer_mode_statuses.dart';
+import 'package:sprintf/sprintf.dart';
 import 'package:vibration/vibration.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
 // import '../../utils/upgrade_manager.dart';
 import 'im_ctrl.dart';
 
+mixin AppControllerGetx on GetxController {
+  final isGoogleServerRunning = false.obs;
+  final supportLoginTypes =
+      [SupportLoginType.email, SupportLoginType.phone].obs;
+  final thirdAppInfoMap = ThirdAppInfoMap().obs;
+  final Rx<String?> inviteMitiID = Rx<String?>(null);
+
+  get useGoogleLogin =>
+      supportLoginTypes.contains(SupportLoginType.google) &&
+      ((Platform.isIOS &&
+              thirdAppInfoMap.value.ios?.googleApp?["appGoolgeID"] != null) ||
+          (!Platform.isIOS &&
+              thirdAppInfoMap.value.android?.googleApp?["appGoolgeID"] !=
+                  null &&
+              thirdAppInfoMap.value.android?.googleApp?["webGoolgeID"] !=
+                  null));
+
+  get useAppleLogin =>
+      supportLoginTypes.contains(SupportLoginType.apple) &&
+      ((Platform.isIOS &&
+              thirdAppInfoMap.value.ios?.appleApp?["clientID"] != null) ||
+          (!Platform.isIOS &&
+              thirdAppInfoMap.value.android?.appleApp?["serviceID"] != null));
+
+  get useFacebookLogin => supportLoginTypes.contains(SupportLoginType.facebook);
+
+  String get googleClientId =>
+      (Platform.isIOS
+          ? thirdAppInfoMap.value.ios?.googleApp
+          : thirdAppInfoMap.value.android?.googleApp)?["appGoolgeID"] ??
+      "";
+
+  String get webGoogleClientId =>
+      (Platform.isIOS
+          ? thirdAppInfoMap.value.ios?.googleApp
+          : thirdAppInfoMap.value.android?.googleApp)?["webGoolgeID"] ??
+      "";
+
+  String get appleClientId =>
+      (Platform.isIOS
+          ? thirdAppInfoMap.value.ios?.appleApp
+          : thirdAppInfoMap.value.android?.appleApp)?["clientID"] ??
+      "";
+
+  String get appleServiceId =>
+      (Platform.isIOS
+          ? thirdAppInfoMap.value.ios?.appleApp
+          : thirdAppInfoMap.value.android?.appleApp)?["serviceID"] ??
+      "";
+
+  String get requestAppleClientId =>
+      Platform.isIOS ? appleClientId : appleServiceId;
+}
+
 // 下载0, 后台1, 消息message.seq
-class AppCtrl extends SuperController {
+class AppCtrl extends SuperController with AppControllerGetx {
   bool onBackground = false;
   // bool isAppBadgeSupported = false;
   int notificationSeq = 3000;
@@ -30,6 +89,10 @@ class AppCtrl extends SuperController {
           requestAlertPermission: true,
           requestBadgePermission: false,
           requestSoundPermission: true);
+
+  late AndroidNotificationDetails androidSpecificsInPush;
+
+  late NotificationDetails platformSpecificsInPush;
 
   // MeetingBridge? meetingBridge = MitiBridge.meetingBridge;
 
@@ -59,13 +122,112 @@ class AppCtrl extends SuperController {
 
   IMCtrl? getIMCtrl() => Get.isRegistered<IMCtrl>() ? Get.find<IMCtrl>() : null;
 
+  AppCtrl() {
+    initFirebase();
+  }
+
+  Future<void> initFirebase() async {
+    // GooglePlayServicesAvailability? availability;
+    // if (Platform.isAndroid) {
+    //   availability = await GoogleApiAvailability.instance
+    //       .checkGooglePlayServicesAvailability();
+    // }
+    // if (Platform.isIOS || availability?.value == 0) {
+    //   try {
+    //     await Firebase.initializeApp(
+    //         options: DefaultFirebaseOptions.currentPlatform);
+    //     isGoogleServerRunning.value = true;
+    //     myLogger.i({"message": "Firebase初始化成功"});
+    //   } catch (e, s) {
+    //     myLogger.e({"message": "google服务不可用", "error": e, "stack": s});
+    //   }
+    // }
+
+    GooglePlayServicesAvailability? availability;
+    if (Platform.isAndroid) {
+      availability = await GoogleApiAvailability.instance
+          .checkGooglePlayServicesAvailability();
+    }
+    if (Platform.isIOS || availability?.value == 0) {
+      isGoogleServerRunning.value = true;
+    }
+    myLogger.i({
+      "message": isGoogleServerRunning.value ? "设备支持google" : "设备不支持google"
+    });
+  }
+
   @override
   void onInit() async {
     getDeviceInfo();
     getClientConfig();
     await initNotificationPlugin();
+    initAndroidNotificationConfig();
     // isAppBadgeSupported = await FlutterAppBadger.isAppBadgeSupported();
     super.onInit();
+  }
+
+  initAndroidNotificationConfig() {
+    androidSpecificsInPush = const AndroidNotificationDetails('push', 'push',
+        channelDescription: 'message push',
+        importance: Importance.max,
+        priority: Priority.max,
+        playSound: true,
+        enableVibration: true,
+        // 启动后通知要很久才消失
+        // fullScreenIntent: true,
+        silent: false,
+        // 无效
+        channelShowBadge: false,
+        category: AndroidNotificationCategory.message,
+        visibility: NotificationVisibility.public,
+        // 无效
+        number: 0,
+        ticker: 'one message');
+    platformSpecificsInPush =
+        NotificationDetails(android: androidSpecificsInPush);
+  }
+
+  Future<void> updateSupportRegistTypes() async {
+    try {
+      final data = await ClientApis.querySupportRegistTypes();
+      supportLoginTypes.value = List<int>.from(data["types"])
+          .map((value) => SupportLoginTypeMap[value])
+          .cast<SupportLoginType>()
+          .toList();
+    } catch (e) {
+      myLogger.e({"message": "获取支持的注册方式失败", "error": e});
+    }
+  }
+
+  Future<void> updateThirdAppInfo() async {
+    try {
+      final data = await ClientApis.queryThirdAppInfo();
+      var android = (List.from(data?["platforms"] ?? []))
+          .firstWhereOrNull((element) => element["platformId"] == 2);
+      var ios = (List.from(data?["platforms"] ?? []))
+          .firstWhereOrNull((element) => element["platformId"] == 1);
+      var web = (List.from(data?["platforms"] ?? []))
+          .firstWhereOrNull((element) => element["platformId"] == 5);
+
+      thirdAppInfoMap.value = ThirdAppInfoMap(
+          android: null != android ? ThirdAppInfo.fromJson(android) : null,
+          ios: null != ios ? ThirdAppInfo.fromJson(ios) : null,
+          web: null != web ? ThirdAppInfo.fromJson(web) : null);
+      myLogger.i(
+          "useAppleLogin: $useAppleLogin, useGoogleLogin: $useGoogleLogin, useFacebookLogin: $useFacebookLogin");
+      // myLogger.e(googleClientId);
+      // myLogger.e(webGoogleClientId);
+      // myLogger.e(appleClientId);
+      // myLogger.e(appleServiceId);
+      // myLogger.e(requestAppleClientId);
+    } catch (e) {
+      myLogger.e({"message": "获取ThirdAppInfo异常", "error": e});
+    }
+  }
+
+  Future updateThirdConfig() async {
+    return await Future.wait(
+        [updateSupportRegistTypes(), updateThirdAppInfo()]);
   }
 
   Future<void> initNotificationPlugin() async {
@@ -353,6 +515,83 @@ class AppCtrl extends SuperController {
 
   Future<void> clearNotifications() async {
     await notificationPlugin.cancelAll();
+  }
+
+  Future<void> promptInviteNotification(Map<String, dynamic> data) async {
+    final content =
+        sprintf(StrLibrary.inviteDialogTips, [data["user"]["nickname"]]);
+    // Get.dialog(CustomDialog(
+    //   title: content,
+    //   leftText: StrLibrary.reject,
+    //   rightText: StrLibrary.accept,
+    //   onTapLeft: () => agreeOrReject(data["user"]["userID"], 2),
+    //   onTapRight: () => agreeOrReject(data["user"]["userID"], 1),
+    // ));
+
+    promptAndroidNotification(
+        platformSpecifics: platformSpecificsInPush,
+        title: StrLibrary.activeAccountNotificationTitle,
+        content: content,
+        payload: json.encode(data));
+  }
+
+  Future<void> promptInviteHandleNotification(Map<String, dynamic> data) async {
+    final content = data["handleResult"] != 2
+        ? sprintf(StrLibrary.inviteDialogSuccessTips,
+            [data["inviteUser"]["nickname"]])
+        : sprintf(
+            StrLibrary.inviteDialogFailTips, [data["inviteUser"]["nickname"]]);
+    Get.dialog(CustomDialog(
+      title: content,
+      centerBigText:
+          data["handleResult"] != 2 ? StrLibrary.goStart : StrLibrary.confirm,
+      onTapCenter: () => AppNavigator.startMain(),
+    ));
+    promptAndroidNotification(
+        platformSpecifics: platformSpecificsInPush,
+        title: StrLibrary.activeAccountResultNotificationTitle,
+        content: content,
+        payload: json.encode(data));
+  }
+
+  agreeOrReject(String invtedUserID, int result) {
+    LoadingView.singleton.start(fn: () async {
+      await ClientApis.responseApplyActive(
+          invtedUserID: invtedUserID, result: result);
+      Get.back();
+    });
+  }
+
+  promptAndroidNotification({
+    required NotificationDetails platformSpecifics,
+    String? title,
+    String? content,
+    String? payload,
+  }) {
+    if (Platform.isAndroid) {
+      title = title ?? StrLibrary.defaultNotificationTitle;
+      if (!onBackground) {
+        beepAndVibrate();
+      } else {
+        notificationSeq = notificationSeq + 1;
+        notificationPlugin.show(
+            notificationSeq, title, content, platformSpecifics,
+            payload: payload);
+      }
+    }
+  }
+
+  Future requestActiveAccount({required String useInviteMitiID}) async {
+    if (Get.isRegistered<IMCtrl>()) {
+      final imCtrl = Get.find<IMCtrl>();
+      if (imCtrl.userInfo.value.isAlreadyActive != true) {
+        await ClientApis.applyActive(inviteMitiID: useInviteMitiID);
+        showToast(StrLibrary.submitActiveSuccess);
+      }
+    } else {
+      // 重新启动时, 先记录
+      inviteMitiID.value = useInviteMitiID;
+    }
   }
 
   // void showBadge(count) {
