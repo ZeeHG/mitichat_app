@@ -23,11 +23,11 @@ compile:
   artifacts:
     name: "${env:NEW_BRANCH_NAME}"
     paths:
-      - build/app/outputs/flutter-apk/*.apk
+      - build/app/outputs/flutter-apk/${env:NEW_BRANCH_NAME}.apk
 
 deploy:
   stage: deploy
   script: 
     # 传输文件
-    - scp build/app/outputs/flutter-apk/*.apk ${REMOTE_MACHINE}:/home/ubuntu/download/apks
+    - scp build/app/outputs/flutter-apk/${env:NEW_BRANCH_NAME}.apk ${REMOTE_MACHINE}:/home/ubuntu/download/apks
 
